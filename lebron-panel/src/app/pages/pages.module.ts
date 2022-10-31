@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 // import { ChoferesComponent } from './choferes/choferes.component';
-import { environment } from 'src/environments/environment';
 // import { NuevoChoferComponent } from './choferes/nuevo-chofer.component';
 
 @NgModule({
@@ -24,11 +23,11 @@ import { environment } from 'src/environments/environment';
     ],
     imports: [
       SharedModule,
-        PAGES_ROUTES,
-        FormsModule,
-        CommonModule,
-        ReactiveFormsModule,
-        RouterModule,
+      PAGES_ROUTES,
+      FormsModule,
+      CommonModule,
+      ReactiveFormsModule,
+      RouterModule,
     ]
 })
 

@@ -1,0 +1,17 @@
+{
+  "name": "lebron-backend",
+  "version": "1.0.0",
+  "description": "backend lebron",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ecommerce"
+  ],
+  "author": "Ing. Juan Chehin",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^4.8.4"
+  }
+}

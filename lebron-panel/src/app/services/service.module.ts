@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ClientesService } from './clientes.service';
+import { VerificaTokenGuard } from './guards/verifica-token.guard';
+import { AdminGuard } from './guards/admin.guard';
+import { LoginGuardGuard } from './guards/login-guard.guard';
 
 
 @NgModule({
@@ -11,7 +14,10 @@ import { ClientesService } from './clientes.service';
     HttpClientModule
   ],
   providers: [
-    ClientesService
+    ClientesService,
+    LoginGuardGuard,
+    AdminGuard,
+    VerificaTokenGuard
   ]
 })
 export class ServiceModule { }

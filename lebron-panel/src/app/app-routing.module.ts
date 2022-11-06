@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-// import { MapaComponent } from './pages/mapa/mapa.component';
 import { PagesComponent } from './pages/pages.component';
+import { LoginComponent } from './pages/login/login.component';
 
 
 const routes: Routes = [
-  { path: '', component: PagesComponent },
+  { path: 'login', component: LoginComponent },
   // Visible al usuario
-
   { path: '**', component: PagesComponent }
 ];
 

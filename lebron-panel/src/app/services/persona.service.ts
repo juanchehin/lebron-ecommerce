@@ -43,6 +43,8 @@ login( persona: any ): any {
 
   const url = URL_SERVICIOS + '/login';
 
+  console.log("persona en sevicio es ; ",persona)
+
   return this.http.post(url, persona)
     .pipe(
           map(
@@ -51,6 +53,7 @@ login( persona: any ): any {
                   return false;
                 }
 
+                console.log("resp en sevicio es ; ",resp)
       this.IdRol = resp.IdRol;
       this.guardarStorage( resp.id, resp.token, resp.usuario, resp.menu, resp.IdRol);
       this.cargarStorage();

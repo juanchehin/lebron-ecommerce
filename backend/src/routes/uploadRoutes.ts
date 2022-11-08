@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-const multer = require('multer');
+// const multer = require('multer');
 
 var mdAutenticacion = require('../middlewares/autenticacion');
 
@@ -8,7 +8,7 @@ import uploadController from '../controllers/uploadController';
 class UploadRoutes {
 
     public router: Router = Router();
-    upload = multer({ dest: './build/uploads/clientes' });
+    // upload = multer({ dest: './build/uploads/clientes' });
 
     constructor() {
         this.config();
@@ -19,7 +19,7 @@ class UploadRoutes {
         this.router.put(
             '/cargar/:id/',
             mdAutenticacion.verificaToken,
-            this.upload.single('imagen'),
+            // this.upload.single('imagen'),
             (req: any, res) => { 
                 uploadController.subirImagen(req,res)
             }

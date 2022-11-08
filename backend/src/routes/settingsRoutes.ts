@@ -11,8 +11,8 @@ class SettingsRoutes {
     }
 
     config(): void {
-        this.router.get('/backup', settingsController.backup);
-        this.router.get('/drive/:name/:id', settingsController.sinc);
+        // this.router.get('/backup', settingsController.backup);
+        // this.router.get('/drive/:name/:id', settingsController.sinc);
         this.router.get('/listar/:desde', settingsController.listarBackups);
     }
 }

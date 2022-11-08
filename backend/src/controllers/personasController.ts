@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction, response } from 'express';
 import pool from '../database';
-const fs = require('fs');
+// const fs = require('fs');
 
-const path = require('path');
+// const path = require('path');
 
 class PersonasController {
  // ==================================================
@@ -46,16 +46,16 @@ public async getOne(req: Request, res: Response): Promise<any> {
         datos = result[0]
     })
 
-    const pathImg = path.join( __dirname, `../uploads/clientes/${ id }.png` );
-    console.log("pasa pathImg ",pathImg)
+    // const pathImg = path.join( __dirname, `../uploads/clientes/${ id }.png` );
+    // console.log("pasa pathImg ",pathImg)
 
-    if ( fs.existsSync( pathImg ) ) {
-        console.log("pasa if ")
-        return res.sendFile((pathImg), datos);
-    } else {
-        console.log("pasa else ")
-        return res.json(datos);
-    }
+    // if ( fs.existsSync( pathImg ) ) {
+    //     console.log("pasa if ")
+    //     return res.sendFile((pathImg), datos);
+    // } else {
+    //     console.log("pasa else ")
+    //     return res.json(datos);
+    // }
 
 }
 
@@ -164,6 +164,9 @@ public async createCliente(req: Request, res: Response) {
                 pIdPersona: result[1][0].IdPersona
             });
         }
+    // *** genero la contraseña ***
+    //     const salt = bcrypt.genSaltSync();
+    // const password = bcrypt.hashSync( 'commerce321', salt );
     
         if(result[0][0].Mensaje !== 'Ok'){
             return res.json({

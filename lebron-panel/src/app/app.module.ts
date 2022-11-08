@@ -17,7 +17,7 @@ import { LoginComponent } from './shared/login/login.component';
   imports: [
     BrowserModule,
     APP_ROUTES,
-    // PagesModule,
+    PagesModule,
     AppRoutingModule,
     RouterModule,
     HttpClientModule,

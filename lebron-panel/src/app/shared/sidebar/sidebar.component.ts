@@ -30,11 +30,14 @@ export class SidebarComponent implements OnInit {
     // var elementosMenuPadre = this.local;
     // this.elementosMenuPadre = localStorage.getItem('menu');
 
-    var pivot = this.elementosMenuPadre[0].Permiso;
-    var proximovalor = this.elementosMenuPadre[1].Permiso;
+    // var pivot = this.elementosMenuPadre[0].Permiso;
+    var pivot: any;
+    var proximovalor: any;
     var i = 0;
     var j = 0;
     var id = 0;
+
+    // console.log("this.elementosMenuPadre[i].Permiso : ",this.elementosMenuPadre[i].Permiso)
 
     this.menu.push(
       {
@@ -80,7 +83,6 @@ export class SidebarComponent implements OnInit {
 
     });
 
-    console.log("this.menu is : ", this.menu)
   }
 
 }

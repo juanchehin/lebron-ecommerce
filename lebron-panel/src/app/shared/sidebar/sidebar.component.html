@@ -1,17 +1,20 @@
+<div class="mobile-menu-left-overlay"></div>
+
 <nav class="side-menu">
     <ul class="side-menu-list">
         <li *ngFor="let item of menu" class="grey with-sub">
-            <a *ngIf="!item.isDropDownMenu" class='text-muted nav-link' href="#">
+            <a *ngIf="item.isDropDownMenu" class='text-muted nav-link' href="#">
                 <span>
                   <i class="font-icon font-icon-dashboard"></i>
                   <span class="lbl">{{ item.description }}</span>
                 </span>
             </a>
 
-            <a href='#{{item.dropDownTarget}}' *ngIf="item.isDropDownMenu" class='text-muted nav-link' data-toggle='collapse' data-target='#{{item.dropDownTarget}}' [attr.aria-controls]='item.dropDownTarget' attr.aria-label='Toggle {{item.dropDownTarget}}' aria-expanded='false'><span>{{ item.description }}</span></a>
+            <!-- <a *ngIf="item.isDropDownMenu" class='text-muted nav-link' data-toggle='collapse' data-target='#{{item.dropDownTarget}}' [attr.aria-controls]='item.dropDownTarget' attr.aria-label='Toggle {{item.dropDownTarget}}' aria-expanded='false'>
+              <span>{{ item.description }}</span>
+            </a> -->
 
             <div *ngIf="item.isDropDownMenu" [id]="item.dropDownTarget">
-                <p>Pasa: {{item.subMenuList}}</p>
                 <ul>
                     <li *ngFor="let subMenu of item.subMenuList">
                         <a>
@@ -62,4 +65,7 @@
         </ul>
     </section>
 </nav>
+
+<script>
+</script>
 <!--.side-menu-->

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { PersonaService } from '../../services/persona.service';
-// import { Persona } from '../../models/persona.model';
-// import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,13 +11,11 @@ import { PersonaService } from '../../services/persona.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-    public personaService: PersonaService,
+    public authService: AuthService,
     public router: Router
-    // public headerService: HeaderService
     ) { }
   ngOnInit() {
-    this.personaService.logout();
-    // this.personaService.actualizaEstadoCliente();
+    this.authService.logout();
   }
 
 // ==================================================
@@ -38,7 +34,7 @@ export class LoginComponent implements OnInit {
 
     // Llamada al servicio
 
-    this.personaService.login(persona)
+    this.authService.login(persona)
         .subscribe((resp: any) => {
 
           if ( resp === true) {

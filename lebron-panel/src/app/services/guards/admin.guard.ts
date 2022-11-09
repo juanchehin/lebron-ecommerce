@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
-import { PersonaService } from '../persona.service';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,14 +8,14 @@ import { PersonaService } from '../persona.service';
 export class AdminGuard implements CanActivate {
 
   constructor(
-    public personaService: PersonaService,
+    public authService: AuthService,
     public router: Router) {
   }
 
   canActivate() {
 
-    if ( this.personaService.IdRol !== 3) {  // 3: Rol Admin
-      this.personaService.logout();
+    if ( this.authService.IdRol !== 3) {  // 3: Rol Admin
+      this.authService.logout();
       return false;
 
     } else {

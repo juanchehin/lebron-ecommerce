@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './footer.component.html',
   styleUrls: []
 })
-export class HeaderComponent implements OnInit {
+export class FooterComponent implements OnInit {
 
   correoActual: any;
   cargando = true;

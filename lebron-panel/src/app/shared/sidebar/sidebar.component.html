@@ -1,24 +1,138 @@
-<nav class="side-menu">
-    <ul class="side-menu-list-custom">
-        <li *ngFor="let item of menu" class="grey with-sub">
-            <a *ngIf="!item.isDropDownMenu" class='text-muted nav-link' href="#">
-                <i class="font-icon font-icon-widget"></i>
-                <span class="lbl">{{ item.description }}</span>
-            </a>
+<div class="mobile-menu-left-overlay"></div>
 
-            <a href='#{{item.dropDownTarget}}' *ngIf="item.isDropDownMenu" class='' data-toggle='collapse' data-target='#{{item.dropDownTarget}}' [attr.aria-controls]='item.dropDownTarget' attr.aria-label='Toggle {{item.dropDownTarget}}' aria-expanded='false'>
-                <i class="font-icon font-icon-widget"></i>
-                <span class="lbl">{{ item.description }}</span>
-            </a>
-            <div *ngIf="item.isDropDownMenu" class="collapse" [id]="item.dropDownTarget">
-                <ul>
-                    <li *ngFor="let subMenu of item.subMenuList">
-                        <a href="#">
-                            <span class="lbl">{{ subMenu }}</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+<nav class="side-menu">
+    <ul class="side-menu-list">
+        <li class="grey with-sub">
+            <span>
+	                <i class="font-icon font-icon-user"></i>
+	                <span class="lbl">Usuarios</span>
+            </span>
         </li>
+        <li class="brown with-sub">
+            <span>
+	                <i class="font-icon font-icon-contacts"></i>
+	                <span class="lbl">Proveedores</span>
+            </span>
+        </li>
+        <li class="purple with-sub">
+            <span>
+	                <i class="font-icon font-icon-users"></i>
+	                <span class="lbl">Clientes</span>
+            </span>
+            <ul>
+                <li><a href="messenger.html"><span class="lbl">Messenger</span></a></li>
+                <li><a href="chat.html"><span class="lbl">Messages</span><span class="label label-custom label-pill label-danger">8</span></a></li>
+                <li><a href="chat-write.html"><span class="lbl">Write Message</span></a></li>
+                <li><a href="chat-index.html"><span class="lbl">Select User</span></a></li>
+            </ul>
+        </li>
+        <li class="gold with-sub">
+            <span>
+	                <i class="fa fa-cube"></i>
+	                <span class="lbl">Productos</span>
+            </span>
+            <ul>
+                <li><a href="ui-form.html"><span class="lbl">Listar Productos</span></a></li>
+                <li><a href="ui-buttons.html"><span class="lbl">Importar productos</span></a></li>
+                <li><a href="ui-select.html"><span class="lbl">Unidades</span></a></li>
+                <li><a href="ui-checkboxes.html"><span class="lbl">Categorias</span></a></li>
+                <li><a href="ui-form-validation.html"><span class="lbl">Subcategorias</span></a></li>
+                <li><a href="typeahead.html"><span class="lbl">Marcas</span></a></li>
+            </ul>
+        </li>
+        <li class="blue-dirty">
+            <span>
+              <i class="fa fa-arrow-circle-o-down"></i>
+              <span class="lbl">Compras</span>
+            </span>
+        </li>
+        <li class="green with-sub">
+            <span>
+	                <i class="fa fa-arrow-circle-o-up"></i>
+	                <span class="lbl">Ventas</span>
+            </span>
+            <ul>
+                <li><a href="widgets.html"><span class="lbl">Listar</span></a></li>
+                <li><a href="elements.html"><span class="lbl">Nueva transferencia</span></a></li>
+
+            </ul>
+        </li>
+        <li class="pink-red">
+            <a href="activity.html">
+                <i class="fa fa-list-alt"></i>
+                <span class="lbl">Pedidos</span>
+            </a>
+        </li>
+        <li class="blue with-sub">
+            <span>
+	                <i class="fa fa-toggle-down"></i>
+	                <span class="lbl">Gastos</span>
+            </span>
+            <ul>
+                <li><a href="profile.html"><span class="lbl">Version 1</span></a></li>
+                <li><a href="profile-2.html"><span class="lbl">Version 2</span></a></li>
+            </ul>
+        </li>
+        <li class="orange-red with-sub">
+            <span>
+              <i class="font-icon font-icon-chart"></i>
+              <span class="lbl">Informes</span>
+            </span>
+            <ul>
+                <li><a href="documentation.html"><span class="lbl">Empresa</span></a></li>
+                <li><a href="faq.html"><span class="lbl">Backups</span></a></li>
+                <li><a href="faq.html"><span class="lbl">Sucursales</span></a></li>
+            </ul>
+        </li>
+        <li class="grey with-sub">
+            <span>
+	                <span class="font-icon font-icon-cogwheel"></span>
+            <span class="lbl">Configuraciones</span>
+            </span>
+            <ul>
+                <li><a href="email_templates.html"><span class="lbl">Empresa</span></a></li>
+                <li><a href="blank.html"><span class="lbl">Sucursales</span></a></li>
+                <li><a href="empty.html"><span class="lbl">Unidades</span></a></li>
+                <li><a href="empty.html"><span class="lbl">Temas</span></a></li>
+            </ul>
+        </li>
+
     </ul>
+
+    <section>
+        <header class="side-menu-title">Tags</header>
+        <ul class="side-menu-list">
+            <li>
+                <a href="#">
+                    <i class="tag-color green"></i>
+                    <span class="lbl">Website</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="tag-color grey-blue"></i>
+                    <span class="lbl">Bugs/Errors</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="tag-color red"></i>
+                    <span class="lbl">General Problem</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="tag-color pink"></i>
+                    <span class="lbl">Questions</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="tag-color orange"></i>
+                    <span class="lbl">Ideas</span>
+                </a>
+            </li>
+        </ul>
+    </section>
 </nav>
+<!--.side-menu-->

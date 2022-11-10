@@ -24,20 +24,15 @@ export class SidebarComponent implements OnInit {
 
   // Genera menu y submenu
   armarMenu(){
-    // var menuHijo;
-
     this.elementosMenuPadre = this.authService.menuBack;
     // var elementosMenuPadre = this.local;
     // this.elementosMenuPadre = localStorage.getItem('menu');
 
-    // var pivot = this.elementosMenuPadre[0].Permiso;
-    var pivot: any;
-    var proximovalor: any;
+    var pivot = this.elementosMenuPadre[0].Permiso;
+    var proximovalor = this.elementosMenuPadre[1].Permiso;
     var i = 0;
     var j = 0;
     var id = 0;
-
-    // console.log("this.elementosMenuPadre[i].Permiso : ",this.elementosMenuPadre[i].Permiso)
 
     this.menu.push(
       {
@@ -82,7 +77,6 @@ export class SidebarComponent implements OnInit {
       }
 
     });
-
   }
 
 }

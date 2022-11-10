@@ -1,20 +1,24 @@
 <nav class="side-menu">
-    <div id="sidebar" class="py-3">
-        <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">MAIN
-        </div>
-        <ul class="list-unstyled">
-            <li *ngFor="let item of menu">
-                <a *ngIf="!item.isDropDownMenu" class='text-muted nav-link' href="#"><span>{{ item.description }}</span></a>
+    <ul class="side-menu-list-custom">
+        <li *ngFor="let item of menu" class="grey with-sub">
+            <a *ngIf="!item.isDropDownMenu" class='text-muted nav-link' href="#">
+                <i class="font-icon font-icon-widget"></i>
+                <span class="lbl">{{ item.description }}</span>
+            </a>
 
-                <a href='#{{item.dropDownTarget}}' *ngIf="item.isDropDownMenu" class='text-muted nav-link' data-toggle='collapse' data-target='#{{item.dropDownTarget}}' [attr.aria-controls]='item.dropDownTarget' attr.aria-label='Toggle {{item.dropDownTarget}}' aria-expanded='false'><span>{{ item.description }}</span></a>
-                <div *ngIf="item.isDropDownMenu" class="collapse" [id]="item.dropDownTarget">
-                    <ul class=" list-unstyled border-left border-primary border-thick">
-                        <li *ngFor="let subMenu of item.subMenuList">
-                            <a class='text-muted ml-5 nav-link' href="#"><span>{{ subMenu }}</span></a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </div>
+            <a href='#{{item.dropDownTarget}}' *ngIf="item.isDropDownMenu" class='' data-toggle='collapse' data-target='#{{item.dropDownTarget}}' [attr.aria-controls]='item.dropDownTarget' attr.aria-label='Toggle {{item.dropDownTarget}}' aria-expanded='false'>
+                <i class="font-icon font-icon-widget"></i>
+                <span class="lbl">{{ item.description }}</span>
+            </a>
+            <div *ngIf="item.isDropDownMenu" class="collapse" [id]="item.dropDownTarget">
+                <ul>
+                    <li *ngFor="let subMenu of item.subMenuList">
+                        <a href="#">
+                            <span class="lbl">{{ subMenu }}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
 </nav>

@@ -16,8 +16,6 @@ class LoginController {
 
 public async login(req: Request, res: Response){
 
-    console.log("re body : ",req.body[1]);
-
     const email = req.body[0];
     const pass = req.body[1];
 // 

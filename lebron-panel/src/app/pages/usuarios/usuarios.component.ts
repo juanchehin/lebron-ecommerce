@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -16,77 +17,35 @@ export class UsuariosComponent implements OnInit {
 
   totalUsuarios = 0;
   cargando = true;
-  planSeleccionado = 0;  // Parametro seleccionado en el SELECT de planes
-  estadoSeleccionado = 'N';  // Parametro seleccionado en el SELECT de los estados de clientes
 
   constructor(
-    // public usuariosService: UsuariosService
+    public usuariosService: UsuariosService
   ) {
-    console.log("pasa usuarios constr")
-    this.planSeleccionado = 0;
    }
 
   ngOnInit() {
-    console.log("pasa usuarios")
     this.cargarUsuarios();
-
   }
 
 // ==================================================
-// Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
-// ==================================================
-onChange(nuevoValor: any) {
-
-  console.log("nuevo valor : ",nuevoValor);
-}
-
-// ==================================================
-// Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
-// ==================================================
-cambios(nuevoValor: any) {
-
-    this.planSeleccionado = nuevoValor;
-
-    this.cargarUsuarios();
-}
-
-// ==================================================
-// Detecta los cambios en el select de los clientes activos/inactivos
-// ==================================================
-cambiosEstado(nuevoEstado: any) {
-
-  this.estadoSeleccionado = nuevoEstado;
-
-
-  this.cargarUsuarios();
-
-}
-
-// ==================================================
-// Carga de clientes y filtra por dados de baja/alta/todos
-// Ademas filtra por plan
-// 0 : Dados de alta
-// -1 : Todos
+// Carga
 // ==================================================
 
   cargarUsuarios() {
+  console.log("pasa cargar usuarios");
 
-    const buscarApellido: HTMLInputElement = document.getElementById('buscarApellidos') as HTMLInputElement;
-    buscarApellido.value = '';
+    this.usuariosService.listarUsuariosPaginado( this.desde  )
+               .subscribe( (resp: any) => {
 
-    const buscarNombre: HTMLInputElement = document.getElementById('buscarNombres') as HTMLInputElement;
-    buscarNombre.value = '';
+                console.log("resp es : ",resp)
 
-    // this.personaService.cargarClientesPlanEstado( this.desde , this.planSeleccionado )
-    //            .subscribe( (resp: any) => {
+                this.totalUsuarios = resp[1][0].cantCli;
 
-    //             this.totalClientes = resp[1][0].cantCli;
+                this.usuarios = resp[0];
 
-    //             this.clientes = resp[0];
+                this.cargando = false;
 
-    //             this.cargando = false;
-
-    //           });
+              });
 
   }
 

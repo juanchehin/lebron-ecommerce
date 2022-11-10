@@ -4,6 +4,7 @@ import personasRoutes from './routes/personasRoutes';
 import loginRoutes from './routes/loginRoutes';
 import uploadRoutes from './routes/uploadRoutes';
 import settingsRoutes from './routes/settingsRoutes';
+import usuariosRoutes from './routes/usuariosRoutes';
 
 
 
@@ -62,6 +63,7 @@ class Server {
 
         // this.app.use('/', cors(configuracionCORS),indexRoutes);
         this.app.use('/api/personas', personasRoutes);
+        this.app.use('/api/usuarios', usuariosRoutes);
         this.app.use('/api/login', loginRoutes);
         this.app.use('/api/upload', uploadRoutes);
         this.app.use('/api/settings', settingsRoutes);

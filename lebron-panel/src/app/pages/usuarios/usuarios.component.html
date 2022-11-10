@@ -18,6 +18,18 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr *ngFor="let usuario of usuarios">
+                            <td>{{ usuario.Id }}</td>
+                            <td>{{ usuario.Nombres }}</td>
+                            <td>{{ usuario.Apellidos }}</td>
+                            <td>{{ usuario.Usuario }}</td>
+                            <td>{{ usuario.create_at }}</td>
+                            <td>
+                                <button type="button">boton 1</button>
+                                <button type="button">boton 2</button>
+                            </td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>

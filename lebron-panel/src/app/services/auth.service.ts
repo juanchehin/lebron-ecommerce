@@ -39,8 +39,6 @@ login( persona: any ): any {
 
   const url = URL_SERVICIOS + '/login';
 
-  console.log("persona en sevicio es ; ",persona)
-
   return this.http.post(url, persona)
     .pipe(
           map(
@@ -76,8 +74,6 @@ guardarStorage( id: string, token: string, usuario: any, menu: any[], IdRol: any
   this.personaId = id;
   this.usuario = usuario;
   this.menuBack = menu;
-
-  console.log("this.menuBack en service es : ",this.menuBack)
 
   // this.actualizaEstadoCliente(this.personaId);
 }

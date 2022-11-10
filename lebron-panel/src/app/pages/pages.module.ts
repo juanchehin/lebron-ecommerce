@@ -7,11 +7,18 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
+import { ProductosComponent } from './productos/productos.component';
+import { ClientesComponent } from './clientes/clientes.component';
+
 
 @NgModule({
     declarations: [
         PagesComponent,
-        UsuariosComponent
+        UsuariosComponent,
+        ProductosComponent,
+        ClientesComponent,
+        ConfiguracionesComponent
         // MapaComponent,
         // ChoferesComponent,
         // NuevoChoferComponent

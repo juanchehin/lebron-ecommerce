@@ -11,7 +11,7 @@ export class UsuariosComponent implements OnInit {
   totalAsistencias = true;
   ClasesDisponibles = 0;
 
-  planes!: any;
+  usuarios!: any;
   cantPlanes = 0;
 
   totalUsuarios = 0;

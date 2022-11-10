@@ -4,16 +4,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PAGES_ROUTES } from './pages.routes';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
-// import { MapaComponent } from './mapa/mapa.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
-// import { ChoferesComponent } from './choferes/choferes.component';
-// import { NuevoChoferComponent } from './choferes/nuevo-chofer.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 @NgModule({
     declarations: [
-        PagesComponent
+        PagesComponent,
+        UsuariosComponent
         // MapaComponent,
         // ChoferesComponent,
         // NuevoChoferComponent

@@ -19,9 +19,6 @@ export class UsuariosComponent implements OnInit {
   planSeleccionado = 0;  // Parametro seleccionado en el SELECT de planes
   estadoSeleccionado = 'N';  // Parametro seleccionado en el SELECT de los estados de clientes
 
-  carnet_PDF: any;
-
-
   constructor(
     // public usuariosService: UsuariosService
   ) {

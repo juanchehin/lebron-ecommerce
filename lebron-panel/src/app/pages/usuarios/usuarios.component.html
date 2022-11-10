@@ -19,21 +19,28 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let usuario of usuarios">
-                            <td>{{ usuario.Id }}</td>
+                            <td>{{ usuario.IdPersona }}</td>
                             <td>{{ usuario.Nombres }}</td>
                             <td>{{ usuario.Apellidos }}</td>
                             <td>{{ usuario.Usuario }}</td>
-                            <td>{{ usuario.create_at }}</td>
+                            <td>{{ usuario.created_at | date:"dd/MM/yyyy" }}</td>
                             <td>
-                                <button type="button">boton 1</button>
-                                <button type="button">boton 2</button>
+                                <button class="btn btn-inline" type="button">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button">Eliminar</button>
                             </td>
                         </tr>
 
                     </tbody>
                 </table>
+
+
+
             </div>
         </section>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button (click)="cambiarDesde(-5) " type="button" class="btn btn-default-outline">Anteriores</button>
+            <button (click)="cambiarDesde(5) " type="button" class="btn btn-default-outline">Siguientes</button>
+        </div>
         <!--.box-typical-->
 
     </div>

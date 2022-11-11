@@ -8,15 +8,18 @@ import { CommonModule } from '@angular/common';
 // import { MapaComponent } from './mapa/mapa.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
-// import { ChoferesComponent } from './choferes/choferes.component';
-// import { NuevoChoferComponent } from './choferes/nuevo-chofer.component';
+import { SliderComponent } from './slider/slider.component';
+import { OfertasComponent } from './ofertas/ofertas.component';
+import { DestacadosComponent } from './destacados/destacados.component';
+import { PromocionesComponent } from './promociones/promociones.component';
 
 @NgModule({
     declarations: [
         PagesComponent,
-        // MapaComponent,
-        // ChoferesComponent,
-        // NuevoChoferComponent
+        SliderComponent,
+        PromocionesComponent,
+        DestacadosComponent,
+        OfertasComponent
     ],
     exports: [
         PagesComponent

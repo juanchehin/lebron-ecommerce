@@ -13,10 +13,10 @@ const pagesRoutes: Routes = [
         canActivate: [LoginGuardGuard, AdminGuard, VerificaTokenGuard],
         children: [
           //
-          // { path: '', component: PagesComponent },
+          { path: 'dashboard', component: PagesComponent },
           { path: 'usuarios', component: UsuariosComponent },
           { path: 'productos', component: ProductosComponent },
-          { path: '', redirectTo: 'login', pathMatch: 'full' }
+          { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
         ]
     }
 ];

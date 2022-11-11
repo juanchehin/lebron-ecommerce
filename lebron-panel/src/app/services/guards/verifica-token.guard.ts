@@ -21,11 +21,9 @@ export class VerificaTokenGuard implements CanActivate {
     const expirado = this.expirado(payload.exp);
 
     if ( expirado ) {
-      console.log("pasa expirado")
       this.authService.logout();
       return false;
     } else {
-      console.log("pasa else")
       return this.verificaRenueva(payload.exp);
     }
   }

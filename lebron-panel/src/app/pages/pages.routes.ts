@@ -10,7 +10,7 @@ const pagesRoutes: Routes = [
     {
         path: '',
         component: PagesComponent,
-        // canActivate: [LoginGuardGuard, AdminGuard, VerificaTokenGuard],
+        canActivate: [LoginGuardGuard, AdminGuard, VerificaTokenGuard],
         children: [
           //
           // { path: '', component: PagesComponent },

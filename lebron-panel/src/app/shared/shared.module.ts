@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
+import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
 
 @NgModule({
@@ -18,14 +19,14 @@ import { FormsModule } from '@angular/forms';
         FormsModule
     ],
     declarations: [
-        // NopagefoundComponent,
+        NopagefoundComponent,
         LoginComponent,
         HeaderComponent,
         SidebarComponent,
         FooterComponent
     ],
     exports: [
-        // NopagefoundComponent,
+        NopagefoundComponent,
         LoginComponent,
         HeaderComponent,
         SidebarComponent,

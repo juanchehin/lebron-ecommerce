@@ -1,49 +1,65 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuariosService } from 'src/app/services/usuarios.service';
+import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
-  selector: 'app-destacados',
-  templateUrl: './destacados.component.html',
+  selector: 'app-productos-promocion',
+  templateUrl: './productos-promocion.component.html',
   styles: []
 })
-export class DestacadosComponent implements OnInit {
+export class ProductosPromocionComponent implements OnInit {
 
   desde = 0;
+  numbers: any[] = [];
   totalAsistencias = true;
   ClasesDisponibles = 0;
 
-  usuarios!: any;
+  productosPromocion!: any;
   cantPlanes = 0;
 
-  totalUsuarios = 0;
+  totalProductosPromocion = 0;
+  cantidadPaginado = 0;
   cargando = true;
 
   constructor(
-    public usuariosService: UsuariosService
+    public productosService: ProductosService
   ) {
    }
 
   ngOnInit() {
-    this.cargarDestacados();
+    this.cargarProductosPromocion();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-cargarDestacados() {
-  console.log("pasa cargar cargarDestacados");
+cargarProductosPromocion() {
+  console.log("pasa cargar cargarProductosPromocion");
 
-    this.usuariosService.listarUsuariosPaginado( this.desde  )
+    this.productosService.listarProductosPromocionPaginado( this.desde  )
                .subscribe( (resp: any) => {
 
-                console.log("resp cargarDestacados es : ",resp)
+                console.log("resp cargarProductosPromocion es : ",resp)
 
-                this.totalUsuarios = resp[1][0].cantCli;
+                this.productosPromocion = resp[0];
 
-                this.usuarios = resp[0];
+                this.totalProductosPromocion = resp[1][0].cantProductosPromocion;
 
-                this.cargando = false;
+                if(this.totalProductosPromocion > 12)
+                {
+                  this.cantidadPaginado = Math.ceil(this.totalProductosPromocion/12);
+                }
+                else
+                {
+                  this.cantidadPaginado = 1;
+                }
+
+                console.log("cantidadPaginado: " + this.cantidadPaginado)
+
+                this.numbers = Array.from({length: this.cantidadPaginado}, (_, i) => i + 1)
+
+
+                // this.cargando = false;
 
               });
 
@@ -128,17 +144,17 @@ cargarDestacados() {
 
 cambiarDesde( valor: number ) {
 
-  const desde = this.desde + valor;
+  // const desde = this.desde + valor;
 
-  if ( desde >= this.totalUsuarios ) {
-    return;
-  }
+  // if ( desde >= this.totalUsuarios ) {
+  //   return;
+  // }
 
-  if ( desde < 0 ) {
-    return;
-  }
+  // if ( desde < 0 ) {
+  //   return;
+  // }
 
-  this.desde += valor;
+  // this.desde += valor;
   // this.cargarUsuarios();
 
 }

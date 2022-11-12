@@ -6,6 +6,7 @@ import uploadRoutes from './routes/uploadRoutes';
 import settingsRoutes from './routes/settingsRoutes';
 import usuariosRoutes from './routes/usuariosRoutes';
 import marcasRoutes from './routes/marcasRoutes';
+import productosRoutes from './routes/productosRoutes';
 
 
 
@@ -66,6 +67,7 @@ class Server {
         this.app.use('/api/personas', personasRoutes);
         this.app.use('/api/marcas', marcasRoutes);
         this.app.use('/api/usuarios', usuariosRoutes);
+        this.app.use('/api/productos', productosRoutes);
         this.app.use('/api/login', loginRoutes);
         this.app.use('/api/upload', uploadRoutes);
         this.app.use('/api/settings', settingsRoutes);

@@ -14,6 +14,8 @@ import { DestacadosComponent } from './destacados/destacados.component';
 import { PromocionesComponent } from './promociones/promociones.component';
 import { LoginComponent } from './login/login.component';
 import { PrincipalComponent } from './principal/principal.component';
+import { SliderMarcasComponent } from './slider-marcas/slider-marcas.component';
+import { ProductosPromocionComponent } from './productos-promocion/productos-promocion.component';
 
 @NgModule({
     declarations: [
@@ -23,7 +25,9 @@ import { PrincipalComponent } from './principal/principal.component';
         DestacadosComponent,
         OfertasComponent,
         LoginComponent,
-        PrincipalComponent
+        PrincipalComponent,
+        SliderMarcasComponent,
+        ProductosPromocionComponent
     ],
     exports: [
         PagesComponent

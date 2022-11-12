@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
-  selector: 'app-destacados',
-  templateUrl: './destacados.component.html',
+  selector: 'app-slider-marcas',
+  templateUrl: './slider-marcas.component.html',
   styles: []
 })
-export class DestacadosComponent implements OnInit {
+export class SliderMarcasComponent implements OnInit {
 
   desde = 0;
   totalAsistencias = true;
@@ -24,15 +24,15 @@ export class DestacadosComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.cargarDestacados();
+    // this.cargarMarcasSlider();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-cargarDestacados() {
-  console.log("pasa cargar cargarDestacados");
+cargarMarcasSlider() {
+  console.log("pasa cargar cargarMarcasSlider");
 
     this.usuariosService.listarUsuariosPaginado( this.desde  )
                .subscribe( (resp: any) => {
@@ -128,17 +128,17 @@ cargarDestacados() {
 
 cambiarDesde( valor: number ) {
 
-  const desde = this.desde + valor;
+  // const desde = this.desde + valor;
 
-  if ( desde >= this.totalUsuarios ) {
-    return;
-  }
+  // if ( desde >= this.totalUsuarios ) {
+  //   return;
+  // }
 
-  if ( desde < 0 ) {
-    return;
-  }
+  // if ( desde < 0 ) {
+  //   return;
+  // }
 
-  this.desde += valor;
+  // this.desde += valor;
   // this.cargarUsuarios();
 
 }

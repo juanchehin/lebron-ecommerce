@@ -16,12 +16,33 @@ export class ProductosService {
 //
 // ==================================================
   listarProductosPaginado(desde: any){
-    console.log("pasa listar prods")
 
     let url = URL_SERVICIOS + '/productos/listarPaginado/' + desde;
 
     return this.http.get( url );
   }
 
+// ==================================================
+//
+// ==================================================
+listarProductosDestacados(desde: any){
+  console.log("pasa listar prods")
+
+  let url = URL_SERVICIOS + '/productos/listar/destacados/' + desde;
+
+  return this.http.get( url );
+}
+
+
+// ==================================================
+//
+// ==================================================
+listarProductosPromocionPaginado(desde: any){
+  console.log("pasa listar prods promo")
+
+  let url = URL_SERVICIOS + '/productos/listar/promocion/' + desde;
+
+  return this.http.get( url );
+}
 
 }

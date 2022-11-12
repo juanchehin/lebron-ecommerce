@@ -7,6 +7,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { LoginGuardGuard } from './guards/login-guard.guard';
 import { UsuariosService } from './usuarios.service';
 import { MarcasService } from './marcas.service';
+import { ConfiguracionesService } from './configuraciones.service';
 
 
 @NgModule({
@@ -17,6 +18,7 @@ import { MarcasService } from './marcas.service';
   ],
   providers: [
     ClientesService,
+    ConfiguracionesService,
     MarcasService,
     UsuariosService,
     LoginGuardGuard,

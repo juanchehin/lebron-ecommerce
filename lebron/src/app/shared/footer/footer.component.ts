@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfiguracionesService } from 'src/app/services/configuraciones.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,17 +8,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  correoActual: any;
-  cargando = true;
-  id!: number;
+  configuraciones: any;
 
-  constructor( ) {
+  constructor(
+    private configuracionesService: ConfiguracionesService
+   ) {
 
     }
 
   ngOnInit() {
+    this.listarConfiguracionesEmpresa();
+  }
+
+  // ==============================
+  listarConfiguracionesEmpresa()
+  {
+    this.configuracionesService.listarConfiguraciones(  )
+      .subscribe( (resp: any) => {
+
+     console.log("configuraciones es : ",resp)
+
+     this.configuraciones = resp[0][0];
 
 
+   });
   }
 
 

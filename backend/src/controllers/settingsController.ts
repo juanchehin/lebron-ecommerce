@@ -26,6 +26,22 @@ public async listarBackups(req: Request, res: Response): Promise<void> {
   })
 }
 
+// ==================================================
+//        Lista 
+// ==================================================
+
+public async listarConfiguracionesEmpresa(req: Request, res: Response): Promise<void> {
+
+
+  pool.query(`call bsp_dame_datos_empresa()`, function(err: any, result: any, fields: any){
+      if(err){
+          console.log("error", err);
+          return;
+      }
+      res.status(200).json(result);
+  })
+}
+
 }
 
 const settingsController = new SettingsController;

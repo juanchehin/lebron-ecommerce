@@ -1,14 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-// import { MapaComponent } from './pages/mapa/mapa.component';
-import { PagesComponent } from './pages/pages.component';
+import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
 
 
 const routes: Routes = [
-  { path: '', component: PagesComponent },
+  // { path: 'login', component: LoginComponent },
   // Visible al usuario
-
-  { path: '**', component: PagesComponent }
+  { path: '**', component: NopagefoundComponent },
 ];
 
 @NgModule({

@@ -12,6 +12,8 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { OfertasComponent } from './ofertas/ofertas.component';
 import { DestacadosComponent } from './destacados/destacados.component';
 import { PromocionesComponent } from './promociones/promociones.component';
+import { LoginComponent } from './login/login.component';
+import { PrincipalComponent } from './principal/principal.component';
 
 @NgModule({
     declarations: [
@@ -19,7 +21,9 @@ import { PromocionesComponent } from './promociones/promociones.component';
         CarouselComponent,
         PromocionesComponent,
         DestacadosComponent,
-        OfertasComponent
+        OfertasComponent,
+        LoginComponent,
+        PrincipalComponent
     ],
     exports: [
         PagesComponent

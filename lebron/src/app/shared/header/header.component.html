@@ -213,21 +213,18 @@
                         </li>
                         <li>
                             <div class="dropdown dropdown-access">
-                                <a href="account.html" class="access_link"><span>Account</span></a>
+                                <a class="access_link"><span>Cuenta</span></a>
                                 <div class="dropdown-menu">
-                                    <a href="account.html" class="btn_1">Sign In or Sign Up</a>
+                                    <a [routerLink]="['/login']" class="btn_1">Acceso</a>
                                     <ul>
                                         <li>
-                                            <a href="track-order.html"><i class="ti-truck"></i>Track your Order</a>
+                                            <a href="account.html"><i class="ti-package"></i>Mis Ordenes</a>
                                         </li>
                                         <li>
-                                            <a href="account.html"><i class="ti-package"></i>My Orders</a>
+                                            <a href="account.html"><i class="ti-user"></i>Perfil</a>
                                         </li>
                                         <li>
-                                            <a href="account.html"><i class="ti-user"></i>My Profile</a>
-                                        </li>
-                                        <li>
-                                            <a href="help.html"><i class="ti-help-alt"></i>Help and Faq</a>
+                                            <a href="help.html"><i class="ti-help-alt"></i>Ayuda</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -235,7 +232,7 @@
                             <!-- /dropdown-access-->
                         </li>
                         <li>
-                            <a href="javascript:void(0);" class="btn_search_mob"><span>Search</span></a>
+                            <a href="javascript:void(0);" class="btn_search_mob"><span>Buscar</span></a>
                         </li>
                         <li>
                             <a href="#menu" class="btn_cat_mob">

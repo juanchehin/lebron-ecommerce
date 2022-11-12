@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
 // import { MapaComponent } from './mapa/mapa.component';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
-import { SliderComponent } from './slider/slider.component';
+import { CarouselComponent } from './carousel/carousel.component';
 import { OfertasComponent } from './ofertas/ofertas.component';
 import { DestacadosComponent } from './destacados/destacados.component';
 import { PromocionesComponent } from './promociones/promociones.component';
@@ -16,7 +16,7 @@ import { PromocionesComponent } from './promociones/promociones.component';
 @NgModule({
     declarations: [
         PagesComponent,
-        SliderComponent,
+        CarouselComponent,
         PromocionesComponent,
         DestacadosComponent,
         OfertasComponent

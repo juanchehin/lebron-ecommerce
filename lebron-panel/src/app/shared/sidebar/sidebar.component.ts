@@ -85,14 +85,10 @@ export class SidebarComponent implements OnInit {
       return obj.description === itemMenu;
     });
 
-    console.log(found);
-
     if (found !== undefined) {
-      console.log('✅ the object is contained in the array');
       return true;
     } else {
-      console.log('⛔️ the object is NOT contained in the array');
       return false;
     }
-  }
+  };
 }

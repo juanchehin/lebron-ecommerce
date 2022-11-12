@@ -24,7 +24,7 @@ export class PromocionesComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.cargarUsuarios();
+    // this.cargarUsuarios();
   }
 
 // ==================================================

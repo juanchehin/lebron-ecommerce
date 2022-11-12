@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
-  selector: 'app-slider',
-  templateUrl: './slider.component.html',
+  selector: 'app-carousel',
+  templateUrl: './carousel.component.html',
   styles: []
 })
-export class SliderComponent implements OnInit {
+export class CarouselComponent implements OnInit {
 
   desde = 0;
   totalAsistencias = true;
@@ -24,7 +24,7 @@ export class SliderComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.cargarUsuarios();
+    // this.cargarUsuarios();
   }
 
 // ==================================================

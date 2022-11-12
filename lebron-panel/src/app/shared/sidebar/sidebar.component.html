@@ -8,13 +8,13 @@
 	                <span class="lbl" >Usuarios</span>
             </span>
         </li>
-        <li class="brown with-sub">
+        <li *ngIf="activarMenu('Proveedores')" class="brown" [routerLink]="['/proveedores']">
             <span>
 	                <i class="font-icon font-icon-contacts"></i>
 	                <span class="lbl">Proveedores</span>
             </span>
         </li>
-        <li class="purple with-sub">
+        <li class="purple" *ngIf="activarMenu('Clientes')" [routerLink]="['/clientes']">
             <span>
 	                <i class="font-icon font-icon-users"></i>
 	                <span class="lbl">Clientes</span>
@@ -26,94 +26,110 @@
                 <li><a href="chat-index.html"><span class="lbl">Select User</span></a></li>
             </ul>
         </li>
-        <li class="gold with-sub">
+        <li class="gold with-sub" *ngIf="activarMenu('Productos')">
             <span>
 	                <i class="fa fa-cube"></i>
 	                <span class="lbl">Productos</span>
             </span>
             <ul>
-                <li><a href="ui-form.html"><span class="lbl">Listar Productos</span></a></li>
-                <li><a href="ui-buttons.html"><span class="lbl">Importar productos</span></a></li>
-                <li><a href="ui-select.html"><span class="lbl">Unidades</span></a></li>
-                <li><a href="ui-checkboxes.html"><span class="lbl">Categorias</span></a></li>
-                <li><a href="ui-form-validation.html"><span class="lbl">Subcategorias</span></a></li>
-                <li><a href="typeahead.html"><span class="lbl">Marcas</span></a></li>
+                <li><a [routerLink]="['/productos']"><span class="lbl">Listar Productos</span></a></li>
+                <li><a [routerLink]="['/productos/importar']"><span class="lbl">Importar productos</span></a></li>
+                <li><a [routerLink]="['/unidades']"><span class="lbl">Unidades</span></a></li>
+                <li><a [routerLink]="['/categorias']"><span class="lbl">Categorias</span></a></li>
+                <li><a [routerLink]="['/subcategorias']"><span class="lbl">Subcategorias</span></a></li>
+                <li><a [routerLink]="['/marcas']"><span class="lbl">Marcas</span></a></li>
             </ul>
         </li>
-        <li class="blue with-sub">
+        <li class="gold with-sub">
+            <span>
+            <i class="font-icon font-icon-edit"></i>
+            <span class="lbl">Forms</span>
+            </span>
+            <ul>
+                <li><a href="ui-form.html"><span class="lbl">Basic Inputs</span></a></li>
+                <li><a href="ui-buttons.html"><span class="lbl">Buttons</span></a></li>
+                <li><a href="ui-select.html"><span class="lbl">Select &amp; Tags</span></a></li>
+                <li><a href="ui-checkboxes.html"><span class="lbl">Checkboxes &amp; Radios</span></a></li>
+                <li><a href="ui-form-validation.html"><span class="lbl">Validation</span></a></li>
+                <li><a href="typeahead.html"><span class="lbl">Typeahead</span></a></li>
+                <li><a href="steps.html"><span class="lbl">Steps</span></a></li>
+                <li><a href="ui-form-input-mask.html"><span class="lbl">Input Mask</span></a></li>
+                <li><a href="form-flex-labels.html"><span class="lbl">Flex Labels</span></a></li>
+                <li><a href="ui-form-extras.html"><span class="lbl">Extras</span></a></li>
+            </ul>
+        </li>
+        <li class="blue with-sub" *ngIf="activarMenu('Transferencias')" [routerLink]="['/transferencias']">
             <span>
                 <i class="fa fa-exchange"></i>
                 <span class="lbl">Transferencia stock</span>
             </span>
             <ul>
-                <li><a href="ui-form.html"><span class="lbl">Listar transferencias</span></a></li>
-                <li><a href="ui-buttons.html"><span class="lbl">Nueva transferencia</span></a></li>
+                <li><a [routerLink]="['/transferencias']"><span class="lbl">Listar transferencias</span></a></li>
+                <li><a [routerLink]="['/transferencias/nueva']"><span class="lbl">Nueva transferencia</span></a></li>
             </ul>
         </li>
-        <li class="gold with-sub">
+        <li class="gold with-sub" *ngIf="activarMenu('Compras')">
             <span>
               <i class="fa fa-arrow-circle-o-down"></i>
               <span class="lbl">Compras</span>
             </span>
             <ul>
-                <li><a href="widgets.html"><span class="lbl">Listar</span></a></li>
-                <li><a href="elements.html"><span class="lbl">Nueva Compra</span></a></li>
+                <li><a [routerLink]="['/compras']"><span class="lbl">Listar</span></a></li>
+                <li><a [routerLink]="['/compras/nueva']"><span class="lbl">Nueva Compra</span></a></li>
 
             </ul>
         </li>
-        <li class="green with-sub">
+        <li class="green with-sub" *ngIf="activarMenu('Ventas')">
             <span>
 	                <i class="fa fa-arrow-circle-o-up"></i>
 	                <span class="lbl">Ventas</span>
             </span>
             <ul>
-                <li><a href="widgets.html"><span class="lbl">Listar</span></a></li>
-                <li><a href="elements.html"><span class="lbl">Nueva transferencia</span></a></li>
+                <li><a [routerLink]="['/ventas']"><span class="lbl">Listar</span></a></li>
+                <li><a [routerLink]="['/ventas/nueva']"><span class="lbl">Nueva venta</span></a></li>
 
             </ul>
         </li>
-        <li class="pink-red with-sub">
+        <li class="pink-red with-sub" *ngIf="activarMenu('Pedidos')">
             <span>
               <i class="fa fa-list-alt"></i>
               <span class="lbl">Pedidos</span>
             </span>
             <ul>
-                <li><a href="widgets.html"><span class="lbl">Pendientes</span></a></li>
-                <li><a href="elements.html"><span class="lbl">Todos</span></a></li>
-
+                <li><a [routerLink]="['/pedidos']"><span class="lbl">Todos</span></a></li>
+                <li><a [routerLink]="['/pedidos/pendientes']"><span class="lbl">Pendientes</span></a></li>
             </ul>
         </li>
-        <li class="blue with-sub">
+        <li class="blue with-sub" *ngIf="activarMenu('Gastos')">
             <span>
 	                <i class="fa fa-toggle-down"></i>
 	                <span class="lbl">Gastos</span>
             </span>
             <ul>
-                <li><a href="profile.html"><span class="lbl">Listar gastos</span></a></li>
-                <li><a href="profile-2.html"><span class="lbl">Nuevo gasto</span></a></li>
+                <li><a [routerLink]="['/gastos']"><span class="lbl">Listar gastos</span></a></li>
+                <li><a [routerLink]="['/gastos/nuevo']"><span class="lbl">Nuevo gasto</span></a></li>
             </ul>
         </li>
-        <li class="orange-red with-sub">
+        <li class="orange-red with-sub" *ngIf="activarMenu('Informes')">
             <span>
               <i class="font-icon font-icon-chart"></i>
               <span class="lbl">Informes</span>
             </span>
             <ul>
-                <li><a href="documentation.html"><span class="lbl">Empresa</span></a></li>
-                <li><a href="faq.html"><span class="lbl">Backups</span></a></li>
-                <li><a href="faq.html"><span class="lbl">Sucursales</span></a></li>
+                <li><a [routerLink]="['/informes/stock']"><span class="lbl">Informe de stock</span></a></li>
+                <li><a [routerLink]="['/informes/tendencia']"><span class="lbl">Productos en tendencia</span></a></li>
+                <li><a [routerLink]="['/informes/gastos']"><span class="lbl">Informe de gastos</span></a></li>
             </ul>
         </li>
-        <li class="grey-blue with-sub">
+        <li class="grey-blue with-sub" *ngIf="activarMenu('Configuraciones')">
             <span>
 	                <span class="font-icon font-icon-cogwheel"></span>
             <span class="lbl">Configuraciones</span>
             </span>
             <ul>
-                <li><a href="email_templates.html"><span class="lbl">Empresa</span></a></li>
-                <li><a href="blank.html"><span class="lbl">Sucursales</span></a></li>
-                <li><a href="empty.html"><span class="lbl">Unidades</span></a></li>
-                <li><a href="empty.html"><span class="lbl">Temas</span></a></li>
+                <li><a [routerLink]="['/configuraciones/empresa']"><span class="lbl">Empresa</span></a></li>
+                <li><a [routerLink]="['/configuraciones/sucursales']"><span class="lbl">Sucursales</span></a></li>
+                <li><a [routerLink]="['/configuraciones/temas']"><span class="lbl">Temas</span></a></li>
             </ul>
         </li>
     </ul>

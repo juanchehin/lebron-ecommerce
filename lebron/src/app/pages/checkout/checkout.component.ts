@@ -24,7 +24,7 @@ export class ConfiguracionesComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.cargarUsuarios();
+    // this.cargarUsuarios();
   }
 
 // ==================================================

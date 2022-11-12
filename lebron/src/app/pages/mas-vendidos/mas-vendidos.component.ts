@@ -24,7 +24,7 @@ export class MasVendidosComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.cargarUsuarios();
+    // this.cargarUsuarios();
   }
 
 // ==================================================

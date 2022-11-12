@@ -24,7 +24,7 @@ export class DestacadosComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.cargarUsuarios();
+    // this.cargarUsuarios();
   }
 
 // ==================================================

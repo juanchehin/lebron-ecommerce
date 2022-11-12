@@ -6,6 +6,7 @@ import { VerificaTokenGuard } from './guards/verifica-token.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { LoginGuardGuard } from './guards/login-guard.guard';
 import { UsuariosService } from './usuarios.service';
+import { MarcasService } from './marcas.service';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { UsuariosService } from './usuarios.service';
   ],
   providers: [
     ClientesService,
+    MarcasService,
     UsuariosService,
     LoginGuardGuard,
     AdminGuard,

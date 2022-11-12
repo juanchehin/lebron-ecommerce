@@ -27,10 +27,9 @@
                             <li class="submenu">
                                 <a href="javascript:void(0);" class="show-submenu">Marcas</a>
                                 <ul>
-                                    <li><a href="index.html">Slider</a></li>
-                                    <li><a href="index-2.html">Video Background</a></li>
-                                    <li><a href="index-3.html">Vertical Slider</a></li>
-                                    <li><a href="index-4.html">GDPR Cookie Bar</a></li>
+                                    <li *ngFor="let marca of marcas">
+                                        <a href="">{{ marca.Marca }}</a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="megamenu submenu">
@@ -86,8 +85,8 @@
                                 </div>
                                 <!-- /menu-wrapper -->
                             </li>
-                            <li class="submenu">
-                                <a href="javascript:void(0);" class="show-submenu">Promociones</a>
+                            <li>
+                                <a href="javascript:void(0);">Promociones</a>
                             </li>
                         </ul>
                     </div>

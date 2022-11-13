@@ -8,6 +8,7 @@ import { LoginGuardGuard } from './guards/login-guard.guard';
 import { UsuariosService } from './usuarios.service';
 import { MarcasService } from './marcas.service';
 import { ConfiguracionesService } from './configuraciones.service';
+import { CategoriasService } from './categorias.service';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ConfiguracionesService } from './configuraciones.service';
     ClientesService,
     ConfiguracionesService,
     MarcasService,
+    CategoriasService,
     UsuariosService,
     LoginGuardGuard,
     AdminGuard,

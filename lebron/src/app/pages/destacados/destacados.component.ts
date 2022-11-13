@@ -32,12 +32,9 @@ export class DestacadosComponent implements OnInit {
 // ==================================================
 
 cargarDestacados() {
-  console.log("pasa cargar cargarDestacados");
 
     this.usuariosService.listarUsuariosPaginado( this.desde  )
                .subscribe( (resp: any) => {
-
-                console.log("resp cargarDestacados es : ",resp)
 
                 this.totalUsuarios = resp[1][0].cantCli;
 

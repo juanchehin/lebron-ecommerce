@@ -32,59 +32,6 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="megamenu submenu">
-                                <a href="javascript:void(0);" class="show-submenu-mega">Categorias</a>
-                                <div class="menu-wrapper">
-                                    <div class="row small-gutters">
-                                        <div class="col-lg-3">
-                                            <h3>Listing grid</h3>
-                                            <ul>
-                                                <li><a href="listing-grid-1-full.html">Grid Full Width</a></li>
-                                                <li><a href="listing-grid-2-full.html">Grid Full Width 2</a></li>
-                                                <li><a href="listing-grid-3.html">Grid Boxed</a></li>
-                                                <li><a href="listing-grid-4-sidebar-left.html">Grid Sidebar Left</a></li>
-                                                <li><a href="listing-grid-5-sidebar-right.html">Grid Sidebar Right</a></li>
-                                                <li><a href="listing-grid-6-sidebar-left.html">Grid Sidebar Left 2</a></li>
-                                                <li><a href="listing-grid-7-sidebar-right.html">Grid Sidebar Right 2</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <h3>Listing row &amp; Product</h3>
-                                            <ul>
-                                                <li><a href="listing-row-1-sidebar-left.html">Row Sidebar Left</a></li>
-                                                <li><a href="listing-row-2-sidebar-right.html">Row Sidebar Right</a></li>
-                                                <li><a href="listing-row-3-sidebar-left.html">Row Sidebar Left 2</a></li>
-                                                <li><a href="listing-row-4-sidebar-extended.html">Row Sidebar Extended</a></li>
-                                                <li><a href="product-detail-1.html">Product Large Image</a></li>
-                                                <li><a href="product-detail-2.html">Product Carousel</a></li>
-                                                <li><a href="product-detail-3.html">Product Sticky Info</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-lg-3">
-                                            <h3>Other pages</h3>
-                                            <ul>
-                                                <li><a href="cart.html">Cart Page</a></li>
-                                                <li><a href="checkout.html">Check Out Page</a></li>
-                                                <li><a href="confirm.html">Confirm Purchase Page</a></li>
-                                                <li><a href="account.html">Create Account Page</a></li>
-                                                <li><a href="track-order.html">Track Order</a></li>
-                                                <li><a href="help.html">Help Page</a></li>
-                                                <li><a href="help-2.html">Help Page 2</a></li>
-                                                <li><a href="leave-review.html">Leave a Review</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-lg-3 d-xl-block d-lg-block d-md-none d-sm-none d-none">
-                                            <div class="banner_menu">
-                                                <a href="#0">
-                                                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" data-src="img/banner_menu.jpg" width="400" height="550" alt="" class="img-fluid lazy">
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- /row -->
-                                </div>
-                                <!-- /menu-wrapper -->
-                            </li>
                             <li>
                                 <a [routerLink]="['/promociones']">Promociones</a>
                             </li>
@@ -111,64 +58,26 @@
                         <span class="hamburger-inner"></span>
                                 </span>
                                 </span>
-                                Categories
+                                Categorias
                                 </a>
                                 </span>
                                 <div id="menu">
                                     <ul>
-                                        <li><span><a href="#0">Collections</a></span>
+                                        <li *ngFor="let categoria of categorias">
+                                            <span>
+                                            <a href="#0">{{categoria.Categoria}}</a>
+                                          </span>
                                             <ul>
-                                                <li><a href="listing-grid-1-full.html">Trending</a></li>
-                                                <li><a href="listing-grid-2-full.html">Life style</a></li>
-                                                <li><a href="listing-grid-3.html">Running</a></li>
-                                                <li><a href="listing-grid-4-sidebar-left.html">Training</a></li>
-                                                <li><a href="listing-grid-5-sidebar-right.html">View all Collections</a></li>
+                                                <li *ngFor="let subcategoria of subcategorias">
+                                                    <!-- --{{subcategoria.SubCategoria}}-- -->
+                                                    <a *ngIf="(categoria.IdCategoria == subcategoria.IdCategoria)">
+                                                      {{subcategoria.Subcategoria}}
+                                                    </a>
+                                                </li>
                                             </ul>
-                                        </li>
-                                        <li><span><a href="#">Men</a></span>
-                                            <ul>
-                                                <li><a href="listing-grid-6-sidebar-left.html">Offers</a></li>
-                                                <li><a href="listing-grid-7-sidebar-right.html">Shoes</a></li>
-                                                <li><a href="listing-row-1-sidebar-left.html">Clothing</a></li>
-                                                <li><a href="listing-row-3-sidebar-left.html">Accessories</a></li>
-                                                <li><a href="listing-row-4-sidebar-extended.html">Equipment</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><span><a href="#">Women</a></span>
-                                            <ul>
-                                                <li><a href="listing-grid-1-full.html">Best Sellers</a></li>
-                                                <li><a href="listing-grid-2-full.html">Clothing</a></li>
-                                                <li><a href="listing-grid-3.html">Accessories</a></li>
-                                                <li><a href="listing-grid-4-sidebar-left.html">Shoes</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><span><a href="#">Boys</a></span>
-                                            <ul>
-                                                <li><a href="listing-grid-6-sidebar-left.html">Easy On Shoes</a></li>
-                                                <li><a href="listing-grid-7-sidebar-right.html">Clothing</a></li>
-                                                <li><a href="listing-row-3-sidebar-left.html">Must Have</a></li>
-                                                <li><a href="listing-row-4-sidebar-extended.html">All Boys</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><span><a href="#">Girls</a></span>
-                                            <ul>
-                                                <li><a href="listing-grid-1-full.html">New Releases</a></li>
-                                                <li><a href="listing-grid-2-full.html">Clothing</a></li>
-                                                <li><a href="listing-grid-3.html">Sale</a></li>
-                                                <li><a href="listing-grid-4-sidebar-left.html">Best Sellers</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><span><a href="#">Customize</a></span>
-                                            <ul>
-                                                <li><a href="listing-row-1-sidebar-left.html">For Men</a></li>
-                                                <li><a href="listing-row-2-sidebar-right.html">For Women</a></li>
-                                                <li><a href="listing-row-4-sidebar-extended.html">For Boys</a></li>
-                                                <li><a href="listing-grid-1-full.html">For Girls</a></li>
-                                            </ul>
-                                        </li>
                                     </ul>
                                 </div>
-                            </li>
+                                </li>
                         </ul>
                     </nav>
                 </div>

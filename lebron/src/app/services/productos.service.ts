@@ -33,6 +33,16 @@ listarProductosDestacados(desde: any){
   return this.http.get( url );
 }
 
+// ==================================================
+//
+// ==================================================
+listarProductosCategoria(IdCategoria: any, desde: string){
+
+  let url = URL_SERVICIOS + '/productos/listar/categoria/' + IdCategoria + '/' + desde;
+
+  return this.http.get( url );
+}
+
 
 // ==================================================
 //

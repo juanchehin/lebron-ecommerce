@@ -14,9 +14,10 @@ class ProductosRoutes {
 
     config(): void {
 
-        // Clientes
+        // 
         this.router.get('/listar/promocion/:desde',productosController.listarProductosPromocion);
-        
+        this.router.get('/listar/categoria/:IdCategoria/:pDesde',productosController.listarProductosCategoria);
+
     }
 
 }

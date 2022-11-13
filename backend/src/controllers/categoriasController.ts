@@ -10,7 +10,7 @@ public async listarCategoriasSubcategorias(req: Request, res: Response): Promise
 
     pool.query(`call bsp_listar_categorias_subcategorias()`, function(err: any, result: any){
         if(err){
-            console.log("error", err);
+            res.status(400).json(err);
             return;
         }
         // res.json(result);
@@ -18,6 +18,8 @@ public async listarCategoriasSubcategorias(req: Request, res: Response): Promise
         res.status(200).json(result);
     })
 }
+
+
 
 }
 

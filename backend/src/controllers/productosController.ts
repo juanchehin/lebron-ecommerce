@@ -18,6 +18,24 @@ public async listarProductosPromocion(req: Request, res: Response): Promise<void
     })
 }
 
+// ==================================================
+//        Lista
+// ==================================================
+public async listarProductosCategoria(req: Request, res: Response): Promise<void> {
+
+    const IdCategoria = req.params.IdCategoria;
+    var desde = req.params.pDesde || 0;
+    desde  = Number(desde);
+
+    pool.query(`call bsp_dame_productos_categoria_id('${IdCategoria}','${desde}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
 }
 
 

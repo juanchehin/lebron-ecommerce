@@ -6,6 +6,7 @@ import { ProductosPromocionComponent } from './productos-promocion/productos-pro
 // import { MapaComponent } from './mapa/mapa.component';
 // import { ChoferesComponent } from './choferes/choferes.component';
 // import { NuevoChoferComponent } from './choferes/nuevo-chofer.component';
+import { CategoriasComponent } from './categorias/categorias.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -16,7 +17,8 @@ const pagesRoutes: Routes = [
         children: [
             { path: '', component: PrincipalComponent },
             { path: 'login', component: LoginComponent },
-            { path: 'promociones', component: ProductosPromocionComponent }
+            { path: 'promociones', component: ProductosPromocionComponent },
+            { path: 'categoria/:IdCategoria', component: CategoriasComponent }
             // Choferes
             // { path: 'choferes', component: ChoferesComponent },
             // { path: 'choferes/nuevo', component: NuevoChoferComponent },

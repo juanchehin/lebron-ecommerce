@@ -16,6 +16,7 @@ import { LoginComponent } from './login/login.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { SliderMarcasComponent } from './slider-marcas/slider-marcas.component';
 import { ProductosPromocionComponent } from './productos-promocion/productos-promocion.component';
+import { CategoriasComponent } from './categorias/categorias.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { ProductosPromocionComponent } from './productos-promocion/productos-pro
         LoginComponent,
         PrincipalComponent,
         SliderMarcasComponent,
-        ProductosPromocionComponent
+        ProductosPromocionComponent,
+        CategoriasComponent
     ],
     exports: [
         PagesComponent

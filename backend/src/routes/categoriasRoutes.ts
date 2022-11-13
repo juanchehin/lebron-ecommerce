@@ -14,7 +14,7 @@ class CategoriasRoutes {
 
     config(): void {
 
-        // Marcas
+        // 
         this.router.get('/listar/subcategorias',categoriasController.listarCategoriasSubcategorias);
         
     }

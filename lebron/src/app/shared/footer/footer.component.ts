@@ -36,8 +36,6 @@ export class FooterComponent implements OnInit {
     this.configuracionesService.listarConfiguraciones(  )
       .subscribe( (resp: any) => {
 
-     console.log("configuraciones es : ",resp)
-
     this.configuraciones = resp[0][0];
 
     this.direccion = resp[0][0].direccion;

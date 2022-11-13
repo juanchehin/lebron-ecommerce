@@ -45,21 +45,16 @@ cargarMarcas() {
 // ==================================================
 
 cargarCategoriasSubcategorias() {
-  console.log("pasa cargarCategoriasSubcategorias");
 
     this.categoriasService.listarCategoriasSubcategorias( )
                .subscribe( (resp: any) => {
 
-                console.log("resp cargarCategoriasSubcategorias es : ",resp)
-
                 this.categorias = resp[0];
                 this.subcategorias = resp[1];
-
-                console.log("resp categorias es : ",this.categorias)
-                console.log("resp subcategorias es : ",this.subcategorias)
 
               });
 
   }
+
 
 }

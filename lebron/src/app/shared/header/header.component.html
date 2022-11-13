@@ -65,12 +65,11 @@
                                     <ul>
                                         <li *ngFor="let categoria of categorias">
                                             <span>
-                                            <a href="#0">{{categoria.Categoria}}</a>
+                                            <a [routerLink]="['categoria/'  , categoria.Categoria]">{{categoria.Categoria}}</a>
                                           </span>
                                             <ul>
                                                 <li *ngFor="let subcategoria of subcategorias">
-                                                    <!-- --{{subcategoria.SubCategoria}}-- -->
-                                                    <a *ngIf="(categoria.IdCategoria == subcategoria.IdCategoria)">
+                                                    <a *ngIf="(categoria.IdCategoria == subcategoria.IdCategoria)" [routerLink]="['subcategoria/'  , subcategoria.Subcategoria]">
                                                       {{subcategoria.Subcategoria}}
                                                     </a>
                                                 </li>

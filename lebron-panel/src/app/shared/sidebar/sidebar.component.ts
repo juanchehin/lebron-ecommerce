@@ -5,7 +5,7 @@ import { IMenuStructure } from './menu.model';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styles: []
+  styleUrls: []
 })
 export class SidebarComponent implements OnInit {
 
@@ -80,15 +80,4 @@ export class SidebarComponent implements OnInit {
   }
 
   // ***
-  activarMenu(itemMenu: string){
-    const found = this.menu.find((obj) => {
-      return obj.description === itemMenu;
-    });
-
-    if (found !== undefined) {
-      return true;
-    } else {
-      return false;
-    }
-  };
 }

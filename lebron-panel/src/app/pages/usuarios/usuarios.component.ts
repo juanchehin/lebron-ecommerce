@@ -32,12 +32,9 @@ export class UsuariosComponent implements OnInit {
 // ==================================================
 
   cargarUsuarios() {
-  console.log("pasa cargar usuarios");
 
     this.usuariosService.listarUsuariosPaginado( this.desde  )
                .subscribe( (resp: any) => {
-
-                console.log("resp es : ",resp)
 
                 this.totalUsuarios = resp[1][0].cantCli;
 

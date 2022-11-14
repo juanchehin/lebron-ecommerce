@@ -1,173 +1,31 @@
-<div class="mobile-menu-left-overlay"></div>
-
 <nav class="side-menu">
     <ul class="side-menu-list">
-        <li *ngIf="activarMenu('Usuarios')" class="grey" [routerLink]="['/usuarios']">
-            <span>
-	                <i class="font-icon font-icon-user"></i>
-	                <span class="lbl" >Usuarios</span>
-            </span>
-        </li>
-        <li *ngIf="activarMenu('Proveedores')" class="brown" [routerLink]="['/proveedores']">
-            <span>
-	                <i class="font-icon font-icon-contacts"></i>
-	                <span class="lbl">Proveedores</span>
-            </span>
-        </li>
-        <li class="purple" *ngIf="activarMenu('Clientes')" [routerLink]="['/clientes']">
-            <span>
-	                <i class="font-icon font-icon-users"></i>
-	                <span class="lbl">Clientes</span>
-            </span>
-            <ul>
-                <li><a href="messenger.html"><span class="lbl">Messenger</span></a></li>
-                <li><a href="chat.html"><span class="lbl">Messages</span><span class="label label-custom label-pill label-danger">8</span></a></li>
-                <li><a href="chat-write.html"><span class="lbl">Write Message</span></a></li>
-                <li><a href="chat-index.html"><span class="lbl">Select User</span></a></li>
-            </ul>
-        </li>
-        <li class="gold with-sub" *ngIf="activarMenu('Productos')">
-            <span>
-	                <i class="fa fa-cube"></i>
-	                <span class="lbl">Productos</span>
-            </span>
-            <ul>
-                <li><a [routerLink]="['/productos']"><span class="lbl">Listar Productos</span></a></li>
-                <li><a [routerLink]="['/productos/importar']"><span class="lbl">Importar productos</span></a></li>
-                <li><a [routerLink]="['/unidades']"><span class="lbl">Unidades</span></a></li>
-                <li><a [routerLink]="['/categorias']"><span class="lbl">Categorias</span></a></li>
-                <li><a [routerLink]="['/subcategorias']"><span class="lbl">Subcategorias</span></a></li>
-                <li><a [routerLink]="['/marcas']"><span class="lbl">Marcas</span></a></li>
-            </ul>
-        </li>
-        <li class="gold with-sub">
-            <span>
-            <i class="font-icon font-icon-edit"></i>
-            <span class="lbl">Forms</span>
-            </span>
-            <ul>
-                <li><a href="ui-form.html"><span class="lbl">Basic Inputs</span></a></li>
-                <li><a href="ui-buttons.html"><span class="lbl">Buttons</span></a></li>
-                <li><a href="ui-select.html"><span class="lbl">Select &amp; Tags</span></a></li>
-                <li><a href="ui-checkboxes.html"><span class="lbl">Checkboxes &amp; Radios</span></a></li>
-                <li><a href="ui-form-validation.html"><span class="lbl">Validation</span></a></li>
-                <li><a href="typeahead.html"><span class="lbl">Typeahead</span></a></li>
-                <li><a href="steps.html"><span class="lbl">Steps</span></a></li>
-                <li><a href="ui-form-input-mask.html"><span class="lbl">Input Mask</span></a></li>
-                <li><a href="form-flex-labels.html"><span class="lbl">Flex Labels</span></a></li>
-                <li><a href="ui-form-extras.html"><span class="lbl">Extras</span></a></li>
-            </ul>
-        </li>
-        <li class="blue with-sub" *ngIf="activarMenu('Transferencias')" [routerLink]="['/transferencias']">
-            <span>
-                <i class="fa fa-exchange"></i>
-                <span class="lbl">Transferencia stock</span>
-            </span>
-            <ul>
-                <li><a [routerLink]="['/transferencias']"><span class="lbl">Listar transferencias</span></a></li>
-                <li><a [routerLink]="['/transferencias/nueva']"><span class="lbl">Nueva transferencia</span></a></li>
-            </ul>
-        </li>
-        <li class="gold with-sub" *ngIf="activarMenu('Compras')">
-            <span>
-              <i class="fa fa-arrow-circle-o-down"></i>
-              <span class="lbl">Compras</span>
-            </span>
-            <ul>
-                <li><a [routerLink]="['/compras']"><span class="lbl">Listar</span></a></li>
-                <li><a [routerLink]="['/compras/nueva']"><span class="lbl">Nueva Compra</span></a></li>
-
-            </ul>
-        </li>
-        <li class="green with-sub" *ngIf="activarMenu('Ventas')">
-            <span>
-	                <i class="fa fa-arrow-circle-o-up"></i>
-	                <span class="lbl">Ventas</span>
-            </span>
-            <ul>
-                <li><a [routerLink]="['/ventas']"><span class="lbl">Listar</span></a></li>
-                <li><a [routerLink]="['/ventas/nueva']"><span class="lbl">Nueva venta</span></a></li>
-
-            </ul>
-        </li>
-        <li class="pink-red with-sub" *ngIf="activarMenu('Pedidos')">
-            <span>
-              <i class="fa fa-list-alt"></i>
-              <span class="lbl">Pedidos</span>
-            </span>
-            <ul>
-                <li><a [routerLink]="['/pedidos']"><span class="lbl">Todos</span></a></li>
-                <li><a [routerLink]="['/pedidos/pendientes']"><span class="lbl">Pendientes</span></a></li>
-            </ul>
-        </li>
-        <li class="blue with-sub" *ngIf="activarMenu('Gastos')">
-            <span>
-	                <i class="fa fa-toggle-down"></i>
-	                <span class="lbl">Gastos</span>
-            </span>
-            <ul>
-                <li><a [routerLink]="['/gastos']"><span class="lbl">Listar gastos</span></a></li>
-                <li><a [routerLink]="['/gastos/nuevo']"><span class="lbl">Nuevo gasto</span></a></li>
-            </ul>
-        </li>
-        <li class="orange-red with-sub" *ngIf="activarMenu('Informes')">
-            <span>
-              <i class="font-icon font-icon-chart"></i>
-              <span class="lbl">Informes</span>
-            </span>
-            <ul>
-                <li><a [routerLink]="['/informes/stock']"><span class="lbl">Informe de stock</span></a></li>
-                <li><a [routerLink]="['/informes/tendencia']"><span class="lbl">Productos en tendencia</span></a></li>
-                <li><a [routerLink]="['/informes/gastos']"><span class="lbl">Informe de gastos</span></a></li>
-            </ul>
-        </li>
-        <li class="grey-blue with-sub" *ngIf="activarMenu('Configuraciones')">
-            <span>
-	                <span class="font-icon font-icon-cogwheel"></span>
-            <span class="lbl">Configuraciones</span>
-            </span>
-            <ul>
-                <li><a [routerLink]="['/configuraciones/empresa']"><span class="lbl">Empresa</span></a></li>
-                <li><a [routerLink]="['/configuraciones/sucursales']"><span class="lbl">Sucursales</span></a></li>
-                <li><a [routerLink]="['/configuraciones/temas']"><span class="lbl">Temas</span></a></li>
-            </ul>
-        </li>
-    </ul>
-
-    <section>
-        <header class="side-menu-title">Tags</header>
-        <ul class="side-menu-list">
-            <li>
-                <a href="#">
-                    <i class="tag-color green"></i>
-                    <span class="lbl">Website</span>
-                </a>
+        <ul class="list-unstyled ps-0">
+            <li class="mb-1" [routerLink]="['/usuarios']">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#usuarios-collapse" aria-expanded="true">
+        Usuarios
+      </button>
             </li>
-            <li>
-                <a href="#">
-                    <i class="tag-color grey-blue"></i>
-                    <span class="lbl">Bugs/Errors</span>
-                </a>
+            <li class="mb-1" [routerLink]="['/proveedores']">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#proveedores-collapse" aria-expanded="true">
+        Proveedores
+      </button>
             </li>
-            <li>
-                <a href="#">
-                    <i class="tag-color red"></i>
-                    <span class="lbl">General Problem</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="tag-color pink"></i>
-                    <span class="lbl">Questions</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="tag-color orange"></i>
-                    <span class="lbl">Ideas</span>
-                </a>
+            <li class="gold mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+          Productos
+        </button>
+                <div class="collapse show" id="home-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Listar Productos</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Importar productos</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Unidades</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Categorias</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Subcategorias</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Marcas</a></li>
+                    </ul>
+                </div>
             </li>
         </ul>
-    </section>
+    </ul>
 </nav>
-<!--.side-menu-->

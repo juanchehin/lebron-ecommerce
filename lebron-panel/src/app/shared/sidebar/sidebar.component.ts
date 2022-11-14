@@ -80,4 +80,15 @@ export class SidebarComponent implements OnInit {
   }
 
   // ***
+  activarMenu(itemMenu: string){
+    const found = this.menu.find((obj) => {
+      return obj.description === itemMenu;
+    });
+
+    if (found !== undefined) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 }

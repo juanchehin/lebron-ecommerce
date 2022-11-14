@@ -5,6 +5,7 @@ import { VerificaTokenGuard } from '../services/guards/verifica-token.guard';
 import { AdminGuard } from '../services/guards/admin.guard';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ProductosComponent } from './productos/productos.component';
+import { ProveedoresComponent } from './proveedores/proveedores.component';
 
 const pagesRoutes: Routes = [
     {
@@ -16,6 +17,7 @@ const pagesRoutes: Routes = [
           { path: 'dashboard', component: PagesComponent },
           { path: 'usuarios', component: UsuariosComponent },
           { path: 'productos', component: ProductosComponent },
+          { path: 'proveedores', component: ProveedoresComponent },
           { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
         ]
     }

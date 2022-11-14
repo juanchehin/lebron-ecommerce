@@ -7,7 +7,7 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 @Injectable({
   providedIn: 'root'
 })
-export class ProductosService {
+export class ProveedoresService {
 
 
   constructor(private http: HttpClient) { }
@@ -15,10 +15,10 @@ export class ProductosService {
 // ==================================================
 //
 // ==================================================
-  listarProductosPaginado(desde: any){
-    console.log("pasa listar prods")
+  listarProveedoresPaginado(desde: any){
+    console.log("pasa listar prov")
 
-    let url = URL_SERVICIOS + '/productos/listar/' + desde;
+    let url = URL_SERVICIOS + '/proveedores/listar/' + desde;
 
     return this.http.get( url );
   }

@@ -1,28 +1,29 @@
 <nav class="side-menu">
     <ul class="side-menu-list">
         <ul class="list-unstyled ps-0">
-            <li class="mb-1" [routerLink]="['/usuarios']">
+            <i class="font-icon font-icon-dashboard"></i>
+            <li class="mb-1" [routerLink]="['/usuarios']" *ngIf="activarMenu('Usuarios')">
                 <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#usuarios-collapse" aria-expanded="true">
         Usuarios
       </button>
             </li>
-            <li class="mb-1" [routerLink]="['/proveedores']">
+            <li class="mb-1" [routerLink]="['/proveedores']" *ngIf="activarMenu('Proveedores')">
                 <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#proveedores-collapse" aria-expanded="true">
         Proveedores
       </button>
             </li>
-            <li class="gold mb-1">
+            <li class="gold mb-1" *ngIf="activarMenu('Productos')">
                 <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
           Productos
         </button>
                 <div class="collapse show" id="home-collapse">
                     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Listar Productos</a></li>
-                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Importar productos</a></li>
-                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Unidades</a></li>
-                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Categorias</a></li>
-                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Subcategorias</a></li>
-                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Marcas</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded" [routerLink]="['/productos']">Listar Productos</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded" [routerLink]="['/productos/importar']">Importar productos</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded" [routerLink]="['/unidades']">Unidades</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded" [routerLink]="['/categorias']">Categorias</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded" [routerLink]="['/subcategorias']">Subcategorias</a></li>
+                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded" [routerLink]="['/marcas']">Marcas</a></li>
                     </ul>
                 </div>
             </li>

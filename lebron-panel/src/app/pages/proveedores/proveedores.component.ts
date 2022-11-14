@@ -1,47 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductosService } from 'src/app/services/productos.service';
+import { ProveedoresService } from 'src/app/services/proveedores.service';
 
 @Component({
-  selector: 'app-productos',
-  templateUrl: './productos.component.html',
+  selector: 'app-proveedores',
+  templateUrl: './proveedores.component.html',
   styles: []
 })
-export class ProductosComponent implements OnInit {
+export class ProveedoresComponent implements OnInit {
 
   desde = 0;
   totalAsistencias = true;
   ClasesDisponibles = 0;
 
-  productos!: any;
+  proveedores!: any;
   cantPlanes = 0;
 
-  totalProductos = 0;
+  totalProveedores = 0;
   cargando = true;
 
   constructor(
-    public productosService: ProductosService
+    public proveedoresService: ProveedoresService
   ) {
    }
 
   ngOnInit() {
-    this.cargarProductos();
+    this.cargarProveedores();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-cargarProductos() {
-  console.log("pasa cargar usuarios");
+cargarProveedores() {
+  console.log("pasa cargar cargarProveedores");
 
-    this.productosService.listarProductosPaginado( this.desde  )
+    this.proveedoresService.listarProveedoresPaginado( this.desde  )
                .subscribe( (resp: any) => {
 
                 console.log("resp es : ",resp)
 
-                this.totalProductos = resp[1][0].cantProductos;
+                this.totalProveedores = resp[1][0].cantProveedores;
 
-                this.productos = resp[0];
+                this.proveedores = resp[0];
 
                 this.cargando = false;
 
@@ -130,7 +130,7 @@ cambiarDesde( valor: number ) {
 
   const desde = this.desde + valor;
 
-  if ( desde >= this.totalProductos ) {
+  if ( desde >= this.totalProveedores ) {
     return;
   }
 
@@ -139,7 +139,7 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  this.cargarProductos();
+  // this.cargarProductos();
 
 }
 

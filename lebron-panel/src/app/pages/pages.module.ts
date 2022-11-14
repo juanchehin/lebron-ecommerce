@@ -10,6 +10,7 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
 import { ProductosComponent } from './productos/productos.component';
 import { ClientesComponent } from './clientes/clientes.component';
+import { ProveedoresComponent } from './proveedores/proveedores.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ClientesComponent } from './clientes/clientes.component';
         UsuariosComponent,
         ProductosComponent,
         ClientesComponent,
-        ConfiguracionesComponent
+        ConfiguracionesComponent,
+        ProveedoresComponent
         // MapaComponent,
         // ChoferesComponent,
         // NuevoChoferComponent

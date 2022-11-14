@@ -1,5 +1,5 @@
 <div class="page-content">
-    <h2>Productos</h2>
+    <h2>Proveedores</h2>
 
     <div class="container-fluid">
         <section class="box-typical">
@@ -10,18 +10,16 @@
                             <th width="1">
                                 #
                             </th>
-                            <th>Producto</th>
-                            <th>PrecioVenta</th>
-                            <th>Descuento(%)</th>
+                            <th>Proveedor</th>
+                            <th>CUIL</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let producto of productos">
-                            <td>{{ producto.IdProducto }}</td>
-                            <td>{{ producto.Producto }}</td>
-                            <td>{{ producto.PrecioVenta }}</td>
-                            <td>{{ producto.Descuento }}</td>
+                        <tr *ngFor="let proveedor of proveedores">
+                            <td>{{ proveedor.IdProveedor }}</td>
+                            <td>{{ proveedor.Proveedor }}</td>
+                            <td>{{ proveedor.CUIL }}</td>
                             <!-- <td>{{ usuario.created_at | date:"dd/MM/yyyy" }}</td> -->
                             <td>
                                 <button class="btn btn-inline" type="button">Editar</button>

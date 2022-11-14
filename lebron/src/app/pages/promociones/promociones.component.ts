@@ -37,8 +37,6 @@ export class PromocionesComponent implements OnInit {
     this.usuariosService.listarUsuariosPaginado( this.desde  )
                .subscribe( (resp: any) => {
 
-                console.log("resp es : ",resp)
-
                 this.totalUsuarios = resp[1][0].cantCli;
 
                 this.usuarios = resp[0];

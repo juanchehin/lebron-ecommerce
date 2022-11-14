@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { MarcasService } from 'src/app/services/marcas.service';
 
@@ -14,8 +15,8 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private marcasService: MarcasService,
-    private categoriasService: CategoriasService
-
+    private categoriasService: CategoriasService,
+    public router: Router
   ) {
 
   }
@@ -56,5 +57,20 @@ cargarCategoriasSubcategorias() {
 
   }
 
+// ==================================================
+//
+// ==================================================
+
+buscarProducto() {
+
+
+  const inputElement: HTMLInputElement = document.getElementById('buscarProducto') as HTMLInputElement;
+  const productoBuscado: any = inputElement.value || null;
+
+  this.router.navigateByUrl('/busqueda', { skipLocationChange: true }).then(() => {
+    this.router.navigate(['busqueda' , productoBuscado]);
+});
+
+}
 
 }

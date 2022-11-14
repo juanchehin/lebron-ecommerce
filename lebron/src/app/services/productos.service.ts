@@ -55,4 +55,16 @@ listarProductosPromocionPaginado(desde: any){
   return this.http.get( url );
 }
 
+
+// ==================================================
+//
+// ==================================================
+buscarProductos(productoBuscado: any, desde: any){
+  console.log("pasa buscarProductos")
+
+  let url = URL_SERVICIOS + '/productos/buscar/' + productoBuscado + '/' + desde;
+
+  return this.http.get( url );
+}
+
 }

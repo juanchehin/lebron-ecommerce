@@ -17,6 +17,7 @@ import { PrincipalComponent } from './principal/principal.component';
 import { SliderMarcasComponent } from './slider-marcas/slider-marcas.component';
 import { ProductosPromocionComponent } from './productos-promocion/productos-promocion.component';
 import { CategoriasComponent } from './categorias/categorias.component';
+import { BuscadorComponent } from './buscador/buscador.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import { CategoriasComponent } from './categorias/categorias.component';
         PrincipalComponent,
         SliderMarcasComponent,
         ProductosPromocionComponent,
-        CategoriasComponent
+        CategoriasComponent,
+        BuscadorComponent
     ],
     exports: [
         PagesComponent

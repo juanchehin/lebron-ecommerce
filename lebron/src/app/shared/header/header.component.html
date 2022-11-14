@@ -82,8 +82,10 @@
                 </div>
                 <div class="col-xl-6 col-lg-7 col-md-6 d-none d-md-block">
                     <div class="custom-search-input">
-                        <input type="text" placeholder="Busca entre 10.000 productos">
-                        <button type="submit"><i class="header-icon_search_custom"></i></button>
+                        <input (keyup.enter)="buscarProducto( )" type="text" placeholder="Busca entre 10.000 productos" id="buscarProducto">
+                        <button (click)="buscarProducto( )" type="submit">
+                          <i class="header-icon_search_custom"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="col-xl-3 col-lg-2 col-md-3">

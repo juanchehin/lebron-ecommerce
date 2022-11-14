@@ -36,6 +36,27 @@ public async listarProductosCategoria(req: Request, res: Response): Promise<void
         res.status(200).json(result);
     })
 }
+
+
+// ==================================================
+//        Lista
+// ==================================================
+public async buscarProducto(req: Request, res: Response): Promise<void> {
+
+    const productoBuscado = req.params.pProductoBuscado;
+    var desde = req.params.pDesde || 0;
+    desde  = Number(desde);
+
+    pool.query(`call bsp_buscar_producto_paginado('${productoBuscado}','${desde}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
+
 }
 
 

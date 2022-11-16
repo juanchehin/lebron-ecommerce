@@ -23,5 +23,15 @@ export class ConfiguracionesService {
     return this.http.get( url );
   }
 
+// ==================================================
+//
+// ==================================================
+listarDatosFooter(){
+  console.log("pasa listar listarDatosFooter")
+
+  let url = URL_SERVICIOS + '/settings/listar/footer';
+
+  return this.http.get( url );
+}
 
 }

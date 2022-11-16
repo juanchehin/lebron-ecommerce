@@ -9,6 +9,7 @@ import { ConfiguracionesService } from 'src/app/services/configuraciones.service
 export class FooterComponent implements OnInit {
 
   configuraciones: any;
+  categoriasDestacadas: any;
 
   twitter = '';
   facebook = '';
@@ -25,27 +26,47 @@ export class FooterComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.listarConfiguracionesEmpresa();
+    this.listarDatosFooter();
   }
 
   // ==============================
-  listarConfiguracionesEmpresa()
+  listarDatosFooter()
   {
-    // this.configuraciones = '';
 
+    this.configuracionesService.listarDatosFooter(  )
+      .subscribe( (resp: any) => {
+
+        this.configuraciones = resp[0][0];
+        this.categoriasDestacadas = resp[1];
+
+        this.direccion = resp[0][0].direccion;
+        this.telefono = resp[0][0].telefono;
+        this.email = resp[0][0].email;
+
+        this.twitter = resp[0][0].twitter;
+        this.facebook = resp[0][0].facebook;
+        this.instagram = resp[0][0].instagram;
+        this.youtube = resp[0][0].youtube;
+
+   });
+  }
+
+  // ==============================
+  listarCategoriasDestacadas()
+  {
     this.configuracionesService.listarConfiguraciones(  )
       .subscribe( (resp: any) => {
 
-    this.configuraciones = resp[0][0];
+      this.configuraciones = resp[0][0];
 
-    this.direccion = resp[0][0].direccion;
-    this.telefono = resp[0][0].telefono;
-    this.email = resp[0][0].email;
+      this.direccion = resp[0][0].direccion;
+      this.telefono = resp[0][0].telefono;
+      this.email = resp[0][0].email;
 
-    this.twitter = resp[0][0].twitter;
-    this.facebook = resp[0][0].facebook;
-    this.instagram = resp[0][0].instagram;
-    this.youtube = resp[0][0].youtube;
+      this.twitter = resp[0][0].twitter;
+      this.facebook = resp[0][0].facebook;
+      this.instagram = resp[0][0].instagram;
+      this.youtube = resp[0][0].youtube;
 
    });
   }

@@ -6,7 +6,7 @@
             <div class="row small-gutters">
                 <div class="col-xl-3 col-lg-3 d-lg-flex align-items-center">
                     <div id="logo">
-                        <a href="#"><img src="../../../assets/img/lebron_lebron.png" alt="" width="100" height="35"></a>
+                        <a [routerLink]="['/']"><img src="../../../assets/img/lebron_lebron.png" alt="" width="100" height="35"></a>
                     </div>
                 </div>
                 <nav class="col-xl-6 col-lg-7">
@@ -125,16 +125,13 @@
                             <div class="dropdown dropdown-access">
                                 <a class="access_link"><span>Cuenta</span></a>
                                 <div class="dropdown-menu">
-                                    <a [routerLink]="['/login']" class="btn_1">Acceso</a>
+                                    <a [routerLink]="['login']" class="btn_1">Acceso</a>
                                     <ul>
                                         <li>
-                                            <a href="account.html"><i class="ti-package"></i>Mis Ordenes</a>
+                                            <a [routerLink]="['ordenes/idpersona']"><i class="ti-package"></i>Mis Ordenes</a>
                                         </li>
                                         <li>
-                                            <a href="account.html"><i class="ti-user"></i>Perfil</a>
-                                        </li>
-                                        <li>
-                                            <a href="help.html"><i class="ti-help-alt"></i>Ayuda</a>
+                                            <a [routerLink]="['perfil']"><i class="ti-user"></i>Perfil</a>
                                         </li>
                                     </ul>
                                 </div>

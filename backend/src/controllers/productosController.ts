@@ -33,7 +33,33 @@ public async listarProductosPromocion(req: Request, res: Response): Promise<void
         res.status(200).json(result);
     })
 }
+// ==================================================
+//        Lista los productos destacados para mostrar en el home
+// ==================================================
+public async listarProductosDestacadosHome(req: Request, res: Response): Promise<void> {
+    
+    pool.query(`call bsp_listar_productos_destacados_home()`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(500).json(result);
+            return;
+        }
+        res.status(200).json(result);
+    })
+}
 
+// ==================================================
+//        Lista los productos destacados para mostrar en el home
+// ==================================================
+public async listarProductosPromocionHome(req: Request, res: Response): Promise<void> {
+    
+    pool.query(`call bsp_listar_productos_promocion_home()`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(500).json(result);
+            return;
+        }
+        res.status(200).json(result);
+    })
+}
 // ==================================================
 //        Lista
 // ==================================================

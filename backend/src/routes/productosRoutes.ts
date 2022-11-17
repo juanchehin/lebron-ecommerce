@@ -19,6 +19,8 @@ class ProductosRoutes {
         this.router.get('/listar/promocion/:desde',productosController.listarProductosPromocion);
         this.router.get('/listar/categoria/:IdCategoria/:pDesde',productosController.listarProductosCategoria);
         this.router.get('/buscar/:pProductoBuscado/:pDesde',productosController.buscarProducto);
+        this.router.get('/destacados/home',productosController.listarProductosDestacadosHome);
+        this.router.get('/promocion/home',productosController.listarProductosPromocionHome);
     }
 
 }

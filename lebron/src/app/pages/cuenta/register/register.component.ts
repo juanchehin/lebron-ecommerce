@@ -2,21 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: 'app-register',
+  templateUrl: './register.component.html',
   styles: []
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
     public router: Router
     ) { }
   ngOnInit() {
-    this.authService.logout();
+    // this.authService.logout();
   }
 
 // ==================================================
@@ -39,22 +38,22 @@ export class LoginComponent implements OnInit {
         .subscribe((resp: any) => {
 
           if ( resp === true) {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/principal']);
             return;
           }
 
-          Swal.fire({
-            icon: 'error',
-            title: 'Error de credenciales',
-            text: 'Error de credenciales',
-          });
+          // Swal.fire({
+          //   icon: 'error',
+          //   title: 'Error de credenciales',
+          //   text: 'Error de credenciales',
+          // });
       },
       ( error: any) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Ha ocurrido un error',
-            text: 'Contactese con el administrador',
-          });
+          // Swal.fire({
+          //   icon: 'error',
+          //   title: 'Ha ocurrido un error',
+          //   text: 'Contactese con el administrador',
+          // });
       }
 
       );

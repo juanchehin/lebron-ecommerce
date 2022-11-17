@@ -12,12 +12,13 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { OfertasComponent } from './ofertas/ofertas.component';
 import { DestacadosComponent } from './destacados/destacados.component';
 import { PromocionesComponent } from './promociones/promociones.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './cuenta/login/login.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { SliderMarcasComponent } from './slider-marcas/slider-marcas.component';
 import { ProductosPromocionComponent } from './productos-promocion/productos-promocion.component';
 import { CategoriasComponent } from './categorias/categorias.component';
 import { BuscadorComponent } from './buscador/buscador.component';
+import { RegisterComponent } from './cuenta/register/register.component';
 
 @NgModule({
     declarations: [
@@ -27,6 +28,7 @@ import { BuscadorComponent } from './buscador/buscador.component';
         DestacadosComponent,
         OfertasComponent,
         LoginComponent,
+        RegisterComponent,
         PrincipalComponent,
         SliderMarcasComponent,
         ProductosPromocionComponent,

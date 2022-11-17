@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CategoriasService } from 'src/app/services/categorias.service';
+import { ClientesService } from 'src/app/services/clientes.service';
 import { MarcasService } from 'src/app/services/marcas.service';
 
 @Component({
@@ -12,11 +13,13 @@ export class HeaderComponent implements OnInit {
   marcas!: any;
   subcategorias!: any;
   categorias!: any;
+  usuarioActual: any;
 
   constructor(
     private marcasService: MarcasService,
     private categoriasService: CategoriasService,
-    public router: Router
+    public router: Router,
+    public clienteService: ClientesService
   ) {
 
   }
@@ -24,6 +27,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
         this.cargarMarcas();
         this.cargarCategoriasSubcategorias();
+        this.comprobarLogueo();
+        this.usuarioActual = this.clienteService.usuario;
   }
 
 // ==================================================
@@ -73,4 +78,18 @@ buscarProducto() {
 
 }
 
+// ==================================================
+//        Funcion para comprobar si esta logueado actualmente
+// ==================================================
+  comprobarLogueo() {
+    this.usuarioActual = localStorage.getItem('usuario');
+
+    if (this.clienteService.estaLogueado()) {
+      console.log("pasa false logueado")
+      return false;
+    } else {
+      console.log("pasa true logueado")
+      return true;
+    }
+  }
 }

@@ -1,13 +1,11 @@
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './cuenta/login/login.component';
 import { PagesComponent } from './pages.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { ProductosPromocionComponent } from './productos-promocion/productos-promocion.component';
-// import { MapaComponent } from './mapa/mapa.component';
-// import { ChoferesComponent } from './choferes/choferes.component';
-// import { NuevoChoferComponent } from './choferes/nuevo-chofer.component';
 import { CategoriasComponent } from './categorias/categorias.component';
 import { BuscadorComponent } from './buscador/buscador.component';
+import { RegisterComponent } from './cuenta/register/register.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -18,6 +16,8 @@ const pagesRoutes: Routes = [
         children: [
             { path: '', component: PrincipalComponent },
             { path: 'login', component: LoginComponent },
+            { path: 'registro', component: RegisterComponent },
+            { path: 'perfil', component: RegisterComponent },
             { path: 'promociones', component: ProductosPromocionComponent },
             { path: 'categoria/:IdCategoria', component: CategoriasComponent },
             { path: 'busqueda/:productoBuscado', component: BuscadorComponent }

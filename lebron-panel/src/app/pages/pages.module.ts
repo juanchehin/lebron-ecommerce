@@ -11,6 +11,7 @@ import { ConfiguracionesComponent } from './configuraciones/configuraciones.comp
 import { ProductosComponent } from './productos/productos.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
+import { VentasComponent } from './ventas/listar-ventas/listar-ventas.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ProveedoresComponent } from './proveedores/proveedores.component';
         ProductosComponent,
         ClientesComponent,
         ConfiguracionesComponent,
-        ProveedoresComponent
+        ProveedoresComponent,
+        VentasComponent
         // MapaComponent,
         // ChoferesComponent,
         // NuevoChoferComponent

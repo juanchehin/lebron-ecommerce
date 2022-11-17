@@ -21,8 +21,10 @@
             <div class="grid_item">
                 <figure>
                     <span class="ribbon off">{{producto.Descuento}}</span>
-                    <a href="product-detail-1.html">
-                        <img class="img-fluid lazy" src="../../../assets/img/products/product_placeholder_square_medium.jpg" data-src="../../../assets/img/products/shoes/1.jpg" alt="">
+                    <a href="">
+                        <!-- <img class="img-fluid lazy" src="../../../assets/img/products/product_placeholder_square_medium.jpg" data-src="../../../assets/img/products/shoes/1.jpg" alt=""> -->
+                        <img *ngIf="producto.Imagen != null" [src]="producto.Imagen" class="img-fluid lazy">
+                        <img *ngIf="producto.Imagen == null" [src]="imgTemp" class="img-fluid lazy">
                     </a>
                     <div data-countdown="2019/05/15" class="countdown"></div>
                 </figure>

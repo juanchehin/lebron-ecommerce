@@ -6,6 +6,7 @@ import { AdminGuard } from '../services/guards/admin.guard';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ProductosComponent } from './productos/productos.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
+import { VentasComponent } from './ventas/listar-ventas/listar-ventas.component';
 
 const pagesRoutes: Routes = [
     {
@@ -18,6 +19,7 @@ const pagesRoutes: Routes = [
           { path: 'usuarios', component: UsuariosComponent },
           { path: 'productos', component: ProductosComponent },
           { path: 'proveedores', component: ProveedoresComponent },
+          { path: 'ventas', component: VentasComponent },
           { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
         ]
     }

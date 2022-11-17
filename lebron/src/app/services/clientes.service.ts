@@ -9,6 +9,8 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 })
 export class ClientesService {
 
+  token: any = null;
+  usuario: any;
 
   constructor(private http: HttpClient) { }
 
@@ -22,5 +24,19 @@ export class ClientesService {
     return this.http.get( url );
   }
 
+  // ==================================================
+  //        Permite saber si un usuario esta logueado
+  // ==================================================
+  estaLogueado(): boolean {
 
+    this.token = localStorage.getItem('token');
+    if ((this.token === 'undefined') || (this.token === null) || !(this.token.length > 5)) {
+      console.log("false esta logueado service")
+      return false;
+    } else {
+      console.log("true esta logueado service")
+      return true;
+
+    }
+  }
 }

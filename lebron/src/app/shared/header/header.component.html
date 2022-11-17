@@ -119,14 +119,14 @@
                             <!-- /dropdown-cart-->
                         </li>
                         <li>
-                            <a href="#0" class="wishlist"><span>Wishlist</span></a>
+                            <a href="#0" class="wishlist"><span>Lista de deseos</span></a>
                         </li>
                         <li>
                             <div class="dropdown dropdown-access">
                                 <a class="access_link"><span>Cuenta</span></a>
                                 <div class="dropdown-menu">
                                     <a [routerLink]="['login']" class="btn_1">Acceso</a>
-                                    <ul>
+                                    <ul *ngIf="comprobarLogueo()">
                                         <li>
                                             <a [routerLink]="['ordenes/idpersona']"><i class="ti-package"></i>Mis Ordenes</a>
                                         </li>

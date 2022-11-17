@@ -1,68 +1,80 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductosService } from 'src/app/services/productos.service';
-import { environment } from 'src/environments/environment';
-
-const URL_IMAGENES = environment.URL_IMAGENES;
+import { ProveedoresService } from 'src/app/services/proveedores.service';
 
 @Component({
-  selector: 'app-productos-promocion',
-  templateUrl: './productos-promocion.component.html',
+  selector: 'app-proveedores',
+  templateUrl: './proveedores.component.html',
   styles: []
 })
-export class ProductosPromocionComponent implements OnInit {
+export class ProveedoresComponent implements OnInit {
 
   desde = 0;
-  numbers: any[] = [];
   totalAsistencias = true;
-  public imgTemp: any = '../../../assets/img/lebron_lebron.png';
+  ClasesDisponibles = 0;
 
-  productosPromocion!: any;
+  proveedores!: any;
   cantPlanes = 0;
 
-  totalProductosPromocion = 0;
-  cantidadPaginado = 0;
+  totalProveedores = 0;
   cargando = true;
 
   constructor(
-    public productosService: ProductosService
+    public proveedoresService: ProveedoresService
   ) {
    }
 
   ngOnInit() {
-    this.cargarProductosPromocion();
+    this.cargarProveedores();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-cargarProductosPromocion() {
+cargarProveedores() {
+  console.log("pasa cargar cargarProveedores");
 
-    this.productosService.listarProductosPromocionPaginado( this.desde  )
+    this.proveedoresService.listarProveedoresPaginado( this.desde  )
                .subscribe( (resp: any) => {
 
-                this.productosPromocion = resp[0];
+                console.log("resp es : ",resp)
 
-                console.log("imgtest : ", this.imgTemp);
-                console.log("this.productosPromocion : ", this.productosPromocion);
+                this.totalProveedores = resp[1][0].cantProveedores;
 
-                this.totalProductosPromocion = resp[1][0].cantProductosPromocion;
+                this.proveedores = resp[0];
 
-                if(this.totalProductosPromocion > 12)
-                {
-                  this.cantidadPaginado = Math.ceil(this.totalProductosPromocion/12);
-                }
-                else
-                {
-                  this.cantidadPaginado = 1;
-                }
-
-                this.numbers = Array.from({length: this.cantidadPaginado}, (_, i) => i + 1)
+                this.cargando = false;
 
               });
 
   }
 
+
+// ==================================================
+//  Busca un cliente por plan o por todos
+// ==================================================
+
+  buscarCliente( ) {
+
+    const inputElement: HTMLInputElement = document.getElementById('buscarApellidos') as HTMLInputElement;
+    const Apellidos: any = inputElement.value || null;
+
+    const inputElement1: HTMLInputElement = document.getElementById('buscarNombres') as HTMLInputElement;
+    const Nombres: any = inputElement1.value || null;
+
+    // this.personaService.buscarClientePorPlan( Apellidos, Nombres , this.planSeleccionado.toString()  )
+    //         .subscribe( (resp: any) => {
+
+    //           if( resp.length !== 0 ) {
+    //             this.clientes = resp[0];
+    //             this.totalClientes = resp[1][0].cantCli;
+    //           } else {
+    //             this.totalClientes = 0;
+    //             this.clientes = resp[0];
+    //           }
+    //         });
+
+  }
 
 // // ==================================================
 // //        Borra una persona
@@ -116,18 +128,18 @@ cargarProductosPromocion() {
 
 cambiarDesde( valor: number ) {
 
-  // const desde = this.desde + valor;
+  const desde = this.desde + valor;
 
-  // if ( desde >= this.totalUsuarios ) {
-  //   return;
-  // }
+  if ( desde >= this.totalProveedores ) {
+    return;
+  }
 
-  // if ( desde < 0 ) {
-  //   return;
-  // }
+  if ( desde < 0 ) {
+    return;
+  }
 
-  // this.desde += valor;
-  // this.cargarUsuarios();
+  this.desde += valor;
+  // this.cargarProductos();
 
 }
 

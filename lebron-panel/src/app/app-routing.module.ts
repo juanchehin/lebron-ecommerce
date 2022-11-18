@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PagesComponent } from './pages/pages.component';
 import { LoginComponent } from './shared/login/login.component';
 import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
 

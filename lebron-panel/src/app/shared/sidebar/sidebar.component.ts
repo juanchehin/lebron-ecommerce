@@ -15,6 +15,8 @@ export class SidebarComponent implements OnInit {
   // menu: any;
   menu: IMenuStructure[] = [];
   ocultarSidebar: boolean | undefined;
+  expandirProductos = false;
+  expandirVentas = false;
 
   constructor(
     public authService: AuthService,
@@ -97,4 +99,16 @@ export class SidebarComponent implements OnInit {
       return false;
     }
   };
+
+  // ******
+  ocultarProductos()
+  { 
+    this.expandirProductos = !this.expandirProductos;
+  }
+
+  // ******
+  ocultarVentas()
+  { 
+    this.expandirVentas = !this.expandirVentas;
+  }
 }

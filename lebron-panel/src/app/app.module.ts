@@ -7,7 +7,6 @@ import { APP_ROUTES } from './app-routing.module';
 import { PagesModule } from './pages/pages.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceModule } from './services/service.module';
-import { LoginComponent } from './shared/login/login.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({

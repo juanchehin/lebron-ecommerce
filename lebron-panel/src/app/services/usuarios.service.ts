@@ -9,6 +9,7 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 })
 export class UsuariosService {
 
+  ocultarSidebar: boolean | undefined;
 
   constructor(private http: HttpClient) { }
 

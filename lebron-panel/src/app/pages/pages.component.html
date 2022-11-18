@@ -1,4 +1,4 @@
-<body class="with-side-menu control-panel control-panel-compact">
+<body [ngClass]="this.usuariosService.ocultarSidebar ? 'with-side-menu control-panel control-panel-compact' : ''">
 
     <!-- ================== header ========== -->
     <app-header></app-header>
@@ -6,7 +6,7 @@
     <div class="mobile-menu-left-overlay"></div>
 
     <!-- ================== Sidebar ========== -->
-    <app-sidebar></app-sidebar>
+    <app-sidebar *ngIf="this.usuariosService.ocultarSidebar"></app-sidebar>
 
     <router-outlet></router-outlet>
     <!--.page-content-->

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 import { IMenuStructure } from './menu.model';
 
 @Component({
@@ -13,13 +14,18 @@ export class SidebarComponent implements OnInit {
   elementosMenuPadre: any[] = [];
   // menu: any;
   menu: IMenuStructure[] = [];
+  ocultarSidebar: boolean | undefined;
 
-  constructor(public authService: AuthService) {
+  constructor(
+    public authService: AuthService,
+    public usuarioService: UsuariosService
+    ) {
 
   }
 
   ngOnInit() {
     this.armarMenu();
+    this.ocultarSidebar = this.usuarioService.ocultarSidebar;
   }
 
   // Genera menu y submenu

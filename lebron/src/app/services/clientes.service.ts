@@ -31,10 +31,8 @@ export class ClientesService {
 
     this.token = localStorage.getItem('token');
     if ((this.token === 'undefined') || (this.token === null) || !(this.token.length > 5)) {
-      console.log("false esta logueado service")
       return false;
     } else {
-      console.log("true esta logueado service")
       return true;
 
     }
@@ -45,9 +43,9 @@ export class ClientesService {
 // ==================================================
 altaCliente( cliente: any ) {
 
-  console.log("clinetes es : ",cliente);
+  console.log("altaCliente es : ",cliente);
 
-  let url = URL_SERVICIOS + '/cliente/alta';
+  let url = URL_SERVICIOS + '/clientes/alta';
   // url += '?IdRol=' + this.IdRol;
 
   return this.http.post(

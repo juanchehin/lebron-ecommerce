@@ -3,36 +3,41 @@
     <div class="col-xl-6 col-lg-6 col-md-8">
         <div class="box_account">
             <h3 class="new_client">Crear cuenta</h3> <small class="float-right pt-2">* Campos requeridos</small>
-            <div class="form_container">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="apellidos" placeholder="Apellidos*">
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="nombres" placeholder="Nombres*">
-                </div>
-                <hr>
-                <div class="private box">
+            <form ngNativeValidate [formGroup]="formularioRegistroCliente" (ngSubmit)="registrarCliente()">
+
+                <div class="form_container">
                     <div class="form-group">
-                        <input type="text" class="form-control" name="email" placeholder="Email*">
+                        <input formControlName="Apellidos" type="text" class="form-control" name="apellidos" placeholder="Apellidos*">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="password" placeholder="Contraseña">
+                        <input formControlName="Nombres" type="text" class="form-control" name="nombres" placeholder="Nombres*">
                     </div>
+                    <hr>
+                    <div class="private box">
+                        <div class="form-group">
+                            <input formControlName="Email" type="text" class="form-control" name="email" placeholder="Email*">
+                        </div>
+                        <div class="form-group">
+                            <input formControlName="Password" type="password" class="form-control" name="password" placeholder="Contraseña">
+                        </div>
+                        <div class="form-group">
+                            <input formControlName="Password2" type="password" class="form-control" name="password2" placeholder="Repetir Contraseña">
+                        </div>
+                        <!-- /row -->
+                    </div>
+                    <!-- /company -->
+                    <hr>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="password2" placeholder="Repetir Contraseña">
-                    </div>
-                    <!-- /row -->
-                </div>
-                <!-- /company -->
-                <hr>
-                <div class="form-group">
-                    <label class="container_check">Acepto los <a href="#0">Terminos y condiciones</a>
+                        <label class="container_check">Acepto los <a href="#0">Terminos y condiciones</a>
                     <input type="checkbox" required>
                     <span class="checkmark"></span>
                 </label>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Registrarse</button>
+                    <br>
                 </div>
-                <div class="text-center"><input type="submit" value="Register" class="btn_1 full-width"></div>
-            </div>
+            </form>
             <!-- /form_container -->
         </div>
         <!-- /box_account -->

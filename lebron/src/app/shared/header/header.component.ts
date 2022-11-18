@@ -85,10 +85,8 @@ buscarProducto() {
     this.usuarioActual = localStorage.getItem('usuario');
 
     if (this.clienteService.estaLogueado()) {
-      console.log("pasa false logueado")
       return false;
     } else {
-      console.log("pasa true logueado")
       return true;
     }
   }

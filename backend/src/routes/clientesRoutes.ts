@@ -14,7 +14,7 @@ class ClientesRoutes {
 
     config(): void {
         // Clientes
-        this.router.post('/clientes/alta', clientesController.altaCliente);
+        this.router.post('/alta', clientesController.altaCliente);
     }
 
 }

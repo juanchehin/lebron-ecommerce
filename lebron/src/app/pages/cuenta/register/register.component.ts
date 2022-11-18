@@ -11,7 +11,7 @@ import { ClientesService } from 'src/app/services/clientes.service';
 })
 export class RegisterComponent implements OnInit {
 
-  formulario!: FormGroup;
+  formularioRegistroCliente!: FormGroup;
   respuesta: any;
   cargando = true;
   cantPlanes = 0;
@@ -27,13 +27,12 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     // this.authService.logout();
 
-    this.formulario = new FormGroup({
+    this.formularioRegistroCliente = new FormGroup({
       Apellidos: new FormControl(null, Validators.required ),
       Nombres: new FormControl(null, Validators.required ),
       Password: new FormControl(null, Validators.required ),
       Password2: new FormControl(null, Validators.required ),
-      Telefono: new FormControl(null ),
-      Correo: new FormControl( null , [Validators.required , Validators.email ])
+      Email: new FormControl( null , [Validators.required , Validators.email ])
     }, {
       // validator: this.sonIguales('Password' , 'Password2')
     })
@@ -42,15 +41,15 @@ export class RegisterComponent implements OnInit {
 // ==================================================
 //  Proceso de LOGUEO
 // ==================================================
-  ingresar(formulario: NgForm) {
+  ingresar(formularioRegistroCliente: NgForm) {
 
-    if ( formulario.invalid ) {
+    if ( formularioRegistroCliente.invalid ) {
       return;
     }
 
     const persona = new Array(
-      formulario.value.email,
-      formulario.value.password
+      formularioRegistroCliente.value.email,
+      formularioRegistroCliente.value.password
     );
 
     // Llamada al servicio
@@ -110,25 +109,21 @@ sonIguales( campo1: string, campo2: string ): any {
 
 registrarCliente() {
 
-  if ( this.formulario.invalid ) {
+  if ( this.formularioRegistroCliente.invalid ) {
     return;
   }
 
-  const cliente = new this.Cliente(
-    this.formulario.value.Correo,
-    this.formulario.value.Password,
-    this.formulario.value.Apellidos,
-    this.formulario.value.Nombres,
-    this.formulario.value.Telefono,
-    this.formulario.value.DNI
+  const cliente = new Array(
+    this.formularioRegistroCliente.value.Email,
+    this.formularioRegistroCliente.value.Password,
+    this.formularioRegistroCliente.value.Apellidos,
+    this.formularioRegistroCliente.value.Nombres
   );
-
 
 
   this.clienteService.altaCliente( cliente  )
             .subscribe( (resp: any) => {
-
-                /*  Transformularior resp.mensaje a JSON para que se pueda acceder*/
+                /*  TransformularioRegistroClienter resp.mensaje a JSON para que se pueda acceder*/
                 // tslint:disable-next-line: align
                 if ( resp.Mensaje === 'Ok') {
                   // Swal.fire({

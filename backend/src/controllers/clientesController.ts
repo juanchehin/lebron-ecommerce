@@ -106,25 +106,21 @@ public async baja(req: Request, res: Response): Promise<void> {
 // ==================================================
 public async altaCliente(req: Request, res: Response) {
 
-    var Apellidos = req.body.Apellidos;
-    var Nombres = req.body.Nombres;
-    var Password = req.body.Password;
-    var Telefono = req.body.Telefono;
-    var Email = req.body.Email;
-    var Direccion = req.body.Direccion;
-    var Ciudad = req.body.Ciudad;
-    var CP = req.body.CP;
-    var DNI = req.body.DNI;
+    console.log("pasa bsp_alta_cliente req.body : ",req.body)
 
+    var Email = req.body[0];
+    var Password = req.body[1];
+    var Apellidos = req.body[2];
+    var Nombres = req.body[3];
+    
     const saltRounds = 10;  //  Data processing speed
 
     bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
         bcrypt.hash(Password, salt, function(err: any, hash: any) {
             
-            
-            pool.query(`call bsp_alta_cliente('${Apellidos}','${Nombres}','${hash}','${Email}','${DNI}','${Telefono}','${Direccion}','${Ciudad}','${CP}')`, function(err: any, result: any, fields: any){
+            pool.query(`call bsp_alta_cliente('${Apellidos}','${Nombres}','${hash}','${Email}')`, function(err: any, result: any, fields: any){
+                
                 if(err){
-                    console.log("error : ", err);
                     res.status(404).json({ text: "Ocurrio un problema" });
                     return;
                 }

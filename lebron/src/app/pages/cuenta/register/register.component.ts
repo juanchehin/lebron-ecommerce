@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
 
     // Llamada al servicio
 
-    this.authService.login(persona)
+    this.authService.loginCliente(persona)
         .subscribe((resp: any) => {
 
           if ( resp === true) {

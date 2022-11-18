@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 // ==================================================
 //  Proceso de LOGUEO
 // ==================================================
-  ingresar(forma: NgForm) {
+  loginCliente(forma: NgForm) {
 
     if ( forma.invalid ) {
       return;
@@ -34,11 +34,12 @@ export class LoginComponent implements OnInit {
 
     // Llamada al servicio
 
-    this.authService.login(persona)
+    this.authService.loginCliente(persona)
         .subscribe((resp: any) => {
 
+          console.log("resp es : " + resp)
           if ( resp === true) {
-            this.router.navigate(['/principal']);
+            this.router.navigate(['/']);
             return;
           }
 

@@ -33,11 +33,11 @@ export class AuthService {
 // ====================================================================================================================
 
 // ==================================================
-//        Logueo de la persona
+//        Logueo de un usuario del sistema
 // ==================================================
-login( persona: any ): any {
+loginUsuario( persona: any ): any {
 
-  const url = URL_SERVICIOS + '/login';
+  const url = URL_SERVICIOS + '/login/usuario';
 
   return this.http.post(url, persona)
     .pipe(
@@ -58,6 +58,31 @@ login( persona: any ): any {
 
 }
 
+// ==================================================
+//        Logueo de un usuario del sistema
+// ==================================================
+loginCliente( persona: any ): any {
+
+  const url = URL_SERVICIOS + '/login/cliente';
+
+  return this.http.post(url, persona)
+    .pipe(
+          map(
+            ( resp: any ) => {
+                if (resp.mensaje === 'Error de credenciales') {
+                  return false;
+                }
+
+                console.log("resp en sevicio es ; ",resp)
+      this.IdRol = resp.IdRol;
+      this.guardarStorage( resp.id, resp.token, resp.usuario, [] , '2');
+      this.cargarStorage();
+
+      return true;
+    }));
+
+
+}
 // ==================================================
 //        Guarda la info en el localstorage
 //  Guarda en el storage la informacion recibida por parametros

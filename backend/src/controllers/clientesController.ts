@@ -18,31 +18,19 @@ public async listarRoles(req: Request, res: Response): Promise<void> {
  }
 
 // ==================================================
-//        Obtiene una personas de la BD
+//        Obtiene un cliente de la BD
 // ==================================================
-public async getOne(req: Request, res: Response): Promise<any> {
-    const { id } = req.params;
+public async dameDatosCliente(req: Request, res: Response): Promise<any> {
+    const { IdPersona } = req.params;
     let datos: any;
 
-    pool.query(`call bsp_dame_persona('${id}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_dame_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
         if(err){
-            console.log("error : ", err);
             res.status(404).json({ text: "La personas no existe" });
         }
         
         datos = result[0]
     })
-
-    // const pathImg = path.join( __dirname, `../uploads/clientes/${ id }.png` );
-    // console.log("pasa pathImg ",pathImg)
-
-    // if ( fs.existsSync( pathImg ) ) {
-    //     console.log("pasa if ")
-    //     return res.sendFile((pathImg), datos);
-    // } else {
-    //     console.log("pasa else ")
-    //     return res.json(datos);
-    // }
 
 }
 

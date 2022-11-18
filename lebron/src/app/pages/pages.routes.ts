@@ -6,6 +6,7 @@ import { ProductosPromocionComponent } from './productos-promocion/productos-pro
 import { CategoriasComponent } from './categorias/categorias.component';
 import { BuscadorComponent } from './buscador/buscador.component';
 import { RegisterComponent } from './cuenta/register/register.component';
+import { PerfilComponent } from './cuenta/perfil/perfil.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -17,7 +18,7 @@ const pagesRoutes: Routes = [
             { path: '', component: PrincipalComponent },
             { path: 'login', component: LoginComponent },
             { path: 'registro', component: RegisterComponent },
-            { path: 'perfil', component: RegisterComponent },
+            { path: 'perfil', component: PerfilComponent },
             { path: 'promociones', component: ProductosPromocionComponent },
             { path: 'categoria/:IdCategoria', component: CategoriasComponent },
             { path: 'busqueda/:productoBuscado', component: BuscadorComponent }

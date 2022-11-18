@@ -54,4 +54,16 @@ altaCliente( cliente: any ) {
 );
 }
 
+// ==================================================
+// Busca una persona en la BD
+// ==================================================
+
+dameDatosCliente(  IdPersona: string  ): any {
+
+  const url = URL_SERVICIOS + '/clientes/' + IdPersona;
+
+  return this.http.get(url);
+
+}
+
 }

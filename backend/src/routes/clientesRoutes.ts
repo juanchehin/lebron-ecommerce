@@ -15,6 +15,7 @@ class ClientesRoutes {
     config(): void {
         // Clientes
         this.router.post('/alta', clientesController.altaCliente);
+        this.router.get('/:IdPersona', clientesController.dameDatosCliente);
     }
 
 }

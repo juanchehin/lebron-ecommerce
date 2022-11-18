@@ -39,4 +39,21 @@ export class ClientesService {
 
     }
   }
+
+// ==================================================
+//        Crear cliente
+// ==================================================
+altaCliente( cliente: any ) {
+
+  console.log("clinetes es : ",cliente);
+
+  let url = URL_SERVICIOS + '/cliente/alta';
+  // url += '?IdRol=' + this.IdRol;
+
+  return this.http.post(
+    url,
+    cliente
+);
+}
+
 }

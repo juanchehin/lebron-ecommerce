@@ -91,7 +91,7 @@
                 <div class="col-xl-3 col-lg-2 col-md-3">
                     <ul class="top_tools">
                         <li>
-                            <div class="dropdown dropdown-cart">
+                            <div class="dropdown dropdown-cart" *ngIf="comprobarLogueo()">
                                 <a href="cart.html" class="cart_bt"><strong>2</strong></a>
                                 <div class="dropdown-menu">
                                     <ul>
@@ -119,7 +119,7 @@
                             <!-- /dropdown-cart-->
                         </li>
                         <li>
-                            <a href="#0" class="wishlist"><span>Lista de deseos</span></a>
+                            <a href="#0" class="wishlist" *ngIf="comprobarLogueo()"><span>Lista de deseos</span></a>
                         </li>
                         <li>
                             <div class="dropdown dropdown-access">
@@ -127,10 +127,10 @@
                                 <div class="dropdown-menu">
                                     <a [routerLink]="['login']" class="btn_1">Acceso</a>
                                     <ul *ngIf="comprobarLogueo()">
-                                        <li>
+                                        <li *ngIf="comprobarLogueo()">
                                             <a [routerLink]="['ordenes/idpersona']"><i class="ti-package"></i>Mis Ordenes</a>
                                         </li>
-                                        <li>
+                                        <li *ngIf="comprobarLogueo()">
                                             <a [routerLink]="['perfil']"><i class="ti-user"></i>Perfil</a>
                                         </li>
                                     </ul>

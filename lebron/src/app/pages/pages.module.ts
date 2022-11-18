@@ -19,6 +19,10 @@ import { ProductosPromocionComponent } from './productos-promocion/productos-pro
 import { CategoriasComponent } from './categorias/categorias.component';
 import { BuscadorComponent } from './buscador/buscador.component';
 import { RegisterComponent } from './cuenta/register/register.component';
+import { MiCuentaComponent } from './cuenta/perfil/mi-cuenta/mi-cuenta.component';
+import { MisPedidosComponent } from './cuenta/perfil/pedidos/mis-pedidos.component';
+import { MisDireccionesComponent } from './cuenta/perfil/direcciones/mis-direcciones.component';
+import { PerfilComponent } from './cuenta/perfil/perfil.component';
 
 @NgModule({
     declarations: [
@@ -33,7 +37,11 @@ import { RegisterComponent } from './cuenta/register/register.component';
         SliderMarcasComponent,
         ProductosPromocionComponent,
         CategoriasComponent,
-        BuscadorComponent
+        BuscadorComponent,
+        MiCuentaComponent,
+        MisPedidosComponent,
+        MisDireccionesComponent,
+        PerfilComponent
     ],
     exports: [
         PagesComponent

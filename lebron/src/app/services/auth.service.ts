@@ -138,7 +138,7 @@ estaLogueado() {
   if ((this.token === 'undefined') || (this.token === null)) {
     return false;
   } else {
-    return( this.token.length > 5) ? true : false;
+    return( this.token.length > 5);
 
   }
 }

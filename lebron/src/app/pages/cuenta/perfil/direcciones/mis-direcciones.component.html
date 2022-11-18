@@ -1,0 +1,58 @@
+<br /><br />
+<div class="row justify-content-center">
+    <main class="bg_gray">
+        <div class="container margin_30">
+            <div class="page_header">
+                <h1>Mis direcciones</h1>
+            </div>
+            <!-- /page_header -->
+            <table class="table table-striped cart-list">
+                <thead>
+                    <tr>
+                        <th>
+                            Direccion
+                        </th>
+                        <th>
+                            Provincia-Localidad
+                        </th>
+                        <th>
+                            Codigo postal
+                        </th>
+                        <th>
+                            Telefono
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let direccion of datosDirecionesCliente">
+                        <td>
+                            <span class="item_cart">{{direccion.Direccion}}</span>
+                        </td>
+                        <td>
+                            <strong>{{direccion.Provincia}}</strong>
+                            <strong>{{direccion.Localidad}}</strong>
+                        </td>
+                        <td>
+                            <div class="numbers-row">
+                                <strong>{{direccion.CP}}</strong>
+                            </div>
+                        </td>
+                        <td>
+                            <strong>{{direccion.Telefono}}</strong>
+                        </td>
+                        <td class="options">
+                            <a href="#"><i class="ti-marker-alt"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <!-- /container -->
+
+    </main>
+    <!--/main-->
+</div>

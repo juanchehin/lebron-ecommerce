@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { MarcasService } from 'src/app/services/marcas.service';
@@ -19,7 +20,8 @@ export class HeaderComponent implements OnInit {
     private marcasService: MarcasService,
     private categoriasService: CategoriasService,
     public router: Router,
-    public clienteService: ClientesService
+    public clienteService: ClientesService,
+    public authService: AuthService
   ) {
 
   }
@@ -84,10 +86,10 @@ buscarProducto() {
   comprobarLogueo() {
     this.usuarioActual = localStorage.getItem('usuario');
 
-    if (this.clienteService.estaLogueado()) {
-      return false;
-    } else {
+    if (this.authService.estaLogueado()) {
       return true;
+    } else {
+      return false;
     }
   }
 }

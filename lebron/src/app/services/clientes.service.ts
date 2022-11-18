@@ -24,20 +24,6 @@ export class ClientesService {
     return this.http.get( url );
   }
 
-  // ==================================================
-  //        Permite saber si un usuario esta logueado
-  // ==================================================
-  estaLogueado(): boolean {
-
-    this.token = localStorage.getItem('token');
-    if ((this.token === 'undefined') || (this.token === null) || !(this.token.length > 5)) {
-      return false;
-    } else {
-      return true;
-
-    }
-  }
-
 // ==================================================
 //        Crear cliente
 // ==================================================
@@ -66,4 +52,15 @@ dameDatosCliente(  IdPersona: string  ): any {
 
 }
 
+// ==================================================
+// Lista las direcciones de un cliente
+// ==================================================
+
+dameDirecionesCliente(  IdPersona: string  ): any {
+
+  const url = URL_SERVICIOS + '/clientes/direcciones/' + IdPersona;
+
+  return this.http.get(url);
+
+}
 }

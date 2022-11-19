@@ -10,13 +10,14 @@ import { PerfilComponent } from './cuenta/perfil/perfil.component';
 import { MiCuentaComponent } from './cuenta/perfil/mi-cuenta/mi-cuenta.component';
 import { MisDireccionesComponent } from './cuenta/perfil/direcciones/mis-direcciones.component';
 import { MisPedidosComponent } from './cuenta/perfil/pedidos/mis-pedidos.component';
+import { MailComponent } from './cuenta/mail/mail.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
       {
         path: '',
         component: PagesComponent,
-        // canActivate: [LoginGuardGuard, AdminGuard, VerificaTokenGuard],
+        // canActivate: [LoginGuardGuard, VerificaTokenGuard],
         children: [
             { path: '', component: PrincipalComponent },
             { path: 'login', component: LoginComponent },
@@ -26,6 +27,7 @@ const pagesRoutes: Routes = [
             { path: 'perfil/direcciones/:IdPersona', component: MisDireccionesComponent },
             { path: 'perfil/pedidos/:IdPersona', component: MisPedidosComponent },
             { path: 'perfil', component: PerfilComponent },
+            { path: 'mail-confirmacion', component: MailComponent },
             { path: 'promociones', component: ProductosPromocionComponent },
             { path: 'categoria/:IdCategoria', component: CategoriasComponent },
             { path: 'busqueda/:productoBuscado', component: BuscadorComponent }

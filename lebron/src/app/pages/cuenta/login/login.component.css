@@ -1,0 +1,11 @@
+.error input {
+    border-style: solid;
+    border-color: #c00;
+    border-width: 2px;
+}
+
+input[type=checkbox] {
+    background: transparent;
+    border: 0;
+    margin-top: 2px;
+}

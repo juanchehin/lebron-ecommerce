@@ -21,7 +21,7 @@ export class MiCuentaComponent implements OnInit {
   IdPersona: any;
 
   
-  Correo!: string;
+  Email!: string;
   Password!: string;
   Apellidos!: string;
   Nombres!: string;
@@ -41,6 +41,7 @@ export class MiCuentaComponent implements OnInit {
     this.formularioRegistroCliente = new FormGroup({
       Apellidos: new FormControl(null, Validators.required ),
       Nombres: new FormControl(null, Validators.required ),
+      Documento: new FormControl(null ),
       Password: new FormControl(null, Validators.required ),
       Password2: new FormControl(null, Validators.required ),
       Email: new FormControl( null , [Validators.required , Validators.email ])
@@ -53,6 +54,7 @@ export class MiCuentaComponent implements OnInit {
 // ==================================================
 
 cargarDatosCliente() {
+  console.log("cargarDatosCliente es : ")
 
   this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
 
@@ -62,7 +64,7 @@ cargarDatosCliente() {
               console.log("resp es : ",resp)
               this.datosCliente = resp[0];
 
-              this.Correo = this.datosCliente.Correo;
+              this.Email = this.datosCliente.Email;
               this.Password =  this.datosCliente.Password;
               this.Apellidos =  this.datosCliente.Apellidos;
               this.Nombres = this.datosCliente.Nombres;

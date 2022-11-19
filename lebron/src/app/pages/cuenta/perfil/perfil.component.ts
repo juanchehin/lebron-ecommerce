@@ -17,11 +17,29 @@ export class PerfilComponent implements OnInit {
     private activatedRoute: ActivatedRoute
     ) { }
   ngOnInit() {
-    this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
+    // this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
+    this.cargarIdPersona();
+    
+  }
+
+   // ***
+   cargarIdPersona() {
+    console.log("pasa cargarIdPersona perfil")
+
+    this.IdPersona = this.authService.IdPersona;
+
+    console.log("IdPersona perfilcomponent cargarIdPersona es : ",this.IdPersona);
+
+    if(this.IdPersona == 'undefined' || this.IdPersona == null || this.IdPersona <= 0)
+    { 
+      this.authService.logout();
+    }
+
   }
 
   // ***
   comprobarLogueo() {
+    console.log("pasa comprobarLogueo perfil")
     if(!this.authService.estaLogueado())
     { 
       this.router.navigate(['/']);

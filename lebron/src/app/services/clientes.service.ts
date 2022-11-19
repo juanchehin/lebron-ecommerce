@@ -46,6 +46,8 @@ altaCliente( cliente: any ) {
 
 dameDatosCliente(  IdPersona: string  ): any {
 
+  console.log("dameDatosCliente es : ")
+
   const url = URL_SERVICIOS + '/clientes/' + IdPersona;
 
   return this.http.get(url);

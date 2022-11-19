@@ -79,6 +79,7 @@ pool.query(`call bsp_login_cliente('${email}')`, function(err: any, resultLogin:
             ok: true,
             mensaje : 'Error de credenciales'
         });
+        return;
     }
 
     // Chequeo la contraseña
@@ -101,7 +102,7 @@ pool.query(`call bsp_login_cliente('${email}')`, function(err: any, resultLogin:
                 ok: true,
                 usuario: resultLogin[0][0].lUsuario,
                 token: token,
-                id: resultLogin[0][0].lIdPersona
+                IdPersona: resultLogin[0][0].lIdPersona
             });
         }
     });

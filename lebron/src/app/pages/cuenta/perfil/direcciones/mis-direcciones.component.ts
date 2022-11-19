@@ -26,7 +26,7 @@ export class MisDireccionesComponent implements OnInit {
     public router: Router,
     private activatedRoute: ActivatedRoute
     ) { }
-  ngOnInit() {
+  ngOnInit() {    
     this.comprobarLogueo();
     this.cargarDireccionesCliente();
   }
@@ -36,8 +36,9 @@ export class MisDireccionesComponent implements OnInit {
 // ==================================================
 
 cargarDireccionesCliente() {
+  console.log("pasa cargarDireccionesCliente")
 
-  this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
+  // this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
 
   this.clientesService.dameDirecionesCliente( this.IdPersona )
              .subscribe( (resp: any) => {
@@ -53,9 +54,11 @@ cargarDireccionesCliente() {
 
 // ***
 comprobarLogueo() {
+  console.log("pasa comprobarLogueo")
   if(!this.authService.estaLogueado())
   { 
     this.router.navigate(['/']);
+    return;
   }
 }
 }

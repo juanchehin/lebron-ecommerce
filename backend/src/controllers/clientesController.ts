@@ -22,14 +22,14 @@ public async listarRoles(req: Request, res: Response): Promise<void> {
 // ==================================================
 public async dameDatosCliente(req: Request, res: Response): Promise<any> {
     const { IdPersona } = req.params;
-    let datos: any;
 
     pool.query(`call bsp_dame_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json({ text: "La personas no existe" });
+            return;
         }
         
-        datos = result[0]
+        res.status(200).json(result[0]);
     })
 
 }
@@ -65,7 +65,7 @@ public async altaCliente(req: Request, res: Response) {
             
                 if(result[0][0].Mensaje !== 'Ok'){
 
-                    // enviarMailConfirmacion(Email);
+                    enviarMailConfirmacion(Email);
 
                     return res.json({
                         ok: false,
@@ -240,3 +240,7 @@ public async actualizaCliente(req: Request, res: Response) {
 
 const clientesController = new ClientesController;
 export default clientesController;
+
+function enviarMailConfirmacion(Email: any) {
+    throw new Error('Function not implemented.');
+}

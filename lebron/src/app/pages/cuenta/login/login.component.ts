@@ -6,9 +6,11 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styles: []
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  errorCredenciales = false;
 
   constructor(
     public authService: AuthService,
@@ -50,11 +52,7 @@ export class LoginComponent implements OnInit {
           // });
       },
       ( error: any) => {
-          // Swal.fire({
-          //   icon: 'error',
-          //   title: 'Ha ocurrido un error',
-          //   text: 'Contactese con el administrador',
-          // });
+          this.errorCredenciales = true;
       }
 
       );

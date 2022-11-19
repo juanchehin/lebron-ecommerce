@@ -18,6 +18,7 @@ export class AuthService {
   IdRol: any;
   token!: any;
   usuario: any;
+  IdPersona!: any;
   // menuBack!: Array[] = [];
   menuBack: any[] = Array();
 
@@ -75,6 +76,7 @@ loginCliente( persona: any ): any {
 
                 console.log("resp en sevicio es ; ",resp)
       this.IdRol = resp.IdRol;
+      this.IdPersona = resp.IdPersona;
       this.guardarStorage( resp.id, resp.token, resp.usuario, [] , '2');
       this.cargarStorage();
 

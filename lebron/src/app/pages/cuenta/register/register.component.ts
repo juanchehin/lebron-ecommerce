@@ -38,48 +38,6 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-// ==================================================
-//  Proceso de LOGUEO
-// ==================================================
-  ingresar(formularioRegistroCliente: NgForm) {
-
-    if ( formularioRegistroCliente.invalid ) {
-      return;
-    }
-
-    const persona = new Array(
-      formularioRegistroCliente.value.email,
-      formularioRegistroCliente.value.password
-    );
-
-    // Llamada al servicio
-
-    this.authService.loginCliente(persona)
-        .subscribe((resp: any) => {
-
-          if ( resp === true) {
-            this.router.navigate(['/principal']);
-            return;
-          }
-
-          // Swal.fire({
-          //   icon: 'error',
-          //   title: 'Error de credenciales',
-          //   text: 'Error de credenciales',
-          // });
-      },
-      ( error: any) => {
-          // Swal.fire({
-          //   icon: 'error',
-          //   title: 'Ha ocurrido un error',
-          //   text: 'Contactese con el administrador',
-          // });
-      }
-
-      );
-
-  }
-
   // ==================================================
 //        Controla que las contraseñas sean iguales
 // ==================================================
@@ -133,7 +91,7 @@ registrarCliente() {
                   //   showConfirmButton: false,
                   //   timer: 2000
                   // });
-                  this.router.navigate(['/']);
+                  this.router.navigate(['/mail-confirmacion']);
                 } else {
                   if (resp.Mensaje === 'La persona ya se encuentra cargada') {
                       // Swal.fire({

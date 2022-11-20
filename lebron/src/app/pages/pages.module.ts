@@ -23,6 +23,7 @@ import { MiCuentaComponent } from './cuenta/perfil/mi-cuenta/mi-cuenta.component
 import { MisPedidosComponent } from './cuenta/perfil/pedidos/mis-pedidos.component';
 import { MisDireccionesComponent } from './cuenta/perfil/direcciones/mis-direcciones.component';
 import { PerfilComponent } from './cuenta/perfil/perfil.component';
+import { TerminosCondicionesComponent } from './institucional/terminos-condiciones/terminos-condiciones.component';
 
 @NgModule({
     declarations: [
@@ -41,7 +42,8 @@ import { PerfilComponent } from './cuenta/perfil/perfil.component';
         MiCuentaComponent,
         MisPedidosComponent,
         MisDireccionesComponent,
-        PerfilComponent
+        PerfilComponent,
+        TerminosCondicionesComponent
     ],
     exports: [
         PagesComponent

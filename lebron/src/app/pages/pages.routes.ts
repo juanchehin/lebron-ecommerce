@@ -11,6 +11,8 @@ import { MiCuentaComponent } from './cuenta/perfil/mi-cuenta/mi-cuenta.component
 import { MisDireccionesComponent } from './cuenta/perfil/direcciones/mis-direcciones.component';
 import { MisPedidosComponent } from './cuenta/perfil/pedidos/mis-pedidos.component';
 import { MailComponent } from './cuenta/mail/mail.component';
+import { TerminosCondicionesComponent } from './institucional/terminos-condiciones/terminos-condiciones.component';
+import { ContactoComponent } from './institucional/contacto/contacto.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -23,14 +25,12 @@ const pagesRoutes: Routes = [
             { path: 'login', component: LoginComponent },
             { path: 'registro', component: RegisterComponent },
             { path: 'perfil', component: PerfilComponent },
-            { path: 'perfil/cuenta/:IdPersona', component: MiCuentaComponent },
-            { path: 'perfil/direcciones/:IdPersona', component: MisDireccionesComponent },
-            { path: 'perfil/pedidos/:IdPersona', component: MisPedidosComponent },
-            { path: 'perfil', component: PerfilComponent },
             { path: 'mail-confirmacion', component: MailComponent },
             { path: 'promociones', component: ProductosPromocionComponent },
             { path: 'categoria/:IdCategoria', component: CategoriasComponent },
-            { path: 'busqueda/:productoBuscado', component: BuscadorComponent }
+            { path: 'busqueda/:productoBuscado', component: BuscadorComponent },
+            { path: 'terminos-y-condiciones', component: TerminosCondicionesComponent },
+            { path: 'contacto', component: ContactoComponent }
             // Choferes
             // { path: 'choferes', component: ChoferesComponent },
             // { path: 'choferes/nuevo', component: NuevoChoferComponent },
@@ -39,19 +39,16 @@ const pagesRoutes: Routes = [
             // { path: 'choferes/nuevo', component: NuevoChoferComponent }
         ]
     },
-    // *** Acceso para el perfil ****
+    // *** Acceso para el cliente logueado y con token actualizado ****
     {
         path: '',
         component: PagesComponent,
-        // canActivate: [LoginGuardGuard, AdminGuard, VerificaTokenGuard],
+        // canActivate: [LoginGuardGuard, VerificaTokenGuard],
         children: [
-            // { path: 'mapa', component: MapaComponent },
-            // Choferes
-            // { path: 'choferes', component: ChoferesComponent },
-            // { path: 'choferes/nuevo', component: NuevoChoferComponent },
-// Usuarios
-// { path: 'choferes', component: ChoferesComponent },
-// { path: 'choferes/nuevo', component: NuevoChoferComponent }
+            { path: 'perfil', component: PerfilComponent },
+            { path: 'perfil/cuenta/:IdPersona', component: MiCuentaComponent },
+            { path: 'perfil/direcciones/:IdPersona', component: MisDireccionesComponent },
+            { path: 'perfil/pedidos/:IdPersona', component: MisPedidosComponent },
         ]
     }
 ];

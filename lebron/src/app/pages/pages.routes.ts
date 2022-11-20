@@ -13,6 +13,8 @@ import { MisPedidosComponent } from './cuenta/perfil/pedidos/mis-pedidos.compone
 import { MailComponent } from './cuenta/mail/mail.component';
 import { TerminosCondicionesComponent } from './institucional/terminos-condiciones/terminos-condiciones.component';
 import { ContactoComponent } from './institucional/contacto/contacto.component';
+import { FranquiciaComponent } from './institucional/franquicia/franquicia.component';
+import { PoliticasComponent } from './institucional/politicas-seguridad/politicas-seguridad.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -30,7 +32,9 @@ const pagesRoutes: Routes = [
             { path: 'categoria/:IdCategoria', component: CategoriasComponent },
             { path: 'busqueda/:productoBuscado', component: BuscadorComponent },
             { path: 'terminos-y-condiciones', component: TerminosCondicionesComponent },
-            { path: 'contacto', component: ContactoComponent }
+            { path: 'contacto', component: ContactoComponent },
+            { path: 'franquicia', component: FranquiciaComponent },
+            { path: 'politicas-de-seguridad', component: PoliticasComponent }
             // Choferes
             // { path: 'choferes', component: ChoferesComponent },
             // { path: 'choferes/nuevo', component: NuevoChoferComponent },

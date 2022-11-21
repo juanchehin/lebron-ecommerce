@@ -3,10 +3,13 @@ import pool from '../database';
 const bcrypt = require('bcrypt');
 const nodemailer = require("nodemailer");
 import keys from '../keys';
-
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 // const path = require('path');
 
 class ClientesController {
+
+    
  // ==================================================
 //        Lista los roles del sistema
 // ==================================================
@@ -35,7 +38,7 @@ public async dameDatosCliente(req: Request, res: Response): Promise<any> {
 }
 
 // ==================================================
-//        Inserta un cliente
+//        Inserta un cliente enviando un correo de confirmacion
 // ==================================================
 public async altaCliente(req: Request, res: Response) {
 
@@ -47,7 +50,7 @@ public async altaCliente(req: Request, res: Response) {
     const saltRounds = 10;  //  Data processing speed
 
     bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
-        bcrypt.hash(Password, salt, function(err: any, hash: any) {
+        bcrypt.hash(Password, salt, async function(err: any, hash: any) {
             
             pool.query(`call bsp_alta_cliente('${Apellidos}','${Nombres}','${hash}','${Email}')`, function(err: any, result: any, fields: any){
                 
@@ -62,61 +65,25 @@ public async altaCliente(req: Request, res: Response) {
                         pIdPersona: result[1][0].IdPersona
                     });
                 }                
-            
+
                 if(result[0][0].Mensaje !== 'Ok'){
-
-                    enviarMailConfirmacion(Email);
-
                     return res.json({
                         ok: false,
                         Mensaje: result[0][0].Mensaje
                     });
                 }
-        
+                
+                enviarMailBienvenida(Email);
+                
                 return res.json({ Mensaje: 'Ok' });
             })
+
+            
         });
     });
 
     
 
-}
-
-// ==================================================
-//   
-// ==================================================
-
-public async enviarMailConfirmacion(pEmail: string) {
-  // Generate test SMTP service account from ethereal.email
-  // Only needed if you don't have a real mail account for testing
-  let testAccount = await nodemailer.createTestAccount();
-
-  // create reusable transporter object using the default SMTP transport
-  let transporter = nodemailer.createTransport({
-    host: keys.mail.host,
-    port: keys.mail.port,
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: keys.mail.user, // generated ethereal user
-      pass: keys.mail.pass, // generated ethereal password
-    },
-  });
-
-  // send mail with defined transport object
-  let info = await transporter.sendMail({
-    from: '"Fred Foo 👻" <lebron@example.com>', // sender address
-    to: pEmail, // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>", // html body
-  });
-
-  console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-  // Preview only available when sending through an Ethereal account
-  console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }
 
 // ==================================================
@@ -241,6 +208,49 @@ public async actualizaCliente(req: Request, res: Response) {
 const clientesController = new ClientesController;
 export default clientesController;
 
-function enviarMailConfirmacion(Email: any) {
-    throw new Error('Function not implemented.');
+
+
+// ==================================================
+//   *** Funcion SIN  USO por ahora ---
+// ==================================================
+
+async function enviarMailBienvenida(pEmail: string) {
+
+    console.log("pasa enviarMailBienvenida")
+
+    const OAuth2_client = new OAuth2(keys.mail.client_id,keys.mail.client_secret);
+    OAuth2_client.setCredentials({ refresh_token: keys.mail.refresh_token});
+    const access_token = OAuth2_client.getAccessToken();
+  // Generate test SMTP service account from ethereal.email
+  // Only needed if you don't have a real mail account for testing
+//   let testAccount = await nodemailer.createTestAccount();
+
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        type: 'OAuth2',
+        user: keys.mail.user, //your gmail account you used to set the project up in google cloud console"
+        clientId: keys.mail.client_id,
+        clientSecret: keys.mail.client_secret,
+        refreshToken: keys.mail.refresh_token,
+        accessToken: access_token //access token variable we defined earlier
+    },
+  });
+
+  // send mail with defined transport object
+  let info = await transporter.sendMail({
+    from: '"Lebron - Suplementos Deportivos" <lebron@example.com>', // sender address
+    to: pEmail, // list of receivers
+    subject: "[Lebron] ¡Bienvenido!", // Subject line
+    text: "Gracias por crear una cuenta en Lebron", // plain text body
+    html: "<b>Gracias por crear una cuenta en Lebron</b>", // html body
+  });
+
+//   console.log("Message sent: %s", info.messageId);
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+
+  // Preview only available when sending through an Ethereal account
+//   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }

@@ -14,14 +14,20 @@
                     </div>
                     <hr>
                     <div class="private box">
-                        <div class="form-group">
+                        <div [ngClass]="{'input-error': emailExistente}" class="form-group">
                             <input formControlName="Email" type="text" class="form-control" name="email" placeholder="Email*">
                         </div>
-                        <div class="form-group">
+                        <div *ngIf="emailExistente">
+                            <p style="color:red;">El email ya se encuentra registrado</p>
+                        </div>
+                        <div class="form-group" [ngClass]="{'input-error': passCheck}">
                             <input formControlName="Password" type="password" class="form-control" name="password" placeholder="Contraseña">
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" [ngClass]="{'input-error': passCheck}">
                             <input formControlName="Password2" type="password" class="form-control" name="password2" placeholder="Repetir Contraseña">
+                        </div>
+                        <div *ngIf="passCheck">
+                            <p style="color:red;">Las contraseñas deben ser iguales</p>
                         </div>
                         <!-- /row -->
                     </div>

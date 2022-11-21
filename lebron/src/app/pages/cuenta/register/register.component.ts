@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClientesService } from 'src/app/services/clientes.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styles: []
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
 
@@ -18,6 +18,8 @@ export class RegisterComponent implements OnInit {
   aparecer = false;
   parametro: any;
   Cliente: any;
+  emailExistente = false;
+  passCheck = false;
 
   constructor(
     public authService: AuthService,
@@ -34,32 +36,9 @@ export class RegisterComponent implements OnInit {
       Password2: new FormControl(null, Validators.required ),
       Email: new FormControl( null , [Validators.required , Validators.email ])
     }, {
-      // validator: this.sonIguales('Password' , 'Password2')
+      // validators: this.checkPasswords
     })
   }
-
-  // ==================================================
-//        Controla que las contraseñas sean iguales
-// ==================================================
-sonIguales( campo1: string, campo2: string ): any {
-
-
-  return ( group: FormGroup ) => {
-
-    const pass1 = group.controls[campo1].value;
-    const pass2 = group.controls[campo2].value;
-
-    if ( pass1 === pass2 ) {
-      return null;
-    }
-
-    return {
-      sonIguales: true
-    };
-
-  };
-
-}
 
 // ==================================================
 //        Nuevo cliente
@@ -70,6 +49,12 @@ registrarCliente() {
   if ( this.formularioRegistroCliente.invalid ) {
     return;
   }
+
+  if(this.formularioRegistroCliente.value.Password != this.formularioRegistroCliente.value.Password2){
+    this.passCheck = true;
+    return;
+  }
+  this.passCheck = false;
 
   const cliente = new Array(
     this.formularioRegistroCliente.value.Email,
@@ -93,7 +78,8 @@ registrarCliente() {
                   // });
                   this.router.navigate(['/mail-confirmacion']);
                 } else {
-                  if (resp.Mensaje === 'La persona ya se encuentra cargada') {
+                  if (resp.Mensaje === 'Ya existe un correo con ese nombre') {
+                      this.emailExistente = true;
                       // Swal.fire({
                       //   title: 'Persona ya cargada',
                       //   text: '¿Desea Reactivarlo?',
@@ -111,6 +97,7 @@ registrarCliente() {
                       //   }
                       // });
                     } else {
+                      this.emailExistente = false;
                       // Swal.fire({
                       //   icon: 'error',
                       //   title: 'Hubo un problema al cargar',

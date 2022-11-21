@@ -216,8 +216,6 @@ export default clientesController;
 
 async function enviarMailBienvenida(pEmail: string) {
 
-    console.log("pasa enviarMailBienvenida")
-
     const OAuth2_client = new OAuth2(keys.mail.client_id,keys.mail.client_secret);
     OAuth2_client.setCredentials({ refresh_token: keys.mail.refresh_token});
     const access_token = OAuth2_client.getAccessToken();

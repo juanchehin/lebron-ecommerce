@@ -27,7 +27,7 @@ const pagesRoutes: Routes = [
             { path: 'login', component: LoginComponent },
             { path: 'registro', component: RegisterComponent },
             { path: 'perfil', component: PerfilComponent },
-            { path: 'mail-confirmacion', component: MailComponent },
+            { path: 'cuenta-creada', component: MailComponent },
             { path: 'promociones', component: ProductosPromocionComponent },
             { path: 'categoria/:IdCategoria', component: CategoriasComponent },
             { path: 'busqueda/:productoBuscado', component: BuscadorComponent },

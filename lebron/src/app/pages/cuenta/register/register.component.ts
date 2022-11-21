@@ -76,7 +76,7 @@ registrarCliente() {
                   //   showConfirmButton: false,
                   //   timer: 2000
                   // });
-                  this.router.navigate(['/mail-confirmacion']);
+                  this.router.navigate(['/cuenta-creada']);
                 } else {
                   if (resp.Mensaje === 'Ya existe un correo con ese nombre') {
                       this.emailExistente = true;

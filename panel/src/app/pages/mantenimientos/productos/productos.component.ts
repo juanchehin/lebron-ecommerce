@@ -1,44 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuariosService } from 'src/app/services/usuarios.service';
+import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
+  selector: 'app-productos',
+  templateUrl: './productos.component.html',
   styles: []
 })
-export class UsuariosComponent implements OnInit {
+export class ProductosComponent implements OnInit {
 
   desde = 0;
   totalAsistencias = true;
   ClasesDisponibles = 0;
 
-  usuarios!: any;
+  productos!: any;
   cantPlanes = 0;
 
-  totalUsuarios = 0;
+  totalProductos = 0;
   cargando = true;
 
   constructor(
-    public usuariosService: UsuariosService
+    public productosService: ProductosService
   ) {
    }
 
   ngOnInit() {
-    this.cargarUsuarios();
+    this.cargarProductos();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-  cargarUsuarios() {
+cargarProductos() {
+  console.log("pasa cargar usuarios");
 
-    this.usuariosService.listarUsuariosPaginado( this.desde  )
+    this.productosService.listarProductosPaginado( this.desde  )
                .subscribe( (resp: any) => {
 
-                this.totalUsuarios = resp[1][0].cantCli;
+                console.log("resp es : ",resp)
 
-                this.usuarios = resp[0];
+                this.totalProductos = resp[1][0].cantProductos;
+
+                this.productos = resp[0];
 
                 this.cargando = false;
 
@@ -127,7 +130,7 @@ cambiarDesde( valor: number ) {
 
   const desde = this.desde + valor;
 
-  if ( desde >= this.totalUsuarios ) {
+  if ( desde >= this.totalProductos ) {
     return;
   }
 
@@ -136,7 +139,7 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  this.cargarUsuarios();
+  this.cargarProductos();
 
 }
 

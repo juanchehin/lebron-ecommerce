@@ -37,11 +37,11 @@ ingresar(forma: NgForm) {
     forma.value.password
   );
 
-  // Llamada al servicio
+  console.log("persona es : ",persona)
 
   this.authService.login(persona)
       .subscribe((resp: any) => {
-
+        console.log("resp es : ",resp)
         if ( resp === true) {
           this.router.navigate(['/dashboard']);
           return;

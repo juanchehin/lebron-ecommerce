@@ -19,7 +19,7 @@ export class HospitalesComponent implements OnInit, OnDestroy {
 
   public hospitales: Hospital[] = [];
   public cargando: boolean = true;
-  private imgSubs: Subscription;
+  private imgSubs!: Subscription;
 
   constructor( private hospitalService: HospitalService,
                private modalImagenService: ModalImagenService,
@@ -53,31 +53,31 @@ export class HospitalesComponent implements OnInit, OnDestroy {
 
   cargarHospitales() {
 
-    this.cargando = true;
-    this.hospitalService.cargarHospitales()
-        .subscribe( hospitales => {
-          this.cargando = false;
-          this.hospitales = hospitales;
-        })
+    // this.cargando = true;
+    // this.hospitalService.cargarHospitales()
+    //     .subscribe( hospitales => {
+    //       this.cargando = false;
+    //       this.hospitales = hospitales;
+    //     })
 
   }
 
   guardarCambios( hospital: Hospital ) {
 
-    this.hospitalService.actualizarHospital( hospital._id, hospital.nombre )
-        .subscribe( resp => {
-          Swal.fire( 'Actualizado', hospital.nombre, 'success' );
-        });
+    // this.hospitalService.actualizarHospital( hospital._id, hospital.nombre )
+    //     .subscribe( resp => {
+    //       Swal.fire( 'Actualizado', hospital.nombre, 'success' );
+    //     });
 
   }
 
   eliminarHospital( hospital: Hospital ) {
 
-    this.hospitalService.borrarHospital( hospital._id )
-        .subscribe( resp => {
-          this.cargarHospitales();
-          Swal.fire( 'Borrado', hospital.nombre, 'success' );
-        });
+    // this.hospitalService.borrarHospital( hospital._id )
+    //     .subscribe( resp => {
+    //       this.cargarHospitales();
+    //       Swal.fire( 'Borrado', hospital.nombre, 'success' );
+    //     });
 
   }
 

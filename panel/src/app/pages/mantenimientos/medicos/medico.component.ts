@@ -18,11 +18,11 @@ import { delay } from 'rxjs/operators';
 })
 export class MedicoComponent implements OnInit {
 
-  public medicoForm: FormGroup;
+  public medicoForm!: FormGroup;
   public hospitales: Hospital[] = [];
   
-  public medicoSeleccionado: Medico;
-  public hospitalSeleccionado: Hospital;
+  public medicoSeleccionado!: Medico;
+  public hospitalSeleccionado!: Hospital;
 
 
 
@@ -44,10 +44,10 @@ export class MedicoComponent implements OnInit {
 
     this.cargarHospitales();
 
-    this.medicoForm.get('hospital').valueChanges
-        .subscribe( hospitalId => {
-          this.hospitalSeleccionado = this.hospitales.find( h => h._id === hospitalId );
-        })
+    // this.medicoForm.get('hospital').valueChanges
+    //     .subscribe( hospitalId => {
+    //       this.hospitalSeleccionado = this.hospitales.find( h => h._id === hospitalId );
+    //     })
   }
 
   cargarMedico(id: string) {
@@ -56,29 +56,29 @@ export class MedicoComponent implements OnInit {
       return;
     }
     
-     this.medicoService.obtenerMedicoPorId( id )
-      .pipe(
-        delay(100)
-      )
-      .subscribe( medico => {
+    //  this.medicoService.obtenerMedicoPorId( id )
+    //   .pipe(
+    //     delay(100)
+    //   )
+    //   .subscribe( medico => {
 
-        if ( !medico ) {
-          return this.router.navigateByUrl(`/dashboard/medicos`);
-        }
+    //     if ( !medico ) {
+    //       return this.router.navigateByUrl(`/dashboard/medicos`);
+    //     }
 
-        const { nombre, hospital:{ _id } } = medico; 
-        this.medicoSeleccionado = medico;
-        this.medicoForm.setValue({ nombre, hospital: _id });
-      });
+    //     const { nombre, hospital:{ _id } } = medico; 
+    //     this.medicoSeleccionado = medico;
+    //     this.medicoForm.setValue({ nombre, hospital: _id });
+    //   });
 
   }
 
   cargarHospitales() {
 
-    this.hospitalService.cargarHospitales()
-      .subscribe( (hospitales: Hospital[]) => {
-        this.hospitales = hospitales;
-      })
+    // this.hospitalService.cargarHospitales()
+    //   .subscribe( (hospitales: Hospital[]) => {
+    //     this.hospitales = hospitales;
+    //   })
 
   }
 

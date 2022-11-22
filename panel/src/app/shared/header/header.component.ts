@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { UsuarioService } from '../../services/usuario.service';
-import { Usuario } from '../../models/usuario.model';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-header',
@@ -11,15 +11,16 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-  public usuario: Usuario;
+  public usuario: any;
 
-  constructor( private usuarioService: UsuarioService,
+  constructor( private usuarioService: UsuariosService,
+              private authService: AuthService,
                private router: Router ) {
-    this.usuario = usuarioService.usuario;
+    // this.usuario = usuarioService.usuario;
   }
 
   logout() {
-    this.usuarioService.logout();
+    this.authService.logout();
   }
 
   buscar( termino: string ) {

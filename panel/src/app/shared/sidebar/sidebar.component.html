@@ -7,42 +7,53 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li class="user-profile">
+                <li class="user-profile" *ngIf="activarMenu('Usuarios')">
                     <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
-                        <img [src]="usuario.imagenUrl" alt="user" />
-                        <span class="hide-menu">{{ usuario.nombre }} </span>
+                        <span class="hide-menu">Usuarios </span>
+                    </a>
+                </li>
+                <li class="user-profile" [routerLink]="['/proveedores']" *ngIf="activarMenu('Proveedores')">
+                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                        <span class="hide-menu">Proveedores </span>
+                    </a>
+                </li>
+                <li class="user-profile" *ngIf="activarMenu('Productos')">
+                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                        <!-- <img [src]="usuario.imagenUrl" alt="user" /> -->
+                        <span class="hide-menu">Productos </span>
                     </a>
                     <ul aria-expanded="false" class="collapse">
-                        <li><a routerLinkActive="active" routerLink="./perfil">My Profile </a></li>
-                        <li><a href="javascript:void()">My Balance</a></li>
-                        <li><a href="javascript:void()">Inbox</a></li>
-                        <li><a routerLink="account-settings">Account Setting</a></li>
-                        <li><a routerLink="/login">Logout</a></li>
+                        <li><a routerLinkActive="active" [routerLink]="['/productos']">Listar Productos </a></li>
+                        <li><a [routerLink]="['/productos/importar']">Nuevo producto</a></li>
+                        <li><a [routerLink]="['/unidades']">Unidades</a></li>
+                        <li><a [routerLink]="['/categorias']">Categorias</a></li>
+                        <li><a [routerLink]="['/subcategorias']">Subcategorias</a></li>
+                        <li><a [routerLink]="['/marcas']">Marcas</a></li>
+                    </ul>
+                </li>
+                <li class="user-profile" *ngIf="activarMenu('Ventas')">
+                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                        <!-- <img [src]="usuario.imagenUrl" alt="user" /> -->
+                        <span class="hide-menu">Productos </span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a routerLinkActive="active" [routerLink]="['/ventas']">Listar Productos </a></li>
+                        <li><a [routerLink]="['/ventas/nueva']">Nuevo producto</a></li>
+                    </ul>
+                </li>
+                <li class="user-profile" *ngIf="activarMenu('Compras')">
+                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                        <!-- <img [src]="usuario.imagenUrl" alt="user" /> -->
+                        <span class="hide-menu">Productos </span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse">
+                        <li><a routerLinkActive="active" [routerLink]="['/compras']">Listar Productos </a></li>
+                        <li><a [routerLink]="['/compras/nueva']">Nuevo producto</a></li>
                     </ul>
                 </li>
                 <li class="nav-devider"></li>
-                <li class="nav-small-cap">PERSONAL</li>
 
-                <li *ngFor="let item of sidebarService.menu"> 
-                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
-                        <i [class]="item.icono"></i>
-                        <span class="hide-menu"> 
-                            {{ item.titulo }} 
-                            <span class="label label-rouded label-themecolor pull-right">
-                                {{ item.submenu.length }}
-                            </span>
-                        </span>
-                    </a>
 
-                    <ul aria-expanded="false" class="collapse">
-                        <li *ngFor="let subMenuItem of item.submenu">
-                            <a [routerLink]="subMenuItem.url"
-                               routerLinkActive="active"
-                               [routerLinkActiveOptions]="{ exact: true }"> {{ subMenuItem.titulo }} </a>
-                        </li>
-                    </ul>
-                </li>
-                
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

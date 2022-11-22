@@ -37,7 +37,7 @@ export class AuthService {
 // ==================================================
 login( persona: any ): any {
 
-  const url = URL_SERVICIOS + '/login';
+  const url = URL_SERVICIOS + '/login/usuario';
 
   return this.http.post(url, persona)
     .pipe(
@@ -60,7 +60,7 @@ login( persona: any ): any {
 
 // ==================================================
 //        Guarda la info en el localstorage
-//  Guarda en el storage la informacion recibida por parametros
+//  Guarda en las variables del servicio
 // ==================================================
 guardarStorage( id: string, token: string, usuario: any, menu: any[], IdRol: any ) {
 

@@ -1,0 +1,25 @@
+<div class="container">
+    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="altaProveedor()">
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label>Proveedor : </label>
+                <input formControlName="Proveedor" name="Proveedor" required type="text" placeholder="Proveedor..." class="form-control">
+            </div>
+            <div class="col-sm-6 form-group">
+                <label>CUIL : </label><input formControlName="CUIL" name="CUIL" required type="text" placeholder="CUIL" class="form-control">
+            </div>
+            <div class="col-sm-6 form-group">
+                <label>Telefono : </label><input formControlName="Telefono" name="Telefono" required type="number" min="1" max="31" step="1" placeholder="Telefono" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label>Observaciones : </label>
+                <textarea formControlName="Observaciones" name="Observaciones" type="textarea" placeholder="Observaciones..." rows="3" class="form-control"></textarea>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar Usuario</button>
+        <br>
+    </form>
+</div>

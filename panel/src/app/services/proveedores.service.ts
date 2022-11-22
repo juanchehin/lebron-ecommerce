@@ -16,12 +16,31 @@ export class ProveedoresService {
 //
 // ==================================================
   listarProveedoresPaginado(desde: any){
-    console.log("pasa listar prov")
 
     let url = URL_SERVICIOS + '/proveedores/listar/' + desde;
 
     return this.http.get( url );
   }
+  // ==================================================
+//        
+// ==================================================
+altaProveedor( proveedor: any ) {
+
+  // console.log("usuario es : ",usuario);
+
+  let url = URL_SERVICIOS + '/proveedores/alta';
+  // url += '?IdRol=' + this.IdRol;
+
+  return this.http.post(
+    url,
+    proveedor
+    // {
+    //   headers: {
+    //     token: this.token
+    //   }
+    // }
+);
+}
 
 
 }

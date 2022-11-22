@@ -1,37 +1,316 @@
 <div class="container">
     <form ngNativeValidate [formGroup]="forma" (ngSubmit)="altaUsuario()">
-        <div class="row">
-            <div class="col-sm-6 form-group">
-                <label>Apellidos : </label>
-                <input formControlName="Apellidos" name="Apellidos" required type="text" placeholder="Apellidos" class="form-control">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label>Apellidos : </label>
+                        <input formControlName="Apellidos" name="Apellidos" required type="text" placeholder="Apellidos" class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Nombres : </label><input formControlName="Nombres" name="Nombres" required type="text" placeholder="Nombres" class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Telefono : </label><input formControlName="Telefono" name="Telefono" required type="number" min="1" max="31" step="1" placeholder="Telefono" class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>DNI : </label>
+                        <input formControlName="DNI" name="DNI" type="text" placeholder="DNI..." rows="3" class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Contraseña : </label><input formControlName="Password" name="Password" required type="number" min="1" max="31" step="1" placeholder="Password" class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Repetir contraseña : </label>
+                        <input formControlName="Password2" name="Password2" type="text" placeholder="Repetir contraseña..." rows="3" class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label tabindex="6" for="start">Fecha de Nacimiento : </label>
+                        <input type="date" name="FechaNac" formControlName="FechaNac" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label>Observaciones : </label>
+                        <textarea formControlName="Observaciones" name="Observaciones" type="textarea" placeholder="Observaciones..." rows="3" class="form-control"></textarea>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-6 form-group">
-                <label>Nombres : </label><input formControlName="Nombres" name="Nombres" required type="text" placeholder="Nombres" class="form-control">
-            </div>
-            <div class="col-sm-6 form-group">
-                <label>Telefono : </label><input formControlName="Telefono" name="Telefono" required type="number" min="1" max="31" step="1" placeholder="Telefono" class="form-control">
-            </div>
-            <div class="col-sm-6 form-group">
-                <label>DNI : </label>
-                <input formControlName="DNI" name="DNI" type="text" placeholder="DNI..." rows="3" class="form-control">
-            </div>
-            <div class="col-sm-6 form-group">
-                <label>Contraseña : </label><input formControlName="Password" name="Password" required type="number" min="1" max="31" step="1" placeholder="Password" class="form-control">
-            </div>
-            <div class="col-sm-6 form-group">
-                <label>Repetir contraseña : </label>
-                <input formControlName="Password2" name="Password2" type="text" placeholder="Repetir contraseña..." rows="3" class="form-control">
-            </div>
-            <div class="col-sm-6 form-group">
-                <label tabindex="6" for="start">Fecha de Nacimiento : </label>
-                <input type="date" name="FechaNac" formControlName="FechaNac" required>
-            </div>
-
         </div>
-        <div class="row">
-            <div class="col-sm-6 form-group">
-                <label>Observaciones : </label>
-                <textarea formControlName="Observaciones" name="Observaciones" type="textarea" placeholder="Observaciones..." rows="3" class="form-control"></textarea>
+        <!-- =============== Permisos ================= -->
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title">Permisos</h2>
+                <!-- =============== Permisos Productos ================= -->
+                <h4 class="card-title">Productos</h4>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Listar productos
+                </label>
+                    </div>
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Alta de productos
+                </label>
+                    </div>
+
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Importar productos
+                </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Editar productos
+                </label>
+                    </div>
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Borrar productos
+                </label>
+                    </div>
+                </div>
+                <!-- =============== Permisos Clientes ================= -->
+                <h4 class="card-title">Clientes</h4>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Listar clientes
+                </label>
+                    </div>
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Alta de clientes
+                </label>
+                    </div>
+
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Editar clientes
+                </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Borrar clientes
+                </label>
+                    </div>
+                </div>
+                <!-- =============== Proveedores ================= -->
+                <h4 class="card-title">Proveedores</h4>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Listar Proveedores
+                </label>
+                    </div>
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Alta de Proveedores
+                </label>
+                    </div>
+
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Editar Proveedores
+                </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Borrar Proveedores
+                </label>
+                    </div>
+                </div>
+                <!-- =============== Sucursales ================= -->
+                <h4 class="card-title">Sucursales</h4>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Listar Sucursales
+                </label>
+                    </div>
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Alta de Sucursales
+                </label>
+                    </div>
+
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Editar Sucursales
+                </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Borrar Sucursales
+                </label>
+                    </div>
+                </div>
+                <!-- =============== Empleados ================= -->
+                <h4 class="card-title">Empleados</h4>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Listar Empleados
+                </label>
+                    </div>
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Alta de Empleados
+                </label>
+                    </div>
+
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Editar Empleados
+                </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Borrar Empleados
+                </label>
+                    </div>
+                </div>
+                <!-- =============== Configuraciones ================= -->
+                <h4 class="card-title">Configuraciones</h4>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Listar Configuraciones
+                </label>
+                    </div>
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Editar Configuraciones
+                </label>
+                    </div>
+                </div>
+                <!-- =============== Pedidos ================= -->
+                <h4 class="card-title">Pedidos</h4>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Listar Pedidos
+                </label>
+                    </div>
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Alta de Pedidos
+                </label>
+                    </div>
+
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Editar Pedidos
+                </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Borrar Pedidos
+                </label>
+                    </div>
+                </div>
+                <!-- =============== Categorias ================= -->
+                <h4 class="card-title">Pedidos</h4>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Listar Categorias
+                </label>
+                    </div>
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Alta de Categorias
+                </label>
+                    </div>
+
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Editar Categorias
+                </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Borrar Categorias
+                </label>
+                    </div>
+                </div>
+                <!-- =============== Ventas ================= -->
+                <h4 class="card-title">Ventas</h4>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Listar Ventas
+                </label>
+                    </div>
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Alta de Ventas
+                </label>
+                    </div>
+
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Editar Ventas
+                </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Borrar Ventas
+                </label>
+                    </div>
+                </div>
             </div>
         </div>
         <br>

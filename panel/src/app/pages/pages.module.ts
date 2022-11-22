@@ -22,6 +22,9 @@ import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.comp
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
 import { MedicoComponent } from './mantenimientos/medicos/medico.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
+import { ProveedoresComponent } from './mantenimientos/proveedores/proveedores.component';
+import { ProductosComponent } from './mantenimientos/productos/productos.component';
+import { MarcasComponent } from './mantenimientos/marcas/marcas.component';
 
 
 
@@ -42,6 +45,9 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
     MedicosComponent,
     MedicoComponent,
     BusquedaComponent,
+    ProveedoresComponent,
+    ProductosComponent,
+    MarcasComponent
   ],
   exports: [
     DashboardComponent,

@@ -32,7 +32,7 @@ export class ProductosComponent implements OnInit {
 // ==================================================
 
 cargarProductos() {
-  console.log("pasa cargar usuarios");
+  console.log("pasa cargar productos");
 
     this.productosService.listarProductosPaginado( this.desde  )
                .subscribe( (resp: any) => {

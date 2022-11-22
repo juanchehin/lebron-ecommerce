@@ -7,53 +7,80 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li class="user-profile" *ngIf="activarMenu('Usuarios')">
-                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                <!-- ===== ** Usuarios ** ====== -->
+                <li class="user-profile" [routerLink]="['/dashboard/usuarios']" *ngIf="activarMenu('Usuarios')">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <span class="hide-menu">Usuarios </span>
                     </a>
                 </li>
-                <li class="user-profile" [routerLink]="['/proveedores']" *ngIf="activarMenu('Proveedores')">
-                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                <!-- ===== ** Proveedores ** ====== -->
+                <li class="user-profile" [routerLink]="['/dashboard/proveedores']" *ngIf="activarMenu('Proveedores')">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <span class="hide-menu">Proveedores </span>
                     </a>
                 </li>
-                <li class="user-profile" *ngIf="activarMenu('Productos')">
-                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                <!-- ===== ** Productos ** ====== -->
+                <li class="user-profile" (click)="expandirProductosFuncion()" *ngIf="activarMenu('Productos')">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <!-- <img [src]="usuario.imagenUrl" alt="user" /> -->
                         <span class="hide-menu">Productos </span>
                     </a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a routerLinkActive="active" [routerLink]="['/productos']">Listar Productos </a></li>
-                        <li><a [routerLink]="['/productos/importar']">Nuevo producto</a></li>
-                        <li><a [routerLink]="['/unidades']">Unidades</a></li>
-                        <li><a [routerLink]="['/categorias']">Categorias</a></li>
-                        <li><a [routerLink]="['/subcategorias']">Subcategorias</a></li>
-                        <li><a [routerLink]="['/marcas']">Marcas</a></li>
+                    <ul aria-expanded="false" [ngClass]="expandirProductos ? 'collapse' : ''">
+                        <li><a routerLinkActive="active" [routerLink]="['/dashboard/productos']">Listar Productos </a></li>
+                        <li><a [routerLink]="['/dashboard/productos/importar']">Nuevo producto</a></li>
+                        <li><a [routerLink]="['/dashboard/unidades']">Unidades</a></li>
+                        <li><a [routerLink]="['/dashboard/categorias']">Categorias</a></li>
+                        <li><a [routerLink]="['/dashboard/subcategorias']">Subcategorias</a></li>
+                        <li><a [routerLink]="['/dashboard/marcas']">Marcas</a></li>
                     </ul>
                 </li>
-                <li class="user-profile" *ngIf="activarMenu('Ventas')">
-                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                <!-- ===== ** Compras ** ====== -->
+                <li class="user-profile" (click)="expandirComprasFuncion()" *ngIf="activarMenu('Compras')">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <!-- <img [src]="usuario.imagenUrl" alt="user" /> -->
-                        <span class="hide-menu">Productos </span>
+                        <span class="hide-menu">Compras </span>
                     </a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a routerLinkActive="active" [routerLink]="['/ventas']">Listar Productos </a></li>
-                        <li><a [routerLink]="['/ventas/nueva']">Nuevo producto</a></li>
+                    <ul aria-expanded="false" [ngClass]="expandirVentas ? 'collapse' : ''">
+                        <li *ngIf="activarSubMenu('Compras','Ver')"><a routerLinkActive="active" [routerLink]="['/dashboard/productos']">Listar Productos </a></li>
+                        <li><a [routerLink]="['/dashboard/productos/importar']">Nuevo producto</a></li>
+                        <li><a [routerLink]="['/dashboard/unidades']">Unidades</a></li>
+                        <li><a [routerLink]="['/dashboard/categorias']">Categorias</a></li>
+                        <li><a [routerLink]="['/dashboard/subcategorias']">Subcategorias</a></li>
+                        <li><a [routerLink]="['/dashboard/marcas']">Marcas</a></li>
                     </ul>
                 </li>
-                <li class="user-profile" *ngIf="activarMenu('Compras')">
-                    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+                <!-- ===== ** Ventas ** ====== -->
+                <li class="user-profile" (click)="expandirVentasFuncion()" *ngIf="activarMenu('Ventas')">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <!-- <img [src]="usuario.imagenUrl" alt="user" /> -->
-                        <span class="hide-menu">Productos </span>
+                        <span class="hide-menu">Ventas </span>
                     </a>
-                    <ul aria-expanded="false" class="collapse">
-                        <li><a routerLinkActive="active" [routerLink]="['/compras']">Listar Productos </a></li>
-                        <li><a [routerLink]="['/compras/nueva']">Nuevo producto</a></li>
+                    <ul aria-expanded="false" [ngClass]="expandirVentas ? 'collapse' : ''">
+                        <li *ngIf="activarSubMenu('Ventas','Ver')"><a routerLinkActive="active" [routerLink]="['/dashboard/productos']">Listar Productos </a></li>
+                        <li><a [routerLink]="['/dashboard/productos/importar']">Nuevo producto</a></li>
+                        <li><a [routerLink]="['/dashboard/unidades']">Unidades</a></li>
+                        <li><a [routerLink]="['/dashboard/categorias']">Categorias</a></li>
+                        <li><a [routerLink]="['/dashboard/subcategorias']">Subcategorias</a></li>
+                        <li><a [routerLink]="['/dashboard/marcas']">Marcas</a></li>
                     </ul>
                 </li>
+                <!-- ===== ** Transferencias ** ====== -->
+                <li class="user-profile" (click)="expandirTransferenciasFuncion()" *ngIf="activarMenu('Transferencias')">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <!-- <img [src]="usuario.imagenUrl" alt="user" /> -->
+                        <span class="hide-menu">Transferencias </span>
+                    </a>
+                    <ul aria-expanded="false" [ngClass]="expandirTransferencias ? 'collapse' : ''">
+                        <li *ngIf="activarSubMenu('Transferencias','Ver')"><a routerLinkActive="active" [routerLink]="['/dashboard/productos']">Listar Productos </a></li>
+                        <li><a [routerLink]="['/dashboard/productos/importar']">Nuevo producto</a></li>
+                        <li><a [routerLink]="['/dashboard/unidades']">Unidades</a></li>
+                        <li><a [routerLink]="['/dashboard/categorias']">Categorias</a></li>
+                        <li><a [routerLink]="['/dashboard/subcategorias']">Subcategorias</a></li>
+                        <li><a [routerLink]="['/dashboard/marcas']">Marcas</a></li>
+                    </ul>
+                </li>
+
                 <li class="nav-devider"></li>
-
-
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

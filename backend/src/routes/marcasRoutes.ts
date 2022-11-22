@@ -15,7 +15,7 @@ class MarcasRoutes {
     config(): void {
 
         // Marcas
-        this.router.get('/listar',marcasController.listarMarcas);
+        this.router.get('/listar/:pDesde',marcasController.listarMarcasPaginado);
         
     }
 

@@ -19,7 +19,7 @@ public async loginUsuario(req: Request, res: Response){
     const email = req.body[0];
     const pass = req.body[1];
 // 
-pool.query(`call bsp_login('${email}')`, function(err: any, resultLogin: string | any[]){
+pool.query(`call bsp_login_usuario('${email}')`, function(err: any, resultLogin: string | any[]){
     var menu: any = [];
 
     if(err){

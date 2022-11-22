@@ -1,47 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuariosService } from 'src/app/services/usuarios.service';
+import { MarcasService } from 'src/app/services/marcas.service';
 
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
+  selector: 'app-marcas',
+  templateUrl: './marcas.component.html',
   styles: []
 })
-export class UsuariosComponent implements OnInit {
+export class MarcasComponent implements OnInit {
 
   desde = 0;
   totalAsistencias = true;
   ClasesDisponibles = 0;
 
-  usuarios!: any;
-  cantPlanes = 0;
+  marcas!: any;
 
-  totalUsuarios = 0;
+  totalMarcas = 0;
   cargando = true;
 
   constructor(
-    public usuariosService: UsuariosService
+    public marcasService: MarcasService
   ) {
    }
 
   ngOnInit() {
-    console.log("pasa ngonint usuarios")
-    this.cargarUsuarios();
+    this.cargarMarcas();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-  cargarUsuarios() {
+cargarMarcas() {
+  console.log("pasa cargar cargarMarcas");
 
-    this.usuariosService.listarUsuariosPaginado( this.desde  )
+    this.marcasService.listarMarcasPaginado( this.desde  )
                .subscribe( (resp: any) => {
 
-                console.log("cargarusuarios : ",resp);
+                console.log("resp marcas es : ",resp)
 
-                this.totalUsuarios = resp[1][0].cantCli;
+                this.totalMarcas = resp[1][0].cantMarcas;
 
-                this.usuarios = resp[0];
+                this.marcas = resp[0];
 
                 this.cargando = false;
 
@@ -130,7 +129,7 @@ cambiarDesde( valor: number ) {
 
   const desde = this.desde + valor;
 
-  if ( desde >= this.totalUsuarios ) {
+  if ( desde >= this.totalMarcas ) {
     return;
   }
 
@@ -139,7 +138,7 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  this.cargarUsuarios();
+  // this.cargarProductos();
 
 }
 

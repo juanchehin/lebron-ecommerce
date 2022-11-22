@@ -1,47 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuariosService } from 'src/app/services/usuarios.service';
+import { ProveedoresService } from 'src/app/services/proveedores.service';
 
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
+  selector: 'app-proveedores',
+  templateUrl: './proveedores.component.html',
   styles: []
 })
-export class UsuariosComponent implements OnInit {
+export class ProveedoresComponent implements OnInit {
 
   desde = 0;
   totalAsistencias = true;
   ClasesDisponibles = 0;
 
-  usuarios!: any;
+  proveedores!: any;
   cantPlanes = 0;
 
-  totalUsuarios = 0;
+  totalProveedores = 0;
   cargando = true;
 
   constructor(
-    public usuariosService: UsuariosService
+    public proveedoresService: ProveedoresService
   ) {
    }
 
   ngOnInit() {
-    console.log("pasa ngonint usuarios")
-    this.cargarUsuarios();
+    this.cargarProveedores();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-  cargarUsuarios() {
+cargarProveedores() {
+  console.log("pasa cargar cargarProveedores");
 
-    this.usuariosService.listarUsuariosPaginado( this.desde  )
+    this.proveedoresService.listarProveedoresPaginado( this.desde  )
                .subscribe( (resp: any) => {
 
-                console.log("cargarusuarios : ",resp);
+                console.log("resp es : ",resp)
 
-                this.totalUsuarios = resp[1][0].cantCli;
+                this.totalProveedores = resp[1][0].cantProveedores;
 
-                this.usuarios = resp[0];
+                this.proveedores = resp[0];
 
                 this.cargando = false;
 
@@ -130,7 +130,7 @@ cambiarDesde( valor: number ) {
 
   const desde = this.desde + valor;
 
-  if ( desde >= this.totalUsuarios ) {
+  if ( desde >= this.totalProveedores ) {
     return;
   }
 
@@ -139,7 +139,7 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  this.cargarUsuarios();
+  // this.cargarProductos();
 
 }
 

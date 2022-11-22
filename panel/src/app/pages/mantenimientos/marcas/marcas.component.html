@@ -1,0 +1,41 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="table-responsive">
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">
+                                #
+                            </th>
+                            <th>Marca</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let marca of marcas">
+                            <td>{{ marca.IdMarca }}</td>
+                            <td>{{ marca.Marca }}</td>
+                            <td>
+                                <button class="btn btn-inline" type="button">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button">Eliminar</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </section>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button (click)="cambiarDesde(-5) " type="button" class="btn btn-default-outline">Anteriores</button>
+            <button (click)="cambiarDesde(5) " type="button" class="btn btn-default-outline">Siguientes</button>
+        </div>
+        <!--.box-typical-->
+
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

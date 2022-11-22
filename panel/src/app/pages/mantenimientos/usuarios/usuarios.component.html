@@ -1,18 +1,18 @@
 <div class="page-content">
-    <h2>Usuarios</h2>
-
     <div class="container-fluid">
         <section class="box-typical">
             <div class="table-responsive">
                 <div class="row">
-                    <div class="text-right">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad usuarios ( <small> {{ totalUsuarios }} </small> )</h3>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                    <div class="col-sm-4">
                         <button [routerLink]="['/dashboard/usuarios/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                           <i class="fa fa-plus"></i> 
                           Nuevo Usuario
                         </button>
-                    </div>
-                    <div class="col-sm-6 form-group">
-                        <h3 class="card-title">Cantidad usuarios ( <small> {{ totalUsuarios }} </small> )</h3>
                     </div>
                 </div>
                 <table id="table-edit" class="table table-bordered table-hover">

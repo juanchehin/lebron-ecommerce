@@ -1,0 +1,41 @@
+<div class="container">
+    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="altaUsuario()">
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label>Apellidos : </label>
+                <input formControlName="Apellidos" name="Apellidos" required type="text" placeholder="Apellidos" class="form-control">
+            </div>
+            <div class="col-sm-6 form-group">
+                <label>Nombres : </label><input formControlName="Nombres" name="Nombres" required type="text" placeholder="Nombres" class="form-control">
+            </div>
+            <div class="col-sm-6 form-group">
+                <label>Telefono : </label><input formControlName="Telefono" name="Telefono" required type="number" min="1" max="31" step="1" placeholder="Telefono" class="form-control">
+            </div>
+            <div class="col-sm-6 form-group">
+                <label>DNI : </label>
+                <input formControlName="DNI" name="DNI" type="text" placeholder="DNI..." rows="3" class="form-control">
+            </div>
+            <div class="col-sm-6 form-group">
+                <label>Contraseña : </label><input formControlName="Password" name="Password" required type="number" min="1" max="31" step="1" placeholder="Password" class="form-control">
+            </div>
+            <div class="col-sm-6 form-group">
+                <label>Repetir contraseña : </label>
+                <input formControlName="Password2" name="Password2" type="text" placeholder="Repetir contraseña..." rows="3" class="form-control">
+            </div>
+            <div class="col-sm-6 form-group">
+                <label tabindex="6" for="start">Fecha de Nacimiento : </label>
+                <input type="date" name="FechaNac" formControlName="FechaNac" required>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                <label>Observaciones : </label>
+                <textarea formControlName="Observaciones" name="Observaciones" type="textarea" placeholder="Observaciones..." rows="3" class="form-control"></textarea>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar Usuario</button>
+        <br>
+    </form>
+</div>

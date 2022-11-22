@@ -25,6 +25,7 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
 import { ProveedoresComponent } from './mantenimientos/proveedores/proveedores.component';
 import { ProductosComponent } from './mantenimientos/productos/productos.component';
 import { MarcasComponent } from './mantenimientos/marcas/marcas.component';
+import { UsuarioComponent } from './mantenimientos/usuarios/usuario.component';
 
 
 
@@ -47,7 +48,8 @@ import { MarcasComponent } from './mantenimientos/marcas/marcas.component';
     BusquedaComponent,
     ProveedoresComponent,
     ProductosComponent,
-    MarcasComponent
+    MarcasComponent,
+    UsuarioComponent
   ],
   exports: [
     DashboardComponent,

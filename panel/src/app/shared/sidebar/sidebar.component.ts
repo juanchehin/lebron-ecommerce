@@ -110,9 +110,6 @@ export class SidebarComponent implements OnInit {
   // ***
   activarSubMenu(itemPadre: string,itemHijo: string): boolean{
 
-    console.log("itemPadre es ; ",itemPadre)
-    console.log("itemHijo es ; ",itemHijo)
-
     const found1 = this.menu.find((obj: any) => {
 
       var first = obj.subMenuList.find((obj1: any) => {

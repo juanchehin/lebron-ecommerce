@@ -16,7 +16,8 @@ class UsuariosRoutes {
 
         // Clientes
         this.router.get('/listarPaginado/:desde',usuariosController.listarUsuariosPaginado);
-        
+        this.router.post('/alta' , usuariosController.altaUsuario);    // Se quito la autenticacion con token para esto
+
     }
 
 }

@@ -15,10 +15,11 @@ import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.comp
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
 import { MedicoComponent } from './mantenimientos/medicos/medico.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
-import { AdminGuard } from '../guards/admin.guard';
+// import { AdminGuard } from '../guards/admin.guard.ts.old';
 import { ProveedoresComponent } from './mantenimientos/proveedores/proveedores.component';
 import { ProductosComponent } from './mantenimientos/productos/productos.component';
 import { MarcasComponent } from './mantenimientos/marcas/marcas.component';
+import { UsuarioComponent } from './mantenimientos/usuarios/usuario.component';
 
 
 const childRoutes: Routes = [
@@ -39,7 +40,8 @@ const childRoutes: Routes = [
   { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Matenimiento de Medicos' }},
 
   // Rutas de Admin
-  { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' } }
+  { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' } },
+  { path: 'usuarios/nuevo', component: UsuarioComponent, data: { titulo: 'Alta de Usuario' } }
 ]
 
 

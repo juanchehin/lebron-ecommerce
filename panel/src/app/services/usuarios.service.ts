@@ -24,5 +24,25 @@ export class UsuariosService {
     return this.http.get( url );
   }
 
+  // ==================================================
+//        
+// ==================================================
+altaUsuario( usuario: any ) {
+
+  console.log("usuario es : ",usuario);
+
+  let url = URL_SERVICIOS + '/usuarios/alta';
+  // url += '?IdRol=' + this.IdRol;
+
+  return this.http.post(
+    url,
+    usuario
+    // {
+    //   headers: {
+    //     token: this.token
+    //   }
+    // }
+);
+}
 
 }

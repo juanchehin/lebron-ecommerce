@@ -39,7 +39,7 @@ export class UsuariosComponent implements OnInit {
 
                 console.log("cargarusuarios : ",resp);
 
-                this.totalUsuarios = resp[1][0].cantCli;
+                this.totalUsuarios = resp[1][0].cantUsuarios;
 
                 this.usuarios = resp[0];
 

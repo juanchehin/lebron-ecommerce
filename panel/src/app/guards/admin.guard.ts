@@ -1,23 +1,26 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { UsuarioService } from '../services/usuario.service';
+import { CanActivate, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
 
-  constructor( private usuarioService: UsuarioService,
-               private router: Router ) {}
-
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): any {
-    
-
-      // return (this.usuarioService.role === 'ADMIN_ROLE') ? true : false;
-
+  constructor(
+    public authService: AuthService,
+    public router: Router) {
   }
-  
+
+  canActivate() {
+
+    // IdRol '1' es un usuario del sistema del panel
+    if ( this.authService.IdRol !== 1) {
+      this.authService.logout();
+      return false;
+
+    } else {
+      return true;
+    }
+  }
 }

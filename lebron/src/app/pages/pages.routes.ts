@@ -15,6 +15,8 @@ import { TerminosCondicionesComponent } from './institucional/terminos-condicion
 import { ContactoComponent } from './institucional/contacto/contacto.component';
 import { FranquiciaComponent } from './institucional/franquicia/franquicia.component';
 import { PoliticasComponent } from './institucional/politicas-seguridad/politicas-seguridad.component';
+import { CarritoComponent } from './carrito/carrito.component';
+import { DireccionesComponent } from './envio/envio.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -27,6 +29,8 @@ const pagesRoutes: Routes = [
             { path: 'login', component: LoginComponent },
             { path: 'registro', component: RegisterComponent },
             { path: 'perfil', component: PerfilComponent },
+            { path: 'carrito/:IdPersona', component: CarritoComponent },
+            { path: 'direcciones/:IdPersona', component: DireccionesComponent },
             { path: 'cuenta-creada', component: MailComponent },
             { path: 'promociones', component: ProductosPromocionComponent },
             { path: 'categoria/:IdCategoria', component: CategoriasComponent },

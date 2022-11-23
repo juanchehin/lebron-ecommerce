@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   subcategorias!: any;
   categorias!: any;
   usuarioActual: any;
+  IdUsuario: any;
 
   constructor(
     private marcasService: MarcasService,
@@ -31,6 +32,7 @@ export class HeaderComponent implements OnInit {
         this.cargarCategoriasSubcategorias();
         this.comprobarLogueo();
         this.usuarioActual = this.clienteService.usuario;
+        this.IdUsuario = this.authService.IdPersona;
   }
 
 // ==================================================

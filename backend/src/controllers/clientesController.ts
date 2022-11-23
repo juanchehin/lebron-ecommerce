@@ -126,6 +126,22 @@ public async listarClientes(req: Request, res: Response): Promise<void> {
     })
  }
 
+ 
+ // ==================================================
+//        Lista Clientes desde cierto valor
+// ==================================================
+
+public async dameDatosClienteEnvio(req: Request, res: Response): Promise<void> {
+    var IdPersona = req.params.IdPersona;
+
+    pool.query(`call bsp_dame_direccion_cliente_costo('${IdPersona}')`, function(err: any, result: any, fields: any){
+       if(err){
+           console.log("error", err);
+           return;
+       }
+       res.json(result);
+   })
+}
 // ==================================================
 //   Elimina un cliente de la BD
 // ==================================================

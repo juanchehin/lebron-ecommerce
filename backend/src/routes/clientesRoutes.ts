@@ -16,6 +16,7 @@ class ClientesRoutes {
         // Clientes
         this.router.post('/alta', clientesController.altaCliente);
         this.router.get('/:IdPersona', clientesController.dameDatosCliente);
+        this.router.get('/datos-envio/:IdPersona', clientesController.dameDatosClienteEnvio);
     }
 
 }

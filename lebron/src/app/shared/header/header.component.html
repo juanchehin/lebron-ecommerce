@@ -92,7 +92,7 @@
                     <ul class="top_tools">
                         <li>
                             <div class="dropdown dropdown-cart" *ngIf="comprobarLogueo()">
-                                <a href="cart.html" class="cart_bt"><strong>2</strong></a>
+                                <a [routerLink]="['carrito/',this.IdUsuario]" class="cart_bt"><strong>2</strong></a>
                                 <div class="dropdown-menu">
                                     <ul>
                                         <li>
@@ -119,9 +119,6 @@
                             <!-- /dropdown-cart-->
                         </li>
                         <li>
-                            <a href="#0" class="wishlist" *ngIf="comprobarLogueo()"><span>Lista de deseos</span></a>
-                        </li>
-                        <li>
                             <div class="dropdown dropdown-access">
                                 <a class="access_link"><span>Cuenta</span></a>
                                 <div class="dropdown-menu">
@@ -139,7 +136,7 @@
                             <!-- /dropdown-access-->
                         </li>
                         <li>
-                            <a href="javascript:void(0);" class="btn_search_mob"><span>Buscar</span></a>
+
                         </li>
                         <li>
                             <a href="#menu" class="btn_cat_mob">

@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
-  selector: 'app-checkout',
-  templateUrl: './checkout.component.html',
+  selector: 'app-carrito',
+  templateUrl: './carrito.component.html',
   styles: []
 })
-export class ConfiguracionesComponent implements OnInit {
+export class CarritoComponent implements OnInit {
 
   desde = 0;
   totalAsistencias = true;
@@ -14,70 +15,49 @@ export class ConfiguracionesComponent implements OnInit {
 
   usuarios!: any;
   cantPlanes = 0;
+  IdPersona: any;
 
   totalUsuarios = 0;
   cargando = true;
 
   constructor(
-    public usuariosService: UsuariosService
+    public usuariosService: UsuariosService,
+    private activatedRoute: ActivatedRoute
   ) {
    }
 
   ngOnInit() {
-    // this.cargarUsuarios();
+    this.cargarCarritoUsuario();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-  cargarUsuarios() {
-  console.log("pasa cargar usuarios");
+cargarCarritoUsuario() {
+  console.log("pasa cargarCarritoUsuario");
 
-    this.usuariosService.listarUsuariosPaginado( this.desde  )
-               .subscribe( (resp: any) => {
+  this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
 
-                console.log("resp es : ",resp)
+    // this.usuariosService.listarCarritoUsuario( this.desde  )
+    //            .subscribe( (resp: any) => {
 
-                this.totalUsuarios = resp[1][0].cantCli;
+    //             console.log("resp es : ",resp)
 
-                this.usuarios = resp[0];
+    //             this.totalItemsCarrito = resp[1][0].cantItemsCarrito;
 
-                this.cargando = false;
+    //             this.itemsCarrito = resp[0];
 
-              });
+    //             this.cargando = false;
 
-  }
-
-
-// ==================================================
-//  Busca un cliente por plan o por todos
-// ==================================================
-
-  buscarCliente( ) {
-
-    const inputElement: HTMLInputElement = document.getElementById('buscarApellidos') as HTMLInputElement;
-    const Apellidos: any = inputElement.value || null;
-
-    const inputElement1: HTMLInputElement = document.getElementById('buscarNombres') as HTMLInputElement;
-    const Nombres: any = inputElement1.value || null;
-
-    // this.personaService.buscarClientePorPlan( Apellidos, Nombres , this.planSeleccionado.toString()  )
-    //         .subscribe( (resp: any) => {
-
-    //           if( resp.length !== 0 ) {
-    //             this.clientes = resp[0];
-    //             this.totalClientes = resp[1][0].cantCli;
-    //           } else {
-    //             this.totalClientes = 0;
-    //             this.clientes = resp[0];
-    //           }
-    //         });
+    //           });
 
   }
+
+
 
 // // ==================================================
-// //        Borra una persona
+// //        Borra un item del carrito
 // // ==================================================
 
 //  eliminarCliente( cliente: any ) {
@@ -139,7 +119,7 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  this.cargarUsuarios();
+  // this.cargarUsuarios();
 
 }
 

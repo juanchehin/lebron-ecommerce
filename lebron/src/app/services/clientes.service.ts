@@ -65,4 +65,34 @@ dameDirecionesCliente(  IdPersona: string  ): any {
   return this.http.get(url);
 
 }
+
+// ==================================================
+//        Crear cliente
+// ==================================================
+altaItemCarrito( IdProducto: any,IdPersona: any) {
+
+  // console.log("altaCliente es : ",cliente);
+
+  const data = Array(
+    IdProducto,
+    IdPersona
+  )
+
+  let url = URL_SERVICIOS + '/clientes/carrito/alta';
+  // url += '?IdRol=' + this.IdRol;
+
+  return this.http.post(
+    url,
+    data
+);
+}
+
+cardarDatosEnvio(  IdPersona: string  ): any {
+
+  const url = URL_SERVICIOS + '/clientes/datos-envio/' + IdPersona;
+
+  return this.http.get(url);
+
+}
+
 }

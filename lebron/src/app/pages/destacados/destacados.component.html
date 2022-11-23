@@ -14,7 +14,6 @@
                         <img *ngIf="producto.Imagen != null" [src]="producto.Imagen" class="img-fluid lazy">
                         <img *ngIf="producto.Imagen == null" [src]="imgTemp" class="img-fluid lazy">
                     </a>
-                    <div data-countdown="2019/05/15 " class="countdown "></div>
                 </figure>
                 <div class="rating "><i class="icon-star voted "></i><i class="icon-star voted "></i><i class="icon-star voted "></i><i class="icon-star voted "></i><i class="icon-star "></i></div>
                 <a href="product-detail-1.html ">
@@ -24,9 +23,8 @@
                     <span class="new_price ">${{producto.PrecioVenta}}</span>
                 </div>
                 <ul>
-                    <li><a href="#0 " class="tooltip-1 " data-toggle="tooltip " data-placement="left " title="Add to favorites "><i class="ti-heart "></i><span>Add to favorites</span></a></li>
                     <li><a href="#0 " class="tooltip-1 " data-toggle="tooltip " data-placement="left " title="Add to compare "><i class="ti-control-shuffle "></i><span>Add to compare</span></a></li>
-                    <li><a href="#0 " class="tooltip-1 " data-toggle="tooltip " data-placement="left " title="Add to cart "><i class="ti-shopping-cart "></i><span>Add to cart</span></a></li>
+                    <li><a (click)="agregarItemCarrito(producto.IdProducto)" class="tooltip-1 " data-toggle="tooltip " data-placement="left " title="Añadir al carrito"><i class="ti-shopping-cart "></i><span>Añadir al carrito</span></a></li>
                 </ul>
             </div>
             <!-- /grid_item -->

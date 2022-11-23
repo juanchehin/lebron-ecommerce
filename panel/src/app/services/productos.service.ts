@@ -23,5 +23,25 @@ export class ProductosService {
     return this.http.get( url );
   }
 
+  
+
+  // ==================================================
+//        
+// ==================================================
+altaProducto( producto: any ) {
+
+  let url = URL_SERVICIOS + '/productos/alta';
+  // url += '?IdRol=' + this.IdRol;
+
+  return this.http.post(
+    url,
+    producto
+    // {
+    //   headers: {
+    //     token: this.token
+    //   }
+    // }
+);
+}
 
 }

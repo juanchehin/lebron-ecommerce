@@ -1,7 +1,21 @@
 <div class="page-content">
     <div class="container-fluid">
         <section class="box-typical">
+
             <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad productos ( <small> {{ totalProductos }} </small> )</h3>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <button [routerLink]="['/dashboard/productos/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                      <i class="fa fa-plus"></i> 
+                      Nuevo Producto
+                    </button>
+                    </div>
+                </div>
                 <table id="table-edit" class="table table-bordered table-hover">
                     <thead>
                         <tr>
@@ -14,6 +28,7 @@
                             <th>Publicado</th>
                             <th>Destacado</th>
                             <th>En promocion</th>
+                            <th>Oferta</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -21,13 +36,21 @@
                         <tr *ngFor="let producto of productos">
                             <td>{{ producto.IdProducto }}</td>
                             <td>{{ producto.Producto }}</td>
-                            <td>{{ producto.PrecioVenta }}</td>
+                            <td>${{ producto.PrecioVenta }}</td>
                             <td>{{ producto.Descuento }}</td>
                             <td>
                                 <div class="col-sm-3">
                                     <div class="switch">
                                         <label>
                                         <input type="checkbox" ><span class="lever switch-col-light-blue"></span></label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-sm-3">
+                                    <div class="switch">
+                                        <label>
+                                        <input type="checkbox"><span class="lever switch-col-light-blue"></span></label>
                                     </div>
                                 </div>
                             </td>

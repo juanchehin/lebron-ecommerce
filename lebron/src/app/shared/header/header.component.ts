@@ -33,6 +33,7 @@ export class HeaderComponent implements OnInit {
         this.comprobarLogueo();
         this.usuarioActual = this.clienteService.usuario;
         this.IdUsuario = this.authService.IdPersona;
+        console.log("this.IdUsuario header = " + this.IdUsuario);
   }
 
 // ==================================================
@@ -93,5 +94,25 @@ buscarProducto() {
     } else {
       return false;
     }
+  }
+
+// ==================================================
+//        Funcion para comprobar si esta logueado actualmente
+// ==================================================
+  rutearCarritoCliente(){
+
+    if(this.IdUsuario == undefined)
+    { 
+      this.IdUsuario = this.authService.IdPersona;
+      if(this.IdUsuario == undefined)
+      {
+        this.authService.logout();
+        return;
+      } 
+    }
+    else{
+      this.router.navigate(['/carrito',this.IdUsuario]);
+    }
+    
   }
 }

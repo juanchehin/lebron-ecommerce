@@ -42,7 +42,7 @@
                                 <div class="col-sm-3">
                                     <div class="switch">
                                         <label>
-                                        <input type="checkbox" ><span class="lever switch-col-light-blue"></span></label>
+                                        <input type="checkbox" [checked]="{{producto.Publicado}}"><span class="lever switch-col-light-blue"></span></label>
                                     </div>
                                 </div>
                             </td>
@@ -50,7 +50,7 @@
                                 <div class="col-sm-3">
                                     <div class="switch">
                                         <label>
-                                        <input type="checkbox"><span class="lever switch-col-light-blue"></span></label>
+                                        <input type="checkbox" [checked]="{{producto.Destacado}}"><span class="lever switch-col-cyan"></span></label>
                                     </div>
                                 </div>
                             </td>
@@ -58,7 +58,7 @@
                                 <div class="col-sm-3">
                                     <div class="switch">
                                         <label>
-                                        <input type="checkbox"><span class="lever switch-col-light-blue"></span></label>
+                                        <input type="checkbox" [checked]="{{producto.Promocion}}"><span class="lever switch-col-orange"></span></label>
                                     </div>
                                 </div>
                             </td>
@@ -66,11 +66,10 @@
                                 <div class="col-sm-3">
                                     <div class="switch">
                                         <label>
-                                        <input type="checkbox"><span class="lever switch-col-light-blue"></span></label>
+                                        <input type="checkbox" [checked]="{{producto.Oferta}}"><span class="lever switch-col-deep-purple"></span></label>
                                     </div>
                                 </div>
                             </td>
-                            <!-- <td>{{ usuario.created_at | date:"dd/MM/yyyy" }}</td> -->
                             <td>
                                 <button class="btn btn-inline" type="button">Editar</button>
                                 <button class="btn btn-inline btn-danger" type="button">Eliminar</button>
@@ -85,8 +84,8 @@
             </div>
         </section>
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button (click)="cambiarDesde(-5) " type="button" class="btn btn-default-outline">Anteriores</button>
-            <button (click)="cambiarDesde(5) " type="button" class="btn btn-default-outline">Siguientes</button>
+            <!-- <button (click)="cambiarDesde(-5) " type="button" class="btn btn-default-outline">Anteriores</button>
+            <button (click)="cambiarDesde(5) " type="button" class="btn btn-default-outline">Siguientes</button> -->
         </div>
         <!--.box-typical-->
 

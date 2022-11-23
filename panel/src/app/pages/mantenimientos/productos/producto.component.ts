@@ -5,7 +5,7 @@ import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 import Swal from 'sweetalert2';
-import { CategoriasService } from 'src/app/services/categorias.service';
+// import { CategoriasService } from 'src/app/services/categorias.service';
 import { UnidadesService } from '../../../services/unidades.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class ProductoComponent implements OnInit {
     public productosService: ProductosService, 
     public activatedRoute: ActivatedRoute,
     public marcasService: MarcasService,
-    public categoriasService: CategoriasService,
+    // public categoriasService: CategoriasService,
     public unidadesService: UnidadesService,
     
     ) {
@@ -43,9 +43,9 @@ export class ProductoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cargarCategorias();
-    this.cargarMarcas();
-    this.cargarUnidades();
+    // this.cargarCategorias();
+    // this.cargarMarcas();
+    // this.cargarUnidades();
 
     this.forma = new FormGroup({
       IdCategoria: new FormControl(null, Validators.required ),
@@ -153,16 +153,16 @@ cargarCategorias() {
 cargarMarcas() {
   console.log("pasa cargar productos");
 
-    this.marcasService.listarMarcas(   )
-               .subscribe( (resp: any) => {
+    // this.marcasService.listarMarcas(   )
+    //            .subscribe( (resp: any) => {
 
-                console.log("resp es : ",resp)
+    //             console.log("resp es : ",resp)
 
-                this.marcas = resp[0];
+    //             this.marcas = resp[0];
 
-                this.cargando = false;
+    //             this.cargando = false;
 
-              });
+    //           });
 
   }
 
@@ -171,18 +171,18 @@ cargarMarcas() {
 // ==================================================
 
 cargarUnidades() {
-  console.log("pasa cargar productos");
+  // console.log("pasa cargar productos");
 
-    this.unidadesService.listarUnidades(  )
-               .subscribe( (resp: any) => {
+  //   this.unidadesService.listarUnidades(  )
+  //              .subscribe( (resp: any) => {
 
-                console.log("resp es : ",resp)
+  //               console.log("resp es : ",resp)
 
-                this.unidades = resp[0];
+  //               this.unidades = resp[0];
 
-                this.cargando = false;
+  //               this.cargando = false;
 
-              });
+  //             });
 
   }
 

@@ -32,12 +32,9 @@ export class ProductosComponent implements OnInit {
 // ==================================================
 
 cargarProductos() {
-  console.log("pasa cargar productos");
 
     this.productosService.listarProductosPaginado( this.desde  )
                .subscribe( (resp: any) => {
-
-                console.log("resp es : ",resp)
 
                 this.totalProductos = resp[1][0].cantProductos;
 
@@ -144,6 +141,23 @@ cambiarDesde( valor: number ) {
 }
 
 
+publicarProducto(IdProducto: string){
+  console.log("pasa publicar producto IdProducto : ",IdProducto)
+}
 
+
+destacarProducto(IdProducto: string){
+  console.log("pasa destacarProducto producto IdProducto : ",IdProducto)
+}
+
+
+promocionProducto(IdProducto: string){
+  console.log("pasa promocionProducto producto IdProducto : ",IdProducto)
+}
+
+
+ofertaProducto(IdProducto: string){
+  console.log("pasa ofertaProducto producto IdProducto : ",IdProducto)
+}
 
 }

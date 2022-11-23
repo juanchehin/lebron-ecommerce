@@ -1,25 +1,65 @@
 <div class="container">
     <form ngNativeValidate [formGroup]="forma" (ngSubmit)="altaProducto()">
-        <div class="row">
-            <div class="col-sm-6 form-group">
-                <label>Proveedor : </label>
-                <input formControlName="Proveedor" name="Proveedor" required type="text" placeholder="Proveedor..." class="form-control">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label>Producto : </label>
+                        <input formControlName="Producto" name="Producto" required type="text" placeholder="Producto..." class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Codigo : </label><input formControlName="Codigo" name="Codigo" required type="text" placeholder="Codigo" class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Stock : </label><input formControlName="Stock" name="Stock" required type="number" min="1" max="31" step="1" placeholder="Stock..." class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Fecha vencimiento : </label><input formControlName="Fecha_vencimiento" name="Fecha_vencimiento" required type="date" placeholder="Fecha vencimiento..." class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label>Stock alerta : </label>
+                        <input formControlName="stock_alerta" name="stock_alerta" required type="number" placeholder="Stock alerta..." class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Peso : </label><input formControlName="Peso" name="Peso" required type="number" placeholder="Peso" class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Sabor : </label><input formControlName="Sabor" name="Sabor" required type="number" min="1" max="31" step="1" placeholder="Sabor..." class="form-control">
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-6 form-group">
-                <label>CUIL : </label><input formControlName="CUIL" name="CUIL" required type="text" placeholder="CUIL" class="form-control">
-            </div>
-            <div class="col-sm-6 form-group">
-                <label>Telefono : </label><input formControlName="Telefono" name="Telefono" required type="number" min="1" max="31" step="1" placeholder="Telefono" class="form-control">
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label>Precio Compra : </label><input formControlName="PrecioCompra" name="PrecioCompra" type="number" placeholder="Precio Compra..." class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Precio Venta : </label><input formControlName="PrecioVenta" name="PrecioVenta" type="text" placeholder="Precio de Venta" class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Precio Mayorista : </label><input formControlName="PrecioMayorista" name="PrecioMayorista" type="number" min="1" max="31" step="1" placeholder="Precio Mayorista..." class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Precio Meli : </label><input formControlName="PrecioMeli" name="PrecioMeli" type="number" placeholder="Precio Meli..." class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Descuento : </label><input formControlName="Descuento" name="Descuento" required type="date" placeholder="Descuento..." class="form-control">
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 form-group">
-                <label>Observaciones : </label>
-                <textarea formControlName="Observaciones" name="Observaciones" type="textarea" placeholder="Observaciones..." rows="3" class="form-control"></textarea>
+            <div class="col-sm-12 form-group">
+                <label>Descripcion : </label>
+                <textarea formControlName="Descripcion" name="Descripcion" type="textarea" placeholder="Descripcion..." rows="3" class="form-control"></textarea>
             </div>
         </div>
         <br>
-        <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar Usuario</button>
+        <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar Producto</button>
         <br>
     </form>
 </div>

@@ -133,16 +133,16 @@ altaProducto() {
 cargarCategorias() {
   console.log("pasa cargar productos");
 
-    this.categoriasService.listarCategorias(  )
-               .subscribe( (resp: any) => {
+    // this.categoriasService.listarCategorias(  )
+    //            .subscribe( (resp: any) => {
 
-                console.log("resp es : ",resp)
+    //             console.log("resp es : ",resp)
 
-                this.categorias = resp[0];
+    //             this.categorias = resp[0];
 
-                this.cargando = false;
+    //             this.cargando = false;
 
-              });
+    //           });
 
   }
 

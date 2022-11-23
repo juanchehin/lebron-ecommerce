@@ -66,6 +66,8 @@ export class VerificaTokenGuard implements CanActivate {
   expirado(fechaExp: number) {  // <-- Obtiene la fecha de expiracion del token
     const ahora = new Date().getTime() / 1000;  // <-- Fecha actual en [ms]
 
+    console.log("pasa expirado ",fechaExp);
+
     if( fechaExp < ahora ){
       return true;
     } else{

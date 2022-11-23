@@ -20,6 +20,7 @@ import { ProveedoresComponent } from './mantenimientos/proveedores/proveedores.c
 import { ProductosComponent } from './mantenimientos/productos/productos.component';
 import { MarcasComponent } from './mantenimientos/marcas/marcas.component';
 import { UsuarioComponent } from './mantenimientos/usuarios/usuario.component';
+import { ProductoComponent } from './mantenimientos/productos/producto.component';
 
 
 const childRoutes: Routes = [
@@ -35,6 +36,7 @@ const childRoutes: Routes = [
   // Mantenimientos
   { path: 'proveedores', component: ProveedoresComponent, data: { titulo: 'Proveedores' }},
   { path: 'productos', component: ProductosComponent, data: { titulo: 'Productos' }},
+  { path: 'productos/nuevo', component: ProductoComponent, data: { titulo: 'Nuevo Producto' }},
   { path: 'marcas', component: MarcasComponent, data: { titulo: 'Marcas' }},
   { path: 'medicos', component: MedicosComponent, data: { titulo: 'Matenimiento de Medicos' }},
   { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Matenimiento de Medicos' }},

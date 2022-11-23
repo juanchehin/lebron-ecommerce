@@ -5,7 +5,7 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm-4">
-                        <h3 class="card-title">Cantidad productos ( <small> {{ totalProductos }} </small> )</h3>
+                        <h3 class="card-title">Cantidad productos ( <small> {{totalProductos }} </small> )</h3>
                     </div>
                     <div class="col-4">
                     </div>
@@ -22,6 +22,7 @@
                             <th width="1">
                                 #
                             </th>
+                            <th>Codigo</th>
                             <th>Producto</th>
                             <th>PrecioVenta</th>
                             <th>Descuento(%)</th>
@@ -35,6 +36,7 @@
                     <tbody>
                         <tr *ngFor="let producto of productos">
                             <td>{{ producto.IdProducto }}</td>
+                            <td>{{ producto.Codigo }}</td>
                             <td>{{ producto.Producto }}</td>
                             <td>${{ producto.PrecioVenta }}</td>
                             <td>{{ producto.Descuento }}</td>
@@ -42,7 +44,7 @@
                                 <div class="col-sm-3">
                                     <div class="switch">
                                         <label>
-                                        <input type="checkbox" [checked]="{{producto.Publicado}}"><span class="lever switch-col-light-blue"></span></label>
+                                        <input type="checkbox" [checked]="producto.Publicado" (click)="publicarProducto(producto.IdProducto)"><span class="lever switch-col-light-blue"></span></label>
                                     </div>
                                 </div>
                             </td>
@@ -50,7 +52,7 @@
                                 <div class="col-sm-3">
                                     <div class="switch">
                                         <label>
-                                        <input type="checkbox" [checked]="{{producto.Destacado}}"><span class="lever switch-col-cyan"></span></label>
+                                        <input type="checkbox" [checked]="producto.Destacado" (click)="destacarProducto(producto.IdProducto)"><span class="lever switch-col-cyan"></span></label>
                                     </div>
                                 </div>
                             </td>
@@ -58,7 +60,7 @@
                                 <div class="col-sm-3">
                                     <div class="switch">
                                         <label>
-                                        <input type="checkbox" [checked]="{{producto.Promocion}}"><span class="lever switch-col-orange"></span></label>
+                                        <input type="checkbox" [checked]="producto.Promocion" (click)="promocionProducto(producto.IdProducto)"><span class="lever switch-col-orange"></span></label>
                                     </div>
                                 </div>
                             </td>
@@ -66,7 +68,7 @@
                                 <div class="col-sm-3">
                                     <div class="switch">
                                         <label>
-                                        <input type="checkbox" [checked]="{{producto.Oferta}}"><span class="lever switch-col-deep-purple"></span></label>
+                                        <input type="checkbox" [checked]="producto.Oferta" (click)="ofertaProducto(producto.IdProducto)"><span class="lever switch-col-deep-purple"></span></label>
                                     </div>
                                 </div>
                             </td>

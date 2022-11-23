@@ -26,6 +26,7 @@ import { ProveedoresComponent } from './mantenimientos/proveedores/proveedores.c
 import { ProductosComponent } from './mantenimientos/productos/productos.component';
 import { MarcasComponent } from './mantenimientos/marcas/marcas.component';
 import { UsuarioComponent } from './mantenimientos/usuarios/usuario.component';
+import { ProductoComponent } from './mantenimientos/productos/producto.component';
 
 
 
@@ -48,6 +49,7 @@ import { UsuarioComponent } from './mantenimientos/usuarios/usuario.component';
     BusquedaComponent,
     ProveedoresComponent,
     ProductosComponent,
+    ProductoComponent,
     MarcasComponent,
     UsuarioComponent
   ],

@@ -1,0 +1,43 @@
+<div class="main_title">
+    <h2>Relacionados</h2>
+    <span>Productos</span>
+</div>
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <div class="row">
+                <div class="col-md-2" *ngFor="let producto of productosRelacionadosPaginacion">
+                    <div class="item">
+                        <div class="grid_item">
+                            <figure>
+                                <a href="product-detail-1.html">
+                                    <img class="owl-lazy" src="img/products/product_placeholder_square_medium.jpg" data-src="img/products/shoes/4.jpg" alt="">
+                                </a>
+                            </figure>
+                            <div class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i></div>
+                            <a href="product-detail-1.html">
+                                <h3>{{producto.Producto}}</h3>
+                            </a>
+                            <div class="price_box">
+                                <span class="new_price">$ {{producto.PrecioVenta}}</span>
+                            </div>
+                            <ul>
+                                <li><a href="#0" class="tooltip-1" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a></li>
+                            </ul>
+                        </div>
+                        <!-- /grid_item -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a class="carousel-control-prev" (click)="cambiarDesde(-6)" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" (click)="cambiarDesde(6)" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>

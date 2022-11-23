@@ -53,8 +53,6 @@ cargarDatosProducto(){
     this.productosService.dameDatosProducto(this.IdProducto)
     .subscribe( (resp: any) => {
 
-      console.log("resp es : ",resp)
-
       this.Producto = resp[0][0].Producto;
       this.Categoria = resp[0][0].Categoria;
       this.SubCategoria = resp[0][0].SubCategoria;

@@ -26,6 +26,8 @@ import { PerfilComponent } from './cuenta/perfil/perfil.component';
 import { TerminosCondicionesComponent } from './institucional/terminos-condiciones/terminos-condiciones.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { EnvioComponent } from './envio/envio.component';
+import { ProductosRelacionadosComponent } from './productos-relacionados/productos-relacionados.component';
+import { ProductoDetalleComponent } from './producto-detalle/producto-detalle.component';
 // import { CheckoutComponent } from './envio/envio.component';
 
 @NgModule({
@@ -48,7 +50,9 @@ import { EnvioComponent } from './envio/envio.component';
         PerfilComponent,
         TerminosCondicionesComponent,
         CarritoComponent,
-        EnvioComponent
+        EnvioComponent,
+        ProductosRelacionadosComponent,
+        ProductoDetalleComponent
         // CheckoutComponent
     ],
     exports: [

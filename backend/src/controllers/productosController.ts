@@ -115,6 +115,22 @@ public async dameDatosProducto(req: Request, res: Response): Promise<void> {
     })
 }
 
+// ==================================================
+//        get one
+// ==================================================
+public async listarProductosRelacionados(req: Request, res: Response): Promise<void> {
+
+    const { pIdProducto } = req.params;
+
+    pool.query(`call bsp_dame_productos_relacionados('${pIdProducto}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
 }
 
 

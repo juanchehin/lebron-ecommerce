@@ -94,4 +94,13 @@ dameDatosProducto(IdProducto: any){
   return this.http.get( url );
 }
 
+// ==================================================
+//
+// ==================================================
+cargarProductosRelacionados(IdProducto: any){
+
+  let url = URL_SERVICIOS + '/productos/relacionados/' + IdProducto;
+
+  return this.http.get( url );
+}
 }

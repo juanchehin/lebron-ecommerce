@@ -22,6 +22,7 @@ class ProductosRoutes {
         this.router.get('/buscar/:pProductoBuscado/:pDesde',productosController.buscarProducto);
         this.router.get('/destacados/home',productosController.listarProductosDestacadosHome);
         this.router.get('/promocion/home',productosController.listarProductosPromocionHome);
+        this.router.get('/relacionados/:pIdProducto',productosController.listarProductosRelacionados);
     }
 
 }

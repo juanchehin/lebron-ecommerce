@@ -25,7 +25,8 @@ import { MisDireccionesComponent } from './cuenta/perfil/direcciones/mis-direcci
 import { PerfilComponent } from './cuenta/perfil/perfil.component';
 import { TerminosCondicionesComponent } from './institucional/terminos-condiciones/terminos-condiciones.component';
 import { CarritoComponent } from './carrito/carrito.component';
-import { CheckoutComponent } from './envio/envio.component';
+import { EnvioComponent } from './envio/envio.component';
+// import { CheckoutComponent } from './envio/envio.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import { CheckoutComponent } from './envio/envio.component';
         PerfilComponent,
         TerminosCondicionesComponent,
         CarritoComponent,
-        CheckoutComponent
+        EnvioComponent
+        // CheckoutComponent
     ],
     exports: [
         PagesComponent

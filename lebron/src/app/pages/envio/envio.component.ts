@@ -4,11 +4,11 @@ import { ClientesService } from 'src/app/services/clientes.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
-  selector: 'app-direcciones',
-  templateUrl: './direcciones.component.html',
+  selector: 'app-envio',
+  templateUrl: './envio.component.html',
   styles: []
 })
-export class DireccionesComponent implements OnInit {
+export class EnvioComponent implements OnInit {
 
   desde = 0;
   totalAsistencias = true;

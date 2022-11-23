@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-destacados',
@@ -25,7 +26,8 @@ export class DestacadosComponent implements OnInit {
   constructor(
     public productosService: ProductosService,
     public clientesService: ClientesService,
-    public authService: AuthService
+    public authService: AuthService,
+    public router: Router
   ) {
    }
 
@@ -60,7 +62,24 @@ cargarProductosDestacadosHome() {
 
         // this.productosDestacados = resp[0];
 
+        if(resp[0].Mensaje == 'Ok'){
+          this.router.navigate(['/carrito/producto-agregado',IdProducto]);
+        }
+        else
+        { 
+          // Mostrar cartel de error al agregar producto al carrito
+        }
     });
+  }
+
+// ==================================================
+// Carga
+// ==================================================
+
+rutearDetalleProducto(IdProducto: any) {
+
+  this.router.navigate(['/producto/detalle',IdProducto]);
+
   }
 
 }

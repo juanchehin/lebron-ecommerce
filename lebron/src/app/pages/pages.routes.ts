@@ -17,6 +17,7 @@ import { FranquiciaComponent } from './institucional/franquicia/franquicia.compo
 import { PoliticasComponent } from './institucional/politicas-seguridad/politicas-seguridad.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { EnvioComponent } from './envio/envio.component';
+import { ProductoDetalleComponent } from './producto-detalle/producto-detalle.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -33,6 +34,7 @@ const pagesRoutes: Routes = [
             { path: 'envio/:IdPersona', component: EnvioComponent },
             { path: 'cuenta-creada', component: MailComponent },
             { path: 'promociones', component: ProductosPromocionComponent },
+            { path: 'producto/detalle/:IdProducto', component: ProductoDetalleComponent },
             { path: 'categoria/:IdCategoria', component: CategoriasComponent },
             { path: 'busqueda/:productoBuscado', component: BuscadorComponent },
             { path: 'terminos-y-condiciones', component: TerminosCondicionesComponent },

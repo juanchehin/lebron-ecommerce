@@ -15,6 +15,7 @@ class ProductosRoutes {
     config(): void {
 
         //
+        this.router.get('/:pIdProducto',productosController.dameDatosProducto); 
         this.router.get('/listar/:desde',productosController.listarProductosPaginado); 
         this.router.get('/listar/promocion/:desde',productosController.listarProductosPromocion);
         this.router.get('/listar/categoria/:IdCategoria/:pDesde',productosController.listarProductosCategoria);

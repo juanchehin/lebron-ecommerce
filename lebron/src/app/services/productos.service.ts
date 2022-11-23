@@ -84,5 +84,14 @@ listarProductosPromocionHome(){
   return this.http.get( url );
 }
 
+// ==================================================
+//
+// ==================================================
+dameDatosProducto(IdProducto: any){
+
+  let url = URL_SERVICIOS + '/productos/' + IdProducto;
+
+  return this.http.get( url );
+}
 
 }

@@ -33,7 +33,6 @@ export class HeaderComponent implements OnInit {
         this.comprobarLogueo();
         this.usuarioActual = this.clienteService.usuario;
         this.IdUsuario = this.authService.IdPersona;
-        console.log("this.IdUsuario header = " + this.IdUsuario);
   }
 
 // ==================================================

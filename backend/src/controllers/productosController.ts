@@ -98,6 +98,22 @@ public async buscarProducto(req: Request, res: Response): Promise<void> {
         res.status(200).json(result);
     })
 }
+// ==================================================
+//        get one
+// ==================================================
+public async dameDatosProducto(req: Request, res: Response): Promise<void> {
+
+    const { pIdProducto } = req.params;
+
+    pool.query(`call bsp_dame_producto_front('${pIdProducto}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
 
 }
 

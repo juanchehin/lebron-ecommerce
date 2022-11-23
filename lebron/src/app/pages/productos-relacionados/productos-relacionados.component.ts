@@ -14,8 +14,6 @@ const URL_IMAGENES = environment.URL_IMAGENES;
 export class ProductosRelacionadosComponent implements OnInit {
 
   desde = 0;
-  numbers: any[] = [];
-  totalAsistencias = true;
   public imgTemp: any = '../../../assets/img/lebron_lebron.png';
 
   productosRelacionados!: any;

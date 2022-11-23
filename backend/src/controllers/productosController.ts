@@ -7,7 +7,7 @@ class ProductosController {
 //        Lista productos
 // ==================================================
 public async listarProductosPaginado(req: Request, res: Response): Promise<void> {
-    var desde = req.query.desde || 0;
+    var desde = req.params.desde || 0;
     desde  = Number(desde);
 
     pool.query(`call bsp_listar_productos_paginado('${desde}')`, function(err: any, result: any, fields: any){
@@ -22,7 +22,7 @@ public async listarProductosPaginado(req: Request, res: Response): Promise<void>
 //        Lista personas desde cierto valor
 // ==================================================
 public async listarProductosPromocion(req: Request, res: Response): Promise<void> {
-    var desde = req.query.desde || 0;
+    var desde = req.params.desde || 0;
     desde  = Number(desde);
 
     pool.query(`call bsp_listar_productos_promocion('${desde}')`, function(err: any, result: any, fields: any){

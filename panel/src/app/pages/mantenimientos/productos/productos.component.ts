@@ -136,7 +136,7 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  // this.cargarProductos();
+  this.cargarProductos();
 
 }
 

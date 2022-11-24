@@ -12,11 +12,12 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-nueva-venta',
   templateUrl: './nueva-venta.component.html',
-  styleUrls: ['./nueva-venta.component.css']
+  styleUrls: []
 })
 export class NuevaVentaComponent implements OnInit {
 
   forma!: FormGroup;
+  keyword = 'Apellidos';
   cargando = true;
   marcas: any;
   categorias: any;
@@ -27,6 +28,7 @@ export class NuevaVentaComponent implements OnInit {
   local = '';
   lineas_venta = new Array();
   clientes: any;
+
 
   constructor(
     private router: Router, 
@@ -53,8 +55,10 @@ export class NuevaVentaComponent implements OnInit {
   ngOnInit() {
     this.cargarClientes();
     this.cargarDatosVendedor();
+    
     // this.cargarMarcas();
     // this.cargarUnidades();
+    
 
     this.forma = new FormGroup({
       IdCategoria: new FormControl(null, Validators.required ),
@@ -77,7 +81,7 @@ export class NuevaVentaComponent implements OnInit {
       Descuento: new FormControl(null, Validators.required )
       });
   }
-
+  
 // ==================================================
 //        Crear 
 // ==================================================
@@ -128,12 +132,16 @@ altaVenta() {
 // ==================================================
 
 cargarClientes() {
-  console.log("pasa cargar cargarClientes");
 
     this.clientesService.cargarClientes( this.clienteBuscado )
                .subscribe( (resp: any) => {
 
                 this.clientes = resp[0];
+
+
+
+
+                // this.options = this.clientes;
 
                 // this.cargando = false;
 
@@ -161,5 +169,16 @@ cargarDatosVendedor() {
 
   }
 
+  selectEvent(item: any) {
+    // do something with selected item
+  }
 
+  onChangeSearch(val: any) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+  
+  onFocused(e: any){
+    // do something when input is focused
+  }
 }

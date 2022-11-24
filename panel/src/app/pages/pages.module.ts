@@ -29,9 +29,7 @@ import { ProductoComponent } from './mantenimientos/productos/producto.component
 import { UnidadComponent } from './mantenimientos/productos/unidades/unidad.component';
 import { UnidadesComponent } from './mantenimientos/productos/unidades/unidades.component';
 import { NuevaVentaComponent } from './mantenimientos/ventas/nueva-venta/nueva-venta.component';
-
-
-
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 
 @NgModule({
@@ -71,7 +69,8 @@ import { NuevaVentaComponent } from './mantenimientos/ventas/nueva-venta/nueva-v
     SharedModule,
     RouterModule,
     ComponentsModule,
-    PipesModule
+    PipesModule,
+    AutocompleteLibModule
   ]
 })
 export class PagesModule { }

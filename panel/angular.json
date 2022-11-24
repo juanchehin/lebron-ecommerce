@@ -22,10 +22,8 @@
                             "src/favicon.ico",
                             "src/assets"
                         ],
-                        "styles": [
-                        ],
-                        "scripts": [
-                        ]
+                        "styles": [],
+                        "scripts": []
                     },
                     "configurations": {
                         "production": {

@@ -52,7 +52,7 @@ pool.query(`call bsp_login_usuario('${email}')`, function(err: any, resultLogin:
                 usuario: resultLogin[0][0].lUsuario,
                 IdRol: resultLogin[0][0].lIdRol,
                 token: token,
-                id: resultLogin[0][0].lIdPersona,
+                IdPersona: resultLogin[0][0].lIdPersona,
                 menu: menu
             });
         }

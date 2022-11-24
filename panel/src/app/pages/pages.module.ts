@@ -18,7 +18,6 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
-import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
 import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
 import { MedicoComponent } from './mantenimientos/medicos/medico.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
@@ -27,6 +26,9 @@ import { ProductosComponent } from './mantenimientos/productos/productos.compone
 import { MarcasComponent } from './mantenimientos/marcas/marcas.component';
 import { UsuarioComponent } from './mantenimientos/usuarios/usuario.component';
 import { ProductoComponent } from './mantenimientos/productos/producto.component';
+import { UnidadComponent } from './mantenimientos/productos/unidades/unidad.component';
+import { UnidadesComponent } from './mantenimientos/productos/unidades/unidades.component';
+import { NuevaVentaComponent } from './mantenimientos/ventas/nueva-venta/nueva-venta.component';
 
 
 
@@ -43,7 +45,6 @@ import { ProductoComponent } from './mantenimientos/productos/producto.component
     RxjsComponent,
     PerfilComponent,
     UsuariosComponent,
-    HospitalesComponent,
     MedicosComponent,
     MedicoComponent,
     BusquedaComponent,
@@ -51,7 +52,10 @@ import { ProductoComponent } from './mantenimientos/productos/producto.component
     ProductosComponent,
     ProductoComponent,
     MarcasComponent,
-    UsuarioComponent
+    UsuarioComponent,
+    UnidadesComponent,
+    UnidadComponent,
+    NuevaVentaComponent
   ],
   exports: [
     DashboardComponent,

@@ -22,5 +22,13 @@ export class VentasService {
     return this.http.get( url );
   }
 
+// ==================================================
+//
+// ==================================================
+altaVenta( venta : any){
 
+  let url = URL_SERVICIOS + '/ventas/alta/';
+
+  return this.http.post( url, venta );
+}
 }

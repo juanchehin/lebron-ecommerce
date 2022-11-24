@@ -44,4 +44,39 @@ altaProducto( producto: any ) {
 );
 }
 
+// ==================================================
+//  ******* Unidades *******        
+// ==================================================
+
+// ==================================================
+//
+// ==================================================
+listarUnidadesPaginado(desde: any){
+
+  let url = URL_SERVICIOS + '/productos/unidades/listar/' + desde;
+
+  return this.http.get( url );
+}
+
+  // ==================================================
+//        
+// ==================================================
+altaUnidad( unidad: any ) {
+
+  let url = URL_SERVICIOS + '/productos/unidades/alta';
+  // url += '?IdRol=' + this.IdRol;
+
+  return this.http.post(
+    url,
+    unidad
+    // {
+    //   headers: {
+    //     token: this.token
+    //   }
+    // }
+);
+}
+
+
+
 }

@@ -28,10 +28,10 @@
                     <ul aria-expanded="false" [ngClass]="expandirProductos ? 'collapse' : ''">
                         <li><a routerLinkActive="active" [routerLink]="['/dashboard/productos']">Listar Productos </a></li>
                         <li><a [routerLink]="['/dashboard/productos/importar']">Nuevo producto</a></li>
-                        <li><a [routerLink]="['/dashboard/unidades']">Unidades</a></li>
-                        <li><a [routerLink]="['/dashboard/categorias']">Categorias</a></li>
-                        <li><a [routerLink]="['/dashboard/subcategorias']">Subcategorias</a></li>
-                        <li><a [routerLink]="['/dashboard/marcas']">Marcas</a></li>
+                        <li><a [routerLink]="['/dashboard/productos/unidades']">Unidades</a></li>
+                        <li><a [routerLink]="['/dashboard/productos/categorias']">Categorias</a></li>
+                        <li><a [routerLink]="['/dashboard/productos/subcategorias']">Subcategorias</a></li>
+                        <li><a [routerLink]="['/dashboard/productos/marcas']">Marcas</a></li>
                     </ul>
                 </li>
                 <!-- ===== ** Compras ** ====== -->
@@ -40,13 +40,10 @@
                         <!-- <img [src]="usuario.imagenUrl" alt="user" /> -->
                         <span class="hide-menu">Compras </span>
                     </a>
-                    <ul aria-expanded="false" [ngClass]="expandirVentas ? 'collapse' : ''">
+                    <ul aria-expanded="false" [ngClass]="expandirCompras ? 'collapse' : ''">
                         <li *ngIf="activarSubMenu('Compras','Ver')"><a routerLinkActive="active" [routerLink]="['/dashboard/productos']">Listar Productos </a></li>
-                        <li><a [routerLink]="['/dashboard/productos/importar']">Nuevo producto</a></li>
-                        <li><a [routerLink]="['/dashboard/unidades']">Unidades</a></li>
-                        <li><a [routerLink]="['/dashboard/categorias']">Categorias</a></li>
-                        <li><a [routerLink]="['/dashboard/subcategorias']">Subcategorias</a></li>
-                        <li><a [routerLink]="['/dashboard/marcas']">Marcas</a></li>
+                        <li><a [routerLink]="['/dashboard/compras']">Listar compras</a></li>
+                        <li><a [routerLink]="['/dashboard/compras/nueva']">Nueva compra</a></li>
                     </ul>
                 </li>
                 <!-- ===== ** Ventas ** ====== -->
@@ -57,11 +54,9 @@
                     </a>
                     <ul aria-expanded="false" [ngClass]="expandirVentas ? 'collapse' : ''">
                         <li *ngIf="activarSubMenu('Ventas','Ver')"><a routerLinkActive="active" [routerLink]="['/dashboard/productos']">Listar Productos </a></li>
-                        <li><a [routerLink]="['/dashboard/productos/importar']">Nuevo producto</a></li>
-                        <li><a [routerLink]="['/dashboard/unidades']">Unidades</a></li>
-                        <li><a [routerLink]="['/dashboard/categorias']">Categorias</a></li>
-                        <li><a [routerLink]="['/dashboard/subcategorias']">Subcategorias</a></li>
-                        <li><a [routerLink]="['/dashboard/marcas']">Marcas</a></li>
+                        <li><a [routerLink]="['/dashboard/ventas/listar']">Listar ventas</a></li>
+                        <li><a [routerLink]="['/dashboard/venta/nueva']">Nuevo venta</a></li>
+                        <li><a [routerLink]="['/dashboard/ventas',IdPersona]">Mis ventas</a></li>
                     </ul>
                 </li>
                 <!-- ===== ** Transferencias ** ====== -->
@@ -72,13 +67,21 @@
                     </a>
                     <ul aria-expanded="false" [ngClass]="expandirTransferencias ? 'collapse' : ''">
                         <li *ngIf="activarSubMenu('Transferencias','Ver')"><a routerLinkActive="active" [routerLink]="['/dashboard/productos']">Listar Productos </a></li>
-                        <li><a [routerLink]="['/dashboard/productos/importar']">Nuevo producto</a></li>
+                        <li><a [routerLink]="['/dashboard/productos/nuevo']">Nuevo producto</a></li>
+                        <li><a [routerLink]="['/dashboard/productos/importar']">Importar productos</a></li>
                         <li><a [routerLink]="['/dashboard/unidades']">Unidades</a></li>
                         <li><a [routerLink]="['/dashboard/categorias']">Categorias</a></li>
                         <li><a [routerLink]="['/dashboard/subcategorias']">Subcategorias</a></li>
                         <li><a [routerLink]="['/dashboard/marcas']">Marcas</a></li>
                     </ul>
                 </li>
+                <!-- ===== ** Configuraciones ** ====== -->
+                <li class="user-profile" [routerLink]="['/dashboard/configuraciones']" *ngIf="activarMenu('Configuraciones')">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <span class="hide-menu">Configuraciones </span>
+                    </a>
+                </li>
+
 
                 <li class="nav-devider"></li>
             </ul>

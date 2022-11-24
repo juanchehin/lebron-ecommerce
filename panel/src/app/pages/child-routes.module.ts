@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
-import { Grafica1Component } from './grafica1/grafica1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
@@ -11,9 +10,6 @@ import { PerfilComponent } from './perfil/perfil.component';
 
 // Mantenimientos
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
-import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
-import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
-import { MedicoComponent } from './mantenimientos/medicos/medico.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 // import { AdminGuard } from '../guards/admin.guard.ts.old';
 import { ProveedoresComponent } from './mantenimientos/proveedores/proveedores.component';
@@ -21,6 +17,9 @@ import { ProductosComponent } from './mantenimientos/productos/productos.compone
 import { MarcasComponent } from './mantenimientos/marcas/marcas.component';
 import { UsuarioComponent } from './mantenimientos/usuarios/usuario.component';
 import { ProductoComponent } from './mantenimientos/productos/producto.component';
+import { UnidadesComponent } from './mantenimientos/productos/unidades/unidades.component';
+import { UnidadComponent } from './mantenimientos/productos/unidades/unidad.component';
+import { NuevaVentaComponent } from './mantenimientos/ventas/nueva-venta/nueva-venta.component';
 
 
 const childRoutes: Routes = [
@@ -37,9 +36,10 @@ const childRoutes: Routes = [
   { path: 'proveedores', component: ProveedoresComponent, data: { titulo: 'Proveedores' }},
   { path: 'productos', component: ProductosComponent, data: { titulo: 'Productos' }},
   { path: 'productos/nuevo', component: ProductoComponent, data: { titulo: 'Nuevo Producto' }},
-  { path: 'marcas', component: MarcasComponent, data: { titulo: 'Marcas' }},
-  { path: 'medicos', component: MedicosComponent, data: { titulo: 'Matenimiento de Medicos' }},
-  { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Matenimiento de Medicos' }},
+  { path: 'productos/unidades', component: UnidadesComponent, data: { titulo: 'Unidades' }},
+  { path: 'productos/unidades/nuevo', component: UnidadComponent, data: { titulo: 'Nueva Unidad' }},
+  { path: 'productos/marcas', component: MarcasComponent, data: { titulo: 'Marcas' }},
+  { path: 'venta/nueva', component: NuevaVentaComponent, data: { titulo: 'Nueva venta' }},
 
   // Rutas de Admin
   { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' } },

@@ -11,7 +11,6 @@ export class LoginGuardGuard implements CanActivate {
   constructor(public authService: AuthService, public router: Router) {
   }
   canActivate() {
-    console.log("pasa esta logueado ",this.authService.estaLogueado())
     if ( this.authService.estaLogueado()) {
       return true;
      } else {

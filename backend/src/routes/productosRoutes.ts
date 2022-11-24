@@ -23,6 +23,8 @@ class ProductosRoutes {
         this.router.get('/destacados/home',productosController.listarProductosDestacadosHome);
         this.router.get('/promocion/home',productosController.listarProductosPromocionHome);
         this.router.get('/relacionados/:pIdProducto',productosController.listarProductosRelacionados);
+        // Unidades
+        this.router.get('/unidades/listar/:desde',productosController.listarUnidadesPaginado); 
     }
 
 }

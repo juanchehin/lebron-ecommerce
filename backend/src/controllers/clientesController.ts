@@ -113,11 +113,11 @@ public async activarCliente(req: Request, res: Response) {
 //        Lista Clientes desde cierto valor
 // ==================================================
 
-public async listarClientes(req: Request, res: Response): Promise<void> {
+public async listarClientesPaginado(req: Request, res: Response): Promise<void> {
      var desde = req.params.desde || 0;
      desde  = Number(desde);
 
-     pool.query(`call bsp_listar_clientes_estado('${desde}')`, function(err: any, result: any, fields: any){
+     pool.query(`call bsp_listar_clientes_paginado('${desde}')`, function(err: any, result: any, fields: any){
         if(err){
             console.log("error", err);
             return;
@@ -218,6 +218,22 @@ public async actualizaCliente(req: Request, res: Response) {
 
 }
 
+// ==================================================
+//        
+// ==================================================
+public async buscarCliente(req: Request, res: Response): Promise<any> {
+    var clienteBuscado = req.params.clienteBuscado;
+
+    pool.query(`call bsp_buscar_cliente('${clienteBuscado}')`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(404).json({ text: "La personas no existe" });
+            return;
+        }
+        
+        res.status(200).json(result[0]);
+    })
+
+}
 }
 
 
@@ -227,7 +243,7 @@ export default clientesController;
 
 
 // ==================================================
-//   *** Funcion SIN  USO por ahora ---
+//   
 // ==================================================
 
 async function enviarMailBienvenida(pEmail: string) {

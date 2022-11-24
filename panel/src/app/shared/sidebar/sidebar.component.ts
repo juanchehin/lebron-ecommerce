@@ -1,8 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { SidebarService } from '../../services/sidebar.service';
-import { UsuarioService } from '../../services/usuario.service';
-
-import { Usuario } from '../../models/usuario.model';
 import { IMenuStructure } from 'src/app/interfaces/menu.model';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -14,10 +11,9 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class SidebarComponent implements OnInit {
 
-  public usuario: Usuario;
-
   correoActual: any;
   elementosMenuPadre: any[] = [];
+  IdPersona: any;
   // menu: any;
   menu: IMenuStructure[] = [];
   ocultarSidebar: boolean | undefined;
@@ -27,14 +23,15 @@ export class SidebarComponent implements OnInit {
   expandirTransferencias = true;
 
  
-  constructor( public sidebarService: SidebarService,
-                public authService: AuthService,
-               private usuarioService: UsuarioService) {
-    this.usuario = usuarioService.usuario;
+  constructor( 
+              public sidebarService: SidebarService,
+              public authService: AuthService
+            ) {
   }
 
   ngOnInit(): void {
     this.armarMenu();
+    this.IdPersona = this.authService.personaId;
   }
 
   // Genera menu y submenu
@@ -91,7 +88,6 @@ export class SidebarComponent implements OnInit {
 
     });
 
-    console.log("this.menu es : ",this.menu)
   }
 
   // ***
@@ -115,7 +111,6 @@ export class SidebarComponent implements OnInit {
       var first = obj.subMenuList.find((obj1: any) => {
         return obj1 === itemHijo;
       });
-      console.log("first es ; ",first);
 
       return (obj.id === 0 && obj.subMenuList === itemHijo);
     });

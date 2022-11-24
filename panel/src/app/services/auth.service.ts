@@ -47,9 +47,9 @@ login( persona: any ): any {
                   return false;
                 }
 
-                console.log("resp en sevicio es ; ",resp)
       this.IdRol = resp.IdRol;
-      this.guardarStorage( resp.id, resp.token, resp.usuario, resp.menu, resp.IdRol);
+      this.personaId = resp.IdPersona;
+      this.guardarStorage( resp.IdPersona, resp.token, resp.usuario, resp.menu, resp.IdRol);
       this.cargarStorage();
 
       return true;

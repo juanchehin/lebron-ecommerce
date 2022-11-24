@@ -15,12 +15,23 @@ export class ClientesService {
 // ==================================================
 //
 // ==================================================
-  dameClientes(){
+cargarClientes( parametroBusqueda: string){
 
-    let url = URL_SERVICIOS + '/jornada/trazabilidad';
-
-    return this.http.get( url );
+    if(parametroBusqueda == '' || parametroBusqueda == null){
+      console.log("pas if")
+      let url = URL_SERVICIOS + '/clientes/listar/paginado/' + 0;
+      console.log("url " ,url)
+      return this.http.get( url );
+    }
+    else
+    { 
+      console.log("pas else")
+      let url = URL_SERVICIOS + '/clientes/listar/busqueda/' + parametroBusqueda;
+      return this.http.get( url );
+    }
+    
   }
 
+  
 
 }

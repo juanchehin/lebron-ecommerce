@@ -1,0 +1,36 @@
+<div class="container">
+    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="altaVenta()">
+        <div class="card">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Local : {{local}}</label>
+                    <select class="select2 m-b-10" data-placeholder="Choose" disabled>
+                </select>
+                </div>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title">Cliente</h4>
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="m-t-20">Multiple select boxes</h5>
+                            <select class="select2 m-b-10 select2-multiple" style="width: 100%" multiple="multiple" data-placeholder="Choose">
+                                <option [value]="cliente.IdPersona"  *ngFor="let cliente of clientes" >{{cliente.Apellidos}} {{cliente.Nombres}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12 form-group">
+                <label>Descripcion : </label>
+                <textarea formControlName="Descripcion" name="Descripcion" type="textarea" placeholder="Descripcion..." rows="3" class="form-control"></textarea>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar Producto</button>
+        <br>
+    </form>
+</div>

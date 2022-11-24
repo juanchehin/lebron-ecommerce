@@ -44,5 +44,16 @@ altaUsuario( usuario: any ) {
     // }
 );
 }
+  // ==================================================
+//        apellido,nombre y sucursla en la que se desempaña
+// ==================================================
+cargarDatosVendedor( IdPersona: any ) {
+
+  let url = URL_SERVICIOS + '/usuarios/' + IdPersona;
+
+  return this.http.get(
+    url
+);
+}
 
 }

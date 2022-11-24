@@ -131,6 +131,24 @@ public async listarProductosRelacionados(req: Request, res: Response): Promise<v
         res.status(200).json(result);
     })
 }
+
+// ==================================================
+//       ***** UNIDADES *****
+// ==================================================
+public async listarUnidadesPaginado(req: Request, res: Response): Promise<void> {
+
+    var desde = req.params.pDesde || 0;
+    desde  = Number(desde);
+
+    pool.query(`call bsp_listar_unidades_paginado('${desde}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
 }
 
 

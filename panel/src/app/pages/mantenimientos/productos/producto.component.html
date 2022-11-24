@@ -18,7 +18,6 @@
                             </div>
                         </div>
                         <input [(ngModel)]="codigo" formControlName="Codigo" name="Codigo" required type="text" placeholder="Codigo" class="form-control">
-
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>Stock : </label><input formControlName="Stock" name="Stock" required type="number" min="1" max="31" step="1" placeholder="Stock..." class="form-control">
@@ -60,10 +59,10 @@
                         <label>Descuento : </label><input formControlName="Descuento" name="Descuento" required type="text" placeholder="Descuento..." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label class="control-label">Moneda *ngfor : </label>
+                        <label class="control-label">Moneda : </label>
                         <select formControlName="Cantidad" class="form-control">
-                            <option value="1"> ARS </option>
-                            <option value="2"> USD </option>
+                            <option value="ARS"> ARS </option>
+                            <option value="USD"> USD </option>
                         </select>
                     </div>
                 </div>

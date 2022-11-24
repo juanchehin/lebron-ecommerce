@@ -19,8 +19,8 @@ export class ProductoComponent implements OnInit {
   cargando = true;
   marcas: any;
   categorias: any;
-
-
+  codigo: any;
+  banderaGenerarCodigo = false;
 
   constructor(
     private router: Router, 
@@ -170,20 +170,21 @@ cargarMarcas() {
 // Carga
 // ==================================================
 
-cargarUnidades() {
-  // console.log("pasa cargar productos");
+generarCodigo() {
 
-  //   this.unidadesService.listarUnidades(  )
-  //              .subscribe( (resp: any) => {
-
-  //               console.log("resp es : ",resp)
-
-  //               this.unidades = resp[0];
-
-  //               this.cargando = false;
-
-  //             });
-
+  
+  if(this.banderaGenerarCodigo == false) {
+    this.codigo = new Date().valueOf();
   }
+  else
+  { 
+    this.codigo = ''
+  }
+
+  this.banderaGenerarCodigo = !this.banderaGenerarCodigo;
+
+  
+  
+}
 
 }

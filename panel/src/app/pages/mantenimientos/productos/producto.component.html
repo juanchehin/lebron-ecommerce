@@ -8,7 +8,17 @@
                         <input formControlName="Producto" name="Producto" required type="text" placeholder="Producto..." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Codigo : </label><input formControlName="Codigo" name="Codigo" required type="text" placeholder="Codigo" class="form-control">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Codigo : </label>
+                            </div>
+                            <div class="col-sm-6" style="text-align:right;">
+                                <input type="checkbox" id="md_checkbox_9" class="chk-col-teal" (click)="generarCodigo()" />
+                                <label for="md_checkbox_9">Generar Codigo</label>
+                            </div>
+                        </div>
+                        <input [(ngModel)]="codigo" formControlName="Codigo" name="Codigo" required type="text" placeholder="Codigo" class="form-control">
+
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>Stock : </label><input formControlName="Stock" name="Stock" required type="number" min="1" max="31" step="1" placeholder="Stock..." class="form-control">
@@ -26,7 +36,7 @@
                         <label>Peso : </label><input formControlName="Peso" name="Peso" required type="number" placeholder="Peso" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Sabor : </label><input formControlName="Sabor" name="Sabor" required type="number" min="1" max="31" step="1" placeholder="Sabor..." class="form-control">
+                        <label>Sabor : </label><input formControlName="Sabor" name="Sabor" required type="text" step="1" placeholder="Sabor..." class="form-control">
                     </div>
                 </div>
             </div>
@@ -47,7 +57,14 @@
                         <label>Precio Meli : </label><input formControlName="PrecioMeli" name="PrecioMeli" type="number" placeholder="Precio Meli..." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Descuento : </label><input formControlName="Descuento" name="Descuento" required type="date" placeholder="Descuento..." class="form-control">
+                        <label>Descuento : </label><input formControlName="Descuento" name="Descuento" required type="text" placeholder="Descuento..." class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label class="control-label">Moneda *ngfor : </label>
+                        <select formControlName="Cantidad" class="form-control">
+                            <option value="1"> ARS </option>
+                            <option value="2"> USD </option>
+                        </select>
                     </div>
                 </div>
             </div>

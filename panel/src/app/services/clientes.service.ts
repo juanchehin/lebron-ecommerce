@@ -17,18 +17,10 @@ export class ClientesService {
 // ==================================================
 cargarClientes( parametroBusqueda: string){
 
-    if(parametroBusqueda == '' || parametroBusqueda == null){
-      console.log("pas if")
-      let url = URL_SERVICIOS + '/clientes/listar/paginado/' + 0;
-      console.log("url " ,url)
-      return this.http.get( url );
-    }
-    else
-    { 
-      console.log("pas else")
+      console.log("pas else ",parametroBusqueda)
       let url = URL_SERVICIOS + '/clientes/listar/busqueda/' + parametroBusqueda;
       return this.http.get( url );
-    }
+    
     
   }
 

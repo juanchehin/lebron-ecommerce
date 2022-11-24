@@ -27,7 +27,7 @@ export class NuevaVentaComponent implements OnInit {
   IdPersona = '';
   local = '';
   lineas_venta = new Array();
-  clientes: any;
+  clientes = [];
 
 
   constructor(
@@ -136,14 +136,7 @@ cargarClientes() {
     this.clientesService.cargarClientes( this.clienteBuscado )
                .subscribe( (resp: any) => {
 
-                this.clientes = resp[0];
-
-
-
-
-                // this.options = this.clientes;
-
-                // this.cargando = false;
+                this.clientes = resp;
 
               });
 
@@ -170,15 +163,20 @@ cargarDatosVendedor() {
   }
 
   selectEvent(item: any) {
+    console.log("pasa on selectEvent",item)
     // do something with selected item
   }
 
   onChangeSearch(val: any) {
+
+    this.clienteBuscado = val;
+    this.cargarClientes();
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
   
   onFocused(e: any){
+    // console.log("pasa on onFocused",e)
     // do something when input is focused
   }
 }

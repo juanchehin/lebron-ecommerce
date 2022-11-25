@@ -22,6 +22,11 @@ export class NuevaImagenProductoComponent implements OnInit {
   banderaGenerarCodigo = false;
   IdProducto: any;
 
+  shortLink: string = "";
+  loading: boolean = false; // Flag variable
+  file: any; // Variable to store file
+
+
   constructor(
     private router: Router, 
     public productosService: ProductosService,
@@ -38,7 +43,7 @@ export class NuevaImagenProductoComponent implements OnInit {
     this.IdProducto = this.route.snapshot.paramMap.get('IdProducto');
 
     this.forma = new FormGroup({
-      ImagenNombre: new FormControl(null, Validators.required ),
+      NombreImagen: new FormControl(null, Validators.required ),
       Imagen: new FormControl(null, Validators.required)
       });
   }
@@ -84,65 +89,41 @@ altaImagen() {
 
             }
 
-// ==================================================
-// Carga
-// ==================================================
-
-cargarCategorias() {
-  console.log("pasa cargar productos");
-
-    // this.categoriasService.listarCategorias(  )
-    //            .subscribe( (resp: any) => {
-
-    //             console.log("resp es : ",resp)
-
-    //             this.categorias = resp[0];
-
-    //             this.cargando = false;
-
-    //           });
-
-  }
-
   // ==================================================
 // Carga
 // ==================================================
 
-cargarMarcas() {
-  console.log("pasa cargar productos");
-
-    // this.marcasService.listarMarcas(   )
-    //            .subscribe( (resp: any) => {
-
-    //             console.log("resp es : ",resp)
-
-    //             this.marcas = resp[0];
-
-    //             this.cargando = false;
-
-    //           });
-
-  }
-
-// ==================================================
-// Carga
-// ==================================================
-
-generarCodigo() {
-
-  
-  if(this.banderaGenerarCodigo == false) {
-    this.codigo = new Date().valueOf();
-  }
-  else
-  { 
-    this.codigo = ''
-  }
-
-  this.banderaGenerarCodigo = !this.banderaGenerarCodigo;
-
-  
-  
+// On file Select
+onChange(event: any) {
+  this.file = event.target.files[0];
 }
+
+// OnClick of button Upload
+onUpload() {
+  this.loading = !this.loading;
+
+  console.log(this.file);
+
+  const resp = this.imagenesService
+      .subirImagen( this.file,this.forma.value.NombreImagen,this.IdProducto)
+      .then( img => {
+        if(img){
+          Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
+        }
+        else{
+          Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+        }
+
+        // this.modalImagenService.nuevaImagen.emit(img);
+
+      }).catch( err => {
+        console.log(err);
+        Swal.fire('Error', 'No se pudo subir la imagen', 'error');
+    })
+
+    console.log("resp resp : ",resp);
+
+}
+
 
 }

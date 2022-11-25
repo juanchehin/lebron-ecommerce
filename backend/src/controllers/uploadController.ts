@@ -11,7 +11,10 @@ class UploadController {
 
 public async subirImagen(req: any, res: Response){
 
-    const id = req.params.id;
+    console.log("rereq subirImagen es : ",req.body);
+
+    const IdProducto = req.params.pIdProducto;
+    const NombreImagen = req.params.pNombreImagen;
 
     // Validar que exista un archivo
     if (!req.file || Object.keys(req.file).length === 0) {
@@ -37,7 +40,7 @@ public async subirImagen(req: any, res: Response){
     }
 
     // Generar el nombre del archivo
-    const nombreArchivo = `${ id }.${ extensionArchivo }`;
+    const nombreArchivo = `${ IdProducto }.${ extensionArchivo }`;
 
     // Path para guardar la imagen
     const path = `./build/uploads/clientes/${ req.file.filename }`;

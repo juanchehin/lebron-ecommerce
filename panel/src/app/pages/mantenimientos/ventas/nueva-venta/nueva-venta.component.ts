@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { IItemStructure } from 'src/app/interfaces/item.intergace';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { MarcasService } from 'src/app/services/marcas.service';
@@ -25,11 +26,17 @@ export class NuevaVentaComponent implements OnInit {
   productoBuscado = '';
   IdPersona = '';
   local = '';
-  lineas_venta = new Array();
+  lineas_venta: IItemStructure[] = [];
+  // lineas_venta = new Array();
+  // itemsConfirmado: IItemStructure[] = [];
+  itemPendiente: any = [];
   clientes = [];
   currentDate = new Date();
   datosVendedor: any;
   totalVenta: number = 0;
+  cantidadLineaVenta = 1;
+  IdItem = 0;
+  
 
 
   constructor(
@@ -43,26 +50,12 @@ export class NuevaVentaComponent implements OnInit {
     public marcasService: MarcasService
     
     ) {
-    activatedRoute.params.subscribe( (params: any) => {
-
-      const id = params.id;
-
-      if ( id !== 'nuevo' ) {
-      }
-
-    });
-
+    
   }
 
-  ngOnInit() {
-    // this.cargarClientes();
-    // this.cargarProductos();    
+  ngOnInit() {   
     this.IdPersona = this.authService.personaId;
-    this.cargarDatosVendedor();
-    
-    // this.cargarMarcas();
-    // this.cargarUnidades();
-    
+    this.cargarDatosVendedor();    
 
     this.forma = new FormGroup({
       IdCategoria: new FormControl(null, Validators.required ),
@@ -82,7 +75,8 @@ export class NuevaVentaComponent implements OnInit {
       PrecioVenta: new FormControl(null, Validators.required ),
       PrecioMayorista: new FormControl(null, Validators.required ),
       PrecioMeli: new FormControl(null, Validators.required ),
-      Descuento: new FormControl(null, Validators.required )
+      Descuento: new FormControl(null, Validators.required ),
+      Cantidad: new FormControl(null, Validators.required )   // sin uso
       });
   }
   
@@ -177,26 +171,45 @@ cargarDatosVendedor() {
               });
 
   }
+
+// ==================================================
+// 
+// ==================================================
+  cambiaCantidadVenta(cantidad: any) {
+    
+    this.cantidadLineaVenta = cantidad.data;
+    
+  }
   // ==================================================
 // Carga los datos de la persona que esta realizando la venta
 //  junto con la sucursal en la cual se desempeña
 // ==================================================
 
-agregarLineaVenta( item: any) {
-
-  console.log("es ")
-  console.log(typeof item.PrecioVenta);
+agregarLineaVenta() {
   
-  this.totalVenta += Number(item.PrecioVenta);
+  this.totalVenta += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaVenta;
 
-  this.lineas_venta.push(item);
+  this.lineas_venta.push(
+    {
+      IdItem: this.IdItem,
+      IdProducto: this.itemPendiente.IdProducto,
+      Codigo: this.itemPendiente.Codigo,
+      Producto: this.itemPendiente.Producto,
+      Cantidad: this.cantidadLineaVenta,
+      PrecioVenta: this.itemPendiente.PrecioVenta,
+    }
+  );
+
+  this.IdItem += 1;
+
+  this.cantidadLineaVenta = 1;
 
 }
   // ==============================
   // Para clientes
   // ================================
   selectEvent(item: any) {
-    this.agregarLineaVenta(item);
+    // this.agregarLineaVenta(item);
     // do something with selected item
   }
 
@@ -217,22 +230,16 @@ agregarLineaVenta( item: any) {
   // Para productos
   // ================================
   selectEventProducto(item: any) {
-    
-    this.agregarLineaVenta(item);
-    
-    // do something with selected item
+
+    this.itemPendiente = item;
   }
 
   onChangeSearchProducto(val: any) {
 
     this.productoBuscado = val;
     this.cargarProductos();
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
   }
   
   onFocusedProducto(e: any){
-    // console.log("pasa on onFocused",e)
-    // do something when input is focused
   }
 }

@@ -1,22 +1,144 @@
+<h4>Fecha : {{currentDate | date:'yyyy-MM-dd'}}</h4>
 <div class="container">
     <form ngNativeValidate [formGroup]="forma" (ngSubmit)="altaVenta()">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Cliente</h4>
                 <div class="row">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="m-t-30">Clente : </h5>
-                            <div class="ng-autocomplete">
-                                <ng-autocomplete [data]="clientes" [searchKeyword]="keyword" placeholder="Selecciona cliente" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
-                                </ng-autocomplete>
-                            </div>
-                            <ng-template #itemTemplate let-item>
-                                <a [innerHTML]="item.NombreCompleto"></a>
-                            </ng-template>
-                            <ng-template #notFoundTemplate let-notFound>
-                                <div [innerHTML]="notFound"></div>
-                            </ng-template>
+                    <div class="col-md-5">
+                        <h5 class="m-t-30">Cliente : </h5>
+                        <div class="ng-autocomplete">
+                            <ng-autocomplete [data]="clientes" [searchKeyword]="keyword" placeholder="Selecciona cliente" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                            </ng-autocomplete>
+                        </div>
+                        <ng-template #itemTemplate let-item>
+                            <a [innerHTML]="item.NombreCompleto"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ====================== -->
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Articulos</h4>
+                <div class="row">
+                    <div class="col-md-5">
+                        <h5 class="m-t-30">Producto : </h5>
+                        <div class="ng-autocomplete">
+                            <ng-autocomplete [data]="productos" [searchKeyword]="keyword" placeholder="Selecciona producto" (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
+                                [notFoundTemplate]="notFoundTemplateProducto">
+                            </ng-autocomplete>
+                        </div>
+                        <ng-template #itemTemplateProducto let-item>
+                            <a [innerHTML]="item.NombreCompleto"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplateProducto let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
+                </div>
+
+            </div>
+            <!-- ===== tabla con items de venta ===== -->
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Productos agregados</h4>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Task</th>
+                                        <th>Progress</th>
+                                        <th>Deadline</th>
+                                        <th class="text-nowrap">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Lunar probe project</td>
+                                        <td>
+                                            <div class="progress progress-xs margin-vertical-10 ">
+                                                <div class="progress-bar bg-danger" style="width: 35%; height:6px;"></div>
+                                            </div>
+                                        </td>
+                                        <td>May 15, 2015</td>
+                                        <td class="text-nowrap">
+                                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                            <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dream successful plan</td>
+                                        <td>
+                                            <div class="progress progress-xs margin-vertical-10 ">
+                                                <div class="progress-bar bg-warning" style="width: 50%; height:6px;"></div>
+                                            </div>
+                                        </td>
+                                        <td>July 1, 2015</td>
+                                        <td class="text-nowrap">
+                                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                            <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Office automatization</td>
+                                        <td>
+                                            <div class="progress progress-xs margin-vertical-10 ">
+                                                <div class="progress-bar bg-success" style="width: 100%; height:6px;"></div>
+                                            </div>
+                                        </td>
+                                        <td>Apr 12, 2015</td>
+                                        <td class="text-nowrap">
+                                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                            <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>The sun climbing plan</td>
+                                        <td>
+                                            <div class="progress progress-xs margin-vertical-10 ">
+                                                <div class="progress-bar bg-primary" style="width: 70%; height:6px;"></div>
+                                            </div>
+                                        </td>
+                                        <td>Aug 9, 2015</td>
+                                        <td class="text-nowrap">
+                                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                            <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Open strategy</td>
+                                        <td>
+                                            <div class="progress progress-xs margin-vertical-10 ">
+                                                <div class="progress-bar bg-info" style="width: 85%; height:6px;"></div>
+                                            </div>
+                                        </td>
+                                        <td>Apr 2, 2015</td>
+                                        <td class="text-nowrap">
+                                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                            <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tantas earum numeris</td>
+                                        <td>
+                                            <div class="progress progress-xs margin-vertical-10 ">
+                                                <div class="progress-bar bg-inverse" style="width: 50%; height:6px;"></div>
+                                            </div>
+                                        </td>
+                                        <td>July 11, 2015</td>
+                                        <td class="text-nowrap">
+                                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                            <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

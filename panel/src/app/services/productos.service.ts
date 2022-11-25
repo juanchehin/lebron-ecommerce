@@ -43,6 +43,23 @@ altaProducto( producto: any ) {
     // }
 );
 }
+// ==================================================
+//
+// ==================================================
+cargarProductos( parametroBusqueda: string){
+
+  if(parametroBusqueda == '' || parametroBusqueda == null){
+    let url = URL_SERVICIOS + '/productos/listar/' + 0;
+    return this.http.get( url );
+  }
+  else
+  { 
+    let url = URL_SERVICIOS + '/productos/listar/busqueda/' + parametroBusqueda;
+    return this.http.get( url );
+  }
+
+
+}
 
 // ==================================================
 //  ******* Unidades *******        

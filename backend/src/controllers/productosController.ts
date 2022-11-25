@@ -18,6 +18,23 @@ public async listarProductosPaginado(req: Request, res: Response): Promise<void>
         res.status(200).json(result);
     })
 }
+
+// ==================================================
+//        buscarProductoPaginado
+// ==================================================
+public async buscarProducto(req: Request, res: Response): Promise<void> {
+
+    const productoBuscado = req.params.productoBuscado;
+
+    pool.query(`call bsp_buscar_producto('${productoBuscado}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
 // ==================================================
 //        Lista personas desde cierto valor
 // ==================================================
@@ -81,9 +98,9 @@ public async listarProductosCategoria(req: Request, res: Response): Promise<void
 
 
 // ==================================================
-//        Lista
+//        buscarProductoPaginado
 // ==================================================
-public async buscarProducto(req: Request, res: Response): Promise<void> {
+public async buscarProductoPaginado(req: Request, res: Response): Promise<void> {
 
     const productoBuscado = req.params.pProductoBuscado;
     var desde = req.params.pDesde || 0;

@@ -19,15 +19,14 @@ export class NuevaVentaComponent implements OnInit {
   forma!: FormGroup;
   keyword = 'Apellidos';
   cargando = true;
-  marcas: any;
-  categorias: any;
-  codigo: any;
-  banderaGenerarCodigo = false;
+  productos: any;
   clienteBuscado = '';
+  productoBuscado = '';
   IdPersona = '';
   local = '';
   lineas_venta = new Array();
   clientes = [];
+  currentDate = new Date();
 
 
   constructor(
@@ -53,7 +52,8 @@ export class NuevaVentaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cargarClientes();
+    // this.cargarClientes();
+    // this.cargarProductos();
     this.cargarDatosVendedor();
     
     // this.cargarMarcas();
@@ -136,12 +136,30 @@ cargarClientes() {
     this.clientesService.cargarClientes( this.clienteBuscado )
                .subscribe( (resp: any) => {
 
+                console.log("resp cargarClientes es : ",resp)
+
                 this.clientes = resp;
 
               });
 
   }
 
+  // ==================================================
+// Carga
+// ==================================================
+
+cargarProductos() {
+
+  this.productosService.cargarProductos( this.productoBuscado )
+             .subscribe( (resp: any) => {
+
+              console.log("resp prod es : ",resp[0])
+
+              this.productos = resp[0];
+
+            });
+
+}
   // ==================================================
 // Carga los datos de la persona que esta realizando la venta
 //  junto con la sucursal en la cual se desempeña
@@ -176,6 +194,26 @@ cargarDatosVendedor() {
   }
   
   onFocused(e: any){
+    // console.log("pasa on onFocused",e)
+    // do something when input is focused
+  }
+
+  // ==============================
+  // Para productos
+  selectEventProducto(item: any) {
+    console.log("pasa on selectEvent",item)
+    // do something with selected item
+  }
+
+  onChangeSearchProducto(val: any) {
+
+    this.productoBuscado = val;
+    this.cargarProductos();
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+  
+  onFocusedProducto(e: any){
     // console.log("pasa on onFocused",e)
     // do something when input is focused
   }

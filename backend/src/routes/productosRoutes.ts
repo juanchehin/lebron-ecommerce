@@ -19,10 +19,11 @@ class ProductosRoutes {
         this.router.get('/listar/:desde',productosController.listarProductosPaginado); 
         this.router.get('/listar/promocion/:desde',productosController.listarProductosPromocion);
         this.router.get('/listar/categoria/:IdCategoria/:pDesde',productosController.listarProductosCategoria);
-        this.router.get('/buscar/:pProductoBuscado/:pDesde',productosController.buscarProducto);
+        this.router.get('/buscar/:pProductoBuscado/:pDesde',productosController.buscarProductoPaginado);
         this.router.get('/destacados/home',productosController.listarProductosDestacadosHome);
         this.router.get('/promocion/home',productosController.listarProductosPromocionHome);
         this.router.get('/relacionados/:pIdProducto',productosController.listarProductosRelacionados);
+        this.router.get('/listar/busqueda/:productoBuscado', productosController.buscarProducto);
         // Unidades
         this.router.get('/unidades/listar/:desde',productosController.listarUnidadesPaginado); 
     }

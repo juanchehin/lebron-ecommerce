@@ -17,8 +17,8 @@ import Swal from 'sweetalert2';
 export class NuevaVentaComponent implements OnInit {
 
   forma!: FormGroup;
-  keyword = 'Apellidos';
-  keywordProducto = 'Producto';
+  keywordCliente = 'Apellidos';
+  keywordProducto = 'NombreCompleto';
   cargando = true;
   productos: any;
   clienteBuscado = '';
@@ -29,6 +29,7 @@ export class NuevaVentaComponent implements OnInit {
   clientes = [];
   currentDate = new Date();
   datosVendedor: any;
+  totalVenta: number = 0;
 
 
   constructor(
@@ -182,11 +183,18 @@ cargarDatosVendedor() {
 // ==================================================
 
 agregarLineaVenta( item: any) {
+
+  console.log("es ")
+  console.log(typeof item.PrecioVenta);
   
+  this.totalVenta += Number(item.PrecioVenta);
+
   this.lineas_venta.push(item);
 
 }
   // ==============================
+  // Para clientes
+  // ================================
   selectEvent(item: any) {
     this.agregarLineaVenta(item);
     // do something with selected item

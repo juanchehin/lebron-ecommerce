@@ -1,10 +1,13 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-4">
             <h4>Vendedor : {{datosVendedor.Apellidos}} {{datosVendedor.Nombres}}</h4>
         </div>
-        <div class="col-md-5">
-            <h4>Fecha : {{currentDate | date:'yyyy-MM-dd'}}</h4>
+        <div class="col-md-4">
+            <h4>Sucursal : {{datosVendedor.Sucursal}}</h4>
+        </div>
+        <div class="col-md-4">
+            <h4>Fecha : {{currentDate | date:'dd/MM/yyyy'}}</h4>
         </div>
     </div>
     <form ngNativeValidate [formGroup]="forma" (ngSubmit)="altaVenta()">
@@ -15,7 +18,7 @@
                     <div class="col-md-5">
                         <h5 class="m-t-30">Cliente : </h5>
                         <div class="ng-autocomplete">
-                            <ng-autocomplete [data]="clientes" [searchKeyword]="keyword" placeholder="Selecciona cliente" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                            <ng-autocomplete [data]="clientes" [searchKeyword]="keywordCliente" placeholder="Selecciona cliente" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                             </ng-autocomplete>
                         </div>
                         <ng-template #itemTemplate let-item>
@@ -85,6 +88,13 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-7">
+                            </div>
+                            <div class="col-md-5">
+                                <h4>Total Venta : $ {{totalVenta}}</h4>
+                            </div>
                         </div>
                     </div>
                 </div>

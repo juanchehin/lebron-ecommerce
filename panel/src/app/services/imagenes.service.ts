@@ -52,19 +52,7 @@ async subirImagen(archivo: any,NombreImagen: any,IdProducto: any) {
 
     let url = URL_SERVICIOS + '/uploads/imagenes/producto/alta/' + NombreImagen + '/' + IdProducto;
   
-    // Create form data
-    // const formData = new FormData(); 
-      
-    // Store form name as "file" with file data
-    // formData.append("file", file, file.name);
-      
-    // Make http post request over api
-    // with formData as req
-    // return this.http.put(url, formData);
-
     try {
-
-      // const url = `${ base_url }/upload/cargar/${ id }`;
 
       const formData = new FormData();
       formData.append('imagen', archivo);
@@ -84,10 +72,10 @@ async subirImagen(archivo: any,NombreImagen: any,IdProducto: any) {
       const data = await resp.json();
 
       if ( resp.ok ) {
-        console.log("pasa : ");
+        
         return data.nombreArchivo;
       } else {
-        console.log("pasa 1: ");
+        
         console.log(data.msg);
         // return false;
       }

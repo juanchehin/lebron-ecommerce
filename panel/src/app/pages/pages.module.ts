@@ -16,9 +16,6 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
-import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
-import { MedicoComponent } from './mantenimientos/medicos/medico.component';
-import { BusquedaComponent } from './busqueda/busqueda.component';
 import { ProveedoresComponent } from './mantenimientos/proveedores/proveedores.component';
 import { ProductosComponent } from './mantenimientos/productos/productos.component';
 import { MarcasComponent } from './mantenimientos/marcas/marcas.component';
@@ -29,6 +26,7 @@ import { UnidadesComponent } from './mantenimientos/productos/unidades/unidades.
 import { NuevaVentaComponent } from './mantenimientos/ventas/nueva-venta/nueva-venta.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { ConfiguracionesComponent } from './mantenimientos/configuraciones/configuraciones.component';
+import { ImagenesProductoComponent } from './mantenimientos/productos/imagenes/imagenes-producto.component';
 
 
 @NgModule({
@@ -40,9 +38,6 @@ import { ConfiguracionesComponent } from './mantenimientos/configuraciones/confi
     RxjsComponent,
     PerfilComponent,
     UsuariosComponent,
-    MedicosComponent,
-    MedicoComponent,
-    BusquedaComponent,
     ProveedoresComponent,
     ProductosComponent,
     ProductoComponent,
@@ -51,7 +46,8 @@ import { ConfiguracionesComponent } from './mantenimientos/configuraciones/confi
     UnidadesComponent,
     UnidadComponent,
     NuevaVentaComponent,
-    ConfiguracionesComponent
+    ConfiguracionesComponent,
+    ImagenesProductoComponent
   ],
   exports: [
     DashboardComponent,

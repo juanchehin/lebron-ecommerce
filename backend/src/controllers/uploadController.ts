@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 const path = require('path');
 const fs = require('fs');
+import pool from '../database';
 
 class UploadController {
 
@@ -89,6 +90,23 @@ public async retornaImagen(req: Request, res: Response): Promise<any> {
 
 }
 
+// ==================================================
+//        
+// ==================================================
+public async listarImagenesProductos(req: Request, res: Response): Promise<void> {
+    var desde = req.query.pDesde || 0;
+    desde  = Number(desde);
+
+    var IdProducto = req.query.pIdProducto || 0;
+
+    pool.query(`call bsp_listar_imagenes_producto_paginado('${desde}','${IdProducto}')`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(404).json(result);
+            return;
+        }
+        res.status(200).json(result);
+    })
+}
 }
 
 const uploadController = new UploadController;

@@ -77,7 +77,7 @@ class Server {
         this.app.use('/api/categorias', categoriasRoutes);
         this.app.use('/api/ventas', ventasRoutes);
         this.app.use('/api/login', loginRoutes);
-        this.app.use('/api/upload', uploadRoutes);
+        this.app.use('/api/uploads', uploadRoutes);
         this.app.use('/api/settings', settingsRoutes);
 
     }

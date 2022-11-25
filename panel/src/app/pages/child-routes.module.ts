@@ -9,8 +9,6 @@ import { PerfilComponent } from './perfil/perfil.component';
 
 // Mantenimientos
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
-import { BusquedaComponent } from './busqueda/busqueda.component';
-// import { AdminGuard } from '../guards/admin.guard.ts.old';
 import { ProveedoresComponent } from './mantenimientos/proveedores/proveedores.component';
 import { ProductosComponent } from './mantenimientos/productos/productos.component';
 import { MarcasComponent } from './mantenimientos/marcas/marcas.component';
@@ -20,12 +18,12 @@ import { UnidadesComponent } from './mantenimientos/productos/unidades/unidades.
 import { UnidadComponent } from './mantenimientos/productos/unidades/unidad.component';
 import { NuevaVentaComponent } from './mantenimientos/ventas/nueva-venta/nueva-venta.component';
 import { ConfiguracionesComponent } from './mantenimientos/configuraciones/configuraciones.component';
+import { ImagenesProductoComponent } from './mantenimientos/productos/imagenes/imagenes-producto.component';
 
 
 const childRoutes: Routes = [
   { path: '', component: DashboardComponent, data: { titulo: 'Dashboard' } },
   { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes de cuenta' }},
-  { path: 'buscar/:termino', component: BusquedaComponent, data: { titulo: 'Busquedas' }},
   { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' }},
   { path: 'progress', component: ProgressComponent, data: { titulo: 'ProgressBar' }},
   { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' }},
@@ -38,6 +36,7 @@ const childRoutes: Routes = [
   { path: 'productos/unidades', component: UnidadesComponent, data: { titulo: 'Unidades' }},
   { path: 'productos/unidades/nuevo', component: UnidadComponent, data: { titulo: 'Nueva Unidad' }},
   { path: 'productos/marcas', component: MarcasComponent, data: { titulo: 'Marcas' }},
+  { path: 'productos/imagenes/:IdProducto', component: ImagenesProductoComponent, data: { titulo: 'Imagenes' }},
   { path: 'venta/nueva', component: NuevaVentaComponent, data: { titulo: 'Nueva venta' }},
 
   // Rutas de Admin

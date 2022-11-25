@@ -132,3 +132,6 @@ dist
 node_modules/*
 
 build
+
+./uploads/images
+/uploads/images

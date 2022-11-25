@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
@@ -19,7 +20,8 @@ export class ProductosComponent implements OnInit {
   cargando = true;
 
   constructor(
-    public productosService: ProductosService
+    public productosService: ProductosService,
+    private route: ActivatedRoute
   ) {
    }
 
@@ -73,52 +75,6 @@ cargarProductos() {
 
   }
 
-// // ==================================================
-// //        Borra una persona
-// // ==================================================
-
-//  eliminarCliente( cliente: any ) {
-
-//     Swal.fire({
-//       title: '¿Esta seguro?',
-//       text: 'Esta a punto de borrar a ' + cliente.Nombres + ' ' + cliente.Apellidos,
-//       icon: 'warning',
-//       showCancelButton: true,
-//       confirmButtonColor: '#3085d6',
-//       cancelButtonColor: '#d33',
-//       confirmButtonText: 'Si, borrar!'
-//     })
-//     .then( borrar => {
-
-//       if (borrar) {
-
-//         const parametro = cliente.IdPersona.toString();
-
-//         this.personaService.eliminarCliente( parametro )
-//                   .subscribe( (resp: any) => {
-//                       this.cargarClientes();
-//                       if ( resp.mensaje === 'Ok') {
-//                         Swal.fire({
-//                           position: 'top-end',
-//                           icon: 'success',
-//                           title: 'Cliente eliminado',
-//                           showConfirmButton: false,
-//                           timer: 2000
-//                         });
-//                       } else {
-//                         Swal.fire({
-//                           icon: 'error',
-//                           title: 'Error al eliminar',
-//                           text: 'Contactese con el administrador',
-//                         });
-//                       }
-//                       this.cargarClientes();
-
-//                     });
-
-//                   }
-//                 });
-//               }
 // ==================================================
 //        Cambio de valor
 // ==================================================
@@ -160,4 +116,9 @@ ofertaProducto(IdProducto: string){
   console.log("pasa ofertaProducto producto IdProducto : ",IdProducto)
 }
 
+
+
+rutearImagenes()
+{ 
+}
 }

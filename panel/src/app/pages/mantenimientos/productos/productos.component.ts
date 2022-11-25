@@ -117,8 +117,4 @@ ofertaProducto(IdProducto: string){
 }
 
 
-
-rutearImagenes()
-{ 
-}
 }

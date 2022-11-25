@@ -1,19 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ImagenesService } from 'src/app/services/imagenes.service';
 import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 import Swal from 'sweetalert2';
-// import { CategoriasService } from 'src/app/services/categorias.service';
-import { UnidadesService } from '../../../services/unidades.service';
 
 @Component({
-  selector: 'app-producto',
-  templateUrl: './producto.component.html',
+  selector: 'app-nueva-imagen-producto',
+  templateUrl: './nueva-imagen-producto.component.html',
   styles: []
 })
-export class ProductoComponent implements OnInit {
+export class NuevaImagenProductoComponent implements OnInit {
 
   forma!: FormGroup;
   cargando = true;
@@ -21,43 +20,26 @@ export class ProductoComponent implements OnInit {
   categorias: any;
   codigo: any;
   banderaGenerarCodigo = false;
+  IdProducto: any;
 
   constructor(
     private router: Router, 
-    public productosService: ProductosService, 
-    public activatedRoute: ActivatedRoute,
-    public marcasService: MarcasService,
-    // public categoriasService: CategoriasService,
-    public unidadesService: UnidadesService,
-    
+    public productosService: ProductosService,
+    public imagenesService: ImagenesService,
+    private route: ActivatedRoute
     ) {
-
+    
   }
 
   ngOnInit() {
     // this.cargarCategorias();
     // this.cargarMarcas();
     // this.cargarUnidades();
+    this.IdProducto = this.route.snapshot.paramMap.get('IdProducto');
 
     this.forma = new FormGroup({
-      IdCategoria: new FormControl(null, Validators.required ),
-      IdMarca: new FormControl(null, Validators.required),
-      IdSubCategoria: new FormControl(null, Validators.required ),
-      IdUnidad: new FormControl(null, Validators.required ),
-      Producto: new FormControl(null, Validators.required),
-      Codigo: new FormControl(null, Validators.required ),
-      Stock: new FormControl(null, Validators.required ),
-      FechaVencimiento: new FormControl(null, Validators.required ),
-      Imagen: new FormControl(null, Validators.required ),
-      Descripcion: new FormControl(null, Validators.required ),
-      StockAlerta: new FormControl(null, Validators.required ),
-      Peso: new FormControl(null, Validators.required ),
-      Sabor: new FormControl(null, Validators.required ),
-      PrecioCompra: new FormControl(null, Validators.required ),
-      PrecioVenta: new FormControl(null, Validators.required ),
-      PrecioMayorista: new FormControl(null, Validators.required ),
-      PrecioMeli: new FormControl(null, Validators.required ),
-      Descuento: new FormControl(null, Validators.required )
+      ImagenNombre: new FormControl(null, Validators.required ),
+      Imagen: new FormControl(null, Validators.required)
       });
   }
 
@@ -65,46 +47,30 @@ export class ProductoComponent implements OnInit {
 //        Crear 
 // ==================================================
 
-altaProducto() {
+altaImagen() {
 
       if ( this.forma.invalid ) {
         return;
       }
 
-      const producto = new Array(
-        this.forma.value.IdCategoria,
-        this.forma.value.IdMarca,
-        this.forma.value.IdSubCategoria,
-        this.forma.value.IdUnidad,
-        this.forma.value.Producto,
-        this.forma.value.Codigo,
-        this.forma.value.Stock,
-        this.forma.value.FechaVencimiento,
+      const imagen = new Array(
+        this.forma.value.NombreImagen,
         this.forma.value.Imagen,
-        this.forma.value.Descripcion,
-        this.forma.value.StockAlerta,
-        this.forma.value.Peso,
-        this.forma.value.Sabor,
-        this.forma.value.PrecioCompra,
-        this.forma.value.PrecioVenta,
-        this.forma.value.PrecioMayorista,
-        this.forma.value.PrecioMeli,
-        this.forma.value.Descuento       
-        
+        this.IdProducto
       );
 
-      this.productosService.altaProducto( producto )
+      this.imagenesService.altaImagen( imagen )
                 .subscribe( (resp: any) => {
                   console.log("resp en plan es : ",resp)
                   if ( resp.Mensaje === 'Ok') {
                     Swal.fire({
                       position: 'top-end',
                       icon: 'success',
-                      title: 'Plan cargado',
+                      title: 'Imagen cargada con exito',
                       showConfirmButton: false,
                       timer: 2000
                     });
-                    this.router.navigate(['/mantenimiento/planes']);
+                    this.router.navigate(['/dashboard/productos/imagnes',this.IdProducto]);
                   } else {
                     Swal.fire({
                       icon: 'error',

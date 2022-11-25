@@ -1,0 +1,28 @@
+<div class="container">
+    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="altaImagen()">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label>Imagen : </label>
+                        <input formControlName="NombreImagen" name="NombreImagen" required type="text" placeholder="Nombre de la imagen..." class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <fieldset class="form-group">
+                        <label>Seleccionar Imagen...</label>
+                        <label class="custom-file d-block">
+                            <input type="file" id="file" class="custom-file-input">
+                            <span class="custom-file-control"></span>
+                        </label>
+                    </fieldset>
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar Imagen</button>
+            <br>
+        </div>
+    </form>
+</div>

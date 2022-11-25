@@ -19,6 +19,7 @@ import { UnidadComponent } from './mantenimientos/productos/unidades/unidad.comp
 import { NuevaVentaComponent } from './mantenimientos/ventas/nueva-venta/nueva-venta.component';
 import { ConfiguracionesComponent } from './mantenimientos/configuraciones/configuraciones.component';
 import { ImagenesProductoComponent } from './mantenimientos/productos/imagenes/imagenes-producto.component';
+import { NuevaImagenProductoComponent } from './mantenimientos/productos/imagenes/nueva-imagen-producto.component';
 
 
 const childRoutes: Routes = [
@@ -37,6 +38,7 @@ const childRoutes: Routes = [
   { path: 'productos/unidades/nuevo', component: UnidadComponent, data: { titulo: 'Nueva Unidad' }},
   { path: 'productos/marcas', component: MarcasComponent, data: { titulo: 'Marcas' }},
   { path: 'productos/imagenes/:IdProducto', component: ImagenesProductoComponent, data: { titulo: 'Imagenes' }},
+  { path: 'productos/imagenes/nueva/:IdProducto', component: NuevaImagenProductoComponent, data: { titulo: 'Nueva Imagen' }},
   { path: 'venta/nueva', component: NuevaVentaComponent, data: { titulo: 'Nueva venta' }},
 
   // Rutas de Admin

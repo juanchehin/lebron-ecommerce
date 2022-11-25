@@ -24,5 +24,25 @@ listarImagenesProductoPaginado( desde: any, IdProducto: any){
   }
 
   
+// ==================================================
+//
+// ==================================================
+altaImagen( imagen: any){
+
+  let url = URL_SERVICIOS + '/uploads/imagenes/producto/alta';
+
+  // url += '?IdRol=' + this.IdRol;
+
+  return this.http.post(
+    url,
+    imagen,
+    // {
+    //   headers: {
+    //     token: this.token
+    //   }
+    // }
+);
+    
+  }
 
 }

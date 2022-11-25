@@ -9,9 +9,10 @@ const base_url = environment.base_url;
 export class ModalImagenService {
 
   private _ocultarModal: boolean = true;
-  public tipo: 'usuarios'|'medicos'|'hospitales';
-  public id: string;
-  public img: string;
+  // public tipo: 'usuarios'|'medicos'|'hospitales';
+  public tipo: any;
+  public id!: string;
+  public img!: string;
 
   public nuevaImagen: EventEmitter<string> = new EventEmitter<string>();
 
@@ -20,7 +21,7 @@ export class ModalImagenService {
   }
 
   abrirModal( 
-      tipo: 'usuarios'|'medicos'|'hospitales',
+      tipo: 'productos'|'medicos'|'hospitales',
       id: string,
       img: string = 'no-img'
     ) {

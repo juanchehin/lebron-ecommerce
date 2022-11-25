@@ -9,8 +9,8 @@
                     </div>
                     <div class="col-4">
                     </div>
-                    <div class="col-sm-4" [routerLink]="['/dashboard/productos/imagenes/nueva','IdProducto']">
-                        <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                    <div class="col-sm-4">
+                        <button [routerLink]="['/dashboard/productos/imagenes/nueva/' + IdProducto]" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                       <i class="fa fa-plus"></i> 
                       Nueva Imagen
                     </button>

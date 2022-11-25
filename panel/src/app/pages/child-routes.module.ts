@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 
@@ -27,15 +26,13 @@ const childRoutes: Routes = [
   { path: '', component: DashboardComponent, data: { titulo: 'Dashboard' } },
   { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes de cuenta' }},
   { path: 'buscar/:termino', component: BusquedaComponent, data: { titulo: 'Busquedas' }},
-  // { path: 'usuarios', component: Grafica1Component, data: { titulo: 'Gráfica #1' }},
   { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' }},
   { path: 'progress', component: ProgressComponent, data: { titulo: 'ProgressBar' }},
-  { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' }},
   { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' }},
 
   // Mantenimientos
   { path: 'proveedores', component: ProveedoresComponent, data: { titulo: 'Proveedores' }},
-  { path: 'configuraciones', component: ConfiguracionesComponent, data: { titulo: 'Configuracinoes' }},
+  { path: 'configuraciones', component: ConfiguracionesComponent, data: { titulo: 'Configuraciones' }},
   { path: 'productos', component: ProductosComponent, data: { titulo: 'Productos' }},
   { path: 'productos/nuevo', component: ProductoComponent, data: { titulo: 'Nuevo Producto' }},
   { path: 'productos/unidades', component: UnidadesComponent, data: { titulo: 'Unidades' }},

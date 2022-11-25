@@ -11,10 +11,8 @@ import { PipesModule } from '../pipes/pipes.module';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
-import { Grafica1Component } from './grafica1/grafica1.component';
 import { PagesComponent } from './pages.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
@@ -37,10 +35,8 @@ import { ConfiguracionesComponent } from './mantenimientos/configuraciones/confi
   declarations: [
     DashboardComponent,
     ProgressComponent,
-    Grafica1Component,
     PagesComponent,
     AccountSettingsComponent,
-    PromesasComponent,
     RxjsComponent,
     PerfilComponent,
     UsuariosComponent,
@@ -60,7 +56,6 @@ import { ConfiguracionesComponent } from './mantenimientos/configuraciones/confi
   exports: [
     DashboardComponent,
     ProgressComponent,
-    Grafica1Component,
     PagesComponent,
     AccountSettingsComponent
   ],

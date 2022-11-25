@@ -180,7 +180,8 @@ cargarDatosVendedor() {
     this.cantidadLineaVenta = cantidad.data;
     
   }
-  // ==================================================
+  
+// ==================================================
 // Carga los datos de la persona que esta realizando la venta
 //  junto con la sucursal en la cual se desempeña
 // ==================================================

@@ -57,6 +57,22 @@ public async listarDatosFooter(req: Request, res: Response): Promise<void> {
       res.status(200).json(result);
   })
 }
+// ==================================================
+//        update 
+// ==================================================
+
+public async actualizarConfiguraciones(req: Request, res: Response): Promise<void> {
+
+
+  pool.query(`call bsp_actualizar_configuraciones()`, function(err: any, result: any, fields: any){
+      if(err){
+          res.status(400).json(err);
+          return;
+      }
+      res.status(200).json(result);
+  })
+}
+
 }
 
 const settingsController = new SettingsController;

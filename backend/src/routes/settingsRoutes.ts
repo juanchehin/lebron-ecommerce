@@ -15,6 +15,7 @@ class SettingsRoutes {
         this.router.get('/listar/empresa', settingsController.listarConfiguracionesEmpresa);
         // this.router.get('/drive/:name/:id', settingsController.sinc);
         this.router.get('/listar/:desde', settingsController.listarBackups);
+        this.router.put('/actualizar', settingsController.actualizarConfiguraciones);
     }
 }
 

@@ -30,6 +30,7 @@ import { UnidadComponent } from './mantenimientos/productos/unidades/unidad.comp
 import { UnidadesComponent } from './mantenimientos/productos/unidades/unidades.component';
 import { NuevaVentaComponent } from './mantenimientos/ventas/nueva-venta/nueva-venta.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { ConfiguracionesComponent } from './mantenimientos/configuraciones/configuraciones.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
     UsuarioComponent,
     UnidadesComponent,
     UnidadComponent,
-    NuevaVentaComponent
+    NuevaVentaComponent,
+    ConfiguracionesComponent
   ],
   exports: [
     DashboardComponent,

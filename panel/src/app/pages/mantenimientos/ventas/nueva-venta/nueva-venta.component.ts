@@ -18,6 +18,7 @@ export class NuevaVentaComponent implements OnInit {
 
   forma!: FormGroup;
   keyword = 'Apellidos';
+  keywordProducto = 'Producto';
   cargando = true;
   productos: any;
   clienteBuscado = '';
@@ -27,6 +28,7 @@ export class NuevaVentaComponent implements OnInit {
   lineas_venta = new Array();
   clientes = [];
   currentDate = new Date();
+  datosVendedor: any;
 
 
   constructor(
@@ -53,7 +55,8 @@ export class NuevaVentaComponent implements OnInit {
 
   ngOnInit() {
     // this.cargarClientes();
-    // this.cargarProductos();
+    // this.cargarProductos();    
+    this.IdPersona = this.authService.personaId;
     this.cargarDatosVendedor();
     
     // this.cargarMarcas();
@@ -136,8 +139,6 @@ cargarClientes() {
     this.clientesService.cargarClientes( this.clienteBuscado )
                .subscribe( (resp: any) => {
 
-                console.log("resp cargarClientes es : ",resp)
-
                 this.clientes = resp;
 
               });
@@ -153,8 +154,6 @@ cargarProductos() {
   this.productosService.cargarProductos( this.productoBuscado )
              .subscribe( (resp: any) => {
 
-              console.log("resp prod es : ",resp[0])
-
               this.productos = resp[0];
 
             });
@@ -167,21 +166,29 @@ cargarProductos() {
 
 cargarDatosVendedor() {
   
-    // this.usuariosService.cargarDatosVendedor(  this.IdPersona )
-    //            .subscribe( (resp: any) => {
+    this.usuariosService.cargarDatosVendedor(  this.IdPersona )
+               .subscribe( (resp: any) => {
 
-    //             console.log("resp es : ",resp)
+                this.datosVendedor = resp[0][0];
 
-    //             this.marcas = resp[0];
+                // this.cargando = false;
 
-    //             this.cargando = false;
-
-    //           });
+              });
 
   }
+  // ==================================================
+// Carga los datos de la persona que esta realizando la venta
+//  junto con la sucursal en la cual se desempeña
+// ==================================================
 
+agregarLineaVenta( item: any) {
+  
+  this.lineas_venta.push(item);
+
+}
+  // ==============================
   selectEvent(item: any) {
-    console.log("pasa on selectEvent",item)
+    this.agregarLineaVenta(item);
     // do something with selected item
   }
 
@@ -200,8 +207,11 @@ cargarDatosVendedor() {
 
   // ==============================
   // Para productos
+  // ================================
   selectEventProducto(item: any) {
-    console.log("pasa on selectEvent",item)
+    
+    this.agregarLineaVenta(item);
+    
     // do something with selected item
   }
 

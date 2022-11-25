@@ -1,5 +1,12 @@
-<h4>Fecha : {{currentDate | date:'yyyy-MM-dd'}}</h4>
 <div class="container">
+    <div class="row">
+        <div class="col-md-7">
+            <h4>Vendedor : {{datosVendedor.Apellidos}} {{datosVendedor.Nombres}}</h4>
+        </div>
+        <div class="col-md-5">
+            <h4>Fecha : {{currentDate | date:'yyyy-MM-dd'}}</h4>
+        </div>
+    </div>
     <form ngNativeValidate [formGroup]="forma" (ngSubmit)="altaVenta()">
         <div class="card">
             <div class="card-body">
@@ -29,9 +36,16 @@
                     <div class="col-md-5">
                         <h5 class="m-t-30">Producto : </h5>
                         <div class="ng-autocomplete">
-                            <ng-autocomplete [data]="productos" [searchKeyword]="keyword" placeholder="Selecciona producto" (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
-                                [notFoundTemplate]="notFoundTemplateProducto">
-                            </ng-autocomplete>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
+                                        [notFoundTemplate]="notFoundTemplateProducto">
+                                    </ng-autocomplete>
+                                </div>
+                                <div class="col-md-5">
+                                    <button type="button" class="btn btn-info btn-circle"><i class="fa fa-plus"></i> </button>
+                                </div>
+                            </div>
                         </div>
                         <ng-template #itemTemplateProducto let-item>
                             <a [innerHTML]="item.NombreCompleto"></a>
@@ -40,8 +54,9 @@
                             <div [innerHTML]="notFound"></div>
                         </ng-template>
                     </div>
+                    <div class="col-md-5">
+                    </div>
                 </div>
-
             </div>
             <!-- ===== tabla con items de venta ===== -->
             <div class="col-12">
@@ -52,86 +67,17 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Task</th>
-                                        <th>Progress</th>
-                                        <th>Deadline</th>
-                                        <th class="text-nowrap">Action</th>
+                                        <th>Codigo</th>
+                                        <th>Producto</th>
+                                        <th>SubTotal</th>
+                                        <th class="text-nowrap"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Lunar probe project</td>
-                                        <td>
-                                            <div class="progress progress-xs margin-vertical-10 ">
-                                                <div class="progress-bar bg-danger" style="width: 35%; height:6px;"></div>
-                                            </div>
-                                        </td>
-                                        <td>May 15, 2015</td>
-                                        <td class="text-nowrap">
-                                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                            <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dream successful plan</td>
-                                        <td>
-                                            <div class="progress progress-xs margin-vertical-10 ">
-                                                <div class="progress-bar bg-warning" style="width: 50%; height:6px;"></div>
-                                            </div>
-                                        </td>
-                                        <td>July 1, 2015</td>
-                                        <td class="text-nowrap">
-                                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                            <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Office automatization</td>
-                                        <td>
-                                            <div class="progress progress-xs margin-vertical-10 ">
-                                                <div class="progress-bar bg-success" style="width: 100%; height:6px;"></div>
-                                            </div>
-                                        </td>
-                                        <td>Apr 12, 2015</td>
-                                        <td class="text-nowrap">
-                                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                            <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>The sun climbing plan</td>
-                                        <td>
-                                            <div class="progress progress-xs margin-vertical-10 ">
-                                                <div class="progress-bar bg-primary" style="width: 70%; height:6px;"></div>
-                                            </div>
-                                        </td>
-                                        <td>Aug 9, 2015</td>
-                                        <td class="text-nowrap">
-                                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                            <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Open strategy</td>
-                                        <td>
-                                            <div class="progress progress-xs margin-vertical-10 ">
-                                                <div class="progress-bar bg-info" style="width: 85%; height:6px;"></div>
-                                            </div>
-                                        </td>
-                                        <td>Apr 2, 2015</td>
-                                        <td class="text-nowrap">
-                                            <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                            <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tantas earum numeris</td>
-                                        <td>
-                                            <div class="progress progress-xs margin-vertical-10 ">
-                                                <div class="progress-bar bg-inverse" style="width: 50%; height:6px;"></div>
-                                            </div>
-                                        </td>
-                                        <td>July 11, 2015</td>
+                                    <tr *ngFor="let linea of lineas_venta">
+                                        <td>{{linea.Codigo }}</td>
+                                        <td>{{linea.Producto }}</td>
+                                        <td>{{linea.PrecioVenta }}</td>
                                         <td class="text-nowrap">
                                             <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
                                             <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
@@ -145,7 +91,7 @@
             </div>
         </div>
         <br>
-        <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar Producto</button>
+        <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Finalizar venta</button>
         <br>
     </form>
 </div>

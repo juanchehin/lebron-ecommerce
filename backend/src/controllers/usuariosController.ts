@@ -69,6 +69,21 @@ public async altaUsuario(req: Request, res: Response) {
 
 }
 
+// ==================================================
+//        Lista personas desde cierto valor
+// ==================================================
+public async dameUsuario(req: Request, res: Response): Promise<void> {
+    var pIdPersona = req.params.pIdPersona;
+
+    pool.query(`call bsp_dame_usuario('${pIdPersona}')`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(404).json({ text: err });
+            return;
+        }
+        res.status(200).json(result);
+    })
+}
+
 }
 
 

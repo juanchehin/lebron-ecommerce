@@ -18,6 +18,7 @@ export class ConfiguracionesComponent implements OnInit {
   NombreEmpresa!: string;
   CUIT!: string;
   Email!: number;
+  Imagen!: string;
   Telefono!: string;
   Direccion!: string;
   IngBrutos!: string;
@@ -42,22 +43,22 @@ export class ConfiguracionesComponent implements OnInit {
     this.cargarConfiguraciones();
 
     this.forma = new FormGroup({
-      NombreEmpresa: new FormControl(null, Validators.required),
-      CUIT: new FormControl(null, Validators.required),
-      Email: new FormControl(null, Validators.required ),
-      Telefono: new FormControl(null, Validators.required ),
-      Direccion: new FormControl(null, Validators.required),
-      IngBrutos: new FormControl(null, Validators.required),
-      IVA: new FormControl(null, Validators.required ),
-      Instagram: new FormControl(null, Validators.required ),
-      Twitter: new FormControl(null, Validators.required ),
-      Facebook: new FormControl(null, Validators.required ),
-      Youtube: new FormControl(null, Validators.required),
-      Tarjeta1Pago: new FormControl(null, Validators.required),
-      Tarjeta3Pago: new FormControl(null, Validators.required ),
-      Tarjeta6Pago: new FormControl(null, Validators.required ),
-      CostoEnvio: new FormControl(null, Validators.required ),
-      Dolar: new FormControl(null, Validators.required )
+      NombreEmpresa: new FormControl(null),
+      CUIT: new FormControl(null),
+      Email: new FormControl(null ),
+      Telefono: new FormControl(null ),
+      Direccion: new FormControl(null),
+      IngBrutos: new FormControl(null),
+      IVA: new FormControl(null ),
+      Instagram: new FormControl(null ),
+      Twitter: new FormControl(null ),
+      Facebook: new FormControl(null ),
+      Youtube: new FormControl(null),
+      Tarjeta1Pago: new FormControl(null),
+      Tarjeta3Pago: new FormControl(null ),
+      Tarjeta6Pago: new FormControl(null ),
+      CostoEnvio: new FormControl(null ),
+      Dolar: new FormControl(null )
       });
   }
 
@@ -67,36 +68,44 @@ export class ConfiguracionesComponent implements OnInit {
 
 actualizarConfiguraciones() {
 
+  console.log("pasa actualizar")
+
       if ( this.forma.invalid ) {
         return;
       }
 
+      console.log("pasa actualizar 1")
       const configuraciones = new Array(
-        this.forma.value.NombreEmpresa,
-        this.forma.value.CUIT,
-        this.forma.value.Email,
-        this.forma.value.Telefono,
-        this.forma.value.Direccion,
-        this.forma.value.IngBrutos,
-        this.forma.value.IVA,
-        this.forma.value.Instagram,
-        this.forma.value.Twitter,
-        this.forma.value.Facebook,
-        this.forma.value.Youtube,
-        this.forma.value.Tarjeta1Pago,
-        this.forma.value.Tarjeta3Pago,
-        this.forma.value.Tarjeta6Pago,
-        this.forma.value.CostoEnvio
+        this.forma.value.NombreEmpresa || this.NombreEmpresa,
+        this.forma.value.CUIT || this.CUIT,
+        this.forma.value.Email || this.Email,
+        this.forma.value.Imagen || this.Imagen,
+        this.forma.value.Telefono || this.Telefono,
+        this.forma.value.Direccion || this.Direccion,
+        this.forma.value.IngBrutos  || this.IngBrutos,
+        this.forma.value.IVA || this.IVA,
+        this.forma.value.Instagram || this.Instagram,
+        this.forma.value.Twitter || this.Twitter,
+        this.forma.value.Facebook || this.Facebook,
+        this.forma.value.Youtube || this.Youtube,
+        this.forma.value.Tarjeta1Pago || this.Tarjeta1Pago,
+        this.forma.value.Tarjeta3Pago || this.Tarjeta3Pago,
+        this.forma.value.Tarjeta6Pago || this.Tarjeta6Pago,
+        this.forma.value.CostoEnvio || this.CostoEnvio,
+        this.forma.value.Dolar || this.Dolar
       );
+
+
+      console.log("pasa actualizar configuraciones ",configuraciones)
 
       this.configuracionesService.actualizarConfiguracion( configuraciones )
                 .subscribe( (resp: any) => {
-                  console.log("resp en plan es : ",resp)
-                  if ( resp.Mensaje === 'Ok') {
+                  console.log("resp en actualizarConfiguracion es : ",resp[0][0] )
+                  if ( resp[0][0].Mensaje === 'Ok') {
                     Swal.fire({
                       position: 'top-end',
                       icon: 'success',
-                      title: 'Plan cargado',
+                      title: 'Configuracion actualizada',
                       showConfirmButton: false,
                       timer: 2000
                     });
@@ -123,9 +132,7 @@ cargarConfiguraciones() {
   this.configuracionesService.cargarConfiguraciones(  )
              .subscribe( (resp: any) => {
 
-              console.log("resp es : ",resp)
               this.configuraciones = resp[0][0];
-              console.log("configuraciones es : ",this.configuraciones)
 
               this.NombreEmpresa = this.configuraciones.nombre;
               this.CUIT =  this.configuraciones.CUIT;

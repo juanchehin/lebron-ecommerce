@@ -137,9 +137,13 @@ export default uploadController;
 //        
 // ==================================================
 function actualizarBaseDeDatos(tipo: any, IdProductoOrMarcaOrBanner: any, nombreArchivo: string, NombreImagen: any): boolean {
-    
+
+    if(NombreImagen == null || NombreImagen == undefined || NombreImagen == 'undefined'){
+        NombreImagen = '-';
+    }
+
     switch( tipo ) {
-        case 'producto':
+        case 'productos':
 
             pool.query(`call bsp_alta_imagen_producto('${IdProductoOrMarcaOrBanner}','${nombreArchivo}','${NombreImagen}')`, function(err: any, result: any, fields: any){
                 if(err || result.Mensaje != 'Ok'){
@@ -150,7 +154,7 @@ function actualizarBaseDeDatos(tipo: any, IdProductoOrMarcaOrBanner: any, nombre
 
         break;
         
-        case 'marca':
+        case 'marcas':
             pool.query(`call bsp_alta_imagen_marca('${IdProductoOrMarcaOrBanner}','${nombreArchivo}','${NombreImagen}')`, function(err: any, result: any, fields: any){
                 if(err){
                     return false;
@@ -160,7 +164,7 @@ function actualizarBaseDeDatos(tipo: any, IdProductoOrMarcaOrBanner: any, nombre
 
         break;
         
-        case 'banner':
+        case 'banners':
 
             pool.query(`call bsp_alta_imagen_banner('${IdProductoOrMarcaOrBanner}','${nombreArchivo}')`, function(err: any, result: any, fields: any){
                 if(err){

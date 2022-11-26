@@ -47,8 +47,6 @@ cargarImagenes() {
     this.imagenesService.listarImagenesProductoPaginado( this.desde , this.IdProducto  )
                .subscribe( (resp: any) => {
 
-                console.log("resp es :",resp)
-
                 this.totalImagenes = resp[1][0].cantImagenes;
 
                 this.imagenes = resp[0];

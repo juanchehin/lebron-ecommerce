@@ -11,6 +11,7 @@ import categoriasRoutes from './routes/categoriasRoutes';
 import proveedoresRoutes from './routes/proveedoresRoutes';
 import ventasRoutes from './routes/ventasRoutes';
 import clientesRoutes from './routes/clientesRoutes';
+import direccionesRoutes from './routes/direccionesRoutes';
 
 
 
@@ -77,6 +78,7 @@ class Server {
         this.app.use('/api/productos', productosRoutes);
         this.app.use('/api/proveedores', proveedoresRoutes);
         this.app.use('/api/categorias', categoriasRoutes);
+        this.app.use('/api/direcciones', direccionesRoutes);
         this.app.use('/api/ventas', ventasRoutes);
         this.app.use('/api/login', loginRoutes);
         this.app.use('/api/uploads', uploadRoutes);

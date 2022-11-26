@@ -22,6 +22,8 @@ export class NuevaDireccionComponent implements OnInit {
   Cliente: any;
   IdPersona: any;
   forma!: FormGroup;
+  Provincia: any;
+  IdProvincia!: string;
 
   constructor(
     public authService: AuthService,
@@ -92,6 +94,8 @@ buscarProvinciaLocalidades() {
               console.log("resp es : ",resp)
 
               this.datosProvinciaLocalidades = resp[0];
+              this.Provincia = resp[0][0].Provincia;
+              this.IdProvincia = resp[0][0].IdProvincia;
 
               this.cargando = false;
 
@@ -103,8 +107,9 @@ buscarProvinciaLocalidades() {
 inputHandle(event: any) {
   
   this.cp = event.target.value;
-
+  
   if (event.target.value.length >= 4) {
+    
     this.buscarProvinciaLocalidades();
   }
 }

@@ -8,13 +8,14 @@ class DireccionesController {
 //        Lista 
 // ==================================================
 public async buscarPorCP(req: Request, res: Response): Promise<void> {
-    var cp = req.params.cp || 0;
+    var cp = req.params.pCP;
 
     if(cp.toString().length != 4){
         res.status(401).json({
             ok: true,
             mensaje : 'CP invalido'
         });
+        return;
     }
 
     pool.query(`call bsp_dame_provincia_localidad_cp('${cp}')`, function(err: any, result: any){

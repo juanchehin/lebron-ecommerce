@@ -26,7 +26,8 @@ export class MisDireccionesComponent implements OnInit {
     public router: Router,
     private activatedRoute: ActivatedRoute
     ) { }
-  ngOnInit() {    
+  ngOnInit() {  
+    this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');  
     this.comprobarLogueo();
     this.cargarDireccionesCliente();
   }

@@ -28,7 +28,8 @@ import { CarritoComponent } from './carrito/carrito.component';
 import { EnvioComponent } from './envio/envio.component';
 import { ProductosRelacionadosComponent } from './productos-relacionados/productos-relacionados.component';
 import { ProductoDetalleComponent } from './producto-detalle/producto-detalle.component';
-// import { CheckoutComponent } from './envio/envio.component';
+import { DireccionEnvioComponent } from './checkout/direccion-envio/direccion-envio.component';
+import { NuevaDireccionComponent } from './cuenta/perfil/direcciones/nueva-direccion/nueva-direccion.component';
 
 @NgModule({
     declarations: [
@@ -52,7 +53,9 @@ import { ProductoDetalleComponent } from './producto-detalle/producto-detalle.co
         CarritoComponent,
         EnvioComponent,
         ProductosRelacionadosComponent,
-        ProductoDetalleComponent
+        ProductoDetalleComponent,
+        DireccionEnvioComponent,
+        NuevaDireccionComponent
         // CheckoutComponent
     ],
     exports: [

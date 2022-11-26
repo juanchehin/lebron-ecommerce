@@ -1,9 +1,18 @@
 <br /><br />
-<div class="row justify-content-center">
+<div class="justify-content-center">
     <main class="bg_gray">
         <div class="container margin_30">
             <div class="page_header">
-                <h1>Mis direcciones</h1>
+                <div class="row">
+                    <div class="col">
+                        <h1 class="col">Mis direcciones</h1>
+                    </div>
+                    <div class="col">
+                    </div>
+                    <div class="col">
+                        <button [routerLink]="['/perfil/direcciones/nueva', IdPersona ]" class="btn_1">Agregar Direccion</button>
+                    </div>
+                </div>
             </div>
             <!-- /page_header -->
             <table class="table table-striped cart-list">

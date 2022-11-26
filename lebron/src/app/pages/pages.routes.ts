@@ -18,6 +18,8 @@ import { PoliticasComponent } from './institucional/politicas-seguridad/politica
 import { CarritoComponent } from './carrito/carrito.component';
 import { EnvioComponent } from './envio/envio.component';
 import { ProductoDetalleComponent } from './producto-detalle/producto-detalle.component';
+import { DireccionEnvioComponent } from './checkout/direccion-envio/direccion-envio.component';
+import { NuevaDireccionComponent } from './cuenta/perfil/direcciones/nueva-direccion/nueva-direccion.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -30,6 +32,7 @@ const pagesRoutes: Routes = [
             { path: 'login', component: LoginComponent },
             { path: 'registro', component: RegisterComponent },
             { path: 'perfil', component: PerfilComponent },
+            { path: 'perfil/direcciones/nueva/:IdPersona', component: NuevaDireccionComponent }, // proteger ruta
             { path: 'carrito/:IdPersona', component: CarritoComponent },
             { path: 'envio/:IdPersona', component: EnvioComponent },
             { path: 'cuenta-creada', component: MailComponent },
@@ -40,7 +43,8 @@ const pagesRoutes: Routes = [
             { path: 'terminos-y-condiciones', component: TerminosCondicionesComponent },
             { path: 'contacto', component: ContactoComponent },
             { path: 'franquicia', component: FranquiciaComponent },
-            { path: 'politicas-de-seguridad', component: PoliticasComponent }
+            { path: 'politicas-de-seguridad', component: PoliticasComponent },
+            { path: 'checkout/direcciones/:IdPersona', component: DireccionEnvioComponent },    // proteger ruta
             // Choferes
             // { path: 'choferes', component: ChoferesComponent },
             // { path: 'choferes/nuevo', component: NuevoChoferComponent },

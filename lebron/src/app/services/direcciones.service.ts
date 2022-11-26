@@ -7,7 +7,7 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 @Injectable({
   providedIn: 'root'
 })
-export class ClientesService {
+export class DireccionesService {
 
   token: any = null;
   usuario: any;
@@ -17,9 +17,9 @@ export class ClientesService {
 // ==================================================
 //
 // ==================================================
-  dameClientes(){
+buscarProvinciaLocalidades(cp: any){
 
-    let url = URL_SERVICIOS + '/jornada/trazabilidad';
+    let url = URL_SERVICIOS + '/direcciones/buscar/' + cp;
 
     return this.http.get( url );
   }
@@ -39,21 +39,6 @@ altaCliente( cliente: any ) {
     cliente
 );
 }
-// ==================================================
-//        
-// ==================================================
-nuevaDireccion( direccion: any , IdPersona: any) {
-
-
-  let url = URL_SERVICIOS + '/clientes/direccion/alta';
-  // url += '?IdRol=' + this.IdRol;
-
-  return this.http.post(
-    url,
-    direccion
-);
-}
-
 
 // ==================================================
 // Busca una persona en la BD

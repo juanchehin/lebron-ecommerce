@@ -116,10 +116,10 @@ public async retornaImagen(req: Request, res: Response): Promise<any> {
 //        
 // ==================================================
 public async listarImagenesProductos(req: Request, res: Response): Promise<void> {
-    var desde = req.query.pDesde || 0;
+    var desde = req.params.pDesde || 0;
     desde  = Number(desde);
 
-    var IdProducto = req.query.pIdProducto || 0;
+    var IdProducto = req.params.pIdProducto || 0;
 
     pool.query(`call bsp_listar_imagenes_producto_paginado('${desde}','${IdProducto}')`, function(err: any, result: any, fields: any){
         if(err){

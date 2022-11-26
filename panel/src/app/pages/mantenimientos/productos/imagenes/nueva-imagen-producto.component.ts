@@ -115,6 +115,7 @@ onUpload() {
       .then( img => {
         if(img){
           Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
+          this.router.navigate(['dashboard/productos/imagenes/', this.IdProducto]);
           // this.router.navigate['/dashboard/productos/imagenes/', this.IdProducto];
         }
         else{

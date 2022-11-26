@@ -25,7 +25,7 @@ class ProductosRoutes {
         this.router.get('/relacionados/:pIdProducto',productosController.listarProductosRelacionados);
         this.router.get('/listar/busqueda/:productoBuscado', productosController.buscarProducto);
         // Unidades
-        this.router.get('/unidades/listar/:desde',productosController.listarUnidadesPaginado); 
+        this.router.get('/unidades/listar/:desde',productosController.listarUnidadesPaginado);
     }
 
 }

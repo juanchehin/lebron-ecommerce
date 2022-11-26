@@ -166,6 +166,7 @@ public async listarUnidadesPaginado(req: Request, res: Response): Promise<void> 
         res.status(200).json(result);
     })
 }
+
 }
 
 

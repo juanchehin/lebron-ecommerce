@@ -4,14 +4,14 @@
             <div class="row">
                 <div class="col-sm-6 form-group">
                     <label>Imagen : </label>
-                    <input formControlName="NombreImagen" name="NombreImagen" required type="text" placeholder="Nombre de la imagen..." class="form-control">
+                    <input (change)="nombreImagenChange($event)" name="NombreImagen" type="text" placeholder="Nombre de la imagen..." class="form-control">
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6 form-group">
                     <label>Seleccionar Imagen...</label>
                     <div class="text-center">
-                        <input class="form-control" type="file" (change)="onChange($event)" name="imagen">
+                        <input class="" type="file" (change)="onChange($event)" name="imagen">
                     </div>
 
                     <!--Flag variable is used here-->

@@ -11,16 +11,31 @@ class UploadController {
 
 public async subirImagen(req: any, res: Response){
 
-    console.log("rereq subirImagen es : ",req.body);
-
-    const IdProducto = req.params.pIdProducto;
+    const IdProductoOrMarcaOrBanner = req.params.pIdProductoOrMarcaOrBanner;
     const NombreImagen = req.params.pNombreImagen;
+    const tipo = req.params.pTipo;
+
+    const tiposValidos = ['productos','banners','marcas'];
+    if ( !tiposValidos.includes(tipo) ){
+        return res.status(400).json({
+            ok: false,
+            msg: 'No es un tipo valido'
+        });
+    }
 
     // Validar que exista un archivo
     if (!req.file || Object.keys(req.file).length === 0) {
         return res.status(400).json({
             ok: false,
             msg: 'No hay ningún archivo'
+        });
+    }
+
+    // Chequeo que no sea mayor a 5MB
+    if (req.file.size > 5000000 ) {
+        return res.status(400).json({
+            ok: false,
+            msg: 'Archivo demasiado grande'
         });
     }
 
@@ -40,18 +55,17 @@ public async subirImagen(req: any, res: Response){
     }
 
     // Generar el nombre del archivo
-    const nombreArchivo = `${ IdProducto }.${ extensionArchivo }`;
+    const nombreArchivo = `${ Date.now() }.${ extensionArchivo }`;
 
     // Path para guardar la imagen
-    const path = `./build/uploads/clientes/${ req.file.filename }`;
+    const pathTemporal =  path.join( __dirname, `../uploads/images/temp/${ req.file.filename }` );
 
     // Path para guardar la imagen
-    const filePathMove = `./build/uploads/clientes/${ nombreArchivo }`;
+    const filePathMove = path.join( __dirname, `../uploads/images/${ tipo }/${ nombreArchivo }` );
 
     // Mover la imagen
-    fs.rename( path , filePathMove, (err: any) => {
+    fs.rename( pathTemporal , filePathMove, (err: any) => {
         if (err){
-            console.log(err)
             return res.status(500).json({
                 ok: false,
                 msg: 'Error al mover la imagen'
@@ -59,7 +73,14 @@ public async subirImagen(req: any, res: Response){
         }
 
         // Actualizar base de datos
-        // actualizarImagen( tipo, id, nombreArchivo );
+        const respuestaBD = actualizarBaseDeDatos( tipo, IdProductoOrMarcaOrBanner, nombreArchivo, NombreImagen );
+
+        if (respuestaBD){
+            return res.status(500).json({
+                ok: false,
+                msg: 'Ocurrio un problema, contactese con el administrador'
+            });
+        }
 
         res.json({
             ok: true,
@@ -77,9 +98,7 @@ public async retornaImagen(req: Request, res: Response): Promise<any> {
     
     const id = req.params.id;
 
-    const pathImg = path.join( __dirname, `../uploads/clientes/${ id }` );
-
-    console.log("pathImg : ",pathImg)
+    const pathImg = path.join( __dirname, `../uploads/productos/${ id }` );
 
     // imagen por defecto
     if ( fs.existsSync( pathImg ) ) {
@@ -114,3 +133,44 @@ public async listarImagenesProductos(req: Request, res: Response): Promise<void>
 
 const uploadController = new UploadController;
 export default uploadController;
+// ==================================================
+//        
+// ==================================================
+function actualizarBaseDeDatos(tipo: any, IdProductoOrMarcaOrBanner: any, nombreArchivo: string, NombreImagen: any): boolean {
+    
+    switch( tipo ) {
+        case 'producto':
+
+            pool.query(`call bsp_alta_imagen_producto('${IdProductoOrMarcaOrBanner}','${nombreArchivo}','${NombreImagen}')`, function(err: any, result: any, fields: any){
+                if(err || result.Mensaje != 'Ok'){
+                    return false;
+                }
+                return true;
+            })
+
+        break;
+        
+        case 'marca':
+            pool.query(`call bsp_alta_imagen_marca('${IdProductoOrMarcaOrBanner}','${nombreArchivo}','${NombreImagen}')`, function(err: any, result: any, fields: any){
+                if(err){
+                    return false;
+                }
+                return true;
+            })
+
+        break;
+        
+        case 'banner':
+
+            pool.query(`call bsp_alta_imagen_banner('${IdProductoOrMarcaOrBanner}','${nombreArchivo}')`, function(err: any, result: any, fields: any){
+                if(err){
+                    return false;
+                }
+                return true;
+            })
+
+        break;
+    }
+
+    return false;
+}

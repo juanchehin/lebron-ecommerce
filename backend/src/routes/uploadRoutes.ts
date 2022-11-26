@@ -1,14 +1,14 @@
-import express, { Router } from 'express';
+import { Router } from 'express';
 const multer = require('multer');
-
 var mdAutenticacion = require('../middlewares/autenticacion');
-
 import uploadController from '../controllers/uploadController';
+const path = require('path');
+const pathImgTemp = path.join( __dirname, `../uploads/images/temp` );
 
 class UploadRoutes {
 
-    public router: Router = Router();
-    upload = multer({ dest: './build/uploads/clientes' });
+    public router: Router = Router();   
+    upload = multer({ dest: pathImgTemp });
 
     constructor() {
         this.config();
@@ -22,7 +22,7 @@ class UploadRoutes {
         // );
 
         this.router.put(
-            '/imagenes/producto/alta/:pNombreImagen/:pIdProducto',
+            '/imagenes/producto/alta/:pNombreImagen/:pIdProductoOrMarcaOrBanner/:pTipo',
             // mdAutenticacion.verificaToken,
             this.upload.single('imagen'),
             (req: any, res) => { 
@@ -31,7 +31,7 @@ class UploadRoutes {
         );
 
         this.router.get('/retorna/:id/',mdAutenticacion.verificaToken, uploadController.retornaImagen);
-        this.router.get('/imagenes/producto/listar/:pDesde/pIdProducto', uploadController.listarImagenesProductos);
+        this.router.get('/imagenes/producto/listar/:pDesde/:pIdProducto', uploadController.listarImagenesProductos);
         // this.router.post('/imagenes/producto/alta/:pNombreImagen/:pIdProducto', uploadController.subirImagen);
     }
 

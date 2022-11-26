@@ -48,9 +48,9 @@ altaImagen( imagen: any){
 // ==================================================
 //
 // ==================================================
-async subirImagen(archivo: any,NombreImagen: any,IdProducto: any) {
+async subirImagen(archivo: any,NombreImagen: any,IdProducto: any, tipo: any) {
 
-    let url = URL_SERVICIOS + '/uploads/imagenes/producto/alta/' + NombreImagen + '/' + IdProducto;
+    let url = URL_SERVICIOS + '/uploads/imagenes/producto/alta/' + NombreImagen + '/' + IdProducto + '/' + tipo;
   
     try {
 

@@ -3,75 +3,28 @@
         <section class="box-typical">
 
             <div class="table-responsive">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <h3 class="card-title">Cantidad productos ( <small> {{totalProductos }} </small> )</h3>
-                    </div>
-                    <div class="col-4">
-                    </div>
-                    <div class="col-sm-4">
-                        <button [routerLink]="['/dashboard/productos/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
-                      <i class="fa fa-plus"></i> 
-                      Nuevo Producto
-                    </button>
-                    </div>
-                </div>
                 <table id="table-edit" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th width="1">
                                 #
                             </th>
-                            <th>Codigo</th>
-                            <th>Producto</th>
-                            <th>PrecioVenta</th>
-                            <th>Descuento(%)</th>
-                            <th>Publicado</th>
-                            <th>Destacado</th>
-                            <th>En promocion</th>
-                            <th>Oferta</th>
+                            <th>Fecha</th>
+                            <th>N° Transacción</th>
+                            <th>Cliente</th>
+                            <th>Direccion</th>
+                            <th>Estado</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let producto of productos">
-                            <td>{{ producto.IdProducto }}</td>
-                            <td>{{ producto.Codigo }}</td>
-                            <td>{{ producto.Producto }}</td>
-                            <td>${{ producto.PrecioVenta }}</td>
-                            <td>{{ producto.Descuento }}</td>
-                            <td>
-                                <div class="col-sm-3">
-                                    <div class="switch">
-                                        <label>
-                                        <input type="checkbox" [checked]="producto.Publicado" (click)="publicarProducto(producto.IdProducto)"><span class="lever switch-col-light-blue"></span></label>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="col-sm-3">
-                                    <div class="switch">
-                                        <label>
-                                        <input type="checkbox" [checked]="producto.Destacado" (click)="destacarProducto(producto.IdProducto)"><span class="lever switch-col-cyan"></span></label>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="col-sm-3">
-                                    <div class="switch">
-                                        <label>
-                                        <input type="checkbox" [checked]="producto.Promocion" (click)="promocionProducto(producto.IdProducto)"><span class="lever switch-col-orange"></span></label>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="col-sm-3">
-                                    <div class="switch">
-                                        <label>
-                                        <input type="checkbox" [checked]="producto.Oferta" (click)="ofertaProducto(producto.IdProducto)"><span class="lever switch-col-deep-purple"></span></label>
-                                    </div>
-                                </div>
-                            </td>
+                        <tr *ngFor="let pedido of pedidos">
+                            <td>{{ pedido.IdPedido }}</td>
+                            <td>{{ pedido.Fecha }}</td>
+                            <td>{{ pedido.IdTransaccion }}</td>
+                            <td>{{ pedido.ApNomCliente }}</td>
+                            <td>{{ pedido.Direccion }}</td>
+                            <td>{{ pedido.Estado }}</td>
                             <td>
                                 <button class="btn btn-inline" type="button">Editar</button>
                                 <button class="btn btn-inline btn-danger" type="button">Eliminar</button>

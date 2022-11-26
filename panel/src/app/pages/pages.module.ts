@@ -28,6 +28,7 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { ConfiguracionesComponent } from './mantenimientos/configuraciones/configuraciones.component';
 import { ImagenesProductoComponent } from './mantenimientos/productos/imagenes/imagenes-producto.component';
 import { NuevaImagenProductoComponent } from './mantenimientos/productos/imagenes/nueva-imagen-producto.component';
+import { PedidosComponent } from './mantenimientos/pedidos/pedidos.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { NuevaImagenProductoComponent } from './mantenimientos/productos/imagene
     NuevaVentaComponent,
     ConfiguracionesComponent,
     ImagenesProductoComponent,
-    NuevaImagenProductoComponent
+    NuevaImagenProductoComponent,
+    PedidosComponent
   ],
   exports: [
     DashboardComponent,

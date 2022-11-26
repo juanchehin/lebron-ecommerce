@@ -23,6 +23,7 @@
                                 #
                             </th>
                             <th>Imagen</th>
+                            <th>Nombre Imagen</th>
                             <th>Producto</th>
                             <th></th>
                         </tr>
@@ -31,8 +32,9 @@
                         <tr *ngFor="let imagen of imagenes">
                             <td>{{ imagen.IdImagen }}</td>
                             <td>
-                                <img src="{{url_imagenes_producto + imagen.ruta}}" alt="user-img">
+                                <img [src]="url_imagenes_producto + imagen.Archivo" alt="user-img">
                             </td>
+                            <td>{{ imagen.Imagen }}</td>
                             <td>
                                 {{ imagen.Producto }}
                             </td>

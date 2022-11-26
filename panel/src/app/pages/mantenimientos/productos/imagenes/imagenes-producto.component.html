@@ -32,7 +32,7 @@
                         <tr *ngFor="let imagen of imagenes">
                             <td>{{ imagen.IdImagen }}</td>
                             <td>
-                                <img [src]="url_imagenes_producto + imagen.Archivo" alt="user-img">
+                                <img [src]="url_imagenes_producto + imagen.Archivo" alt="user-img" width="100" height="100">
                             </td>
                             <td>{{ imagen.Imagen }}</td>
                             <td>

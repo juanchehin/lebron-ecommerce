@@ -3,7 +3,7 @@ const multer = require('multer');
 var mdAutenticacion = require('../middlewares/autenticacion');
 import uploadController from '../controllers/uploadController';
 const path = require('path');
-const pathImgTemp = path.join( __dirname, `../uploads/images/temp` );
+const pathImgTemp = path.join( __dirname, `../../public/uploads/images/temp` );
 
 class UploadRoutes {
 

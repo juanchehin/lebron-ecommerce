@@ -58,10 +58,10 @@ public async subirImagen(req: any, res: Response){
     const nombreArchivo = `${ Date.now() }.${ extensionArchivo }`;
 
     // Path para guardar la imagen
-    const pathTemporal =  path.join( __dirname, `../uploads/images/temp/${ req.file.filename }` );
+    const pathTemporal =  path.join( __dirname, `../../public/uploads/images/temp/${ req.file.filename }` );
 
     // Path para guardar la imagen
-    const filePathMove = path.join( __dirname, `../uploads/images/${ tipo }/${ nombreArchivo }` );
+    const filePathMove = path.join( __dirname, `../../public/uploads/images/${ tipo }/${ nombreArchivo }` );
 
     // Mover la imagen
     fs.rename( pathTemporal , filePathMove, (err: any) => {

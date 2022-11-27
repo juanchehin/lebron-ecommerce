@@ -19,6 +19,7 @@ class ClientesRoutes {
         this.router.get('/datos-envio/:IdPersona', clientesController.dameDatosClienteEnvio);
         this.router.get('/listar/busqueda/:clienteBuscado', clientesController.buscarCliente);
         this.router.get('/listar/paginado/:desde', clientesController.listarClientesPaginado);
+        this.router.post('/direccion/alta', clientesController.altaDireccionCliente);
     }
 
 }

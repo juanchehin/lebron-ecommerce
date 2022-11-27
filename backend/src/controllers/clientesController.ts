@@ -87,6 +87,40 @@ public async altaCliente(req: Request, res: Response) {
 }
 
 // ==================================================
+//        Inserta una direccion
+// ==================================================
+public async altaDireccionCliente(req: Request, res: Response) {
+
+    var IdLocalidad = req.body[0];
+    var IdCliente = req.body[1];
+    var Calle = req.body[2];
+    var Numero = req.body[3];
+    var Piso = req.body[4];
+    var Departamento = req.body[5];
+    var Referencia = req.body[6];
+    var Telefono = req.body[7];
+    
+    pool.query(`call bsp_alta_direccion_cliente('${IdLocalidad}','${IdCliente}','${Calle}','${Numero}','${Piso}','${Departamento}','${Referencia}','${Telefono}')`, 
+    function(err: any, result: any, fields: any){
+        
+                if(err){
+                    res.status(404).json(err);
+                    return;
+                }
+                
+                if(result[0][0].Mensaje !== 'Ok'){
+                    return res.json({
+                        ok: false,
+                        Mensaje: result[0][0].Mensaje
+                    });
+                }
+                                
+                return res.json({ Mensaje: 'Ok' });
+            })          
+    
+}
+
+// ==================================================
 //   Activa un cliente (caso de ya existencia en la BD)
 // ==================================================
 

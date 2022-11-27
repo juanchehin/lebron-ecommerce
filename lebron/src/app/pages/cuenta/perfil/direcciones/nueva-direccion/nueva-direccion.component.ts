@@ -26,6 +26,7 @@ export class NuevaDireccionComponent implements OnInit {
   IdProvincia!: string;
   habilitarLocalidad = true;
   cpInvalido = false;
+  banderaCompletarCamposRequeridos = false;
 
   constructor(
     public authService: AuthService,
@@ -35,13 +36,14 @@ export class NuevaDireccionComponent implements OnInit {
     private activatedRoute: ActivatedRoute
     ) { }
   ngOnInit() {
+    this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
 
     this.forma = new FormGroup({
-      CP: new FormControl(null , Validators.required),
-      IdProvincia: new FormControl( null , [Validators.required , Validators.email]),
+      CP: new FormControl(null),
+      Provincia: new FormControl(null),
       IdLocalidad: new FormControl(null, Validators.required ),
-      Calle: new FormControl(null ),
-      Numero: new FormControl(null ),
+      Calle: new FormControl(null, Validators.required),
+      Numero: new FormControl(null , Validators.required),
       Piso: new FormControl(null),
       Departamento: new FormControl(null),
       Referencia: new FormControl(null ),
@@ -56,13 +58,13 @@ export class NuevaDireccionComponent implements OnInit {
 altaDireccion() {
 
   if ( this.forma.invalid ) {
+    this.banderaCompletarCamposRequeridos = true;
     return;
   }
 
   const direccion = new Array(
-    this.forma.value.CP,
-    this.forma.value.IdProvincia,
     this.forma.value.IdLocalidad,
+    this.IdPersona,
     this.forma.value.Calle,
     this.forma.value.Numero,
     this.forma.value.Piso,
@@ -71,14 +73,24 @@ altaDireccion() {
     this.forma.value.Telefono
   );
 
-  this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
-
-  this.clientesService.nuevaDireccion( direccion, this.IdPersona )
+  this.clientesService.nuevaDireccion( direccion )
              .subscribe( (resp: any) => {
-
-              this.datosDirecionesCliente = resp[0];
-
-              this.cargando = false;
+              if ( resp.Mensaje === 'Ok') {
+                // Swal.fire({
+                //   position: 'top-end',
+                //   icon: 'success',
+                //   title: 'Profesional "' + this.forma.value.Usuario + '" cargado',
+                //   showConfirmButton: false,
+                //   timer: 2000
+                // });
+                this.router.navigate(['perfil/direcciones', this.IdPersona]);
+              } else {
+                // Swal.fire({
+                //   icon: 'error',
+                //   title: 'Hubo un problema al cargar',
+                //   text: resp.Mensaje,
+                // });
+              }
 
             });
 

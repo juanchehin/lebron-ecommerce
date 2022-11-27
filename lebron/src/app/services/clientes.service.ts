@@ -42,7 +42,7 @@ altaCliente( cliente: any ) {
 // ==================================================
 //        
 // ==================================================
-nuevaDireccion( direccion: any , IdPersona: any) {
+nuevaDireccion( direccion: any ) {
 
 
   let url = URL_SERVICIOS + '/clientes/direccion/alta';

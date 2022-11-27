@@ -42,7 +42,7 @@
                     <p><small>Codigo : {{Codigo}}</small></p>
                     <div class="prod_options">
                         <div class="row">
-                            <label class="col-xl-5 col-lg-5 col-md-6 col-6"><strong>sabor : </strong>  </label>
+                            <label class="col-xl-5 col-lg-5 col-md-6 col-6"><strong>Sabor : </strong>  </label>
                             <div class="col-xl-4 col-lg-5 col-md-6 col-6">
                                 <div class="custom-select-form">
                                     <select class="wide">
@@ -55,10 +55,12 @@
                             </div>
                         </div>
                         <div class="row">
-                            <label class="col-xl-5 col-lg-5  col-md-6 col-6"><strong>Cantidad : </strong></label>
+                            <label class="col-xl-5 col-lg-5  col-md-6 col-6">
+                                <strong >Cantidad : </strong>
+                            </label>
                             <div class="col-xl-4 col-lg-5 col-md-6 col-6">
                                 <div class="numbers-row">
-                                    <input type="text" value="1" id="quantity_1" class="qty2" name="quantity_1">
+                                    <input type="text" [(ngModel)]="Cantidad" (input)="cambioCantidad($event)" value="1" class="qty2" name="quantity_1" maxLength="3">
                                 </div>
                             </div>
                         </div>

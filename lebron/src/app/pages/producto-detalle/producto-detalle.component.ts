@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { ClientesService } from 'src/app/services/clientes.service';
+import { CheckoutService } from 'src/app/services/checkout.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
@@ -29,18 +29,29 @@ export class ProductoDetalleComponent implements OnInit {
   Categoria: any;
   SubCategoria: any;
   Unidad: any;
+  Cantidad: any = 1;  // *** CHEQUEAR EL STOCK DE ESTO ANTES DE PONER EN HTML
+  
 
   constructor(
     public usuariosService: UsuariosService,
     public authService: AuthService,
     public productosService: ProductosService,
+    public checkoutService: CheckoutService,
     public activatedRoute: ActivatedRoute
   ) {
    }
 
   ngOnInit() {
-    this.authService.personaId;
-    this.cargarDatosProducto();
+    this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
+    this.IdPersona = this.authService.personaId;
+    this.changeCantidad();
+    // this.cargarDatosProducto();    
+    
+  }
+
+  // =================================================================
+  changeCantidad() {
+    this.checkoutService.changeCantidad(this.Cantidad);
   }
 
   // =================================
@@ -70,5 +81,10 @@ cargarDatosProducto(){
     });
   }
 
-
+  cambioCantidad(event: any)
+  { 
+    console.log(event.target.value);
+    this.Cantidad = event.target.value;
+    this.changeCantidad();
+  }
 }

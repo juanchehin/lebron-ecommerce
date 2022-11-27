@@ -55,7 +55,7 @@
                             </div>
                         </td>
                         <td>
-                            <strong>{{Subtotal}}</strong>
+                            <strong>{{producto.PrecioVenta}}</strong>
                         </td>
                     </tr>
                     <tr *ngIf="habilitarCostoEnvio">
@@ -84,7 +84,7 @@
                     </tr>
                 </tbody>
             </table>
-
+            <h2>Total : {{Total}}</h2>
             <div class="row add_top_30 flex-sm-row-reverse cart_actions">
                 <div class="col-sm-4 text-right">
                     <button type="button" class="btn_1 gray">Update Cart</button>

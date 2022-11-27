@@ -20,6 +20,7 @@ import { EnvioComponent } from './envio/envio.component';
 import { ProductoDetalleComponent } from './producto-detalle/producto-detalle.component';
 import { DireccionEnvioComponent } from './checkout/direccion-envio/direccion-envio.component';
 import { NuevaDireccionComponent } from './cuenta/perfil/direcciones/nueva-direccion/nueva-direccion.component';
+import { FailureComponent } from './failure/failure.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -44,6 +45,7 @@ const pagesRoutes: Routes = [
             { path: 'contacto', component: ContactoComponent },
             { path: 'franquicia', component: FranquiciaComponent },
             { path: 'politicas-de-seguridad', component: PoliticasComponent },
+            { path: 'failure', component: FailureComponent },
             { path: 'checkout/direcciones/:IdPersona', component: DireccionEnvioComponent },    // proteger ruta
             // Choferes
             // { path: 'choferes', component: ChoferesComponent },

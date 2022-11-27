@@ -30,6 +30,7 @@ import { ProductosRelacionadosComponent } from './productos-relacionados/product
 import { ProductoDetalleComponent } from './producto-detalle/producto-detalle.component';
 import { DireccionEnvioComponent } from './checkout/direccion-envio/direccion-envio.component';
 import { NuevaDireccionComponent } from './cuenta/perfil/direcciones/nueva-direccion/nueva-direccion.component';
+import { FailureComponent } from './failure/failure.component';
 
 @NgModule({
     declarations: [
@@ -55,7 +56,8 @@ import { NuevaDireccionComponent } from './cuenta/perfil/direcciones/nueva-direc
         ProductosRelacionadosComponent,
         ProductoDetalleComponent,
         DireccionEnvioComponent,
-        NuevaDireccionComponent
+        NuevaDireccionComponent,
+        FailureComponent
         // CheckoutComponent
     ],
     exports: [

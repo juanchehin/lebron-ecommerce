@@ -76,20 +76,9 @@ altaDireccion() {
   this.clientesService.nuevaDireccion( direccion )
              .subscribe( (resp: any) => {
               if ( resp.Mensaje === 'Ok') {
-                // Swal.fire({
-                //   position: 'top-end',
-                //   icon: 'success',
-                //   title: 'Profesional "' + this.forma.value.Usuario + '" cargado',
-                //   showConfirmButton: false,
-                //   timer: 2000
-                // });
-                this.router.navigate(['perfil/direcciones', this.IdPersona]);
+                this.router.navigate(['perfil/direcciones/', this.IdPersona]);
               } else {
-                // Swal.fire({
-                //   icon: 'error',
-                //   title: 'Hubo un problema al cargar',
-                //   text: resp.Mensaje,
-                // });
+                this.router.navigate(['failure']);
               }
 
             });

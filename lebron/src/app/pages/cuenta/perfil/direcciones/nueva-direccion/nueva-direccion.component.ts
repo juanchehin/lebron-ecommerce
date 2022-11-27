@@ -8,7 +8,7 @@ import { DireccionesService } from 'src/app/services/direcciones.service';
 @Component({
   selector: 'app-nueva-direccion',
   templateUrl: './nueva-direccion.component.html',
-  styles: []
+  styleUrls: ['./nueva-direccion.component.css']
 })
 export class NuevaDireccionComponent implements OnInit {
 
@@ -24,6 +24,8 @@ export class NuevaDireccionComponent implements OnInit {
   forma!: FormGroup;
   Provincia: any;
   IdProvincia!: string;
+  habilitarLocalidad = true;
+  cpInvalido = false;
 
   constructor(
     public authService: AuthService,
@@ -69,14 +71,11 @@ altaDireccion() {
     this.forma.value.Telefono
   );
 
-  console.log("pasa cargarDireccionesCliente")
-
   this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
 
   this.clientesService.nuevaDireccion( direccion, this.IdPersona )
              .subscribe( (resp: any) => {
 
-              console.log("resp es : ",resp)
               this.datosDirecionesCliente = resp[0];
 
               this.cargando = false;
@@ -91,11 +90,21 @@ buscarProvinciaLocalidades() {
  this.direccionesService.buscarProvinciaLocalidades( this.cp )
              .subscribe( (resp: any) => {
 
-              console.log("resp es : ",resp)
-
-              this.datosProvinciaLocalidades = resp[0];
-              this.Provincia = resp[0][0].Provincia;
-              this.IdProvincia = resp[0][0].IdProvincia;
+              if(resp[0].length > 0)
+              {
+                this.datosProvinciaLocalidades = resp[0];
+                this.Provincia = resp[0][0].Provincia;
+                this.IdProvincia = resp[0][0].IdProvincia;
+                this.habilitarLocalidad = false;
+                this.cpInvalido = false;
+              }
+              else
+              { 
+                this.habilitarLocalidad = true;
+                this.cpInvalido = true;
+                this.Provincia = '';
+              }
+              
 
               this.cargando = false;
 
@@ -108,9 +117,15 @@ inputHandle(event: any) {
   
   this.cp = event.target.value;
   
-  if (event.target.value.length >= 4) {
-    
+  if (event.target.value.length > 3) {
     this.buscarProvinciaLocalidades();
+    // this.habilitarLocalidad = false;
+  }
+  else
+  {
+    this.habilitarLocalidad = true;
+    // this.cpInvalido = true;
+    this.Provincia = '';
   }
 }
 

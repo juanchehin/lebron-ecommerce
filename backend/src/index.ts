@@ -12,6 +12,7 @@ import proveedoresRoutes from './routes/proveedoresRoutes';
 import ventasRoutes from './routes/ventasRoutes';
 import clientesRoutes from './routes/clientesRoutes';
 import direccionesRoutes from './routes/direccionesRoutes';
+import checkoutRoutes from './routes/checkoutRoutes';
 
 
 
@@ -83,6 +84,7 @@ class Server {
         this.app.use('/api/login', loginRoutes);
         this.app.use('/api/uploads', uploadRoutes);
         this.app.use('/api/settings', settingsRoutes);
+        this.app.use('/api/checkout', checkoutRoutes);
 
     }
 

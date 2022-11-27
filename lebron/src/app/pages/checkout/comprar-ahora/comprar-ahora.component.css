@@ -1,0 +1,14 @@
+select {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    height: 30px;
+    padding: 5px;
+    width: 250px;
+}
+
+.error input {
+    border-style: solid;
+    border-color: #c00;
+    border-width: 2px;
+}

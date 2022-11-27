@@ -38,22 +38,22 @@
                 <tbody>
                     <tr *ngFor="let direccion of datosDirecionesCliente">
                         <td>
-                            <span class="item_cart">{{direccion.Direccion}}</span>
+                            <span>{{direccion.Calle}} {{direccion.Numero}}</span>
                         </td>
                         <td>
-                            <strong>{{direccion.Provincia}}</strong>
-                            <strong>{{direccion.Localidad}}</strong>
+                            <span>{{direccion.Provincia}} - </span>
+                            <span>{{direccion.Localidad}}</span>
                         </td>
                         <td>
-                            <div class="numbers-row">
-                                <strong>{{direccion.CP}}</strong>
+                            <div>
+                                <span>{{direccion.CP}}</span>
                             </div>
                         </td>
                         <td>
-                            <strong>{{direccion.Telefono}}</strong>
+                            <span>{{direccion.Telefono}}</span>
                         </td>
                         <td class="options">
-                            <a href="#"><i class="ti-marker-alt"></i></a>
+                            <input type="radio" name="" value="">
                         </td>
                     </tr>
                 </tbody>

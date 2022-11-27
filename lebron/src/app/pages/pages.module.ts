@@ -31,6 +31,7 @@ import { ProductoDetalleComponent } from './producto-detalle/producto-detalle.co
 import { DireccionEnvioComponent } from './checkout/direccion-envio/direccion-envio.component';
 import { NuevaDireccionComponent } from './cuenta/perfil/direcciones/nueva-direccion/nueva-direccion.component';
 import { FailureComponent } from './failure/failure.component';
+import { ComprarAhoraComponent } from './checkout/comprar-ahora/comprar-ahora.component';
 
 @NgModule({
     declarations: [
@@ -57,7 +58,8 @@ import { FailureComponent } from './failure/failure.component';
         ProductoDetalleComponent,
         DireccionEnvioComponent,
         NuevaDireccionComponent,
-        FailureComponent
+        FailureComponent,
+        ComprarAhoraComponent
         // CheckoutComponent
     ],
     exports: [

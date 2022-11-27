@@ -153,10 +153,10 @@ public async listarClientesPaginado(req: Request, res: Response): Promise<void> 
 
      pool.query(`call bsp_listar_clientes_paginado('${desde}')`, function(err: any, result: any, fields: any){
         if(err){
-            console.log("error", err);
+            res.status(404).json(result);
             return;
         }
-        res.json(result);
+        res.status(200).json(result);
     })
  }
 
@@ -169,6 +169,23 @@ public async dameDatosClienteEnvio(req: Request, res: Response): Promise<void> {
     var IdPersona = req.params.IdPersona;
 
     pool.query(`call bsp_dame_direccion_cliente_costo('${IdPersona}')`, function(err: any, result: any, fields: any){
+       if(err){
+           console.log("error", err);
+           return;
+       }
+       res.json(result);
+   })
+}
+
+
+ // ==================================================
+//        Lista 
+// ==================================================
+
+public async dameDirecionesCliente(req: Request, res: Response): Promise<void> {
+    var IdPersona = req.params.IdPersona;
+
+    pool.query(`call bsp_dame_direcciones_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
        if(err){
            console.log("error", err);
            return;

@@ -21,6 +21,7 @@ import { ProductoDetalleComponent } from './producto-detalle/producto-detalle.co
 import { DireccionEnvioComponent } from './checkout/direccion-envio/direccion-envio.component';
 import { NuevaDireccionComponent } from './cuenta/perfil/direcciones/nueva-direccion/nueva-direccion.component';
 import { FailureComponent } from './failure/failure.component';
+import { ComprarAhoraComponent } from './checkout/comprar-ahora/comprar-ahora.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -47,6 +48,7 @@ const pagesRoutes: Routes = [
             { path: 'politicas-de-seguridad', component: PoliticasComponent },
             { path: 'failure', component: FailureComponent },
             { path: 'checkout/direcciones/:IdPersona', component: DireccionEnvioComponent },    // proteger ruta
+            { path: 'comprar-ahora/:IdProducto/:IdPersona', component: ComprarAhoraComponent },    // proteger ruta
             // Choferes
             // { path: 'choferes', component: ChoferesComponent },
             // { path: 'choferes/nuevo', component: NuevoChoferComponent },

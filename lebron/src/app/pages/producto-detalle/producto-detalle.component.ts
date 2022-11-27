@@ -16,6 +16,7 @@ export class ProductoDetalleComponent implements OnInit {
 
   cargando = true;
   IdProducto: any;
+  IdPersona: any;
 
   Producto: any;
   Marca: any;
@@ -38,6 +39,7 @@ export class ProductoDetalleComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.authService.personaId;
     this.cargarDatosProducto();
   }
 

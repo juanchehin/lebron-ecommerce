@@ -37,14 +37,10 @@ export class MisDireccionesComponent implements OnInit {
 // ==================================================
 
 cargarDireccionesCliente() {
-  console.log("pasa cargarDireccionesCliente")
-
-  // this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
 
   this.clientesService.dameDirecionesCliente( this.IdPersona )
              .subscribe( (resp: any) => {
 
-              console.log("resp es : ",resp)
               this.datosDirecionesCliente = resp[0];
 
               this.cargando = false;

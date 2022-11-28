@@ -43,9 +43,10 @@ export class ProductoDetalleComponent implements OnInit {
 
   ngOnInit() {
     this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
-    this.IdPersona = this.authService.personaId;
+    this.IdPersona = this.authService.IdPersona;
+    console.log("id persona es : ",this.IdPersona )
     this.changeCantidad();
-    // this.cargarDatosProducto();    
+    this.cargarDatosProducto();    
     
   }
 
@@ -65,6 +66,8 @@ cargarDatosProducto(){
 
     this.productosService.dameDatosProducto(this.IdProducto)
     .subscribe( (resp: any) => {
+
+      console.log("resp es : ",resp);
 
       this.Producto = resp[0][0].Producto;
       this.Categoria = resp[0][0].Categoria;

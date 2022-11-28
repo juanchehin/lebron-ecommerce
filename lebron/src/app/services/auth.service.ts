@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 const URL_SERVICIOS = environment.URL_SERVICIOS;
 
@@ -12,16 +13,11 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 })
 export class AuthService {
 
-  persona!: any;
-  personaValor!: any;
-  personaId!: any;
-  IdRol: any;
-  token!: any;
-  usuario: any;
-  IdPersona!: any;
-  // menuBack!: Array[] = [];
-  menuBack: any[] = Array();
+  public token!: any;
+  public IdPersona!: any;
 
+  private IdPersonaSource = new BehaviorSubject<string>('');
+  public quoteIdPersona = this.IdPersonaSource.asObservable();  // 
 
   constructor(
     public http: HttpClient,
@@ -33,32 +29,9 @@ export class AuthService {
 // =========================================== LOGUEO =================================================================
 // ====================================================================================================================
 
-// ==================================================
-//        Logueo de un usuario del sistema
-// ==================================================
-loginUsuario( persona: any ): any {
-
-  const url = URL_SERVICIOS + '/login/usuario';
-
-  return this.http.post(url, persona)
-    .pipe(
-          map(
-            ( resp: any ) => {
-                if (resp.mensaje === 'Error de credenciales') {
-                  return false;
-                }
-
-                console.log("resp en sevicio es ; ",resp)
-      this.IdRol = resp.IdRol;
-      this.guardarStorage( resp.id, resp.token, resp.usuario, resp.menu, resp.IdRol);
-      this.cargarStorage();
-
-      return true;
-    }));
-
-
+setIdPersona(IdPersona: any) {
+  this.IdPersonaSource.next(IdPersona);
 }
-
 // ==================================================
 //        Logueo de un usuario del sistema
 // ==================================================
@@ -70,14 +43,17 @@ loginCliente( persona: any ): any {
     .pipe(
           map(
             ( resp: any ) => {
+
                 if (resp.mensaje === 'Error de credenciales') {
                   return false;
                 }
 
-                console.log("resp en sevicio es ; ",resp)
-      this.IdRol = resp.IdRol;
+
       this.IdPersona = resp.IdPersona;
-      this.guardarStorage( resp.id, resp.token, resp.usuario, [] , '2');
+
+      this.setIdPersona(resp.IdPersona);  //
+
+      this.guardarStorage( resp.id, resp.token);
       this.cargarStorage();
 
       return true;
@@ -89,18 +65,13 @@ loginCliente( persona: any ): any {
 //        Guarda la info en el localstorage
 //  Guarda en el storage la informacion recibida por parametros
 // ==================================================
-guardarStorage( id: string, token: string, usuario: any, menu: any[], IdRol: any ) {
+guardarStorage( id: string, token: string, ) {
 
   localStorage.setItem('id', id );
   localStorage.setItem('token', token );
-  localStorage.setItem('menu', JSON.stringify(menu) );
-  localStorage.setItem('usuario', usuario );
 
-  this.IdRol = IdRol;
   this.token = token;
-  this.personaId = id;
-  this.usuario = usuario;
-  this.menuBack = menu;
+  this.IdPersona = id;
 
   // this.actualizaEstadoCliente(this.personaId);
 }
@@ -113,17 +84,14 @@ guardarStorage( id: string, token: string, usuario: any, menu: any[], IdRol: any
 
     if ((localStorage.getItem('token') === 'undefined') || (localStorage.getItem('token') === null)) {
       this.token = '';
-      this.persona = null;
-      this.personaId = null;
-      this.menuBack = [];
+      this.IdPersona = null;
+      
     } else {
       const var1 = localStorage.getItem('token');
       this.token = var1;
 
-      this.usuario = localStorage.getItem('usuario');
-
       const var3 = localStorage.getItem('id');
-      this.personaId = var3;
+      this.IdPersona = var3;
 
       // this.menuBack = localStorage.getItem('menu');
       // this.menu = JSON.parse( localStorage.getItem('menu') );
@@ -194,22 +162,18 @@ actualizaEstadoCliente( IdPersona: string ) {
 // ==================================================
 
 logout() {
-  this.persona = null;
+  
   this.token = '';
-  this.personaId = null;
-  this.IdRol = null;
-  this.usuario = null;
-  this.menuBack = [];
-
+  this.IdPersona = null;
 
   localStorage.removeItem('token');
   localStorage.removeItem('id');
-  localStorage.removeItem('usuario');
-  localStorage.removeItem('menu');
-
-
 
   this.router.navigate(['/login']);
 }
 
+public get obtenerIdPersona(): string {
+  console.log("this.idpersona es : ")
+  return this.IdPersona;
+}
 }

@@ -26,7 +26,13 @@ export class PerfilComponent implements OnInit {
    cargarIdPersona() {
     console.log("pasa cargarIdPersona perfil")
 
-    this.IdPersona = this.authService.IdPersona;
+    // this.IdPersona = this.authService.IdPersona;
+
+    this.authService.quoteIdPersona.subscribe((dataIdPersona : any) => { 
+      console.log("dataIdPersona en perfil component",dataIdPersona);
+      this.IdPersona = dataIdPersona;
+      console.log("this.idpersaon en perfil component",this.IdPersona);
+    });
 
     console.log("IdPersona perfilcomponent cargarIdPersona es : ",this.IdPersona);
 

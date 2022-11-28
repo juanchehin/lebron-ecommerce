@@ -14,12 +14,12 @@ export class AdminGuard implements CanActivate {
 
   canActivate() {
 
-    if ( this.authService.IdRol !== 3) {  // 3: Rol Admin
-      this.authService.logout();
-      return false;
+    // if ( this.authService.IdRol !== 3) {  // 3: Rol Admin
+    //   this.authService.logout();
+    //   return false;
 
-    } else {
+    // } else {
       return true;
-    }
+    // }
   }
 }

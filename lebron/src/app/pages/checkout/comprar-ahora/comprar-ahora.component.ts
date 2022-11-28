@@ -2,6 +2,7 @@ import {  Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { ProductoDetalleComponent } from '../../producto-detalle/producto-detalle.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-comprar-ahora',
@@ -12,7 +13,8 @@ export class ComprarAhoraComponent implements OnInit  {
 
   constructor(
     public checkoutService: CheckoutService,
-    public activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute,
+    public authService: AuthService
   ) { }
 
   Cantidad: any = 1;
@@ -25,15 +27,12 @@ export class ComprarAhoraComponent implements OnInit  {
   Total = 0;
 
   ngOnInit(): void {
-    
 
     this.checkoutService.cantidad.subscribe((data : any)=>{
-      console.log("data oninit es : ",data);
       this.Cantidad = data;
     });
 
     this.dameDatosComprarAhora();
-    console.log("this.Cantidad es : ",this.Cantidad);
   }
 
   // ==============================
@@ -41,8 +40,6 @@ export class ComprarAhoraComponent implements OnInit  {
   //  y las direcciones del cliente
   // ===============================
   dameDatosComprarAhora(){
-
-    console.log("this.Cantidad dameDatosComprarAhora es : ",this.Cantidad);
 
     this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
     this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');

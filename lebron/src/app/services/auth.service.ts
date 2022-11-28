@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 const URL_SERVICIOS = environment.URL_SERVICIOS;
 
@@ -15,9 +15,13 @@ export class AuthService {
 
   public token!: any;
   public IdPersona!: any;
+  public cantItemsCarrito: any = 0;
 
   private IdPersonaSource = new BehaviorSubject<string>('');
   public quoteIdPersona = this.IdPersonaSource.asObservable();  // 
+
+  private cantItemsCarritoSource = new BehaviorSubject<string>('');
+  public quoteCantItemsCarrito = this.cantItemsCarritoSource.asObservable();  // 
 
   constructor(
     public http: HttpClient,
@@ -31,6 +35,11 @@ export class AuthService {
 
 setIdPersona(IdPersona: any) {
   this.IdPersonaSource.next(IdPersona);
+}
+
+setcantItemsCarrito(cantItemsCarrito: any) {
+  console.log("pasa setcantItemsCarrito en auth service");
+  this.cantItemsCarritoSource.next(cantItemsCarrito);
 }
 // ==================================================
 //        Logueo de un usuario del sistema
@@ -48,12 +57,14 @@ loginCliente( persona: any ): any {
                   return false;
                 }
 
+                console.log("resp auth es : ",resp)
 
       this.IdPersona = resp.IdPersona;
 
       this.setIdPersona(resp.IdPersona);  //
+      this.setcantItemsCarrito(resp.cantItemsCarrito);  //
 
-      this.guardarStorage( resp.id, resp.token);
+      this.guardarStorage( resp.IdPersona, resp.token,resp.cantItemsCarrito );
       this.cargarStorage();
 
       return true;
@@ -65,10 +76,11 @@ loginCliente( persona: any ): any {
 //        Guarda la info en el localstorage
 //  Guarda en el storage la informacion recibida por parametros
 // ==================================================
-guardarStorage( id: string, token: string, ) {
+guardarStorage( id: string, token: string, cantItemsCarrito: any) {
 
   localStorage.setItem('id', id );
   localStorage.setItem('token', token );
+  localStorage.setItem('items-carrito', cantItemsCarrito );
 
   this.token = token;
   this.IdPersona = id;
@@ -93,8 +105,9 @@ guardarStorage( id: string, token: string, ) {
       const var3 = localStorage.getItem('id');
       this.IdPersona = var3;
 
-      // this.menuBack = localStorage.getItem('menu');
-      // this.menu = JSON.parse( localStorage.getItem('menu') );
+      const var4 = localStorage.getItem('items-carrito');
+      // this.IdPersona = var3;
+
     }
 
   }
@@ -105,6 +118,7 @@ guardarStorage( id: string, token: string, ) {
 estaLogueado() {
 
   this.token = localStorage.getItem('token');
+
   if ((this.token === 'undefined') || (this.token === null)) {
     return false;
   } else {
@@ -165,15 +179,14 @@ logout() {
   
   this.token = '';
   this.IdPersona = null;
+  this.IdPersonaSource.complete();
+  this.cantItemsCarritoSource.complete();
 
   localStorage.removeItem('token');
   localStorage.removeItem('id');
+  localStorage.removeItem('items-carrito');
 
   this.router.navigate(['/login']);
 }
 
-public get obtenerIdPersona(): string {
-  console.log("this.idpersona es : ")
-  return this.IdPersona;
-}
 }

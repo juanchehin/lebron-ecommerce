@@ -22,21 +22,18 @@ import { DireccionEnvioComponent } from './checkout/direccion-envio/direccion-en
 import { NuevaDireccionComponent } from './cuenta/perfil/direcciones/nueva-direccion/nueva-direccion.component';
 import { FailureComponent } from './failure/failure.component';
 import { ComprarAhoraComponent } from './checkout/comprar-ahora/comprar-ahora.component';
+import { LoginGuardGuard } from '../services/guards/login-guard.guard';
+import { VerificaTokenGuard } from '../services/guards/verifica-token.guard';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
       {
         path: '',
         component: PagesComponent,
-        // canActivate: [LoginGuardGuard, VerificaTokenGuard],
         children: [
             { path: '', component: PrincipalComponent },
             { path: 'login', component: LoginComponent },
             { path: 'registro', component: RegisterComponent },
-            { path: 'perfil', component: PerfilComponent },
-            { path: 'perfil/direcciones/nueva/:IdPersona', component: NuevaDireccionComponent }, // proteger ruta
-            { path: 'carrito/:IdPersona', component: CarritoComponent },
-            { path: 'envio/:IdPersona', component: EnvioComponent },
             { path: 'cuenta-creada', component: MailComponent },
             { path: 'promociones', component: ProductosPromocionComponent },
             { path: 'producto/detalle/:IdProducto', component: ProductoDetalleComponent },
@@ -46,27 +43,24 @@ const pagesRoutes: Routes = [
             { path: 'contacto', component: ContactoComponent },
             { path: 'franquicia', component: FranquiciaComponent },
             { path: 'politicas-de-seguridad', component: PoliticasComponent },
-            { path: 'failure', component: FailureComponent },
-            { path: 'checkout/direcciones/:IdPersona', component: DireccionEnvioComponent },    // proteger ruta
-            { path: 'comprar-ahora/:IdProducto/:IdPersona', component: ComprarAhoraComponent },    // proteger ruta
-            // Choferes
-            // { path: 'choferes', component: ChoferesComponent },
-            // { path: 'choferes/nuevo', component: NuevoChoferComponent },
-            // Usuarios
-            // { path: 'choferes', component: ChoferesComponent },
-            // { path: 'choferes/nuevo', component: NuevoChoferComponent }
+            { path: 'failure', component: FailureComponent }
         ]
     },
     // *** Acceso para el cliente logueado y con token actualizado ****
     {
         path: '',
         component: PagesComponent,
-        // canActivate: [LoginGuardGuard, VerificaTokenGuard],
+        canActivate: [LoginGuardGuard, VerificaTokenGuard],
         children: [
             { path: 'perfil', component: PerfilComponent },
             { path: 'perfil/cuenta/:IdPersona', component: MiCuentaComponent },
             { path: 'perfil/direcciones/:IdPersona', component: MisDireccionesComponent },
             { path: 'perfil/pedidos/:IdPersona', component: MisPedidosComponent },
+            { path: 'perfil/direcciones/nueva/:IdPersona', component: NuevaDireccionComponent },
+            { path: 'checkout/direcciones/:IdPersona', component: DireccionEnvioComponent },    // proteger ruta
+            { path: 'comprar-ahora/:IdProducto/:IdPersona', component: ComprarAhoraComponent },    // proteger ruta
+            { path: 'carrito/:IdPersona', component: CarritoComponent },
+            { path: 'envio/:IdPersona', component: EnvioComponent }
         ]
     }
 ];

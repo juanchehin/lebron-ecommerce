@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
   categorias!: any;
   usuarioActual: any;
   IdUsuario: any;
+  cantItemsCarrito: any = '';
 
   constructor(
     private marcasService: MarcasService,
@@ -28,10 +29,10 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+        this.cargarCantItemsCarrito();
         this.cargarMarcas();
         this.cargarCategoriasSubcategorias();
         this.comprobarLogueo();
-        this.usuarioActual = this.clienteService.usuario;
         this.IdUsuario = this.authService.IdPersona;
   }
 
@@ -86,8 +87,6 @@ buscarProducto() {
 //        Funcion para comprobar si esta logueado actualmente
 // ==================================================
   comprobarLogueo() {
-    this.usuarioActual = localStorage.getItem('usuario');
-
     if (this.authService.estaLogueado()) {
       return true;
     } else {
@@ -114,4 +113,26 @@ buscarProducto() {
     }
     
   }
+// ==================================================
+//    
+// ==================================================
+  logout()
+  { 
+    this.authService.logout();
+  }
+
+// ==================================================
+//    
+// ==================================================
+
+cargarCantItemsCarrito() {
+
+  return this.cantItemsCarrito = localStorage.getItem('items-carrito');
+  // console.log("pasa cargarCantItemsCarrito en header component");
+  // this.authService.quoteCantItemsCarrito.subscribe((cantItemsCarrito : any) => { 
+  //   console.log("pasa dataIdPersona en header component",cantItemsCarrito);
+  //   this.cantItemsCarrito = cantItemsCarrito;
+  // });
+}
+
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -13,43 +13,19 @@ export class PerfilComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    public router: Router,
-    private activatedRoute: ActivatedRoute
+    public router: Router
     ) { }
   ngOnInit() {
-    // this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
     this.cargarIdPersona();
     
   }
 
    // ***
    cargarIdPersona() {
-    console.log("pasa cargarIdPersona perfil")
-
-    // this.IdPersona = this.authService.IdPersona;
-
     this.authService.quoteIdPersona.subscribe((dataIdPersona : any) => { 
-      console.log("dataIdPersona en perfil component",dataIdPersona);
       this.IdPersona = dataIdPersona;
-      console.log("this.idpersaon en perfil component",this.IdPersona);
     });
 
-    console.log("IdPersona perfilcomponent cargarIdPersona es : ",this.IdPersona);
-
-    if(this.IdPersona == 'undefined' || this.IdPersona == null || this.IdPersona <= 0)
-    { 
-      this.authService.logout();
-    }
-
-  }
-
-  // ***
-  comprobarLogueo() {
-    console.log("pasa comprobarLogueo perfil")
-    if(!this.authService.estaLogueado())
-    { 
-      this.router.navigate(['/']);
-    }
   }
 
 }

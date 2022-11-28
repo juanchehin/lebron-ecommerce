@@ -13,7 +13,6 @@ class LoginRoutes {
     config() {
         this.router.post('/usuario', loginController.loginUsuario);
         this.router.post('/cliente', loginController.loginCliente);
-        this.router.get('/control/estado/:IdPersona', loginController.actualizaEstadoCliente);
     }
 
 }

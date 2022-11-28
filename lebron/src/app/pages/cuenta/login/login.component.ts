@@ -38,18 +38,10 @@ export class LoginComponent implements OnInit {
 
     this.authService.loginCliente(persona)
         .subscribe((resp: any) => {
-
-          console.log("resp es : " + resp)
           if ( resp === true) {
             this.router.navigate(['/']);
             return;
           }
-
-          // Swal.fire({
-          //   icon: 'error',
-          //   title: 'Error de credenciales',
-          //   text: 'Error de credenciales',
-          // });
       },
       ( error: any) => {
           this.errorCredenciales = true;

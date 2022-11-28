@@ -27,7 +27,6 @@ export class ConfiguracionesService {
 //
 // ==================================================
 listarDatosFooter(){
-  console.log("pasa listar listarDatosFooter")
 
   let url = URL_SERVICIOS + '/settings/listar/footer';
 

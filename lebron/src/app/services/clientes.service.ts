@@ -75,6 +75,10 @@ dameDatosCliente(  IdPersona: string  ): any {
 
 dameDirecionesCliente(  IdPersona: string  ): any {
 
+  if(IdPersona === undefined || IdPersona === null) {
+    return;
+  }
+
   const url = URL_SERVICIOS + '/clientes/direcciones/' + IdPersona;
 
   return this.http.get(url);

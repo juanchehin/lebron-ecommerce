@@ -42,18 +42,27 @@ export class ProductoDetalleComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.cargarIdPersona();
     this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
-    this.IdPersona = this.authService.IdPersona;
-    console.log("id persona es : ",this.IdPersona )
+
     this.changeCantidad();
     this.cargarDatosProducto();    
     
+  }
+
+  // ***
+  cargarIdPersona() {
+    this.authService.quoteIdPersona.subscribe((dataIdPersona : any) => { 
+      this.IdPersona = dataIdPersona;
+    });
+
   }
 
   // =================================================================
   changeCantidad() {
     this.checkoutService.changeCantidad(this.Cantidad);
   }
+  
 
   // =================================
   // Carga el costo del envio y la direccion del usuario 

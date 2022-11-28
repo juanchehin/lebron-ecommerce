@@ -31,7 +31,7 @@ pool.query(`call bsp_login_usuario('${email}')`, function(err: any, resultLogin:
 
     // Chequeo la contraseña
     bcrypt.compare(pass, resultLogin[0][0].lPassword, function(err: any, result: any) {
-        if(result != true){
+        if(result != true || err){
 
             res.status(500).json({
                 ok: true,
@@ -100,9 +100,9 @@ pool.query(`call bsp_login_cliente('${email}')`, function(err: any, resultLogin:
             // Respuesta
             res.status(200).json({
                 ok: true,
-                usuario: resultLogin[0][0].lUsuario,
                 token: token,
-                IdPersona: resultLogin[0][0].lIdPersona
+                IdPersona: resultLogin[0][0].lIdPersona,
+                cantItemsCarrito : resultLogin[1][0].cantItemsCarrito
             });
         }
     });

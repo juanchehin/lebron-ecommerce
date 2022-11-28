@@ -110,8 +110,8 @@
                                         <li *ngIf="comprobarLogueo()">
                                             <a [routerLink]="['perfil']"><i class="ti-user"></i>Perfil</a>
                                         </li>
-                                        <li (click)="logout()" *ngIf="comprobarLogueo()">
-                                            <a [routerLink]="['']"><i class="ti-power-off"></i>Logout</a>
+                                        <li (click)="logout()" *ngIf="comprobarLogueo()" style="cursor: pointer;">
+                                            <a><i class="ti-power-off"></i>Logout</a>
                                         </li>
                                     </ul>
                                 </div>

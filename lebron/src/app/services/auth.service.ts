@@ -34,6 +34,7 @@ export class AuthService {
 // ====================================================================================================================
 
 setIdPersona(IdPersona: any) {
+  console.log("pasa setIdPersona en auth service");
   this.IdPersonaSource.next(IdPersona);
 }
 
@@ -176,11 +177,15 @@ actualizaEstadoCliente( IdPersona: string ) {
 // ==================================================
 
 logout() {
-  
+
   this.token = '';
   this.IdPersona = null;
-  this.IdPersonaSource.complete();
-  this.cantItemsCarritoSource.complete();
+  // this.IdPersonaSource.complete();
+  // this.cantItemsCarritoSource.complete();
+
+  localStorage.setItem('id', '' );
+  localStorage.setItem('token', '' );
+  localStorage.setItem('items-carrito', '' );
 
   localStorage.removeItem('token');
   localStorage.removeItem('id');

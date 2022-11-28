@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductosService } from 'src/app/services/productos.service';
-import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
-const URL_IMAGENES = environment.URL_IMAGENES;
+const url_imagenes_producto = environment.ruta_img_productos;
 
 @Component({
   selector: 'app-productos-relacionados',
@@ -19,7 +19,7 @@ export class ProductosRelacionadosComponent implements OnInit {
   productosRelacionados!: any;
   productosRelacionadosPaginacion!: any;
   cantPlanes = 0;
-
+  url_imagenes_producto = url_imagenes_producto;
   totalProductosRelacionados = 0;
   cantidadPaginado = 0;
   cargando = true;

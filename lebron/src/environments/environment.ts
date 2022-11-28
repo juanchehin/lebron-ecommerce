@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   URL_SERVICIOS: 'http://localhost:3000/api',
-  URL_IMAGENES: '../../../backend/uploads/'
+  ruta_img_productos: 'http://localhost:3000/uploads/images/productos/',
+  ruta_img_marcas: 'http://localhost:3000/uploads/images/marcas/'
 };
 
 /*

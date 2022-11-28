@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { ProductosService } from 'src/app/services/productos.service';
-import { UsuariosService } from 'src/app/services/usuarios.service';
+import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+
+const url_imagenes_producto = environment.ruta_img_productos;
+
+
 
 @Component({
   selector: 'app-destacados',
@@ -15,6 +19,7 @@ export class DestacadosComponent implements OnInit {
   public imgTemp: any = '../../../assets/img/lebron_lebron.png';
 
   productosDestacados!: any;
+  url_imagenes_producto = url_imagenes_producto;
 
   usuarios!: any;
   totalProductosDestacados = 0;
@@ -44,6 +49,8 @@ cargarProductosDestacadosHome() {
 
   this.productosService.listarProductosDestacadosHome(  )
   .subscribe( (resp: any) => {
+
+    console.log("resp es : ",resp)
 
    this.productosDestacados = resp[0];
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductosService } from 'src/app/services/productos.service';
 import { environment } from 'src/environments/environment';
 
-const URL_IMAGENES = environment.URL_IMAGENES;
+const url_imagenes_producto = environment.ruta_img_productos;
 
 @Component({
   selector: 'app-productos-promocion',
@@ -15,7 +15,7 @@ export class ProductosPromocionComponent implements OnInit {
   numbers: any[] = [];
   totalAsistencias = true;
   public imgTemp: any = '../../../assets/img/lebron_lebron.png';
-
+  url_imagenes_producto = url_imagenes_producto;
   productosPromocion!: any;
   cantPlanes = 0;
 

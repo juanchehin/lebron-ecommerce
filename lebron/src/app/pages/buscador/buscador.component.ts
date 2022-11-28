@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductosService } from 'src/app/services/productos.service';
+import { environment } from 'src/environments/environment';
+
+const url_imagenes_producto = environment.ruta_img_productos;
 
 @Component({
   selector: 'app-buscador',
@@ -13,11 +16,11 @@ export class BuscadorComponent implements OnInit {
   numbers: any[] = [];
   totalAsistencias = true;
   ClasesDisponibles = 0;
-
+  url_imagenes_producto = url_imagenes_producto;
   productosBuscados!: any;
   cantPlanes = 0;
   productosBuscadoParametro: any;
-
+  public imgTemp: any = '../../../assets/img/lebron_lebron.png';
   totalProductosBuscados = 0;
   cantidadPaginado = 0;
   cargando = true;

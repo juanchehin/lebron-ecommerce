@@ -81,6 +81,12 @@
                         <li><a [routerLink]="['/dashboard/marcas']">Marcas</a></li>
                     </ul>
                 </li>
+                <!-- ===== ** Promociones ** ====== -->
+                <li class="user-profile" [routerLink]="['/dashboard/promociones']" *ngIf="activarMenu('Promociones')">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <span class="hide-menu">Promociones </span>
+                    </a>
+                </li>
                 <!-- ===== ** Configuraciones ** ====== -->
                 <li class="user-profile" [routerLink]="['/dashboard/configuraciones']" *ngIf="activarMenu('Configuraciones')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">

@@ -1,0 +1,58 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad promociones ( <small> {{totalPromociones }} </small> )</h3>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <button [routerLink]="['/dashboard/promociones/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                      <i class="fa fa-plus"></i> 
+                      Nueva promocion
+                    </button>
+                    </div>
+                </div>
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">
+                                #
+                            </th>
+                            <th>Promocion</th>
+                            <th>Precio</th>
+                            <th>Publicado</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let promocion of promociones">
+                            <td>{{ promocion.IdPromocion }}</td>
+                            <td>{{ promocion.Promocion }}</td>
+                            <td>${{ promocion.Precio }}</td>
+                            <td>
+                                <div class="col-sm-3">
+                                    <div class="switch">
+                                        <label>
+                                        <input type="checkbox" [checked]="promocion.Publicada" (click)="publicarPromocion(promocion.IdPromocion)"><span class="lever switch-col-light-blue"></span></label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-10) " type="button" class="btn btn-default-outline">Anteriores</button>
+        <button (click)="cambiarDesde(10) " type="button" class="btn btn-default-outline">Siguientes</button>
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

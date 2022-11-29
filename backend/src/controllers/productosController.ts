@@ -238,7 +238,7 @@ public async listarUnidadesPaginado(req: Request, res: Response): Promise<void> 
     })
 }
 
-public async listarTodasUnidadesPaginado(req: Request, res: Response): Promise<void> {
+public async listarTodasUnidades(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_listar_todas_unidades()`, function(err: any, result: any){
         if(err){
@@ -250,7 +250,24 @@ public async listarTodasUnidadesPaginado(req: Request, res: Response): Promise<v
     })
 }
 
+// ==================================================
+//       ***** Promociones *****
+// ==================================================
+// ==============================
+public async listarPromocionesPaginado(req: Request, res: Response): Promise<void> {
 
+    var desde = req.params.pDesde || 0;
+    desde  = Number(desde);
+
+    pool.query(`call bsp_listar_promociones_paginado('${desde}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
 }
 
 

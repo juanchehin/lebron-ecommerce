@@ -28,7 +28,9 @@ class ProductosRoutes {
         this.router.get('/nuevo/datos-formulario', productosController.cargarDatosFormNuevoProducto);
         // Unidades
         this.router.get('/unidades/listar/:desde',productosController.listarUnidadesPaginado);
-        this.router.get('/unidades/listar/',productosController.listarTodasUnidadesPaginado);
+        this.router.get('/unidades/listar/',productosController.listarTodasUnidades);
+        // Promociones
+        this.router.get('/promociones/listar/:pDesde',productosController.listarPromocionesPaginado);
     }
 
 }

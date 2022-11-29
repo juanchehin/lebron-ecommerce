@@ -102,6 +102,37 @@ altaUnidad( unidad: any ) {
 );
 }
 
+// ==================================================
+//  ******* Promociones *******        
+// ==================================================
+// ==================================================
+//
+// ==================================================
+listarPromocionesPaginado(desde: any){
+  console.log("pasa listar prods")
 
+  let url = URL_SERVICIOS + '/productos/promociones/listar/' + desde;
+
+  return this.http.get( url );
+}
+
+  // ==================================================
+//        
+// ==================================================
+altaPromocion( promocion: any ) {
+
+  let url = URL_SERVICIOS + '/productos/promocion/alta';
+  // url += '?IdRol=' + this.IdRol;
+
+  return this.http.post(
+    url,
+    promocion
+    // {
+    //   headers: {
+    //     token: this.token
+    //   }
+    // }
+);
+}
 
 }

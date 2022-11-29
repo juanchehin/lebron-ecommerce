@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImagenesService } from '../../../../services/imagenes.service';
 import { environment } from 'src/environments/environment';
-import { ModalImagenService } from 'src/app/services/modal-imagen.service';
 
 const url_imagenes_producto = environment.ruta_img_productos;
 
@@ -27,8 +26,7 @@ export class ImagenesProductoComponent implements OnInit {
 
   constructor(
     public imagenesService: ImagenesService,
-    private route: ActivatedRoute,
-    public modalImagenService: ModalImagenService
+    private route: ActivatedRoute
   ) {
    }
 

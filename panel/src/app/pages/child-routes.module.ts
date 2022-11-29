@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProgressComponent } from './progress/progress.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 
 // Mantenimientos
@@ -21,15 +19,14 @@ import { ConfiguracionesComponent } from './mantenimientos/configuraciones/confi
 import { ImagenesProductoComponent } from './mantenimientos/productos/imagenes/imagenes-producto.component';
 import { NuevaImagenProductoComponent } from './mantenimientos/productos/imagenes/nueva-imagen-producto.component';
 import { PedidosComponent } from './mantenimientos/pedidos/pedidos.component';
+import { PromocionesComponent } from './mantenimientos/promociones/promociones.component';
+import { PromocionComponent } from './mantenimientos/promociones/promocion.component';
 
 
 const childRoutes: Routes = [
   { path: '', component: DashboardComponent, data: { titulo: 'Dashboard' } },
   { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes de cuenta' }},
   { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' }},
-  { path: 'progress', component: ProgressComponent, data: { titulo: 'ProgressBar' }},
-  { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' }},
-
   // Mantenimientos
   { path: 'proveedores', component: ProveedoresComponent, data: { titulo: 'Proveedores' }},
   { path: 'configuraciones', component: ConfiguracionesComponent, data: { titulo: 'Configuraciones' }},
@@ -40,6 +37,10 @@ const childRoutes: Routes = [
   { path: 'productos/marcas', component: MarcasComponent, data: { titulo: 'Marcas' }},
   { path: 'productos/imagenes/:IdProducto', component: ImagenesProductoComponent, data: { titulo: 'Imagenes' }},
   { path: 'productos/imagenes/nueva/:IdProducto', component: NuevaImagenProductoComponent, data: { titulo: 'Nueva Imagen' }},
+  //
+  { path: 'promociones', component: PromocionesComponent, data: { titulo: 'Promociones' }},
+  { path: 'promociones/nuevo', component: PromocionComponent, data: { titulo: 'Nueva Promocion' }},
+  //
   { path: 'pedidos', component: PedidosComponent, data: { titulo: 'Pedidos' }},
   { path: 'venta/nueva', component: NuevaVentaComponent, data: { titulo: 'Nueva venta' }},
 

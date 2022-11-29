@@ -5,15 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Modulos
 import { SharedModule } from '../shared/shared.module';
-import { ComponentsModule } from '../components/components.module';
-
-import { PipesModule } from '../pipes/pipes.module';
-
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProgressComponent } from './progress/progress.component';
 import { PagesComponent } from './pages.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { ProveedoresComponent } from './mantenimientos/proveedores/proveedores.component';
@@ -29,15 +23,15 @@ import { ConfiguracionesComponent } from './mantenimientos/configuraciones/confi
 import { ImagenesProductoComponent } from './mantenimientos/productos/imagenes/imagenes-producto.component';
 import { NuevaImagenProductoComponent } from './mantenimientos/productos/imagenes/nueva-imagen-producto.component';
 import { PedidosComponent } from './mantenimientos/pedidos/pedidos.component';
+import { PromocionComponent } from './mantenimientos/promociones/promocion.component';
+import { PromocionesComponent } from './mantenimientos/promociones/promociones.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    ProgressComponent,
     PagesComponent,
     AccountSettingsComponent,
-    RxjsComponent,
     PerfilComponent,
     UsuariosComponent,
     ProveedoresComponent,
@@ -51,11 +45,12 @@ import { PedidosComponent } from './mantenimientos/pedidos/pedidos.component';
     ConfiguracionesComponent,
     ImagenesProductoComponent,
     NuevaImagenProductoComponent,
-    PedidosComponent
+    PedidosComponent,
+    PromocionesComponent,
+    PromocionComponent
   ],
   exports: [
     DashboardComponent,
-    ProgressComponent,
     PagesComponent,
     AccountSettingsComponent
   ],
@@ -65,8 +60,6 @@ import { PedidosComponent } from './mantenimientos/pedidos/pedidos.component';
     ReactiveFormsModule,
     SharedModule,
     RouterModule,
-    ComponentsModule,
-    PipesModule,
     AutocompleteLibModule
   ]
 })

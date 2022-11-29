@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IItemStructure } from 'src/app/interfaces/item.intergace';
+import { IItemStructure } from 'src/app/interfaces/item.interface';
+import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { VentasService } from 'src/app/services/ventas.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-nueva-venta',
@@ -47,8 +47,8 @@ export class NuevaVentaComponent implements OnInit {
     public usuariosService: UsuariosService,
     public activatedRoute: ActivatedRoute,
     public clientesService: ClientesService,
-    public marcasService: MarcasService
-    
+    public marcasService: MarcasService,
+    public alertaService: AlertService
     ) {
     
   }
@@ -104,20 +104,11 @@ altaVenta() {
                 .subscribe( (resp: any) => {
                   console.log("resp en plan es : ",resp)
                   if ( resp.Mensaje === 'Ok') {
-                    Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'Plan cargado',
-                      showConfirmButton: false,
-                      timer: 2000
-                    });
+                    this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
+                    
                     this.router.navigate(['/mantenimiento/planes']);
                   } else {
-                    Swal.fire({
-                      icon: 'error',
-                      title: 'Hubo un problema al cargar',
-                      text: 'Contactese con el administrador',
-                    });
+                    this.alertaService.alertFail('Venta cargada',false,2000);
                   }
                   return;
                 });

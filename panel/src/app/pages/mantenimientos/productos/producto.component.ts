@@ -3,9 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
-import Swal from 'sweetalert2';
 import { UnidadesService } from '../../../services/unidades.service';
 import { CategoriasService } from '../../../services/categorias.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-producto',
@@ -38,7 +38,7 @@ export class ProductoComponent implements OnInit {
     public marcasService: MarcasService,
     public categoriasService: CategoriasService,
     public unidadesService: UnidadesService,
-    
+    public alertService: AlertService
     ) {
 
   }
@@ -139,20 +139,10 @@ altaProducto() {
                 .subscribe( (resp: any) => {
                   
                   if ( resp.Mensaje === 'Ok') {
-                    Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'Producto cargado',
-                      showConfirmButton: false,
-                      timer: 2000
-                    });
+                    this.alertService.alertSuccess('top-end','Producto cargado',false,2000);
                     this.router.navigate(['/dashboard/productos']);
                   } else {
-                    Swal.fire({
-                      icon: 'error',
-                      title: 'Hubo un problema al cargar',
-                      text: resp.Mensaje
-                    });
+                    this.alertService.alertFail('Producto cargado',false,2000);
                   }
                   return;
                 });

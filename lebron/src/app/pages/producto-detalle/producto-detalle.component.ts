@@ -4,6 +4,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { environment } from 'src/environments/environment';
+
+const url_imagenes_producto = environment.ruta_img_productos;
 
 @Component({
   selector: 'app-producto-detalle',
@@ -17,11 +20,13 @@ export class ProductoDetalleComponent implements OnInit {
   cargando = true;
   IdProducto: any;
   IdPersona: any;
-
+  url_imagenes_producto = url_imagenes_producto;
+  public imgTemp: any = '../../../assets/img/lebron_lebron.png';
   Producto: any;
   Marca: any;
   Codigo: any;
   Stock: any;
+  Imagen: any;
   Descripcion: any;
   Peso: any;
   Sabor: any;
@@ -84,6 +89,7 @@ cargarDatosProducto(){
       this.Marca = resp[0][0].Marca;
       this.Codigo = resp[0][0].Codigo;
       this.Stock = resp[0][0].Stock;
+      this.Imagen = resp[0][0].Imagen;
       this.Descripcion = resp[0][0].Descripcion;
       this.Peso = resp[0][0].Peso;
       this.Sabor = resp[0][0].Sabor;

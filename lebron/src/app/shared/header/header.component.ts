@@ -73,10 +73,13 @@ cargarCategoriasSubcategorias() {
 
 buscarProducto() {
 
-
   const inputElement: HTMLInputElement = document.getElementById('buscarProducto') as HTMLInputElement;
   const productoBuscado: any = inputElement.value || null;
 
+  if(productoBuscado == '' || productoBuscado == null) {
+    return;
+  }
+  
   this.router.navigateByUrl('/busqueda', { skipLocationChange: true }).then(() => {
     this.router.navigate(['busqueda' , productoBuscado]);
 });

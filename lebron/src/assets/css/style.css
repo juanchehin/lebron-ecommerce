@@ -3331,7 +3331,7 @@ nav a.open_close#close_in>i:hover {
 
 @media (max-width: 767px) {
     .categories {
-        display: none;
+        display: block;
     }
 }
 

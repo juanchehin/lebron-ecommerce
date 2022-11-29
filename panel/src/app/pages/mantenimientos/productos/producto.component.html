@@ -12,6 +12,9 @@
                             <div class="col-sm-6">
                                 <label>Codigo : </label>
                             </div>
+                            <div *ngIf="alertaCodigoVacio">
+                                <p style="color:red;">Debe proveer un codigo</p>
+                            </div>
                             <div class="col-sm-6" style="text-align:right;">
                                 <input type="checkbox" id="md_checkbox_9" class="chk-col-teal" (click)="generarCodigo()" />
                                 <label for="md_checkbox_9">Generar Codigo</label>
@@ -23,7 +26,7 @@
                         <div class="row">
                             <div class="col-sm-6 form-group">
                                 <label>Peso : </label>
-                                <input tabindex="3" formControlName="Peso" name="Peso" required type="number" placeholder="Peso" class="form-control">
+                                <input tabindex="3" min="0" formControlName="Peso" name="Peso" required type="number" placeholder="Peso" class="form-control">
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label>Unidad : </label>
@@ -43,14 +46,38 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6 form-group">
-                        <label>Stock : </label><input tabindex="5" formControlName="Stock" name="Stock" required type="number" placeholder="Stock..." class="form-control">
+                        <label>Stock (Sucursal - {{sucursalPrincipal}}): </label><input tabindex="5" formControlName="Stock" name="Stock" min="1" required type="number" placeholder="Stock..." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>Stock alerta : </label>
                         <input tabindex="6" formControlName="StockAlerta" name="StockAlerta" required type="number" placeholder="Stock alerta..." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Fecha vencimiento : </label><input tabindex="7" formControlName="FechaVencimiento" name="FechaVencimiento" required type="date" placeholder="Fecha vencimiento..." class="form-control">
+                        <label>Categoria : </label>
+                        <select (change)="onChangeCategorias($event.target.value)" tabindex="4" formControlName="IdCategoria" name="IdCategoria" class="form-control">
+                                <option *ngFor="let categoria of categorias" [value]="categoria.IdCategoria">
+                                    {{categoria.Categoria}}
+                                </option>
+                            </select>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>SubCategoria : </label>
+                        <select [attr.disabled]="deshabilitarSubcategorias ? '' : null" tabindex="4" formControlName="IdSubCategoria" name="IdSubCategoria" class="form-control">
+                                <option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.IdSubcategoria">
+                                    {{subcategoria.Subcategoria}}
+                                </option>
+                            </select>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Marca : </label>
+                        <select tabindex="4" formControlName="IdMarca" name="IdMarca" class="form-control">
+                                <option *ngFor="let marca of marcas" [value]="marca.IdMarca">
+                                    {{marca.Marca}}
+                                </option>
+                            </select>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Fecha vencimiento : </label><input tabindex="7" formControlName="FechaVencimiento" name="FechaVencimiento" type="date" placeholder="Fecha vencimiento..." class="form-control">
                     </div>
 
                 </div>
@@ -60,33 +87,33 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6 form-group">
-                        <label>Precio Compra : </label><input tabindex="8" formControlName="PrecioCompra" name="PrecioCompra" type="number" placeholder="Precio Compra..." class="form-control">
+                        <label>Precio Compra : </label><input min="1" tabindex="8" formControlName="PrecioCompra" name="PrecioCompra" type="number" placeholder="Precio Compra..." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Precio Venta : </label><input tabindex="9" formControlName="PrecioVenta" name="PrecioVenta" type="text" placeholder="Precio de Venta" class="form-control">
+                        <label>Precio Venta : </label><input min="1" tabindex="9" formControlName="PrecioVenta" name="PrecioVenta" type="number" placeholder="Precio de Venta" class="form-control">
                         <div *ngIf="alertaPrecioVentaCompra">
                             <p style="color:red;">El precio de venta debe ser mayor que el precio de compra</p>
                         </div>
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Precio Mayorista : </label><input tabindex="10" formControlName="PrecioMayorista" name="PrecioMayorista" type="number" placeholder="Precio Mayorista..." class="form-control">
+                        <label>Precio Mayorista : </label><input min="1" tabindex="10" formControlName="PrecioMayorista" name="PrecioMayorista" type="number" placeholder="Precio Mayorista..." class="form-control">
                         <div *ngIf="alertaPrecioVentaMayorista">
                             <p style="color:red;">El precio de venta debe ser mayor que el precio de compra</p>
                         </div>
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Precio Meli : </label><input tabindex="11" formControlName="PrecioMeli" name="PrecioMeli" type="number" placeholder="Precio Meli..." class="form-control">
+                        <label>Precio Meli : </label><input min="1" tabindex="11" formControlName="PrecioMeli" name="PrecioMeli" type="number" placeholder="Precio Meli..." class="form-control">
                         <div *ngIf="alertaPrecioVentaMeli">
                             <p style="color:red;">El precio de venta debe ser mayor que el precio de compra</p>
                         </div>
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Descuento : </label><input tabindex="12" formControlName="Descuento" name="Descuento" required type="text" placeholder="Descuento..." class="form-control">
+                        <label>Descuento % : </label><input min="0" max="99" tabindex="12" formControlName="Descuento" name="Descuento" required type="number" placeholder="Descuento..." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
                         <label class="control-label">Moneda : </label>
-                        <select tabindex="13" formControlName="Moneda" class="form-control">
-                            <option value="ARS"> ARS </option>
+                        <select required tabindex="13" formControlName="Moneda" class="form-control">
+                            <option selected value="ARS"> ARS </option>
                             <option value="USD"> USD </option>
                         </select>
                     </div>

@@ -60,7 +60,15 @@ cargarProductos( parametroBusqueda: string){
 
 
 }
-
+// ==================================================
+// Cargo las marcas,categorias,unidades,sucursal principal
+// ==================================================
+cargarDatosFormNuevoProducto( ){
+  
+    let url = URL_SERVICIOS + '/productos/nuevo/datos-formulario';
+    return this.http.get( url );
+  
+}
 // ==================================================
 //  ******* Unidades *******        
 // ==================================================

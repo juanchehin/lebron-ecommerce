@@ -3,10 +3,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
-import { ProveedoresService } from 'src/app/services/proveedores.service';
 import Swal from 'sweetalert2';
-// import { CategoriasService } from 'src/app/services/categorias.service';
 import { UnidadesService } from '../../../services/unidades.service';
+import { CategoriasService } from '../../../services/categorias.service';
 
 @Component({
   selector: 'app-producto',
@@ -25,13 +24,19 @@ export class ProductoComponent implements OnInit {
   alertaPrecioVentaCompra = false;
   alertaPrecioVentaMayorista = false;
   alertaPrecioVentaMeli = false;
+  sucursalPrincipal: any;
+  proveedores: any;
+  IdCategoriaSeleccionada: any;
+  subcategorias: any;
+  deshabilitarSubcategorias = true;
+  alertaCodigoVacio = false;
 
   constructor(
     private router: Router, 
     public productosService: ProductosService, 
     public activatedRoute: ActivatedRoute,
     public marcasService: MarcasService,
-    // public categoriasService: CategoriasService,
+    public categoriasService: CategoriasService,
     public unidadesService: UnidadesService,
     
     ) {
@@ -39,14 +44,12 @@ export class ProductoComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.cargarCategorias();
-    // this.cargarMarcas();
-    this.cargarUnidades();
+    this.cargarDatosFormNuevoProducto();
 
     this.forma = new FormGroup({
       IdCategoria: new FormControl(null ),
-      IdMarca: new FormControl(null),
       IdSubCategoria: new FormControl(null ),
+      IdMarca: new FormControl(null),
       IdUnidad: new FormControl(null ),
       Producto: new FormControl(null, Validators.required),
       Codigo: new FormControl(null , Validators.required),
@@ -101,6 +104,15 @@ altaProducto() {
       { 
         this.alertaPrecioVentaMayorista = false;
       }
+      //** */
+      if((this.forma.value.Codigo == '') || (this.forma.value.Codigo == null) ){
+        this.alertaCodigoVacio = true;
+        return;
+      }
+      else
+      { 
+        this.alertaCodigoVacio = false;
+      }
 
       const producto = new Array(
         this.forma.value.IdCategoria,
@@ -111,7 +123,6 @@ altaProducto() {
         this.forma.value.Codigo,
         this.forma.value.Stock,
         this.forma.value.FechaVencimiento,
-        this.forma.value.Imagen,
         this.forma.value.Descripcion,
         this.forma.value.StockAlerta,
         this.forma.value.Peso,
@@ -140,7 +151,7 @@ altaProducto() {
                     Swal.fire({
                       icon: 'error',
                       title: 'Hubo un problema al cargar',
-                      text: 'Contactese con el administrador',
+                      text: resp.Mensaje
                     });
                   }
                   return;
@@ -153,13 +164,19 @@ altaProducto() {
 // Carga
 // ==================================================
 
-cargarUnidades() {
-  console.log("pasa cargar cargarUnidades");
+cargarDatosFormNuevoProducto() {
+  console.log("pasa cargar cargarDatosFormNuevoProducto");
 
-    this.unidadesService.listarTodasUnidades(  )
+    this.productosService.cargarDatosFormNuevoProducto(  )
                .subscribe( (resp: any) => {
 
-                this.unidades = resp[0];
+                console.log("resp es : ",resp)
+
+                this.marcas = resp[0];
+                this.categorias = resp[1];
+                this.unidades = resp[2];
+                this.proveedores = resp[3];
+                this.sucursalPrincipal = resp[4][0].Sucursal;
 
                 this.cargando = false;
 
@@ -167,48 +184,26 @@ cargarUnidades() {
 
   }
 
-  // ==================================================
-// Carga
+  
+// ==================================================
+// Carga la subcategorias segun la categoria seleccionada
 // ==================================================
 
-cargarCategorias() {
-  console.log("pasa cargar productos");
+cargarSubcategoriaIdCategoria(IdCategoria: any) {
 
-    // this.categoriasService.listarCategorias(  )
-    //            .subscribe( (resp: any) => {
+    this.categoriasService.cargarSubcategoriaIdCategoria( IdCategoria )
+               .subscribe( (resp: any) => {
 
-    //             console.log("resp es : ",resp)
+                this.subcategorias = resp[0];
 
-    //             this.categorias = resp[0];
+                this.cargando = false;
 
-    //             this.cargando = false;
-
-    //           });
-
-  }
-
-  // ==================================================
-// Carga
-// ==================================================
-
-cargarMarcas() {
-  console.log("pasa cargar productos");
-
-    // this.marcasService.listarMarcas(   )
-    //            .subscribe( (resp: any) => {
-
-    //             console.log("resp es : ",resp)
-
-    //             this.marcas = resp[0];
-
-    //             this.cargando = false;
-
-    //           });
+              });
 
   }
 
 // ==================================================
-// Carga
+// 
 // ==================================================
 
 generarCodigo() {
@@ -222,10 +217,18 @@ generarCodigo() {
     this.codigo = ''
   }
 
-  this.banderaGenerarCodigo = !this.banderaGenerarCodigo;
+  this.banderaGenerarCodigo = !this.banderaGenerarCodigo;  
+  
+}
+// ==================================================
+// 
+// ==================================================
 
+onChangeCategorias(IdCategoria: any) {
+
+  this.deshabilitarSubcategorias = false;
+  this.cargarSubcategoriaIdCategoria(IdCategoria);
   
   
 }
-
 }

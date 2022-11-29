@@ -16,6 +16,7 @@ class CategoriasRoutes {
 
         // 
         this.router.get('/listar/subcategorias',categoriasController.listarCategoriasSubcategorias);
+        this.router.get('/listar/subcategorias/:pIdCategoria',categoriasController.listarSubcategoriasPorIdCategoria);
         
     }
 

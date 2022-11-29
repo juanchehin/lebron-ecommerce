@@ -1,0 +1,97 @@
+<div class="container">
+    <h4 class="card-title">Promocion {{ Promocion }}</h4>
+
+    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="actualizaPromocion()" id="forma">
+        <div class="alert alert-primary" role="alert">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Promocion</label>
+                    <input formControlName="Promocion" [value]="Promocion" name="Promocion" type="text" class="form-control" placeholder="Promocion...">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Precio : </label>
+                    <input formControlName="Precio" [value]="Precio" name="Precio" type="text" class="form-control" placeholder="Precio...">
+                </div>
+
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Articulos</h4>
+                            <!-- ========== Buscador productos ============ -->
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="ng-autocomplete">
+                                        <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona un producto..." (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
+                                            [notFoundTemplate]="notFoundTemplateProducto">
+                                        </ng-autocomplete>
+                                    </div>
+                                    <ng-template #itemTemplateProducto let-item>
+                                        <a [innerHTML]="item.NombreCompleto"></a>
+                                    </ng-template>
+                                    <ng-template #notFoundTemplateProducto let-notFound>
+                                        <div [innerHTML]="notFound"></div>
+                                    </ng-template>
+                                </div>
+                                <div class="col-md-3">
+                                    <input [(ngModel)]="cantidadLineaPromocion" (input)="cambiaCantidadPromocion($event)" type="text" class="form-control form-control-line" formControlName="Cantidad" placeholder="Cantidad...">
+                                </div>
+                                <div class="col-md-2">
+                                    <button (click)="agregarLineaPromocion()" type="button" class="btn btn-info btn-circle"><i class="fa fa-plus"></i> </button>
+                                </div>
+                            </div>
+
+                            <!-- ========== Fin Buscador producto ============ -->
+                            <br/><br/>
+                            <!-- ===== Tabla con listado de productos ===== -->
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Productos agregados a la promocion</h4>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Codigo</th>
+                                                            <th>Producto</th>
+                                                            <th>Cantidad</th>
+                                                            <th>SubTotal</th>
+                                                            <th class="text-nowrap"></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let linea of lineas_promocion">
+                                                            <td>{{linea.Codigo }}</td>
+                                                            <td>{{linea.Producto }}</td>
+                                                            <td>{{linea.Cantidad }}</td>
+                                                            <td>{{linea.PrecioMayorista }}</td>
+                                                            <td class="text-nowrap">
+                                                                <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                                                <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- ===== Fin Tabla con listado de productos ===== -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <label>Descripcion : </label>
+                        <textarea tabindex="14" formControlName="Descripcion" name="Descripcion" type="textarea" placeholder="Descripcion..." rows="3" class="form-control"></textarea>
+                    </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Guardar cambios</button>
+                <br><br>
+            </div>
+        </div>
+    </form>
+
+</div>

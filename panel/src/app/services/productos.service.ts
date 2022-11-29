@@ -135,4 +135,23 @@ altaPromocion( promocion: any ) {
 );
 }
 
+
+  // ==================================================
+//        
+// ==================================================
+editarPromocion( promocion: any ) {
+
+  let url = URL_SERVICIOS + '/productos/promocion/update';
+  // url += '?IdRol=' + this.IdRol;
+
+  return this.http.put(
+    url,
+    promocion
+    // {
+    //   headers: {
+    //     token: this.token
+    //   }
+    // }
+);
+}
 }

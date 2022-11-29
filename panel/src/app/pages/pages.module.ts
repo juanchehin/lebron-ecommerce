@@ -25,6 +25,7 @@ import { NuevaImagenProductoComponent } from './mantenimientos/productos/imagene
 import { PedidosComponent } from './mantenimientos/pedidos/pedidos.component';
 import { PromocionComponent } from './mantenimientos/promociones/promocion.component';
 import { PromocionesComponent } from './mantenimientos/promociones/promociones.component';
+import { EditarPromocionComponent } from './mantenimientos/promociones/editar-promocion.component';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { PromocionesComponent } from './mantenimientos/promociones/promociones.c
     NuevaImagenProductoComponent,
     PedidosComponent,
     PromocionesComponent,
-    PromocionComponent
+    PromocionComponent,
+    EditarPromocionComponent
   ],
   exports: [
     DashboardComponent,

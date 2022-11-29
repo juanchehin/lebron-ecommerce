@@ -28,7 +28,7 @@ export class PromocionComponent implements OnInit {
   clientes = [];
   currentDate = new Date();
   datosVendedor: any;
-  totalVenta: number = 0;
+  totalPromocion: number = 0;
   cantidadLineaPromocion = 1;
   IdItem = 0;
   alertaCodigoVacio = false;
@@ -134,7 +134,7 @@ cargarProductos() {
 
 agregarLineaPromocion() {
   
-  this.totalVenta += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaPromocion;
+  this.totalPromocion += Number(this.itemPendiente.PrecioMayorista) * this.cantidadLineaPromocion;
 
   this.lineas_promocion.push(
     {
@@ -143,7 +143,7 @@ agregarLineaPromocion() {
       Codigo: this.itemPendiente.Codigo,
       Producto: this.itemPendiente.Producto,
       Cantidad: this.cantidadLineaPromocion,
-      PrecioVenta: this.itemPendiente.PrecioVenta,
+      PrecioVenta: this.itemPendiente.PrecioMayorista
     }
   );
 

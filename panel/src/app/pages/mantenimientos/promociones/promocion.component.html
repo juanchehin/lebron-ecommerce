@@ -7,92 +7,83 @@
                         <label>Promocion : </label>
                         <input tabindex="1" formControlName="Promocion" name="Promocion" required type="text" placeholder="Promocion..." class="form-control">
                     </div>
-                    <div class="col-sm-6 form-group">
-                        <div class="row">
-                            <div>
-                                <p>*El precio se calcula basado en los precios mayoristas</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <label>Precio : </label>
-                            </div>
-                            <div *ngIf="alertaPrecioVacio">
-                                <p style="color:red;">Debe proveer un precio</p>
-                            </div>
-                        </div>
-                        <input tabindex="2" [(ngModel)]="precio" formControlName="precio" name="precio" required type="text" placeholder="precio" class="form-control">
-                    </div>
-
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Articulos</h4>
-                    <!-- ========== Buscador productos ============ -->
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="ng-autocomplete">
-                                <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona un producto..." (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
-                                    [notFoundTemplate]="notFoundTemplateProducto">
-                                </ng-autocomplete>
-                            </div>
-                            <ng-template #itemTemplateProducto let-item>
-                                <a [innerHTML]="item.NombreCompleto"></a>
-                            </ng-template>
-                            <ng-template #notFoundTemplateProducto let-notFound>
-                                <div [innerHTML]="notFound"></div>
-                            </ng-template>
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Articulos</h4>
+                <!-- ========== Buscador productos ============ -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="ng-autocomplete">
+                            <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona un producto..." (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
+                                [notFoundTemplate]="notFoundTemplateProducto">
+                            </ng-autocomplete>
                         </div>
-                        <div class="col-md-3">
-                            <input [(ngModel)]="cantidadLineaPromocion" (input)="cambiaCantidadPromocion($event)" type="text" class="form-control form-control-line" formControlName="Cantidad" placeholder="Cantidad...">
-                        </div>
-                        <div class="col-md-2">
-                            <button (click)="agregarLineaPromocion()" type="button" class="btn btn-info btn-circle"><i class="fa fa-plus"></i> </button>
-                        </div>
+                        <ng-template #itemTemplateProducto let-item>
+                            <a [innerHTML]="item.NombreCompleto"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplateProducto let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
                     </div>
+                    <div class="col-md-3">
+                        <input [(ngModel)]="cantidadLineaPromocion" (input)="cambiaCantidadPromocion($event)" type="text" class="form-control form-control-line" formControlName="Cantidad" placeholder="Cantidad...">
+                    </div>
+                    <div class="col-md-2">
+                        <button (click)="agregarLineaPromocion()" type="button" class="btn btn-info btn-circle"><i class="fa fa-plus"></i> </button>
+                    </div>
+                </div>
 
-                    <!-- ========== Fin Buscador producto ============ -->
-                    <br/><br/>
-                    <!-- ===== Tabla con listado de productos ===== -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Productos agregados a la promocion</h4>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Codigo</th>
-                                                    <th>Producto</th>
-                                                    <th>Cantidad</th>
-                                                    <th>SubTotal</th>
-                                                    <th class="text-nowrap"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let linea of lineas_promocion">
-                                                    <td>{{linea.Codigo }}</td>
-                                                    <td>{{linea.Producto }}</td>
-                                                    <td>{{linea.Cantidad }}</td>
-                                                    <td>{{linea.PrecioMayorista }}</td>
-                                                    <td class="text-nowrap">
-                                                        <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                                        <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                <!-- ========== Fin Buscador producto ============ -->
+                <br/><br/>
+                <!-- ===== Tabla con listado de productos ===== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Productos agregados a la promocion</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>SubTotal</th>
+                                                <th class="text-nowrap"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let linea of lineas_promocion">
+                                                <td>{{linea.Codigo }}</td>
+                                                <td>{{linea.Producto }}</td>
+                                                <td>{{linea.Cantidad }}</td>
+                                                <td>{{linea.PrecioMayorista }}</td>
+                                                <td class="text-nowrap">
+                                                    <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                                    <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <h4>Total : $ {{totalPromocion}}</h4>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- ===== Fin Tabla con listado de productos ===== -->
                 </div>
+                <!-- ===== Fin Tabla con listado de productos ===== -->
             </div>
         </div>
+
         <div class="row">
             <div class="col-sm-12 form-group">
                 <label>Descripcion : </label>

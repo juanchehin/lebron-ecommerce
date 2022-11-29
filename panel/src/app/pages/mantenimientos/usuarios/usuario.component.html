@@ -42,23 +42,29 @@
             <div class="card-body">
                 <h2 class="card-title">Permisos</h2>
                 <!-- =============== Permisos Productos ================= -->
-                <h4 class="card-title">Productos</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Productos</h4>
+                        <input [checked]="listarProductos" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosProductos()">Todos</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" [checked]="listarProductos" type="checkbox" value="">
                         <label class="form-check-label" for="flexCheckDefault">
                   Listar productos
                 </label>
                     </div>
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" [checked]="altaProductos" value="">
                         <label class="form-check-label" for="flexCheckDefault">
                   Alta de productos
                 </label>
                     </div>
 
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="importarProductos">
                         <label class="form-check-label" for="flexCheckDefault">
                   Importar productos
                 </label>
@@ -66,36 +72,42 @@
                 </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" [checked]="editarProductos" value="">
                         <label class="form-check-label" for="flexCheckDefault">
                   Editar productos
                 </label>
                     </div>
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" [checked]="borrarProductos" value="">
                         <label class="form-check-label" for="flexCheckDefault">
                   Borrar productos
                 </label>
                     </div>
                 </div>
                 <!-- =============== Permisos Clientes ================= -->
-                <h4 class="card-title">Clientes</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Clientes</h4>
+                        <input [checked]="listarClientes" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosClientes()">Todos</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" [checked]="listarClientes" value="">
                         <label class="form-check-label" for="flexCheckDefault">
                   Listar clientes
                 </label>
                     </div>
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" [checked]="altaClientes" value="">
                         <label class="form-check-label" for="flexCheckDefault">
                   Alta de clientes
                 </label>
                     </div>
 
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="editarClientes">
                         <label class="form-check-label" for="flexCheckDefault">
                   Editar clientes
                 </label>
@@ -103,30 +115,36 @@
                 </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" [checked]="borrarClientes" value="">
                         <label class="form-check-label" for="flexCheckDefault">
                   Borrar clientes
                 </label>
                     </div>
                 </div>
                 <!-- =============== Proveedores ================= -->
-                <h4 class="card-title">Proveedores</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Proveedores</h4>
+                        <input [checked]="listarProveedores" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosProveedores()">Todos</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" [checked]="listarProveedores" value="">
                         <label class="form-check-label" for="flexCheckDefault">
                   Listar Proveedores
                 </label>
                     </div>
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="altaProveedores">
                         <label class="form-check-label" for="flexCheckDefault">
                   Alta de Proveedores
                 </label>
                     </div>
 
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" [checked]="editarProveedores" value="">
                         <label class="form-check-label" for="flexCheckDefault">
                   Editar Proveedores
                 </label>
@@ -134,30 +152,36 @@
                 </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="borrarProveedores">
                         <label class="form-check-label" for="flexCheckDefault">
                   Borrar Proveedores
                 </label>
                     </div>
                 </div>
                 <!-- =============== Sucursales ================= -->
-                <h4 class="card-title">Sucursales</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Sucursales</h4>
+                        <input [checked]="listarSucursales" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosSucursales()">Todos</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="listarSucursales">
                         <label class="form-check-label" for="flexCheckDefault">
                   Listar Sucursales
                 </label>
                     </div>
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="altaSucursales">
                         <label class="form-check-label" for="flexCheckDefault">
                   Alta de Sucursales
                 </label>
                     </div>
 
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="editarSucursales">
                         <label class="form-check-label" for="flexCheckDefault">
                   Editar Sucursales
                 </label>
@@ -165,30 +189,36 @@
                 </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="borrarSucursales">
                         <label class="form-check-label" for="flexCheckDefault">
                   Borrar Sucursales
                 </label>
                     </div>
                 </div>
                 <!-- =============== Empleados ================= -->
-                <h4 class="card-title">Empleados</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Empleados</h4>
+                        <input [checked]="listarEmpleados" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosEmpleados()">Todos</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="listarEmpleados">
                         <label class="form-check-label" for="flexCheckDefault">
                   Listar Empleados
                 </label>
                     </div>
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="altaEmpleados">
                         <label class="form-check-label" for="flexCheckDefault">
                   Alta de Empleados
                 </label>
                     </div>
 
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="editarEmpleados">
                         <label class="form-check-label" for="flexCheckDefault">
                   Editar Empleados
                 </label>
@@ -196,46 +226,58 @@
                 </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="borrarEmpleados">
                         <label class="form-check-label" for="flexCheckDefault">
                   Borrar Empleados
                 </label>
                     </div>
                 </div>
                 <!-- =============== Configuraciones ================= -->
-                <h4 class="card-title">Configuraciones</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Configuraciones</h4>
+                        <input [checked]="listarConfiguraciones" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosConfiguraciones()">Todos</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="listarConfiguraciones">
                         <label class="form-check-label" for="flexCheckDefault">
                   Listar Configuraciones
                 </label>
                     </div>
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="editarConfiguraciones">
                         <label class="form-check-label" for="flexCheckDefault">
                   Editar Configuraciones
                 </label>
                     </div>
                 </div>
                 <!-- =============== Pedidos ================= -->
-                <h4 class="card-title">Pedidos</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Pedidos</h4>
+                        <input [checked]="listarPedidos" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosPedidos()">Todos</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="listarPedidos">
                         <label class="form-check-label" for="flexCheckDefault">
                   Listar Pedidos
                 </label>
                     </div>
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="altaPedidos">
                         <label class="form-check-label" for="flexCheckDefault">
                   Alta de Pedidos
                 </label>
                     </div>
 
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="editarPedidos">
                         <label class="form-check-label" for="flexCheckDefault">
                   Editar Pedidos
                 </label>
@@ -243,30 +285,36 @@
                 </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="borrarPedidos">
                         <label class="form-check-label" for="flexCheckDefault">
                   Borrar Pedidos
                 </label>
                     </div>
                 </div>
                 <!-- =============== Categorias ================= -->
-                <h4 class="card-title">Pedidos</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Categorias</h4>
+                        <input [checked]="listarCategorias" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosCategorias()">Todos</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="listarCategorias">
                         <label class="form-check-label" for="flexCheckDefault">
                   Listar Categorias
                 </label>
                     </div>
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="altaCategorias">
                         <label class="form-check-label" for="flexCheckDefault">
                   Alta de Categorias
                 </label>
                     </div>
 
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="editarCategorias">
                         <label class="form-check-label" for="flexCheckDefault">
                   Editar Categorias
                 </label>
@@ -274,30 +322,73 @@
                 </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="borrarCategorias">
                         <label class="form-check-label" for="flexCheckDefault">
                   Borrar Categorias
                 </label>
                     </div>
                 </div>
-                <!-- =============== Ventas ================= -->
-                <h4 class="card-title">Ventas</h4>
+                <!-- =============== Permisos Promociones ================= -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Promociones</h4>
+                        <input [checked]="listarPromociones" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosPromociones()">Todos</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="listarPromociones">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Listar Promociones
+                </label>
+                    </div>
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="altaPromociones">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Alta de Promociones
+                </label>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="editarPromociones">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Editar Promociones
+                </label>
+                    </div>
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="borrarPromociones">
+                        <label class="form-check-label" for="flexCheckDefault">
+                  Borrar Promociones
+                </label>
+                    </div>
+                </div>
+                <!-- =============== Ventas ================= -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Ventas</h4>
+                        <input [checked]="listarVentas" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosVentas()">Todos</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check col-sm-4">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="listarVentas">
                         <label class="form-check-label" for="flexCheckDefault">
                   Listar Ventas
                 </label>
                     </div>
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="altaVentas">
                         <label class="form-check-label" for="flexCheckDefault">
                   Alta de Ventas
                 </label>
                     </div>
 
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="editarVentas">
                         <label class="form-check-label" for="flexCheckDefault">
                   Editar Ventas
                 </label>
@@ -305,7 +396,7 @@
                 </div>
                 <div class="row">
                     <div class="form-check col-sm-4">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" [checked]="borrarVentas">
                         <label class="form-check-label" for="flexCheckDefault">
                   Borrar Ventas
                 </label>

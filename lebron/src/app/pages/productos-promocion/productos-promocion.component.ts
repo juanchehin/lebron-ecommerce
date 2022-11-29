@@ -7,7 +7,7 @@ const url_imagenes_producto = environment.ruta_img_productos;
 @Component({
   selector: 'app-productos-promocion',
   templateUrl: './productos-promocion.component.html',
-  styles: []
+  styleUrls: ['./productos-promocion.component.css']
 })
 export class ProductosPromocionComponent implements OnInit {
 

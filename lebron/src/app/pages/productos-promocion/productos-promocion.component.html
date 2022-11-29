@@ -19,11 +19,11 @@
     <div class="row small-gutters">
         <div class="col-6 col-md-4 col-xl-3" *ngFor="let producto of productosPromocion">
             <div class="grid_item">
-                <figure>
+                <figure width="100" height="100">
                     <span class="ribbon off">{{producto.Descuento}}</span>
                     <a href="">
                         <!-- <img class="img-fluid lazy" src="../../../assets/img/products/product_placeholder_square_medium.jpg" data-src="../../../assets/img/products/shoes/1.jpg" alt=""> -->
-                        <img *ngIf="producto.Imagen != null" [src]="producto.Imagen" class="img-fluid lazy">
+                        <img *ngIf="producto.Imagen != null" [src]="url_imagenes_producto + producto.Imagen" class="img-fluid lazy">
                         <img *ngIf="producto.Imagen == null" [src]="imgTemp" class="img-fluid lazy">
                     </a>
                     <div data-countdown="2019/05/15" class="countdown"></div>

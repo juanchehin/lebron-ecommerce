@@ -167,6 +167,17 @@ public async listarUnidadesPaginado(req: Request, res: Response): Promise<void> 
     })
 }
 
+public async listarTodasUnidadesPaginado(req: Request, res: Response): Promise<void> {
+
+    pool.query(`call bsp_listar_todas_unidades()`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
 }
 
 

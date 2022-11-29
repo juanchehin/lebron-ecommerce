@@ -21,6 +21,10 @@ export class ProductoComponent implements OnInit {
   categorias: any;
   codigo: any;
   banderaGenerarCodigo = false;
+  unidades: any;
+  alertaPrecioVentaCompra = false;
+  alertaPrecioVentaMayorista = false;
+  alertaPrecioVentaMeli = false;
 
   constructor(
     private router: Router, 
@@ -37,27 +41,27 @@ export class ProductoComponent implements OnInit {
   ngOnInit() {
     // this.cargarCategorias();
     // this.cargarMarcas();
-    // this.cargarUnidades();
+    this.cargarUnidades();
 
     this.forma = new FormGroup({
-      IdCategoria: new FormControl(null, Validators.required ),
-      IdMarca: new FormControl(null, Validators.required),
-      IdSubCategoria: new FormControl(null, Validators.required ),
-      IdUnidad: new FormControl(null, Validators.required ),
+      IdCategoria: new FormControl(null ),
+      IdMarca: new FormControl(null),
+      IdSubCategoria: new FormControl(null ),
+      IdUnidad: new FormControl(null ),
       Producto: new FormControl(null, Validators.required),
-      Codigo: new FormControl(null, Validators.required ),
-      Stock: new FormControl(null, Validators.required ),
-      FechaVencimiento: new FormControl(null, Validators.required ),
-      Imagen: new FormControl(null, Validators.required ),
-      Descripcion: new FormControl(null, Validators.required ),
-      StockAlerta: new FormControl(null, Validators.required ),
-      Peso: new FormControl(null, Validators.required ),
-      Sabor: new FormControl(null, Validators.required ),
-      PrecioCompra: new FormControl(null, Validators.required ),
-      PrecioVenta: new FormControl(null, Validators.required ),
-      PrecioMayorista: new FormControl(null, Validators.required ),
-      PrecioMeli: new FormControl(null, Validators.required ),
-      Descuento: new FormControl(null, Validators.required )
+      Codigo: new FormControl(null , Validators.required),
+      Stock: new FormControl(null , Validators.required),
+      FechaVencimiento: new FormControl(null ),
+      Descripcion: new FormControl(null ),
+      StockAlerta: new FormControl(null ),
+      Peso: new FormControl(null ),
+      Sabor: new FormControl(null ),
+      PrecioCompra: new FormControl(null ),
+      PrecioVenta: new FormControl(null , Validators.required),
+      PrecioMayorista: new FormControl(null ),
+      PrecioMeli: new FormControl(null ),
+      Descuento: new FormControl(null ),
+      Moneda: new FormControl(null )
       });
   }
 
@@ -69,6 +73,33 @@ altaProducto() {
 
       if ( this.forma.invalid ) {
         return;
+      }
+      //** */
+      if((this.forma.value.PrecioCompra > this.forma.value.PrecioVenta) ){
+        this.alertaPrecioVentaCompra = true;
+        return;
+      }
+      else
+      { 
+        this.alertaPrecioVentaCompra = false;
+      }
+      //** */
+      if(this.forma.value.PrecioCompra > this.forma.value.PrecioMeli)
+      {
+        this.alertaPrecioVentaMeli = true;
+        return;
+      }else
+      { 
+        this.alertaPrecioVentaMeli = false;
+      }
+      //** */
+      if(this.forma.value.PrecioCompra > this.forma.value.PrecioMayorista)
+      {
+        this.alertaPrecioVentaMayorista = true;
+        return;
+      }else
+      { 
+        this.alertaPrecioVentaMayorista = false;
       }
 
       const producto = new Array(
@@ -89,22 +120,22 @@ altaProducto() {
         this.forma.value.PrecioVenta,
         this.forma.value.PrecioMayorista,
         this.forma.value.PrecioMeli,
-        this.forma.value.Descuento       
-        
+        this.forma.value.Descuento,
+        this.forma.value.Moneda       
       );
 
       this.productosService.altaProducto( producto )
                 .subscribe( (resp: any) => {
-                  console.log("resp en plan es : ",resp)
+                  
                   if ( resp.Mensaje === 'Ok') {
                     Swal.fire({
                       position: 'top-end',
                       icon: 'success',
-                      title: 'Plan cargado',
+                      title: 'Producto cargado',
                       showConfirmButton: false,
                       timer: 2000
                     });
-                    this.router.navigate(['/mantenimiento/planes']);
+                    this.router.navigate(['/dashboard/productos']);
                   } else {
                     Swal.fire({
                       icon: 'error',
@@ -119,6 +150,24 @@ altaProducto() {
             }
 
 // ==================================================
+// Carga
+// ==================================================
+
+cargarUnidades() {
+  console.log("pasa cargar cargarUnidades");
+
+    this.unidadesService.listarTodasUnidades(  )
+               .subscribe( (resp: any) => {
+
+                this.unidades = resp[0];
+
+                this.cargando = false;
+
+              });
+
+  }
+
+  // ==================================================
 // Carga
 // ==================================================
 

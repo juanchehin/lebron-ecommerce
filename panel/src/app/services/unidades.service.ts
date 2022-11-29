@@ -15,10 +15,10 @@ export class UnidadesService {
 // ==================================================
 //
 // ==================================================
-  listarUnidades(desde: any){
+  listarTodasUnidades(){
     console.log("pasa listar listarUnidades")
 
-    let url = URL_SERVICIOS + '/unidades/listar';
+    let url = URL_SERVICIOS + '/productos/unidades/listar';
 
     return this.http.get( url );
   }

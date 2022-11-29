@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-sm-6 form-group">
                         <label>Producto : </label>
-                        <input formControlName="Producto" name="Producto" required type="text" placeholder="Producto..." class="form-control">
+                        <input tabindex="1" formControlName="Producto" name="Producto" required type="text" placeholder="Producto..." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
                         <div class="row">
@@ -17,26 +17,42 @@
                                 <label for="md_checkbox_9">Generar Codigo</label>
                             </div>
                         </div>
-                        <input [(ngModel)]="codigo" formControlName="Codigo" name="Codigo" required type="text" placeholder="Codigo" class="form-control">
+                        <input tabindex="2" [(ngModel)]="codigo" formControlName="Codigo" name="Codigo" required type="text" placeholder="Codigo" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Stock : </label><input formControlName="Stock" name="Stock" required type="number" min="1" max="31" step="1" placeholder="Stock..." class="form-control">
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label>Peso : </label>
+                                <input tabindex="3" formControlName="Peso" name="Peso" required type="number" placeholder="Peso" class="form-control">
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label>Unidad : </label>
+                                <select tabindex="4" formControlName="IdUnidad" name="IdUnidad" class="form-control">
+                                    <option *ngFor="let unidad of unidades" [value]="unidad.IdUnidad">
+                                        {{unidad.NombreCorto}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Fecha vencimiento : </label><input formControlName="Fecha_vencimiento" name="Fecha_vencimiento" required type="date" placeholder="Fecha vencimiento..." class="form-control">
+                        <label>Sabor : </label>
+                        <input tabindex="4" formControlName="Sabor" name="Sabor" required type="text" step="1" placeholder="Sabor..." class="form-control">
                     </div>
+
                 </div>
                 <div class="row">
                     <div class="col-sm-6 form-group">
+                        <label>Stock : </label><input tabindex="5" formControlName="Stock" name="Stock" required type="number" placeholder="Stock..." class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
                         <label>Stock alerta : </label>
-                        <input formControlName="stock_alerta" name="stock_alerta" required type="number" placeholder="Stock alerta..." class="form-control">
+                        <input tabindex="6" formControlName="StockAlerta" name="StockAlerta" required type="number" placeholder="Stock alerta..." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Peso : </label><input formControlName="Peso" name="Peso" required type="number" placeholder="Peso" class="form-control">
+                        <label>Fecha vencimiento : </label><input tabindex="7" formControlName="FechaVencimiento" name="FechaVencimiento" required type="date" placeholder="Fecha vencimiento..." class="form-control">
                     </div>
-                    <div class="col-sm-6 form-group">
-                        <label>Sabor : </label><input formControlName="Sabor" name="Sabor" required type="text" step="1" placeholder="Sabor..." class="form-control">
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -44,23 +60,32 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-6 form-group">
-                        <label>Precio Compra : </label><input formControlName="PrecioCompra" name="PrecioCompra" type="number" placeholder="Precio Compra..." class="form-control">
+                        <label>Precio Compra : </label><input tabindex="8" formControlName="PrecioCompra" name="PrecioCompra" type="number" placeholder="Precio Compra..." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Precio Venta : </label><input formControlName="PrecioVenta" name="PrecioVenta" type="text" placeholder="Precio de Venta" class="form-control">
+                        <label>Precio Venta : </label><input tabindex="9" formControlName="PrecioVenta" name="PrecioVenta" type="text" placeholder="Precio de Venta" class="form-control">
+                        <div *ngIf="alertaPrecioVentaCompra">
+                            <p style="color:red;">El precio de venta debe ser mayor que el precio de compra</p>
+                        </div>
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Precio Mayorista : </label><input formControlName="PrecioMayorista" name="PrecioMayorista" type="number" min="1" max="31" step="1" placeholder="Precio Mayorista..." class="form-control">
+                        <label>Precio Mayorista : </label><input tabindex="10" formControlName="PrecioMayorista" name="PrecioMayorista" type="number" placeholder="Precio Mayorista..." class="form-control">
+                        <div *ngIf="alertaPrecioVentaMayorista">
+                            <p style="color:red;">El precio de venta debe ser mayor que el precio de compra</p>
+                        </div>
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Precio Meli : </label><input formControlName="PrecioMeli" name="PrecioMeli" type="number" placeholder="Precio Meli..." class="form-control">
+                        <label>Precio Meli : </label><input tabindex="11" formControlName="PrecioMeli" name="PrecioMeli" type="number" placeholder="Precio Meli..." class="form-control">
+                        <div *ngIf="alertaPrecioVentaMeli">
+                            <p style="color:red;">El precio de venta debe ser mayor que el precio de compra</p>
+                        </div>
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Descuento : </label><input formControlName="Descuento" name="Descuento" required type="text" placeholder="Descuento..." class="form-control">
+                        <label>Descuento : </label><input tabindex="12" formControlName="Descuento" name="Descuento" required type="text" placeholder="Descuento..." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
                         <label class="control-label">Moneda : </label>
-                        <select formControlName="Cantidad" class="form-control">
+                        <select tabindex="13" formControlName="Moneda" class="form-control">
                             <option value="ARS"> ARS </option>
                             <option value="USD"> USD </option>
                         </select>
@@ -71,7 +96,7 @@
         <div class="row">
             <div class="col-sm-12 form-group">
                 <label>Descripcion : </label>
-                <textarea formControlName="Descripcion" name="Descripcion" type="textarea" placeholder="Descripcion..." rows="3" class="form-control"></textarea>
+                <textarea tabindex="14" formControlName="Descripcion" name="Descripcion" type="textarea" placeholder="Descripcion..." rows="3" class="form-control"></textarea>
             </div>
         </div>
         <br>

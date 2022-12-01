@@ -81,19 +81,13 @@ export class UsuarioComponent implements OnInit {
   listarConfiguraciones = false;
   editarConfiguraciones = false;
 
+  permisos = new Array<{IdPermiso: number, permiso: string}>;
 
   constructor(
     private router: Router, 
     public usuariosService: UsuariosService, 
     public activatedRoute: ActivatedRoute) {
-    activatedRoute.params.subscribe( (params: any) => {
-
-      const id = params.id;
-
-      if ( id !== 'nuevo' ) {
-      }
-
-    });
+    
 
   }
 
@@ -111,6 +105,46 @@ export class UsuarioComponent implements OnInit {
       });
   }
 
+// ==================================================
+//   Agrega un Permiso
+// El idpermiso tiene correspondencia con la BD (chequear BD - tabla permisos)
+// ==================================================
+  agregarPermiso(idPermiso: any,permiso: any){
+
+    if(!this.permisos.includes(idPermiso))
+    {
+      this.permisos.push(idPermiso,permiso);
+    }
+    else
+    {
+      delete this.permisos[idPermiso];
+    }
+
+    console.log("permisos va quedando : " + this.permisos)
+  }
+// ==================================================
+//   Agrega un Permiso
+// El idpermiso tiene correspondencia con la BD (chequear BD - tabla permisos)
+// ==================================================
+  chequearPermiso(idPermiso: any){
+
+    console.log("idPermiso : " + idPermiso)
+
+    console.log("this.permisos : " + this.permisos)
+
+    if(this.permisos.includes(idPermiso))
+    {
+      console.log("true")
+      return false;
+    }
+    else
+    {
+      delete this.permisos[idPermiso];
+      console.log("false ")
+      return true;
+    }
+
+  }
 // ==================================================
 //        Crear 
 // ==================================================

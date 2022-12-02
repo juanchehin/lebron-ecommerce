@@ -20,7 +20,8 @@ class ClientesRoutes {
         this.router.get('/listar/busqueda/:clienteBuscado', clientesController.buscarCliente);
         this.router.get('/listar/paginado/:desde', clientesController.listarClientesPaginado);
         this.router.post('/direccion/alta', clientesController.altaDireccionCliente);
-        this.router.get('/direcciones/:IdPersona', clientesController.dameDirecionesCliente);
+        this.router.get('/direcciones/:IdPersona' ,  [mdAutenticacion.MismoUsuario], clientesController.dameDirecionesCliente);
+
     }
 
 }

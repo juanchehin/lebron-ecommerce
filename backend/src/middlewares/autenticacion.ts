@@ -1,5 +1,6 @@
 var jwt = require('jsonwebtoken');
-var SEED = process.env.JWT_SECRET;
+require("dotenv").config();
+var SEED = process.env.JWT_KEY;
 
 import { Request, Response, NextFunction } from 'express';
 
@@ -9,6 +10,7 @@ import { Request, Response, NextFunction } from 'express';
 // ==================================================
 
 exports.verificaToken = function(req: Request,res:Response,next: NextFunction){
+
 var token = req.headers.token;
 
 jwt.verify(token , SEED, (err: any,decoded: any) =>{
@@ -27,43 +29,23 @@ jwt.verify(token , SEED, (err: any,decoded: any) =>{
 }
 
 // ==================================================
-//        Verifica si es ADMIN
-// ==================================================
-
-exports.verificaAdmin = function(req: Request,res:Response,next: NextFunction){
-
-    var IdRol = req.query.IdRol;
-
-    if(IdRol === '3'){
-        // Es un ADMIN y todo esta bien
-        next();
-    } else {
-        // No es un ADMIN
-        // Manejar errores aqui, por que en el navegador se ese error en rojo
-        return res.status(401).json({
-                ok:false,
-                mensaje: 'TOKEN incorrecto - No es ADMIN',
-                errors: { messaje : 'No es ADMIN, no puede hacer eso'}
-        });
-    }
-
-}
-
-// ==================================================
 //        Verifica si es ADMIN o Mismo usuario
 // ==================================================
 
 exports.MismoUsuario = function(req: Request,res:Response,next: NextFunction){
 
+    var IdPersonaParam = req.params.IdPersona;
     var token = req.headers.token;
-    // var persona = req.body.persona;
-    var IdPersona = req.params.IdPersona;
-
     var decoded = jwt.verify(token, SEED);
+    var IdPersona = decoded.IdPersona;
 
-    console.log("decoded : ",decoded)
-
-    // IdPersona == token[0] ?
+    // Pudo haberse modificado el valor en el localstorage del cliente
+    if(IdPersona != IdPersonaParam){        
+        return res.status(401).json({
+            ok:false,
+            mensaje: 'TOKEN incorrecto'
+        });
+    }
 
     jwt.verify(token , SEED, (err: any,decoded: any) =>{
 
@@ -77,21 +59,5 @@ exports.MismoUsuario = function(req: Request,res:Response,next: NextFunction){
         next();
     
     });
-
-
-
-    // if(persona.Rol === 'Profesional' || persona.IdPersona === id){
-    //     // Es un ADMIN y todo esta bien
-    //     next();
-    //     // return;
-    // } else {
-    //     // No es un ADMIN
-    //     console.log('NO Eres un ADMIN !!!');
-    //     return res.status(401).json({
-    //             ok:false,
-    //             mensaje: 'TOKEN incorrecto ',
-    //             errors: { messaje : 'false'}
-    //         });
-    // }
 
 }

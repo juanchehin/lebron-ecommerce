@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
-var SEED = process.env.JWT_SECRET;
+require("dotenv").config();
+var SEED = process.env.JWT_KEY;
 import pool from '../database';
 
 class LoginController {

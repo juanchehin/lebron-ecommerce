@@ -44,8 +44,14 @@ export class MisDireccionesComponent implements OnInit {
 
 cargarDireccionesCliente() {
 
-  this.clientesService.dameDirecionesCliente( this.IdPersona )
+  this.clientesService.dameDirecionesCliente(  )
              .subscribe( (resp: any) => {
+
+              if(resp[1][0].Mensaje != 'Ok')
+              { 
+                this.router.navigate(['/error'])
+                return;
+              }
 
               this.datosDirecionesCliente = resp[0];
 

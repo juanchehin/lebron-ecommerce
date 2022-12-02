@@ -39,7 +39,7 @@ cargarDireccionesCliente() {
 
   this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
 
-    this.clientesService.dameDirecionesCliente( this.IdPersona  )
+    this.clientesService.dameDirecionesCliente(   )
                .subscribe( (resp: any) => {
 
                 console.log("resp es : ",resp)

@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
+import { UsuariosService } from './usuarios.service';
 
 const URL_SERVICIOS = environment.URL_SERVICIOS;
 
@@ -9,10 +11,25 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 })
 export class DireccionesService {
 
-  token: any = null;
+  // token: any = null;
   usuario: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+    ) { }
+
+    get token(): string {
+      return localStorage.getItem('token') || '';
+    }
+  
+    get headers() {
+      return {
+        headers: {
+          'x-token': this.token
+        }
+      }
+    }
 
 // ==================================================
 //
@@ -55,18 +72,6 @@ dameDatosCliente(  IdPersona: string  ): any {
 }
 
 // ==================================================
-// Lista las direcciones de un cliente
-// ==================================================
-
-dameDirecionesCliente(  IdPersona: string  ): any {
-
-  const url = URL_SERVICIOS + '/clientes/direcciones/' + IdPersona;
-
-  return this.http.get(url);
-
-}
-
-// ==================================================
 //        Crear cliente
 // ==================================================
 altaItemCarrito( IdProducto: any,IdPersona: any) {
@@ -86,7 +91,7 @@ altaItemCarrito( IdProducto: any,IdPersona: any) {
     data
 );
 }
-
+// ==============================
 cardarDatosEnvio(  IdPersona: string  ): any {
 
   const url = URL_SERVICIOS + '/clientes/datos-envio/' + IdPersona;

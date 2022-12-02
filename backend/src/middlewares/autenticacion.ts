@@ -1,5 +1,5 @@
 var jwt = require('jsonwebtoken');
-var SEED = require('../config/config').SEED;
+var SEED = process.env.JWT_SECRET;
 
 import { Request, Response, NextFunction } from 'express';
 
@@ -50,51 +50,48 @@ exports.verificaAdmin = function(req: Request,res:Response,next: NextFunction){
 }
 
 // ==================================================
-//        Verifica si es ADMIN o un profesional
-// ==================================================
-
-exports.verificaProfesionalAdmin = function(req: Request,res:Response,next: NextFunction){
-
-    var IdRol = req.query.IdRol;
-
-    if(IdRol === '3' || IdRol === '2'){
-        // Es un ADMIN y todo esta bien
-        next();
-    } else {
-        // No es un ADMIN
-        // Manejar errores aqui, por que en el navegador se ese error en rojo
-        return res.status(401).json({
-                ok:false,
-                mensaje: 'TOKEN incorrecto - No es ADMIN o profesional',
-                errors: { Mensaje : 'No es ADMIN o profesional, no puede hacer eso'}
-        });
-    }
-
-}
-
-// ==================================================
 //        Verifica si es ADMIN o Mismo usuario
 // ==================================================
 
-// Usado para  cuando una persona quiere actualizar su perfil , creo que para nuestra app no sera necesario
+exports.MismoUsuario = function(req: Request,res:Response,next: NextFunction){
 
-exports.verificaAdmin_o_MismoUsuario = function(req: Request,res:Response,next: NextFunction){
+    var token = req.headers.token;
+    // var persona = req.body.persona;
+    var IdPersona = req.params.IdPersona;
 
-    var persona = req.body.persona;
-    var id = req.params.IdPersona;
+    var decoded = jwt.verify(token, SEED);
 
-    if(persona.Rol === 'Profesional' || persona.IdPersona === id){
-        // Es un ADMIN y todo esta bien
-        next();
-        // return;
-    } else {
-        // No es un ADMIN
-        console.log('NO Eres un ADMIN !!!');
-        return res.status(401).json({
+    console.log("decoded : ",decoded)
+
+    // IdPersona == token[0] ?
+
+    jwt.verify(token , SEED, (err: any,decoded: any) =>{
+
+        if(err){
+            return res.status(401).json({
                 ok:false,
-                mensaje: 'TOKEN incorrecto ',
-                errors: { messaje : 'false'}
+                mensaje: 'TOKEN incorrecto',
+                errors: err
             });
-    }
+        }
+        next();
+    
+    });
+
+
+
+    // if(persona.Rol === 'Profesional' || persona.IdPersona === id){
+    //     // Es un ADMIN y todo esta bien
+    //     next();
+    //     // return;
+    // } else {
+    //     // No es un ADMIN
+    //     console.log('NO Eres un ADMIN !!!');
+    //     return res.status(401).json({
+    //             ok:false,
+    //             mensaje: 'TOKEN incorrecto ',
+    //             errors: { messaje : 'false'}
+    //         });
+    // }
 
 }

@@ -1,11 +1,7 @@
 import { Request, Response } from 'express';
-
 const bcrypt = require('bcrypt');
-
 var jwt = require('jsonwebtoken');
-
-var SEED = require('../config/config').SEED;
-
+var SEED = process.env.JWT_SECRET;
 import pool from '../database';
 
 class LoginController {
@@ -95,7 +91,7 @@ pool.query(`call bsp_login_cliente('${email}')`, function(err: any, resultLogin:
         }
         else{ 
              // Creo el token
-            var token = jwt.sign({ usuario: email }, SEED, { expiresIn: 14400});
+            var token = jwt.sign({ IdPersona: resultLogin[0][0].lIdPersona }, SEED, { expiresIn: 14400});
             
             // Respuesta
             res.status(200).json({

@@ -185,7 +185,7 @@ export default checkoutController;
 
 async function createPaymentMercadoPago(IdProducto: any,name: any, price: any, unit: any, img: any) {
     const mercadoPagoUrl = "https://api.mercadopago.com/checkout"; 
-    console.log("asa createPaymentMercadoPago")
+
     // recibimos las props que le mandamos desde el PaymentController
         const access_token = process.env.MP_ACCESS_TOKEN_PROD;
         

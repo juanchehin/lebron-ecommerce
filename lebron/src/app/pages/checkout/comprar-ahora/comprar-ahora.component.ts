@@ -115,10 +115,6 @@ confirmarCompra( ) {
   this.checkoutService.confirmarCompra( this.datosCompra )
              .subscribe( (resp: any) => {
 
-              console.log("resp es ; ",resp);
-
-              console.log("resp.url es ; ",resp.url);
-
               // if ( resp.Mensaje === 'Ok') {
                 
                 window.location.href = resp.url;

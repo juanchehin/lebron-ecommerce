@@ -100,8 +100,8 @@
                         </li>
                         <li>
                             <div class="dropdown dropdown-access">
-                                <a class="access_link"><span>Cuenta</span></a>
-                                <div class="dropdown-menu">
+                                <a class="access_link" data-toggle="dropdown"><span>Cuenta</span></a>
+                                <div class="dropdown-menu" style="position: absolute; transform: translate3d(0px, 60px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-start">
                                     <a [routerLink]="['login']" class="btn_1">Acceso</a>
                                     <ul *ngIf="comprobarLogueo()">
                                         <li *ngIf="comprobarLogueo()">

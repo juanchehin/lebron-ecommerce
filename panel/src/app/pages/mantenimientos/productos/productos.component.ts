@@ -50,28 +50,25 @@ cargarProductos() {
 
 
 // ==================================================
-//  Busca un cliente por plan o por todos
+//  Busca un
 // ==================================================
 
-  buscarCliente( ) {
+  buscarProducto( ) {
 
-    const inputElement: HTMLInputElement = document.getElementById('buscarApellidos') as HTMLInputElement;
-    const Apellidos: any = inputElement.value || null;
+    const inputElement: HTMLInputElement = document.getElementById('buscarProducto') as HTMLInputElement;
+    const producto: any = inputElement.value || null;
 
-    const inputElement1: HTMLInputElement = document.getElementById('buscarNombres') as HTMLInputElement;
-    const Nombres: any = inputElement1.value || null;
+    this.productosService.buscarProductos( producto , this.desde )
+            .subscribe( (resp: any) => {
 
-    // this.personaService.buscarClientePorPlan( Apellidos, Nombres , this.planSeleccionado.toString()  )
-    //         .subscribe( (resp: any) => {
-
-    //           if( resp.length !== 0 ) {
-    //             this.clientes = resp[0];
-    //             this.totalClientes = resp[1][0].cantCli;
-    //           } else {
-    //             this.totalClientes = 0;
-    //             this.clientes = resp[0];
-    //           }
-    //         });
+              if( resp.length !== 0 ) {
+                this.productos = resp[0];
+                this.totalProductos = resp[1][0].cantProductos;
+              } else {
+                this.totalProductos = 0;
+                this.productos = resp[0];
+              }
+            });
 
   }
 

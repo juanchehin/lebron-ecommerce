@@ -9,8 +9,22 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 })
 export class ProductosService {
 
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
 
-  constructor(private http: HttpClient) { }
+  get headers() {
+    return {
+      headers: {
+        'token': this.token
+      }
+    }
+  }
+
+
+  constructor(
+    private http: HttpClient
+    ) { }
 
 // ==================================================
 //
@@ -21,9 +35,7 @@ export class ProductosService {
     let url = URL_SERVICIOS + '/productos/listar/' + desde;
 
     return this.http.get( url );
-  }
-
-  
+  }  
 
   // ==================================================
 //        
@@ -68,6 +80,24 @@ cargarDatosFormNuevoProducto( ){
     let url = URL_SERVICIOS + '/productos/nuevo/datos-formulario';
     return this.http.get( url );
   
+}
+
+// ==================================================
+// Busca 
+// ==================================================
+
+buscarProductos( producto: string , pDesde: any ): any {
+
+  if(producto == '' || producto == null){
+    let url = URL_SERVICIOS + '/productos/listar/' + 0;
+    return this.http.get(url, this.headers);
+  }
+  else
+  { 
+    const url = URL_SERVICIOS + '/productos/buscar/' + producto + '/' + pDesde;
+    return this.http.get(url, this.headers);
+  } 
+
 }
 // ==================================================
 //  ******* Unidades *******        

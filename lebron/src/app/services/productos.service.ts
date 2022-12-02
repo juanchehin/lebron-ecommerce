@@ -47,10 +47,9 @@ listarProductosCategoria(IdCategoria: any, desde: string){
 // ==================================================
 //
 // ==================================================
-listarProductosPromocionPaginado(desde: any){
-  console.log("pasa listar prods promo")
+listarPromociones(desde: any){
 
-  let url = URL_SERVICIOS + '/productos/listar/promocion/' + desde;
+  let url = URL_SERVICIOS + '/productos/promociones/' + desde;
 
   return this.http.get( url );
 }
@@ -77,7 +76,7 @@ listarProductosDestacadosHome(){
 // ==================================================
 //
 // ==================================================
-listarProductosPromocionHome(){
+cargarPromocionHome(){
 
   let url = URL_SERVICIOS + '/productos/promocion/home';
 

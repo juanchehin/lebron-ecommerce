@@ -9,7 +9,7 @@ import { ProductosService } from 'src/app/services/productos.service';
 export class PromocionesComponent implements OnInit {
 
   public imgTemp: any = '../../../assets/img/lebron_lebron.png';
-  productosPromocionHome!: any;
+  promocionesHome!: any;
   usuarios!: any;
   totalProductosDestacados = 0;
 
@@ -19,19 +19,19 @@ export class PromocionesComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.cargarProductosPromocionHome();
+    this.cargarPromocionHome();
   }
 
   // ==================================================
   // Carga
   // ==================================================
 
-  cargarProductosPromocionHome() {
+  cargarPromocionHome() {
 
-    this.productosService.listarProductosPromocionHome(  )
+    this.productosService.cargarPromocionHome(  )
       .subscribe( (resp: any) => {
 
-     this.productosPromocionHome = resp[0];
+     this.promocionesHome = resp[0];
 
    });
 

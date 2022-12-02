@@ -18,11 +18,11 @@ class ProductosRoutes {
         this.router.get('/:pIdProducto',productosController.dameDatosProducto); 
         this.router.post('/alta',productosController.altaProducto); 
         this.router.get('/listar/:desde',productosController.listarProductosPaginado); 
-        this.router.get('/listar/promocion/:desde',productosController.listarProductosPromocion);
+        this.router.get('/listar/promociones/:desde',productosController.listarPromociones);
         this.router.get('/listar/categoria/:IdCategoria/:pDesde',productosController.listarProductosCategoria);
         this.router.get('/buscar/:pProductoBuscado/:pDesde',productosController.buscarProductoPaginado);
         this.router.get('/destacados/home',productosController.listarProductosDestacadosHome);
-        this.router.get('/promocion/home',productosController.listarProductosPromocionHome);
+        this.router.get('/promocion/home',productosController.listarPromocionesHome);
         this.router.get('/relacionados/:pIdProducto',productosController.listarProductosRelacionados);
         this.router.get('/listar/busqueda/:productoBuscado', productosController.buscarProducto);
         this.router.get('/nuevo/datos-formulario', productosController.cargarDatosFormNuevoProducto);

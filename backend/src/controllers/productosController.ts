@@ -90,13 +90,13 @@ public async buscarProducto(req: Request, res: Response): Promise<void> {
     })
 }
 // ==================================================
-//        Lista personas desde cierto valor
+//        Lista
 // ==================================================
-public async listarProductosPromocion(req: Request, res: Response): Promise<void> {
+public async listarPromociones(req: Request, res: Response): Promise<void> {
     var desde = req.params.desde || 0;
     desde  = Number(desde);
 
-    pool.query(`call bsp_listar_productos_promocion('${desde}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_listar_promociones('${desde}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json(err);
             return;
@@ -121,9 +121,10 @@ public async listarProductosDestacadosHome(req: Request, res: Response): Promise
 // ==================================================
 //        Lista los productos destacados para mostrar en el home
 // ==================================================
-public async listarProductosPromocionHome(req: Request, res: Response): Promise<void> {
+public async listarPromocionesHome(req: Request, res: Response): Promise<void> {
     
-    pool.query(`call bsp_listar_productos_promocion_home()`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_listar_promociones_home()`, function(err: any, result: any, fields: any){
+        console.log("listar promo home")
         if(err){
             res.status(500).json(result);
             return;

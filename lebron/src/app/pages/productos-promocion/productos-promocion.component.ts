@@ -13,13 +13,12 @@ export class ProductosPromocionComponent implements OnInit {
 
   desde = 0;
   numbers: any[] = [];
-  totalAsistencias = true;
   public imgTemp: any = '../../../assets/img/lebron_lebron.png';
   url_imagenes_producto = url_imagenes_producto;
-  productosPromocion!: any;
+  promociones!: any;
   cantPlanes = 0;
 
-  totalProductosPromocion = 0;
+  totalPromociones = 0;
   cantidadPaginado = 0;
   cargando = true;
 
@@ -29,28 +28,28 @@ export class ProductosPromocionComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.cargarProductosPromocion();
+    this.cargarPromociones();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-cargarProductosPromocion() {
+cargarPromociones() {
 
-    this.productosService.listarProductosPromocionPaginado( this.desde  )
+    this.productosService.listarPromociones( this.desde  )
                .subscribe( (resp: any) => {
 
-                this.productosPromocion = resp[0];
+                this.promociones = resp[0];
 
                 console.log("imgtest : ", this.imgTemp);
-                console.log("this.productosPromocion : ", this.productosPromocion);
+                console.log("this.promociones : ", this.promociones);
 
-                this.totalProductosPromocion = resp[1][0].cantProductosPromocion;
+                this.totalPromociones = resp[1][0].cantPromociones;
 
-                if(this.totalProductosPromocion > 12)
+                if(this.totalPromociones > 12)
                 {
-                  this.cantidadPaginado = Math.ceil(this.totalProductosPromocion/12);
+                  this.cantidadPaginado = Math.ceil(this.totalPromociones/12);
                 }
                 else
                 {
@@ -64,53 +63,7 @@ cargarProductosPromocion() {
   }
 
 
-// // ==================================================
-// //        Borra una persona
-// // ==================================================
-
-//  eliminarCliente( cliente: any ) {
-
-//     Swal.fire({
-//       title: '¿Esta seguro?',
-//       text: 'Esta a punto de borrar a ' + cliente.Nombres + ' ' + cliente.Apellidos,
-//       icon: 'warning',
-//       showCancelButton: true,
-//       confirmButtonColor: '#3085d6',
-//       cancelButtonColor: '#d33',
-//       confirmButtonText: 'Si, borrar!'
-//     })
-//     .then( borrar => {
-
-//       if (borrar) {
-
-//         const parametro = cliente.IdPersona.toString();
-
-//         this.personaService.eliminarCliente( parametro )
-//                   .subscribe( (resp: any) => {
-//                       this.cargarClientes();
-//                       if ( resp.mensaje === 'Ok') {
-//                         Swal.fire({
-//                           position: 'top-end',
-//                           icon: 'success',
-//                           title: 'Cliente eliminado',
-//                           showConfirmButton: false,
-//                           timer: 2000
-//                         });
-//                       } else {
-//                         Swal.fire({
-//                           icon: 'error',
-//                           title: 'Error al eliminar',
-//                           text: 'Contactese con el administrador',
-//                         });
-//                       }
-//                       this.cargarClientes();
-
-//                     });
-
-//                   }
-//                 });
-//               }
-// ==================================================
+  // ==================================================
 //        Cambio de valor
 // ==================================================
 

@@ -31,6 +31,7 @@ class ProductosRoutes {
         this.router.get('/unidades/listar/',productosController.listarTodasUnidades);
         // Promociones
         this.router.get('/promociones/listar/:pDesde',productosController.listarPromocionesPaginado);
+        this.router.post('/promocion/alta',productosController.altaPromocion);
     }
 
 }

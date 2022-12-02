@@ -268,6 +268,66 @@ public async listarPromocionesPaginado(req: Request, res: Response): Promise<voi
         res.status(200).json(result);
     })
 }
+
+// ==============================
+public async altaPromocion(req: Request, res: Response) {
+
+    var pProductosPromocion = req.body[0]; 
+    var pPromocion = req.body[1];
+    var pPrecio = req.body[2];
+    var pDescripcion = req.body[3];
+
+    if(pDescripcion == undefined || pDescripcion == 'undefined')
+    { 
+        pDescripcion = '';
+    }
+
+    pool.query(`call bsp_alta_promocion('${pPromocion}','${pPrecio}','${pDescripcion}')`, function(err: any, result: any, fields: any){
+        
+        if(err){
+            res.status(404).json({ text: err });
+            return;
+        }
+
+        if(result[0][0].Mensaje !== 'Ok'){
+            return res.status(200).json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
+
+        var pIdPromocion = result[0][0].pIdPromocion;
+
+        // *** Recorro los productos cargados a la promo ***
+        pProductosPromocion.forEach(function (value: any) {
+
+            var pIdProducto = value.IdProducto;
+            var pCantidad = value.Cantidad;
+
+            pool.query(`call bsp_alta_item_promocion('${pIdPromocion}','${pIdProducto}','${pCantidad}')`, function(err: any, result: any, fields: any){
+        
+                if(err){
+                    res.status(404).json({ text: err });
+                    return;
+                }
+        
+                if(result[0][0].Mensaje !== 'Ok'){
+                    return res.status(404).json({
+                        ok: false,
+                        Mensaje: result[0][0].Mensaje
+                    });
+                }
+            })
+
+        });
+
+        res.status(200).json(result);
+
+        // *** Fin Recorro los productos cargados a la promo ***
+    })
+
+}
+
 }
 
 

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
@@ -15,7 +14,6 @@ import { IItemStructure } from 'src/app/interfaces/item.interface';
 })
 export class PromocionComponent implements OnInit {
 
-  forma!: FormGroup;
   keywordProducto = 'NombreCompleto';
   cargando = true;
   productos: any;
@@ -34,6 +32,9 @@ export class PromocionComponent implements OnInit {
   alertaCodigoVacio = false;
   precio = 0;  
   alertaPrecioVacio = false;
+  PrecioPromocion: any;
+  Descripcion: any;
+  Promocion: any;
 
   constructor(
     private router: Router, 
@@ -49,26 +50,6 @@ export class PromocionComponent implements OnInit {
 
   ngOnInit() {
 
-    this.forma = new FormGroup({
-      IdCategoria: new FormControl(null ),
-      IdSubCategoria: new FormControl(null ),
-      IdMarca: new FormControl(null),
-      IdUnidad: new FormControl(null ),
-      Producto: new FormControl(null, Validators.required),
-      Codigo: new FormControl(null , Validators.required),
-      Stock: new FormControl(null , Validators.required),
-      FechaVencimiento: new FormControl(null ),
-      Descripcion: new FormControl(null ),
-      StockAlerta: new FormControl(null ),
-      Peso: new FormControl(null ),
-      Sabor: new FormControl(null ),
-      PrecioCompra: new FormControl(null ),
-      PrecioVenta: new FormControl(null , Validators.required),
-      PrecioMayorista: new FormControl(null ),
-      PrecioMeli: new FormControl(null ),
-      Descuento: new FormControl(null ),
-      Moneda: new FormControl(null )
-      });
   }
 // ==================================================
 //        Crear 
@@ -79,23 +60,24 @@ altaPromocion() {
   // this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdProducto');
   // this.IdPersona = this.authService.personaId;
 
-      if ( this.forma.invalid ) {
-        return;
-      }
-
       const promocion = new Array(
-        this.lineas_promocion
+        this.lineas_promocion,
+        this.Promocion,
+        this.PrecioPromocion,
+        this.Descripcion
       );
+
+      console.log("nueva promo es ",promocion)
 
       this.productosService.altaPromocion( promocion )
                 .subscribe( (resp: any) => {
-                  console.log("resp en plan es : ",resp)
-                  if ( resp.Mensaje === 'Ok') {
-                    this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
+                  if ( resp[0][0].Mensaje === 'Ok') {
+
+                    this.alertaService.alertSuccess('top-end','Promocion cargada',false,2000);
                     
-                    this.router.navigate(['/mantenimiento/planes']);
+                    this.router.navigate(['/dashboard/promociones']);
                   } else {
-                    this.alertaService.alertFail('Venta cargada',false,2000);
+                    this.alertaService.alertFail('Ocurrio un error',false,2000);
                   }
                   return;
                 });

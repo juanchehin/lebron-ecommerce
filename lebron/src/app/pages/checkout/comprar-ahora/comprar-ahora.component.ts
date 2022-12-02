@@ -1,5 +1,5 @@
 import {  Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -14,7 +14,8 @@ export class ComprarAhoraComponent implements OnInit  {
   constructor(
     public checkoutService: CheckoutService,
     public activatedRoute: ActivatedRoute,
-    public authService: AuthService
+    public authService: AuthService,
+    public router: Router
   ) { }
 
   forma!: FormGroup;
@@ -29,6 +30,7 @@ export class ComprarAhoraComponent implements OnInit  {
   Total = 0;
   SubTotal = 0;
   selectedDevice: any;
+  datosCompra: any[] = [];
 
   ngOnInit(): void {
 
@@ -92,21 +94,39 @@ export class ComprarAhoraComponent implements OnInit  {
 confirmarCompra( ) {
 
   this.cargando = true;
- 
-  const datosCompra = new Array(
-    this.Total
-  );
 
-  this.checkoutService.confirmarCompra( datosCompra )
+  this.datosCompra.push(
+    { 
+      IdProducto: this.producto.IdProducto,
+      name: this.producto.Producto,
+      price: this.Total,
+      unit: this.Cantidad,
+      img: ''
+    }
+    );
+ 
+  // const datosCompra = new Array(
+  //   name: this.producto.Producto,
+  //   this.Total
+  // );
+
+  console.log("datos compra es ; ",this.datosCompra)
+
+  this.checkoutService.confirmarCompra( this.datosCompra )
              .subscribe( (resp: any) => {
 
-              if ( resp.Mensaje === 'Ok') {
+              console.log("resp es ; ",resp);
+
+              console.log("resp.url es ; ",resp.url);
+
+              // if ( resp.Mensaje === 'Ok') {
                 
-                // this.router.navigate(['/mantenimiento/clientes']);
-              } else {
+                window.location.href = resp.url;
+                // this.router.navigate(resp.url);
+              // } else {
                
-                return;
-              }
+              //   return;
+              // }
              });
 }
 // =================================================

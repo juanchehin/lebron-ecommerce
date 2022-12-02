@@ -34,7 +34,7 @@ dameDatosComprarAhora(IdPersona: any,IdProducto: any){
 // ==================================================
 confirmarCompra(datosCompra: any){
 
-  let url = URL_SERVICIOS + '/checkout/confirmar-compra/';
+  let url = URL_SERVICIOS + '/checkout/payment/new';
 
   return this.http.post( url, datosCompra );
 }

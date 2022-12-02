@@ -89,7 +89,7 @@ public async dameUsuario(req: Request, res: Response): Promise<void> {
 }
 
 // ==================================================
-//     confirmar compra - mercadopago
+//     confirmar compra - mercadopago - SIN USO
 // ==================================================
 public async confirmarCompra(req: Request, res: Response): Promise<void> {
 
@@ -129,23 +129,18 @@ public async confirmarCompra(req: Request, res: Response): Promise<void> {
 // ==================================================
 public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
 
-    const { name, price, unit, img } = req.body; 
+    const { IdProducto, name, price, unit, img } = req.body[0]; 
 
-    console.log("req.body es : ",req.body)
-
-    console.log("name es : ",name)
-
-    console.log("price es : ",price)
     try {
       const checkout = await createPaymentMercadoPago(
+        IdProducto,
         name, // nombre del producto o servicio
         price, //precio del producto o servicio
         unit,  //cantidad que estamos vendiendo
         img  // imagen de referencia del producto o servicio
       );
 
-      console.log("checkout es : ",checkout)
-      return res.redirect(checkout.init_point); 
+      // return res.redirect(checkout.init_point); 
      //si es exitoso los llevamos a la url de Mercado Pago
 
       return res.json({url: checkout.init_point})
@@ -188,29 +183,27 @@ public async webhook(req: Request, res: Response): Promise<any> {
 const checkoutController = new CheckoutController;
 export default checkoutController;
 
-async function createPaymentMercadoPago(name: any, price: any, unit: any, img: any) {
+async function createPaymentMercadoPago(IdProducto: any,name: any, price: any, unit: any, img: any) {
     const mercadoPagoUrl = "https://api.mercadopago.com/checkout"; 
     console.log("asa createPaymentMercadoPago")
     // recibimos las props que le mandamos desde el PaymentController
-        const access_token = process.env.MP_ACCESS_TOKEN_TEST;
-        console.log("access_token es : " + access_token);
+        const access_token = process.env.MP_ACCESS_TOKEN_PROD;
+        
         const url = `${mercadoPagoUrl}/preferences?access_token=${access_token}`;
-
-        console.log("url es : " + url);
     
     // url a la que vamos a hacer los requests
     
         const items = [
           {
-            id: "1234", 
+            id: IdProducto, 
     // id interno (del negocio) del item
             title: name, 
     // nombre que viene de la prop que recibe del controller
-            description: "Dispositivo movil de Tienda e-commerce",
+            description: name,
      // descripción del producto
-            picture_url: "https://courseit.com.ar/static/logo.png", 
+            picture_url: "", 
     // url de la imágen del producto
-            category_id: "1234",  
+            category_id: "1",  
     // categoría interna del producto (del negocio)
             quantity: parseInt(unit), 
     // cantidad, que tiene que ser un intiger
@@ -225,7 +218,7 @@ async function createPaymentMercadoPago(name: any, price: any, unit: any, img: a
     // declaramos las preferencias de pago
           items, 
     // el array de objetos, items que declaramos más arriba
-          external_reference: "referencia del negocio", 
+          external_reference: "Lebron - Suplementos", 
     // referencia para identificar la preferencia, puede ser practicamente cualquier valor
           payer: { 
     // información del comprador, si estan en producción tienen que //traerlos del request
@@ -239,7 +232,7 @@ async function createPaymentMercadoPago(name: any, price: any, unit: any, img: a
               number: "415369"
             },
             address: {
-              zip_code: "1111",
+              zip_code: "4000",
               street_name: "False",
               street_number: "123"
             }
@@ -261,14 +254,14 @@ async function createPaymentMercadoPago(name: any, price: any, unit: any, img: a
           }, 
           back_urls: {
     // declaramos las urls de redireccionamiento
-            success: "https://localhost:3000/success", 
+            success: `${process.env.URL_FRONT}/success`, 
     // url que va a redireccionar si sale todo bien
-            pending: "https://localhost:3000.com/pending", 
+            pending: `${process.env.URL_FRONT}/pending`, 
     // url a la que va a redireccionar si decide pagar en efectivo por ejemplo
-            failure: "https://localhost:3000.com/error" 
+            failure: `${process.env.URL_FRONT}/error` 
     // url a la que va a redireccionar si falla el pago
           }, 
-          notification_url: "https://mp-checkout-api.herokuapp.com/webhook", 
+          notification_url: `${process.env.URL_FRONT}/webhook`, 
     // declaramos nuestra url donde recibiremos las notificaciones
           auto_return: "approved" 
     // si la compra es exitosa automaticamente redirige a "success" de back_urls

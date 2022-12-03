@@ -95,7 +95,7 @@
                                     <span>Total</span>$ {{Total}}
                                 </li>
                             </ul>
-                            <a [routerLink]="['/direcciones/', IdPersona ]" class="btn_1 full-width cart">Continuar Compra</a>
+                            <button (click)="confirmarCompra()" class="btn_1 full-width cart">Continuar Compra</button>
                         </div>
                     </div>
                 </div>

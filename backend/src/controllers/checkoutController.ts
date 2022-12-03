@@ -23,56 +23,6 @@ public async datosComprarAhora(req: Request, res: Response): Promise<void> {
     })
 }
 
-
-// ==================================================
-//        Inserta un usuario
-// ==================================================
-public async altaUsuario(req: Request, res: Response) {
-
-    var Apellidos = req.body.Apellidos;
-    var Nombres = req.body.Nombres;
-    var DNI = req.body.DNI;
-    var Pass = req.body.Pass;
-    var Telefono = req.body.Telefono;
-    var Observaciones = req.body.Observaciones;
-    var Correo = req.body.Correo;
-    var Usuario = req.body.Usuario;    
-    var Direccion = req.body.Direccion;
-    var FechaNac = req.body.FechaNac;
-
-    const saltRounds = 10;  //  Data processing speed
-
-    bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
-        bcrypt.hash(Pass, salt, async function(err: any, hash: any) {
-
-            pool.query(`call bsp_alta_usuario('${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}','${Direccion}','${FechaNac}','${Usuario}'},'${Observaciones}')`, function(err: any, result: any, fields: any){        if(err){
-                    console.log("error : ", err);
-                    res.status(404).json({ text: "Ocurrio un problema" });
-                    return;
-                }
-                
-                if(result[0][0].Mensaje === 'La persona ya se encuentra cargada'){
-                    return res.json({
-                        Mensaje: result[0][0].Mensaje,
-                        pIdPersona: result[1][0].IdPersona
-                    });
-                }
-            
-                if(result[0][0].Mensaje !== 'Ok'){
-                    return res.json({
-                        ok: false,
-                        Mensaje: result[0][0].Mensaje
-                    });
-                }
-
-                return res.json({ Mensaje: 'Ok' });
-            })
-
-        });
-    });
-
-}
-
 // ==================================================
 //        Lista personas desde cierto valor
 // ==================================================
@@ -89,61 +39,22 @@ public async dameUsuario(req: Request, res: Response): Promise<void> {
 }
 
 // ==================================================
-//     confirmar compra - mercadopago - SIN USO
-// ==================================================
-public async confirmarCompra(req: Request, res: Response): Promise<void> {
-
-   
-
-    var Monto = req.body.Monto;
-
-    console.log("confirmar compra : ",Monto)
-    
-    // Enviar datos mercado pago
-
-    var mercadopago = require('mercadopago');
-        mercadopago.configure({
-            access_token: 'APP_USR-6370868698271500-110215-0fe0859ab28cb28c69b885a3de895833-190646812'
-        });
-
-        var preference = {
-        items: [
-            {
-            title: 'Test',
-            quantity: 1,
-            currency_id: 'ARS',
-            unit_price: 10.5
-            }
-        ]
-    };
-
-    mercadopago.preferences.create(preference)
-
-    // Enviar al front que pase a el checkout de MP
-
-    // agregar venta y pedido a la BD
-}
-
-// ==================================================
 //     
 // ==================================================
 public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
 
-    const { IdProducto, name, price, unit, img } = req.body[0]; 
+
+    const datosCompra = req.body;
+    const costoEnvio = req.params.costoEnvio;
+
 
     try {
-      const checkout = await createPaymentMercadoPago(
-        IdProducto,
-        name, // nombre del producto o servicio
-        price, //precio del producto o servicio
-        unit,  //cantidad que estamos vendiendo
-        img  // imagen de referencia del producto o servicio
-      );
+      const checkout = await createPaymentMercadoPago( datosCompra , costoEnvio);
 
       // return res.redirect(checkout.init_point); 
      //si es exitoso los llevamos a la url de Mercado Pago
 
-      return res.json({url: checkout.init_point})
+      return res.status(200).json({url: checkout.init_point})
      // o si queres devolver la url al front 
 
 
@@ -175,51 +86,22 @@ public async webhook(req: Request, res: Response): Promise<any> {
     
 }
 
-
-
 }
 
 
 const checkoutController = new CheckoutController;
 export default checkoutController;
 
-async function createPaymentMercadoPago(IdProducto: any,name: any, price: any, unit: any, img: any) {
+async function createPaymentMercadoPago( items : any, costoEnvio: any) {
     const mercadoPagoUrl = "https://api.mercadopago.com/checkout"; 
 
-    // recibimos las props que le mandamos desde el PaymentController
-        const access_token = process.env.MP_ACCESS_TOKEN_PROD;
         
-        const url = `${mercadoPagoUrl}/preferences?access_token=${access_token}`;
-    
-    // url a la que vamos a hacer los requests
-    
-        const items = [
-          {
-            id: IdProducto, 
-    // id interno (del negocio) del item
-            title: name, 
-    // nombre que viene de la prop que recibe del controller
-            description: name,
-     // descripción del producto
-            picture_url: "", 
-    // url de la imágen del producto
-            category_id: "1",  
-    // categoría interna del producto (del negocio)
-            quantity: parseInt(unit), 
-    // cantidad, que tiene que ser un intiger
-            currency_id: "ARS", 
-    // id de la moneda, que tiene que ser en ISO 4217
-            unit_price: parseFloat(price)
-     // el precio, que por su complejidad tiene que ser tipo FLOAT
-          }
-        ];  
+    const url = `${mercadoPagoUrl}/preferences?access_token=${process.env.MP_ACCESS_TOKEN_PROD}`;
+
     
         const preferences = { 
-    // declaramos las preferencias de pago
           items, 
-    // el array de objetos, items que declaramos más arriba
           external_reference: "Lebron - Suplementos", 
-    // referencia para identificar la preferencia, puede ser practicamente cualquier valor
           payer: { 
     // información del comprador, si estan en producción tienen que //traerlos del request
     //(al igual que hicimos con el precio del item) 
@@ -236,7 +118,11 @@ async function createPaymentMercadoPago(IdProducto: any,name: any, price: any, u
               street_name: "False",
               street_number: "123"
             }
-          }, 
+          },
+          shipments:{
+            cost: Number(costoEnvio),
+            mode: "not_specified",
+          },
           payment_methods: { 
     // declaramos el método de pago y sus restricciones
             excluded_payment_methods: [ 
@@ -262,24 +148,18 @@ async function createPaymentMercadoPago(IdProducto: any,name: any, price: any, u
     // url a la que va a redireccionar si falla el pago
           }, 
           notification_url: `${process.env.URL_FRONT}/webhook`, 
-    // declaramos nuestra url donde recibiremos las notificaciones
           auto_return: "approved" 
-    // si la compra es exitosa automaticamente redirige a "success" de back_urls
         };
-    
+
         try {
           const request = await axios.post(url, preferences, {
-     // hacemos el POST a la url que declaramos arriba, con las preferencias
             headers: { 
-    // y el header, que contiene content-Type
               "Content-Type": "application/json"
             }
           });
     
           return request.data; 
-    // devolvemos la data que devuelve el POST
         } catch (e) {
-          console.log(e); 
-    // mostramos error en caso de que falle el POST
+          console.log(e);
         }
 }

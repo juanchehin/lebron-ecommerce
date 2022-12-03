@@ -105,14 +105,9 @@ confirmarCompra( ) {
     }
     );
  
-  // const datosCompra = new Array(
-  //   name: this.producto.Producto,
-  //   this.Total
-  // );
-
   console.log("datos compra es ; ",this.datosCompra)
 
-  this.checkoutService.confirmarCompra( this.datosCompra )
+  this.checkoutService.confirmarCompra( this.datosCompra , this.costoEnvio)
              .subscribe( (resp: any) => {
 
               // if ( resp.Mensaje === 'Ok') {
@@ -129,18 +124,22 @@ confirmarCompra( ) {
 //        
 // ==================================================
 onChangeTipoEnvio(deviceValue: any){
-  console.log("onChangeTipoEnvio" , deviceValue.value);
 
-  if(deviceValue.value != 0)
+  if(deviceValue.value != 0 && this.habilitarCostoEnvio != true)
   { 
     this.habilitarCostoEnvio = true;
     this.Total += +this.costoEnvio;
   }
   else
   {
-    this.habilitarCostoEnvio = false;
+    if(!(deviceValue.value != 0))
+    {
+      this.Total -= +this.costoEnvio;
+      this.habilitarCostoEnvio = false;
+    }
   }
 } 
+
   // En caso de que se seleccione con envio a domicilio
   modificarTotal()
   { 

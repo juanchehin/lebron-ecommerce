@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { CheckoutService } from 'src/app/services/checkout.service';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { environment } from 'src/environments/environment';
@@ -15,7 +16,6 @@ export class CarritoComponent implements OnInit {
 
   desde = 0;
   habilitarCostoEnvio = false;
-  ClasesDisponibles = 0;
   SubTotal = 0;
   costoEnvio = 0;
   Total = 0;
@@ -27,11 +27,14 @@ export class CarritoComponent implements OnInit {
   totalUsuarios = 0;
   cargando = true;
   ruta_img_empty_cart = ruta_img + 'empty-cart.png';
+  datosCompra: any[] = [];
+  costoEnvioMP = 0;
 
   constructor(
     public usuariosService: UsuariosService,
-    private activatedRoute: ActivatedRoute,
-    private clientesService: ClientesService
+    private clientesService: ClientesService,
+    private checkoutService: CheckoutService,
+    private router: Router
   ) {
    }
 
@@ -44,25 +47,18 @@ export class CarritoComponent implements OnInit {
 // ==================================================
 
 cargarCarrito() {
-  console.log("pasa cargarCarrito");
-
   
     this.clientesService.listarCarritoCliente(   )
                .subscribe( (resp: any) => {
 
-                console.log("resp carerito es : ",resp)
+                console.log("resp carrito e s",resp)
 
                 this.totalItemsCarrito = resp[1][0].cantProductosCarrito;
 
                 this.itemsCarrito = resp[0];
 
-                console.log("resp[0] carerito es : ",resp[0])
-
-                console.log("resp[0] carerito es : ",this.itemsCarrito.length)
-
                 if(this.itemsCarrito.length <= 0 || this.totalItemsCarrito <= 0)
                 {
-                  // mostrar mensaje de 'no tienes productos en tu carrito'
                   this.banderaCarritoVacio = true;
                   return;
                 }
@@ -111,16 +107,71 @@ cambiarDesde( valor: number ) {
 // ==================================================
 onChangeTipoEnvio(deviceValue: any){
 
-  if(deviceValue.value != 0)
+  if(deviceValue.value != 0 && this.habilitarCostoEnvio != true)
   { 
     this.habilitarCostoEnvio = true;
     this.Total += +this.costoEnvio;
   }
   else
   {
-    this.Total -= +this.costoEnvio;
-    this.habilitarCostoEnvio = false;
+    if(!(deviceValue.value != 0))
+    {
+      this.Total -= +this.costoEnvio;
+      this.habilitarCostoEnvio = false;
+    }
   }
 } 
 
+
+// =================================================
+//        
+// ==================================================
+
+confirmarCompra( ) {
+
+  this.cargando = true;
+
+  console.log("htis.datosCompra ",this.datosCompra)
+
+  this.datosCompra = [];
+
+  console.log("htis.itemscarrot ",this.itemsCarrito)
+  console.log("htis.datosCompra 2",this.datosCompra)
+
+  this.itemsCarrito.forEach((item:any) => {
+
+    console.log("item es : ",item)    
+
+    this.datosCompra.push(
+      { 
+        IdProducto: item.IdProducto,
+        title: item.Producto,
+        unit_price: Number(item.PrecioVenta),
+        quantity: item.Cantidad,
+        picture_url: ''
+      }
+      );
+
+  });
+
+  if(this.habilitarCostoEnvio == false){
+    this.costoEnvioMP = 0;
+  }
+  else
+  {
+    this.costoEnvioMP = this.costoEnvio;
+  }
+
+
+  this.checkoutService.confirmarCompra( this.datosCompra, this.costoEnvioMP )
+             .subscribe( (resp: any) => {
+
+              if (resp) {                
+                window.location.href = resp.url;
+              } else {                
+                this.router.navigate(['/failure'])
+                return;       
+              }
+             });
+}
 }

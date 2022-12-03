@@ -32,9 +32,9 @@ dameDatosComprarAhora(IdPersona: any,IdProducto: any){
 // ==================================================
 //
 // ==================================================
-confirmarCompra(datosCompra: any){
+confirmarCompra(datosCompra: any, costoEnvio: any){
 
-  let url = URL_SERVICIOS + '/checkout/payment/new';
+  let url = URL_SERVICIOS + '/checkout/payment/new/' + costoEnvio;
 
   return this.http.post( url, datosCompra );
 }

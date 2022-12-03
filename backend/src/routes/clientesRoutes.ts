@@ -24,6 +24,7 @@ class ClientesRoutes {
         // carrito 
         this.router.post('/carrito/alta/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], clientesController.altaProductoCarrito);
         this.router.get('/carrito/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], clientesController.listarCarritoCliente);
+        this.router.get('/carrito/baja/:IdPersona/:IdProducto', clientesController.bajaProductoCarrito);
 
     }
 

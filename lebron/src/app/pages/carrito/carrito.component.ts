@@ -53,8 +53,6 @@ cargarCarrito() {
     this.clientesService.listarCarritoCliente(   )
                .subscribe( (resp: any) => {
 
-                console.log("resp carrito e s",resp)
-
                 this.totalItemsCarrito = resp[1][0].cantProductosCarrito;
 
                 this.itemsCarrito = resp[0];
@@ -109,7 +107,6 @@ cambiarDesde( valor: number ) {
 // ==================================================
 onChangeTipoEnvio(deviceValue: any){
 
-  console.log("deviceValue.value", deviceValue.value);
   this.envioSeleccionado = deviceValue.value;
 
   if(deviceValue.value == -1)
@@ -193,5 +190,24 @@ confirmarCompra( ) {
                 return;       
               }
              });
+}
+
+// =================================================
+//        
+// ==================================================
+eliminarItemCarrito(IdProducto: string){
+  
+  this.clientesService.eliminarItemCarrito(  IdProducto )
+      .subscribe( (resp: any) => {
+
+        if ( resp.Mensaje === 'Ok') {
+          this.cargarCarrito();
+        } else {
+          this.router.navigate(['/failure']);
+        }
+
+  
+
+ });
 }
 }

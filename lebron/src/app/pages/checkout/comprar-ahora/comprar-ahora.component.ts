@@ -72,8 +72,6 @@ export class ComprarAhoraComponent implements OnInit  {
 
     this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
     
-    console.log("this.persona : ",this.IdPersona)
-
     this.checkoutService.dameDatosComprarAhora( this.IdPersona,this.IdProducto  )
       .subscribe( (resp: any) => {
 

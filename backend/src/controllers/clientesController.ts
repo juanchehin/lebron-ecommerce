@@ -316,6 +316,32 @@ public async actualizaCliente(req: Request, res: Response) {
 }
 
 // ==================================================
+//       
+// ==================================================
+public async bajaProductoCarrito(req: Request, res: Response) {
+
+    var IdProducto = req.params.IdProducto;
+    var IdCliente = req.params.IdPersona;
+
+    pool.query(`call bsp_baja_producto_carrito('${IdCliente}','${IdProducto}')`, function(err: any, result: any, fields: any){
+
+        if(err){
+            res.status(404).json(result);
+            return;
+        }
+    
+        if(result[0].Mensaje !== 'Ok'){
+            return res.json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
+
+        res.json(result);
+    })
+
+}
+// ==================================================
 //        
 // ==================================================
 public async buscarCliente(req: Request, res: Response): Promise<any> {

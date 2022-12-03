@@ -39,7 +39,7 @@
                 </select>
             </div>
             <div *ngIf="banderaSeleccionarEnvio">
-                <p style="color:red;">Seleccione la forma de envio</p>
+                <p style="color:red;">Seleccione el tipo de envio</p>
             </div>
             <!-- /page_header -->
             <table class="table table-striped cart-list">
@@ -77,7 +77,7 @@
                             <strong>$ {{itemCarrito.SubTotal}}</strong>
                         </td>
                         <td class="options">
-                            <a href="#"><i class="ti-trash"></i></a>
+                            <a (click)="eliminarItemCarrito(itemCarrito.IdProducto)"><i class="ti-trash"></i></a>
                         </td>
                     </tr>
                 </tbody>

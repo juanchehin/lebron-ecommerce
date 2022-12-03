@@ -49,9 +49,6 @@ cargarProductosRelacionados() {
 
                 this.productosRelacionados = resp[0];
 
-                console.log("imgtest : ", this.imgTemp);
-                console.log("this.productosPromocion : ", this.productosRelacionados);
-
                 this.totalProductosRelacionados = resp[0].length;
 
                 this.productosRelacionadosPaginacion = this.productosRelacionados.slice(0, 6);

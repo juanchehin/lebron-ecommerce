@@ -151,6 +151,9 @@ listarCarritoCliente(  ): any {
   return this.http.get( url, this.headers );
 
 }
+// ==================================================
+// Lista las direcciones de un cliente
+// ==================================================
 cardarDatosEnvio(  IdPersona: string  ): any {
 
   const url = URL_SERVICIOS + '/clientes/datos-envio/' + IdPersona;
@@ -159,4 +162,14 @@ cardarDatosEnvio(  IdPersona: string  ): any {
 
 }
 
+// ==================================================
+// 
+// ==================================================
+eliminarItemCarrito(  IdProducto: any  ): any {
+
+  const url = URL_SERVICIOS + '/clientes/carrito/baja/' + this.IdPersona + '/' + IdProducto;
+
+  return this.http.get(url,this.headers);
+
+}
 }

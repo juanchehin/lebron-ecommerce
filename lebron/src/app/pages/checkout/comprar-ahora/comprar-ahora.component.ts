@@ -41,21 +41,21 @@ export class ComprarAhoraComponent implements OnInit  {
     });
 
     this.checkoutService.cantidad.subscribe((data : any)=>{
-      console.log("data : ",data)
       this.Cantidad = data;
-      console.log("this.Cantidad : ",this.Cantidad)
     });
 
     this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
 
-    console.log("this.IdPersona 2  : ",this.IdPersona)
 
     if(this.IdPersona || (this.IdPersona.length == 0))
     { 
-      console.log("pasa if  : ")
       this.authService.quoteIdPersona.subscribe((data : any)=>{
         this.IdPersona = data;
-        console.log("this.IdPersona 54  : ",this.IdPersona)
+
+        if(Object.keys(this.IdPersona).length <= 0)
+        { 
+          this.IdPersona = localStorage.getItem('id');
+        }
       });
     }
 

@@ -80,6 +80,19 @@ nuevaDireccion( direccion: any ) {
     direccion
 );
 }
+// ==================================================
+//        
+// ==================================================
+agregarItemCarrito( datosCarrito : any , IdPersona: any) {
+
+  let url = URL_SERVICIOS + '/clientes/carrito/alta/' + IdPersona;
+
+  return this.http.post(
+    url,
+    datosCarrito,
+    this.headers
+);
+}
 
 
 // ==================================================
@@ -127,6 +140,17 @@ altaItemCarrito( IdProducto: any,IdPersona: any) {
 );
 }
 
+// ==================================================
+// Lista las direcciones de un cliente
+// ==================================================
+
+listarCarritoCliente(  ): any {
+
+  const url = URL_SERVICIOS + '/clientes/carrito/' + this.IdPersona;
+
+  return this.http.get( url, this.headers );
+
+}
 cardarDatosEnvio(  IdPersona: string  ): any {
 
   const url = URL_SERVICIOS + '/clientes/datos-envio/' + IdPersona;

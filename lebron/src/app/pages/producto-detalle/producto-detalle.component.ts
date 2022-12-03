@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
+import { ClientesService } from 'src/app/services/clientes.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { environment } from 'src/environments/environment';
@@ -42,7 +43,9 @@ export class ProductoDetalleComponent implements OnInit {
     public authService: AuthService,
     public productosService: ProductosService,
     public checkoutService: CheckoutService,
-    public activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute,
+    private clientesService: ClientesService,
+    private router: Router
   ) {
    }
 
@@ -58,7 +61,14 @@ export class ProductoDetalleComponent implements OnInit {
   // ***
   cargarIdPersona() {
     this.authService.quoteIdPersona.subscribe((dataIdPersona : any) => { 
+
       this.IdPersona = dataIdPersona;
+
+      if(Object.keys(this.IdPersona).length <= 0)
+      { 
+        
+        this.IdPersona = localStorage.getItem('id');
+      }
     });
 
   }
@@ -81,8 +91,6 @@ cargarDatosProducto(){
     this.productosService.dameDatosProducto(this.IdProducto)
     .subscribe( (resp: any) => {
 
-      console.log("resp es : ",resp);
-
       this.Producto = resp[0][0].Producto;
       this.Categoria = resp[0][0].Categoria;
       this.SubCategoria = resp[0][0].SubCategoria;
@@ -99,10 +107,36 @@ cargarDatosProducto(){
     });
   }
 
+  // =================================
   cambioCantidad(event: any)
   { 
     console.log(event.target.value);
     this.Cantidad = event.target.value;
     this.changeCantidad();
+  }
+
+  // =================================
+  agregarCarrito()
+  { 
+    
+    const datosCarrito = new Array(
+      this.IdProducto,
+      this.IdPersona,
+      this.Cantidad
+    )
+
+    console.log("datos darrito es ",datosCarrito)
+
+    this.clientesService.agregarItemCarrito(datosCarrito,this.IdPersona)
+    .subscribe( (resp: any) => {
+
+        console.log("resp es : ",resp)
+
+        // redireccionar a la pagina de carrito
+        this.router.navigate(['carrito',this.IdPersona])
+
+        // actualizar el localstorage
+
+    });
   }
 }

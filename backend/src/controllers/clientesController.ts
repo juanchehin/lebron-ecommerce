@@ -121,6 +121,36 @@ public async altaDireccionCliente(req: Request, res: Response) {
 }
 
 // ==================================================
+//        Inserta
+// ==================================================
+public async altaProductoCarrito(req: Request, res: Response) {
+
+    var IdProducto = req.body[0];
+    var IdCliente = req.body[1];
+    var Cantidad = req.body[2];
+    
+    pool.query(`call bsp_alta_producto_carrito('${IdCliente}','${IdProducto}','${Cantidad}')`,function(err: any, result: any, fields: any){
+        
+                console.log("result ",result)
+
+                if(err){
+                    res.status(404).json(err);
+                    return;
+                }
+                
+                if(result[0][0].Mensaje !== 'Ok'){
+                    return res.json({
+                        ok: false,
+                        Mensaje: result[0][0].Mensaje
+                    });
+                }
+                                
+                return res.json({ Mensaje: 'Ok' });
+            })          
+    
+}
+
+// ==================================================
 //   Activa un cliente (caso de ya existencia en la BD)
 // ==================================================
 
@@ -161,6 +191,22 @@ public async listarClientesPaginado(req: Request, res: Response): Promise<void> 
  }
 
  
+ // ==================================================
+//        Lista
+// ==================================================
+
+public async listarCarritoCliente(req: Request, res: Response): Promise<void> {
+    
+    var IdPersona = req.params.IdPersona;
+
+    pool.query(`call bsp_listar_productos_carrito_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
+       if(err){
+           res.status(404).json(result);
+           return;
+       }
+       res.status(200).json(result);
+   })
+}
  // ==================================================
 //        Lista Clientes desde cierto valor
 // ==================================================

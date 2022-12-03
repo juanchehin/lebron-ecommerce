@@ -124,7 +124,6 @@ public async listarProductosDestacadosHome(req: Request, res: Response): Promise
 public async listarPromocionesHome(req: Request, res: Response): Promise<void> {
     
     pool.query(`call bsp_listar_promociones_home()`, function(err: any, result: any, fields: any){
-        console.log("listar promo home")
         if(err){
             res.status(500).json(result);
             return;

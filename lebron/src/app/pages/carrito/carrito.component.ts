@@ -1,20 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ClientesService } from 'src/app/services/clientes.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
-  styles: []
+  styleUrls: ['./carrito.component.css']
 })
 export class CarritoComponent implements OnInit {
 
   desde = 0;
-  totalAsistencias = true;
+  habilitarCostoEnvio = false;
   ClasesDisponibles = 0;
+  SubTotal = 0;
+  costoEnvio = 0;
+  Total = 0;
+  direccionesCliente: any;
 
-  usuarios!: any;
-  cantPlanes = 0;
+  itemsCarrito!: any;
+  totalItemsCarrito = 0;
   IdPersona: any;
 
   totalUsuarios = 0;
@@ -22,86 +27,48 @@ export class CarritoComponent implements OnInit {
 
   constructor(
     public usuariosService: UsuariosService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private clientesService: ClientesService
   ) {
    }
 
   ngOnInit() {
-    this.cargarCarritoUsuario();
+    this.cargarCarrito();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-cargarCarritoUsuario() {
-  console.log("pasa cargarCarritoUsuario");
+cargarCarrito() {
+  console.log("pasa cargarCarrito");
 
-  this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
+  
+    this.clientesService.listarCarritoCliente(   )
+               .subscribe( (resp: any) => {
 
-    // this.usuariosService.listarCarritoUsuario( this.desde  )
-    //            .subscribe( (resp: any) => {
+                console.log("resp es : ",resp)
 
-    //             console.log("resp es : ",resp)
+                this.totalItemsCarrito = resp[1][0].cantItemsCarrito;
 
-    //             this.totalItemsCarrito = resp[1][0].cantItemsCarrito;
+                this.itemsCarrito = resp[0];
 
-    //             this.itemsCarrito = resp[0];
+                this.costoEnvio = resp[2][0].costo_envio;
 
-    //             this.cargando = false;
+                this.direccionesCliente = resp[3];
 
-    //           });
+                this.itemsCarrito.forEach((item:any) => {
+                  this.Total += +item.SubTotal;
+                });
+
+                this.SubTotal = this.Total;
+                
+
+              });
 
   }
 
 
-
-// // ==================================================
-// //        Borra un item del carrito
-// // ==================================================
-
-//  eliminarCliente( cliente: any ) {
-
-//     Swal.fire({
-//       title: '¿Esta seguro?',
-//       text: 'Esta a punto de borrar a ' + cliente.Nombres + ' ' + cliente.Apellidos,
-//       icon: 'warning',
-//       showCancelButton: true,
-//       confirmButtonColor: '#3085d6',
-//       cancelButtonColor: '#d33',
-//       confirmButtonText: 'Si, borrar!'
-//     })
-//     .then( borrar => {
-
-//       if (borrar) {
-
-//         const parametro = cliente.IdPersona.toString();
-
-//         this.personaService.eliminarCliente( parametro )
-//                   .subscribe( (resp: any) => {
-//                       this.cargarClientes();
-//                       if ( resp.mensaje === 'Ok') {
-//                         Swal.fire({
-//                           position: 'top-end',
-//                           icon: 'success',
-//                           title: 'Cliente eliminado',
-//                           showConfirmButton: false,
-//                           timer: 2000
-//                         });
-//                       } else {
-//                         Swal.fire({
-//                           icon: 'error',
-//                           title: 'Error al eliminar',
-//                           text: 'Contactese con el administrador',
-//                         });
-//                       }
-//                       this.cargarClientes();
-
-//                     });
-
-//                   }
-//                 });
-//               }
 // ==================================================
 //        Cambio de valor
 // ==================================================
@@ -124,6 +91,22 @@ cambiarDesde( valor: number ) {
 }
 
 
+// =================================================
+//        
+// ==================================================
+onChangeTipoEnvio(deviceValue: any){
+  console.log("onChangeTipoEnvio" , deviceValue.value);
 
+  if(deviceValue.value != 0)
+  { 
+    this.habilitarCostoEnvio = true;
+    this.Total += +this.costoEnvio;
+  }
+  else
+  {
+    this.Total -= +this.costoEnvio;
+    this.habilitarCostoEnvio = false;
+  }
+} 
 
 }

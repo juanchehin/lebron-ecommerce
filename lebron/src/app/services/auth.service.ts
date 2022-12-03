@@ -18,7 +18,7 @@ export class AuthService {
   public cantItemsCarrito: any = 0;
 
   private IdPersonaSource = new BehaviorSubject<string>('');
-  public quoteIdPersona = this.IdPersonaSource.asObservable();  // 
+  public  quoteIdPersona = this.IdPersonaSource.asObservable();  // 
 
   private cantItemsCarritoSource = new BehaviorSubject<string>('');
   public quoteCantItemsCarrito = this.cantItemsCarritoSource.asObservable();  // 
@@ -34,12 +34,10 @@ export class AuthService {
 // ====================================================================================================================
 
 setIdPersona(IdPersona: any) {
-  console.log("pasa setIdPersona en auth service");
   this.IdPersonaSource.next(IdPersona);
 }
 
 setcantItemsCarrito(cantItemsCarrito: any) {
-  console.log("pasa setcantItemsCarrito en auth service");
   this.cantItemsCarritoSource.next(cantItemsCarrito);
 }
 // ==================================================

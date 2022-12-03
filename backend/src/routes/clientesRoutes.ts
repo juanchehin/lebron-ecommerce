@@ -20,7 +20,10 @@ class ClientesRoutes {
         this.router.get('/listar/busqueda/:clienteBuscado', clientesController.buscarCliente);
         this.router.get('/listar/paginado/:desde', clientesController.listarClientesPaginado);
         this.router.post('/direccion/alta', clientesController.altaDireccionCliente);
-        this.router.get('/direcciones/:IdPersona' ,  [mdAutenticacion.MismoUsuario], clientesController.dameDirecionesCliente);
+        this.router.get('/direcciones/:IdPersona' ,  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], clientesController.dameDirecionesCliente);
+        // carrito 
+        this.router.post('/carrito/alta/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], clientesController.altaProductoCarrito);
+        this.router.get('/carrito/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], clientesController.listarCarritoCliente);
 
     }
 

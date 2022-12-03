@@ -39,11 +39,14 @@ exports.MismoUsuario = function(req: Request,res:Response,next: NextFunction){
     var decoded = jwt.verify(token, SEED);
     var IdPersona = decoded.IdPersona;
 
+    console.log("IdPersonaParam : ",IdPersonaParam);
+    console.log("IdPersona : ",IdPersona);
+
     // Pudo haberse modificado el valor en el localstorage del cliente
-    if(IdPersona != IdPersonaParam){        
+    if(IdPersona != IdPersonaParam){       
         return res.status(401).json({
             ok:false,
-            mensaje: 'TOKEN incorrecto'
+            mensaje: 'TOKEN incorrecto - Chequear usuario'
         });
     }
 

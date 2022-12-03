@@ -131,11 +131,6 @@ buscarProducto() {
 cargarCantItemsCarrito() {
 
   return this.cantItemsCarrito = localStorage.getItem('items-carrito');
-  // console.log("pasa cargarCantItemsCarrito en header component");
-  // this.authService.quoteCantItemsCarrito.subscribe((cantItemsCarrito : any) => { 
-  //   console.log("pasa dataIdPersona en header component",cantItemsCarrito);
-  //   this.cantItemsCarrito = cantItemsCarrito;
-  // });
 }
 
 }

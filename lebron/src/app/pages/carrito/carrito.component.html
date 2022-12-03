@@ -9,84 +9,99 @@
             </div>
             <h1>Mi Carrito</h1>
         </div>
-        <div>
-            Seleccionar tipo envio :
-            <select class="wide add_bottom_10" (change)="onChangeTipoEnvio($event.target)">
-                <option select>Seleccionar Direccion*</option>
-                <option value="0">Retiro en sucursal</option>
-                <option *ngFor="let direccion of direccionesCliente" 
-                    [value]="direccion.IdDireccion" >
-                    <!-- [attr.selected]="passenger.Title==title.Text ? true : null"> -->
-                    {{direccion.direccion}}
-                </option>
-            </select>
-        </div>
-        <!-- /page_header -->
-        <table class="table table-striped cart-list">
-            <thead>
-                <tr>
-                    <th>
-                        Producto
-                    </th>
-                    <th>
-                        Precio
-                    </th>
-                    <th>
-                        Cantidad
-                    </th>
-                    <th>
-                        Subtotal
-                    </th>
-                    <th>
-
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let itemCarrito of itemsCarrito">
-                    <td>
-                        <span class="item_cart">{{itemCarrito.Producto}}</span>
-                    </td>
-                    <td>
-                        <strong>$ {{itemCarrito.PrecioVenta}}</strong>
-                    </td>
-                    <td>
-                        <strong>{{itemCarrito.Cantidad}}</strong>
-                    </td>
-                    <td>
-                        <strong>$ {{itemCarrito.SubTotal}}</strong>
-                    </td>
-                    <td class="options">
-                        <a href="#"><i class="ti-trash"></i></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-    </div>
-    <!-- /container -->
-
-    <div class="box_cart">
-        <div class="container">
-            <div class="row justify-content-end">
-                <div class="col-xl-4 col-lg-4 col-md-6">
-                    <ul>
-                        <li>
-                            <span>Subtotal</span> $ {{SubTotal}}
-                        </li>
-                        <li *ngIf="habilitarCostoEnvio">
-                            <span>Envio</span> $ {{costoEnvio}}
-                        </li>
-                        <li>
-                            <span>Total</span>$ {{Total}}
-                        </li>
-                    </ul>
-                    <a [routerLink]="['/direcciones/', IdPersona ]" class="btn_1 full-width cart">Continuar Compra</a>
+        <div *ngIf="banderaCarritoVacio">
+            <br /><br />
+            <div class="row justify-content-center">
+                <div class="">
+                    <div>
+                        <div class="icon icon--order-success add_bottom_15">
+                            <img class="fit-picture" [src]="ruta_img_empty_cart" alt="">
+                        </div>
+                        <h2>Tu carrito esta vacio</h2>
+                        <p>Sin productos</p>
+                    </div>
                 </div>
             </div>
+            <!-- /row -->
+            <br /><br />
+        </div>
+        <div *ngIf="!banderaCarritoVacio">
+            <div>
+                Seleccionar tipo envio :
+                <select class="wide add_bottom_10" (change)="onChangeTipoEnvio($event.target)">
+                    <option select>Seleccionar Direccion*</option>
+                    <option value="0">Retiro en sucursal</option>
+                    <option *ngFor="let direccion of direccionesCliente" 
+                        [value]="direccion.IdDireccion" >
+                        <!-- [attr.selected]="passenger.Title==title.Text ? true : null"> -->
+                        {{direccion.direccion}}
+                    </option>
+                </select>
+            </div>
+            <!-- /page_header -->
+            <table class="table table-striped cart-list">
+                <thead>
+                    <tr>
+                        <th>
+                            Producto
+                        </th>
+                        <th>
+                            Precio
+                        </th>
+                        <th>
+                            Cantidad
+                        </th>
+                        <th>
+                            Subtotal
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let itemCarrito of itemsCarrito">
+                        <td>
+                            <span class="item_cart">{{itemCarrito.Producto}}</span>
+                        </td>
+                        <td>
+                            <strong>$ {{itemCarrito.PrecioVenta}}</strong>
+                        </td>
+                        <td>
+                            <strong>{{itemCarrito.Cantidad}}</strong>
+                        </td>
+                        <td>
+                            <strong>$ {{itemCarrito.SubTotal}}</strong>
+                        </td>
+                        <td class="options">
+                            <a href="#"><i class="ti-trash"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- /container -->
+            <div class="box_cart">
+                <div class="container">
+                    <div class="row justify-content-end">
+                        <div class="col-xl-4 col-lg-4 col-md-6">
+                            <ul>
+                                <li>
+                                    <span>Subtotal</span> $ {{SubTotal}}
+                                </li>
+                                <li *ngIf="habilitarCostoEnvio">
+                                    <span>Envio</span> $ {{costoEnvio}}
+                                </li>
+                                <li>
+                                    <span>Total</span>$ {{Total}}
+                                </li>
+                            </ul>
+                            <a [routerLink]="['/direcciones/', IdPersona ]" class="btn_1 full-width cart">Continuar Compra</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /box_cart -->
         </div>
     </div>
-    <!-- /box_cart -->
-
 </main>
 <!--/main-->

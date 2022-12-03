@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { environment } from 'src/environments/environment';
+
+const ruta_img = environment.ruta_img;
 
 @Component({
   selector: 'app-carrito',
@@ -17,13 +20,13 @@ export class CarritoComponent implements OnInit {
   costoEnvio = 0;
   Total = 0;
   direccionesCliente: any;
-
+  banderaCarritoVacio = false;
   itemsCarrito!: any;
   totalItemsCarrito = 0;
   IdPersona: any;
-
   totalUsuarios = 0;
   cargando = true;
+  ruta_img_empty_cart = ruta_img + 'empty-cart.png';
 
   constructor(
     public usuariosService: UsuariosService,
@@ -47,11 +50,23 @@ cargarCarrito() {
     this.clientesService.listarCarritoCliente(   )
                .subscribe( (resp: any) => {
 
-                console.log("resp es : ",resp)
+                console.log("resp carerito es : ",resp)
 
-                this.totalItemsCarrito = resp[1][0].cantItemsCarrito;
+                this.totalItemsCarrito = resp[1][0].cantProductosCarrito;
 
                 this.itemsCarrito = resp[0];
+
+                console.log("resp[0] carerito es : ",resp[0])
+
+                console.log("resp[0] carerito es : ",this.itemsCarrito.length)
+
+                if(this.itemsCarrito.length <= 0 || this.totalItemsCarrito <= 0)
+                {
+                  // mostrar mensaje de 'no tienes productos en tu carrito'
+                  this.banderaCarritoVacio = true;
+                  return;
+                }
+                this.banderaCarritoVacio = false;
 
                 this.costoEnvio = resp[2][0].costo_envio;
 
@@ -95,7 +110,6 @@ cambiarDesde( valor: number ) {
 //        
 // ==================================================
 onChangeTipoEnvio(deviceValue: any){
-  console.log("onChangeTipoEnvio" , deviceValue.value);
 
   if(deviceValue.value != 0)
   { 

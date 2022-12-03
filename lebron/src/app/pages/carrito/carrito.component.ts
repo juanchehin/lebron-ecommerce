@@ -29,6 +29,8 @@ export class CarritoComponent implements OnInit {
   ruta_img_empty_cart = ruta_img + 'empty-cart.png';
   datosCompra: any[] = [];
   costoEnvioMP = 0;
+  envioSeleccionado: any = -1;
+  banderaSeleccionarEnvio: boolean = false;
 
   constructor(
     public usuariosService: UsuariosService,
@@ -107,18 +109,30 @@ cambiarDesde( valor: number ) {
 // ==================================================
 onChangeTipoEnvio(deviceValue: any){
 
-  if(deviceValue.value != 0 && this.habilitarCostoEnvio != true)
+  console.log("deviceValue.value", deviceValue.value);
+  this.envioSeleccionado = deviceValue.value;
+
+  if(deviceValue.value == -1)
+  {
+    this.habilitarCostoEnvio = false;
+    return;
+  }
+
+  if(deviceValue.value == 0 && this.habilitarCostoEnvio == true)
+  {
+      this.Total -= +this.costoEnvio;
+      this.habilitarCostoEnvio = false;
+      return;
+  }
+
+  if(deviceValue.value > 0 && this.habilitarCostoEnvio != true)
   { 
     this.habilitarCostoEnvio = true;
     this.Total += +this.costoEnvio;
   }
   else
   {
-    if(!(deviceValue.value != 0))
-    {
-      this.Total -= +this.costoEnvio;
-      this.habilitarCostoEnvio = false;
-    }
+    return;    
   }
 } 
 
@@ -128,6 +142,12 @@ onChangeTipoEnvio(deviceValue: any){
 // ==================================================
 
 confirmarCompra( ) {
+
+  if(this.envioSeleccionado <= 0)
+  {
+    this.banderaSeleccionarEnvio = true;
+    return;
+  }
 
   this.cargando = true;
 

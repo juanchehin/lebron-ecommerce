@@ -10,6 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./comprar-ahora.component.css']
 })
 export class ComprarAhoraComponent implements OnInit  {
+  
 
   constructor(
     public checkoutService: CheckoutService,
@@ -21,12 +22,13 @@ export class ComprarAhoraComponent implements OnInit  {
   forma!: FormGroup;
   Cantidad: any = 1;
   habilitarCostoEnvio = false;
+  envioSeleccionado: any = false;
   cargando = false;
   IdProducto: any;
   IdPersona: any;
   direccionesCliente: any;
   costoEnvio: any = 0;
-  producto: any;
+  producto: any;  
   Total = 0;
   SubTotal = 0;
   selectedDevice: any;
@@ -105,8 +107,6 @@ confirmarCompra( ) {
     }
     );
  
-  console.log("datos compra es ; ",this.datosCompra)
-
   this.checkoutService.confirmarCompra( this.datosCompra , this.costoEnvio)
              .subscribe( (resp: any) => {
 
@@ -125,18 +125,29 @@ confirmarCompra( ) {
 // ==================================================
 onChangeTipoEnvio(deviceValue: any){
 
-  if(deviceValue.value != 0 && this.habilitarCostoEnvio != true)
+  this.envioSeleccionado = deviceValue.value;
+
+  if(deviceValue.value == -1)
+  {
+    this.habilitarCostoEnvio = false;
+    return;
+  }
+
+  if(deviceValue.value == 0 && this.habilitarCostoEnvio == true)
+  {
+      this.Total -= +this.costoEnvio;
+      this.habilitarCostoEnvio = false;
+      return;
+  }
+
+  if(deviceValue.value > 0 && this.habilitarCostoEnvio != true)
   { 
     this.habilitarCostoEnvio = true;
     this.Total += +this.costoEnvio;
   }
   else
   {
-    if(!(deviceValue.value != 0))
-    {
-      this.Total -= +this.costoEnvio;
-      this.habilitarCostoEnvio = false;
-    }
+    return;    
   }
 } 
 

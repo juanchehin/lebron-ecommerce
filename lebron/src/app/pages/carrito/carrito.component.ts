@@ -57,6 +57,8 @@ cargarCarrito() {
 
                 this.itemsCarrito = resp[0];
 
+                localStorage.setItem('items-carrito',String(this.totalItemsCarrito));
+
                 if(this.itemsCarrito.length <= 0 || this.totalItemsCarrito <= 0)
                 {
                   this.banderaCarritoVacio = true;
@@ -140,7 +142,9 @@ onChangeTipoEnvio(deviceValue: any){
 
 confirmarCompra( ) {
 
-  if(this.envioSeleccionado <= 0)
+  console.log("envio seleccinado ",this.envioSeleccionado)
+
+  if(this.envioSeleccionado < 0)
   {
     this.banderaSeleccionarEnvio = true;
     return;

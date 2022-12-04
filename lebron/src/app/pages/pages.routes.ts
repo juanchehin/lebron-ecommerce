@@ -24,6 +24,7 @@ import { FailureComponent } from './failure/failure.component';
 import { ComprarAhoraComponent } from './checkout/comprar-ahora/comprar-ahora.component';
 import { LoginGuardGuard } from '../services/guards/login-guard.guard';
 import { VerificaTokenGuard } from '../services/guards/verifica-token.guard';
+import { PagoExitosoComponent } from './checkout/pago-exitoso/pago-exitoso.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -60,7 +61,8 @@ const pagesRoutes: Routes = [
             { path: 'checkout/direcciones/:IdPersona', component: DireccionEnvioComponent },    // proteger ruta
             { path: 'comprar-ahora/:IdProducto/:IdPersona', component: ComprarAhoraComponent },    // proteger ruta
             { path: 'carrito/:IdPersona', component: CarritoComponent },
-            { path: 'envio/:IdPersona', component: EnvioComponent }
+            { path: 'envio/:IdPersona', component: EnvioComponent },
+            { path: 'pago-exitoso', component: PagoExitosoComponent }
         ]
     }
 ];

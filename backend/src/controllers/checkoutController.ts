@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import pool from '../database';
-const bcrypt = require('bcrypt');
 const axios = require("axios");
 require('dotenv').config()
 
@@ -43,7 +42,7 @@ public async dameUsuario(req: Request, res: Response): Promise<void> {
 // ==================================================
 public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
 
-
+  console.log("getMercadoPagoLink es : ");
     const datosCompra = req.body;
     const costoEnvio = req.params.costoEnvio;
 
@@ -51,6 +50,7 @@ public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
     try {
       const checkout = await createPaymentMercadoPago( datosCompra , costoEnvio);
 
+      console.log("checkout es : ",checkout);
       // return res.redirect(checkout.init_point); 
      //si es exitoso los llevamos a la url de Mercado Pago
 
@@ -59,8 +59,6 @@ public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
 
 
     } catch (err) { 
-// si falla devolvemos un status 500
-
       return res.status(500).json({
         error: true,
         msg: "Hubo un error con Mercado Pago" + err
@@ -72,18 +70,21 @@ public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
 //  Aqui recibimos las notificacinoes de MP
 // ==================================================
 public async webhook(req: Request, res: Response): Promise<any> {
+    console.log("pasa webhook")
     if (req.method === "POST") { 
         let body = ""; 
         req.on("data", chunk => {  
           body += chunk.toString();
+          console.log("pasa webhook 2 : ",body)
         });
         req.on("end", () => {  
           console.log(body, "webhook response"); 
           res.end("ok");
         });
       }
-      return res.status(200); 
-    
+
+      console.log("pasa webhook 3 : ")
+      return res.status(200);
 }
 
 }
@@ -98,7 +99,7 @@ async function createPaymentMercadoPago( items : any, costoEnvio: any) {
         
     const url = `${mercadoPagoUrl}/preferences?access_token=${process.env.MP_ACCESS_TOKEN_PROD}`;
 
-    
+    console.log("url : ",url)
         const preferences = { 
           items, 
           external_reference: "Lebron - Suplementos", 
@@ -140,14 +141,14 @@ async function createPaymentMercadoPago( items : any, costoEnvio: any) {
           }, 
           back_urls: {
     // declaramos las urls de redireccionamiento
-            success: `${process.env.URL_FRONT}/success`, 
+            success: `${process.env.URL_FRONT}/pago-exitoso`, 
     // url que va a redireccionar si sale todo bien
-            pending: `${process.env.URL_FRONT}/pending`, 
+            pending: `${process.env.URL_FRONT}/pendiente`, 
     // url a la que va a redireccionar si decide pagar en efectivo por ejemplo
-            failure: `${process.env.URL_FRONT}/error` 
+            failure: `${process.env.URL_FRONT}/failure` 
     // url a la que va a redireccionar si falla el pago
           }, 
-          notification_url: `${process.env.URL_FRONT}/webhook`, 
+          notification_url: `${process.env.URL_BACK}/api/checkout/webhook`, 
           auto_return: "approved" 
         };
 

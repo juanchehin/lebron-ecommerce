@@ -22,17 +22,18 @@ export class ComprarAhoraComponent implements OnInit  {
   forma!: FormGroup;
   Cantidad: any = 1;
   habilitarCostoEnvio = false;
-  envioSeleccionado: any = false;
+  envioSeleccionado: any = -1;
   cargando = false;
   IdProducto: any;
   IdPersona: any;
   direccionesCliente: any;
   costoEnvio: any = 0;
-  // producto: any;  
   Total = 0;
   SubTotal = 0;
   selectedDevice: any;
   datosCompra: any[] = [];
+  costoEnvioMP = 0;
+  banderaSeleccionarEnvio: boolean = false;
 
   producto: any = '';
   precioVenta: any = '';
@@ -100,6 +101,13 @@ export class ComprarAhoraComponent implements OnInit  {
 
 confirmarCompra( ) {
 
+
+  if(this.envioSeleccionado < 0)
+  {
+    this.banderaSeleccionarEnvio = true;
+    return;
+  }
+
   this.cargando = true;
 
   this.datosCompra.push(
@@ -110,20 +118,29 @@ confirmarCompra( ) {
       unit: this.Cantidad,
       img: ''
     }
-    );
+  );
+
+  if(this.habilitarCostoEnvio == false){
+    this.costoEnvioMP = 0;
+  }
+  else
+  {
+    this.costoEnvioMP = this.costoEnvio;
+  }
  
   this.checkoutService.confirmarCompra( this.datosCompra , this.costoEnvio, this.envioSeleccionado, this.Total)
-             .subscribe( (resp: any) => {
+    .subscribe({
+      next: (resp: any) => {
+        if (this.validURL(resp.url)) {                
+          window.location.href = resp.url;
+        } else {                
+          this.router.navigate(['/failure'])
+          return;
+        }
+      },
+      error: () => { this.router.navigate(['/failure']) }
+    });
 
-              // if ( resp.Mensaje === 'Ok') {
-                
-                window.location.href = resp.url;
-                // this.router.navigate(resp.url);
-              // } else {
-               
-              //   return;
-              // }
-             });
 }
 // =================================================
 //        
@@ -161,5 +178,16 @@ onChangeTipoEnvio(deviceValue: any){
   { 
     this.Total += this.costoEnvio;
   }
-
+// =================================================
+//        
+// ==================================================
+validURL(str: string) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(str);
+}
 }

@@ -13,7 +13,7 @@ export class FailureComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authService.logout();
+    // this.authService.logout();
   }
 
 }

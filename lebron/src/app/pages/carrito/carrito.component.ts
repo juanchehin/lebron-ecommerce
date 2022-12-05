@@ -185,15 +185,18 @@ confirmarCompra( ) {
 
 
   this.checkoutService.confirmarCompra( this.datosCompra, this.costoEnvioMP , this.envioSeleccionado ,this.Total )
-             .subscribe( (resp: any) => {
+    .subscribe({
+      next: (resp: any) => { 
 
-              if (resp) {                
-                window.location.href = resp.url;
-              } else {                
-                this.router.navigate(['/failure'])
-                return;       
-              }
-             });
+        if (this.validURL(resp.url)) {                
+          window.location.href = resp.url;
+        } else {                
+          this.router.navigate(['/failure'])
+          return;
+        }
+       },
+      error: () => { this.router.navigate(['/failure']) }
+    });
 }
 
 // =================================================
@@ -213,5 +216,15 @@ eliminarItemCarrito(IdProducto: string){
   
 
  });
+}
+
+validURL(str: string) {
+  var pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return !!pattern.test(str);
 }
 }

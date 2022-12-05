@@ -55,12 +55,15 @@ public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
     console.log("pIdDireccion: ",pIdDireccion)
 
     pool.query(`call bsp_alta_pedido('${pIdPersona}','${pIdDireccion}','${pTotal}')`, async function(err: any, result: any, fields: any){
-      if(err){
+      
+      if(err || result[0][0].Mensaje != 'Ok'){
           res.status(404).json({ text: err });
           return;
       }
 
       var pIdPedido = result[0][0].pIdPedido;
+
+      console.log("result es : ",result);
 
       try {
         const checkout = await createPaymentMercadoPago( datosCompra , costoEnvio, pIdPedido);

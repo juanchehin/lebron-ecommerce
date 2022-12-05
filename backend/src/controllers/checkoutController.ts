@@ -96,8 +96,11 @@ public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
 //  **SIN USO EN LOCALHOST** Aqui recibimos las notificacinoes de MP 
 // ==================================================
 public async webhook(req: Request, res: Response) {
+
   if (req.query.type === 'payment') {
     const paymentId = req.query['data.id'];
+
+    console.log("paymentId: ",paymentId)
     
     var options = {
       'method': 'GET',
@@ -107,50 +110,58 @@ public async webhook(req: Request, res: Response) {
         'Authorization': 'Bearer ' + process.env.MP_ACCESS_TOKEN_TEST
       },
       'maxRedirects': 20
-    };          
-
+    };
+    
     var request = https.request(options, function (res: any) {
-     var body = '';
-      res.on('data', function(d: any) {
-          body += d;
-      });
-      res.on('end', function() {
+        var body = '';
+         res.on('data', function(d: any) {
+             body += d;
+         });
+         return res.on('end', function() {
+   
+             // Data reception is done, do whatever with it!
+             var parsed = JSON.parse(body);
+   
+             if(parsed.status == 404)
+             {
+               return;
+             }
+             const idOrden = parsed.external_reference;
+   
+             pool.query(`call bsp_dame_pedido_id('${idOrden}')`, function(err: any, result: any) {
+               
+               if(err){
+                 return;
+               }
+               var estadoPedidoBD = result[0][0].EstadoPedido;
 
-          // Data reception is done, do whatever with it!
-          var parsed = JSON.parse(body);
-          const idOrden = parsed.external_reference;
-
-          pool.query(`call bsp_dame_pedido_id('${idOrden}')`, function(err: any, result: any, fields: any){
-            if(err){
-                  res.status(404).json({ text: err });
+               if(estadoPedidoBD == 'C')
+               {
                   return;
-            }
-            var estadoPedidoBD = result[0].EstadoPedido;
-            if(estadoPedidoBD == 'C')
-            {
-                res.status(404).json({ text: 'El pedido ya fue confirmado' });
-                return;
-            }
-
-            var montoTotalBD = result[0].MontoTotal;
-
-            if (montoTotalBD === parsed.transaction_amount) {
-              if (parsed.status === 'approved') {
-                pool.query(`call bsp_confirmar_pedido('${idOrden}','${paymentId}')`, async function(err: any, result: any, fields: any){
-                  if(err){
-                    res.status(404).json({ text: err });
-                    return;
-                  }
-                  res.status(200).json(result);
-                })
-              }
-            }
-          })
-      });
+               }
+   
+               var montoTotalBD = result[0][0].MontoTotal;
+   
+               if (Number(montoTotalBD) === Number(parsed.transaction_amount)) {
+                 if (parsed.status === 'approved') {
+                   pool.query(`call bsp_confirmar_pedido('${idOrden}','${paymentId}')`, async function(err: any, result: any, fields: any){
+   
+                     if(err){
+                       return;
+                     }
+                   })
+                 }
+               }
+               
+             })             
+         });
     });
+    
+    res.status(200).json({ text: ''});        
 
     request.end();
   }
+
 }
 
 }

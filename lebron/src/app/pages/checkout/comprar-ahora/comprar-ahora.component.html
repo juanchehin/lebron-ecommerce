@@ -46,16 +46,16 @@
                     <tbody>
                         <tr>
                             <td>
-                                <span class="item_cart">{{producto.Producto || ''}}</span>
+                                <span class="item_cart">{{producto}}</span>
                             </td>
                             <td>
-                                <strong>$ {{producto.PrecioVenta || ''}}</strong>
+                                <strong>$ {{precioVenta}}</strong>
                             </td>
                             <td>
                                 <strong>{{Cantidad}}</strong>
                             </td>
                             <td>
-                                <strong>$ {{producto.PrecioVenta || ''}}</strong>
+                                <strong>$ {{precioVenta}}</strong>
                             </td>
                         </tr>
                         <tr *ngIf="habilitarCostoEnvio">
@@ -92,7 +92,7 @@
                                 <span>Envio : </span> ${{costoEnvio}}
                             </li>
                             <li>
-                                <span>Total : </span> ${{Total}}
+                                <span>Total : </span> ${{+Total}}
                             </li>
                         </ul>
                         <a class="btn_1 full-width cart">Proceder a la compra</a>

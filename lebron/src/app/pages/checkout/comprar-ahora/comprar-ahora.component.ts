@@ -28,11 +28,15 @@ export class ComprarAhoraComponent implements OnInit  {
   IdPersona: any;
   direccionesCliente: any;
   costoEnvio: any = 0;
-  producto: any;  
+  // producto: any;  
   Total = 0;
   SubTotal = 0;
   selectedDevice: any;
   datosCompra: any[] = [];
+
+  producto: any = '';
+  precioVenta: any = '';
+
 
   ngOnInit(): void {
 
@@ -78,10 +82,13 @@ export class ComprarAhoraComponent implements OnInit  {
         console.log("resp : ", resp);
 
         this.direccionesCliente = resp[0];
-        this.producto = resp[1][0];
+
+        this.producto = resp[1][0].Producto;
+        this.precioVenta = resp[1][0].PrecioVenta;
+
         this.costoEnvio = resp[2][0].costo_envio;
 
-        this.SubTotal = this.producto.PrecioVenta * this.Cantidad;
+        this.SubTotal = this.precioVenta * this.Cantidad;
         this.Total = this.SubTotal;
 
    });

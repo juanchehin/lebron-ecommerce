@@ -113,10 +113,10 @@ confirmarCompra( ) {
   this.datosCompra.push(
     { 
       IdProducto: this.producto.IdProducto,
-      name: this.producto.Producto,
-      price: this.Total,
-      unit: this.Cantidad,
-      img: ''
+      title: this.producto.Producto,
+      unit_price: Number(this.Total),
+      quantity: this.Cantidad,
+      picture_url: ''
     }
   );
 

@@ -184,7 +184,7 @@ confirmarCompra( ) {
   }
 
 
-  this.checkoutService.confirmarCompra( this.datosCompra, this.costoEnvioMP )
+  this.checkoutService.confirmarCompra( this.datosCompra, this.costoEnvioMP , this.envioSeleccionado ,this.Total )
              .subscribe( (resp: any) => {
 
               if (resp) {                

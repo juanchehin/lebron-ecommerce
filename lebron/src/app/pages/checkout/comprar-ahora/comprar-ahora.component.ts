@@ -105,7 +105,7 @@ confirmarCompra( ) {
     }
     );
  
-  this.checkoutService.confirmarCompra( this.datosCompra , this.costoEnvio)
+  this.checkoutService.confirmarCompra( this.datosCompra , this.costoEnvio, this.envioSeleccionado, this.Total)
              .subscribe( (resp: any) => {
 
               // if ( resp.Mensaje === 'Ok') {

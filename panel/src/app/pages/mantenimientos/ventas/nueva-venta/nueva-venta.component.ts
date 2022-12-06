@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IItemStructure } from 'src/app/interfaces/item.interface';
+import { IItemTipoPagoStructure } from 'src/app/interfaces/item_tp.interface';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClientesService } from 'src/app/services/clientes.service';
@@ -9,6 +10,7 @@ import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { VentasService } from 'src/app/services/ventas.service';
+import { NgbdModalBasic } from './modal-forma-pago/modal-forma-pago.component';
 
 @Component({
   selector: 'app-nueva-venta',
@@ -27,16 +29,19 @@ export class NuevaVentaComponent implements OnInit {
   IdPersona = '';
   local = '';
   lineas_venta: IItemStructure[] = [];
-  // lineas_venta = new Array();
-  // itemsConfirmado: IItemStructure[] = [];
+  lineas_tipos_pago: IItemTipoPagoStructure[] = [];
+  
   itemPendiente: any = [];
+  tiposPago: any;
   clientes = [];
   currentDate = new Date();
   datosVendedor: any;
   totalVenta: number = 0;
   cantidadLineaVenta = 1;
   IdItem = 0;
-  
+  IdItemTipoPago = 0;
+  IdTipoPagoSelect = 0;
+  monto = 0;
 
 
   constructor(
@@ -48,7 +53,8 @@ export class NuevaVentaComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public clientesService: ClientesService,
     public marcasService: MarcasService,
-    public alertaService: AlertService
+    public alertaService: AlertService,
+    private modalFormaPago: NgbdModalBasic
     ) {
     
   }
@@ -93,25 +99,30 @@ altaVenta() {
         return;
       }
 
+      // Comprobar que la suma de los tipos de pago sea igual al total final
+
       const venta = new Array(
         this.forma.value.IdCliente,
-        this.forma.value.IdPerona,  // Id del vendedor
+        this.forma.value.IdPersona,  // Id del vendedor
         this.forma.value.IdCliente,
-        this.lineas_venta
+        this.lineas_venta,
+        this.lineas_tipos_pago
       );
 
-      this.ventasService.altaVenta( venta )
-                .subscribe( (resp: any) => {
-                  console.log("resp en plan es : ",resp)
-                  if ( resp.Mensaje === 'Ok') {
-                    this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
+      console.log("venta es : ",venta)
+
+      // this.ventasService.altaVenta( venta )
+      //           .subscribe( (resp: any) => {
+      //             console.log("resp en plan es : ",resp)
+      //             if ( resp.Mensaje === 'Ok') {
+      //               this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
                     
-                    this.router.navigate(['/mantenimiento/planes']);
-                  } else {
-                    this.alertaService.alertFail('Venta cargada',false,2000);
-                  }
-                  return;
-                });
+      //               this.router.navigate(['/dashboard/ventas']);
+      //             } else {
+      //               this.alertaService.alertFail('Venta cargada',false,2000);
+      //             }
+      //             return;
+      //           });
 
 
 }
@@ -131,7 +142,7 @@ cargarClientes() {
 
   }
 
-  // ==================================================
+// ==================================================
 // Carga
 // ==================================================
 
@@ -141,6 +152,21 @@ cargarProductos() {
              .subscribe( (resp: any) => {
 
               this.productos = resp[0];
+
+            });
+
+}
+// ==================================================
+// Carga
+// ==================================================
+cargarTiposPago() {
+
+  this.ventasService.cargarTiposPago( )
+             .subscribe( (resp: any) => {
+
+              console.log("resp es : ",resp)
+
+              this.tiposPago = resp[0];
 
             });
 
@@ -197,6 +223,30 @@ agregarLineaVenta() {
   this.cantidadLineaVenta = 1;
 
 }
+// ==================================================
+// Carga
+//  
+// ==================================================
+agregarLineaTipoPago() {
+  
+  // this.totalVenta += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaVenta;
+
+  // obtener el valor actual del select
+  // obtener el valor actual del monto
+
+  this.lineas_tipos_pago.push(
+    {
+      IdItem: this.IdItemTipoPago,
+      IdPTipoPago: this.IdTipoPagoSelect,
+      SubTotal: this.monto
+    }
+  );
+
+  this.IdItemTipoPago += 1;
+
+  // this.cantidadLineaVenta = 1;
+
+}
   // ==============================
   // Para clientes
   // ================================
@@ -222,16 +272,23 @@ agregarLineaVenta() {
   // Para productos
   // ================================
   selectEventProducto(item: any) {
-
     this.itemPendiente = item;
   }
 
   onChangeSearchProducto(val: any) {
-
     this.productoBuscado = val;
     this.cargarProductos();
   }
   
   onFocusedProducto(e: any){
+  }
+
+  // ==============================
+  // 
+  // ================================
+  continuarVenta()
+  {
+    // chequear que haya productos cargados y el total de venta sea mayor que cero
+    this.cargarTiposPago();
   }
 }

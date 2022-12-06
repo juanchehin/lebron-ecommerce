@@ -105,12 +105,91 @@
                     </div>
                     <!-- ===== Fin Tabla con listado de productos ===== -->
                 </div>
-
             </div>
         </div>
         <br>
-        <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Finalizar venta</button>
+        <button type="submit" (click)="continuarVenta()" class="btn btn-info btn-lg btn-block text-uppercase" alt="default" data-toggle="modal" data-target="#responsive-modal">Continuar</button>
+        <!-- <button class="btn btn-lg btn-outline-primary" (click)="continuarVenta(content)">Launch demo modal</button> -->
+
         <br>
         <!-- ====================== -->
     </form>
+</div>
+<div class="col-md-4">
+    <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Formas de pago</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-8">
+                        <h4>Total Venta : $ {{totalVenta}}</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label>Tipo pago : </label>
+                            <select tabindex="4" [(ngModel)]="IdTipoPagoSelect" name="IdTipoPago" class="form-control">
+                                    <option *ngFor="let tp of tiposPago">
+                                        {{tp.TipoPago}}
+                                    </option>
+                                </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label>Monto : </label>
+                            <input type="text" [(ngModel)]="monto" name="monto" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <button (click)="agregarLineaTipoPago()" type="button" class="btn btn-info btn-circle" style="margin-top: 30px;"><i class="fa fa-plus"></i> </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Items de pago</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tipo</th>
+                                                    <th>Subtotal</th>
+                                                    <th class="text-nowrap"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let linea_tp of lineas_tipos_pago">
+                                                    <td>{{linea_tp.tipo_pago }}</td>
+                                                    <td>{{linea_tp.subtotal }}</td>
+                                                    <td class="text-nowrap">
+                                                        <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                                        <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <h4>Total Venta : $ {{totalVenta}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light" (click)="altaVenta()">Finalizar venta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+    <!-- <button class="btn btn-lg btn-outline-primary" alt="default" data-toggle="modal" data-target="#responsive-modal" class="model_img img-responsive">Continuar</button> -->
+
 </div>

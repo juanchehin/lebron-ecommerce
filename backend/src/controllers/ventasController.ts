@@ -65,6 +65,21 @@ public async listarVentasIdUsuario(req: Request, res: Response): Promise<void> {
 
 }
 
+// ==================================================
+//        Lista 
+// ==================================================
+listarTiposPago(req: Request, res: Response) {
+
+    pool.query(`call bsp_listar_tipos_pago()`, function(err: any, result: any){
+       if(err){
+           console.log("error", err);
+           return;
+       }
+       res.json(result);
+   })
+
+}
+
 }
 
 

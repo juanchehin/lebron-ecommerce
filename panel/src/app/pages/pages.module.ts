@@ -27,6 +27,7 @@ import { PromocionComponent } from './mantenimientos/promociones/promocion.compo
 import { PromocionesComponent } from './mantenimientos/promociones/promociones.component';
 import { EditarPromocionComponent } from './mantenimientos/promociones/editar-promocion.component';
 import { MisVentasComponent } from './mantenimientos/ventas/mis-ventas/mis-ventas.component';
+import { NgbdModalBasic } from './mantenimientos/ventas/nueva-venta/modal-forma-pago/modal-forma-pago.component';
 
 
 @NgModule({

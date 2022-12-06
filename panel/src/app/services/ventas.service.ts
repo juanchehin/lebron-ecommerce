@@ -57,4 +57,14 @@ listarVentasIdUsuario(desde: number , Fecha: string ){
 
   return this.http.get( url );
 }
+// ==================================================
+//
+// ==================================================
+cargarTiposPago(){
+
+  let url = URL_SERVICIOS + '/ventas/listar/tipos-pago';
+
+  return this.http.get( url );
+}
+
 }

@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbdModalBasic } from './pages/mantenimientos/ventas/nueva-venta/modal-forma-pago/modal-forma-pago.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     NopagefoundComponent,
   ],
+  providers: [NgbdModalBasic],
   imports: [
     BrowserModule,
     AppRoutingModule,

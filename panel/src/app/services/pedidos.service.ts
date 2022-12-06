@@ -15,10 +15,12 @@ export class PedidosService {
 // ==================================================
 //
 // ==================================================
-  listarProductosPaginado(desde: any){
-    console.log("pasa listar prods")
+listarPedidosPaginado(desde: any,fecha: any){
+  
 
-    let url = URL_SERVICIOS + '/productos/listar/' + desde;
+    let url = URL_SERVICIOS + '/pedidos/listar/' + desde + '/' + fecha;
+
+    console.log("url es : ",url)
 
     return this.http.get( url );
   }

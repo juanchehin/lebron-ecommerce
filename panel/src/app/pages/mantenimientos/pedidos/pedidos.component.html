@@ -3,6 +3,16 @@
         <section class="box-typical">
 
             <div class="table-responsive">
+                <div>
+                    <label for="start">Fecha : &nbsp;</label>
+
+                    <input type="date" [(ngModel)]="fecha" (ngModelChange)="cambiosFecha($event)" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button [disabled]="controlFechas" (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                        refresh
+                        </span></button>
+
+                </div>
+
                 <table id="table-edit" class="table table-bordered table-hover">
                     <thead>
                         <tr>
@@ -12,7 +22,6 @@
                             <th>Fecha</th>
                             <th>N° Transacción</th>
                             <th>Cliente</th>
-                            <th>Direccion</th>
                             <th>Estado</th>
                             <th></th>
                         </tr>
@@ -20,14 +29,12 @@
                     <tbody>
                         <tr *ngFor="let pedido of pedidos">
                             <td>{{ pedido.IdPedido }}</td>
-                            <td>{{ pedido.Fecha }}</td>
+                            <td>{{ pedido.Fecha | date:"dd/MM/yyyy" }}</td>
                             <td>{{ pedido.IdTransaccion }}</td>
                             <td>{{ pedido.ApNomCliente }}</td>
-                            <td>{{ pedido.Direccion }}</td>
-                            <td>{{ pedido.Estado }}</td>
+                            <td>{{ pedido.EstadoPedido }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button">Eliminar</button>
+                                <button class="btn btn-success" type="button">Confirmar</button>
                             </td>
                         </tr>
 

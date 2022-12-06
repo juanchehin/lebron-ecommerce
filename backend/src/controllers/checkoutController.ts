@@ -43,16 +43,11 @@ public async dameUsuario(req: Request, res: Response): Promise<void> {
 // ==================================================
 public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
 
-    console.log("getMercadoPagoLink es : ");
-    console.log("req.params es : ",req.params);
-
     const datosCompra = req.body;
     const costoEnvio = req.params.costoEnvio;
     const pIdPersona = req.params.IdPersona;
     const pIdDireccion = req.params.pIdDireccion;
     const pTotal = req.params.pTotal;
-
-    console.log("pIdDireccion: ",pIdDireccion)
 
     pool.query(`call bsp_alta_pedido('${pIdPersona}','${pIdDireccion}','${pTotal}')`, async function(err: any, result: any, fields: any){
       
@@ -63,13 +58,9 @@ public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
 
       var pIdPedido = result[0][0].pIdPedido;
 
-      console.log("result es : ",result);
-
       try {
         const checkout = await createPaymentMercadoPago( datosCompra , costoEnvio, pIdPedido);
-  
-        console.log("checkout es : ",checkout);
-  
+    
         // guardar el pedido pendiente en la BD
         // return res.redirect(checkout.init_point); 
        //si es exitoso los llevamos a la url de Mercado Pago

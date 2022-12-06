@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 const URL_SERVICIOS = environment.URL_SERVICIOS;
 
@@ -14,12 +15,15 @@ export class AuthService {
 
   persona!: any;
   personaValor!: any;
-  personaId!: any;
+  IdPersona!: any;
   IdRol: any;
   token!: any;
   usuario: any;
   // menuBack!: Array[] = [];
   menuBack: any[] = Array();
+
+  private IdPersonaSource = new BehaviorSubject<string>('');
+  public  quoteIdPersona = this.IdPersonaSource.asObservable();  // 
 
 
   constructor(
@@ -31,6 +35,9 @@ export class AuthService {
 // ====================================================================================================================
 // =========================================== LOGUEO =================================================================
 // ====================================================================================================================
+setIdPersona(IdPersona: any) {
+  this.IdPersonaSource.next(IdPersona);
+}
 
 // ==================================================
 //        Logueo de la persona
@@ -47,8 +54,10 @@ login( persona: any ): any {
                   return false;
                 }
 
+      this.setIdPersona(resp.IdPersona);  //
+
       this.IdRol = resp.IdRol;
-      this.personaId = resp.IdPersona;
+      
       this.guardarStorage( resp.IdPersona, resp.token, resp.usuario, resp.menu, resp.IdRol);
       this.cargarStorage();
 
@@ -71,7 +80,7 @@ guardarStorage( id: string, token: string, usuario: any, menu: any[], IdRol: any
 
   this.IdRol = IdRol;
   this.token = token;
-  this.personaId = id;
+  this.IdPersona = id;
   this.usuario = usuario;
   this.menuBack = menu;
 
@@ -87,7 +96,7 @@ guardarStorage( id: string, token: string, usuario: any, menu: any[], IdRol: any
     if ((localStorage.getItem('token') === 'undefined') || (localStorage.getItem('token') === null)) {
       this.token = '';
       this.persona = null;
-      this.personaId = null;
+      this.IdPersona = null;
       this.menuBack = [];
     } else {
       const var1 = localStorage.getItem('token');
@@ -96,7 +105,7 @@ guardarStorage( id: string, token: string, usuario: any, menu: any[], IdRol: any
       this.usuario = localStorage.getItem('usuario');
 
       const var3 = localStorage.getItem('id');
-      this.personaId = var3;
+      this.IdPersona = var3;
 
       // this.menuBack = localStorage.getItem('menu');
       // this.menu = JSON.parse( localStorage.getItem('menu') );
@@ -169,7 +178,7 @@ actualizaEstadoCliente( IdPersona: string ) {
 logout() {
   this.persona = null;
   this.token = '';
-  this.personaId = null;
+  this.IdPersona = null;
   this.IdRol = null;
   this.usuario = null;
   this.menuBack = [];

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 const URL_SERVICIOS = environment.URL_SERVICIOS;
 
@@ -9,8 +10,34 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 })
 export class PedidosService {
 
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
 
-  constructor(private http: HttpClient) { }
+  get headers() {
+    return {
+      headers: {
+        'token': this.token
+      }
+    }
+  }
+  // ==============================
+  get IdPersona(): any {
+    if(this.authService.IdPersona)
+    {
+      return this.authService.IdPersona;
+    }
+    else
+    {
+      return localStorage.getItem('id') || '';
+    }
+  }
+
+
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) { }
 
 // ==================================================
 //
@@ -20,81 +47,30 @@ listarPedidosPaginado(desde: any,fecha: any){
 
     let url = URL_SERVICIOS + '/pedidos/listar/' + desde + '/' + fecha;
 
-    console.log("url es : ",url)
-
     return this.http.get( url );
   }
 
+// ==================================================
+//
+// ==================================================
+  confirmarPedido( IdPedido: any ) {
+
+    let url = URL_SERVICIOS + '/pedidos/confirmar';
+
+    var body = new Array();
+
+    body.push(IdPedido,this.IdPersona);
   
-
-  // ==================================================
-//        
-// ==================================================
-altaProducto( producto: any ) {
-
-  let url = URL_SERVICIOS + '/productos/alta';
-  // url += '?IdRol=' + this.IdRol;
-
-  return this.http.post(
-    url,
-    producto
-    // {
-    //   headers: {
-    //     token: this.token
-    //   }
-    // }
-);
-}
-// ==================================================
-//
-// ==================================================
-cargarProductos( parametroBusqueda: string){
-
-  if(parametroBusqueda == '' || parametroBusqueda == null){
-    let url = URL_SERVICIOS + '/productos/listar/' + 0;
-    return this.http.get( url );
+    return this.http.post(
+      url,
+      body,
+      {
+        headers: {
+          token: this.token
+        }
+      }
+  );
   }
-  else
-  { 
-    let url = URL_SERVICIOS + '/productos/listar/busqueda/' + parametroBusqueda;
-    return this.http.get( url );
-  }
-
-
-}
-
-// ==================================================
-//  ******* Unidades *******        
-// ==================================================
-
-// ==================================================
-//
-// ==================================================
-listarUnidadesPaginado(desde: any){
-
-  let url = URL_SERVICIOS + '/productos/unidades/listar/' + desde;
-
-  return this.http.get( url );
-}
-
-  // ==================================================
-//        
-// ==================================================
-altaUnidad( unidad: any ) {
-
-  let url = URL_SERVICIOS + '/productos/unidades/alta';
-  // url += '?IdRol=' + this.IdRol;
-
-  return this.http.post(
-    url,
-    unidad
-    // {
-    //   headers: {
-    //     token: this.token
-    //   }
-    // }
-);
-}
 
 
 

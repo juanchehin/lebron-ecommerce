@@ -16,6 +16,7 @@ class PedidosRoutes {
 
         // pedidos
         this.router.get('/listar/:pDesde/:pFecha',pedidosController.listarPedidosPaginado);
+        this.router.post('/confirmar', [mdAutenticacion.verificaToken] , pedidosController.confirmarPedido);
     }
 
 }

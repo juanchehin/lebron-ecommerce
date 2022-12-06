@@ -135,7 +135,7 @@ public async webhook(req: Request, res: Response) {
    
                if (Number(montoTotalBD) === Number(parsed.transaction_amount)) {
                  if (parsed.status === 'approved') {
-                   pool.query(`call bsp_confirmar_pedido('${idOrden}','${paymentId}')`, async function(err: any, result: any, fields: any){
+                   pool.query(`call bsp_aprobar_pedido('${idOrden}','${paymentId}')`, async function(err: any, result: any, fields: any){
    
                      if(err){
                        return;

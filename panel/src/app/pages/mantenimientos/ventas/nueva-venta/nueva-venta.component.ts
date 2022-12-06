@@ -54,7 +54,7 @@ export class NuevaVentaComponent implements OnInit {
   }
 
   ngOnInit() {   
-    this.IdPersona = this.authService.personaId;
+    this.IdPersona = this.authService.IdPersona;
     this.cargarDatosVendedor();    
 
     this.forma = new FormGroup({
@@ -87,7 +87,7 @@ export class NuevaVentaComponent implements OnInit {
 altaVenta() {
 
   // this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdProducto');
-  this.IdPersona = this.authService.personaId;
+  this.IdPersona = this.authService.IdPersona;
 
       if ( this.forma.invalid ) {
         return;

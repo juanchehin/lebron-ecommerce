@@ -34,7 +34,7 @@
                             <td>{{ pedido.ApNomCliente }}</td>
                             <td>{{ pedido.EstadoPedido }}</td>
                             <td>
-                                <button class="btn btn-success" type="button">Confirmar</button>
+                                <button [disabled]="pedido.EstadoPedido == 'C'" class="btn btn-success" type="button" (click)="confirmarPedido(pedido.IdPedido)">Confirmar</button>
                             </td>
                         </tr>
 

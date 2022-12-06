@@ -31,7 +31,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.armarMenu();
-    this.IdPersona = this.authService.personaId;
+    this.IdPersona = this.authService.IdPersona;
   }
 
   // Genera menu y submenu

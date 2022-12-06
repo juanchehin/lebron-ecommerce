@@ -56,7 +56,28 @@ cargarPedidos() {
     });
   }
 
+// ==================================================
+// confirma pedido
+// ==================================================
 
+confirmarPedido(IdPedido: string) {
+
+  this.pedidosService.confirmarPedido( IdPedido )
+    .subscribe({
+      next: (resp: any) => { 
+
+        if(resp[0][0].Mensaje == 'Ok') {
+          this.alertService.alertSuccess('top-end','Pedido confirmado',false,900);
+          this.cargarPedidos();
+          
+        } else {
+          this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
+          
+        }
+       },
+      error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
+    });
+  }
 // ==================================================
 //        Cambio de valor
 // ==================================================
@@ -118,5 +139,6 @@ formatDate(date: any) {
 
   return [year, month, day].join('-');
 }
+
 
 }

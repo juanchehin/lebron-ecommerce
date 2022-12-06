@@ -26,6 +26,7 @@ import { PedidosComponent } from './mantenimientos/pedidos/pedidos.component';
 import { PromocionComponent } from './mantenimientos/promociones/promocion.component';
 import { PromocionesComponent } from './mantenimientos/promociones/promociones.component';
 import { EditarPromocionComponent } from './mantenimientos/promociones/editar-promocion.component';
+import { MisVentasComponent } from './mantenimientos/ventas/mis-ventas/mis-ventas.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { EditarPromocionComponent } from './mantenimientos/promociones/editar-pr
     PedidosComponent,
     PromocionesComponent,
     PromocionComponent,
-    EditarPromocionComponent
+    EditarPromocionComponent,
+    MisVentasComponent
   ],
   exports: [
     DashboardComponent,

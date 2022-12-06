@@ -1,0 +1,55 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad ventas ( <small> {{ totalVentas }} </small> )</h3>
+                    </div>
+                    <div class="col-4">
+                    </div>
+
+                </div>
+                <div>
+                    <label for="start">Fecha : &nbsp;</label>
+
+                    <input type="date" [(ngModel)]="fecha" (ngModelChange)="cambiosFecha($event)" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button [disabled]="controlFechas" (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                        refresh
+                        </span></button>
+
+                </div>
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">
+                                #
+                            </th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>MontoTotal</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let venta of ventas">
+                            <td>{{ venta.IdTransaccion }}</td>
+                            <td>{{ venta.Fecha | date:"dd/MM/yyyy" }}</td>
+                            <td>{{ venta.cliente }}</td>
+                            <td>{{ venta.MontoTotal }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-10) " type="button" class="btn btn-default-outline">Anteriores</button>
+        <button (click)="cambiarDesde(10) " type="button" class="btn btn-default-outline">Siguientes</button>
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

@@ -42,6 +42,29 @@ public async listarVentas(req: Request, res: Response): Promise<void> {
 
 }
 
+
+// ==================================================
+//        Lista 
+// ==================================================
+
+public async listarVentasIdUsuario(req: Request, res: Response): Promise<void> {
+
+    var desde = req.params.pDesde || 0;
+    desde  = Number(desde);
+    var pFecha = req.params.pFecha;
+    var pIdPersona = req.params.pIdPersona;
+
+
+    pool.query(`call bsp_listar_ventas_idusuario('${desde}','${pFecha}','${pIdPersona}')`, function(err: any, result: any, fields: any){
+       if(err){
+           console.log("error", err);
+           return;
+       }
+       res.json(result);
+   })
+
+}
+
 }
 
 

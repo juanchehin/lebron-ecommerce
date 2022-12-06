@@ -11,9 +11,6 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 })
 export class DireccionesService {
 
-  // token: any = null;
-  usuario: any;
-
   constructor(
     private http: HttpClient,
     private authService: AuthService

@@ -16,6 +16,7 @@ class VentasRoutes {
 
         // Clientes
         this.router.get('/listar/:desde/:FechaInicio/:FechaFin',ventasController.listarVentas);
+        this.router.get('/listar/mis-ventas/:pDesde/:pFecha/:pIdPersona',ventasController.listarVentasIdUsuario);
         
     }
 

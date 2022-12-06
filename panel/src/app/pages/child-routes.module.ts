@@ -21,6 +21,7 @@ import { NuevaImagenProductoComponent } from './mantenimientos/productos/imagene
 import { PedidosComponent } from './mantenimientos/pedidos/pedidos.component';
 import { PromocionesComponent } from './mantenimientos/promociones/promociones.component';
 import { PromocionComponent } from './mantenimientos/promociones/promocion.component';
+import { MisVentasComponent } from './mantenimientos/ventas/mis-ventas/mis-ventas.component';
 
 
 const childRoutes: Routes = [
@@ -43,7 +44,7 @@ const childRoutes: Routes = [
   //
   { path: 'pedidos', component: PedidosComponent, data: { titulo: 'Pedidos' }},
   { path: 'venta/nueva', component: NuevaVentaComponent, data: { titulo: 'Nueva venta' }},
-
+  { path: 'ventas/:IdPersona', component: MisVentasComponent, data: { titulo: 'Mis ventas' }},
   // Rutas de Admin
   { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' } },
   { path: 'usuarios/nuevo', component: UsuarioComponent, data: { titulo: 'Alta de Usuario' } }

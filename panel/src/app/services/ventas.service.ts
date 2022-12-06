@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/services/auth.service';
 
 const URL_SERVICIOS = environment.URL_SERVICIOS;
 
@@ -9,8 +10,23 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 })
 export class VentasService {
 
+  // ==============================
+  get IdPersona(): any {
+    if(this.authService.IdPersona)
+    {
+      return this.authService.IdPersona;
+    }
+    else
+    {
+      return localStorage.getItem('id') || '';
+    }
+  }
 
-  constructor(private http: HttpClient) { }
+
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+  ) { }
 
 // ==================================================
 //
@@ -30,5 +46,15 @@ altaVenta( venta : any){
   let url = URL_SERVICIOS + '/ventas/alta/';
 
   return this.http.post( url, venta );
+}
+
+// ==================================================
+//
+// ==================================================
+listarVentasIdUsuario(desde: number , Fecha: string ){
+
+  let url = URL_SERVICIOS + '/ventas/listar/mis-ventas/' + desde + '/' + Fecha + '/' + this.IdPersona;
+
+  return this.http.get( url );
 }
 }

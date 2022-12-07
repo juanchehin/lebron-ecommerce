@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { IItemStructure } from 'src/app/interfaces/item.interface';
 import { IItemTipoPagoStructure } from 'src/app/interfaces/item_tp.interface';
 import { AlertService } from 'src/app/services/alert.service';
@@ -10,7 +9,6 @@ import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { VentasService } from 'src/app/services/ventas.service';
-import { NgbdModalBasic } from './modal-forma-pago/modal-forma-pago.component';
 
 @Component({
   selector: 'app-nueva-venta',
@@ -29,6 +27,7 @@ export class NuevaVentaComponent implements OnInit {
   IdPersona = '';
   local = '';
   lineas_venta: IItemStructure[] = [];
+  checkExists: IItemStructure[] = [];
   lineas_tipos_pago: IItemTipoPagoStructure[] = [];  
   itemPendiente: any = [];
   tiposPago: any;
@@ -43,7 +42,9 @@ export class NuevaVentaComponent implements OnInit {
   monto = 0;
   IdCliente = 0;
   totalTiposPago = 0;
-  arrayVenta: any;
+  arrayVenta: any = [];
+  itemCheckExists: any = 0;
+  itemIdProducto: any;
 
 
   constructor(
@@ -183,20 +184,40 @@ agregarLineaVenta() {
   
   this.totalVenta += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaVenta;
 
-  this.lineas_venta.push(
-    {
-      IdItem: this.IdItem,
-      IdProducto: this.itemPendiente.IdProducto,
-      Codigo: this.itemPendiente.Codigo,
-      Producto: this.itemPendiente.Producto,
-      Cantidad: this.cantidadLineaVenta,
-      PrecioVenta: this.itemPendiente.PrecioVenta,
-    }
-  );
+  const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
+    return linea_venta.IdProducto == this.itemPendiente.IdProducto;
+  });
 
-  this.IdItem += 1;
+  if(!(checkExistsLineaVenta != undefined))
+  {
+    this.lineas_venta.push(
+      {
+        IdItem: this.IdItem,
+        IdProducto: Number(this.itemPendiente.IdProducto),
+        Codigo: this.itemPendiente.Codigo,
+        Producto: this.itemPendiente.Producto,
+        Cantidad: this.cantidadLineaVenta,
+        PrecioVenta: this.itemPendiente.PrecioVenta,
+      }
+    );
+  
+    this.IdItem += 1;
+  
+    this.cantidadLineaVenta = 1;
+  }
+  else{
+    this.itemCheckExists = checkExistsLineaVenta;
+    this.itemIdProducto = this.itemCheckExists.IdProducto;
 
-  this.cantidadLineaVenta = 1;
+
+    for (let item of this.lineas_venta) {
+      if(item.IdProducto == this.itemCheckExists.IdProducto)
+      { 
+        item.Cantidad = Number(item.Cantidad) + Number(this.cantidadLineaVenta);
+      }
+     }
+  }
+ 
 
 }
 // ==================================================
@@ -216,12 +237,12 @@ agregarLineaTipoPago() {
     return;
   }
 
-  this.totalTiposPago += this.monto;
+  this.totalTiposPago += +this.monto;
 
   if(this.totalTiposPago > this.totalVenta)
   {
     this.alertaService.alertFail('El monto total es mayor que el total de la venta',false,2000);
-    this.totalTiposPago -= this.monto;
+    this.totalTiposPago -= +this.monto;
     return;
   }
 
@@ -290,6 +311,7 @@ agregarLineaTipoPago() {
   // Para productos
   // ================================
   selectEventProducto(item: any) {
+    
     this.itemPendiente = item;
   }
 
@@ -329,4 +351,18 @@ agregarLineaTipoPago() {
 
     this.cargarTiposPago();
   }
+// ==============================
+  // 
+  // ================================
+  eliminarItemVenta(IdProducto: string){
+    
+    const removeItinerary = (IdProducto: any) => {
+      const res = this.lineas_venta.filter(obj => obj.IdProducto === IdProducto);
+      return res;
+    }
+
+    console.log("nuevo array es : ",removeItinerary)
+
+  }
 }
+

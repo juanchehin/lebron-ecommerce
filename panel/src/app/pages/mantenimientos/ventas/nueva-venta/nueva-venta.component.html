@@ -10,108 +10,106 @@
             <h4>Fecha : {{currentDate | date:'dd/MM/yyyy'}}</h4>
         </div>
     </div>
-    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="altaVenta()">
-        <!-- ========== cliente ============ -->
+    <!-- ========== cliente ============ -->
+    <div class="row">
         <div class="row">
-            <div class="row">
-                <div class="col-md-5">
-                    <h5 class="m-t-30">Cliente : </h5>
-                    <div class="ng-autocomplete">
-                        <ng-autocomplete [data]="clientes" [searchKeyword]="keywordCliente" placeholder="Selecciona cliente" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
-                        </ng-autocomplete>
-                    </div>
-                    <ng-template #itemTemplate let-item>
-                        <a [innerHTML]="item.NombreCompleto"></a>
-                    </ng-template>
-                    <ng-template #notFoundTemplate let-notFound>
-                        <div [innerHTML]="notFound"></div>
-                    </ng-template>
+            <div class="col-md-5">
+                <h5 class="m-t-30">Cliente : </h5>
+                <div class="ng-autocomplete">
+                    <ng-autocomplete [data]="clientes" [searchKeyword]="keywordCliente" placeholder="Selecciona cliente" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
                 </div>
+                <ng-template #itemTemplate let-item>
+                    <a [innerHTML]="item.NombreCompleto"></a>
+                </ng-template>
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
             </div>
         </div>
-        <br /><br />
-        <!-- ========== Fin cliente ============ -->
-        <!-- ========== Articulos ============ -->
-        <div class="row">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Articulos</h4>
-                    <!-- ========== Buscador producto ============ -->
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="ng-autocomplete">
-                                <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
-                                    [notFoundTemplate]="notFoundTemplateProducto">
-                                </ng-autocomplete>
-                            </div>
-                            <ng-template #itemTemplateProducto let-item>
-                                <a [innerHTML]="item.NombreCompleto"></a>
-                            </ng-template>
-                            <ng-template #notFoundTemplateProducto let-notFound>
-                                <div [innerHTML]="notFound"></div>
-                            </ng-template>
+    </div>
+    <br /><br />
+    <!-- ========== Fin cliente ============ -->
+    <!-- ========== Articulos ============ -->
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Articulos</h4>
+                <!-- ========== Buscador producto ============ -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="ng-autocomplete">
+                            <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
+                                [notFoundTemplate]="notFoundTemplateProducto">
+                            </ng-autocomplete>
                         </div>
-                        <div class="col-md-3">
-                            <input [(ngModel)]="cantidadLineaVenta" (input)="cambiaCantidadVenta($event)" type="text" class="form-control form-control-line" formControlName="Cantidad" placeholder="Cantidad...">
-                        </div>
-                        <div class="col-md-2">
-                            <button (click)="agregarLineaVenta()" type="button" class="btn btn-info btn-circle"><i class="fa fa-plus"></i> </button>
-                        </div>
+                        <ng-template #itemTemplateProducto let-item>
+                            <a [innerHTML]="item.NombreCompleto"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplateProducto let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
                     </div>
+                    <div class="col-md-3">
+                        <input [(ngModel)]="cantidadLineaVenta" (input)="cambiaCantidadVenta($event)" type="text" class="form-control form-control-line" formControlName="Cantidad" placeholder="Cantidad...">
+                    </div>
+                    <div class="col-md-2">
+                        <button (click)="agregarLineaVenta()" type="button" class="btn btn-info btn-circle"><i class="fa fa-plus"></i> </button>
+                    </div>
+                </div>
 
-                    <!-- ========== Fin Buscador producto ============ -->
-                    <br/><br/>
-                    <!-- ===== Tabla con listado de productos ===== -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Productos agregados</h4>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Codigo</th>
-                                                    <th>Producto</th>
-                                                    <th>Cantidad</th>
-                                                    <th>SubTotal</th>
-                                                    <th class="text-nowrap"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr *ngFor="let linea of lineas_venta">
-                                                    <td>{{linea.Codigo }}</td>
-                                                    <td>{{linea.Producto }}</td>
-                                                    <td>{{linea.Cantidad }}</td>
-                                                    <td>{{linea.PrecioVenta }}</td>
-                                                    <td class="text-nowrap">
-                                                        <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
-                                                        <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                <!-- ========== Fin Buscador producto ============ -->
+                <br/><br/>
+                <!-- ===== Tabla con listado de productos ===== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Productos agregados</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>SubTotal</th>
+                                                <th class="text-nowrap"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let linea of lineas_venta">
+                                                <td>{{linea.Codigo }}</td>
+                                                <td>{{linea.Producto }}</td>
+                                                <td>{{linea.Cantidad }}</td>
+                                                <td>{{linea.PrecioVenta }}</td>
+                                                <td class="text-nowrap">
+                                                    <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                                    <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h4>Total Venta : $ {{totalVenta}}</h4>
-                                        </div>
+                                    <div class="col-md-3">
+                                        <h4>Total Venta : $ {{totalVenta}}</h4>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- ===== Fin Tabla con listado de productos ===== -->
                 </div>
+                <!-- ===== Fin Tabla con listado de productos ===== -->
             </div>
         </div>
-        <br>
-        <button type="submit" (click)="continuarVenta()" class="btn btn-info btn-lg btn-block text-uppercase" alt="default" data-toggle="modal" data-target="#responsive-modal">Continuar</button>
-        <br>
-        <!-- ====================== -->
-    </form>
+    </div>
+    <br>
+    <button type="submit" (click)="continuarVenta()" class="btn btn-info btn-lg btn-block text-uppercase" alt="default" data-toggle="modal" data-target="#responsive-modal">Continuar</button>
+    <br>
+    <!-- ====================== -->
 </div>
 
 <!-- =========== MODAL =========== -->
@@ -174,9 +172,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-8">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <h4>Total Venta : $ {{totalVenta}}</h4>
+                                            <h4>Total : $ {{totalTiposPago}}</h4>
                                         </div>
                                     </div>
                                 </div>

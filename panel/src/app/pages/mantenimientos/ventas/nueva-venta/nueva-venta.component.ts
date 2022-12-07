@@ -19,7 +19,6 @@ import { NgbdModalBasic } from './modal-forma-pago/modal-forma-pago.component';
 })
 export class NuevaVentaComponent implements OnInit {
 
-  forma!: FormGroup;
   keywordCliente = 'NombreCompleto';
   keywordProducto = 'NombreCompleto';
   cargando = true;
@@ -30,8 +29,7 @@ export class NuevaVentaComponent implements OnInit {
   IdPersona = '';
   local = '';
   lineas_venta: IItemStructure[] = [];
-  lineas_tipos_pago: IItemTipoPagoStructure[] = [];
-  
+  lineas_tipos_pago: IItemTipoPagoStructure[] = [];  
   itemPendiente: any = [];
   tiposPago: any;
   clientes = [];
@@ -44,6 +42,8 @@ export class NuevaVentaComponent implements OnInit {
   IdTipoPagoSelect = 0;
   monto = 0;
   IdCliente = 0;
+  totalTiposPago = 0;
+  arrayVenta: any;
 
 
   constructor(
@@ -63,27 +63,6 @@ export class NuevaVentaComponent implements OnInit {
     this.IdPersona = this.authService.IdPersona;
     this.cargarDatosVendedor();    
 
-    this.forma = new FormGroup({
-      IdCategoria: new FormControl(null, Validators.required ),
-      IdMarca: new FormControl(null, Validators.required),
-      IdSubCategoria: new FormControl(null, Validators.required ),
-      IdUnidad: new FormControl(null, Validators.required ),
-      Producto: new FormControl(null, Validators.required),
-      Codigo: new FormControl(null, Validators.required ),
-      Stock: new FormControl(null, Validators.required ),
-      FechaVencimiento: new FormControl(null, Validators.required ),
-      Imagen: new FormControl(null, Validators.required ),
-      Descripcion: new FormControl(null, Validators.required ),
-      StockAlerta: new FormControl(null, Validators.required ),
-      Peso: new FormControl(null, Validators.required ),
-      Sabor: new FormControl(null, Validators.required ),
-      PrecioCompra: new FormControl(null, Validators.required ),
-      PrecioVenta: new FormControl(null, Validators.required ),
-      PrecioMayorista: new FormControl(null, Validators.required ),
-      PrecioMeli: new FormControl(null, Validators.required ),
-      Descuento: new FormControl(null, Validators.required ),
-      Cantidad: new FormControl(null, Validators.required )   // sin uso
-      });
   }
   
 // ==================================================
@@ -95,23 +74,22 @@ altaVenta() {
   // this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdProducto');
   this.IdPersona = this.authService.IdPersona;
 
-      if ( this.forma.invalid ) {
+      // Comprobar que la suma de los tipos de pago sea igual al total final
+
+      if ( this.totalVenta != this.totalTiposPago ) {
+        this.alertaService.alertFail('Los totales no coinciden',false,2000);
         return;
       }
 
-      // Comprobar que la suma de los tipos de pago sea igual al total final
-
-      const venta = new Array(
-        this.forma.value.IdCliente,
-        this.forma.value.IdPersona,  // Id del vendedor
-        this.forma.value.IdCliente,
+      this.arrayVenta.push(
+        this.IdCliente,
         this.lineas_venta,
         this.lineas_tipos_pago
       );
 
-      console.log("venta es : ",venta)
+      console.log(" this.arrayVenta es : ", this.arrayVenta)
 
-      // this.ventasService.altaVenta( venta )
+      // this.ventasService.altaVenta(  this.arrayVenta )
       //           .subscribe( (resp: any) => {
       //             console.log("resp en plan es : ",resp)
       //             if ( resp.Mensaje === 'Ok') {
@@ -231,6 +209,21 @@ agregarLineaTipoPago() {
 
   // obtener el valor actual del select
   // obtener el valor actual del monto
+
+  if(this.monto > this.totalVenta)
+  {
+    this.alertaService.alertFail('El monto es mayor que el total de la venta',false,2000);
+    return;
+  }
+
+  this.totalTiposPago += this.monto;
+
+  if(this.totalTiposPago > this.totalVenta)
+  {
+    this.alertaService.alertFail('El monto total es mayor que el total de la venta',false,2000);
+    this.totalTiposPago -= this.monto;
+    return;
+  }
 
   if((Number(this.monto) <= 0) || (this.monto == undefined))
     {

@@ -109,13 +109,13 @@
         </div>
         <br>
         <button type="submit" (click)="continuarVenta()" class="btn btn-info btn-lg btn-block text-uppercase" alt="default" data-toggle="modal" data-target="#responsive-modal">Continuar</button>
-        <!-- <button class="btn btn-lg btn-outline-primary" (click)="continuarVenta(content)">Launch demo modal</button> -->
-
         <br>
         <!-- ====================== -->
     </form>
 </div>
-<div class="col-md-4">
+
+<!-- =========== MODAL =========== -->
+<div class="col-md-4" *ngIf="activarModal">
     <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -127,21 +127,23 @@
                     <div class="col-md-8">
                         <h4>Total Venta : $ {{totalVenta}}</h4>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <label>Tipo pago : </label>
-                            <select tabindex="4" [(ngModel)]="IdTipoPagoSelect" name="IdTipoPago" class="form-control">
-                                    <option *ngFor="let tp of tiposPago">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Tipo pago : </label>
+                                <select tabindex="4" [(ngModel)]="IdTipoPagoSelect" name="IdTipoPago" class="form-control">
+                                    <option *ngFor="let tp of tiposPago" [value]="tp.IdTipoPago">
                                         {{tp.TipoPago}}
                                     </option>
                                 </select>
-                        </div>
-                        <div class="col-sm-4">
-                            <label>Monto : </label>
-                            <input type="text" [(ngModel)]="monto" name="monto" class="form-control">
-                        </div>
-                        <div class="col-md-4">
-                            <button (click)="agregarLineaTipoPago()" type="button" class="btn btn-info btn-circle" style="margin-top: 30px;"><i class="fa fa-plus"></i> </button>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Monto : </label>
+                                <input type="text" [(ngModel)]="monto" name="monto" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <button (click)="agregarLineaTipoPago()" type="button" class="btn btn-info btn-circle" style="margin-top: 30px;"><i class="fa fa-plus"></i> </button>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -160,8 +162,8 @@
                                             </thead>
                                             <tbody>
                                                 <tr *ngFor="let linea_tp of lineas_tipos_pago">
-                                                    <td>{{linea_tp.tipo_pago }}</td>
-                                                    <td>{{linea_tp.subtotal }}</td>
+                                                    <td>{{linea_tp.TipoPago }}</td>
+                                                    <td>{{linea_tp.SubTotal }}</td>
                                                     <td class="text-nowrap">
                                                         <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
                                                         <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>

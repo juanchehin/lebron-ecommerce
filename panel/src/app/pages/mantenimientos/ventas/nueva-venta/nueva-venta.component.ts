@@ -20,9 +20,10 @@ import { NgbdModalBasic } from './modal-forma-pago/modal-forma-pago.component';
 export class NuevaVentaComponent implements OnInit {
 
   forma!: FormGroup;
-  keywordCliente = 'Apellidos';
+  keywordCliente = 'NombreCompleto';
   keywordProducto = 'NombreCompleto';
   cargando = true;
+  activarModal = false;
   productos: any;
   clienteBuscado = '';
   productoBuscado = '';
@@ -42,10 +43,10 @@ export class NuevaVentaComponent implements OnInit {
   IdItemTipoPago = 0;
   IdTipoPagoSelect = 0;
   monto = 0;
+  IdCliente = 0;
 
 
   constructor(
-    private router: Router, 
     public productosService: ProductosService, 
     public ventasService: VentasService, 
     public authService: AuthService, 
@@ -53,8 +54,7 @@ export class NuevaVentaComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public clientesService: ClientesService,
     public marcasService: MarcasService,
-    public alertaService: AlertService,
-    private modalFormaPago: NgbdModalBasic
+    public alertaService: AlertService
     ) {
     
   }
@@ -164,8 +164,6 @@ cargarTiposPago() {
   this.ventasService.cargarTiposPago( )
              .subscribe( (resp: any) => {
 
-              console.log("resp es : ",resp)
-
               this.tiposPago = resp[0];
 
             });
@@ -234,13 +232,39 @@ agregarLineaTipoPago() {
   // obtener el valor actual del select
   // obtener el valor actual del monto
 
+  if((Number(this.monto) <= 0) || (this.monto == undefined))
+    {
+      this.alertaService.alertFail('Debe seleccionar un monto',false,2000);
+      return;
+    }
+
+  // var tipo_pago = 
+
+    const tipo_pago = this.tiposPago.map( (item: any) => 
+    {
+      item.IdTipoPago = this.IdTipoPagoSelect
+    }    
+    
+  );
+
+  // const tipo_pago = this.tiposPago
+  // .map((obj:any) => obj.TipoPago)
+  // .filter((value: any) => {
+  //   return value == this.IdTipoPagoSelect;
+  // });
+
+  let obj = this.tiposPago.find((o: any) => o.IdTipoPago === this.IdTipoPagoSelect);
+
   this.lineas_tipos_pago.push(
     {
       IdItem: this.IdItemTipoPago,
-      IdPTipoPago: this.IdTipoPagoSelect,
+      IdTipoPago: this.IdTipoPagoSelect,
+      TipoPago: obj.TipoPago,
       SubTotal: this.monto
     }
   );
+
+  console.log("linea tp es : ",this.lineas_tipos_pago)
 
   this.IdItemTipoPago += 1;
 
@@ -251,6 +275,7 @@ agregarLineaTipoPago() {
   // Para clientes
   // ================================
   selectEvent(item: any) {
+    this.IdCliente = item.IdPersona;
     // this.agregarLineaVenta(item);
     // do something with selected item
   }
@@ -289,6 +314,26 @@ agregarLineaTipoPago() {
   continuarVenta()
   {
     // chequear que haya productos cargados y el total de venta sea mayor que cero
+    if(this.lineas_venta.length <= 0)
+    {
+      this.alertaService.alertFail('Debe cargar productos a la venta',false,2000);
+      return;
+    }
+
+    if(this.totalVenta <= 0)
+    {
+      this.alertaService.alertFail('El total de la venta debe ser mayor que cero',false,2000);
+      return;
+    }
+
+    if((Number(this.IdCliente) <= 0) || (this.IdCliente == undefined))
+    {
+      this.alertaService.alertFail('Debe seleccionar un cliente',false,2000);
+      return;
+    }
+
+    this.activarModal = true;
+
     this.cargarTiposPago();
   }
 }

@@ -2,6 +2,7 @@
 export interface IItemTipoPagoStructure
 {
     IdItem: number;
-    IdPTipoPago: number;
+    IdTipoPago: number;
+    TipoPago: any;
     SubTotal: number;
 }

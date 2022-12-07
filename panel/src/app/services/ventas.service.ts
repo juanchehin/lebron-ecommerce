@@ -22,6 +22,18 @@ export class VentasService {
     }
   }
 
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
+  
+  // ==============================
+  get headers() {
+    return {
+      headers: {
+        'token': this.token
+      }
+    }
+  }
 
   constructor(
     private http: HttpClient,
@@ -47,7 +59,7 @@ altaVenta( venta : any){
 
   let url = URL_SERVICIOS + '/ventas/alta/' + this.IdPersona;  // < -- chechear en back que sea mismo usuario
 
-  return this.http.post( url, venta );
+  return this.http.post( url, venta,this.headers );
 }
 
 // ==================================================

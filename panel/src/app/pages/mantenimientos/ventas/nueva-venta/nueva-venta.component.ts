@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IItemStructure } from 'src/app/interfaces/item.interface';
 import { IItemTipoPagoStructure } from 'src/app/interfaces/item_tp.interface';
 import { AlertService } from 'src/app/services/alert.service';
@@ -48,6 +48,7 @@ export class NuevaVentaComponent implements OnInit {
 
 
   constructor(
+    private router: Router,
     public productosService: ProductosService, 
     public ventasService: VentasService, 
     public authService: AuthService, 
@@ -71,38 +72,41 @@ export class NuevaVentaComponent implements OnInit {
 // ==================================================
 
 altaVenta() {
-
+  console.log("altaVenta")
   // this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdProducto');
   this.IdPersona = this.authService.IdPersona;
-
-      // Comprobar que la suma de los tipos de pago sea igual al total final
 
       if ( this.totalVenta != this.totalTiposPago ) {
         this.alertaService.alertFail('Los totales no coinciden',false,2000);
         return;
       }
 
-      this.arrayVenta.push(
+      this.arrayVenta.push(        
         this.IdCliente,
         this.lineas_venta,
-        this.lineas_tipos_pago
+        this.lineas_tipos_pago,
+        this.totalVenta
       );
 
       console.log(" this.arrayVenta es : ", this.arrayVenta)
 
-      // this.ventasService.altaVenta(  this.arrayVenta )
-      //           .subscribe( (resp: any) => {
-      //             console.log("resp en plan es : ",resp)
-      //             if ( resp.Mensaje === 'Ok') {
-      //               this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
-                    
-      //               this.router.navigate(['/dashboard/ventas']);
-      //             } else {
-      //               this.alertaService.alertFail('Venta cargada',false,2000);
-      //             }
-      //             return;
-      //           });
+      this.ventasService.altaVenta(  this.arrayVenta )
+      .subscribe({
+        next: (resp: any) => { 
+  
+          console.log("resp en altaVenta es : ",resp)
 
+          if ( resp[0][0].Mensaje === 'Ok') {
+            this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
+            
+            this.router.navigate(['/dashboard/ventas']);
+          } else {
+            this.alertaService.alertFail('Ocurrio un error',false,2000);
+          }
+          return;
+         },
+        error: () => { this.alertaService.alertFail('Venta cargada',false,2000) }
+      });
 
 }
 
@@ -273,8 +277,6 @@ agregarLineaTipoPago() {
     }
   );
 
-  console.log("linea tp es : ",this.lineas_tipos_pago)
-
   this.IdItemTipoPago += 1;
 
   // this.cantidadLineaVenta = 1;
@@ -323,6 +325,7 @@ agregarLineaTipoPago() {
   // ================================
   continuarVenta()
   {
+    console.log("continuarVenta")
     // chequear que haya productos cargados y el total de venta sea mayor que cero
     if(this.lineas_venta.length <= 0)
     {

@@ -23,7 +23,7 @@ export class DireccionesService {
     get headers() {
       return {
         headers: {
-          'x-token': this.token
+          'token': this.token
         }
       }
     }

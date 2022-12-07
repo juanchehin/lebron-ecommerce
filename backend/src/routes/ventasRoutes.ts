@@ -18,6 +18,7 @@ class VentasRoutes {
         this.router.get('/listar/:desde/:FechaInicio/:FechaFin',ventasController.listarVentas);
         this.router.get('/listar/mis-ventas/:pDesde/:pFecha/:pIdPersona',ventasController.listarVentasIdUsuario);
         this.router.get('/listar/tipos-pago',ventasController.listarTiposPago);
+        this.router.post('/alta/:pIdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], ventasController.altaVenta);
     }
 
 }

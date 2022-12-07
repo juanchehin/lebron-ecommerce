@@ -226,11 +226,6 @@ agregarLineaVenta() {
 // ==================================================
 agregarLineaTipoPago() {
   
-  // this.totalVenta += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaVenta;
-
-  // obtener el valor actual del select
-  // obtener el valor actual del monto
-
   if(this.monto > this.totalVenta)
   {
     this.alertaService.alertFail('El monto es mayor que el total de la venta',false,2000);
@@ -359,6 +354,22 @@ agregarLineaTipoPago() {
     this.lineas_venta.forEach( (item, index) => {
       if(item.IdProducto === IdProducto) 
         this.lineas_venta.splice(index,1);
+    });
+
+  }
+
+  // ==============================
+  // 
+  // ================================
+  eliminarItemTipoPago(IdItem: any){
+
+    this.lineas_tipos_pago.forEach( (item, index) => {
+      if(item.IdItem === IdItem) 
+      {
+        this.totalTiposPago -= +item.SubTotal;
+        this.lineas_tipos_pago.splice(index,1);
+      }
+        
     });
 
   }

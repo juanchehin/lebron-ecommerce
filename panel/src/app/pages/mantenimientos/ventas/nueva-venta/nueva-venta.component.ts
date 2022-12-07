@@ -354,14 +354,12 @@ agregarLineaTipoPago() {
 // ==============================
   // 
   // ================================
-  eliminarItemVenta(IdProducto: string){
-    
-    const removeItinerary = (IdProducto: any) => {
-      const res = this.lineas_venta.filter(obj => obj.IdProducto === IdProducto);
-      return res;
-    }
+  eliminarItemVenta(IdProducto: any){
 
-    console.log("nuevo array es : ",removeItinerary)
+    this.lineas_venta.forEach( (item, index) => {
+      if(item.IdProducto === IdProducto) 
+        this.lineas_venta.splice(index,1);
+    });
 
   }
 }

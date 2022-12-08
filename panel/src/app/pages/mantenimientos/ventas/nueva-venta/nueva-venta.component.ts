@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IItemStructure } from 'src/app/interfaces/item.interface';
 import { IItemTipoPagoStructure } from 'src/app/interfaces/item_tp.interface';
@@ -45,6 +45,7 @@ export class NuevaVentaComponent implements OnInit {
   arrayVenta: any = [];
   itemCheckExists: any = 0;
   itemIdProducto: any;
+  @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
 
 
   constructor(
@@ -98,14 +99,21 @@ altaVenta() {
 
           if ( resp[0][0].Mensaje === 'Ok') {
             this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
+
+            this.activarModal = false;
+            this.lineas_tipos_pago = [];
+            this.lineas_venta = [];
+            this.cerrarModal();
+            this.totalVenta = 0;
+            this.totalTiposPago = 0;
             
-            this.router.navigate(['/dashboard/ventas']);
+            // this.router.navigate(['/dashboard/ventas']);
           } else {
             this.alertaService.alertFail('Ocurrio un error',false,2000);
           }
           return;
          },
-        error: () => { this.alertaService.alertFail('Venta cargada',false,2000) }
+        error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
       });
 
 }
@@ -175,7 +183,7 @@ cargarDatosVendedor() {
 // ==================================================
   cambiaCantidadVenta(cantidad: any) {
     
-    this.cantidadLineaVenta = cantidad.data;
+    // this.cantidadLineaVenta = cantidad.data;
     
   }
   
@@ -185,6 +193,12 @@ cargarDatosVendedor() {
 // ==================================================
 
 agregarLineaVenta() {
+
+  if(isNaN(Number(this.cantidadLineaVenta)))
+  { 
+    this.alertaService.alertFail('Error en cantidad',false,2000);
+    return;
+  }
   
   this.totalVenta += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaVenta;
 
@@ -260,13 +274,13 @@ agregarLineaTipoPago() {
     
   );
 
-  // const tipo_pago = this.tiposPago
-  // .map((obj:any) => obj.TipoPago)
-  // .filter((value: any) => {
-  //   return value == this.IdTipoPagoSelect;
-  // });
+  console.log("this.IdTipoPagoSelect : ",this.IdTipoPagoSelect)
 
-  let obj = this.tiposPago.find((o: any) => o.IdTipoPago === this.IdTipoPagoSelect);
+  let obj = this.tiposPago.find((o: any) => 
+    o.IdTipoPago === this.IdTipoPagoSelect
+  );
+
+  console.log("obj : ",obj)
 
   this.lineas_tipos_pago.push(
     {
@@ -325,7 +339,6 @@ agregarLineaTipoPago() {
   // ================================
   continuarVenta()
   {
-    console.log("continuarVenta")
     // chequear que haya productos cargados y el total de venta sea mayor que cero
     if(this.lineas_venta.length <= 0)
     {
@@ -356,7 +369,11 @@ agregarLineaTipoPago() {
 
     this.lineas_venta.forEach( (item, index) => {
       if(item.IdProducto === IdProducto) 
+      {
+        this.totalVenta -= item.PrecioVenta * item.Cantidad;
         this.lineas_venta.splice(index,1);
+      }
+        
     });
 
   }
@@ -375,6 +392,14 @@ agregarLineaTipoPago() {
         
     });
 
+  }
+
+  // ==============================
+  // 
+  // ================================
+  cerrarModal(){
+    let el: HTMLElement = this.divCerrarModal.nativeElement;
+    el.click();
   }
 }
 

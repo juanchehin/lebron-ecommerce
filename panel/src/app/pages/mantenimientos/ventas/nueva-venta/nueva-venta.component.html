@@ -126,7 +126,7 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <label>Tipo pago : </label>
-                                <select tabindex="4" [(ngModel)]="IdTipoPagoSelect" name="IdTipoPago" class="form-control">
+                                <select tabindex="4" (ngModelChange)='onChangeTipoPago($event)' [(ngModel)]="IdTipoPagoSelect" name="IdTipoPago" class="form-control">
                                     <option *ngFor="let tp of tiposPago" [value]="tp.IdTipoPago">
                                         {{tp.TipoPago}}
                                     </option>

@@ -154,9 +154,8 @@ cargarTiposPago() {
 
   this.ventasService.cargarTiposPago( )
              .subscribe( (resp: any) => {
-
+              
               this.tiposPago = resp[0];
-
             });
 
 }
@@ -265,19 +264,13 @@ agregarLineaTipoPago() {
       return;
     }
 
-  // var tipo_pago = 
-
-    const tipo_pago = this.tiposPago.map( (item: any) => 
-    {
-      item.IdTipoPago = this.IdTipoPagoSelect
-    }    
-    
-  );
-
-  console.log("this.IdTipoPagoSelect : ",this.IdTipoPagoSelect)
-
   let obj = this.tiposPago.find((o: any) => 
-    o.IdTipoPago === this.IdTipoPagoSelect
+    {
+      if(o.IdTipoPago == this.IdTipoPagoSelect)
+      {
+        return o;
+      }
+    }
   );
 
   console.log("obj : ",obj)
@@ -400,6 +393,11 @@ agregarLineaTipoPago() {
   cerrarModal(){
     let el: HTMLElement = this.divCerrarModal.nativeElement;
     el.click();
+  }
+
+  onChangeTipoPago(val: any){
+    console.log("val es : ",val)
+    this.IdTipoPagoSelect = val;
   }
 }
 

@@ -81,4 +81,14 @@ cargarTiposPago(){
   return this.http.get( url );
 }
 
+// ==================================================
+//
+// ==================================================
+dameDatosPDFVenta( pIdTransaccion: any ){
+
+  let url = URL_SERVICIOS + '/ventas/datos-pdf/' + pIdTransaccion;
+
+  return this.http.get( url ,this.headers);
+}
+
 }

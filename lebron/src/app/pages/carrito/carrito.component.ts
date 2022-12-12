@@ -142,8 +142,6 @@ onChangeTipoEnvio(deviceValue: any){
 
 confirmarCompra( ) {
 
-  console.log("envio seleccinado ",this.envioSeleccionado)
-
   if(this.envioSeleccionado < 0)
   {
     this.banderaSeleccionarEnvio = true;
@@ -151,17 +149,9 @@ confirmarCompra( ) {
   }
 
   this.cargando = true;
-
-  console.log("htis.datosCompra ",this.datosCompra)
-
   this.datosCompra = [];
 
-  console.log("htis.itemscarrot ",this.itemsCarrito)
-  console.log("htis.datosCompra 2",this.datosCompra)
-
   this.itemsCarrito.forEach((item:any) => {
-
-    console.log("item es : ",item)    
 
     this.datosCompra.push(
       { 
@@ -187,7 +177,6 @@ confirmarCompra( ) {
   this.checkoutService.confirmarCompra( this.datosCompra, this.costoEnvioMP , this.envioSeleccionado ,this.Total )
     .subscribe({
       next: (resp: any) => { 
-
         if (this.validURL(resp.url)) {                
           window.location.href = resp.url;
         } else {                
@@ -195,7 +184,9 @@ confirmarCompra( ) {
           return;
         }
        },
-      error: () => { this.router.navigate(['/failure']) }
+      error: (err: any) => { 
+        this.router.navigate(['/failure'])
+       }
     });
 }
 

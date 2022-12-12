@@ -76,7 +76,9 @@ cargarVentasIdUsuario() {
           
         }
        },
-      error: () => {  this.alertService.alertFail('Ocurrio un error',false,400); }
+      error: (err: any) => { 
+        this.alertService.alertFail('Ocurrio un error',false,400);
+       }
     });
 
   }
@@ -142,6 +144,34 @@ formatDate(date: any) {
 
   return [year, month, day].join('-');
 }
+
+// ==================================================
+// 
+// ==================================================
+
+generarPDF( pIdTransaccion: any) { 
+
+    this.ventasService.dameDatosPDFVenta( pIdTransaccion  )
+    .subscribe({
+      next: (resp: any) => { 
+
+        console.log("resp es : ",resp)
+
+        if(resp[1][0].Mensaje == 'Ok') {
+          this.ventas = resp[0];
+          
+        } else {
+          this.alertService.alertFail('Ocurrio un error',false,400);
+          
+        }
+       },
+      error: (err: any) => {  
+        
+        console.log("err es : ",err)
+        this.alertService.alertFail('Ocurrio un error',false,400); }
+    });
+
+  }
 
 
 }

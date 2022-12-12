@@ -132,6 +132,22 @@ listarTiposPago(req: Request, res: Response) {
    })
 
 }
+
+// ==================================================
+//        
+// ==================================================
+dameDatosPDFVenta(req: Request, res: Response) {
+
+    var IdTransaccion = req.params.pIdTransaccion;
+
+    pool.query(`call bsp_dame_datos_pdf_venta('${IdTransaccion}')`, function(err: any, result: any){
+       if(err){
+           return;
+       }
+       res.json(result);
+   })
+
+}
 }
 
 

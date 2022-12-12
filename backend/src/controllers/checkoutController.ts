@@ -52,7 +52,7 @@ public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
     pool.query(`call bsp_alta_pedido('${pIdPersona}','${pIdDireccion}','${pTotal}')`, async function(err: any, result: any, fields: any){
       
       if(err || result[0][0].Mensaje != 'Ok'){
-          res.status(404).json({ text: err });
+          res.status(400).json({ text: err });
           return;
       }
 
@@ -90,8 +90,6 @@ public async webhook(req: Request, res: Response) {
 
   if (req.query.type === 'payment') {
     const paymentId = req.query['data.id'];
-
-    console.log("paymentId: ",paymentId)
     
     var options = {
       'method': 'GET',
@@ -164,11 +162,9 @@ export default checkoutController;
 async function createPaymentMercadoPago( items : any, costoEnvio: any, pIdPedidos: any) {
     const mercadoPagoUrl = "https://api.mercadopago.com/checkout"; 
 
-        
     const url = `${mercadoPagoUrl}/preferences?access_token=${process.env.MP_ACCESS_TOKEN_PROD}`;
 
-    console.log("url : ",url)
-        const preferences = { 
+    const preferences = { 
           items, 
           external_reference: pIdPedidos, 
           payer: { 

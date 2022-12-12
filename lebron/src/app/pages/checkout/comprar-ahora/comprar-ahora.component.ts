@@ -110,8 +110,6 @@ confirmarCompra( ) {
 
   this.cargando = true;
 
-  return;
-
   this.datosCompra.push(
     { 
       IdProducto: this.producto.IdProducto,

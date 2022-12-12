@@ -2037,6 +2037,7 @@ a.btn_1.full-width,
     width: 100%;
     text-align: center;
     margin-bottom: 5px;
+    color: #fff !important;
 }
 
 a.btn_1.medium,

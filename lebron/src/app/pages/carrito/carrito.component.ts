@@ -25,7 +25,7 @@ export class CarritoComponent implements OnInit {
   totalItemsCarrito = 0;
   IdPersona: any;
   totalUsuarios = 0;
-  cargando = true;
+  cargando = false;
   ruta_img_empty_cart = ruta_img + 'empty-cart.png';
   datosCompra: any[] = [];
   costoEnvioMP = 0;

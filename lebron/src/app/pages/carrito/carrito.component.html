@@ -98,7 +98,9 @@
                                     <span>Total</span>$ {{Total}}
                                 </li>
                             </ul>
-                            <button (click)="confirmarCompra()" class="btn_1 full-width cart">Continuar Compra</button>
+                            <button *ngIf="!cargando" (click)="confirmarCompra()" class="btn_1 full-width cart">Continuar Compra</button>
+                            <div *ngIf="cargando" class="loader">
+                            </div>
                         </div>
                     </div>
                 </div>

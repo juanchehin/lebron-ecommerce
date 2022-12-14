@@ -195,10 +195,14 @@ factura( pIdTransaccion: any) {
 
 generarPDF( pDatosEncabezado: any,pDatosCliente: any,pDatosVendedor: any,pDatosTransaccion: any,pDatosLineasVenta: any) { 
 
-  console.log("pDatosEncabezado ",pDatosEncabezado)
-  var CUIT = pDatosEncabezado[0].CUIT;
+  var rows = [];
+  rows.push(['CANT.', 'DETALLE', 'P. UNIT.', 'SUBTOTAL']);
 
-  console.log("CUIT ",CUIT)
+  for(var item of pDatosLineasVenta) {
+    rows.push([item.Cantidad, item.Producto, item.precioVentaUnitario, item.SubTotal]);
+  }
+
+  rows.push(['', '', 'TOTAL', pDatosTransaccion[0].MontoTotal]);
 
     var dd = {
     content: [
@@ -207,10 +211,8 @@ generarPDF( pDatosEncabezado: any,pDatosCliente: any,pDatosVendedor: any,pDatosT
         table: {
           headerRows: 1,
           widths: [210, 70, 210],
-          // dontBreakRows: true,
-          // keepWithHeaderRows: 1,
           body: [
-                  // Fila 1
+                // Encabezado
                 [
                     // Columna 1
                     [
@@ -250,7 +252,7 @@ generarPDF( pDatosEncabezado: any,pDatosCliente: any,pDatosVendedor: any,pDatosT
                         {text: 'Inicio de Act.: ' + pDatosEncabezado[0].inicio_actividad, fontSize: 9,margin: [20, 5]}
                     ]
                 ],
-                // Fila 2
+                // Datos cliente
                 [
                     {
                     colSpan: 3,
@@ -259,7 +261,7 @@ generarPDF( pDatosEncabezado: any,pDatosCliente: any,pDatosVendedor: any,pDatosT
                   '',
                   ''
                 ],
-                // Fila 3
+                // Datos transaccion
                 [
                   {
                       colSpan: 2,
@@ -281,8 +283,8 @@ generarPDF( pDatosEncabezado: any,pDatosCliente: any,pDatosVendedor: any,pDatosT
                   {
                       text: [	'DNI/CUIT: ' + pDatosCliente[0].DNI ]
                   }
-            ],
-                // Fila 4
+                ],
+                // Cond venta
                 [
                       {
                           colSpan: 2,
@@ -294,8 +296,7 @@ generarPDF( pDatosEncabezado: any,pDatosCliente: any,pDatosVendedor: any,pDatosT
                       {
                           text: [	'Remito N°:']
                       }
-                      ],
-            
+                ],
               ],
             }
       },
@@ -304,133 +305,7 @@ generarPDF( pDatosEncabezado: any,pDatosCliente: any,pDatosVendedor: any,pDatosT
         style: 'tableExample',
         table: {
           widths: [50, '*', 50, 70],
-          body: [
-            [
-                {
-                fillColor: '#eeeeff',
-                text: 'CANT.',
-                bold: true
-              },
-              {
-                fillColor: '#eeeeff',
-                text: 'DETALLE',
-                bold: true
-              },
-              {
-                fillColor: '#eeeeff',
-                text: 'P. UNIT ',
-                bold: true
-              },
-                {
-                fillColor: '#eeeeff',
-                text: 'SUBTOTAL',
-                bold: true
-              },
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],[
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            [
-                '1',
-                {text: 'PROTEIN BAR - BANANA'},
-                {text: '250'},
-                {text: '250'}
-            ],
-            ['', '' ,'TOTAL', pDatosTransaccion[0].MontoTotal],
-          
-          ]
+          body: rows
         }
       },
     ],
@@ -454,11 +329,7 @@ generarPDF( pDatosEncabezado: any,pDatosCliente: any,pDatosVendedor: any,pDatosT
         color: 'black',
           margin: 20
       }
-    },
-    defaultStyle: {
-      // alignment: 'justify'
     }
-    
   };
 
   pdfMake.createPdf(dd).open();

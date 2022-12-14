@@ -101,23 +101,30 @@ export class UsuarioComponent implements OnInit {
         Password2: new FormControl(null ),
         Email: new FormControl(null),
         Observaciones: new FormControl(null),
-        FechaNac: new FormControl(null, Validators.required  )
+        FechaNac: new FormControl(null, Validators.required  ),
+        listarProductos: new FormControl(null )
+        
       });
+
   }
 
 // ==================================================
 //   Agrega un Permiso
 // El idpermiso tiene correspondencia con la BD (chequear BD - tabla permisos)
 // ==================================================
-  agregarPermiso(idPermiso: any,permiso: any){
+  agregarPermiso(idPermiso: any){
 
     if(!this.permisos.includes(idPermiso))
     {
-      this.permisos.push(idPermiso,permiso);
+      this.permisos.push(idPermiso);
     }
     else
     {
-      delete this.permisos[idPermiso];
+      const index = this.permisos.indexOf(idPermiso, 0);
+      if (index > -1) {
+        this.permisos.splice(index, 1);
+      }
+      // delete this.permisos[idPermiso];
     }
 
     console.log("permisos va quedando : " + this.permisos)
@@ -155,7 +162,7 @@ export class UsuarioComponent implements OnInit {
         return;
       }
 
-      const plan = new Array(
+      const usuario = new Array(
         this.forma.value.Apellidos,
         this.forma.value.Nombres,
         this.forma.value.Telefono,
@@ -166,7 +173,7 @@ export class UsuarioComponent implements OnInit {
         this.forma.value.FechaNac
       );
 
-      this.usuariosService.altaUsuario( plan )
+      this.usuariosService.altaUsuario( usuario )
                 .subscribe( (resp: any) => {
                   console.log("resp en plan es : ",resp)
                   if ( resp.Mensaje === 'Ok') {

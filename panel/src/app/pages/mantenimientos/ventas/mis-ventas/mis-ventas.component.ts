@@ -5,7 +5,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { VentasService } from 'src/app/services/ventas.service';
 import { AlertService } from 'src/app/services/alert.service';
 
-// para generar pdfs lado cliente
 const pdfMake = require('pdfmake/build/pdfmake.js');
 const pdfFonts = require('pdfmake/build/vfs_fonts.js');
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -30,6 +29,14 @@ export class MisVentasComponent implements OnInit {
   totalProveedores = 0;
   cargando = true;
   totalVentas = '-';
+
+  //Datos PDF
+  datosEncabezado: any;
+  datosCliente: any;
+  datosVendedor: any;
+  datosTransaccion: any;
+  datosLineasventa: any;
+
 
   constructor(
     public proveedoresService: ProveedoresService,
@@ -156,9 +163,44 @@ formatDate(date: any) {
 // 
 // ==================================================
 
-generarPDF( pIdTransaccion: any) { 
+factura( pIdTransaccion: any) {  
 
-  var dd = {
+    this.ventasService.dameDatosPDFVenta( pIdTransaccion  )
+    .subscribe({
+      next: (resp: any) => { 
+
+        console.log("resp es : ",resp)
+
+        if(resp[5][0].Mensaje == 'Ok') {
+
+          this.generarPDF(resp[0],resp[1],resp[2],resp[3],resp[4]);
+
+          // doc.addHTML(this.content.nativeElement, function() {
+          //    doc.save("obrz.pdf");
+          // });
+          
+        } else {
+          this.alertService.alertFail('Ocurrio un error',false,400);
+          
+        }
+       },
+      error: (err: any) => {
+        this.alertService.alertFail('Ocurrio un error',false,400); }
+    });
+
+  }
+// ==================================================
+// 
+// ==================================================
+
+generarPDF( pDatosEncabezado: any,pDatosCliente: any,pDatosVendedor: any,pDatosTransaccion: any,pDatosLineasVenta: any) { 
+
+  console.log("pDatosEncabezado ",pDatosEncabezado)
+  var CUIT = pDatosEncabezado[0].CUIT;
+
+  console.log("CUIT ",CUIT)
+
+    var dd = {
     content: [
       {
         style: 'tableExample',
@@ -175,7 +217,7 @@ generarPDF( pIdTransaccion: any) {
                         {text: 'LeBron Suplementos\n\n', style: 'tableHeader', fontSize: 15},
                         {text: 'Belgrano 354.Lules (4128) - Tucuman\n', fontSize: 10,margin: [10, 10]},
                         {text: 'RESPONSABLE MONOTRIBUTO\n', fontSize: 9,bold: true,margin: [18, 10]},
-                        {text: 'Sucursal Buenos Aires 42', fontSize: 9,bold: true,margin: [20, 10]}
+                        {text: 'Sucursal : ' + pDatosTransaccion[0].Sucursal, fontSize: 9,bold: true,margin: [20, 10]}
                     ],
                     // Columna 2
                     [
@@ -202,17 +244,17 @@ generarPDF( pIdTransaccion: any) {
                     [
                         {text: 'FACTURA\n', style: 'tableHeader', fontSize: 15,margin: [20, 10]},
                         {text: 'Nro: 00000088274', style: 'tableHeader', fontSize: 13,margin: [20, 5]},
-                        {text: 'Fecha : 13/12/2022', fontSize: 9,margin: [20, 5]},
-                        {text: 'CUIT : 20388073558', fontSize: 9,margin: [20, 5]},
-                        {text: 'Ing. brutos', fontSize: 9,margin: [20, 5]},
-                        {text: 'Inicio de Act.: 01-04-2016', fontSize: 9,margin: [20, 5]}
+                        {text: 'Fecha : ' + pDatosTransaccion[0].fechaTransaccion, fontSize: 9,margin: [20, 5]},
+                        {text: 'CUIT : ' + pDatosEncabezado[0].CUIT, fontSize: 9,margin: [20, 5]},
+                        {text: 'Ing. brutos : ' + pDatosEncabezado[0].ing_brutos, fontSize: 9,margin: [20, 5]},
+                        {text: 'Inicio de Act.: ' + pDatosEncabezado[0].inicio_actividad, fontSize: 9,margin: [20, 5]}
                     ]
                 ],
                 // Fila 2
                 [
                     {
                     colSpan: 3,
-                    text: 'Nombre:  GUADALUPE ABELLA (DNI 25498628) \n\nDirección: -'
+                    text: 'Nombre:  '+ pDatosCliente[0].apNomCliente  + ' (' + pDatosCliente[0].DNI  + ')  \n\nDirección: -'
                   },
                   '',
                   ''
@@ -237,14 +279,14 @@ generarPDF( pIdTransaccion: any) {
                     ''
                   ],
                   {
-                      text: [	'DNI/CUIT: 25498628']
+                      text: [	'DNI/CUIT: ' + pDatosCliente[0].DNI ]
                   }
             ],
                 // Fila 4
                 [
                       {
                           colSpan: 2,
-                          text: 'Cond. de Venta | TARJETA $ 1900'
+                          text: 'Cond. de Venta | $ ' + pDatosTransaccion[0].MontoTotal
                       },
                       [
                         ''
@@ -386,7 +428,7 @@ generarPDF( pIdTransaccion: any) {
                 {text: '250'},
                 {text: '250'}
             ],
-            ['', '' ,'TOTAL', '1900,00'],
+            ['', '' ,'TOTAL', pDatosTransaccion[0].MontoTotal],
           
           ]
         }
@@ -421,31 +463,6 @@ generarPDF( pIdTransaccion: any) {
 
   pdfMake.createPdf(dd).open();
 
-    // this.ventasService.dameDatosPDFVenta( pIdTransaccion  )
-    // .subscribe({
-    //   next: (resp: any) => { 
-
-    //     console.log("resp es : ",resp)
-
-    //     if(resp[1][0].Mensaje == 'Ok') {
-
-    //       let doc = new jsPDF();
-    //       doc.text("Hello world!", 10, 10);
-    //       doc.save("a4.pdf");
-    //       // doc.addHTML(this.content.nativeElement, function() {
-    //       //    doc.save("obrz.pdf");
-    //       // });
-          
-    //     } else {
-    //       this.alertService.alertFail('Ocurrio un error',false,400);
-          
-    //     }
-    //    },
-    //   error: (err: any) => {
-    //     this.alertService.alertFail('Ocurrio un error',false,400); }
-    // });
-
   }
-
 
 }

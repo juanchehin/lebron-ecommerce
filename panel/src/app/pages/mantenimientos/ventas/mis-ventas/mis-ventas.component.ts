@@ -245,7 +245,7 @@ generarPDF( pDatosEncabezado: any,pDatosCliente: any,pIdTransaccion: any,pDatosT
                     // Columna 3
                     [
                         {text: 'FACTURA\n', style: 'tableHeader', fontSize: 15,margin: [20, 10]},
-                        {text: 'Nro: 00000088274', style: 'tableHeader', fontSize: 13,margin: [20, 5]},
+                        {text: 'Nro: 001-' + pIdTransaccion, style: 'tableHeader', fontSize: 13,margin: [20, 5]},
                         {text: 'Fecha : ' + pDatosTransaccion[0].fechaTransaccion, fontSize: 9,margin: [20, 5]},
                         {text: 'CUIT : ' + pDatosEncabezado[0].CUIT, fontSize: 9,margin: [20, 5]},
                         {text: 'Ing. brutos : ' + pDatosEncabezado[0].ing_brutos, fontSize: 9,margin: [20, 5]},

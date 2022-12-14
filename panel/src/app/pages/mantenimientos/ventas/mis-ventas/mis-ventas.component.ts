@@ -171,13 +171,9 @@ factura( pIdTransaccion: any) {
 
         console.log("resp es : ",resp)
 
-        if(resp[5][0].Mensaje == 'Ok') {
+        if(resp[4][0].Mensaje == 'Ok') {
 
-          this.generarPDF(resp[0],resp[1],pIdTransaccion,resp[3],resp[4]);
-
-          // doc.addHTML(this.content.nativeElement, function() {
-          //    doc.save("obrz.pdf");
-          // });
+          this.generarPDF(resp[0],resp[1],pIdTransaccion,resp[2],resp[3]);
           
         } else {
           this.alertService.alertFail('Ocurrio un error',false,400);

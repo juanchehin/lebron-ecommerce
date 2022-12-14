@@ -173,7 +173,7 @@ factura( pIdTransaccion: any) {
 
         if(resp[5][0].Mensaje == 'Ok') {
 
-          this.generarPDF(resp[0],resp[1],resp[2],resp[3],resp[4]);
+          this.generarPDF(resp[0],resp[1],pIdTransaccion,resp[3],resp[4]);
 
           // doc.addHTML(this.content.nativeElement, function() {
           //    doc.save("obrz.pdf");
@@ -193,7 +193,7 @@ factura( pIdTransaccion: any) {
 // 
 // ==================================================
 
-generarPDF( pDatosEncabezado: any,pDatosCliente: any,pDatosVendedor: any,pDatosTransaccion: any,pDatosLineasVenta: any) { 
+generarPDF( pDatosEncabezado: any,pDatosCliente: any,pIdTransaccion: any,pDatosTransaccion: any,pDatosLineasVenta: any) { 
 
   var rows = [];
   rows.push(['CANT.', 'DETALLE', 'P. UNIT.', 'SUBTOTAL']);
@@ -332,7 +332,7 @@ generarPDF( pDatosEncabezado: any,pDatosCliente: any,pDatosVendedor: any,pDatosT
     }
   };
 
-  pdfMake.createPdf(dd).open();
+  pdfMake.createPdf(dd).download('registro-' + pDatosTransaccion[0].fechaTransaccion + '-' + pIdTransaccion + '.pdf');
 
   }
 

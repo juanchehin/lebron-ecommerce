@@ -30,6 +30,7 @@ export class ProductoComponent implements OnInit {
   subcategorias: any;
   deshabilitarSubcategorias = true;
   alertaCodigoVacio = false;
+  sabores: any;
 
   constructor(
     private router: Router, 
@@ -57,8 +58,8 @@ export class ProductoComponent implements OnInit {
       FechaVencimiento: new FormControl(null ),
       Descripcion: new FormControl(null ),
       StockAlerta: new FormControl(null ),
-      Peso: new FormControl(null ),
-      Sabor: new FormControl(null ),
+      Medida: new FormControl(null ),
+      IdSabor: new FormControl(null ),
       PrecioCompra: new FormControl(null ),
       PrecioVenta: new FormControl(null , Validators.required),
       PrecioMayorista: new FormControl(null ),
@@ -118,31 +119,36 @@ altaProducto() {
         this.forma.value.IdCategoria,
         this.forma.value.IdMarca,
         this.forma.value.IdSubCategoria,
-        this.forma.value.IdUnidad,
+        this.forma.value.IdUnidad,        
         this.forma.value.Producto,
         this.forma.value.Codigo,
         this.forma.value.Stock,
         this.forma.value.FechaVencimiento,
         this.forma.value.Descripcion,
         this.forma.value.StockAlerta,
-        this.forma.value.Peso,
-        this.forma.value.Sabor,
+        this.forma.value.Medida, // 10
+
         this.forma.value.PrecioCompra,
         this.forma.value.PrecioVenta,
         this.forma.value.PrecioMayorista,
         this.forma.value.PrecioMeli,
         this.forma.value.Descuento,
-        this.forma.value.Moneda       
+        this.forma.value.Moneda,  
+        this.forma.value.IdSabor
       );
+
+      console.log("producto es : ",producto)
 
       this.productosService.altaProducto( producto )
                 .subscribe( (resp: any) => {
+
+                  console.log("resp prod : ",resp)
                   
                   if ( resp.Mensaje === 'Ok') {
                     this.alertService.alertSuccess('top-end','Producto cargado',false,2000);
                     this.router.navigate(['/dashboard/productos']);
                   } else {
-                    this.alertService.alertFail('Producto cargado',false,2000);
+                    this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
                   }
                   return;
                 });
@@ -167,6 +173,7 @@ cargarDatosFormNuevoProducto() {
                 this.unidades = resp[2];
                 this.proveedores = resp[3];
                 this.sucursalPrincipal = resp[4][0].Sucursal;
+                this.sabores = resp[5];
 
                 this.cargando = false;
 

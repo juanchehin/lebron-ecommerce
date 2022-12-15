@@ -25,8 +25,8 @@
                     <div class="col-sm-6 form-group">
                         <div class="row">
                             <div class="col-sm-6 form-group">
-                                <label>Peso : </label>
-                                <input tabindex="3" min="0" formControlName="Peso" name="Peso" required type="number" placeholder="Peso" class="form-control">
+                                <label>Medida : </label>
+                                <input tabindex="3" min="0" formControlName="Medida" name="Medida" required type="number" placeholder="Medida" class="form-control">
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label>Unidad : </label>
@@ -40,7 +40,11 @@
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>Sabor : </label>
-                        <input tabindex="4" formControlName="Sabor" name="Sabor" required type="text" step="1" placeholder="Sabor..." class="form-control">
+                        <select tabindex="4" formControlName="IdSabor" name="IdSabor" class="form-control">
+                            <option *ngFor="let sabor of sabores" [value]="sabor.IdSabor">
+                                {{sabor.sabor}}
+                            </option>
+                        </select>
                     </div>
 
                 </div>

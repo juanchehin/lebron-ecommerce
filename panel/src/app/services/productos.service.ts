@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 const URL_SERVICIOS = environment.URL_SERVICIOS;
 
@@ -20,10 +21,22 @@ export class ProductosService {
       }
     }
   }
+  // ==============================
+  get IdPersona(): any {
+    if(this.authService.IdPersona)
+    {
+      return this.authService.IdPersona;
+    }
+    else
+    {
+      return localStorage.getItem('id') || '';
+    }
+  }
 
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
     ) { }
 
 // ==================================================
@@ -42,17 +55,17 @@ export class ProductosService {
 // ==================================================
 altaProducto( producto: any ) {
 
-  let url = URL_SERVICIOS + '/productos/alta';
+  let url = URL_SERVICIOS + '/productos/alta/' + this.IdPersona;
   // url += '?IdRol=' + this.IdRol;
 
   return this.http.post(
     url,
-    producto
-    // {
-    //   headers: {
-    //     token: this.token
-    //   }
-    // }
+    producto,
+    {
+      headers: {
+        token: this.token
+      }
+    }
 );
 }
 // ==================================================

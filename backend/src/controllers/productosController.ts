@@ -18,14 +18,18 @@ public async altaProducto(req: Request, res: Response) {
     var FechaVencimiento = req.body[7];
     var Descripcion = req.body[8];
     var StockAlerta = req.body[9];
-    var Peso = req.body[10];
-    var Sabor = req.body[11];
-    var PrecioCompra = req.body[12];
-    var PrecioVenta = req.body[13];
-    var PrecioMayorista = req.body[14];
-    var PrecioMeli = req.body[15];
-    var Descuento = req.body[16];    // 19
-    var Moneda = req.body[17];
+    var Medida = req.body[10];
+
+    var PrecioCompra = req.body[11];
+    var PrecioVenta = req.body[12];
+    var PrecioMayorista = req.body[13];
+    var PrecioMeli = req.body[14];
+    var Descuento = req.body[15];
+    var Moneda = req.body[16].charAt(0);
+    var IdSabor = req.body[17];
+
+    console.log("req.body : ",req.body)
+    console.log("Moneday : ",Moneda)
 
     if(IdSubCategoria == undefined || IdSubCategoria == 'undefined')
     { 
@@ -37,8 +41,12 @@ public async altaProducto(req: Request, res: Response) {
         FechaVencimiento = null;
     }
 
-    pool.query(`call bsp_alta_producto('${IdCategoria}','${IdSubCategoria}','${IdMarca}','${IdUnidad}','${Producto}','${Codigo}','${Stock}',${FechaVencimiento},''${Descripcion}'',${StockAlerta},'${Peso}','${Sabor}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${PrecioMeli}',${Descuento},'${Moneda}')`, function(err: any, result: any, fields: any){
+    console.log("req.params.IdPersona : ",req.params.IdPersona)
+
+    pool.query(`call bsp_alta_producto('${req.params.IdPersona}','${IdCategoria}','${IdSubCategoria}','${IdMarca}','${IdSabor}','${IdUnidad}','${Producto}','${Codigo}','${Stock}','${FechaVencimiento}','${Descripcion}',${StockAlerta},'${Medida}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${PrecioMeli}',${Descuento},'${Moneda}')`, function(err: any, result: any, fields: any){
         
+        console.log("err : ",err)
+        console.log("result : ",result)
         if(err){
             res.status(404).json({ text: err });
             return;

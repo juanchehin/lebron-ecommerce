@@ -25,7 +25,7 @@ public async listarProveedoresPaginado(req: Request, res: Response): Promise<voi
 public async listarTodosProveedores(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_listar_proveedores()`, function(err: any, result: any, fields: any){
-        console.log("err es : ",err)
+
         if(err){
             res.status(404).json(err);
             return;

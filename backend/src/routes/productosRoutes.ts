@@ -16,7 +16,7 @@ class ProductosRoutes {
 
         //
         this.router.get('/:pIdProducto',productosController.dameDatosProducto); 
-        this.router.post('/alta',productosController.altaProducto); 
+        this.router.post('/alta/:IdPersona',productosController.altaProducto); 
         this.router.get('/listar/:desde',productosController.listarProductosPaginado); 
         this.router.get('/listar/promociones/:desde',productosController.listarPromociones);
         this.router.get('/listar/categoria/:IdCategoria/:pDesde',productosController.listarProductosCategoria);

@@ -55,7 +55,7 @@ export class ComprasService {
 // ==================================================
 altaCompra( compra : any){
 
-  let url = URL_SERVICIOS + '/compras/alta/' + this.IdPersona;  // < -- chechear en back que sea mismo usuario
+  let url = URL_SERVICIOS + '/compras/alta/' + this.IdPersona;
 
   return this.http.post( url, compra,this.headers );
 }

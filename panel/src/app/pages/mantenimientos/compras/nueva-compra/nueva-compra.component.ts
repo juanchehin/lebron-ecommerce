@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IItemStructure } from 'src/app/interfaces/item.interface';
 import { IItemTipoPagoStructure } from 'src/app/interfaces/item_tp.interface';
@@ -71,33 +71,20 @@ export class NuevaCompraComponent implements OnInit {
 // ==================================================
 
 altaCompra() {
-  // this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdProducto');
-  this.IdPersona = this.authService.IdPersona;
-
-      if ( this.totalCompra != this.totalTiposPago ) {
-        this.alertaService.alertFail('Los totales no coinciden',false,2000);
-        return;
-      }
 
       this.arrayCompra.push(        
         this.IdProveedor,
         this.lineas_compra,
-        this.lineas_tipos_pago,
         this.totalCompra
       );
-
-      console.log(" this.arrayC es : ", this.arrayCompra)
 
       this.comprasService.altaCompra(  this.arrayCompra )
       .subscribe({
         next: (resp: any) => { 
   
-          console.log("resp en alta compra es : ",resp)
-
-          if ( resp[0][0].Mensaje === 'Ok') {
+          if ( resp.Mensaje === 'Ok') {
             this.alertaService.alertSuccess('top-end','Compra cargada',false,2000);
 
-            this.activarModal = false;
             this.lineas_tipos_pago = [];
             this.lineas_compra = [];
             this.totalCompra = 0;
@@ -120,11 +107,14 @@ altaCompra() {
 cargarProductos() {
 
   this.productosService.cargarProductos( this.productoBuscado )
-             .subscribe( (resp: any) => {
+  .subscribe({
+    next: (resp: any) => { 
 
-              this.productos = resp[0];
-
-            });
+        this.productos = resp[0];
+        
+     },
+    error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
+  });
 
 }
 // ==================================================
@@ -133,16 +123,21 @@ cargarProductos() {
 
 cargarProveedores() {
 
-  console.log("cargarProveedores")
-
   this.proveedoresService.listarProveedores(  )
-             .subscribe( (resp: any) => {
+  .subscribe({
+    next: (resp: any) => { 
 
-              console.log("resp cargarProveedores es : ",resp[0])
-
-              this.proveedores = resp[0];
-
-          });
+      if ( resp[1][0].Mensaje === 'Ok') {
+        
+        this.proveedores = resp[0];
+        
+      } else {
+        this.alertaService.alertFail('Ocurrio un error',false,2000);
+      }
+      return;
+     },
+    error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
+  });
 
 }
 
@@ -202,7 +197,8 @@ agregarLineaCompra() {
   // Para proveedores
   // ================================
   selectEvent(item: any) {
-    this.IdProveedor = item.IdPersona;
+    console.log("item es : ",item)
+    this.IdProveedor = item.IdProveedor;
     // this.agregarLineaVenta(item);
     // do something with selected item
   }
@@ -260,8 +256,7 @@ agregarLineaCompra() {
       return;
     }
 
-    this.activarModal = true;
-
+    this.altaCompra();
   }
 // ==============================
   // 

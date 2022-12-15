@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
+import { SucursalesService } from 'src/app/services/sucursal.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class UsuarioComponent implements OnInit {
 
   forma!: FormGroup;
   cargando = true;
+  idSucursalSeleccionado = 0;
 
   banderaCheckProductos = false;
   listarProductos = false;
@@ -82,22 +84,26 @@ export class UsuarioComponent implements OnInit {
   editarConfiguraciones = false;
 
   permisos: Array<any> = new Array();
+  sucursales: any;
 
   constructor(
     private router: Router, 
     public usuariosService: UsuariosService, 
     public activatedRoute: ActivatedRoute,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private sucursalService: SucursalesService
     ) {
     
 
   }
 
   ngOnInit() {
+    this.cargarSucursales();
     this.forma = new FormGroup({
         Apellidos: new FormControl(null, Validators.required),
         Nombres: new FormControl(null, Validators.required),
         Usuario: new FormControl(null, Validators.required),
+        IdSucursal: new FormControl(null, Validators.required),
         Telefono: new FormControl(null ),
         Correo: new FormControl(null),
         DNI: new FormControl(null),
@@ -163,6 +169,12 @@ export class UsuarioComponent implements OnInit {
         return;
       }
 
+      console.log("this.forma.value.IdSucursal ",this.forma.value.IdSucursal)
+      if (this.forma.value.IdSucursal == 0) {
+        this.alertService.alertFail('Debe seleccionar una sucursal',false,700); 
+        return;
+      }
+
       const usuario = new Array(
         this.forma.value.Apellidos,
         this.forma.value.Nombres,
@@ -173,19 +185,18 @@ export class UsuarioComponent implements OnInit {
         this.forma.value.Password,
         this.forma.value.Observaciones,
         this.forma.value.FechaNac,
+        this.forma.value.IdSucursal,
         this.permisos
       );
-
-      console.log("usuario es : ",usuario)
 
       this.usuariosService.altaUsuario( usuario )
       .subscribe({
         next: (resp: any) => { 
 
-          console.log("alta usuario : resp : ",resp)
-  
+
           if(resp.Mensaje == 'Ok') {
-            
+            this.alertService.alertSuccess('top-end','Usuario creado con exito',false,700);   
+            this.router.navigate(['/dashboard/usuarios']);
           } else {
             this.alertService.alertFail('Ocurrio un error',false,700);            
           }
@@ -469,5 +480,30 @@ checkTodosVentas()
   this.editarVentas = false;
   this.borrarVentas = false;
 }
+}
+
+// ==================================================
+//      
+// ==================================================
+
+cargarSucursales()
+{
+  
+  this.sucursalService.listarTodasSucursales(  )
+    .subscribe({
+      next: (resp: any) => { 
+
+        if(resp[1][0].Mensaje == 'Ok') {
+          this.sucursales = resp[0];
+          
+        } else {
+          this.alertService.alertFail('Ocurrio un error',false,400);
+          
+        }
+       },
+      error: (err: any) => { 
+        this.alertService.alertFail('Ocurrio un error',false,400);
+       }
+    });
 }
 }

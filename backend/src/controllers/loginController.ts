@@ -16,7 +16,7 @@ public async loginUsuario(req: Request, res: Response){
     const email = req.body[0];
     const pass = req.body[1];
 // 
-pool.query(`call bsp_login_usuario('${email}')`, function(err: any, resultLogin: string | any[]){
+pool.query(`call bsp_login_panel('${email}')`, function(err: any, resultLogin: string | any[]){
     var menu: any = [];
 
     if(err){
@@ -26,8 +26,10 @@ pool.query(`call bsp_login_usuario('${email}')`, function(err: any, resultLogin:
         });
     }
 
+    console.log("result: ", resultLogin);
     // Chequeo la contraseña
     bcrypt.compare(pass, resultLogin[0][0].lPassword, function(err: any, result: any) {
+
         if(result != true || err){
 
             res.status(500).json({

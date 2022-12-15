@@ -25,8 +25,6 @@ public async listarUsuariosPaginado(req: Request, res: Response): Promise<void> 
 // ==================================================
 public async altaUsuario(req: Request, res: Response) {
 
-    console.log("body es ",req.body)
-
     var IdUsuario = req.params.pIdPersona;
 
     var Apellidos = req.body[0];
@@ -38,6 +36,7 @@ public async altaUsuario(req: Request, res: Response) {
     var Password = req.body[6];
     var Observaciones = req.body[7];
     var FechaNac = req.body[8];
+    var IdSucursal = req.body[9];
     var arrayPermisos = req.body[10];
 
     const saltRounds = 10;  //  Data processing speed
@@ -45,30 +44,23 @@ public async altaUsuario(req: Request, res: Response) {
     bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
         bcrypt.hash(Password, salt, async function(err: any, hash: any) {
 
-            pool.query(`call bsp_alta_usuario('${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}','${FechaNac}','${Usuario}','${Observaciones}')`, function(err: any, result: any, fields: any){        
-                
-                console.log("error es ",err)
-                console.log("result es ",result)
-                
-                if(err || result[0][0].Mensaje !== 'Ok'){
+            pool.query(`call bsp_alta_usuario('${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}',${FechaNac},'${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any, fields: any){        
+                                
+                if(err || result[0][0].Mensaje != 'Ok'){
                     return res.json({
                         ok: false,
-                        Mensaje: result[0][0].Mensaje
+                        Mensaje: 'Ocurrio un error, contactese con el administrador'
                     });
                 }
 
                 var pIdPersona = result[0][0].IdPersona;
 
-                console.log("pIdPersona : ",pIdPersona)
-
                 // =========== Cargo los permisos para el usuario ===================
                 arrayPermisos.forEach(function (pIdPermiso: any) {
 
-                    console.log("pIdPermiso es : ",pIdPermiso)
-
                     pool.query(`call bsp_alta_permisos_usuario('${IdUsuario}','${pIdPersona}','${pIdPermiso}')`, function(err: any, result: any, fields: any){
                         
-                        if(err || result[0][0].Mensaje !== 'Ok'){
+                        if(err){
                             res.status(404).json({ text: err });
                             return;
                         }

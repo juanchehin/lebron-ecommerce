@@ -11,7 +11,8 @@
                         <label>Nombres : </label><input formControlName="Nombres" name="Nombres" required type="text" placeholder="Nombres" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Telefono : </label><input formControlName="Telefono" name="Telefono" type="number" minlength="6" maxlength="15" placeholder="Telefono" class="form-control">
+                        <label>Telefono : </label>
+                        <input formControlName="Telefono" name="Telefono" type="text" min="15" max="15" minlength="8" maxlength="15" placeholder="Telefono" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>DNI : </label>
@@ -35,6 +36,14 @@
                     <div class="col-sm-6 form-group">
                         <label tabindex="6" for="start">Fecha de Nacimiento : </label>
                         <input type="date" name="FechaNac" formControlName="FechaNac">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Sucursal : </label>
+                        <select class="form-control" formControlName="IdSucursal">
+                            <option *ngFor="let sucursal of sucursales" [value]="sucursal.IdSucursal" >
+                                {{sucursal.Sucursal}}
+                            </option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">

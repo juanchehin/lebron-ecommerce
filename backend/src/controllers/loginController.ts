@@ -25,8 +25,6 @@ pool.query(`call bsp_login_panel('${email}')`, function(err: any, resultLogin: s
             mensaje : 'Error de credenciales'
         });
     }
-
-    console.log("result: ", resultLogin);
     // Chequeo la contraseña
     bcrypt.compare(pass, resultLogin[0][0].lPassword, function(err: any, result: any) {
 

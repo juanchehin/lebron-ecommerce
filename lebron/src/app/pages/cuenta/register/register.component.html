@@ -7,23 +7,38 @@
 
                 <div class="form_container">
                     <div class="form-group">
+                        <label>Apellidos* : </label>
                         <input formControlName="Apellidos" type="text" class="form-control" name="apellidos" placeholder="Apellidos*">
                     </div>
                     <div class="form-group">
+                        <label>Nombres* : </label>
                         <input formControlName="Nombres" type="text" class="form-control" name="nombres" placeholder="Nombres*">
                     </div>
                     <hr>
                     <div class="private box">
                         <div [ngClass]="{'input-error': emailExistente}" class="form-group">
+                            <label>Email* : </label>
                             <input formControlName="Email" type="text" class="form-control" name="email" placeholder="Email*">
                         </div>
                         <div *ngIf="emailExistente">
                             <p style="color:red;">El email ya se encuentra registrado</p>
                         </div>
-                        <div class="form-group" [ngClass]="{'input-error': passCheck}">
-                            <input formControlName="Password" type="password" class="form-control" name="password" placeholder="Contraseña">
+                        <div [ngClass]="{'input-error': telefonoExistente}" class="form-group">
+                            <label>Telefono : </label>
+                            <input formControlName="Telefono" type="text" class="form-control" name="Telefono" placeholder="Telefono">
+                        </div>
+                        <div *ngIf="telefonoExistente">
+                            <p style="color:red;">El telefono ya se encuentra registrado</p>
                         </div>
                         <div class="form-group" [ngClass]="{'input-error': passCheck}">
+                            <label>Password* : </label>
+                            <input formControlName="Password" type="password" class="form-control" name="password" placeholder="Contraseña">
+                        </div>
+                        <div *ngIf="passSecure">
+                            <p style="color:red;">Debe elegir una contraseña segura, debe contener al menos una minuscula,una mayuscula, un numero y una longitud de 8 caracteres </p>
+                        </div>
+                        <div class="form-group" [ngClass]="{'input-error': passCheck}">
+                            <label>Reperir Password* : </label>
                             <input formControlName="Password2" type="password" class="form-control" name="password2" placeholder="Repetir Contraseña">
                         </div>
                         <div *ngIf="passCheck">
@@ -34,7 +49,7 @@
                     <!-- /company -->
                     <hr>
                     <div class="form-group">
-                        <label class="container_check">Acepto los <a [routerLink]="['/terminos-y-condiciones']">Terminos y condiciones</a>
+                        <label class="container_check">Acepto los <a [routerLink]="['/terminos-y-condiciones']">Terminos y condiciones*</a>
                     <input type="checkbox" required>
                     <span class="checkmark"></span>
                 </label>

@@ -19,7 +19,26 @@ export class RegisterComponent implements OnInit {
   parametro: any;
   Cliente: any;
   emailExistente = false;
+  telefonoExistente = false;
   passCheck = false;
+  passSecure = false;
+
+  passRequirement = {
+    passwordMinLowerCase: 1,
+    passwordMinNumber: 1,
+    passwordMinUpperCase: 1,
+    passwordMinCharacters: 8
+  };
+  pattern = [
+    `(?=([^a-z]*[a-z])\{${this.passRequirement.passwordMinLowerCase},\})`,
+    `(?=([^A-Z]*[A-Z])\{${this.passRequirement.passwordMinUpperCase},\})`,
+    `(?=([^0-9]*[0-9])\{${this.passRequirement.passwordMinNumber},\})`,
+    `[A-Za-z\\d\$\@\$\!\%\*\?\&\.]{${
+      this.passRequirement.passwordMinCharacters
+    },}`
+  ]
+    .map(item => item.toString())
+    .join("");
 
   constructor(
     public authService: AuthService,
@@ -32,7 +51,11 @@ export class RegisterComponent implements OnInit {
     this.formularioRegistroCliente = new FormGroup({
       Apellidos: new FormControl(null, Validators.required ),
       Nombres: new FormControl(null, Validators.required ),
-      Password: new FormControl(null, Validators.required ),
+      Password: new FormControl(null,
+        [
+          Validators.required,
+          Validators.pattern(this.pattern)
+         ] ),
       Password2: new FormControl(null, Validators.required ),
       Email: new FormControl( null , [Validators.required , Validators.email ])
     }, {
@@ -46,69 +69,68 @@ export class RegisterComponent implements OnInit {
 
 registrarCliente() {
 
-  if ( this.formularioRegistroCliente.invalid ) {
+  console.log(" controls :  ",this.formularioRegistroCliente.controls)
+
+  if ( this.formularioRegistroCliente.controls['Password'].status == 'INVALID') {
+    this.passSecure = true;
     return;
-  }
+  } 
 
   if(this.formularioRegistroCliente.value.Password != this.formularioRegistroCliente.value.Password2){
     this.passCheck = true;
     return;
   }
+
+  if ( this.formularioRegistroCliente.invalid ) {
+    return;
+  }
+  
   this.passCheck = false;
+  this.passSecure = false;
 
   const cliente = new Array(
     this.formularioRegistroCliente.value.Email,
     this.formularioRegistroCliente.value.Password,
     this.formularioRegistroCliente.value.Apellidos,
-    this.formularioRegistroCliente.value.Nombres
+    this.formularioRegistroCliente.value.Nombres,
+    this.formularioRegistroCliente.value.Telefono
   );
 
 
   this.clienteService.altaCliente( cliente  )
-            .subscribe( (resp: any) => {
-                /*  TransformularioRegistroClienter resp.mensaje a JSON para que se pueda acceder*/
-                // tslint:disable-next-line: align
-                if ( resp.Mensaje === 'Ok') {
-                  // Swal.fire({
-                  //   position: 'top-end',
-                  //   icon: 'success',
-                  //   title: 'Cliente cargado',
-                  //   showConfirmButton: false,
-                  //   timer: 2000
-                  // });
-                  this.router.navigate(['/cuenta-creada']);
-                } else {
-                  if (resp.Mensaje === 'Ya existe un correo con ese nombre') {
-                      this.emailExistente = true;
-                      // Swal.fire({
-                      //   title: 'Persona ya cargada',
-                      //   text: '¿Desea Reactivarlo?',
-                      //   icon: 'info',
-                      //   showCancelButton: true,
-                      //   confirmButtonColor: '#3085d6',
-                      //   cancelButtonColor: '#d33',
-                      //   confirmButtonText: 'Si, activar'
-                      // })
-                      // .then( activar => {
-                      //   this.parametro = resp.pIdPersona;
-                      //   if (activar) {
-                      //     this.activarCliente(this.parametro);
-                      //     return;
-                      //   }
-                      // });
-                    } else {
-                      this.emailExistente = false;
-                      // Swal.fire({
-                      //   icon: 'error',
-                      //   title: 'Hubo un problema al cargar',
-                      //   text: resp.Mensaje
-                      // });
-                    }
-                  return;
-                  // tslint:disable-next-line: align
-                  }
-                });
-  return;
+  .subscribe({
+    next: (resp: any) => { 
+
+      console.log("resp es : ",resp)
+
+      if(resp.Mensaje != 'Ok') {
+        
+          if (resp.Mensaje === 'Ya existe un correo con ese nombre') {
+              this.emailExistente = true;
+              return;
+            } else {
+              this.emailExistente = false;
+            }
+
+            if (resp.Mensaje === 'El telefono ya existe') {
+              this.telefonoExistente = true;
+              return;
+            } else {
+              this.telefonoExistente = false;
+            }
+
+            this.router.navigate(['/failure']);  
+        
+      } else {
+        
+        this.router.navigate(['/cuenta-creada']);
+      }
+     },
+    error: (err: any) => { 
+      this.router.navigate(['/failure']);
+     }
+  });
+
 }
 
 }

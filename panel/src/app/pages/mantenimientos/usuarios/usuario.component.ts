@@ -169,7 +169,6 @@ export class UsuarioComponent implements OnInit {
         return;
       }
 
-      console.log("this.forma.value.IdSucursal ",this.forma.value.IdSucursal)
       if (this.forma.value.IdSucursal == 0) {
         this.alertService.alertFail('Debe seleccionar una sucursal',false,700); 
         return;
@@ -195,7 +194,7 @@ export class UsuarioComponent implements OnInit {
 
 
           if(resp.Mensaje == 'Ok') {
-            this.alertService.alertSuccess('top-end','Usuario creado con exito',false,700);   
+            this.alertService.alertSuccess('top-end','Usuario creado con exito',false,900);   
             this.router.navigate(['/dashboard/usuarios']);
           } else {
             this.alertService.alertFail('Ocurrio un error',false,700);            

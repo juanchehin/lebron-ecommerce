@@ -5,7 +5,6 @@ const nodemailer = require("nodemailer");
 import keys from '../keys';
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
-// const path = require('path');
 
 class ClientesController {
 
@@ -46,13 +45,14 @@ public async altaCliente(req: Request, res: Response) {
     var Password = req.body[1];
     var Apellidos = req.body[2];
     var Nombres = req.body[3];
+    var Telefono = req.body[4];
     
     const saltRounds = 10;  //  Data processing speed
 
     bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
         bcrypt.hash(Password, salt, async function(err: any, hash: any) {
             
-            pool.query(`call bsp_alta_cliente('${Apellidos}','${Nombres}','${hash}','${Email}')`, function(err: any, result: any, fields: any){
+            pool.query(`call bsp_alta_cliente('${Apellidos}','${Nombres}','${hash}','${Telefono}','${Email}')`, function(err: any, result: any, fields: any){
                 
                 if(err){
                     res.status(404).json({ text: "Ocurrio un problema" });
@@ -73,7 +73,7 @@ public async altaCliente(req: Request, res: Response) {
                     });
                 }
                 
-                enviarMailBienvenida(Email);
+                // enviarMailBienvenida(Email);
                 
                 return res.json({ Mensaje: 'Ok' });
             })

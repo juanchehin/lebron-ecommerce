@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ComprasService } from 'src/app/services/compras.service';
 
 @Component({
-  selector: 'app-listar-compras',
-  templateUrl: './listar-compras.component.html',
+  selector: 'app-compras',
+  templateUrl: './compras.component.html',
   styles: []
 })
 export class ComprasComponent implements OnInit {
 
   desde = 0;
   cargando = false;
+  fecha: any;
 
   FechaInicio = new Date(2000, 1 , 1);
   FechaFin = new Date(Date.now());
@@ -52,6 +53,15 @@ cambiosFechaFin(nuevaFechaFin: any) {
     this.controlFechas = false;
   }
   // this.FechaFin = nuevaFechaFin;
+
+}
+
+// ==================================================
+// Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
+// ==================================================
+cambiosFecha(nuevaFechaFin: any) {
+
+  
 
 }
 

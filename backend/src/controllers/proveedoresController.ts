@@ -19,7 +19,19 @@ public async listarProveedoresPaginado(req: Request, res: Response): Promise<voi
     })
 }
 
+// ==================================================
+//        Lista 
+// ==================================================
+public async listarTodosProveedores(req: Request, res: Response): Promise<void> {
 
+    pool.query(`call bsp_listar_proveedores()`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(404).json(err);
+            return;
+        }
+        res.status(200).json(result);
+    })
+}
 }
 
 

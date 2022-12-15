@@ -50,8 +50,8 @@ const childRoutes: Routes = [
   { path: 'ventas/:IdPersona', component: MisVentasComponent, data: { titulo: 'Mis ventas' }},
   //
   { path: 'compras', component: ComprasComponent, data: { titulo: 'Listado de compras' }},
-  { path: 'compra/nueva', component: NuevaCompraComponent, data: { titulo: 'Nueva compra' }},
-  { path: 'compra/:IdPersona', component: MisComprasComponent, data: { titulo: 'Mis compras' }},
+  { path: 'compras/nueva', component: NuevaCompraComponent, data: { titulo: 'Nueva compra' }},
+  { path: 'compras/:IdPersona', component: MisComprasComponent, data: { titulo: 'Mis compras' }},
   // Rutas de Admin
   { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' } },
   { path: 'usuarios/nuevo', component: UsuarioComponent, data: { titulo: 'Alta de Usuario' } }

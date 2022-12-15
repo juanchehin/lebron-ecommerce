@@ -27,7 +27,9 @@ import { PromocionComponent } from './mantenimientos/promociones/promocion.compo
 import { PromocionesComponent } from './mantenimientos/promociones/promociones.component';
 import { EditarPromocionComponent } from './mantenimientos/promociones/editar-promocion.component';
 import { MisVentasComponent } from './mantenimientos/ventas/mis-ventas/mis-ventas.component';
-import { NgbdModalBasic } from './mantenimientos/ventas/nueva-venta/modal-forma-pago/modal-forma-pago.component';
+import { NuevaCompraComponent } from './mantenimientos/compras/nueva-compra/nueva-compra.component';
+import { MisComprasComponent } from './mantenimientos/compras/mis-compras/mis-compras.component';
+import { ComprasComponent } from './mantenimientos/compras/listar-compras/compras.component';
 
 
 @NgModule({
@@ -52,7 +54,10 @@ import { NgbdModalBasic } from './mantenimientos/ventas/nueva-venta/modal-forma-
     PromocionesComponent,
     PromocionComponent,
     EditarPromocionComponent,
-    MisVentasComponent
+    MisVentasComponent,
+    NuevaCompraComponent,
+    MisComprasComponent,
+    ComprasComponent
   ],
   exports: [
     DashboardComponent,

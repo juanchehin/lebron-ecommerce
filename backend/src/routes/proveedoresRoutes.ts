@@ -15,7 +15,8 @@ class ProveedoresRoutes {
     config(): void {
 
         //
-        this.router.get('/listar/:desde',proveedoresController.listarProveedoresPaginado); 
+        this.router.get('/listar/:IdPersona/:desde',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario] ,proveedoresController.listarProveedoresPaginado); 
+        this.router.get('/listar/todos/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario] ,proveedoresController.listarTodosProveedores); 
     }
 
 }

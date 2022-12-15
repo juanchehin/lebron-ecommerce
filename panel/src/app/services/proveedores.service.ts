@@ -39,23 +39,23 @@ export class ProveedoresService {
     private authService: AuthService
     ) { }
 
-  // ==================================================
+// ==================================================
 //
 // ==================================================
 listarProveedores(){
 
-  let url = URL_SERVICIOS + '/proveedores/listar';
+  let url = URL_SERVICIOS + '/proveedores/listar/todos/' + this.IdPersona;
 
-  return this.http.get( url );
+  return this.http.get( url,this.headers );
 }
 // ==================================================
 //
 // ==================================================
   listarProveedoresPaginado(desde: any){
 
-    let url = URL_SERVICIOS + '/proveedores/listar/' + desde;
+    let url = URL_SERVICIOS + '/proveedores/listar/' + this.IdPersona + '/' + desde;
 
-    return this.http.get( url );
+    return this.http.get( url, this.headers );
   }
   // ==================================================
 //        
@@ -64,17 +64,17 @@ altaProveedor( proveedor: any ) {
 
   // console.log("usuario es : ",usuario);
 
-  let url = URL_SERVICIOS + '/proveedores/alta';
+  let url = URL_SERVICIOS + '/proveedores/alta/' + this.IdPersona;
   // url += '?IdRol=' + this.IdRol;
 
   return this.http.post(
     url,
-    proveedor
-    // {
-    //   headers: {
-    //     token: this.token
-    //   }
-    // }
+    proveedor,
+    {
+      headers: {
+        token: this.token
+      }
+    }
 );
 }
 

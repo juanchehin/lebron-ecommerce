@@ -46,18 +46,6 @@ exports.MismoUsuario = function(req: Request,res:Response,next: NextFunction){
             mensaje: 'TOKEN incorrecto - Chequear usuario'
         });
     }
-
-    jwt.verify(token , SEED, (err: any,decoded: any) =>{
-        console.log("err : ",err);
-        if(err){
-            return res.status(401).json({
-                ok:false,
-                mensaje: 'TOKEN incorrecto',
-                errors: err
-            });
-        }
-        next();
-    
-    });
+    next();
 
 }

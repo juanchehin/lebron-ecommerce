@@ -44,7 +44,7 @@ export class ProveedoresService {
 // ==================================================
 listarProveedores(){
 
-  let url = URL_SERVICIOS + '/proveedores/listar/todos/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/proveedores/dame/todos/' + this.IdPersona;
 
   return this.http.get( url,this.headers );
 }

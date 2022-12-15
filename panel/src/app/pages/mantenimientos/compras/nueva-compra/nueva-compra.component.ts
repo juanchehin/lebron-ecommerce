@@ -17,7 +17,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 })
 export class NuevaCompraComponent implements OnInit {
 
-  keywordProveedor = 'NombreCompleto';
+  keywordProveedor = 'Proveedor';
   keywordProducto = 'NombreCompleto';
   cargando = true;
   activarModal = false;
@@ -63,7 +63,7 @@ export class NuevaCompraComponent implements OnInit {
 
   ngOnInit() {   
     this.IdPersona = this.authService.IdPersona;
-
+    this.cargarProveedores();
   }
   
 // ==================================================
@@ -133,12 +133,16 @@ cargarProductos() {
 
 cargarProveedores() {
 
+  console.log("cargarProveedores")
+
   this.proveedoresService.listarProveedores(  )
              .subscribe( (resp: any) => {
 
+              console.log("resp cargarProveedores es : ",resp[0])
+
               this.proveedores = resp[0];
 
-            });
+          });
 
 }
 

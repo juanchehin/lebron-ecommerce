@@ -39,17 +39,15 @@ pool.query(`call bsp_login_panel('${email}')`, function(err: any, resultLogin: s
         }
         else{ 
              // Creo el token
-            var token = jwt.sign({ usuario: email }, SEED, { expiresIn: 14400});
+            var token = jwt.sign({ IdPersona: resultLogin[0][0].lIdPersona }, SEED, { expiresIn: 14400});
             
             menu = resultLogin[1];
             
             // Respuesta
             res.status(200).json({
                 ok: true,
-                usuario: resultLogin[0][0].lUsuario,
-                IdRol: resultLogin[0][0].lIdRol,
-                token: token,
                 IdPersona: resultLogin[0][0].lIdPersona,
+                token: token,
                 menu: menu
             });
         }

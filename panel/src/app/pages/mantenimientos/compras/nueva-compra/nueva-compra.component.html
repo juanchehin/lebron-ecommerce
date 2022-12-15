@@ -1,11 +1,11 @@
 <div class="container">
-    <!-- ========== cliente ============ -->
+    <!-- ========== proveedor ============ -->
     <div class="row">
         <div class="row">
             <div class="col-md-5">
                 <h5 class="m-t-30">Proveedor : </h5>
                 <div class="ng-autocomplete">
-                    <ng-autocomplete [data]="proveedor" [searchKeyword]="keywordProveedor" placeholder="Selecciona proveedor" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                    <ng-autocomplete [data]="proveedores" [searchKeyword]="keywordProveedor" placeholder="Selecciona proveedor" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                     </ng-autocomplete>
                 </div>
                 <ng-template #itemTemplate let-item>
@@ -18,7 +18,7 @@
         </div>
     </div>
     <br /><br />
-    <!-- ========== Fin cliente ============ -->
+    <!-- ========== Fin proveedor ============ -->
     <!-- ========== Articulos ============ -->
     <div class="row">
         <div class="card">

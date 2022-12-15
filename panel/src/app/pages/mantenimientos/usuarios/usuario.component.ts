@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AlertService } from 'src/app/services/alert.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuario',
@@ -81,12 +81,14 @@ export class UsuarioComponent implements OnInit {
   listarConfiguraciones = false;
   editarConfiguraciones = false;
 
-  permisos = new Array<{IdPermiso: number, permiso: string}>;
+  permisos: Array<any> = new Array();
 
   constructor(
     private router: Router, 
     public usuariosService: UsuariosService, 
-    public activatedRoute: ActivatedRoute) {
+    public activatedRoute: ActivatedRoute,
+    private alertService: AlertService
+    ) {
     
 
   }
@@ -95,15 +97,14 @@ export class UsuarioComponent implements OnInit {
     this.forma = new FormGroup({
         Apellidos: new FormControl(null, Validators.required),
         Nombres: new FormControl(null, Validators.required),
-        Telefono: new FormControl(null, Validators.required ),
+        Usuario: new FormControl(null, Validators.required),
+        Telefono: new FormControl(null ),
+        Correo: new FormControl(null),
         DNI: new FormControl(null),
-        Password: new FormControl(null ),
-        Password2: new FormControl(null ),
-        Email: new FormControl(null),
+        Password: new FormControl(null, Validators.required ),
+        Password2: new FormControl(null , Validators.required),
         Observaciones: new FormControl(null),
-        FechaNac: new FormControl(null, Validators.required  ),
-        listarProductos: new FormControl(null )
-        
+        FechaNac: new FormControl(null  )        
       });
 
   }
@@ -165,38 +166,36 @@ export class UsuarioComponent implements OnInit {
       const usuario = new Array(
         this.forma.value.Apellidos,
         this.forma.value.Nombres,
+        this.forma.value.Usuario,
+        this.forma.value.Correo,
         this.forma.value.Telefono,
         this.forma.value.DNI,
-        this.forma.value.Pass,
-        this.forma.value.Email,
+        this.forma.value.Password,
         this.forma.value.Observaciones,
-        this.forma.value.FechaNac
+        this.forma.value.FechaNac,
+        this.permisos
       );
 
+      console.log("usuario es : ",usuario)
+
       this.usuariosService.altaUsuario( usuario )
-                .subscribe( (resp: any) => {
-                  console.log("resp en plan es : ",resp)
-                  if ( resp.Mensaje === 'Ok') {
-                    Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'Plan cargado',
-                      showConfirmButton: false,
-                      timer: 2000
-                    });
-                    this.router.navigate(['/mantenimiento/planes']);
-                  } else {
-                    Swal.fire({
-                      icon: 'error',
-                      title: 'Hubo un problema al cargar',
-                      text: 'Contactese con el administrador',
-                    });
-                  }
-                  return;
-                });
+      .subscribe({
+        next: (resp: any) => { 
+
+          console.log("alta usuario : resp : ",resp)
+  
+          if(resp.Mensaje == 'Ok') {
+            
+          } else {
+            this.alertService.alertFail('Ocurrio un error',false,700);            
+          }
+         },
+        error: (err: any) => {
+          this.alertService.alertFail('Ocurrio un error',false,700); }
+      });
 
 
-              }
+}
 
 // ==================================================
 //      
@@ -213,6 +212,8 @@ checkTodosProductos()
     this.importarProductos = true;
     this.editarProductos = true;
     this.borrarProductos = true;
+
+    this.permisos.push(1,2,3,4,62);
   }else
   { 
     this.banderaCheckProductos = false;

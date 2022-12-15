@@ -11,22 +11,30 @@
                         <label>Nombres : </label><input formControlName="Nombres" name="Nombres" required type="text" placeholder="Nombres" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Telefono : </label><input formControlName="Telefono" name="Telefono" required type="number" min="1" max="31" step="1" placeholder="Telefono" class="form-control">
+                        <label>Telefono : </label><input formControlName="Telefono" name="Telefono" type="number" minlength="6" maxlength="15" placeholder="Telefono" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>DNI : </label>
-                        <input formControlName="DNI" name="DNI" type="text" placeholder="DNI..." rows="3" class="form-control">
+                        <input formControlName="DNI" name="DNI" type="text" placeholder="DNI..." min="8" max="8" maxlength="8" minlength="6" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Contraseña : </label><input formControlName="Password" name="Password" required type="number" min="1" max="31" step="1" placeholder="Password" class="form-control">
+                        <label>Correo : </label>
+                        <input formControlName="Correo" name="Correo" type="text" placeholder="Correo" class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Usuario : </label>
+                        <input formControlName="Usuario" required name="Usuario" type="text" placeholder="Usuario" class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Contraseña : </label><input formControlName="Password" name="Password" required type="password" min="1" max="31" step="1" placeholder="Password" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>Repetir contraseña : </label>
-                        <input formControlName="Password2" name="Password2" type="text" placeholder="Repetir contraseña..." rows="3" class="form-control">
+                        <input formControlName="Password2" name="Password2" type="password" required placeholder="Repetir contraseña..." rows="3" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
                         <label tabindex="6" for="start">Fecha de Nacimiento : </label>
-                        <input type="date" name="FechaNac" formControlName="FechaNac" required>
+                        <input type="date" name="FechaNac" formControlName="FechaNac">
                     </div>
                 </div>
                 <div class="row">

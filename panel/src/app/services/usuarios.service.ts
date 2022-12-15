@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 const URL_SERVICIOS = environment.URL_SERVICIOS;
 
@@ -11,7 +12,33 @@ export class UsuariosService {
 
   ocultarSidebar = true;
 
-  constructor(private http: HttpClient) { }
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
+
+  get headers() {
+    return {
+      headers: {
+        'token': this.token
+      }
+    }
+  }
+  // ==============================
+  get IdPersona(): any {
+    if(this.authService.IdPersona)
+    {
+      return this.authService.IdPersona;
+    }
+    else
+    {
+      return localStorage.getItem('id') || '';
+    }
+  }
+
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService    
+    ) { }
 
 // ==================================================
 //
@@ -31,17 +58,13 @@ altaUsuario( usuario: any ) {
 
   console.log("usuario es : ",usuario);
 
-  let url = URL_SERVICIOS + '/usuarios/alta';
+  let url = URL_SERVICIOS + '/usuarios/alta/' + this.IdPersona;
   // url += '?IdRol=' + this.IdRol;
 
   return this.http.post(
     url,
-    usuario
-    // {
-    //   headers: {
-    //     token: this.token
-    //   }
-    // }
+    usuario,
+    this.headers
 );
 }
   // ==================================================

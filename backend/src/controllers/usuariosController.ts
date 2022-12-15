@@ -25,42 +25,58 @@ public async listarUsuariosPaginado(req: Request, res: Response): Promise<void> 
 // ==================================================
 public async altaUsuario(req: Request, res: Response) {
 
-    var Apellidos = req.body.Apellidos;
-    var Nombres = req.body.Nombres;
-    var DNI = req.body.DNI;
-    var Pass = req.body.Pass;
-    var Telefono = req.body.Telefono;
-    var Observaciones = req.body.Observaciones;
-    var Correo = req.body.Correo;
-    var Usuario = req.body.Usuario;    
-    var Direccion = req.body.Direccion;
-    var FechaNac = req.body.FechaNac;
+    console.log("body es ",req.body)
+
+    var IdUsuario = req.params.pIdPersona;
+
+    var Apellidos = req.body[0];
+    var Nombres = req.body[1];
+    var Usuario = req.body[2];
+    var Correo = req.body[3];
+    var Telefono = req.body[4];
+    var DNI = req.body[5];
+    var Password = req.body[6];
+    var Observaciones = req.body[7];
+    var FechaNac = req.body[8];
+    var arrayPermisos = req.body[10];
 
     const saltRounds = 10;  //  Data processing speed
 
     bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
-        bcrypt.hash(Pass, salt, async function(err: any, hash: any) {
+        bcrypt.hash(Password, salt, async function(err: any, hash: any) {
 
-            pool.query(`call bsp_alta_usuario('${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}','${Direccion}','${FechaNac}','${Usuario}'},'${Observaciones}')`, function(err: any, result: any, fields: any){        if(err){
-                    console.log("error : ", err);
-                    res.status(404).json({ text: "Ocurrio un problema" });
-                    return;
-                }
+            pool.query(`call bsp_alta_usuario('${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}','${FechaNac}','${Usuario}','${Observaciones}')`, function(err: any, result: any, fields: any){        
                 
-                if(result[0][0].Mensaje === 'La persona ya se encuentra cargada'){
-                    return res.json({
-                        Mensaje: result[0][0].Mensaje,
-                        pIdPersona: result[1][0].IdPersona
-                    });
-                }
-            
-                if(result[0][0].Mensaje !== 'Ok'){
+                console.log("error es ",err)
+                console.log("result es ",result)
+                
+                if(err || result[0][0].Mensaje !== 'Ok'){
                     return res.json({
                         ok: false,
                         Mensaje: result[0][0].Mensaje
                     });
                 }
 
+                var pIdPersona = result[0][0].IdPersona;
+
+                console.log("pIdPersona : ",pIdPersona)
+
+                // =========== Cargo los permisos para el usuario ===================
+                arrayPermisos.forEach(function (pIdPermiso: any) {
+
+                    console.log("pIdPermiso es : ",pIdPermiso)
+
+                    pool.query(`call bsp_alta_permisos_usuario('${IdUsuario}','${pIdPersona}','${pIdPermiso}')`, function(err: any, result: any, fields: any){
+                        
+                        if(err || result[0][0].Mensaje !== 'Ok'){
+                            res.status(404).json({ text: err });
+                            return;
+                        }
+                        
+                    })
+
+                }); 
+                // =============Fin permisos=================
                 return res.json({ Mensaje: 'Ok' });
             })
 

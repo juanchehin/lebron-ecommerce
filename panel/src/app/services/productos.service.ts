@@ -43,7 +43,6 @@ export class ProductosService {
 //
 // ==================================================
   listarProductosPaginado(desde: any){
-    console.log("pasa listar prods")
 
     let url = URL_SERVICIOS + '/productos/listar/' + desde;
 
@@ -152,7 +151,6 @@ altaUnidad( unidad: any ) {
 //
 // ==================================================
 listarPromocionesPaginado(desde: any){
-  console.log("pasa listar prods")
 
   let url = URL_SERVICIOS + '/productos/promociones/listar/' + desde;
 

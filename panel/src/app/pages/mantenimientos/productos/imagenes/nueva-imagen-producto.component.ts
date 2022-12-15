@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ImagenesService } from 'src/app/services/imagenes.service';
-import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
-import { ProveedoresService } from 'src/app/services/proveedores.service';
 import Swal from 'sweetalert2';
 
 @Component({

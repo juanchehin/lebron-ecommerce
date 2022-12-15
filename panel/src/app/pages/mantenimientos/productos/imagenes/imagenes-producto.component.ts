@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImagenesService } from '../../../../services/imagenes.service';
 import { environment } from 'src/environments/environment';
+import { AlertService } from 'src/app/services/alert.service';
+import Swal from 'sweetalert2';
 
 const url_imagenes_producto = environment.ruta_img_productos;
 
@@ -26,7 +28,8 @@ export class ImagenesProductoComponent implements OnInit {
 
   constructor(
     public imagenesService: ImagenesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alertService: AlertService
   ) {
    }
 
@@ -51,10 +54,49 @@ cargarImagenes() {
 
                 this.cargando = false;
 
-              });
+      });
 
   }
 
+// ==================================================
+//      
+// ==================================================
+
+eliminarImagen( IdImagen: number ) {
+
+  Swal.fire({
+    title: '¿Desea eliminar la imagen?',
+    text: "Eliminacion",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si'
+  }).then((result) => {
+    if (result.isConfirmed) {
+
+      console.log("isConfirmed es : ")
+
+      this.imagenesService.eliminarImagen( IdImagen  )
+      .subscribe( (resp: any) => {
+
+        console.log("resp prod : ",resp)
+        
+        if ( resp[1][0].Mensaje == 'Ok') {
+          this.alertService.alertSuccess('top-end','Producto eliminado',false,2000);
+          this.cargarImagenes();
+        } else {
+          this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
+        }
+        return;
+      });
+             
+    }
+  })
+
+  
+
+}
 // ==================================================
 //        Cambio de valor
 // ==================================================

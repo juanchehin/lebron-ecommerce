@@ -5,6 +5,8 @@ import pool from '../database';
 
 class UploadController {
 
+
+
 // ==================================================
 //    fileUpload
 // ==================================================
@@ -126,6 +128,52 @@ public async listarImagenesProductos(req: Request, res: Response): Promise<void>
             res.status(404).json(result);
             return;
         }
+        res.status(200).json(result);
+    })
+}
+
+
+// ==================================================
+//        
+// ==================================================
+public async eliminarImagen(req: Request, res: Response): Promise<void> {
+    var IdImagen = req.params.IdImagen;
+
+    console.log("IdImagen : ",IdImagen)
+
+    pool.query(`call bsp_eliminar_imagen('${IdImagen}')`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(404).json(result);
+            return;
+        }
+
+        console.log("resulrt es : ",result[0]);
+
+        var archivo = result[0][0].Archivo;
+        var tipo = result[0][0].Tipo;
+
+        console.log("tipo ",tipo)
+
+        switch (tipo) {
+            case 'P':
+                tipo = 'productos';
+                break;
+            case 'M':
+                tipo = 'marcas';
+                break;
+            case 'R':
+                tipo = 'promociones';
+                break;
+            default:
+                res.status(404).json({Mensaje : 'Tipo desconocido'});
+                return;
+        }
+
+        console.log("tipo 2 ",tipo)
+        console.log("path ",__dirname, `../../public/uploads/images/${ tipo }/${ archivo }`)
+
+        fs.unlinkSync(path.join( __dirname, `../../public/uploads/images/${ tipo }/${ archivo }` ));
+
         res.status(200).json(result);
     })
 }

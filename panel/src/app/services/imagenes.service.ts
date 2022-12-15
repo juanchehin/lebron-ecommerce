@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 const URL_SERVICIOS = environment.URL_SERVICIOS;
 
@@ -10,8 +11,34 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 })
 export class ImagenesService {
 
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
 
-  constructor(private http: HttpClient) { }
+  get headers() {
+    return {
+      headers: {
+        'token': this.token
+      }
+    }
+  }
+  // ==============================
+  get IdPersona(): any {
+    if(this.authService.IdPersona)
+    {
+      return this.authService.IdPersona;
+    }
+    else
+    {
+      return localStorage.getItem('id') || '';
+    }
+  }
+
+
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+    ) { }
 
 // ==================================================
 //
@@ -23,8 +50,16 @@ listarImagenesProductoPaginado( desde: any, IdProducto: any){
   return this.http.get( url );
     
   }
+// ==================================================
+//
+// ==================================================
+eliminarImagen( IdImagen: any){
 
-  
+  let url = URL_SERVICIOS + '/uploads/imagenes/producto/eliminar/' + this.IdPersona + '/' + IdImagen;
+
+  return this.http.get(url, this.headers);
+    
+  }
 // ==================================================
 //
 // ==================================================
@@ -37,11 +72,11 @@ altaImagen( imagen: any){
   return this.http.post(
     url,
     imagen,
-    // {
-    //   headers: {
-    //     token: this.token
-    //   }
-    // }
+    {
+      headers: {
+        token: this.token
+      }
+    }
 );
     
   }

@@ -28,9 +28,6 @@ public async altaProducto(req: Request, res: Response) {
     var Moneda = req.body[16].charAt(0);
     var IdSabor = req.body[17];
 
-    console.log("req.body : ",req.body)
-    console.log("Moneday : ",Moneda)
-
     if(IdSubCategoria == undefined || IdSubCategoria == 'undefined')
     { 
         IdSubCategoria = 1; // sin subcategoria
@@ -41,12 +38,8 @@ public async altaProducto(req: Request, res: Response) {
         FechaVencimiento = null;
     }
 
-    console.log("req.params.IdPersona : ",req.params.IdPersona)
-
     pool.query(`call bsp_alta_producto('${req.params.IdPersona}','${IdCategoria}','${IdSubCategoria}','${IdMarca}','${IdSabor}','${IdUnidad}','${Producto}','${Codigo}','${Stock}','${FechaVencimiento}','${Descripcion}',${StockAlerta},'${Medida}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${PrecioMeli}',${Descuento},'${Moneda}')`, function(err: any, result: any, fields: any){
         
-        console.log("err : ",err)
-        console.log("result : ",result)
         if(err){
             res.status(404).json({ text: err });
             return;

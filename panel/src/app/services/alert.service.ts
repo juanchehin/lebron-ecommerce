@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 export class AlertService {
 
 
+  constructor() { }
+
   // ==============================
   alertSuccess(pPosition: any,pTitulo: any,pShowConfirmButton: boolean,pTimer: any) {
 
@@ -32,5 +34,23 @@ export class AlertService {
 
 }
 
-  constructor() { }
+// ==============================
+ alertConfirm(pTitulo: any,pSubTitulo: any): any {  
+
+  Swal.fire({
+    title: pTitulo,
+    text: pSubTitulo,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si'
+  }).then((result) => {
+
+    return result;
+
+  }) 
+  
+}
+
 }

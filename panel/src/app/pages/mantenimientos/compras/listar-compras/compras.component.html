@@ -1,0 +1,65 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad compras ( <small> {{totalCompras }} </small> )</h3>
+                    </div>
+                    <div>
+                        <label for="start">Fecha : &nbsp;</label>
+
+                        <input type="date" [(ngModel)]="fecha" (ngModelChange)="cambiosFecha($event)" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button [disabled]="controlFechas" (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                            refresh
+                            </span></button>
+
+                    </div>
+                    <div class="col-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <button [routerLink]="['/dashboard/compra/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                      <i class="fa fa-plus"></i> 
+                      Nueva compra
+                    </button>
+                    </div>
+                </div>
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">
+                                #
+                            </th>
+                            <th>Producto</th>
+                            <th>Cantidad</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let compra of compras">
+                            <td>{{ compra.IdTransaccion }}</td>
+                            <td>{{ compra.Producto }}</td>
+                            <td>{{ compra.Cantidad }}</td>
+                            <button class="btn btn-inline" type="button">Editar</button>
+                            <button class="btn btn-inline btn-danger" type="button">Eliminar</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </section>
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-10) " type="button" class="btn btn-default-outline">Anteriores</button>
+        <button (click)="cambiarDesde(10) " type="button" class="btn btn-default-outline">Siguientes</button>
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

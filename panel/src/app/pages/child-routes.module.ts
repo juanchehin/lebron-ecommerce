@@ -22,6 +22,9 @@ import { PedidosComponent } from './mantenimientos/pedidos/pedidos.component';
 import { PromocionesComponent } from './mantenimientos/promociones/promociones.component';
 import { PromocionComponent } from './mantenimientos/promociones/promocion.component';
 import { MisVentasComponent } from './mantenimientos/ventas/mis-ventas/mis-ventas.component';
+import { NuevaCompraComponent } from './mantenimientos/compras/nueva-compra/nueva-compra.component';
+import { MisComprasComponent } from './mantenimientos/compras/mis-compras/mis-compras.component';
+import { ComprasComponent } from './mantenimientos/compras/listar-compras/compras.component';
 
 
 const childRoutes: Routes = [
@@ -45,6 +48,10 @@ const childRoutes: Routes = [
   { path: 'pedidos', component: PedidosComponent, data: { titulo: 'Pedidos' }},
   { path: 'venta/nueva', component: NuevaVentaComponent, data: { titulo: 'Nueva venta' }},
   { path: 'ventas/:IdPersona', component: MisVentasComponent, data: { titulo: 'Mis ventas' }},
+  //
+  { path: 'compras', component: ComprasComponent, data: { titulo: 'Listado de compras' }},
+  { path: 'compra/nueva', component: NuevaCompraComponent, data: { titulo: 'Nueva compra' }},
+  { path: 'compra/:IdPersona', component: MisComprasComponent, data: { titulo: 'Mis compras' }},
   // Rutas de Admin
   { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' } },
   { path: 'usuarios/nuevo', component: UsuarioComponent, data: { titulo: 'Alta de Usuario' } }

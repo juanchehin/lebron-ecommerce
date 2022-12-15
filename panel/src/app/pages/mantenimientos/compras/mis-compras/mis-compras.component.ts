@@ -2,8 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { ComprasService } from 'src/app/services/compras.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { ComprasService } from 'src/app/services/compras.service';
 
 const pdfMake = require('pdfmake/build/pdfmake.js');
 const pdfFonts = require('pdfmake/build/vfs_fonts.js');
@@ -14,7 +14,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   templateUrl: './mis-compras.component.html',
   styles: []
 })
-export class MisVentasComponent implements OnInit {
+export class MisComprasComponent implements OnInit {
 
   @ViewChild('content') content: ElementRef | undefined;
 
@@ -26,10 +26,9 @@ export class MisVentasComponent implements OnInit {
   cantPlanes = 0;
   IdPersona: any;
   controlFechas = false;
-  // totalCompras = 0;
+  totalProveedores = 0;
   cargando = true;
   totalCompras = 0;
-
 
 
   constructor(
@@ -47,6 +46,8 @@ export class MisVentasComponent implements OnInit {
     previous.setDate(this.fecha.getDate() - 1);
     this.fecha = this.formatDate(previous);
     this.cargarComprasIdUsuario();
+
+    
   }
 
 // ==================================================
@@ -108,7 +109,7 @@ cambiarDesde( valor: number ) {
 
   const desde = this.desde + valor;
 
-  if ( desde >= this.totalCompras ) {
+  if ( desde >= this.totalProveedores ) {
     return;
   }
 

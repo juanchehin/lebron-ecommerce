@@ -69,8 +69,6 @@ export class RegisterComponent implements OnInit {
 
 registrarCliente() {
 
-  console.log(" controls :  ",this.formularioRegistroCliente.controls)
-
   if ( this.formularioRegistroCliente.controls['Password'].status == 'INVALID') {
     this.passSecure = true;
     return;
@@ -100,8 +98,6 @@ registrarCliente() {
   this.clienteService.altaCliente( cliente  )
   .subscribe({
     next: (resp: any) => { 
-
-      console.log("resp es : ",resp)
 
       if(resp.Mensaje != 'Ok') {
         

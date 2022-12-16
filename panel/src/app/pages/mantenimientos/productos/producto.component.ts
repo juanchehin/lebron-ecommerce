@@ -37,7 +37,7 @@ export class ProductoComponent implements OnInit {
   sabores_cargados: any = [];
   itemPendiente: any = [];
   cantidadLineaSabor = 1;
-  codigoLineaSabor = '';
+  codigoLineaSabor: any;
   itemIdSabor: any;
   saborBuscado = '';
   itemCheckExists: any = 0;
@@ -63,6 +63,7 @@ export class ProductoComponent implements OnInit {
       IdSubCategoria: new FormControl(null ),
       IdMarca: new FormControl(null),
       IdUnidad: new FormControl(null ),
+      IdProveedor: new FormControl(null),
       Producto: new FormControl(null, Validators.required),
       Codigo: new FormControl(null , Validators.required),
       Stock: new FormControl(null , Validators.required),
@@ -218,11 +219,11 @@ generarCodigo() {
 
   
   if(this.banderaGenerarCodigo == false) {
-    this.codigo = new Date().valueOf();
+    this.codigoLineaSabor = new Date().valueOf();
   }
   else
   { 
-    this.codigo = ''
+    this.codigoLineaSabor = ''
   }
 
   this.banderaGenerarCodigo = !this.banderaGenerarCodigo;  
@@ -258,7 +259,7 @@ onChangeCategorias(IdCategoria: any) {
 
 
 // ==================================================
-// Carga
+// Insera los sabores en el array
 // ==================================================
 
 agregarLineaSabor() {
@@ -274,7 +275,7 @@ agregarLineaSabor() {
         IdSabor: Number(this.itemPendiente.IdSabor),
         Sabor: this.itemPendiente.Sabor,
         Producto: this.itemPendiente.Producto,
-        Cantidad: this.cantidadLineaSabor,
+        Codigo: this.codigoLineaSabor,
         PrecioVenta: this.itemPendiente.PrecioVenta,
       }
     );

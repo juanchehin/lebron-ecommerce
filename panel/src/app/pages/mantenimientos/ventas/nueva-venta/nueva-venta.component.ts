@@ -89,14 +89,10 @@ altaVenta() {
         this.totalVenta
       );
 
-      console.log(" this.arrayVenta es : ", this.arrayVenta)
-
       this.ventasService.altaVenta(  this.arrayVenta )
       .subscribe({
         next: (resp: any) => { 
   
-          console.log("resp en altaVenta es : ",resp)
-
           if ( resp[0][0].Mensaje === 'Ok') {
             this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
 

@@ -9,24 +9,22 @@ class ProductosController {
 public async altaProducto(req: Request, res: Response) {
 
     var IdCategoria = req.body[0];
-    var IdMarca = req.body[1];
-    var IdSubCategoria = req.body[2];
-    var IdUnidad = req.body[3];
-    var Producto = req.body[4];
-    var Codigo = req.body[5];
-    var Stock = req.body[6];
+    var IdSubCategoria = req.body[1];
+    var IdMarca = req.body[3];
+    var IdUnidad = req.body[4];    
+    var Producto = req.body[5];
+    var IdProveedor = req.body[6];
     var FechaVencimiento = req.body[7];
     var Descripcion = req.body[8];
     var StockAlerta = req.body[9];
     var Medida = req.body[10];
-
     var PrecioCompra = req.body[11];
     var PrecioVenta = req.body[12];
     var PrecioMayorista = req.body[13];
     var PrecioMeli = req.body[14];
     var Descuento = req.body[15];
     var Moneda = req.body[16].charAt(0);
-    var IdSabor = req.body[17];
+    var arraySaboresCodigo = req.body[17];
 
     if(IdSubCategoria == undefined || IdSubCategoria == 'undefined')
     { 
@@ -38,12 +36,29 @@ public async altaProducto(req: Request, res: Response) {
         FechaVencimiento = null;
     }
 
-    pool.query(`call bsp_alta_producto('${req.params.IdPersona}','${IdCategoria}','${IdSubCategoria}','${IdMarca}','${IdSabor}','${IdUnidad}','${Producto}','${Codigo}','${Stock}','${FechaVencimiento}','${Descripcion}',${StockAlerta},'${Medida}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${PrecioMeli}',${Descuento},'${Moneda}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_producto('${req.params.IdPersona}','${IdCategoria}','${IdSubCategoria}','${IdMarca}','${IdUnidad}','${IdProveedor}','${Producto}','${FechaVencimiento}','${Descripcion}',${StockAlerta},'${Medida}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${PrecioMeli}',${Descuento},'${Moneda}')`, function(err: any, result: any, fields: any){
         
         if(err){
             res.status(404).json({ text: err });
             return;
         }
+
+        // ==============================
+       if(result[0][0].Mensaje == 'Ok')
+       {
+
+            arraySaboresCodigo.forEach(function (value: any) {
+
+                pool.query(`call bsp_alta_sabores_codigo_producto('${result[0][0].IdProducto}','${value.IdSabor}','${value.Codigo}')`, function(err: any, result2: any){
+                    if(err){
+                        res.status(404).json(err);
+                        return;
+                    }
+                    
+                })
+            });
+        }
+        // ==============================
 
         if(result[0][0].Mensaje !== 'Ok'){
             return res.json({

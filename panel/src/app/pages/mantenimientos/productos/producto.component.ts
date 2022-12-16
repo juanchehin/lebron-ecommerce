@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
@@ -14,11 +13,9 @@ import { AlertService } from 'src/app/services/alert.service';
 })
 export class ProductoComponent implements OnInit {
 
-  forma!: FormGroup;
   cargando = true;
   marcas: any;
   categorias: any;
-  codigo: any;
   banderaGenerarCodigo = false;
   unidades: any;
   alertaPrecioVentaCompra = false;
@@ -30,6 +27,25 @@ export class ProductoComponent implements OnInit {
   subcategorias: any;
   deshabilitarSubcategorias = true;
   alertaCodigoVacio = false;
+  alertaFechaVencimiento = false;
+
+  // ==============================
+  IdCategoria: any;
+  IdSubCategoria: any;
+  IdMarca: any;
+  IdUnidad: any;        
+  Producto: any;
+  IdProveedor: any;
+  FechaVencimiento: any;
+  Descripcion: any;
+  StockAlerta: any;
+  Medida: any;
+  PrecioCompra: any;
+  PrecioVenta: any;
+  PrecioMayorista: any;
+  PrecioMeli: any;
+  Descuento: any;
+  Moneda: any;
 
   // sabores
   sabores: any;
@@ -41,6 +57,7 @@ export class ProductoComponent implements OnInit {
   itemIdSabor: any;
   saborBuscado = '';
   itemCheckExists: any = 0;
+  @ViewChild('saboresReference') saboresReference: any;
   
 
   constructor(
@@ -58,27 +75,24 @@ export class ProductoComponent implements OnInit {
   ngOnInit() {
     this.cargarDatosFormNuevoProducto();
 
-    this.forma = new FormGroup({
-      IdCategoria: new FormControl(null ),
-      IdSubCategoria: new FormControl(null ),
-      IdMarca: new FormControl(null),
-      IdUnidad: new FormControl(null ),
-      IdProveedor: new FormControl(null),
-      Producto: new FormControl(null, Validators.required),
-      Codigo: new FormControl(null , Validators.required),
-      Stock: new FormControl(null , Validators.required),
-      FechaVencimiento: new FormControl(null ),
-      Descripcion: new FormControl(null ),
-      StockAlerta: new FormControl(null ),
-      Medida: new FormControl(null ),
-      IdSabor: new FormControl(null ),
-      PrecioCompra: new FormControl(null ),
-      PrecioVenta: new FormControl(null , Validators.required),
-      PrecioMayorista: new FormControl(null ),
-      PrecioMeli: new FormControl(null ),
-      Descuento: new FormControl(null ),
-      Moneda: new FormControl(null )
-      });
+    // this.forma = new FormGroup({
+    //   IdCategoria: new FormControl(null ),
+    //   IdSubCategoria: new FormControl(null ),
+    //   IdMarca: new FormControl(null),
+    //   IdUnidad: new FormControl(null ),
+    //   IdProveedor: new FormControl(null),
+    //   Producto: new FormControl(null, Validators.required),
+    //   FechaVencimiento: new FormControl(null ),
+    //   Descripcion: new FormControl(null ),
+    //   StockAlerta: new FormControl(null ),
+    //   Medida: new FormControl(null ),
+    //   PrecioCompra: new FormControl(null ),
+    //   PrecioVenta: new FormControl(null , Validators.required),
+    //   PrecioMayorista: new FormControl(null ),
+    //   PrecioMeli: new FormControl(null ),
+    //   Descuento: new FormControl(null ),
+    //   Moneda: new FormControl(null )
+    //   });
   }
 
 // ==================================================
@@ -87,12 +101,8 @@ export class ProductoComponent implements OnInit {
 
 altaProducto() {
 
-  return;
-      if ( this.forma.invalid ) {
-        return;
-      }
       //** */
-      if((this.forma.value.PrecioCompra > this.forma.value.PrecioVenta) ){
+      if((this.PrecioCompra > this.PrecioVenta) ){
         this.alertaPrecioVentaCompra = true;
         return;
       }
@@ -101,7 +111,7 @@ altaProducto() {
         this.alertaPrecioVentaCompra = false;
       }
       //** */
-      if(this.forma.value.PrecioCompra > this.forma.value.PrecioMeli)
+      if(this.PrecioCompra > this.PrecioMeli)
       {
         this.alertaPrecioVentaMeli = true;
         return;
@@ -110,7 +120,7 @@ altaProducto() {
         this.alertaPrecioVentaMeli = false;
       }
       //** */
-      if(this.forma.value.PrecioCompra > this.forma.value.PrecioMayorista)
+      if(this.PrecioCompra > this.PrecioMayorista)
       {
         this.alertaPrecioVentaMayorista = true;
         return;
@@ -118,39 +128,57 @@ altaProducto() {
       { 
         this.alertaPrecioVentaMayorista = false;
       }
+       //** */
+       if(this.FechaVencimiento < new Date())
+       {
+         this.alertaFechaVencimiento = true;
+         return;
+       }else
+       { 
+         this.alertaFechaVencimiento = false;
+       }
+       //** */
+       if(this.FechaVencimiento < new Date())
+       {
+         this.alertaFechaVencimiento = true;
+         return;
+       }else
+       { 
+         this.alertaFechaVencimiento = false;
+       }
       //** */
-      if((this.forma.value.Codigo == '') || (this.forma.value.Codigo == null) ){
-        this.alertaCodigoVacio = true;
-        return;
-      }
-      else
-      { 
-        this.alertaCodigoVacio = false;
-      }
+      // if((this.forma.value.Codigo == '') || (this.forma.value.Codigo == null) ){
+      //   this.alertaCodigoVacio = true;
+      //   return;
+      // }
+      // else
+      // { 
+      //   this.alertaCodigoVacio = false;
+      // }
 
       const producto = new Array(
-        this.forma.value.IdCategoria,
-        this.forma.value.IdMarca,
-        this.forma.value.IdSubCategoria,
-        this.forma.value.IdUnidad,        
-        this.forma.value.Producto,
-        this.forma.value.Codigo,
-        this.forma.value.Stock,
-        this.forma.value.FechaVencimiento,
-        this.forma.value.Descripcion,
-        this.forma.value.StockAlerta,
-        this.forma.value.Medida, // 10
-
-        this.forma.value.PrecioCompra,
-        this.forma.value.PrecioVenta,
-        this.forma.value.PrecioMayorista,
-        this.forma.value.PrecioMeli,
-        this.forma.value.Descuento,
-        this.forma.value.Moneda,  
-        this.forma.value.IdSabor
+        this.IdCategoria,
+        this.IdSubCategoria,
+        this.IdMarca,
+        this.IdUnidad,        
+        this.Producto,
+        this.IdProveedor,
+        this.FechaVencimiento,
+        this.Descripcion,
+        this.StockAlerta,
+        this.Medida,
+        this.PrecioCompra,
+        this.PrecioVenta,
+        this.PrecioMayorista,
+        this.PrecioMeli,
+        this.Descuento,
+        this.Moneda,
+        this.sabores_cargados
       );
 
       console.log("producto es : ",producto)
+
+      return;
 
       this.productosService.altaProducto( producto )
                 .subscribe( (resp: any) => {
@@ -217,7 +245,6 @@ cargarSubcategoriaIdCategoria(IdCategoria: any) {
 
 generarCodigo() {
 
-  
   if(this.banderaGenerarCodigo == false) {
     this.codigoLineaSabor = new Date().valueOf();
   }
@@ -242,8 +269,8 @@ onChangeCategorias(IdCategoria: any) {
 }
 
 // ==============================
-  // 
-  // ================================
+// 
+// ================================
   eliminarItemSabor(IdProducto: any){
 
     this.sabores_cargados.forEach( (item: any, index: any) => {
@@ -263,10 +290,33 @@ onChangeCategorias(IdCategoria: any) {
 // ==================================================
 
 agregarLineaSabor() {
+
+  console.log("this.itemPendiente : ",this.itemPendiente)
+
+  if(this.itemPendiente.Sabor == '')
+  { 
+    this.alertService.alertFail('Debe elegir un sabor',false,900)
+    return;
+  }
+
+  console.log("this.codigoLineaSabor : ",this.codigoLineaSabor)
+
+  if(this.codigoLineaSabor == '' || this.codigoLineaSabor == undefined)
+  { 
+    this.alertService.alertFail('Debe cargar un codigo',false,900)
+    return;
+  }
+
+  if(this.itemPendiente.length <= 0)
+  { 
+    this.alertService.alertFail('Debe cargar sabor/codigo',false,900)
+    return;
+  }
   
   const checkExistsLineaSabor = this.sabores_cargados.find((sabor_cargado: any) => {
-    return sabor_cargado.IdSabor == this.itemPendiente.IdProducto;
+    return sabor_cargado.IdSabor == this.itemPendiente.IdSabor;
   });
+
 
   if(!(checkExistsLineaSabor != undefined))
   {
@@ -284,6 +334,9 @@ agregarLineaSabor() {
     this.cantidadLineaSabor = 1;
   }
   else{
+    this.alertService.alertFail('Sabor ya cargado',false,900)
+    return;
+
     this.itemCheckExists = checkExistsLineaSabor;
     this.itemIdSabor = this.itemCheckExists.IdProducto;
 
@@ -295,7 +348,13 @@ agregarLineaSabor() {
       }
      }
   }
- 
+
+  this.codigoLineaSabor = '';
+  this.banderaGenerarCodigo = false; 
+  this.itemPendiente = [];
+  this.saboresReference.clear();
+  this.saboresReference.close();
+  // this.keywordSabor = '';
 
 }
 

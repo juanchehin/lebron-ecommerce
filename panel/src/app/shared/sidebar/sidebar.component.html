@@ -7,6 +7,12 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
+                <!-- ===== ** Dashboard ** ====== -->
+                <li class="user-profile" [routerLink]="['/dashboard']">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <span class="hide-menu">Dashboard </span>
+                    </a>
+                </li>
                 <!-- ===== ** Usuarios ** ====== -->
                 <li class="user-profile" [routerLink]="['/dashboard/usuarios']" *ngIf="activarMenu('Usuarios')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">

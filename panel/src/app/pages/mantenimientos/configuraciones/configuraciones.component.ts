@@ -41,6 +41,7 @@ export class ConfiguracionesComponent implements OnInit {
 
   ngOnInit() {
     this.cargarConfiguraciones();
+    this.configuracionesService.checkCurrentTheme();
 
     this.forma = new FormGroup({
       NombreEmpresa: new FormControl(null),
@@ -68,13 +69,10 @@ export class ConfiguracionesComponent implements OnInit {
 
 actualizarConfiguraciones() {
 
-  console.log("pasa actualizar")
-
       if ( this.forma.invalid ) {
         return;
       }
 
-      console.log("pasa actualizar 1")
       const configuraciones = new Array(
         this.forma.value.NombreEmpresa || this.NombreEmpresa,
         this.forma.value.CUIT || this.CUIT,
@@ -94,9 +92,6 @@ actualizarConfiguraciones() {
         this.forma.value.CostoEnvio || this.CostoEnvio,
         this.forma.value.Dolar || this.Dolar
       );
-
-
-      console.log("pasa actualizar configuraciones ",configuraciones)
 
       this.configuracionesService.actualizarConfiguracion( configuraciones )
                 .subscribe( (resp: any) => {
@@ -154,6 +149,13 @@ cargarConfiguraciones() {
               this.cargando = false;
 
             });
+
+}
+
+// ================================
+changeTheme( theme: string ) {
+
+  this.configuracionesService.changeTheme( theme );
 
 }
 }

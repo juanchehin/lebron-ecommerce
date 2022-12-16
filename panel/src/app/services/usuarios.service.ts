@@ -44,11 +44,10 @@ export class UsuariosService {
 //
 // ==================================================
   listarUsuariosPaginado(desde: any){
-    console.log("pasa listar usuarios")
 
-    let url = URL_SERVICIOS + '/usuarios/listarPaginado/' + desde;
+    let url = URL_SERVICIOS + '/usuarios/listarPaginado/' + desde + '/' + this.IdPersona;
 
-    return this.http.get( url );
+    return this.http.get( url , this.headers);
   }
 
   // ==================================================

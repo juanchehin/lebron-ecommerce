@@ -55,9 +55,7 @@ export class VentasService {
 // ==================================================
 altaVenta( venta : any){
 
-  // venta.push(this.IdPersona);
-
-  let url = URL_SERVICIOS + '/ventas/alta/' + this.IdPersona;  // < -- chechear en back que sea mismo usuario
+  let url = URL_SERVICIOS + '/ventas/alta/' + this.IdPersona;
 
   return this.http.post( url, venta,this.headers );
 }

@@ -33,6 +33,39 @@ public async listarTodosProveedores(req: Request, res: Response): Promise<void> 
         res.status(200).json(result);
     })
 }
+
+// ==================================================
+//        Inserta 
+// ==================================================
+public async altaProveedor(req: Request, res: Response) {
+
+    var Proveedor = req.body[0];
+    var CUIL = req.body[1];
+    var Telefono = req.body[2];
+    var Observaciones = req.body[3];
+    var Apellidos = req.body[4];
+    var Nombres = req.body[5];
+    var Email = req.body[6];
+
+    pool.query(`call bsp_alta_proveedor('${Proveedor}','${CUIL}','${Telefono}','${Apellidos}','${Nombres}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
+        
+        if(err){
+            res.status(404).json({ text: err });
+            return;
+        }
+
+        if(result[0][0].Mensaje !== 'Ok'){
+            return res.json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
+
+        return res.json({ Mensaje: 'Ok' });
+    })
+
+}
+
 }
 
 

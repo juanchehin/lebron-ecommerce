@@ -30,7 +30,18 @@ export class ProductoComponent implements OnInit {
   subcategorias: any;
   deshabilitarSubcategorias = true;
   alertaCodigoVacio = false;
+
+  // sabores
   sabores: any;
+  keywordSabor = 'Sabor';
+  sabores_cargados: any = [];
+  itemPendiente: any = [];
+  cantidadLineaSabor = 1;
+  codigoLineaSabor = '';
+  itemIdSabor: any;
+  saborBuscado = '';
+  itemCheckExists: any = 0;
+  
 
   constructor(
     private router: Router, 
@@ -75,6 +86,7 @@ export class ProductoComponent implements OnInit {
 
 altaProducto() {
 
+  return;
       if ( this.forma.invalid ) {
         return;
       }
@@ -161,7 +173,6 @@ altaProducto() {
 // ==================================================
 
 cargarDatosFormNuevoProducto() {
-  console.log("pasa cargar cargarDatosFormNuevoProducto");
 
     this.productosService.cargarDatosFormNuevoProducto(  )
                .subscribe( (resp: any) => {
@@ -228,4 +239,76 @@ onChangeCategorias(IdCategoria: any) {
   
   
 }
+
+// ==============================
+  // 
+  // ================================
+  eliminarItemSabor(IdProducto: any){
+
+    this.sabores_cargados.forEach( (item: any, index: any) => {
+      if(item.IdProducto === IdProducto) 
+      {
+        // this.totalVenta -= item.PrecioVenta * item.Cantidad;
+        this.sabores_cargados.splice(index,1);
+      }
+        
+    });
+
+  }
+
+
+// ==================================================
+// Carga
+// ==================================================
+
+agregarLineaSabor() {
+  
+  const checkExistsLineaSabor = this.sabores_cargados.find((sabor_cargado: any) => {
+    return sabor_cargado.IdSabor == this.itemPendiente.IdProducto;
+  });
+
+  if(!(checkExistsLineaSabor != undefined))
+  {
+    this.sabores_cargados.push(
+      {
+        IdSabor: Number(this.itemPendiente.IdSabor),
+        Sabor: this.itemPendiente.Sabor,
+        Producto: this.itemPendiente.Producto,
+        Cantidad: this.cantidadLineaSabor,
+        PrecioVenta: this.itemPendiente.PrecioVenta,
+      }
+    );
+  
+  
+    this.cantidadLineaSabor = 1;
+  }
+  else{
+    this.itemCheckExists = checkExistsLineaSabor;
+    this.itemIdSabor = this.itemCheckExists.IdProducto;
+
+
+    for (let item of this.sabores_cargados) {
+      if(item.IdProducto == this.itemCheckExists.IdProducto)
+      { 
+        item.Cantidad = Number(item.Cantidad) + Number(this.cantidadLineaSabor);
+      }
+     }
+  }
+ 
+
+}
+
+  // ==============================
+  // Para sabores
+  // ================================
+  selectEventSabor(item: any) {
+    
+    this.itemPendiente = item;
+  }
+
+  onChangeSearch(val: any) {
+    this.saborBuscado = val;
+    // this.cargarSabores();
+  }
+  
 }

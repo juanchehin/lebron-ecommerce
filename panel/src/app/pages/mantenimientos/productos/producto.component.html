@@ -8,6 +8,14 @@
                         <input tabindex="1" formControlName="Producto" name="Producto" required type="text" placeholder="Producto..." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
+                        <label>Marca : </label>
+                        <select tabindex="4" formControlName="IdMarca" name="IdMarca" class="form-control">
+                                <option *ngFor="let marca of marcas" [value]="marca.IdMarca">
+                                    {{marca.Marca}}
+                                </option>
+                            </select>
+                    </div>
+                    <!-- <div class="col-sm-6 form-group">
                         <div class="row">
                             <div class="col-sm-6">
                                 <label>Codigo : </label>
@@ -20,8 +28,8 @@
                                 <label for="md_checkbox_9">Generar Codigo</label>
                             </div>
                         </div>
-                        <input tabindex="2" [(ngModel)]="codigo" formControlName="Codigo" name="Codigo" required type="text" placeholder="Codigo" class="form-control">
-                    </div>
+                    <input tabindex="2" [(ngModel)]="codigo" formControlName="Codigo" name="Codigo" required type="text" placeholder="Codigo" class="form-control">
+                </div> -->
                     <div class="col-sm-6 form-group">
                         <div class="row">
                             <div class="col-sm-6 form-group">
@@ -36,26 +44,16 @@
                                     </option>
                                 </select>
                             </div>
+
                         </div>
+
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Sabor : </label>
-                        <select tabindex="4" formControlName="IdSabor" name="IdSabor" class="form-control">
-                            <option *ngFor="let sabor of sabores" [value]="sabor.IdSabor">
-                                {{sabor.sabor}}
-                            </option>
-                        </select>
+                        <label>Fecha vencimiento : </label><input tabindex="7" formControlName="FechaVencimiento" name="FechaVencimiento" type="date" placeholder="Fecha vencimiento..." class="form-control">
                     </div>
 
                 </div>
                 <div class="row">
-                    <div class="col-sm-6 form-group">
-                        <label>Stock (Sucursal - {{sucursalPrincipal}}): </label><input tabindex="5" formControlName="Stock" name="Stock" min="1" required type="number" placeholder="Stock..." class="form-control">
-                    </div>
-                    <div class="col-sm-6 form-group">
-                        <label>Stock alerta : </label>
-                        <input tabindex="6" formControlName="StockAlerta" name="StockAlerta" required type="number" placeholder="Stock alerta..." class="form-control">
-                    </div>
                     <div class="col-sm-6 form-group">
                         <label>Categoria : </label>
                         <select (change)="onChangeCategorias($event.target.value)" tabindex="4" formControlName="IdCategoria" name="IdCategoria" class="form-control">
@@ -72,21 +70,94 @@
                                 </option>
                             </select>
                     </div>
-                    <div class="col-sm-6 form-group">
-                        <label>Marca : </label>
-                        <select tabindex="4" formControlName="IdMarca" name="IdMarca" class="form-control">
-                                <option *ngFor="let marca of marcas" [value]="marca.IdMarca">
-                                    {{marca.Marca}}
-                                </option>
-                            </select>
-                    </div>
-                    <div class="col-sm-6 form-group">
-                        <label>Fecha vencimiento : </label><input tabindex="7" formControlName="FechaVencimiento" name="FechaVencimiento" type="date" placeholder="Fecha vencimiento..." class="form-control">
-                    </div>
-
                 </div>
+
             </div>
         </div>
+        <!-- ============================================================== -->
+        <!-- ***** Sabores ******* -->
+        <!-- ============================================================== -->
+        <div class="card">
+            <div class="card-body">
+                <!-- ===== Tabla con listado de sabores ===== -->
+                <!-- ========== Buscador producto ============ -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="ng-autocomplete">
+                            <ng-autocomplete [data]="sabores" [searchKeyword]="keywordSabor" placeholder="Carga los sabores" (selected)='selectEventSabor($event)' (inputChanged)='onChangeSearch($event)' [itemTemplate]="itemTemplateSabor" [notFoundTemplate]="notFoundTemplateSabor">
+                            </ng-autocomplete>
+                        </div>
+                        <ng-template #itemTemplateSabor let-item>
+                            <a [innerHTML]="item.Sabor"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplateSabor let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
+                </div>
+                <br>
+                <!-- ========== Codigo producto ============ -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Codigo : </label>
+                    </div>
+                    <div *ngIf="alertaCodigoVacio">
+                        <p style="color:red;">Debe proveer un codigo</p>
+                    </div>
+                    <div style="text-align:right;">
+                        <input type="checkbox" id="md_checkbox_9" class="chk-col-teal" (click)="generarCodigo()" />
+                        <label for="md_checkbox_9">Generar Codigo</label>
+                    </div>
+                    <div class="col-sm-6">
+                        <input tabindex="2" [(ngModel)]="codigoLineaSabor" formControlName="Codigo" name="Codigo" required type="text" placeholder="Codigo" class="form-control">
+                    </div>
+                    <div class="col-sm-6">
+                        <button (click)="agregarLineaSabor()" type="button" class="btn btn-info btn-circle"><i class="fa fa-plus"></i> </button>
+                    </div>
+                </div>
+                <!-- ========== Fin Codigo producto ============ -->
+
+                <!-- ========== Fin Buscador producto ============ -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Sabores agregados</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Sabor</th>
+                                                <th>Codigo</th>
+                                                <th class="text-nowrap"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let sabor_cargado of sabores_cargados">
+                                                <td>{{sabor_cargado.Sabor }}</td>
+                                                <td>{{sabor_cargado.Codigo }}</td>
+                                                <td class="text-nowrap">
+                                                    <a data-toggle="tooltip" (click)="eliminarItemSabor(sabor_cargado.IdSabor)" data-original-title="Close">
+                                                        <i class="fa fa-close text-danger"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ===== Fin Tabla con listado de sabores ===== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- ***** Fin Sabores ******* -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- ***** Precios ******* -->
+        <!-- ============================================================== -->
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -124,6 +195,9 @@
                 </div>
             </div>
         </div>
+        <!-- ============================================================== -->
+        <!-- ***** Fin Precios ******* -->
+        <!-- ============================================================== -->
         <div class="row">
             <div class="col-sm-12 form-group">
                 <label>Descripcion : </label>

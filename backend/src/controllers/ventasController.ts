@@ -74,7 +74,7 @@ altaVenta(req: Request, res: Response) {
     var pLineaVenta = req.body[1];
     var pLineaTipoPago = req.body[2];
     var pMontoTotal = req.body[3];
-    var pIdVendedor = req.params.pIdPersona;
+    var pIdVendedor = req.params.IdPersona;
 
     pool.query(`call bsp_alta_venta('${pIdVendedor}','${pIdCliente}','${pMontoTotal}')`, function(err: any, result: any){
        if(err){

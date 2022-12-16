@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AlertService } from 'src/app/services/alert.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-proveedor',
@@ -18,8 +18,10 @@ export class ProveedorComponent implements OnInit {
 
   constructor(
     private router: Router, 
+    private alertService: AlertService, 
     public proveedoresService: ProveedoresService, 
-    public activatedRoute: ActivatedRoute) {
+    public activatedRoute: ActivatedRoute
+    ) {
     activatedRoute.params.subscribe( (params: any) => {
 
       const id = params.id;
@@ -35,8 +37,11 @@ export class ProveedorComponent implements OnInit {
     this.forma = new FormGroup({
         Proveedor: new FormControl(null, Validators.required),
         CUIL: new FormControl(null, Validators.required),
-        Telefono: new FormControl(null, Validators.required ),
-        Observaciones: new FormControl(null, Validators.required )
+        Telefono: new FormControl(null ),
+        Apellidos: new FormControl(null ),
+        Nombres: new FormControl(null ),
+        Email: new FormControl(null, Validators.email ),
+        Observaciones: new FormControl(null )
       });
   }
 
@@ -47,6 +52,7 @@ export class ProveedorComponent implements OnInit {
   altaProveedor() {
 
       if ( this.forma.invalid ) {
+        this.alertService.alertFail('Formulario invalido, chequee que los campos sean correctos',false,2000);
         return;
       }
 
@@ -54,27 +60,22 @@ export class ProveedorComponent implements OnInit {
         this.forma.value.Proveedor,
         this.forma.value.CUIL,
         this.forma.value.Telefono,
-        this.forma.value.Observaciones
+        this.forma.value.Observaciones,
+        this.forma.value.Apellidos,
+        this.forma.value.Nombres,
+        this.forma.value.Email
       );
 
       this.proveedoresService.altaProveedor( proveedor )
                 .subscribe( (resp: any) => {
-                  console.log("resp en plan es : ",resp)
+                  
                   if ( resp.Mensaje === 'Ok') {
-                    Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'Plan cargado',
-                      showConfirmButton: false,
-                      timer: 2000
-                    });
-                    this.router.navigate(['/mantenimiento/planes']);
+
+                    this.alertService.alertSuccess('top-end','Proveedor cargado',false,2000);
+                    
+                    this.router.navigate(['/dashboard/proveedores']);
                   } else {
-                    Swal.fire({
-                      icon: 'error',
-                      title: 'Hubo un problema al cargar',
-                      text: 'Contactese con el administrador',
-                    });
+                    this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
                   }
                   return;
                 });

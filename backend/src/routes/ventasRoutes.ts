@@ -20,7 +20,7 @@ class VentasRoutes {
         this.router.get('/listar/tipos-pago',ventasController.listarTiposPago);
         this.router.get('/datos-pdf/:pIdTransaccion',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],ventasController.dameDatosPDFVenta);
         this.router.get('/datos/dashboard/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],ventasController.dameDatosDashboard);
-        this.router.post('/alta/:pIdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], ventasController.altaVenta);
+        this.router.post('/alta/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], ventasController.altaVenta);
     }
 
 }

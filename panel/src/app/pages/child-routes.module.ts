@@ -24,6 +24,7 @@ import { MisVentasComponent } from './mantenimientos/ventas/mis-ventas/mis-venta
 import { NuevaCompraComponent } from './mantenimientos/compras/nueva-compra/nueva-compra.component';
 import { MisComprasComponent } from './mantenimientos/compras/mis-compras/mis-compras.component';
 import { ComprasComponent } from './mantenimientos/compras/listar-compras/compras.component';
+import { ProveedorComponent } from './mantenimientos/proveedores/proveedor.component';
 
 
 const childRoutes: Routes = [
@@ -31,6 +32,8 @@ const childRoutes: Routes = [
   { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' }},
   // Mantenimientos
   { path: 'proveedores', component: ProveedoresComponent, data: { titulo: 'Proveedores' }},
+  { path: 'proveedores/nuevo', component: ProveedorComponent, data: { titulo: 'Alta de proveedor' }},
+
   { path: 'configuraciones', component: ConfiguracionesComponent, data: { titulo: 'Configuraciones' }},
   { path: 'productos', component: ProductosComponent, data: { titulo: 'Productos' }},
   { path: 'productos/nuevo', component: ProductoComponent, data: { titulo: 'Nuevo Producto' }},

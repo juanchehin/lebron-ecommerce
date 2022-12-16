@@ -15,7 +15,7 @@ class UsuariosRoutes {
     config(): void {
 
         // 
-        this.router.get('/listarPaginado/:desde',usuariosController.listarUsuariosPaginado);
+        this.router.get('/listarPaginado/:desde/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],usuariosController.listarUsuariosPaginado);
         this.router.post('/alta/:IdPersona' ,  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario] , usuariosController.altaUsuario); 
         this.router.get('/:pIdPersona', usuariosController.dameUsuario);
 

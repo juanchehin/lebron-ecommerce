@@ -29,7 +29,8 @@ import { MisVentasComponent } from './mantenimientos/ventas/mis-ventas/mis-venta
 import { NuevaCompraComponent } from './mantenimientos/compras/nueva-compra/nueva-compra.component';
 import { MisComprasComponent } from './mantenimientos/compras/mis-compras/mis-compras.component';
 import { ComprasComponent } from './mantenimientos/compras/listar-compras/compras.component';
-
+import { ProveedorComponent } from './mantenimientos/proveedores/proveedor.component';
+// import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ComprasComponent } from './mantenimientos/compras/listar-compras/compra
     PerfilComponent,
     UsuariosComponent,
     ProveedoresComponent,
+    ProveedorComponent,
     ProductosComponent,
     ProductoComponent,
     MarcasComponent,
@@ -59,7 +61,8 @@ import { ComprasComponent } from './mantenimientos/compras/listar-compras/compra
   ],
   exports: [
     DashboardComponent,
-    PagesComponent
+    PagesComponent,
+    ConfiguracionesComponent
   ],
   imports: [ 
     CommonModule,

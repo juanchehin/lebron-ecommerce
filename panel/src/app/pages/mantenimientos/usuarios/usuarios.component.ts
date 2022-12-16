@@ -24,7 +24,6 @@ export class UsuariosComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log("pasa ngonint usuarios")
     this.cargarUsuarios();
   }
 
@@ -36,8 +35,6 @@ export class UsuariosComponent implements OnInit {
 
     this.usuariosService.listarUsuariosPaginado( this.desde  )
                .subscribe( (resp: any) => {
-
-                console.log("cargarusuarios : ",resp);
 
                 this.totalUsuarios = resp[1][0].cantUsuarios;
 

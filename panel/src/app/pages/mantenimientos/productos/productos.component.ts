@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AlertService } from 'src/app/services/alert.service';
 import { ProductosService } from 'src/app/services/productos.service';
+import { SucursalesService } from 'src/app/services/sucursal.service';
 
 @Component({
   selector: 'app-productos',
@@ -12,65 +14,73 @@ export class ProductosComponent implements OnInit {
   desde = 0;
   totalAsistencias = true;
   ClasesDisponibles = 0;
-
+  IdSucursal = 1;
   productos!: any;
-  cantPlanes = 0;
-
+  sucursales: any;
   totalProductos = 0;
   cargando = true;
 
   constructor(
     public productosService: ProductosService,
+    private sucursalesService: SucursalesService,
+    public alertaService: AlertService,
     private route: ActivatedRoute
   ) {
    }
 
   ngOnInit() {
-    this.cargarProductos();
+    this.buscarProducto();
+    this.cargarSucursales();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-cargarProductos() {
+buscarProducto() {
 
-    this.productosService.listarProductosPaginado( this.desde  )
-               .subscribe( (resp: any) => {
+    const inputElement: HTMLInputElement = document.getElementById('buscarProducto') as HTMLInputElement;
+    const productoBuscado: any = inputElement.value || null;
 
-                this.totalProductos = resp[1][0].cantProductos;
-
-                this.productos = resp[0];
-
-                this.cargando = false;
-
+    this.productosService.listarProductosPaginado( this.desde , this.IdSucursal, productoBuscado  )
+               .subscribe( {
+                next: (resp: any) => { 
+  
+                  if ( resp[1][0].Mensaje === 'Ok') {
+                    
+                    this.totalProductos = resp[0][0].cantProductosBuscados;
+                    this.productos = resp[0];
+                    
+                    // this.router.navigate(['/dashboard/ventas']);
+                  } else {
+                    this.alertaService.alertFail('Ocurrio un error',false,2000);
+                  }
+                  return;
+                 },
+                error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
               });
 
   }
 
-
 // ==================================================
-//  Busca un
+// Carga
 // ==================================================
 
-  buscarProducto( ) {
+cargarSucursales() {
 
-    const inputElement: HTMLInputElement = document.getElementById('buscarProducto') as HTMLInputElement;
-    const producto: any = inputElement.value || null;
 
-    this.productosService.buscarProductos( producto , this.desde )
-            .subscribe( (resp: any) => {
+  this.sucursalesService.listarTodasSucursales(   )
+             .subscribe( (resp: any) => {
 
-              if( resp.length !== 0 ) {
-                this.productos = resp[0];
-                this.totalProductos = resp[1][0].cantProductos;
-              } else {
-                this.totalProductos = 0;
-                this.productos = resp[0];
-              }
+              console.log("resp es : ",resp)
+
+              this.sucursales  = resp[0];
+
+              this.cargando = false;
+
             });
 
-  }
+}
 
 // ==================================================
 //        Cambio de valor
@@ -89,7 +99,7 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  this.cargarProductos();
+  this.buscarProducto();
 
 }
 

@@ -42,11 +42,11 @@ export class ProductosService {
 // ==================================================
 //
 // ==================================================
-  listarProductosPaginado(desde: any){
+  listarProductosPaginado(desde: any,IdSucursal: any,pParametroBusqueda: any){
 
-    let url = URL_SERVICIOS + '/productos/listar/' + desde;
+    let url = URL_SERVICIOS + '/productos/buscar/' + desde + '/' + pParametroBusqueda + '/' + IdSucursal + '/' + this.IdPersona;
 
-    return this.http.get( url );
+    return this.http.get( url, this.headers );
   }  
 
   // ==================================================

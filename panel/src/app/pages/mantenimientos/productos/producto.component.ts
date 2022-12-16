@@ -137,15 +137,6 @@ altaProducto() {
        { 
          this.alertaFechaVencimiento = false;
        }
-       //** */
-       if(this.FechaVencimiento < new Date())
-       {
-         this.alertaFechaVencimiento = true;
-         return;
-       }else
-       { 
-         this.alertaFechaVencimiento = false;
-       }
       //** */
       // if((this.forma.value.Codigo == '') || (this.forma.value.Codigo == null) ){
       //   this.alertaCodigoVacio = true;
@@ -177,8 +168,6 @@ altaProducto() {
       );
 
       console.log("producto es : ",producto)
-
-      return;
 
       this.productosService.altaProducto( producto )
                 .subscribe( (resp: any) => {

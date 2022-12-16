@@ -8,12 +8,20 @@
                         <label>Producto:  </label>
                         <input (keyup.enter)="buscarProducto( )" #input type="text" class="form-control" placeholder="Buscar por codigo o producto..." id="buscarProducto">
                     </div>
-                    <div class="col-sm-4 form-group">
+                    <div class="col-sm-1 form-group">
                         <button (click)="buscarProducto( )" class="btn btn-primary" style="margin-top: 26px;">
                             <i class="material-icons">
                                 search
                                 </i>
                             </button>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Sucursal : </label>
+                        <select tabindex="4" [(ngModel)]="IdSucursal" name="IdSucursal" class="form-control">
+                                <option *ngFor="let sucursal of sucursales" [value]="sucursal.IdSucursal">
+                                    {{sucursal.Sucursal}}
+                                </option>
+                            </select>
                     </div>
                 </div>
                 <div class="row">

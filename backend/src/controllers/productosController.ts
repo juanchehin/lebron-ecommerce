@@ -10,21 +10,21 @@ public async altaProducto(req: Request, res: Response) {
 
     var IdCategoria = req.body[0];
     var IdSubCategoria = req.body[1];
-    var IdMarca = req.body[3];
-    var IdUnidad = req.body[4];    
-    var Producto = req.body[5];
-    var IdProveedor = req.body[6];
-    var FechaVencimiento = req.body[7];
-    var Descripcion = req.body[8];
-    var StockAlerta = req.body[9];
-    var Medida = req.body[10];
-    var PrecioCompra = req.body[11];
-    var PrecioVenta = req.body[12];
-    var PrecioMayorista = req.body[13];
-    var PrecioMeli = req.body[14];
-    var Descuento = req.body[15];
-    var Moneda = req.body[16].charAt(0);
-    var arraySaboresCodigo = req.body[17];
+    var IdMarca = req.body[2];
+    var IdUnidad = req.body[3];    
+    var Producto = req.body[4];
+    var IdProveedor = req.body[5];
+    var FechaVencimiento = req.body[6];
+    var Descripcion = req.body[7];
+    var StockAlerta = req.body[8];
+    var Medida = req.body[9];
+    var PrecioCompra = req.body[10];
+    var PrecioVenta = req.body[11];
+    var PrecioMayorista = req.body[12];
+    var PrecioMeli = req.body[13];
+    var Descuento = req.body[14];
+    var Moneda = req.body[15].charAt(0);
+    var arraySaboresCodigo = req.body[16];
 
     if(IdSubCategoria == undefined || IdSubCategoria == 'undefined')
     { 
@@ -48,8 +48,10 @@ public async altaProducto(req: Request, res: Response) {
        {
 
             arraySaboresCodigo.forEach(function (value: any) {
+                
 
-                pool.query(`call bsp_alta_sabores_codigo_producto('${result[0][0].IdProducto}','${value.IdSabor}','${value.Codigo}')`, function(err: any, result2: any){
+                pool.query(`call bsp_alta_sabores_codigo_producto('${result[1][0].pIdProducto}','${value.IdSabor}','${value.Codigo}')`, function(err: any, result2: any){
+                    
                     if(err){
                         res.status(404).json(err);
                         return;
@@ -92,11 +94,20 @@ public async listarProductosPaginado(req: Request, res: Response): Promise<void>
 // ==================================================
 //        buscarProductoPaginado
 // ==================================================
-public async buscarProducto(req: Request, res: Response): Promise<void> {
+public async buscarProductoPaginado(req: Request, res: Response): Promise<void> {
 
-    const productoBuscado = req.params.productoBuscado;
+    var desde = req.params.desde || 0;
+    desde  = Number(desde);
+    var pParametroBusqueda = req.params.pParametroBusqueda || '';
+    const IdSucursal = req.params.IdSucursal;
 
-    pool.query(`call bsp_buscar_producto('${productoBuscado}')`, function(err: any, result: any){
+    if(pParametroBusqueda == null || pParametroBusqueda == 'null')
+    {
+        pParametroBusqueda = '';
+    }
+
+    pool.query(`call bsp_buscar_producto_paginado('${req.params.IdPersona}','${pParametroBusqueda}','${desde}','${IdSucursal}')`, function(err: any, result: any){
+        
         if(err){
             res.status(400).json(err);
             return;
@@ -167,24 +178,6 @@ public async listarProductosCategoria(req: Request, res: Response): Promise<void
 }
 
 
-// ==================================================
-//        buscarProductoPaginado
-// ==================================================
-public async buscarProductoPaginado(req: Request, res: Response): Promise<void> {
-
-    const productoBuscado = req.params.pProductoBuscado;
-    var desde = req.params.pDesde || 0;
-    desde  = Number(desde);
-
-    pool.query(`call bsp_buscar_producto_paginado('${productoBuscado}','${desde}')`, function(err: any, result: any){
-        if(err){
-            res.status(400).json(err);
-            return;
-        }
-
-        res.status(200).json(result);
-    })
-}
 // ==================================================
 //        get one
 // ==================================================

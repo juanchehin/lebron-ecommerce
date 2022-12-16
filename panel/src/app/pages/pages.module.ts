@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PagesComponent } from './pages.component';
-import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { ProveedoresComponent } from './mantenimientos/proveedores/proveedores.component';
@@ -36,7 +35,6 @@ import { ComprasComponent } from './mantenimientos/compras/listar-compras/compra
   declarations: [
     DashboardComponent,
     PagesComponent,
-    AccountSettingsComponent,
     PerfilComponent,
     UsuariosComponent,
     ProveedoresComponent,
@@ -61,8 +59,7 @@ import { ComprasComponent } from './mantenimientos/compras/listar-compras/compra
   ],
   exports: [
     DashboardComponent,
-    PagesComponent,
-    AccountSettingsComponent
+    PagesComponent
   ],
   imports: [ 
     CommonModule,

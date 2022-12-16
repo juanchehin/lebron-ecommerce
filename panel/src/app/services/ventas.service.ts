@@ -91,4 +91,14 @@ dameDatosPDFVenta( pIdTransaccion: any ){
   return this.http.get( url ,this.headers);
 }
 
+
+// ==================================================
+//
+// ==================================================
+datosDashboard( ){
+
+  let url = URL_SERVICIOS + '/ventas/datos/dashboard/' + this.IdPersona;
+
+  return this.http.get( url ,this.headers);
+}
 }

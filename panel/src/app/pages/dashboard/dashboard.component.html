@@ -1,1 +1,89 @@
-<p>dashboard works!</p>
+<!-- ============================================================== -->
+<!-- Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor">{{nombreEmpresa}}</h3>
+    </div>
+    <div class="">
+        <button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- End Bread crumb and right sidebar toggle -->
+<!-- ============================================================== -->
+
+<div class="row">
+    <div class="col-lg-3">
+        <div class="card bg-info">
+            <div class="card-body">
+                <div class="d-flex no-block">
+                    <div class="m-r-20 align-self-center"><img src="../assets/images/icon/income-w.png" alt="Income" /></div>
+                    <div class="align-self-center">
+                        <h6 class="text-white m-t-10 m-b-0">Ventas del dia</h6>
+                        <h2 class="m-t-0 text-white">$ {{valorVentasDiarias}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card bg-success">
+            <div class="card-body">
+                <div class="d-flex no-block">
+                    <div class="m-r-20 align-self-center"><img src="../assets/images/icon/expense-w.png" alt="Income" /></div>
+                    <div class="align-self-center">
+                        <h6 class="text-white m-t-10 m-b-0">Compras del dia</h6>
+                        <h2 class="m-t-0 text-white">$ {{valorComprasDiarias}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card bg-primary">
+            <div class="card-body">
+                <div class="d-flex no-block">
+                    <div class="m-r-20 align-self-center"><img src="../assets/images/icon/assets-w.png" alt="Income" /></div>
+                    <div class="align-self-center">
+                        <h6 class="text-white m-t-10 m-b-0">Compras online</h6>
+                        <h2 class="m-t-0 text-white">$ {{valorComprasOnline}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card bg-danger">
+            <div class="card-body">
+                <div class="d-flex no-block">
+                    <div class="m-r-20 align-self-center"><img src="../assets/images/icon/staff-w.png" alt="Income" /></div>
+                    <div class="align-self-center">
+                        <h6 class="text-white m-t-10 m-b-0">Total Staff</h6>
+                        <h2 class="m-t-0 text-white">987,563</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!--  -->
+<!-- ============================================================== -->
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"><span class="lstick"></span>Productos mas vendidos del mes</h4>
+                <table class="table browser m-t-30 no-border">
+                    <tbody>
+                        <tr *ngFor="let producto of productosMasVendidosMes">
+                            <td>{{producto.producto}}</td>
+                            <td class="text-right">{{producto.cantidadVentasEsteMes}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

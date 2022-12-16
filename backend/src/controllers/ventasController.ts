@@ -148,6 +148,21 @@ dameDatosPDFVenta(req: Request, res: Response) {
    })
 
 }
+
+
+// ==================================================
+//        
+// ==================================================
+dameDatosDashboard(req: Request, res: Response) {
+
+    pool.query(`call bsp_dame_datos_dashboard()`, function(err: any, result: any){
+       if(err){
+           return;
+       }
+       res.json(result);
+   })
+
+}
 }
 
 

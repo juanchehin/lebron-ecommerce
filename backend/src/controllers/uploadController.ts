@@ -147,8 +147,6 @@ public async eliminarImagen(req: Request, res: Response): Promise<void> {
             return;
         }
 
-        console.log("resulrt es : ",result[0]);
-
         var archivo = result[0][0].Archivo;
         var tipo = result[0][0].Tipo;
 
@@ -168,9 +166,6 @@ public async eliminarImagen(req: Request, res: Response): Promise<void> {
                 res.status(404).json({Mensaje : 'Tipo desconocido'});
                 return;
         }
-
-        console.log("tipo 2 ",tipo)
-        console.log("path ",__dirname, `../../public/uploads/images/${ tipo }/${ archivo }`)
 
         fs.unlinkSync(path.join( __dirname, `../../public/uploads/images/${ tipo }/${ archivo }` ));
 

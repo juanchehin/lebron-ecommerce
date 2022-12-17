@@ -191,7 +191,8 @@ cargarDatosFormEditarProducto() {
                 this.proveedores = resp[3];
                 this.sucursalPrincipal = resp[4][0].Sucursal;
                 this.sabores = resp[5];
-                this.producto = resp[6];
+                this.producto = resp[6][0];
+                this.sabores_cargados = resp[7];
 
                 this.cargando = false;
 

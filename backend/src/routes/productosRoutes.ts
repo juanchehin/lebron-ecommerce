@@ -27,7 +27,7 @@ class ProductosRoutes {
         this.router.get('/promocion/home',productosController.listarPromocionesHome);
         this.router.get('/relacionados/:pIdProducto',productosController.listarProductosRelacionados);
         this.router.get('/nuevo/datos-formulario', productosController.cargarDatosFormNuevoProducto);
-        this.router.get('/editar/datos-formulario/:IdPersona/:pIdProducto',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], productosController.cargarDatosFormEditarProducto);
+        this.router.get('/editar/datos-formulario/:pIdProducto/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], productosController.cargarDatosFormEditarProducto);
         // Unidades
         this.router.get('/unidades/listar/:desde',productosController.listarUnidadesPaginado);
         this.router.get('/unidades/listar/',productosController.listarTodasUnidades);

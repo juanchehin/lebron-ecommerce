@@ -38,7 +38,7 @@ const childRoutes: Routes = [
   { path: 'configuraciones', component: ConfiguracionesComponent, data: { titulo: 'Configuraciones' }},
   { path: 'productos', component: ProductosComponent, data: { titulo: 'Productos' }},
   { path: 'productos/nuevo', component: ProductoComponent, data: { titulo: 'Nuevo Producto' }},
-  { path: 'producto/:IdProductoSabor', component: EditarProductoComponent, data: { titulo: 'Edicion de producto' }},
+  { path: 'producto/:IdProducto', component: EditarProductoComponent, data: { titulo: 'Edicion de producto' }},
 
   { path: 'productos/unidades', component: UnidadesComponent, data: { titulo: 'Unidades' }},
   { path: 'productos/unidades/nuevo', component: UnidadComponent, data: { titulo: 'Nueva Unidad' }},

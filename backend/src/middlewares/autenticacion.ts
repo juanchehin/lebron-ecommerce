@@ -39,6 +39,8 @@ exports.MismoUsuario = function(req: Request,res:Response,next: NextFunction){
     var decoded = jwt.verify(token, SEED);
     var IdPersona = decoded.IdPersona;
 
+    console.log("IdPersona : ",IdPersona)
+    console.log("IdPersonaParam : ",IdPersonaParam)
     // Pudo haberse modificado el valor en el localstorage del cliente
     if(IdPersona != IdPersonaParam){       
         return res.status(401).json({

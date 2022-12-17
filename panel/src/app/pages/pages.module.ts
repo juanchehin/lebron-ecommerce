@@ -30,7 +30,7 @@ import { NuevaCompraComponent } from './mantenimientos/compras/nueva-compra/nuev
 import { MisComprasComponent } from './mantenimientos/compras/mis-compras/mis-compras.component';
 import { ComprasComponent } from './mantenimientos/compras/listar-compras/compras.component';
 import { ProveedorComponent } from './mantenimientos/proveedores/proveedor.component';
-// import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { EditarProductoComponent } from './mantenimientos/productos/editar-producto.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +42,7 @@ import { ProveedorComponent } from './mantenimientos/proveedores/proveedor.compo
     ProveedorComponent,
     ProductosComponent,
     ProductoComponent,
+    EditarProductoComponent,
     MarcasComponent,
     UsuarioComponent,
     UnidadesComponent,

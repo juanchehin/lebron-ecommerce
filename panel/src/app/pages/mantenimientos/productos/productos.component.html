@@ -1,7 +1,6 @@
 <div class="page-content">
     <div class="container-fluid">
         <section class="box-typical">
-
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm-4 form-group">
@@ -38,71 +37,73 @@
                     </div>
                 </div>
             </div>
-            <table id="table-edit" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th width="1">
-                            #
-                        </th>
-                        <th>Codigo</th>
-                        <th>Producto</th>
-                        <th>Sabor</th>
-                        <th>Stock</th>
-                        <th>PrecioVenta</th>
-                        <th>PrecioMayorista</th>
-                        <th>Descuento(%)</th>
-                        <th>Publicado</th>
-                        <th>Destacado</th>
-                        <th>En promocion</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let producto of productos">
-                        <td>{{ producto.IdProductoSabor }}</td>
-                        <td>{{ producto.Codigo }}</td>
-                        <td>{{ producto.Producto }}</td>
-                        <td>{{ producto.Sabor }}</td>
-                        <td>{{ producto.Stock }}</td>
-                        <td>${{ producto.PrecioVenta }}</td>
-                        <td>${{ producto.PrecioMayorista }}</td>
-                        <td>{{ producto.Descuento }}</td>
-                        <td>
-                            <div class="col-sm-3">
-                                <div class="switch">
-                                    <label>
+            <div style="overflow:auto;">
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">
+                                #
+                            </th>
+                            <th>Codigo</th>
+                            <th>Producto</th>
+                            <th>Sabores</th>
+                            <th>Stock</th>
+                            <th>PrecioVenta</th>
+                            <th>PrecioMayorista</th>
+                            <th>Descuento(%)</th>
+                            <th>Publicado</th>
+                            <th>Destacado</th>
+                            <th>En promocion</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let producto of productos">
+                            <td>{{ producto.IdProductoSabor }}</td>
+                            <td>{{ producto.Codigo }}</td>
+                            <td>{{ producto.Producto }}</td>
+                            <td>{{ producto.Sabores }}</td>
+                            <td>{{ producto.Stock }}</td>
+                            <td>${{ producto.PrecioVenta }}</td>
+                            <td>${{ producto.PrecioMayorista }}</td>
+                            <td>{{ producto.Descuento }}</td>
+                            <td>
+                                <div class="col-sm-3">
+                                    <div class="switch">
+                                        <label>
                                         <input type="checkbox" [checked]="producto.Publicado" (click)="publicarProducto(producto.IdProducto)"><span class="lever switch-col-light-blue"></span></label>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="col-sm-3">
-                                <div class="switch">
-                                    <label>
+                            </td>
+                            <td>
+                                <div class="col-sm-3">
+                                    <div class="switch">
+                                        <label>
                                         <input type="checkbox" [checked]="producto.Destacado" (click)="destacarProducto(producto.IdProducto)"><span class="lever switch-col-cyan"></span></label>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="col-sm-3">
-                                <div class="switch">
-                                    <label>
+                            </td>
+                            <td>
+                                <div class="col-sm-3">
+                                    <div class="switch">
+                                        <label>
                                         <input type="checkbox" disabled [checked]="producto.Promocion" (click)="ofertaProducto(producto.IdProducto)"><span class="lever switch-col-deep-purple"></span></label>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td>
-                            <button class="btn btn-primary" type="button">
-                                    <i [routerLink]="['/dashboard/productos/imagenes',producto.IdProducto]" class="fa fa-camera" aria-hidden="true"></i>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" type="button">
+                                    <i [routerLink]="['/dashboard/productos/imagenes',producto.IdProductoSabor]" class="fa fa-camera" aria-hidden="true"></i>
                                 </button>
-                            <button class="btn btn-inline" type="button">Editar</button>
-                            <button class="btn btn-inline btn-danger" type="button">Eliminar</button>
-                        </td>
-                    </tr>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/producto',producto.IdProducto]">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaProducto(producto.IdProductoSabor)">Eliminar</button>
+                            </td>
+                        </tr>
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </section>
         <!--.box-typical-->
 

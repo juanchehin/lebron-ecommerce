@@ -16,7 +16,9 @@ class ProductosRoutes {
 
         //
         this.router.get('/:pIdProducto',productosController.dameDatosProducto); 
-        this.router.post('/alta/:IdPersona',productosController.altaProducto); 
+        this.router.post('/alta/:IdPersona',productosController.altaProducto);
+        this.router.get('/baja/:IdPersona/:pIdProducto',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.bajaProducto); 
+
         this.router.get('/listar/:desde',productosController.listarProductosPaginado); 
         this.router.get('/listar/promociones/:desde',productosController.listarPromociones);
         this.router.get('/listar/categoria/:IdCategoria/:pDesde',productosController.listarProductosCategoria);
@@ -25,6 +27,7 @@ class ProductosRoutes {
         this.router.get('/promocion/home',productosController.listarPromocionesHome);
         this.router.get('/relacionados/:pIdProducto',productosController.listarProductosRelacionados);
         this.router.get('/nuevo/datos-formulario', productosController.cargarDatosFormNuevoProducto);
+        this.router.get('/editar/datos-formulario/:IdPersona/:pIdProducto',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], productosController.cargarDatosFormEditarProducto);
         // Unidades
         this.router.get('/unidades/listar/:desde',productosController.listarUnidadesPaginado);
         this.router.get('/unidades/listar/',productosController.listarTodasUnidades);

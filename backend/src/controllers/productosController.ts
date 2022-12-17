@@ -3,10 +3,16 @@ import pool from '../database';
 
 class ProductosController {
 
+
+    
+
 // ==================================================
 //        Inserta 
 // ==================================================
 public async altaProducto(req: Request, res: Response) {
+
+    const connection = await pool.getConnection();
+    await connection.beginTransaction();
 
     var IdCategoria = req.body[0];
     var IdSubCategoria = req.body[1];
@@ -36,8 +42,12 @@ public async altaProducto(req: Request, res: Response) {
         FechaVencimiento = null;
     }
 
-    pool.query(`call bsp_alta_producto('${req.params.IdPersona}','${IdCategoria}','${IdSubCategoria}','${IdMarca}','${IdUnidad}','${IdProveedor}','${Producto}','${FechaVencimiento}','${Descripcion}',${StockAlerta},'${Medida}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${PrecioMeli}',${Descuento},'${Moneda}')`, function(err: any, result: any, fields: any){
+    const { err, result } = pool.query(`call bsp_alta_producto('${req.params.IdPersona}','${IdCategoria}','${IdSubCategoria}','${IdMarca}','${IdUnidad}','${IdProveedor}','${Producto}','${FechaVencimiento}','${Descripcion}',${StockAlerta},'${Medida}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${PrecioMeli}',${Descuento},'${Moneda}')`, async function(err: any, result: any, fields: any){
         
+
+        console.log("err : ",err)
+        console.log("resulta : ",result)
+
         if(err){
             res.status(404).json({ text: err });
             return;
@@ -50,24 +60,33 @@ public async altaProducto(req: Request, res: Response) {
             arraySaboresCodigo.forEach(function (value: any) {
                 
 
-                pool.query(`call bsp_alta_sabores_codigo_producto('${result[1][0].pIdProducto}','${value.IdSabor}','${value.Codigo}')`, function(err: any, result2: any){
+                var respuesta = pool.query(`call bsp_alta_sabores_codigo_producto('${result[1][0].pIdProducto}','${value.IdSabor}','${value.Codigo}')`, function(err2: any, result2: any){
                     
-                    if(err){
-                        res.status(404).json(err);
-                        return;
+                    console.log("err 2: ",err2)
+                    console.log("resulta 2: ",result2)
+
+
+                    if(err2){
+                        return false;
+                    }
+
+                    if(result2[0][0].Level == 'Error'){
+                        return false;
                     }
                     
                 })
-            });
-        }
-        // ==============================
 
-        if(result[0][0].Mensaje !== 'Ok'){
-            return res.json({
-                ok: false,
-                Mensaje: result[0][0].Mensaje
+                console.log("respuesta : ",respuesta)
+
+                if(!respuesta){
+                    return res.json({
+                        ok: false,
+                        Mensaje: 'Ocurrio un error'
+                    });
+                }
             });
         }
+        // ==============================      
 
         return res.json({ Mensaje: 'Ok' });
     })
@@ -83,6 +102,23 @@ public async listarProductosPaginado(req: Request, res: Response): Promise<void>
     desde  = Number(desde);
 
     pool.query(`call bsp_listar_productos_paginado('${desde}')`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(404).json(err);
+            return;
+        }
+        res.status(200).json(result);
+    })
+}
+
+// ==================================================
+//        Lista productos
+// ==================================================
+public async bajaProducto(req: Request, res: Response): Promise<void> {
+
+    var IdPersona = req.params.IdPersona;
+    var IdProducto = req.params.pIdProducto;
+
+    pool.query(`call bsp_baja_producto('${IdPersona}','${IdProducto}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json(err);
             return;
@@ -211,7 +247,23 @@ public async listarProductosRelacionados(req: Request, res: Response): Promise<v
         res.status(200).json(result);
     })
 }
+// ==================================================
+//   Cargo las marcas,categorias,subcategorias,unidades,sucursal principal
+// ==================================================
+public async cargarDatosFormEditarProducto(req: Request, res: Response): Promise<void> {
 
+    const { pIdProducto } = req.params;
+    const { IdPersona } = req.params;
+
+    pool.query(`call bsp_dame_datos_form_editar_producto('${IdPersona}','${pIdProducto}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
 
 // ==================================================
 //   Cargo las marcas,categorias,subcategorias,unidades,sucursal principal

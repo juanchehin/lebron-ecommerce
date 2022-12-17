@@ -67,6 +67,40 @@ altaProducto( producto: any ) {
     }
 );
 }
+
+  // ==================================================
+//        
+// ==================================================
+editarProducto( productoEditado: any ) {
+
+  let url = URL_SERVICIOS + '/productos/editar/' + this.IdPersona;
+
+  return this.http.post(
+    url,
+    productoEditado,
+    {
+      headers: {
+        token: this.token
+      }
+    }
+);
+}
+  // ==================================================
+//        
+// ==================================================
+bajaProducto( IdProductoSabor: any ) {
+
+  let url = URL_SERVICIOS + '/productos/baja/' + IdProductoSabor + '/' + this.IdPersona;
+
+  return this.http.get(
+    url,
+    {
+      headers: {
+        token: this.token
+      }
+    }
+);
+}
 // ==================================================
 //
 // ==================================================
@@ -93,7 +127,15 @@ cargarDatosFormNuevoProducto( ){
     return this.http.get( url );
   
 }
+// ==================================================
+// Cargo las marcas,categorias,unidades,sucursal principal y el producto
+// ==================================================
+cargarDatosFormEditarProducto(IdProducto: any ){
+  
+  let url = URL_SERVICIOS + '/productos/editar/datos-formulario/' + IdProducto + '/' + this.IdPersona;
+  return this.http.get( url , this.headers );
 
+}
 // ==================================================
 // Busca 
 // ==================================================

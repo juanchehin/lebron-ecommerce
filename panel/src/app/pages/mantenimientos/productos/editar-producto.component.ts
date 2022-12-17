@@ -7,11 +7,11 @@ import { CategoriasService } from '../../../services/categorias.service';
 import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
-  selector: 'app-producto',
-  templateUrl: './producto.component.html',
+  selector: 'app-editar-producto',
+  templateUrl: './editar-producto.component.html',
   styles: []
 })
-export class ProductoComponent implements OnInit {
+export class EditarProductoComponent implements OnInit {
 
   cargando = true;
   marcas: any;
@@ -28,6 +28,7 @@ export class ProductoComponent implements OnInit {
   deshabilitarSubcategorias = true;
   alertaCodigoVacio = false;
   alertaFechaVencimiento = false;
+  IdProducto: any;
 
   // ==============================
   IdCategoria: any;
@@ -46,6 +47,7 @@ export class ProductoComponent implements OnInit {
   PrecioMeli: any;
   Descuento: any;
   Moneda: any;
+  producto: any;
 
   // sabores
   sabores: any;
@@ -69,30 +71,12 @@ export class ProductoComponent implements OnInit {
     public unidadesService: UnidadesService,
     public alertService: AlertService
     ) {
-
   }
 
   ngOnInit() {
-    this.cargarDatosFormNuevoProducto();
+    this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
+    this.cargarDatosFormEditarProducto();
 
-    // this.forma = new FormGroup({
-    //   IdCategoria: new FormControl(null ),
-    //   IdSubCategoria: new FormControl(null ),
-    //   IdMarca: new FormControl(null),
-    //   IdUnidad: new FormControl(null ),
-    //   IdProveedor: new FormControl(null),
-    //   Producto: new FormControl(null, Validators.required),
-    //   FechaVencimiento: new FormControl(null ),
-    //   Descripcion: new FormControl(null ),
-    //   StockAlerta: new FormControl(null ),
-    //   Medida: new FormControl(null ),
-    //   PrecioCompra: new FormControl(null ),
-    //   PrecioVenta: new FormControl(null , Validators.required),
-    //   PrecioMayorista: new FormControl(null ),
-    //   PrecioMeli: new FormControl(null ),
-    //   Descuento: new FormControl(null ),
-    //   Moneda: new FormControl(null )
-    //   });
   }
 
 // ==================================================
@@ -147,7 +131,7 @@ altaProducto() {
       //   this.alertaCodigoVacio = false;
       // }
 
-      const producto = new Array(
+      const productoEditado = new Array(
         this.IdCategoria,
         this.IdSubCategoria,
         this.IdMarca,
@@ -167,9 +151,9 @@ altaProducto() {
         this.sabores_cargados
       );
 
-      console.log("producto es : ",producto)
+      console.log("productoEditado es : ",productoEditado)
 
-      this.productosService.altaProducto( producto )
+      this.productosService.editarProducto( productoEditado )
                 .subscribe( {
                   next: (resp: any) => { 
   
@@ -192,12 +176,14 @@ altaProducto() {
 // Carga
 // ==================================================
 
-cargarDatosFormNuevoProducto() {
+cargarDatosFormEditarProducto() {
 
-    this.productosService.cargarDatosFormNuevoProducto(  )
+  console.log("this.IdProducto editar perod es : ",this.IdProducto)
+
+    this.productosService.cargarDatosFormEditarProducto( this.IdProducto )
                .subscribe( (resp: any) => {
 
-                console.log("resp es : ",resp)
+                console.log("resp editar perod es : ",resp)
 
                 this.marcas = resp[0];
                 this.categorias = resp[1];
@@ -205,8 +191,26 @@ cargarDatosFormNuevoProducto() {
                 this.proveedores = resp[3];
                 this.sucursalPrincipal = resp[4][0].Sucursal;
                 this.sabores = resp[5];
+                this.producto = resp[6];
 
                 this.cargando = false;
+
+                this.IdCategoria = this.producto.IdCategoria;
+                this.IdSubCategoria = this.producto.IdSubCategoria;
+                this.IdMarca = this.producto.IdMarca;
+                this.IdUnidad = this.producto.IdUnidad;        
+                this.Producto = this.producto.Producto;
+                this.IdProveedor = this.producto.IdProveedor;
+                this.FechaVencimiento = this.producto.FechaVencimiento;
+                this.Descripcion = this.producto.Descripcion;
+                this.StockAlerta = this.producto.StockAlerta;
+                this.Medida = this.producto.Medida;
+                this.PrecioCompra = this.producto.PrecioCompra;
+                this.PrecioVenta = this.producto.PrecioVenta;
+                this.PrecioMayorista = this.producto.PrecioMayorista;
+                this.PrecioMeli = this.producto.PrecioMeli;
+                this.Descuento = this.producto.Descuento;
+                this.Moneda = this.producto.Moneda;
 
               });
 

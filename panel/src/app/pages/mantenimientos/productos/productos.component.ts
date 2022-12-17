@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { SucursalesService } from 'src/app/services/sucursal.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-productos',
@@ -114,6 +115,43 @@ cambiarDesde( valor: number ) {
 
 }
 
+
+// ==================================================
+// 
+// ==================================================
+
+bajaProducto(IdProductoSabor: string) {
+
+  Swal.fire({
+    title: '¿Desea eliminar el producto?',
+    text: "Eliminacion de proveedor",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si'
+  }).then((result: any) => {
+    if (result.isConfirmed) {
+      this.productosService.bajaProducto( IdProductoSabor )
+      .subscribe({
+        next: (resp: any) => { 
+
+          console.log("resp baja es : ",resp)
+  
+          if(resp[0][0].Mensaje == 'Ok') {
+            this.alertaService.alertSuccess('top-end','Producto dado de baja',false,900);
+            this.buscarProducto();
+            
+          } else {
+            this.alertaService.alertFail(resp[0][0].Mensaje,false,1200);
+            
+          }
+         },
+        error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].Mensaje,false,1200); }
+      });
+    }
+  })
+}
 
 publicarProducto(IdProducto: string){
   console.log("pasa publicar producto IdProducto : ",IdProducto)

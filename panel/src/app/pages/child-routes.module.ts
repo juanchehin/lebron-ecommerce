@@ -25,6 +25,7 @@ import { NuevaCompraComponent } from './mantenimientos/compras/nueva-compra/nuev
 import { MisComprasComponent } from './mantenimientos/compras/mis-compras/mis-compras.component';
 import { ComprasComponent } from './mantenimientos/compras/listar-compras/compras.component';
 import { ProveedorComponent } from './mantenimientos/proveedores/proveedor.component';
+import { EditarProductoComponent } from './mantenimientos/productos/editar-producto.component';
 
 
 const childRoutes: Routes = [
@@ -37,6 +38,8 @@ const childRoutes: Routes = [
   { path: 'configuraciones', component: ConfiguracionesComponent, data: { titulo: 'Configuraciones' }},
   { path: 'productos', component: ProductosComponent, data: { titulo: 'Productos' }},
   { path: 'productos/nuevo', component: ProductoComponent, data: { titulo: 'Nuevo Producto' }},
+  { path: 'producto/:IdProductoSabor', component: EditarProductoComponent, data: { titulo: 'Edicion de producto' }},
+
   { path: 'productos/unidades', component: UnidadesComponent, data: { titulo: 'Unidades' }},
   { path: 'productos/unidades/nuevo', component: UnidadComponent, data: { titulo: 'Nueva Unidad' }},
   { path: 'productos/marcas', component: MarcasComponent, data: { titulo: 'Marcas' }},

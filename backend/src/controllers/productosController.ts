@@ -410,6 +410,68 @@ public async altaPromocion(req: Request, res: Response) {
     })
 
 }
+// ==================================================
+//       ***** Tranferencias *****
+// ==================================================
+// ==============================
+public async listarTransferenciasPaginado(req: Request, res: Response): Promise<void> {
+
+    var desde = req.params.pDesde || 0;
+    desde  = Number(desde);
+
+    pool.query(`call bsp_listar_transferencias_paginado('${desde}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
+
+// ==================================================
+//        Lista 
+// ==================================================
+altaTransferencia(req: Request, res: Response) {
+
+    var pIdSucursalOrigen = req.body[0];
+    var pIdSucursalDestino = req.body[1];
+    var pMontoTotal = req.body[2];
+    var pLineaTransferencias = req.body[3];
+
+    var pIdUsuario = req.params.IdPersona;
+
+    pool.query(`call bsp_alta_transferencia('${pIdUsuario}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${pMontoTotal}')`, function(err: any, result: any){
+       if(err){
+            res.status(404).json(err);
+           return;
+       }      
+
+       // ==============================
+       if(result[0][0].Mensaje == 'Ok')
+       {
+
+            pLineaTransferencias.forEach(function (value: any) {
+
+                
+                console.log("value es : ",value)
+                pool.query(`call bsp_alta_linea_transferencia('${result[0][0].IdTransferencia}','${value.IdProducto}','${result[0][0].pIdSucursal}','${value.Cantidad}')`, function(err2: any, result2: any){
+                    
+                    console.log("result2 es : ",result2)
+                    console.log("err2 es : ",err2)
+
+                    if(err2){
+                        res.status(404).json(err);
+                        return;
+                    }
+
+                })
+            });
+        }
+        // ==============================
+   })
+
+}
 
 }
 

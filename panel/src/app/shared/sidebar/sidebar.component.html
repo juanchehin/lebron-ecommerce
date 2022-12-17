@@ -78,13 +78,9 @@
                         <span class="hide-menu">Transferencias </span>
                     </a>
                     <ul aria-expanded="false" [ngClass]="expandirTransferencias ? 'collapse' : ''">
-                        <li *ngIf="activarSubMenu('Transferencias','Ver')"><a routerLinkActive="active" [routerLink]="['/dashboard/productos']">Listar Productos </a></li>
-                        <li><a [routerLink]="['/dashboard/productos/nuevo']">Nuevo producto</a></li>
-                        <li><a [routerLink]="['/dashboard/productos/importar']">Importar productos</a></li>
-                        <li><a [routerLink]="['/dashboard/unidades']">Unidades</a></li>
-                        <li><a [routerLink]="['/dashboard/categorias']">Categorias</a></li>
-                        <li><a [routerLink]="['/dashboard/subcategorias']">Subcategorias</a></li>
-                        <li><a [routerLink]="['/dashboard/marcas']">Marcas</a></li>
+                        <li *ngIf="activarSubMenu('Transferencias','Ver')"><a routerLinkActive="active">Listar Transferencias </a></li>
+                        <li><a [routerLink]="['/dashboard/transferencias/nueva']">Nueva transferencia</a></li>
+                        <li><a [routerLink]="['/dashboard/transferencias']">Listar transferencia</a></li>
                     </ul>
                 </li>
                 <!-- ===== ** Promociones ** ====== -->

@@ -1,0 +1,104 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4 form-group">
+            <label>Fecha : </label><input tabindex="1" [(ngModel)]="fechaTransferencia" name="fechaTransferencia" type="date" class="form-control">
+        </div>
+        <!-- ========== Origen y destino ============ -->
+        <div class="col-sm-4 form-group">
+            <label>Sucursal origen : </label>
+            <select tabindex="2" [(ngModel)]="IdSucursalOrigen" name="IdSucursalOrigen" class="form-control">
+                <option *ngFor="let sucursal of sucursales" [value]="sucursal.IdSucursal">
+                    {{sucursal.Sucursal}}
+                </option>
+            </select>
+        </div>
+
+        <div class="col-sm-4 form-group">
+            <label>Sucursal destino : </label>
+            <select tabindex="2" [(ngModel)]="IdSucursalDestino" name="IdSucursalDestino" class="form-control">
+                <option *ngFor="let sucursal of sucursales" [value]="sucursal.IdSucursal">
+                    {{sucursal.Sucursal}}
+                </option>
+            </select>
+        </div>
+    </div>
+    <!-- ========== Fin Origen y destino ============ -->
+
+    <!-- ========== Articulos ============ -->
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Productos a transferir</h4>
+                <!-- ========== Buscador producto ============ -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="ng-autocomplete">
+                            <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
+                                [notFoundTemplate]="notFoundTemplateProducto">
+                            </ng-autocomplete>
+                        </div>
+                        <ng-template #itemTemplateProducto let-item>
+                            <a [innerHTML]="item.NombreCompleto"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplateProducto let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
+                    <div class="col-md-3">
+                        <input [(ngModel)]="cantidadLineaTransferencia" type="text" class="form-control form-control-line" placeholder="Cantidad...">
+                    </div>
+                    <div class="col-md-2">
+                        <button (click)="agregarLineaTransferencia()" type="button" class="btn btn-info btn-circle"><i class="fa fa-plus"></i> </button>
+                    </div>
+                </div>
+
+                <!-- ========== Fin Buscador producto ============ -->
+                <br/><br/>
+                <!-- ===== Tabla con listado de productos ===== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Productos agregados</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>SubTotal</th>
+                                                <th class="text-nowrap"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let linea of lineas_transferencia">
+                                                <td>{{linea.Codigo }}</td>
+                                                <td>{{linea.Producto }}</td>
+                                                <td>{{linea.Cantidad }}</td>
+                                                <td>{{linea.PrecioVenta }}</td>
+                                                <td class="text-nowrap">
+                                                    <a data-toggle="tooltip" (click)="eliminarItemTransferencia(linea.IdProducto)" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>Total Transferencia : $ {{totalTransferencia}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ===== Fin Tabla con listado de productos ===== -->
+            </div>
+        </div>
+    </div>
+    <br>
+    <button type="submit" (click)="confirmarTransferencia()" class="btn btn-info btn-lg btn-block text-uppercase" alt="default" data-toggle="modal" data-target="#responsive-modal">Confirmar transferencia</button>
+    <br>
+    <!-- ====================== -->
+</div>

@@ -229,4 +229,24 @@ editarPromocion( promocion: any ) {
     // }
 );
 }
+// ==================================================
+//  ******* Transferencias *******        
+// ==================================================
+  // ==================================================
+//        
+// ==================================================
+altaTransferencia( transferencia: any ) {
+
+  let url = URL_SERVICIOS + '/productos/transferencias/alta/' + this.IdPersona;
+
+  return this.http.post(
+    url,
+    transferencia,
+    {
+      headers: {
+        token: this.token
+      }
+    }
+);
+}
 }

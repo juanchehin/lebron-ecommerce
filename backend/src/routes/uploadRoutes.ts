@@ -23,7 +23,7 @@ class UploadRoutes {
 
         this.router.put(
             '/imagenes/producto/alta/:pNombreImagen/:pIdProductoOrMarcaOrBanner/:pTipo',
-            // mdAutenticacion.verificaToken,
+            mdAutenticacion.verificaToken,
             this.upload.single('imagen'),
             (req: any, res) => { 
                 uploadController.subirImagen(req,res)

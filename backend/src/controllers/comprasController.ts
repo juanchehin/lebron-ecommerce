@@ -8,15 +8,16 @@ class ComprasController {
 //        Lista los ingresos
 // ==================================================
 
-public async listarVentas(req: Request, res: Response): Promise<void> {
+public async listarCompras(req: Request, res: Response): Promise<void> {
 
     var desde = req.params.desde || 0;
     desde  = Number(desde);
 
     var FechaInicio = req.params.FechaInicio;
     var FechaFin = req.params.FechaFin;
+    var IdPersona = req.params.IdPersona;
 
-    pool.query(`call bsp_listar_ventas('${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_listar_compras('${IdPersona}','${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
        if(err){
         res.status(404).json(err);
            return;

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IItemStructure } from 'src/app/interfaces/item.interface';
 import { IItemTipoPagoStructure } from 'src/app/interfaces/item_tp.interface';
@@ -17,8 +17,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 })
 export class NuevaCompraComponent implements OnInit {
 
-  keywordProveedor = 'Proveedor';
-  keywordProducto = 'NombreCompleto';
+  keywordProducto = 'codigoProductoSabor';
   cargando = true;
   activarModal = false;
   productos: any;
@@ -45,10 +44,10 @@ export class NuevaCompraComponent implements OnInit {
   arrayCompra: any = [];
   itemCheckExists: any = 0;
   itemIdProducto: any;
+  @ViewChild('productosReference') productosReference: any;
 
 
   constructor(
-    private router: Router,
     public productosService: ProductosService, 
     public comprasService: ComprasService, 
     public authService: AuthService, 
@@ -105,6 +104,10 @@ altaCompra() {
 // ==================================================
 
 cargarProductos() {
+
+  if(this.productoBuscado == '' || this.productoBuscado == null){
+    return;
+  }
 
   this.productosService.cargarProductos( this.productoBuscado )
   .subscribe({
@@ -189,6 +192,10 @@ agregarLineaCompra() {
       }
      }
   }
+
+  this.itemPendiente = [];
+  this.productosReference.clear();
+  this.productosReference.close();
  
 
 }
@@ -250,11 +257,6 @@ agregarLineaCompra() {
       return;
     }
 
-    if((Number(this.IdProveedor) <= 0) || (this.IdProveedor == undefined))
-    {
-      this.alertaService.alertFail('Debe seleccionar un proveedor',false,2000);
-      return;
-    }
 
     this.altaCompra();
   }

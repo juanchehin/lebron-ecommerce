@@ -94,7 +94,7 @@
                             </td>
                             <td>
                                 <button class="btn btn-primary" type="button">
-                                    <i [routerLink]="['/dashboard/productos/imagenes',producto.IdProductoSabor]" class="fa fa-camera" aria-hidden="true"></i>
+                                    <i [routerLink]="['/dashboard/productos/imagenes',producto.IdProducto]" class="fa fa-camera" aria-hidden="true"></i>
                                 </button>
                                 <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/producto',producto.IdProducto]">Editar</button>
                                 <button class="btn btn-inline btn-danger" type="button" (click)="bajaProducto(producto.IdProducto)">Eliminar</button>

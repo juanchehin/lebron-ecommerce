@@ -15,8 +15,8 @@ class ComprasRoutes {
     config(): void {
 
         // 
-        this.router.get('/listar/:desde/:FechaInicio/:FechaFin',comprasController.listarVentas);
-        this.router.get('/listar/mis-compras/:pDesde/:pFecha/:pIdPersona',comprasController.listarVentasIdUsuario);
+        this.router.get('/listar/:desde/:FechaInicio/:FechaFin/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], comprasController.listarCompras);
+        // this.router.get('/listar/mis-compras/:pDesde/:pFecha/:pIdPersona',comprasController.listarVentasIdUsuario);
         this.router.post('/alta/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], comprasController.altaCompra);
     }
 

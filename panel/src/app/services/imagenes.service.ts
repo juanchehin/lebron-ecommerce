@@ -92,35 +92,30 @@ async subirImagen(archivo: any,NombreImagen: any,IdProducto: any, tipo: any) {
       const formData = new FormData();
       formData.append('imagen', archivo);
 
-      console.log("formData : ", formData);
-
       const resp = await fetch( url, {
         method: 'PUT',
-        // headers: {
-        //   token: this.personaService.token
-        // },
+        headers: {
+          token: this.token
+        },
         body: formData
       });
 
-      console.log("resp.ok es : ",resp.ok);
 
       const data = await resp.json();
 
       if ( resp.ok ) {
         
-        return data.nombreArchivo;
+        return true;
       } else {
         
         console.log(data.msg);
-        // return false;
+        return false;
       }
 
     } catch (error) {
       console.log(error);
-      // return false;
+      return false;
     }
-
-    return null;
 
 
 }

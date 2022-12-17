@@ -19,6 +19,7 @@ class ProductosRoutes {
         this.router.post('/alta/:IdPersona',productosController.altaProducto);
         this.router.get('/baja/:IdPersona/:pIdProducto',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.bajaProducto); 
 
+        this.router.get('/listar/busqueda/autocomplete/:pProductoBuscado',  [mdAutenticacion.verificaToken],productosController.buscarProductoAutoComplete); 
         this.router.get('/listar/:desde',productosController.listarProductosPaginado); 
         this.router.get('/listar/promociones/:desde',productosController.listarPromociones);
         this.router.get('/listar/categoria/:IdCategoria/:pDesde',productosController.listarProductosCategoria);

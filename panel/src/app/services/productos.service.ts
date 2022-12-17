@@ -106,17 +106,9 @@ bajaProducto( IdProductoSabor: any ) {
 // ==================================================
 cargarProductos( parametroBusqueda: string){
 
-  if(parametroBusqueda == '' || parametroBusqueda == null){
-    let url = URL_SERVICIOS + '/productos/listar/' + 0;
-    return this.http.get( url );
-  }
-  else
-  { 
-    let url = URL_SERVICIOS + '/productos/listar/busqueda/' + parametroBusqueda;
-    return this.http.get( url );
-  }
-
-
+    let url = URL_SERVICIOS + '/productos/listar/busqueda/autocomplete/' + parametroBusqueda;
+    return this.http.get( url, this.headers ); 
+    
 }
 // ==================================================
 // Cargo las marcas,categorias,unidades,sucursal principal

@@ -153,6 +153,28 @@ public async buscarProductoPaginado(req: Request, res: Response): Promise<void> 
     })
 }
 // ==================================================
+//        buscarProductoPaginado
+// ==================================================
+public async buscarProductoAutoComplete(req: Request, res: Response): Promise<void> {
+
+    var pParametroBusqueda = req.params.pParametroBusqueda || '';
+
+    if(pParametroBusqueda == null || pParametroBusqueda == 'null')
+    {
+        pParametroBusqueda = '';
+    }
+
+    pool.query(`call bsp_buscar_producto_autocomplete('${pParametroBusqueda}')`, function(err: any, result: any){
+        
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
+// ==================================================
 //        Lista
 // ==================================================
 public async listarPromociones(req: Request, res: Response): Promise<void> {

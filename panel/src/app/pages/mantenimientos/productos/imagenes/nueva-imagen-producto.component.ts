@@ -50,9 +50,10 @@ onUpload() {
 
   this.imagenesService
       .subirImagen( this.file,this.nombreImagen,this.IdProducto,'productos')
-      .then( img => {
-        if(img){
-          Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
+      .then( (resp: any) => {
+        console.log("resp es : ",resp)
+        if(resp){
+          Swal.fire('Guardado', 'Imagen cargada', 'success');
           this.router.navigate(['dashboard/productos/imagenes/', this.IdProducto]);
         }
         else{

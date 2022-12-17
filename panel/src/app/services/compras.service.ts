@@ -45,9 +45,9 @@ export class ComprasService {
 // ==================================================
   listarComprasFecha(desde: number , FechaInicio: string , FechaFin: string){
 
-    let url = URL_SERVICIOS + '/compras/listar/' + desde + '/' + FechaInicio + '/' + FechaFin;
+    let url = URL_SERVICIOS + '/compras/listar/' + desde + '/' + FechaInicio + '/' + FechaFin + '/' + this.IdPersona;
 
-    return this.http.get( url );
+    return this.http.get( url,this.headers );
   }
 
 // ==================================================

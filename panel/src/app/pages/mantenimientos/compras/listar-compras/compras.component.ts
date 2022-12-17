@@ -12,7 +12,7 @@ export class ComprasComponent implements OnInit {
   cargando = false;
   fecha: any;
 
-  FechaInicio = new Date(2000, 1 , 1);
+  FechaInicio = new Date(Date.now());
   FechaFin = new Date(Date.now());
   controlFechas = false;
 
@@ -102,8 +102,6 @@ cargarCompras() {
 
               this.compras = resp[0];
 
-              console.log("resp es : ",resp);
-
               if (resp[1][0].cantCompras === undefined || resp[1][0].cantCompras === null) {
                 this.totalCompras = 0;
               }
@@ -133,20 +131,6 @@ cambiarDesde( valor: number ) {
   this.desde += valor;
   this.cargarCompras();
 
-}
-
-
-// ==================================================
-//        Mensaje al presionar un boton
-// ==================================================
-mensajeIngreso() {
-  // Swal.fire({
-  //   position: 'top-end',
-  //   icon: 'info',
-  //   title: 'Seleccione el cliente',
-  //   showConfirmButton: false,
-  //   timer: 2000
-  // });
 }
 
 // ==================================================

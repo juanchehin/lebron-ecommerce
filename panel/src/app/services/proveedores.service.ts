@@ -78,5 +78,24 @@ altaProveedor( proveedor: any ) {
 );
 }
 
+// ==================================================
+//        
+// ==================================================
+bajaProveedor( IdProveedor: any ) {
+
+  // console.log("usuario es : ",usuario);
+
+  let url = URL_SERVICIOS + '/proveedores/baja/' + IdProveedor + '/' + this.IdPersona + '/one';
+
+  return this.http.get(
+    url,
+    {
+      headers: {
+        token: this.token
+      }
+    }
+);
+}
+
 
 }

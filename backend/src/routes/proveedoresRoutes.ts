@@ -18,6 +18,8 @@ class ProveedoresRoutes {
         this.router.get('/listar/:IdPersona/:desde',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario] ,proveedoresController.listarProveedoresPaginado); 
         this.router.get('/dame/todos/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario] ,proveedoresController.listarTodosProveedores); 
         this.router.post('/alta/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],proveedoresController.altaProveedor);
+        this.router.get('/baja/:pIdProveedor/:IdPersona/one',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario] ,proveedoresController.bajaProveedor); 
+
 
     }
 

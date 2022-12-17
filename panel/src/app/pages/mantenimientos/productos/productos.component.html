@@ -46,21 +46,27 @@
                         </th>
                         <th>Codigo</th>
                         <th>Producto</th>
+                        <th>Sabor</th>
+                        <th>Stock</th>
                         <th>PrecioVenta</th>
+                        <th>PrecioMayorista</th>
                         <th>Descuento(%)</th>
                         <th>Publicado</th>
                         <th>Destacado</th>
                         <th>En promocion</th>
-                        <th>Oferta</th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let producto of productos">
-                        <td>{{ producto.IdProducto }}</td>
+                        <td>{{ producto.IdProductoSabor }}</td>
                         <td>{{ producto.Codigo }}</td>
                         <td>{{ producto.Producto }}</td>
+                        <td>{{ producto.Sabor }}</td>
+                        <td>{{ producto.Stock }}</td>
                         <td>${{ producto.PrecioVenta }}</td>
+                        <td>${{ producto.PrecioMayorista }}</td>
                         <td>{{ producto.Descuento }}</td>
                         <td>
                             <div class="col-sm-3">
@@ -82,7 +88,7 @@
                             <div class="col-sm-3">
                                 <div class="switch">
                                     <label>
-                                        <input type="checkbox" [checked]="producto.Oferta" (click)="ofertaProducto(producto.IdProducto)"><span class="lever switch-col-deep-purple"></span></label>
+                                        <input type="checkbox" disabled [checked]="producto.Promocion" (click)="ofertaProducto(producto.IdProducto)"><span class="lever switch-col-deep-purple"></span></label>
                                 </div>
                             </div>
                         </td>

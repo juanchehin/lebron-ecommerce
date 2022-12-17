@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertService } from 'src/app/services/alert.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-proveedores',
@@ -19,7 +21,8 @@ export class ProveedoresComponent implements OnInit {
   cargando = true;
 
   constructor(
-    public proveedoresService: ProveedoresService
+    public proveedoresService: ProveedoresService,
+    private alertService: AlertService
   ) {
    }
 
@@ -32,7 +35,6 @@ export class ProveedoresComponent implements OnInit {
 // ==================================================
 
 cargarProveedores() {
-  console.log("pasa cargar cargarProveedores");
 
     this.proveedoresService.listarProveedoresPaginado( this.desde  )
                .subscribe( (resp: any) => {
@@ -49,79 +51,6 @@ cargarProveedores() {
 
   }
 
-
-// ==================================================
-//  Busca un cliente por plan o por todos
-// ==================================================
-
-  buscarCliente( ) {
-
-    const inputElement: HTMLInputElement = document.getElementById('buscarApellidos') as HTMLInputElement;
-    const Apellidos: any = inputElement.value || null;
-
-    const inputElement1: HTMLInputElement = document.getElementById('buscarNombres') as HTMLInputElement;
-    const Nombres: any = inputElement1.value || null;
-
-    // this.personaService.buscarClientePorPlan( Apellidos, Nombres , this.planSeleccionado.toString()  )
-    //         .subscribe( (resp: any) => {
-
-    //           if( resp.length !== 0 ) {
-    //             this.clientes = resp[0];
-    //             this.totalClientes = resp[1][0].cantCli;
-    //           } else {
-    //             this.totalClientes = 0;
-    //             this.clientes = resp[0];
-    //           }
-    //         });
-
-  }
-
-// // ==================================================
-// //        Borra una persona
-// // ==================================================
-
-//  eliminarCliente( cliente: any ) {
-
-//     Swal.fire({
-//       title: '¿Esta seguro?',
-//       text: 'Esta a punto de borrar a ' + cliente.Nombres + ' ' + cliente.Apellidos,
-//       icon: 'warning',
-//       showCancelButton: true,
-//       confirmButtonColor: '#3085d6',
-//       cancelButtonColor: '#d33',
-//       confirmButtonText: 'Si, borrar!'
-//     })
-//     .then( borrar => {
-
-//       if (borrar) {
-
-//         const parametro = cliente.IdPersona.toString();
-
-//         this.personaService.eliminarCliente( parametro )
-//                   .subscribe( (resp: any) => {
-//                       this.cargarClientes();
-//                       if ( resp.mensaje === 'Ok') {
-//                         Swal.fire({
-//                           position: 'top-end',
-//                           icon: 'success',
-//                           title: 'Cliente eliminado',
-//                           showConfirmButton: false,
-//                           timer: 2000
-//                         });
-//                       } else {
-//                         Swal.fire({
-//                           icon: 'error',
-//                           title: 'Error al eliminar',
-//                           text: 'Contactese con el administrador',
-//                         });
-//                       }
-//                       this.cargarClientes();
-
-//                     });
-
-//                   }
-//                 });
-//               }
 // ==================================================
 //        Cambio de valor
 // ==================================================
@@ -144,6 +73,42 @@ cambiarDesde( valor: number ) {
 }
 
 
+// ==================================================
+// 
+// ==================================================
+
+bajaProveedor(IdProveedor: string) {
+
+  Swal.fire({
+    title: '¿Desea eliminar el proveedor?',
+    text: "Eliminacion de proveedor",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si'
+  }).then((result: any) => {
+    if (result.isConfirmed) {
+      this.proveedoresService.bajaProveedor( IdProveedor )
+      .subscribe({
+        next: (resp: any) => { 
+  
+          if(resp[0][0].Mensaje == 'Ok') {
+            this.alertService.alertSuccess('top-end','Proveedor dado de baja',false,900);
+            this.cargarProveedores();
+            
+          } else {
+            this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
+            
+          }
+         },
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
+      });
+    }
+  })
+
+  
+  }
 
 
 }

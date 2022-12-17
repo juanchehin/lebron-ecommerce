@@ -42,9 +42,20 @@ buscarProducto() {
     const inputElement: HTMLInputElement = document.getElementById('buscarProducto') as HTMLInputElement;
     const productoBuscado: any = inputElement.value || null;
 
+    console.log("productoBuscado : ",productoBuscado)
+
     this.productosService.listarProductosPaginado( this.desde , this.IdSucursal, productoBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
+
+                  console.log("resp busc es : ",resp)
+
+                  if(resp[0].length <= 0)
+                  { 
+                    this.productos = [];
+                    this.totalProductos = 0;
+                    return;
+                  }
   
                   if ( resp[1][0].Mensaje === 'Ok') {
                     

@@ -65,7 +65,22 @@ public async altaProveedor(req: Request, res: Response) {
     })
 
 }
+// ==================================================
+//        da de baja un proveedor 
+// ==================================================
+public async bajaProveedor(req: Request, res: Response): Promise<void> {
+    
+    var IdProveedor = req.params.pIdProveedor;
+    var IdUsuario = req.params.IdPersona;
 
+    pool.query(`call bsp_baja_proveedor('${IdUsuario}','${IdProveedor}')`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(404).json(err);
+            return;
+        }
+        res.status(200).json(result);
+    })
+}
 }
 
 

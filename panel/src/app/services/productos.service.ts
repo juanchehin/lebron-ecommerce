@@ -241,6 +241,16 @@ editarPromocion( promocion: any ) {
 // ==================================================
 //  ******* Transferencias *******        
 // ==================================================
+
+// ==================================================
+//
+// ==================================================
+listarTransferenciasPaginado(desde: any,fecha: any){
+
+  let url = URL_SERVICIOS + '/productos/transferencias/listar/' + desde + '/' + fecha + '/' + this.IdPersona;
+
+  return this.http.get( url, this.headers );
+}  
   // ==================================================
 //        
 // ==================================================
@@ -251,6 +261,22 @@ altaTransferencia( transferencia: any ) {
   return this.http.post(
     url,
     transferencia,
+    {
+      headers: {
+        token: this.token
+      }
+    }
+);
+}
+  // ==================================================
+//        
+// ==================================================
+bajaTransferencia( IdTransferencia: any ) {
+
+  let url = URL_SERVICIOS + '/productos/transferencias/baja/' + IdTransferencia + '/' + this.IdPersona;
+
+  return this.http.get(
+    url,
     {
       headers: {
         token: this.token

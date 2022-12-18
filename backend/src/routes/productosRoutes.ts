@@ -37,9 +37,9 @@ class ProductosRoutes {
         // Promociones
         this.router.get('/promociones/listar/:pDesde',productosController.listarPromocionesPaginado);
         this.router.post('/promocion/alta',productosController.altaPromocion);
-        // Unidades
+        // Transferencias
         this.router.post('/transferencias/alta/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.altaTransferencia); 
-
+        this.router.get('/transferencias/listar/:pDesde/:pFecha/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], productosController.listarTransferenciasPaginado);
     }
 
 }

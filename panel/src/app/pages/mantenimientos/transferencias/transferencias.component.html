@@ -4,14 +4,21 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm-4">
-                        <h3 class="card-title">Cantidad proveedores ( <small> {{ totalProveedores }} </small> )</h3>
+                        <h3 class="card-title">Cantidad Transferencias ( <small> {{ totalTransferencias }} </small> )</h3>
                     </div>
-                    <div class="col-4">
+                    <div>
+                        <label for="start">Fecha : &nbsp;</label>
+
+                        <input type="date" [(ngModel)]="fecha" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                            refresh
+                            </span></button>
+
                     </div>
                     <div class="col-sm-4">
-                        <button [routerLink]="['/dashboard/proveedores/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                        <button [routerLink]="['/dashboard/transferencia/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                           <i class="fa fa-plus"></i> 
-                          Nuevo Proveedor
+                          Nuevo Transferencia
                         </button>
                     </div>
                 </div>
@@ -21,32 +28,30 @@
                             <th width="1">
                                 #
                             </th>
-                            <th>Proveedor</th>
-                            <th>CUIL</th>
+                            <th>Fecha Alta</th>
+                            <th>Suc. Origen</th>
+                            <th>Suc. Destino</th>
+                            <th>Monto Total</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let proveedor of proveedores">
-                            <td>{{ proveedor.IdProveedor }}</td>
-                            <td>{{ proveedor.Proveedor }}</td>
-                            <td>{{ proveedor.CUIL }}</td>
+                        <tr *ngFor="let transferencia of transferencias">
+                            <td>{{ transferencia.IdTransferencia }}</td>
+                            <td>{{ transferencia.Fecha }}</td>
+                            <td>{{ transferencia.SucOrigen }}</td>
+                            <td>{{ transferencia.SucDestino }}</td>
+                            <td>{{ transferencia.MontoTotal }}</td>
                             <td>
                                 <button class="btn btn-inline" type="button">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaProveedor(proveedor.IdProveedor)">Eliminar</button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaTransferencia(transferencia.IdTransferencia)">Eliminar</button>
                             </td>
                         </tr>
-
                     </tbody>
                 </table>
-
-
-
             </div>
         </section>
-
         <!--.box-typical-->
-
     </div>
     <div role="group" aria-label="Basic example" style="text-align: right;">
         <button (click)="cambiarDesde(-10) " type="button" class="btn btn-default-outline">Anteriores</button>

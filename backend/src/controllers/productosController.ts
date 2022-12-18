@@ -442,7 +442,11 @@ public async listarTransferenciasPaginado(req: Request, res: Response): Promise<
     var desde = req.params.pDesde || 0;
     desde  = Number(desde);
 
-    pool.query(`call bsp_listar_transferencias_paginado('${desde}')`, function(err: any, result: any){
+    var pFecha = req.params.pFecha;
+    var pIdUsuario = req.params.IdPersona;
+
+    pool.query(`call bsp_listar_transferencias_paginado('${pIdUsuario}','${desde}','${pFecha}')`, function(err: any, result: any){
+
         if(err){
             res.status(400).json(err);
             return;

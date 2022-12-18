@@ -1,11 +1,9 @@
 import { Request, Response } from 'express';
 import pool from '../database';
 
-class ProductosController {
-
+class ProductosController {   
 
     
-
 // ==================================================
 //        Inserta 
 // ==================================================
@@ -457,9 +455,7 @@ public async listarTransferenciasPaginado(req: Request, res: Response): Promise<
 // ==================================================
 //         
 // ==================================================
-altaTransferencia(req: Request, res: Response) {
-
-    console.log("req.body es : ",req.body)
+public async altaTransferencia(req: Request, res: Response, callback: any) {
 
     var fechaTransferencia = req.body[0];
     var pIdSucursalOrigen = req.body[1];
@@ -469,61 +465,60 @@ altaTransferencia(req: Request, res: Response) {
 
     var pIdUsuario = req.params.IdPersona;
 
-    pool.query(`call bsp_alta_transferencia('${pIdUsuario}','${fechaTransferencia}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${totalTransferencia}')`, function(err: any, result: any){
-
-        console.log("result es : ",result)
-       console.log("err es : ",err)
+    pool.query(`call bsp_alta_transferencia('${pIdUsuario}','${fechaTransferencia}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${totalTransferencia}')`, (err: any, result: any) =>{
 
 
-       if(err){
-            res.status(404).json(err);
-           return;
-       }      
+       if(err || result[0][0].Mensaje != 'Ok' || result[0][0].Level == 'Error'){
+            callback(err,null);
 
-       // ==============================
-       if(result[0][0].Mensaje == 'Ok')
-       {
+            pool.query(`call bsp_baja_transferencia('${result[0][0].pIdTransferencia}')`, function(err: any, result: any){
+                if(err){
+                    return;
+                }
+            })
 
-            pLineaTransferencias.forEach(function (value: any) {
-
-                
-                console.log("value es : ",value)
-                console.log("result[0][0].pIdTransferencia es : ",result[0][0].pIdTransferencia)
-
-
-                pool.query(`call bsp_alta_linea_transferencia('${result[0][0].pIdTransferencia}','${value.IdProductoSabor}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${value.Cantidad}')`, function(err2: any, result2: any){
-                    
-                    console.log("result2 es : ",result2)
-                    console.log("err2 es : ",err2)
-
-                    if(err2 || result[0][0].Mensaje != 'Ok'){
-                        res.status(404).json(err);
-                        pool.query(`call bsp_baja_transferencia('${result[0][0].pIdTransferencia}')`, function(err: any, result: any){
-                            if(err){
-                                res.status(400).json(err);
-                                return;
-                            }
-                    
-                            res.status(200).json(result);
-                        })
-                        return;
-                    }
-
-                })
-            });
-        }
-        // ==============================
-        // CONFIRMAR TRANSFERENCIA ....
-        pool.query(`call bsp_confirmar_transferencia('${result[0][0].pIdTransferencia}')`, function(err: any, result: any){
-            if(err){
-                res.status(400).json(err);
-                return;
-            }
+            pool.query(`call bsp_alta_log('${pIdUsuario}',"${String(result[0][0].Message)}",'productosController','${result[0][0].Code}','bsp_alta_linea_transferencia','${err}')`, function(err: any, result: any){               
+                if(err){
+                    return;
+                }
+            })
+            res.status(404).json(result[0][0].Mensaje);
+            return;
+       }
+       else{ 
+        pLineaTransferencias.forEach(function (value: any) {
     
-            res.status(200).json(result);
-        })
-   })
+            pool.query(`call bsp_alta_linea_transferencia('${result[0][0].pIdTransferencia}','${value.IdProductoSabor}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${value.Cantidad}')`, function (err2: any, result2: any) {
+    
+    
+                if (err2 || result2[0][0].Mensaje != 'Ok' || result2[0][0].Level == 'Error') {
+    
+                    pool.query(`call bsp_baja_transferencia('${result[0][0].pIdTransferencia}')`, function (err: any, result: any) {
+                        if (err) {
+                            return;
+                        }
+                    });
+    
+                    pool.query(`call bsp_alta_log('${pIdUsuario}',"${String(result2[0][0].Message)}",'productosController','${result2[0][0].Code}','bsp_alta_linea_transferencia','${err2}')`, function (err: any, result: any) {
 
+                    });
+                    
+                    res.status(400).json({Mensaje: 'Error'});
+                    return;
+                }
+                else
+                {
+                    console.log("pasa ok")
+                    res.status(200).json({Mensaje: 'Ok'});
+                }
+            });
+            
+        });
+    
+       }
+        
+    });
+   
 }
 
 }

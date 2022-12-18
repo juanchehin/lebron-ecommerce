@@ -70,23 +70,25 @@ export class TransferenciaComponent implements OnInit {
       );
 
       this.productosService.altaTransferencia( transferencia )
-                .subscribe( (resp: any) => {
-
-                  console.log("resp alta trans ",resp)
+      .subscribe({
+        next: (resp: any) => { 
+  
+          console.log("resp alta trans ",resp)
                   
-                  if ( resp.Mensaje === 'Ok') {
+          if ( resp.Mensaje === 'Ok') {
 
-                    this.alertService.alertSuccess('top-end','Transferencia confirmada',false,2000);
-                    
-                    // this.router.navigate(['/dashboard/proveedores']);
-                  } else {
-                    this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
-                  }
-                  return;
-                });
+            this.alertService.alertSuccess('top-end','Transferencia confirmada',false,2000);
+            
+            // this.router.navigate(['/dashboard/proveedores']);
+          } else {
+            this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
+          }
+          return;
+         },
+        error: () => { this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000); }
+      });
 
-
-              }
+}
 
 // ==================================================
 // Carga

@@ -174,6 +174,31 @@ public async buscarProductoAutoComplete(req: Request, res: Response): Promise<vo
         res.status(200).json(result);
     })
 }
+
+
+// ==================================================
+//        buscarProductoAutoCompleteTransferencia
+// ==================================================
+public async buscarProductoAutoCompleteTransferencia(req: Request, res: Response): Promise<void> {
+
+    var pParametroBusqueda = req.params.pParametroBusqueda || '';
+    var pIdSucursalOrigen = req.params.pIdSucursalOrigen || '';
+
+    if(pParametroBusqueda == null || pParametroBusqueda == 'null')
+    {
+        pParametroBusqueda = '';
+    }
+
+    pool.query(`call bsp_buscar_producto_autocomplete_sucursal('${pParametroBusqueda}','${pIdSucursalOrigen}')`, function(err: any, result: any){
+        
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
 // ==================================================
 //        Lista
 // ==================================================
@@ -430,18 +455,26 @@ public async listarTransferenciasPaginado(req: Request, res: Response): Promise<
 }
 
 // ==================================================
-//        Lista 
+//         
 // ==================================================
 altaTransferencia(req: Request, res: Response) {
 
-    var pIdSucursalOrigen = req.body[0];
-    var pIdSucursalDestino = req.body[1];
-    var pMontoTotal = req.body[2];
-    var pLineaTransferencias = req.body[3];
+    console.log("req.body es : ",req.body)
+
+    var fechaTransferencia = req.body[0];
+    var pIdSucursalOrigen = req.body[1];
+    var pIdSucursalDestino = req.body[2];
+    var totalTransferencia = req.body[3];
+    var pLineaTransferencias = req.body[4];
 
     var pIdUsuario = req.params.IdPersona;
 
-    pool.query(`call bsp_alta_transferencia('${pIdUsuario}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${pMontoTotal}')`, function(err: any, result: any){
+    pool.query(`call bsp_alta_transferencia('${pIdUsuario}','${fechaTransferencia}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${totalTransferencia}')`, function(err: any, result: any){
+
+        console.log("result es : ",result)
+       console.log("err es : ",err)
+
+
        if(err){
             res.status(404).json(err);
            return;
@@ -455,13 +488,24 @@ altaTransferencia(req: Request, res: Response) {
 
                 
                 console.log("value es : ",value)
-                pool.query(`call bsp_alta_linea_transferencia('${result[0][0].IdTransferencia}','${value.IdProducto}','${result[0][0].pIdSucursal}','${value.Cantidad}')`, function(err2: any, result2: any){
+                console.log("result[0][0].pIdTransferencia es : ",result[0][0].pIdTransferencia)
+
+
+                pool.query(`call bsp_alta_linea_transferencia('${result[0][0].pIdTransferencia}','${value.IdProductoSabor}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${value.Cantidad}')`, function(err2: any, result2: any){
                     
                     console.log("result2 es : ",result2)
                     console.log("err2 es : ",err2)
 
-                    if(err2){
+                    if(err2 || result[0][0].Mensaje != 'Ok'){
                         res.status(404).json(err);
+                        pool.query(`call bsp_baja_transferencia('${result[0][0].pIdTransferencia}')`, function(err: any, result: any){
+                            if(err){
+                                res.status(400).json(err);
+                                return;
+                            }
+                    
+                            res.status(200).json(result);
+                        })
                         return;
                     }
 
@@ -469,6 +513,15 @@ altaTransferencia(req: Request, res: Response) {
             });
         }
         // ==============================
+        // CONFIRMAR TRANSFERENCIA ....
+        pool.query(`call bsp_confirmar_transferencia('${result[0][0].pIdTransferencia}')`, function(err: any, result: any){
+            if(err){
+                res.status(400).json(err);
+                return;
+            }
+    
+            res.status(200).json(result);
+        })
    })
 
 }

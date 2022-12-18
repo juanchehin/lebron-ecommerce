@@ -12,11 +12,11 @@ import { SucursalesService } from 'src/app/services/sucursal.service';
 })
 export class TransferenciaComponent implements OnInit {
 
-  forma!: FormGroup;
   cargando = true;
-  fechaTransferencia: any;
-  IdSucursalOrigen: any;
-  IdSucursalDestino: any;
+  activarBusquedaProductosSucursal = false;
+  fechaTransferencia = new Date();
+  IdSucursalOrigen = 0;
+  IdSucursalDestino = 0;
   productos: any;
   itemPendiente: any = [];
   totalTransferencia: number = 0;
@@ -24,8 +24,8 @@ export class TransferenciaComponent implements OnInit {
   productoBuscado = '';
   lineas_transferencia: any = [];
   itemCheckExists: any = 0;
-  itemIdProducto: any;
-  keywordProducto = 'NombreCompleto';
+  itemIdProductoSabor: any;
+  keywordProducto = 'codigoProductoSabor';
   sucursales: any;
 
 
@@ -37,14 +37,6 @@ export class TransferenciaComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public alertaService: AlertService
     ) {
-    activatedRoute.params.subscribe( (params: any) => {
-
-      const id = params.id;
-
-      if ( id !== 'nuevo' ) {
-      }
-
-    });
 
   }
 
@@ -58,24 +50,35 @@ export class TransferenciaComponent implements OnInit {
 
   confirmarTransferencia() {
 
+    if ( this.IdSucursalOrigen == 0 || this.IdSucursalDestino == 0) {
+      this.alertaService.alertFail('Debe seleccionar sucursal origen y destino',false,2000);
+      return;
+    }
+
+
+    if ( this.IdSucursalOrigen ==  this.IdSucursalDestino) {
+      this.alertaService.alertFail('Las sucursales origen y destino deben ser diferentes',false,2000);
+      return;
+    }
+
       const transferencia = new Array(
         this.fechaTransferencia,
-        this.forma.value.CUIL,
-        this.forma.value.Telefono,
-        this.forma.value.Observaciones,
-        this.forma.value.Apellidos,
-        this.forma.value.Nombres,
-        this.forma.value.Email
+        this.IdSucursalOrigen,
+        this.IdSucursalDestino,
+        this.totalTransferencia,
+        this.lineas_transferencia
       );
 
       this.productosService.altaTransferencia( transferencia )
                 .subscribe( (resp: any) => {
+
+                  console.log("resp alta trans ",resp)
                   
                   if ( resp.Mensaje === 'Ok') {
 
                     this.alertService.alertSuccess('top-end','Transferencia confirmada',false,2000);
                     
-                    this.router.navigate(['/dashboard/proveedores']);
+                    // this.router.navigate(['/dashboard/proveedores']);
                   } else {
                     this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
                   }
@@ -89,9 +92,20 @@ export class TransferenciaComponent implements OnInit {
 // Carga
 // ==================================================
 
-cargarProductos() {
+cargarProductosTranferencia() {
 
-  this.productosService.cargarProductos( this.productoBuscado )
+  
+  if(this.IdSucursalOrigen > 0)
+    {
+      this.activarBusquedaProductosSucursal = true;
+    }
+    else
+    {
+      this.activarBusquedaProductosSucursal = false;
+      return;
+    }
+
+  this.productosService.cargarProductosTranferencia( this.productoBuscado, this.IdSucursalOrigen )
              .subscribe( (resp: any) => {
 
               this.productos = resp[0];
@@ -105,10 +119,11 @@ cargarProductos() {
 
 cargarSucursales() {
 
+
   this.sucursalesService.listarTodasSucursales(  )
              .subscribe( (resp: any) => {
 
-              this.sucursales = resp;
+              this.sucursales = resp[0];
 
             });
 
@@ -126,17 +141,17 @@ agregarLineaTransferencia() {
     return;
   }
   
-  this.cantidadLineaTransferencia += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaTransferencia;
+  this.totalTransferencia += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaTransferencia;
 
   const checkExistsLineaVenta = this.lineas_transferencia.find((lineas_transferencia : any) => {
-    return lineas_transferencia.IdProducto == this.itemPendiente.IdProducto;
+    return lineas_transferencia.IdProductoSabor == this.itemPendiente.IdProductoSabor;
   });
 
   if(!(checkExistsLineaVenta != undefined))
   {
     this.lineas_transferencia.push(
       {
-        IdProducto: Number(this.itemPendiente.IdProducto),
+        IdProductoSabor: Number(this.itemPendiente.IdProductoSabor),
         Codigo: this.itemPendiente.Codigo,
         Producto: this.itemPendiente.Producto,
         Cantidad: this.cantidadLineaTransferencia,
@@ -149,11 +164,11 @@ agregarLineaTransferencia() {
   else{
 
     this.itemCheckExists = checkExistsLineaVenta;
-    this.itemIdProducto = this.itemCheckExists.IdProducto;
+    this.itemIdProductoSabor = this.itemCheckExists.IdProductoSabor;
 
 
     for (let item of this.lineas_transferencia) {
-      if(item.IdProducto == this.itemCheckExists.IdProducto)
+      if(item.IdProductoSabor == this.itemCheckExists.IdProductoSabor)
       { 
         item.Cantidad = Number(item.Cantidad) + Number(this.cantidadLineaTransferencia);
       }
@@ -187,10 +202,25 @@ agregarLineaTransferencia() {
 
   onChangeSearchProducto(val: any) {
     this.productoBuscado = val;
-    this.cargarProductos();
+    this.cargarProductosTranferencia();
   }
   
   onFocusedProducto(e: any){
   }
+// ================================
+  onChangeSucursalOrigen(IdSucursalOrigen: any) {
+    console.log(IdSucursalOrigen);
+
+    if(IdSucursalOrigen > 0)
+    {
+      this.activarBusquedaProductosSucursal = true;
+      return;
+    }
+    else
+    {
+      this.activarBusquedaProductosSucursal = false;
+      return;
+    }
+}
 
 }

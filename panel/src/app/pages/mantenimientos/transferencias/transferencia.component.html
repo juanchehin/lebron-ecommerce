@@ -6,7 +6,7 @@
         <!-- ========== Origen y destino ============ -->
         <div class="col-sm-4 form-group">
             <label>Sucursal origen : </label>
-            <select tabindex="2" [(ngModel)]="IdSucursalOrigen" name="IdSucursalOrigen" class="form-control">
+            <select tabindex="2" [(ngModel)]="IdSucursalOrigen" name="IdSucursalOrigen" class="form-control" (change)="onChangeSucursalOrigen($event.target.value)">
                 <option *ngFor="let sucursal of sucursales" [value]="sucursal.IdSucursal">
                     {{sucursal.Sucursal}}
                 </option>
@@ -33,22 +33,22 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="ng-autocomplete">
-                            <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
-                                [notFoundTemplate]="notFoundTemplateProducto">
+                            <ng-autocomplete [data]="productos" [disabled]="!activarBusquedaProductosSucursal" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)'
+                                [itemTemplate]="itemTemplateProducto" [notFoundTemplate]="notFoundTemplateProducto">
                             </ng-autocomplete>
                         </div>
                         <ng-template #itemTemplateProducto let-item>
-                            <a [innerHTML]="item.NombreCompleto"></a>
+                            <a [innerHTML]="item.codigoProductoSabor"></a>
                         </ng-template>
                         <ng-template #notFoundTemplateProducto let-notFound>
                             <div [innerHTML]="notFound"></div>
                         </ng-template>
                     </div>
                     <div class="col-md-3">
-                        <input [(ngModel)]="cantidadLineaTransferencia" type="text" class="form-control form-control-line" placeholder="Cantidad...">
+                        <input [(ngModel)]="cantidadLineaTransferencia" [disabled]="!activarBusquedaProductosSucursal" type="text" class="form-control form-control-line" placeholder="Cantidad...">
                     </div>
                     <div class="col-md-2">
-                        <button (click)="agregarLineaTransferencia()" type="button" class="btn btn-info btn-circle"><i class="fa fa-plus"></i> </button>
+                        <button (click)="agregarLineaTransferencia()" [disabled]="!activarBusquedaProductosSucursal" type="button" class="btn btn-info btn-circle"><i class="fa fa-plus"></i> </button>
                     </div>
                 </div>
 

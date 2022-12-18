@@ -111,6 +111,15 @@ cargarProductos( parametroBusqueda: string){
     
 }
 // ==================================================
+//
+// ==================================================
+cargarProductosTranferencia( parametroBusqueda: string, IdSucursalOrigen: any){
+
+  let url = URL_SERVICIOS + '/productos/listar/busqueda/autocomplete/transferencia/' + parametroBusqueda + '/' + IdSucursalOrigen;
+  return this.http.get( url, this.headers ); 
+  
+}
+// ==================================================
 // Cargo las marcas,categorias,unidades,sucursal principal
 // ==================================================
 cargarDatosFormNuevoProducto( ){

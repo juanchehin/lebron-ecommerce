@@ -50,8 +50,6 @@ cargarProductosDestacadosHome() {
   this.productosService.listarProductosDestacadosHome(  )
   .subscribe( (resp: any) => {
 
-    console.log("resp es : ",resp)
-
    this.productosDestacados = resp[0];
 
  });

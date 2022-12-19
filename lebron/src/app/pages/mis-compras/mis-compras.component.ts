@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { environment } from 'src/environments/environment';
@@ -28,6 +29,7 @@ export class MisComprasComponent implements OnInit {
 
   constructor(
     public usuariosService: UsuariosService,
+    private route: Router,
     private clientesService: ClientesService
   ) {
    }
@@ -43,21 +45,30 @@ export class MisComprasComponent implements OnInit {
 cargarCompras() {
   
     this.clientesService.listarComprasCliente(   )
-               .subscribe( (resp: any) => {
+               .subscribe({
+                next: (resp: any) => { 
 
-                this.totalItemsCarrito = resp[1][0].cantProductosCarrito;
+                  if(resp[1][0].Mensaje == 'Ok') {
+                    this.totalItemsCarrito = resp[1][0].cantProductosCarrito;
 
-                this.itemsCompras = resp[0];
-
-                if(this.itemsCompras.length <= 0 || this.totalItemsCarrito <= 0)
-                {
-                  this.banderaComprasVacio = true;
-                  return;
-                }
-                this.banderaComprasVacio = false;        
-
+                    this.itemsCompras = resp[0];
+    
+                    if(this.itemsCompras.length <= 0 || this.totalItemsCarrito <= 0)
+                    {
+                      this.banderaComprasVacio = true;
+                      return;
+                    }
+                    this.banderaComprasVacio = false;        
+                    
+                  } else {
+                    this.route.navigate(['/failure']);                    
+                  }
+                 },
+                error: (err: any) => { 
+                  this.route.navigate(['/failure']);
+                 }
               });
-
+          
   }
 
 

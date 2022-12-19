@@ -34,8 +34,11 @@ export class ProductoDetalleComponent implements OnInit {
   PrecioVenta: any;
   Categoria: any;
   SubCategoria: any;
+  StockSabor: any;
   Unidad: any;
   Cantidad: any = 1;  // *** CHEQUEAR EL STOCK DE ESTO ANTES DE PONER EN HTML
+  sabores: any;
+  idSaborSeleccionado = 0;
   
 
   constructor(
@@ -88,23 +91,40 @@ cargarDatosProducto(){
 
   this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
 
-    this.productosService.dameDatosProducto(this.IdProducto)
-    .subscribe( (resp: any) => {
+    this.productosService.dameDatosProducto(this.IdProducto, this.idSaborSeleccionado)
+    .subscribe( {
 
-      this.Producto = resp[0][0].Producto;
-      this.Categoria = resp[0][0].Categoria;
-      this.SubCategoria = resp[0][0].SubCategoria;
-      this.Marca = resp[0][0].Marca;
-      this.Codigo = resp[0][0].Codigo;
-      this.Stock = resp[0][0].Stock;
-      this.Imagen = resp[0][0].Imagen;
-      this.Descripcion = resp[0][0].Descripcion;
-      this.Peso = resp[0][0].Peso;
-      this.Sabor = resp[0][0].Sabor;
-      this.Unidad = resp[0][0].NombreCorto;
-      this.PrecioVenta = resp[0][0].PrecioVenta;
+      next: (resp: any) => { 
+  
+        console.log("resp prod : ",resp)
+      
+        if ( resp[2][0].Mensaje === 'Ok') {
 
+          this.Producto = resp[0][0].Producto;
+          this.Categoria = resp[0][0].Categoria;
+          this.SubCategoria = resp[0][0].SubCategoria;
+          this.Marca = resp[0][0].Marca;
+          this.Codigo = resp[0][0].Codigo;
+          this.Stock = resp[0][0].Stock;
+          this.Imagen = resp[0][0].Imagen;
+          this.Descripcion = resp[0][0].Descripcion;
+          this.Peso = resp[0][0].Peso;
+          this.Sabor = resp[0][0].Sabor;
+          this.Unidad = resp[0][0].NombreCorto;
+          this.PrecioVenta = resp[0][0].PrecioVenta;
+          this.StockSabor = resp[0][0].StockSabor;
+    
+          this.sabores = resp[1][0].Sabores;
+
+        } else {
+          this.router.navigate(['/failure']);
+        }
+        return;
+       },
+      error: () => { this.router.navigate(['/failure']); }
     });
+
+     
   }
 
   // =================================

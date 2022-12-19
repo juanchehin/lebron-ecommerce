@@ -9,7 +9,7 @@
             </div>
             <h1>Mis Compras</h1>
         </div>
-        <div *ngIf="banderaCarritoVacio">
+        <div *ngIf="banderaComprasVacio">
             <br /><br />
             <div class="row justify-content-center">
                 <div class="">
@@ -25,26 +25,17 @@
             <!-- /row -->
             <br /><br />
         </div>
-        <div *ngIf="!banderaCarritoVacio">
-            <div>
-                Seleccionar tipo envio :
-                <select class="wide add_bottom_10" (change)="onChangeTipoEnvio($event.target)">
-                    <option value="-1" select>Seleccionar Direccion*</option>
-                    <option value="0">Retiro en sucursal</option>
-                    <option *ngFor="let direccion of direccionesCliente" 
-                        [value]="direccion.IdDireccion" >
-                        <!-- [attr.selected]="passenger.Title==title.Text ? true : null"> -->
-                        {{direccion.direccion}}
-                    </option>
-                </select>
-            </div>
-            <div *ngIf="banderaSeleccionarEnvio">
-                <p style="color:red;">Seleccione el tipo de envio</p>
-            </div>
+        <div *ngIf="!banderaComprasVacio">
             <!-- /page_header -->
             <table class="table table-striped cart-list">
                 <thead>
                     <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Fecha
+                        </th>
                         <th>
                             Producto
                         </th>
@@ -57,61 +48,32 @@
                         <th>
                             Cantidad
                         </th>
-                        <th>
-                            Subtotal
-                        </th>
-                        <th>
-
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let itemCarrito of itemsCarrito">
+                    <tr *ngFor="let itemCompra of itemsCompras">
                         <td>
-                            <span class="item_cart">{{itemCarrito.Producto}}</span>
+                            <span class="item_cart">{{itemCompra.IdTransaccion}}</span>
                         </td>
                         <td>
-                            <span>{{itemCarrito.Sabor}}</span>
+                            <span>{{itemCompra.Fecha}}</span>
                         </td>
                         <td>
-                            <strong>$ {{itemCarrito.PrecioVenta}}</strong>
+                            <strong>{{itemCompra.Producto}}</strong>
                         </td>
                         <td>
-                            <strong>{{itemCarrito.Cantidad}}</strong>
+                            <strong>{{itemCompra.Sabor}}</strong>
                         </td>
                         <td>
-                            <strong>$ {{itemCarrito.SubTotal}}</strong>
+                            <strong>$ {{itemCompra.PrecioVenta}}</strong>
                         </td>
-                        <td class="options">
-                            <a (click)="eliminarItemCarrito(itemCarrito.IdProducto)"><i class="ti-trash"></i></a>
+                        <td>
+                            <strong>{{itemCompra.Cantidad}}</strong>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <!-- /container -->
-            <div class="box_cart">
-                <div class="container">
-                    <div class="row justify-content-end">
-                        <div class="col-xl-4 col-lg-4 col-md-6">
-                            <ul>
-                                <li>
-                                    <span>Subtotal</span> $ {{SubTotal}}
-                                </li>
-                                <li *ngIf="habilitarCostoEnvio">
-                                    <span>Envio</span> $ {{costoEnvio}}
-                                </li>
-                                <li>
-                                    <span>Total</span>$ {{Total}}
-                                </li>
-                            </ul>
-                            <button *ngIf="!cargando" (click)="confirmarCompra()" class="btn_1 full-width cart">Continuar Compra</button>
-                            <div *ngIf="cargando" class="loader">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /box_cart -->
         </div>
     </div>
 </main>

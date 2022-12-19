@@ -152,7 +152,7 @@ listarCarritoCliente(  ): any {
 
 listarComprasCliente(  ): any {
 
-  const url = URL_SERVICIOS + '/clientes/compras/' + this.IdPersona;
+  const url = URL_SERVICIOS + '/clientes/mis-compras/' + this.IdPersona;
 
   return this.http.get( url, this.headers );
 

@@ -42,16 +42,13 @@
                     <p><small>Codigo : {{Codigo}}</small></p>
                     <div class="prod_options">
                         <div class="row">
-                            <label class="col-xl-5 col-lg-5 col-md-6 col-6"><strong>Sabor : </strong>  </label>
-                            <div class="col-xl-4 col-lg-5 col-md-6 col-6">
-                                <div class="custom-select-form">
-                                    <select class="wide">
-                                        <option value="" selected>Small (S)</option>
-                                        <option value="">M</option>
-                                        <option value=" ">L</option>
-                                        <option value=" ">XL</option>
-                                    </select>
-                                </div>
+                            <div class="col-sm-6 form-group">
+                                <label>Sabor : </label>
+                                <select tabindex="2" [(ngModel)]="idSaborSeleccionado" name="IdSabor" class="form-control">
+                                            <option *ngFor="let sabor of sabores" [value]="Sabor.IdSabor">
+                                                {{sabor.Sabor}}
+                                            </option>
+                                        </select>
                             </div>
                         </div>
                         <div class="row">
@@ -63,6 +60,9 @@
                                     <input type="text" [(ngModel)]="Cantidad" (input)="cambioCantidad($event)" value="1" class="qty2" name="quantity_1" maxLength="3">
                                 </div>
                             </div>
+                            <label class="col-xl-5 col-lg-5  col-md-6 col-6">
+                                <strong >() {{StockSabor}} disponibles ) </strong>
+                            </label>
                         </div>
                     </div>
                     <div class="row">

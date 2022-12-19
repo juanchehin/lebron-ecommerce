@@ -49,7 +49,7 @@ listarProductosCategoria(IdCategoria: any, desde: string){
 // ==================================================
 listarPromociones(desde: any){
 
-  let url = URL_SERVICIOS + '/productos/promociones/' + desde;
+  let url = URL_SERVICIOS + '/productos/promociones/listar/' + desde;
 
   return this.http.get( url );
 }
@@ -60,7 +60,7 @@ listarPromociones(desde: any){
 // ==================================================
 buscarProductos(productoBuscado: any, desde: any){
 
-  let url = URL_SERVICIOS + '/productos/buscar/' + productoBuscado + '/' + desde;
+  let url = URL_SERVICIOS + '/productos/front/buscar/' + desde + '/' + productoBuscado;
 
   return this.http.get( url );
 }
@@ -86,9 +86,9 @@ cargarPromocionHome(){
 // ==================================================
 //
 // ==================================================
-dameDatosProducto(IdProducto: any){
+dameDatosProducto(IdProducto: any,IdSabor: any){
 
-  let url = URL_SERVICIOS + '/productos/' + IdProducto;
+  let url = URL_SERVICIOS + '/productos/producto/detalle/' + IdProducto + '/' + IdSabor;
 
   return this.http.get( url );
 }

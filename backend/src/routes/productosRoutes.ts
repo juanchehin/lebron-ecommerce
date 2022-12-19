@@ -14,14 +14,16 @@ class ProductosRoutes {
 
     config(): void {
 
+        // Front
+        this.router.get('/front/buscar/:pDesde/:pParametroBusqueda',productosController.buscarProductoPaginadoFront);
         //
-        this.router.get('/:pIdProducto',productosController.dameDatosProducto); 
+        this.router.get('/producto/detalle/:pIdProducto/:pIdSabor',productosController.dameDatosProducto); 
         this.router.post('/alta/:IdPersona',productosController.altaProducto);
         this.router.get('/baja/:IdPersona/:pIdProducto',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.bajaProducto); 
-
+        //
         this.router.get('/listar/busqueda/autocomplete/:pProductoBuscado',  [mdAutenticacion.verificaToken],productosController.buscarProductoAutoComplete); 
         this.router.get('/listar/busqueda/autocomplete/transferencia/:pProductoBuscado/:pIdSucursalOrigen',  [mdAutenticacion.verificaToken],productosController.buscarProductoAutoCompleteTransferencia); 
-
+        //
         this.router.get('/listar/:desde',productosController.listarProductosPaginado); 
         this.router.get('/listar/promociones/:desde',productosController.listarPromociones);
         this.router.get('/listar/categoria/:IdCategoria/:pDesde',productosController.listarProductosCategoria);

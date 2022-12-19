@@ -153,6 +153,30 @@ public async buscarProductoPaginado(req: Request, res: Response): Promise<void> 
 // ==================================================
 //        buscarProductoPaginado
 // ==================================================
+public async buscarProductoPaginadoFront(req: Request, res: Response): Promise<void> {
+
+    var desde = req.params.desde || 0;
+    desde  = Number(desde);
+    var pParametroBusqueda = req.params.pParametroBusqueda || '';
+
+    if(pParametroBusqueda == null || pParametroBusqueda == 'null')
+    {
+        pParametroBusqueda = '';
+    }
+
+    pool.query(`call bsp_buscar_producto_paginado_front('${pParametroBusqueda}','${desde}')`, function(err: any, result: any){
+        
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
+// ==================================================
+//        buscarProductoPaginado
+// ==================================================
 public async buscarProductoAutoComplete(req: Request, res: Response): Promise<void> {
 
     var pParametroBusqueda = req.params.pParametroBusqueda || '';
@@ -260,13 +284,14 @@ public async listarProductosCategoria(req: Request, res: Response): Promise<void
 
 
 // ==================================================
-//        get one
+//  Obtiene loss detalles del producto para el e-commerce
 // ==================================================
 public async dameDatosProducto(req: Request, res: Response): Promise<void> {
 
+    const { pIdSabor } = req.params;
     const { pIdProducto } = req.params;
 
-    pool.query(`call bsp_dame_producto_front('${pIdProducto}')`, function(err: any, result: any){
+    pool.query(`call bsp_dame_producto_front('${pIdProducto}','${pIdSabor}')`, function(err: any, result: any){
         if(err){
             res.status(400).json(err);
             return;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductosService } from 'src/app/services/productos.service';
 import { environment } from 'src/environments/environment';
 
@@ -27,7 +27,8 @@ export class BuscadorComponent implements OnInit {
 
   constructor(
     public productosService: ProductosService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
    }
 
@@ -88,7 +89,15 @@ cambiarDesde( valor: number ) {
 
 }
 
+// ==================================================
+// Carga
+// ==================================================
 
+rutearDetalleProducto(IdProducto: any) {
+
+  this.router.navigate(['/producto/detalle',IdProducto]);
+
+  }
 
 
 }

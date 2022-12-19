@@ -16,7 +16,7 @@
 
                     </div>
                     <div class="col-sm-4">
-                        <button [routerLink]="['/dashboard/transferencia/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                        <button [routerLink]="['/dashboard/transferencias/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                           <i class="fa fa-plus"></i> 
                           Nuevo Transferencia
                         </button>
@@ -38,7 +38,7 @@
                     <tbody>
                         <tr *ngFor="let transferencia of transferencias">
                             <td>{{ transferencia.IdTransferencia }}</td>
-                            <td>{{ transferencia.Fecha }}</td>
+                            <td>{{ transferencia.Fecha | date:"dd/MM/yyyy" }}</td>
                             <td>{{ transferencia.SucOrigen }}</td>
                             <td>{{ transferencia.SucDestino }}</td>
                             <td>{{ transferencia.MontoTotal }}</td>

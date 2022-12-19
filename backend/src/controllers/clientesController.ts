@@ -207,6 +207,23 @@ public async listarCarritoCliente(req: Request, res: Response): Promise<void> {
        res.status(200).json(result);
    })
 }
+
+ // ==================================================
+//        Lista
+// ==================================================
+
+public async listarComprasCliente(req: Request, res: Response): Promise<void> {
+    
+    var IdPersona = req.params.IdPersona;
+
+    pool.query(`call bsp_listar_compras_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
+       if(err){
+           res.status(404).json(result);
+           return;
+       }
+       res.status(200).json(result);
+   })
+}
  // ==================================================
 //        Lista Clientes desde cierto valor
 // ==================================================

@@ -25,6 +25,7 @@ import { ComprarAhoraComponent } from './checkout/comprar-ahora/comprar-ahora.co
 import { LoginGuardGuard } from '../services/guards/login-guard.guard';
 import { VerificaTokenGuard } from '../services/guards/verifica-token.guard';
 import { PagoExitosoComponent } from './checkout/pago-exitoso/pago-exitoso.component';
+import { MisComprasComponent } from './mis-compras/mis-compras.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -62,6 +63,7 @@ const pagesRoutes: Routes = [
             { path: 'comprar-ahora/:IdProducto/:IdPersona', component: ComprarAhoraComponent },    // proteger ruta
             { path: 'carrito/:IdPersona', component: CarritoComponent },
             { path: 'envio/:IdPersona', component: EnvioComponent },
+            { path: 'mis-compras', component: MisComprasComponent },
             { path: 'pago-exitoso', component: PagoExitosoComponent }
         ]
     }

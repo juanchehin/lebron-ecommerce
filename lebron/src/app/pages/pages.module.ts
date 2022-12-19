@@ -32,6 +32,7 @@ import { DireccionEnvioComponent } from './checkout/direccion-envio/direccion-en
 import { NuevaDireccionComponent } from './cuenta/perfil/direcciones/nueva-direccion/nueva-direccion.component';
 import { FailureComponent } from './failure/failure.component';
 import { ComprarAhoraComponent } from './checkout/comprar-ahora/comprar-ahora.component';
+import { MisComprasComponent } from './mis-compras/mis-compras.component';
 
 @NgModule({
     declarations: [
@@ -59,7 +60,8 @@ import { ComprarAhoraComponent } from './checkout/comprar-ahora/comprar-ahora.co
         DireccionEnvioComponent,
         NuevaDireccionComponent,
         FailureComponent,
-        ComprarAhoraComponent
+        ComprarAhoraComponent,
+        MisComprasComponent
         // CheckoutComponent
     ],
     exports: [

@@ -10,7 +10,6 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 })
 export class ClientesService {
 
-  // token: any = null;
   usuario: any;
 
   get token(): string {
@@ -59,7 +58,6 @@ altaCliente( cliente: any ) {
   console.log("altaCliente es : ",cliente);
 
   let url = URL_SERVICIOS + '/clientes/alta';
-  // url += '?IdRol=' + this.IdRol;
 
   return this.http.post(
     url,
@@ -71,9 +69,7 @@ altaCliente( cliente: any ) {
 // ==================================================
 nuevaDireccion( direccion: any ) {
 
-
   let url = URL_SERVICIOS + '/clientes/direccion/alta';
-  // url += '?IdRol=' + this.IdRol;
 
   return this.http.post(
     url,
@@ -124,15 +120,12 @@ dameDirecionesCliente(  ): any {
 // ==================================================
 altaItemCarrito( IdProducto: any,IdPersona: any) {
 
-  // console.log("altaCliente es : ",cliente);
-
   const data = Array(
     IdProducto,
     IdPersona
   )
 
   let url = URL_SERVICIOS + '/clientes/carrito/alta';
-  // url += '?IdRol=' + this.IdRol;
 
   return this.http.post(
     url,
@@ -147,6 +140,19 @@ altaItemCarrito( IdProducto: any,IdPersona: any) {
 listarCarritoCliente(  ): any {
 
   const url = URL_SERVICIOS + '/clientes/carrito/' + this.IdPersona;
+
+  return this.http.get( url, this.headers );
+
+}
+
+
+// ==================================================
+// Lista 
+// ==================================================
+
+listarComprasCliente(  ): any {
+
+  const url = URL_SERVICIOS + '/clientes/compras/' + this.IdPersona;
 
   return this.http.get( url, this.headers );
 

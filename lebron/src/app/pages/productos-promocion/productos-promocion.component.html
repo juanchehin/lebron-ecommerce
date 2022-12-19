@@ -22,7 +22,6 @@
                 <figure width="100" height="100">
                     <span class="ribbon off">{{promocion.Descuento}}</span>
                     <a href="">
-                        <!-- <img class="img-fluid lazy" src="../../../assets/img/products/product_placeholder_square_medium.jpg" data-src="../../../assets/img/products/shoes/1.jpg" alt=""> -->
                         <img *ngIf="promocion.Imagen != null" [src]="url_imagenes_producto + promocion.Imagen" class="img-fluid lazy">
                         <img *ngIf="promocion.Imagen == null" [src]="imgTemp" class="img-fluid lazy">
                     </a>

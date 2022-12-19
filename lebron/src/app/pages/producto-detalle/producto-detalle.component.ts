@@ -24,7 +24,7 @@ export class ProductoDetalleComponent implements OnInit {
 
   //
   url_imagenes_producto = url_imagenes_producto;
-  public imgTemp: any = '../../../assets/img/lebron_lebron.png';
+  public imgTemp: any = 'lebron_lebron.png';
 
   //
   Producto: any;
@@ -107,7 +107,16 @@ cargarDatosProducto(){
 
       next: (resp: any) => { 
       
-        if ( resp[3][0].Mensaje === 'Ok') {
+        if ( resp[3][0].Mensaje === 'Ok' && resp[0].length > 0) {
+
+          if(!resp[0][0].Descripcion || resp[0][0].Descripcion == 'null' || resp[0][0].Descripcion == null)
+          {
+            this.Descripcion = '-';
+          }
+          else
+          {
+            this.Descripcion = resp[0][0].Descripcion;
+          }
 
           this.Producto = resp[0][0].Producto;
           this.Categoria = resp[0][0].Categoria;
@@ -115,8 +124,7 @@ cargarDatosProducto(){
           this.Marca = resp[0][0].Marca;
           this.Codigo = resp[0][0].Codigo;
           this.Stock = resp[0][0].Stock;
-          this.Imagen = resp[0][0].Imagen;
-          this.Descripcion = resp[0][0].Descripcion;
+          this.Imagen = resp[0][0].Imagen;          
           this.Medida = resp[0][0].Medida;
           this.Sabor = resp[0][0].Sabor;
           this.Unidad = resp[0][0].NombreCorto;
@@ -128,29 +136,33 @@ cargarDatosProducto(){
 
           for (let i = 0; i < 7; i++) {
             
-            if(!this.imagenes[i])
+            if(this.imagenes[i] == undefined || this.imagenes[i] == 'undefined' || !(this.imagenes[i].Archivo) || this.imagenes[i].Archivo == 'null' || this.imagenes[i].Archivo == null || this.imagenes[i].Archivo == undefined || this.imagenes[i].Archivo == 'undefined') 
             {
-              this.imagenes[i] = this.imgTemp;              
+              var archivo = this.imgTemp;    
+            }
+            else
+            {
+              var archivo = this.imagenes[i].Archivo
             }
 
             switch (i) {
               case 0:
-                this.urlImg1 = this.url_imagenes_producto + this.imagenes[i].Archivo || this.imgTemp;
+                this.urlImg1 = this.url_imagenes_producto + archivo;
                 break;
               case 1:
-                this.urlImg2 = this.url_imagenes_producto + this.imagenes[i].Archivo || this.imgTemp;
+                this.urlImg2 = this.url_imagenes_producto + archivo;
                 break;
               case 2:
-                this.urlImg3 = this.url_imagenes_producto + this.imagenes[i].Archivo || this.imgTemp;
+                this.urlImg3 = this.url_imagenes_producto + archivo;
                 break;
               case 3:
-                this.urlImg4 = this.url_imagenes_producto + this.imagenes[i].Archivo || this.imgTemp;
+                this.urlImg4 = this.url_imagenes_producto + archivo;
                 break;
               case 4:
-                this.urlImg5 = this.url_imagenes_producto + this.imagenes[i].Archivo || this.imgTemp;
+                this.urlImg5 = this.url_imagenes_producto + archivo;
                 break;
               case 5:
-                this.urlImg6 = this.url_imagenes_producto + this.imagenes[i].Archivo || this.imgTemp;
+                this.urlImg6 = this.url_imagenes_producto + archivo;
                 break;
             }
           }
@@ -185,18 +197,13 @@ cargarDatosProducto(){
       this.Cantidad
     )
 
-    console.log("datos darrito es ",datosCarrito)
-
     this.clientesService.agregarItemCarrito(datosCarrito,this.IdPersona)
-    .subscribe( (resp: any) => {
+    .subscribe( {
+      next: () => {
 
-        console.log("resp es : ",resp)
-
-        // redireccionar a la pagina de carrito
         this.router.navigate(['carrito',this.IdPersona])
-
-        // actualizar el localstorage
-
+      },
+      error: () => { this.authService.logout(); }
     });
   }
 }

@@ -1,68 +1,23 @@
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" *ngIf="!activarSlider">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <div class="row">
+            <div class="row" *ngFor="let marca of marcas">
                 <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_1.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_2.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_3.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_4.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_5.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_6.png">
+                    <img class="d-block w-30" [src]="url_imagenes_marcas + marca.Archivo">
                 </div>
             </div>
         </div>
         <div class="carousel-item">
-            <div class="row">
+            <div class="row" *ngFor="let marca of marcas">
                 <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_3.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_5.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_1.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_3.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_5.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_2.png">
+                    <img class="d-block w-30" [src]="url_imagenes_marcas + marca.Archivo">
                 </div>
             </div>
         </div>
         <div class="carousel-item">
-            <div class="row">
+            <div class="row" *ngFor="let marca of marcas">
                 <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_2.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_2.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_1.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_4.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_3.png">
-                </div>
-                <div class="col-md-2">
-                    <img class="d-block w-30" src="../../../assets/img/brands/logo_5.png">
+                    <img class="d-block w-30" [src]="url_imagenes_marcas + marca.Archivo">
                 </div>
             </div>
         </div>

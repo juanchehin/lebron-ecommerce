@@ -18,7 +18,6 @@ export class ProductosRelacionadosComponent implements OnInit {
 
   productosRelacionados!: any;
   productosRelacionadosPaginacion!: any;
-  cantPlanes = 0;
   url_imagenes_producto = url_imagenes_producto;
   totalProductosRelacionados = 0;
   cantidadPaginado = 0;

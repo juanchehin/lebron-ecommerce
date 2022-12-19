@@ -1,0 +1,135 @@
+<main>
+    <div class="container margin_30">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="all">
+                    <div class="slider">
+                        <div class="owl-carousel owl-theme main">
+                            <div style="background-image: url({{urlImgPromo}});" class="item-box"></div>
+                        </div>
+                        <div class="left nonl"><i class="ti-angle-left"></i></div>
+                        <div class="right"><i class="ti-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="breadcrumbs">
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li>Promocion</li>
+                    </ul>
+                </div>
+                <!-- /page_header -->
+                <div class="prod_info">
+                    <h1>{{Promocion}}</h1>
+                    <div class="prod_options">
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label>Sabor : </label>
+                                <select tabindex="2" [(ngModel)]="idSaborSeleccionado" name="IdSabor" class="form-control">
+                                            <option *ngFor="let sabor of sabores" [value]="sabor.IdSabor">
+                                                {{sabor.Sabor}}
+                                            </option>
+                                        </select>
+                            </div>
+                        </div>
+                        <!-- cantidad -->
+                        <div class="row">
+                            <label class="col-md-3">
+                                <strong >Cantidad : </strong>
+                            </label>
+                            <div class="col-md-2">
+                                <input type="text" class="form-control" style="width:50px;" [(ngModel)]="Cantidad" (input)="cambioCantidad($event)" maxLength="3">
+                            </div>
+                            <div class="col-md-4">
+                                <strong>( {{StockSabor}} disponibles ) </strong>
+                            </div>
+                        </div>
+                        <!-- Fin cantidad -->
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5 col-md-6">
+                            <div class="price_main"><span class="new_price">$ {{PrecioVenta}}</span></div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div style="color:#FFFFFF"><a class="btn_1" [routerLink]="['/comprar-ahora' , IdProducto , IdPersona]">Comprar ahora</a></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /prod_info -->
+                <!-- /product_actions -->
+            </div>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+
+    <!-- /tabs_product -->
+    <div class="tab_content_wrapper">
+        <div class="container">
+            <div class="tab-content" role="tablist">
+                <div id="pane-A" class="card tab-pane fade active show" role="tabpanel" aria-labelledby="tab-A">
+                    <div class="card-header" role="tab" id="heading-A">
+                        <h5 class="mb-0">
+                            <a class="collapsed" data-toggle="collapse" href="#collapse-A" aria-expanded="false" aria-controls="collapse-A">
+                                Descripción
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapse-A" class="collapse" role="tabpanel" aria-labelledby="heading-A">
+                        <div class="card-body">
+                            <div class="row justify-content-between">
+                                <div class="col-lg-6">
+                                    <h3>Descripción</h3>
+                                    <p>{{Descripcion}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /tab B -->
+                </div>
+                <!-- /tab-content -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /tab_content_wrapper -->
+
+        <app-productos-relacionados></app-productos-relacionados>
+
+        <div class="feat">
+            <div class="container">
+                <ul>
+                    <li>
+                        <div class="box">
+                            <i class="ti-gift"></i>
+                            <div class="justify-content-center">
+                                <h3>Envios gratis</h3>
+                                <p>Con tu compra de $ 10000 o más tenés envío Gratis a todo el país!!</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="box">
+                            <i class="ti-wallet"></i>
+                            <div class="justify-content-center">
+                                <h3>Pago seguro</h3>
+                                <p>100% seguridad de pago</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="box">
+                            <i class="ti-headphone-alt"></i>
+                            <div class="justify-content-center">
+                                <h3>24/7 Support</h3>
+                                <p>Online top support</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--/feat-->
+
+</main>
+<!-- /main -->

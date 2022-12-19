@@ -48,6 +48,8 @@ cargarCompras() {
                .subscribe({
                 next: (resp: any) => { 
 
+                  console.log("resp mis socmpra es : ",resp)
+
                   if(resp[1][0].Mensaje == 'Ok') {
                     this.totalItemsCarrito = resp[1][0].cantProductosCarrito;
 

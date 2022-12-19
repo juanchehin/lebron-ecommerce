@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductosService } from 'src/app/services/productos.service';
 import { environment } from 'src/environments/environment';
 
@@ -23,7 +24,8 @@ export class ProductosPromocionComponent implements OnInit {
   cargando = true;
 
   constructor(
-    public productosService: ProductosService
+    public productosService: ProductosService,
+    private router: Router
   ) {
    }
 
@@ -84,6 +86,15 @@ cambiarDesde( valor: number ) {
 
 }
 
+// ==================================================
+// Carga
+// ==================================================
+
+rutearDetallePromocion(IdPromocion: any) {
+
+  this.router.navigate(['/promocion/detalle',IdPromocion]);
+
+  }
 
 
 

@@ -21,15 +21,19 @@ export class ProductoDetalleComponent implements OnInit {
   cargando = true;
   IdProducto: any;
   IdPersona: any;
+
+  //
   url_imagenes_producto = url_imagenes_producto;
   public imgTemp: any = '../../../assets/img/lebron_lebron.png';
+
+  //
   Producto: any;
   Marca: any;
   Codigo: any;
   Stock: any;
   Imagen: any;
   Descripcion: any;
-  Peso: any;
+  Medida: any;
   Sabor: any;
   PrecioVenta: any;
   Categoria: any;
@@ -38,8 +42,15 @@ export class ProductoDetalleComponent implements OnInit {
   Unidad: any;
   Cantidad: any = 1;  // *** CHEQUEAR EL STOCK DE ESTO ANTES DE PONER EN HTML
   sabores: any;
+  imagenes: any;
   idSaborSeleccionado = 0;
-  
+  // ==============================
+  urlImg1: any;
+  urlImg2: any;
+  urlImg3: any;
+  urlImg4: any;
+  urlImg5: any;
+  urlImg6: any;
 
   constructor(
     public usuariosService: UsuariosService,
@@ -95,10 +106,8 @@ cargarDatosProducto(){
     .subscribe( {
 
       next: (resp: any) => { 
-  
-        console.log("resp prod : ",resp)
       
-        if ( resp[2][0].Mensaje === 'Ok') {
+        if ( resp[3][0].Mensaje === 'Ok') {
 
           this.Producto = resp[0][0].Producto;
           this.Categoria = resp[0][0].Categoria;
@@ -108,13 +117,44 @@ cargarDatosProducto(){
           this.Stock = resp[0][0].Stock;
           this.Imagen = resp[0][0].Imagen;
           this.Descripcion = resp[0][0].Descripcion;
-          this.Peso = resp[0][0].Peso;
+          this.Medida = resp[0][0].Medida;
           this.Sabor = resp[0][0].Sabor;
           this.Unidad = resp[0][0].NombreCorto;
           this.PrecioVenta = resp[0][0].PrecioVenta;
           this.StockSabor = resp[0][0].StockSabor;
     
-          this.sabores = resp[1][0].Sabores;
+          this.sabores = resp[1];
+          this.imagenes = resp[2];
+
+          for (let i = 0; i < 7; i++) {
+            
+            if(!this.imagenes[i])
+            {
+              this.imagenes[i] = this.imgTemp;              
+            }
+
+            switch (i) {
+              case 0:
+                this.urlImg1 = this.url_imagenes_producto + this.imagenes[i].Archivo || this.imgTemp;
+                break;
+              case 1:
+                this.urlImg2 = this.url_imagenes_producto + this.imagenes[i].Archivo || this.imgTemp;
+                break;
+              case 2:
+                this.urlImg3 = this.url_imagenes_producto + this.imagenes[i].Archivo || this.imgTemp;
+                break;
+              case 3:
+                this.urlImg4 = this.url_imagenes_producto + this.imagenes[i].Archivo || this.imgTemp;
+                break;
+              case 4:
+                this.urlImg5 = this.url_imagenes_producto + this.imagenes[i].Archivo || this.imgTemp;
+                break;
+              case 5:
+                this.urlImg6 = this.url_imagenes_producto + this.imagenes[i].Archivo || this.imgTemp;
+                break;
+            }
+          }
+          
 
         } else {
           this.router.navigate(['/failure']);

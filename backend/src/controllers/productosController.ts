@@ -336,6 +336,23 @@ public async cargarDatosFormEditarProducto(req: Request, res: Response): Promise
 }
 
 // ==================================================
+//  
+// ==================================================
+public async dameStockSaborProducto(req: Request, res: Response): Promise<void> {
+
+    const { pIdProducto } = req.params;
+    const { pIdSabor } = req.params;
+
+    pool.query(`call bsp_stock_sabor_producto('${pIdProducto}','${pIdSabor}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
+// ==================================================
 //   Cargo las marcas,categorias,subcategorias,unidades,sucursal principal
 // ==================================================
 public async cargarDatosFormNuevoProducto(req: Request, res: Response): Promise<void> {

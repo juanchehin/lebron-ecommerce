@@ -189,8 +189,7 @@ cargarDatosProducto(){
 
   // =================================
   agregarCarrito()
-  { 
-    
+  {     
     const datosCarrito = new Array(
       this.IdProducto,
       this.IdPersona,

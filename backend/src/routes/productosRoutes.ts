@@ -23,6 +23,8 @@ class ProductosRoutes {
         //
         this.router.get('/listar/busqueda/autocomplete/:pProductoBuscado',  [mdAutenticacion.verificaToken],productosController.buscarProductoAutoComplete); 
         this.router.get('/listar/busqueda/autocomplete/transferencia/:pProductoBuscado/:pIdSucursalOrigen',  [mdAutenticacion.verificaToken],productosController.buscarProductoAutoCompleteTransferencia); 
+        this.router.get('/stock/sabor/producto/:pIdProducto/:pIdSabor',productosController.dameStockSaborProducto); 
+
         //
         this.router.get('/listar/:desde',productosController.listarProductosPaginado); 
         this.router.get('/listar/promociones/:desde',productosController.listarPromociones);

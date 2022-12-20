@@ -113,5 +113,14 @@ dameDatosPromocion(IdPromocion: any,IdSabor1: any,IdSabor2: any){
 
   return this.http.get( url );
 }
+// ==================================================
+//
+// ==================================================
+dameStockSaborProducto(IdProducto: any,IdSabor: any){
+
+  let url = URL_SERVICIOS + '/productos/stock/sabor/producto/' + IdProducto + '/' + IdSabor;
+
+  return this.http.get( url );
+}
 
 }

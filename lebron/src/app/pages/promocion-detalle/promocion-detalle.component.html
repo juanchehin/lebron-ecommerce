@@ -31,11 +31,14 @@
                         <div class="row">
                             <div class="col-sm-6 form-group">
                                 <label>Sabor : </label>
-                                <select tabindex="2" [(ngModel)]="idSaborSeleccionado1" name="IdSabor" class="form-control">
-                                            <option *ngFor="let saborProd1 of saboresProd1" [value]="saborProd1.IdSabor">
-                                                {{saborProd1.SaboresProd1}}
-                                            </option>
-                                        </select>
+                                <select [(ngModel)]="idSaborSeleccionado1" (input)="cambioIdSabor1($event)" name="IdSabor" class="form-control">
+                                    <option *ngFor="let saborProd1 of saboresProd1" [value]="saborProd1.IdSabor">
+                                        {{saborProd1.SaboresProd1}}
+                                    </option>
+                                 </select>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                ( {{stockSaborProducto1}} disponibles)
                             </div>
                         </div>
                         <div class="row">
@@ -46,11 +49,14 @@
                         <div class="row">
                             <div class="col-sm-6 form-group">
                                 <label>Sabor : </label>
-                                <select tabindex="2" [(ngModel)]="idSaborSeleccionado2" name="IdSabor" class="form-control">
-                                            <option *ngFor="let saborProd2 of saboresProd2" [value]="saborProd2.IdSabor">
-                                                {{saborProd2.SaboresProd2}}
-                                            </option>
-                                        </select>
+                                <select [(ngModel)]="idSaborSeleccionado2" name="IdSabor" (input)="cambioIdSabor2($event)" class="form-control">
+                                    <option *ngFor="let saborProd2 of saboresProd2" [value]="saborProd2.IdSabor">
+                                        {{saborProd2.SaboresProd2}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                ( {{stockSaborProducto2}} disponibles)
                             </div>
                         </div>
                         <!-- cantidad -->
@@ -73,6 +79,14 @@
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div style="color:#FFFFFF"><a class="btn_1" [routerLink]="['/comprar-ahora' , IdPromocion , IdPersona]">Comprar ahora</a></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-5 col-md-6">
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <br>
+                            <div style="color:#FFFFFF"><a class="btn_1" (click)="agregarCarrito()">Añadir al carrito</a></div>
                         </div>
                     </div>
                 </div>

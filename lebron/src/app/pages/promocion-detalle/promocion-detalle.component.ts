@@ -29,14 +29,14 @@ export class PromocionDetalleComponent implements OnInit {
   // producto 1
   IdProducto1: any;
   Producto1: any;
-  stockSaborProducto1: any; 
+  stockSaborProducto1 = 0; 
   saboresProd1: any;
   idSaborSeleccionado1 = 0;
 
   //
   IdProducto2: any;
   Producto2: any;
-  stockSaborProducto2: any; 
+  stockSaborProducto2 = 0; 
   saboresProd2: any;
   idSaborSeleccionado2 = 0
   // ==============================
@@ -121,16 +121,19 @@ cargarDatosProductos(){
           }
 
           // Datos de la promocion
+          
           this.promocion = resp[0][0].Promocion;
           this.descripcionPromo = resp[0][0].Descripcion;
           this.precioPromo = resp[0][0].precioPromo;
 
           // Datos producto 1
+          this.IdProducto1 = resp[1][0].IdProducto;
           this.Producto1 = resp[1][0].Producto;
           this.stockSaborProducto1 = resp[1][0].StockSabor1;
           this.saboresProd1 = resp[2];
 
           // Datos producto 2
+          this.IdProducto2 = resp[3][0].IdProducto;
           this.Producto2 = resp[3][0].Producto;
           this.stockSaborProducto2 = resp[3][0].StockSabor2;
           this.saboresProd2 = resp[4];
@@ -182,4 +185,90 @@ cargarDatosProductos(){
      
   }
 
+  // =================================
+  agregarCarrito()
+  { 
+    
+    const datosCarrito = new Array(
+      this.IdPromocion,
+      this.IdPersona,
+      this.cantidad
+    )
+
+    this.clientesService.agregarItemCarrito(datosCarrito,this.IdPersona)
+    .subscribe( {
+      next: () => {
+
+        this.router.navigate(['carrito',this.IdPersona])
+      },
+      error: () => { this.authService.logout(); }
+    });
+  }
+
+  // =================================
+  async cambioIdSabor1(event: any)
+  { 
+    console.log(event.target.value);
+    this.idSaborSeleccionado1 = event.target.value;
+    this.dameDisponiblesProducto(1,this.IdProducto1, this.idSaborSeleccionado1);
+  }
+  // =================================
+  async cambioIdSabor2(event: any)
+  { 
+    console.log(event.target.value);
+    this.idSaborSeleccionado2 = event.target.value;
+    this.dameDisponiblesProducto(2,this.IdProducto2, this.idSaborSeleccionado2);
+  }
+
+  // 
+  dameDisponiblesProducto(productoNro:any,IdProducto: any,IdSabor: any){
+    
+    this.productosService.dameStockSaborProducto(IdProducto, IdSabor)
+    .subscribe( {
+      next: (resp: any) => { 
+        console.log("resp dameDisponiblesProducto : ",resp)
+
+        if(resp[1][0].Mensaje == 'Ok' && resp[0].length > 0)
+        {
+          if(productoNro == 1)
+          {
+            this.stockSaborProducto1 = resp[0][0].Stock;
+          }
+          else
+          {
+            this.stockSaborProducto2 = resp[0][0].Stock;
+          }
+        }
+        else
+        {
+          if(productoNro == 1)
+          {
+            this.stockSaborProducto1 = 0;
+          }
+          else
+          {
+            this.stockSaborProducto2 = 0;
+          }
+        }
+      },
+      error: () => { this.router.navigate(['/failure']); }
+    }
+  );
+  }
+
+  // ==============================
+  dameDisponiblesProducto2(){
+    this.productosService.dameDatosPromocion(this.IdPromocion,this.idSaborSeleccionado1,this.idSaborSeleccionado2)
+    .subscribe( {
+      next: (resp: any) => { 
+        if ( resp[1][0].Mensaje == 'Ok') {
+          this.stockSaborProducto2 = resp[0].stockDisponible;
+        }
+        return;
+        
+      },
+      error: () => { this.router.navigate(['/failure']); }
+    }
+  );
+  }
 }

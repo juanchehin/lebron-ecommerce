@@ -102,4 +102,16 @@ cargarProductosRelacionados(IdProducto: any){
 
   return this.http.get( url );
 }
+
+
+// ==================================================
+//
+// ==================================================
+dameDatosPromocion(IdPromocion: any,IdSabor1: any,IdSabor2: any){
+
+  let url = URL_SERVICIOS + '/productos/promocion/detalle/' + IdPromocion + '/' + IdSabor1 + '/' + IdSabor2;
+
+  return this.http.get( url );
+}
+
 }

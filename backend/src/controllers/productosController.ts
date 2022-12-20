@@ -400,6 +400,24 @@ public async listarPromocionesPaginado(req: Request, res: Response): Promise<voi
     })
 }
 
+// ==================================================
+//  Obtiene loss detalles de la promocion para el e-commerce
+// ==================================================
+public async dameDatosPromocion(req: Request, res: Response): Promise<void> {
+
+    const { pIdPromocion } = req.params;
+    const { pIdSabor1 } = req.params;
+    const { pIdSabor2 } = req.params;
+
+    pool.query(`call bsp_dame_promocion_front('${pIdPromocion}','${pIdSabor1}','${pIdSabor2}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
 // ==============================
 public async altaPromocion(req: Request, res: Response) {
 
@@ -482,7 +500,7 @@ public async listarTransferenciasPaginado(req: Request, res: Response): Promise<
 }
 
 // ==================================================
-//         
+//    Nueva transferencia de stock
 // ==================================================
 public async altaTransferencia(req: Request, res: Response, callback: any) {
 

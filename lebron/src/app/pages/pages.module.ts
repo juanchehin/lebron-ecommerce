@@ -33,6 +33,7 @@ import { NuevaDireccionComponent } from './cuenta/perfil/direcciones/nueva-direc
 import { FailureComponent } from './failure/failure.component';
 import { ComprarAhoraComponent } from './checkout/comprar-ahora/comprar-ahora.component';
 import { MisComprasComponent } from './mis-compras/mis-compras.component';
+import { PromocionDetalleComponent } from './promocion-detalle/promocion-detalle.component';
 
 @NgModule({
     declarations: [
@@ -61,8 +62,8 @@ import { MisComprasComponent } from './mis-compras/mis-compras.component';
         NuevaDireccionComponent,
         FailureComponent,
         ComprarAhoraComponent,
-        MisComprasComponent
-        // CheckoutComponent
+        MisComprasComponent,
+        PromocionDetalleComponent
     ],
     exports: [
         PagesComponent

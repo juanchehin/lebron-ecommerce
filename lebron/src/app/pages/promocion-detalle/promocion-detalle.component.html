@@ -21,14 +21,34 @@
                 </div>
                 <!-- /page_header -->
                 <div class="prod_info">
-                    <h1>{{Promocion}}</h1>
+                    <h2>{{promocion}}</h2>
                     <div class="prod_options">
                         <div class="row">
                             <div class="col-sm-6 form-group">
+                                <h5><label>{{Producto1}} </label></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
                                 <label>Sabor : </label>
-                                <select tabindex="2" [(ngModel)]="idSaborSeleccionado" name="IdSabor" class="form-control">
-                                            <option *ngFor="let sabor of sabores" [value]="sabor.IdSabor">
-                                                {{sabor.Sabor}}
+                                <select tabindex="2" [(ngModel)]="idSaborSeleccionado1" name="IdSabor" class="form-control">
+                                            <option *ngFor="let saborProd1 of saboresProd1" [value]="saborProd1.IdSabor">
+                                                {{saborProd1.SaboresProd1}}
+                                            </option>
+                                        </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <h5><label>{{Producto2}} </label></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label>Sabor : </label>
+                                <select tabindex="2" [(ngModel)]="idSaborSeleccionado2" name="IdSabor" class="form-control">
+                                            <option *ngFor="let saborProd2 of saboresProd2" [value]="saborProd2.IdSabor">
+                                                {{saborProd2.SaboresProd2}}
                                             </option>
                                         </select>
                             </div>
@@ -39,20 +59,20 @@
                                 <strong >Cantidad : </strong>
                             </label>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" style="width:50px;" [(ngModel)]="Cantidad" (input)="cambioCantidad($event)" maxLength="3">
+                                <input type="text" class="form-control" style="width:50px;" [(ngModel)]="cantidad" maxLength="3">
                             </div>
                             <div class="col-md-4">
-                                <strong>( {{StockSabor}} disponibles ) </strong>
+                                <!-- <strong>( {{StockSabor}} disponibles ) </strong> -->
                             </div>
                         </div>
                         <!-- Fin cantidad -->
                     </div>
                     <div class="row">
                         <div class="col-lg-5 col-md-6">
-                            <div class="price_main"><span class="new_price">$ {{PrecioVenta}}</span></div>
+                            <div class="price_main"><span class="new_price">$ {{precioPromo}}</span></div>
                         </div>
                         <div class="col-lg-4 col-md-6">
-                            <div style="color:#FFFFFF"><a class="btn_1" [routerLink]="['/comprar-ahora' , IdProducto , IdPersona]">Comprar ahora</a></div>
+                            <div style="color:#FFFFFF"><a class="btn_1" [routerLink]="['/comprar-ahora' , IdPromocion , IdPersona]">Comprar ahora</a></div>
                         </div>
                     </div>
                 </div>
@@ -81,7 +101,7 @@
                             <div class="row justify-content-between">
                                 <div class="col-lg-6">
                                     <h3>Descripción</h3>
-                                    <p>{{Descripcion}}</p>
+                                    <p>{{descripcionPromo}}</p>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +114,7 @@
         </div>
         <!-- /tab_content_wrapper -->
 
-        <app-productos-relacionados></app-productos-relacionados>
+        <!-- <app-productos-relacionados></app-productos-relacionados> -->
 
         <div class="feat">
             <div class="container">
@@ -130,6 +150,6 @@
             </div>
         </div>
         <!--/feat-->
-
+    </div>
 </main>
 <!-- /main -->

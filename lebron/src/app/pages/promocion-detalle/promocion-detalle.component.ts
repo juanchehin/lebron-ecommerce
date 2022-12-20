@@ -10,40 +10,42 @@ import { environment } from 'src/environments/environment';
 const url_imagenes_producto = environment.ruta_img_productos;
 
 @Component({
-  selector: 'app-producto-detalle',
-  templateUrl: './producto-detalle.component.html',
-  styleUrls: ['./producto-detalle.component.css']
+  selector: 'app-promocion-detalle',
+  templateUrl: './promocion-detalle.component.html',
+  styleUrls: ['./promocion-detalle.component.css']
 })
 export class PromocionDetalleComponent implements OnInit {
 
   desde = 0;
 
   cargando = true;
-  IdProducto: any;
+  IdPromocion: any;
   IdPersona: any;
 
   //
   url_imagenes_producto = url_imagenes_producto;
   public imgTemp: any = 'lebron_lebron.png';
 
+  // producto 1
+  IdProducto1: any;
+  Producto1: any;
+  stockSaborProducto1: any; 
+  saboresProd1: any;
+  idSaborSeleccionado1 = 0;
+
   //
-  Producto: any;
-  Marca: any;
-  Codigo: any;
-  Stock: any;
-  Imagen: any;
-  Descripcion: any;
-  Medida: any;
-  Sabor: any;
-  PrecioVenta: any;
-  Categoria: any;
-  SubCategoria: any;
-  StockSabor: any;
-  Unidad: any;
-  Cantidad: any = 1;  // *** CHEQUEAR EL STOCK DE ESTO ANTES DE PONER EN HTML
-  sabores: any;
-  imagenes: any;
-  idSaborSeleccionado = 0;
+  IdProducto2: any;
+  Producto2: any;
+  stockSaborProducto2: any; 
+  saboresProd2: any;
+  idSaborSeleccionado2 = 0
+  // ==============================
+  urlImgPromo: any;
+  cantidad = 1;
+  descripcionPromo = '-';
+  promocion: any;
+  imagenesPromocion: any;
+  precioPromo: any;
   // ==============================
   urlImg1: any;
   urlImg2: any;
@@ -65,10 +67,10 @@ export class PromocionDetalleComponent implements OnInit {
 
   ngOnInit() {
     this.cargarIdPersona();
-    this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
+    this.IdPromocion = this.activatedRoute.snapshot.paramMap.get('IdProducto');
 
-    this.changeCantidad();
-    this.cargarDatosProducto();    
+    // this.changeCantidad();
+    this.cargarDatosProductos();    
     
   }
 
@@ -88,61 +90,62 @@ export class PromocionDetalleComponent implements OnInit {
   }
 
   // =================================================================
-  changeCantidad() {
-    this.checkoutService.changeCantidad(this.Cantidad);
-  }
+  // changeCantidad() {
+  //   this.checkoutService.changeCantidad(this.cantidad);
+  // }
   
 
   // =================================
-  // Carga el costo del envio y la direccion del usuario 
-  // seleccionada por defecto por el
+  // Carga 
 // =================================
 
-cargarDatosProducto(){
+cargarDatosProductos(){
 
-  this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
+  this.IdPromocion = this.activatedRoute.snapshot.paramMap.get('IdPromocion');
 
-    this.productosService.dameDatosProducto(this.IdProducto, this.idSaborSeleccionado)
+    this.productosService.dameDatosPromocion(this.IdPromocion,this.idSaborSeleccionado1,this.idSaborSeleccionado2)
     .subscribe( {
-
       next: (resp: any) => { 
+
+        console.log("resp promo detalle es : ",resp)
       
-        if ( resp[3][0].Mensaje === 'Ok' && resp[0].length > 0) {
+        if ( resp[6][0].Mensaje === 'Ok' && resp[0].length > 0) {
 
           if(!resp[0][0].Descripcion || resp[0][0].Descripcion == 'null' || resp[0][0].Descripcion == null)
           {
-            this.Descripcion = '-';
+            this.descripcionPromo = '-';
           }
           else
           {
-            this.Descripcion = resp[0][0].Descripcion;
+            this.descripcionPromo = resp[0][0].Descripcion;
           }
 
-          this.Producto = resp[0][0].Producto;
-          this.Categoria = resp[0][0].Categoria;
-          this.SubCategoria = resp[0][0].SubCategoria;
-          this.Marca = resp[0][0].Marca;
-          this.Codigo = resp[0][0].Codigo;
-          this.Stock = resp[0][0].Stock;
-          this.Imagen = resp[0][0].Imagen;          
-          this.Medida = resp[0][0].Medida;
-          this.Sabor = resp[0][0].Sabor;
-          this.Unidad = resp[0][0].NombreCorto;
-          this.PrecioVenta = resp[0][0].PrecioVenta;
-          this.StockSabor = resp[0][0].StockSabor;
-    
-          this.sabores = resp[1];
-          this.imagenes = resp[2];
+          // Datos de la promocion
+          this.promocion = resp[0][0].Promocion;
+          this.descripcionPromo = resp[0][0].Descripcion;
+          this.precioPromo = resp[0][0].precioPromo;
+
+          // Datos producto 1
+          this.Producto1 = resp[1][0].Producto;
+          this.stockSaborProducto1 = resp[1][0].StockSabor1;
+          this.saboresProd1 = resp[2];
+
+          // Datos producto 2
+          this.Producto2 = resp[3][0].Producto;
+          this.stockSaborProducto2 = resp[3][0].StockSabor2;
+          this.saboresProd2 = resp[4];
+
+          this.imagenesPromocion = resp[5];
 
           for (let i = 0; i < 7; i++) {
             
-            if(this.imagenes[i] == undefined || this.imagenes[i] == 'undefined' || !(this.imagenes[i].Archivo) || this.imagenes[i].Archivo == 'null' || this.imagenes[i].Archivo == null || this.imagenes[i].Archivo == undefined || this.imagenes[i].Archivo == 'undefined') 
+            if(this.imagenesPromocion[i] == undefined || this.imagenesPromocion[i] == 'undefined' || !(this.imagenesPromocion[i].Archivo) || this.imagenesPromocion[i].Archivo == 'null' || this.imagenesPromocion[i].Archivo == null || this.imagenesPromocion[i].Archivo == undefined || this.imagenesPromocion[i].Archivo == 'undefined') 
             {
               var archivo = this.imgTemp;    
             }
             else
             {
-              var archivo = this.imagenes[i].Archivo
+              var archivo = this.imagenesPromocion[i].Archivo
             }
 
             switch (i) {
@@ -179,31 +182,4 @@ cargarDatosProducto(){
      
   }
 
-  // =================================
-  cambioCantidad(event: any)
-  { 
-    console.log(event.target.value);
-    this.Cantidad = event.target.value;
-    this.changeCantidad();
-  }
-
-  // =================================
-  agregarCarrito()
-  { 
-    
-    const datosCarrito = new Array(
-      this.IdProducto,
-      this.IdPersona,
-      this.Cantidad
-    )
-
-    this.clientesService.agregarItemCarrito(datosCarrito,this.IdPersona)
-    .subscribe( {
-      next: () => {
-
-        this.router.navigate(['carrito',this.IdPersona])
-      },
-      error: () => { this.authService.logout(); }
-    });
-  }
 }

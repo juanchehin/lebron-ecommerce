@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
@@ -14,7 +15,8 @@ export class PromocionesComponent implements OnInit {
   totalProductosDestacados = 0;
 
   constructor(
-    public productosService: ProductosService
+    public productosService: ProductosService,
+    private router: Router
   ) {
    }
 
@@ -37,6 +39,15 @@ export class PromocionesComponent implements OnInit {
 
     }
 
+// ==================================================
+// Carga
+// ==================================================
+
+rutearDetallePromocion(IdPromocion: any) {
+
+  this.router.navigate(['/promocion',IdPromocion]);
+
+  }
 
 
 

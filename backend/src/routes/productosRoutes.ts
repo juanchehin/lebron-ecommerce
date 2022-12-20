@@ -37,6 +37,7 @@ class ProductosRoutes {
         this.router.get('/unidades/listar/:desde',productosController.listarUnidadesPaginado);
         this.router.get('/unidades/listar/',productosController.listarTodasUnidades);
         // Promociones
+        this.router.get('/promocion/detalle/:pIdPromocion/:pIdSabor1/:pIdSabor2',productosController.dameDatosPromocion);
         this.router.get('/promociones/listar/:pDesde',productosController.listarPromocionesPaginado);
         this.router.post('/promocion/alta',productosController.altaPromocion);
         // Transferencias

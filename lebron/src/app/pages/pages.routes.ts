@@ -26,6 +26,7 @@ import { LoginGuardGuard } from '../services/guards/login-guard.guard';
 import { VerificaTokenGuard } from '../services/guards/verifica-token.guard';
 import { PagoExitosoComponent } from './checkout/pago-exitoso/pago-exitoso.component';
 import { MisComprasComponent } from './mis-compras/mis-compras.component';
+import { PromocionDetalleComponent } from './promocion-detalle/promocion-detalle.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -40,6 +41,7 @@ const pagesRoutes: Routes = [
             { path: 'promociones', component: ProductosPromocionComponent },
             { path: 'producto/detalle/:IdProducto', component: ProductoDetalleComponent },
             { path: 'categoria/:IdCategoria', component: CategoriasComponent },
+            { path: 'promocion/:IdPromocion', component: PromocionDetalleComponent },
             { path: 'busqueda/:productoBuscado', component: BuscadorComponent },
             { path: 'terminos-y-condiciones', component: TerminosCondicionesComponent },
             { path: 'contacto', component: ContactoComponent },

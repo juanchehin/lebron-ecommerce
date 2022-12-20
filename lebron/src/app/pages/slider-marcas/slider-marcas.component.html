@@ -1,23 +1,23 @@
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" *ngIf="!activarSlider">
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <div class="row" *ngFor="let marca of marcas">
-                <div class="col-md-2">
-                    <img class="d-block w-30" [src]="url_imagenes_marcas + marca.Archivo">
+            <div class="row">
+                <div class="col-md-2" *ngFor="let marca of marcas">
+                    <img class="d-block w-30" [src]="url_imagenes_marcas + marca.Archivo" width="190" height="120">
                 </div>
             </div>
         </div>
         <div class="carousel-item">
-            <div class="row" *ngFor="let marca of marcas">
-                <div class="col-md-2">
-                    <img class="d-block w-30" [src]="url_imagenes_marcas + marca.Archivo">
+            <div class="row">
+                <div class="col-md-2" *ngFor="let marca of marcas">
+                    <img class="d-block w-30" [src]="url_imagenes_marcas + marca.Archivo" width="190" height="120">
                 </div>
             </div>
         </div>
         <div class="carousel-item">
-            <div class="row" *ngFor="let marca of marcas">
-                <div class="col-md-2">
-                    <img class="d-block w-30" [src]="url_imagenes_marcas + marca.Archivo">
+            <div class="row">
+                <div class="col-md-2" *ngFor="let marca of marcas">
+                    <img class="d-block w-30" [src]="url_imagenes_marcas + marca.Archivo" width="190" height="120">
                 </div>
             </div>
         </div>

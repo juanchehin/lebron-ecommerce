@@ -20,7 +20,6 @@
         <div class="col-6 col-md-4 col-xl-3" *ngFor="let producto of productosBuscados">
             <div class="grid_item" (click)="rutearDetalleProducto(producto.IdProducto)">
                 <figure>
-                    <span class="ribbon off">{{producto.Descuento}}</span>
                     <a>
                         <img width="100" height="100" *ngIf="producto.Imagen != null" [src]="url_imagenes_producto + producto.Imagen" class="img-fluid lazy">
                         <img *ngIf="producto.Imagen == null" [src]="imgTemp" class="img-fluid lazy"> </a>

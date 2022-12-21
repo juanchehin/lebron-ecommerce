@@ -44,9 +44,6 @@ cargarPromociones() {
 
                 this.promociones = resp[0];
 
-                console.log("imgtest : ", this.imgTemp);
-                console.log("this.promociones : ", this.promociones);
-
                 this.totalPromociones = resp[1][0].cantPromociones;
 
                 if(this.totalPromociones > 12)
@@ -64,27 +61,6 @@ cargarPromociones() {
 
   }
 
-
-  // ==================================================
-//        Cambio de valor
-// ==================================================
-
-cambiarDesde( valor: number ) {
-
-  // const desde = this.desde + valor;
-
-  // if ( desde >= this.totalUsuarios ) {
-  //   return;
-  // }
-
-  // if ( desde < 0 ) {
-  //   return;
-  // }
-
-  // this.desde += valor;
-  // this.cargarUsuarios();
-
-}
 
 // ==================================================
 // Carga

@@ -21,7 +21,6 @@ export class ComprarAhoraComponent implements OnInit  {
 
   forma!: FormGroup;
   cantidadProducto: any = 1;
-  cantidadPromocion: any = 1;
   habilitarCostoEnvio = false;
   envioSeleccionado: any = -1;
   cargando = false;
@@ -37,7 +36,11 @@ export class ComprarAhoraComponent implements OnInit  {
   costoEnvioMP = 0;
   banderaSeleccionarEnvio: boolean = false;
   cantidadMostrar = 0;
-
+  sabor: any;
+  // para el caso de la promo
+  saborProd1: any;
+  saborProd2: any;
+  cantidadPromocion: any = 1;
 
   producto: any = '';
   precioVenta: any = '';
@@ -60,12 +63,28 @@ export class ComprarAhoraComponent implements OnInit  {
         this.cantidadProducto = data;
         this.cantidadMostrar = data;
       });
+
+      this.checkoutService.saborProducto.subscribe((data : any)=>{
+        this.sabor = data;
+      });
     }
     else{
       this.checkoutService.cantidadPromocion.subscribe((data : any)=>{
         this.cantidadPromocion = data;
         this.cantidadMostrar = data;
       });
+
+      this.checkoutService.saborPromocionProducto1.subscribe((data : any)=>{
+        this.saborProd1 = data;
+      });
+
+      this.checkoutService.saborPromocionProducto2.subscribe((data : any)=>{
+        this.saborProd2 = data;
+      });
+
+      this.sabor = this.saborProd1 + ' - ' + this.saborProd2;
+
+
     }
     
     
@@ -90,44 +109,42 @@ export class ComprarAhoraComponent implements OnInit  {
   //  y las direcciones del cliente
   // ===============================
   dameDatosComprarAhora(){
-
-    
-
     if(this.IdProducto)
     {
       this.checkoutService.dameDatosComprarAhora( this.IdPersona,this.IdProducto ,'producto' )
-        .subscribe( (resp: any) => {
-
-          console.log("resp if : ", resp);
-
-          this.direccionesCliente = resp[0];
-
-          this.producto = resp[1][0].Producto;
-          this.precioVenta = resp[1][0].PrecioVenta;
-
-          this.costoEnvio = resp[2][0].costo_envio;
-
-          this.SubTotal = this.precioVenta * this.cantidadProducto;
-          this.Total = this.SubTotal;
-
-      });
+        .subscribe( {
+          next: (resp: any) => {
+    
+            this.direccionesCliente = resp[0];
+  
+            this.producto = resp[1][0].Producto;
+            this.precioVenta = resp[1][0].PrecioVenta;
+  
+            this.costoEnvio = resp[2][0].costo_envio;
+  
+            this.SubTotal = this.precioVenta * this.cantidadProducto;
+            this.Total = this.SubTotal;
+          },
+          error: () => { this.router.navigate(['/failure']); }
+        });
     }
     else
     {
       this.checkoutService.dameDatosComprarAhora( this.IdPersona,this.IdPromocion ,'promocion' )
-        .subscribe( (resp: any) => {
+        .subscribe( {
+          next: (resp: any) => {
 
-          console.log("resp else : ", resp);
-
-          this.direccionesCliente = resp[0];
+            this.direccionesCliente = resp[0];
 
           this.producto = resp[1][0].Promocion;
           this.precioVenta = resp[1][0].precioPromo;
           this.costoEnvio = resp[2][0].costo_envio;
           this.SubTotal = this.precioVenta * this.cantidadPromocion;
           this.Total = this.SubTotal;
-
+        },
+        error: () => { this.router.navigate(['/failure']);}
       });
+
     }
     
    

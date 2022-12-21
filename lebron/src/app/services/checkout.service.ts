@@ -17,6 +17,15 @@ export class CheckoutService {
   private cantidadPromocionSource = new BehaviorSubject<string>('');
   cantidadPromocion = this.cantidadPromocionSource.asObservable()
 
+  private saborProductoSource = new BehaviorSubject<string>('');
+  saborProducto = this.saborProductoSource.asObservable()
+
+  private saborPromocionProducto1Source = new BehaviorSubject<string>('');
+  saborPromocionProducto1 = this.saborPromocionProducto1Source.asObservable()
+
+  private saborPromocionProducto2Source = new BehaviorSubject<string>('');
+  saborPromocionProducto2 = this.saborPromocionProducto2Source.asObservable()
+
   // ==============================
   get IdPersona(): any {
     if(this.authService.IdPersona)
@@ -43,6 +52,23 @@ export class CheckoutService {
   // ==============================
   changeCantidadPromocion(cantidadPromocion: string) {
     this.cantidadPromocionSource.next(cantidadPromocion);
+  }
+
+  // ==============================
+
+  // ==============================
+  changeSaborProducto(saborProducto: string) {
+    this.saborProductoSource.next(saborProducto);
+  }
+
+  // ==============================
+  changeSaborPromocionProducto1(saborPromocionProducto1: string) {
+    this.saborPromocionProducto1Source.next(saborPromocionProducto1);
+  }
+
+  // ==============================
+  changeSaborPromocionProducto2(saborPromocionProducto2: string) {
+    this.saborPromocionProducto2Source.next(saborPromocionProducto2);
   }
 
 // ==================================================

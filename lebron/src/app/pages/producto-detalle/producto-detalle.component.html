@@ -42,6 +42,9 @@
                     <div class="prod_options">
                         <div class="row">
                             <div class="col-sm-6 form-group">
+                                <div *ngIf="mensajeSabor">
+                                    <p style="color:red;">Seleccione un sabor</p>
+                                </div>
                                 <label>Sabor : </label>
                                 <select tabindex="2" [(ngModel)]="idSaborSeleccionado" name="IdSabor" (input)="cambioIdSabor($event)" class="form-control">
                                             <option *ngFor="let sabor of sabores" [value]="sabor.IdSabor">
@@ -49,6 +52,7 @@
                                             </option>
                                         </select>
                             </div>
+
                         </div>
                         <!-- cantidad -->
                         <div *ngIf="mensajeCantidad">

@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { ClientesService } from 'src/app/services/clientes.service';
@@ -34,6 +34,7 @@ export class PromocionDetalleComponent implements OnInit {
   saboresProd1: any;
   idSaborSeleccionado1 = 0;
   Cantidad: any = 1;
+  saborProd1: any;
 
   //
   IdProducto2: any;
@@ -41,6 +42,7 @@ export class PromocionDetalleComponent implements OnInit {
   stockSaborProducto2 = 0; 
   saboresProd2: any;
   idSaborSeleccionado2 = 0
+  saborProd2: any;
   // ==============================
   urlImgPromo: any;
   cantidad = 1;
@@ -71,7 +73,7 @@ export class PromocionDetalleComponent implements OnInit {
     this.cargarIdPersona();
     this.IdPromocion = this.activatedRoute.snapshot.paramMap.get('IdProducto');
 
-    // this.changeCantidad();
+    this.changeCantidad();
     this.cargarDatosProductos();    
     
   }
@@ -215,12 +217,31 @@ cargarDatosProductos(){
   { 
     this.idSaborSeleccionado1 = event.target.value;
     this.dameDisponiblesProducto(1,this.IdProducto1, this.idSaborSeleccionado1);
+
+     this.saboresProd1.forEach((item: any) => {
+
+      if(item.IdSabor == this.idSaborSeleccionado1)
+      {
+        this.saborProd1 = item.SaboresProd1;
+      }
+    });
+
+    this.checkoutService.changeSaborPromocionProducto1(this.saborProd1);
   }
   // =================================
   cambioIdSabor2(event: any)
   { 
     this.idSaborSeleccionado2 = event.target.value;
     this.dameDisponiblesProducto(2,this.IdProducto2, this.idSaborSeleccionado2);
+
+    this.saboresProd2.forEach((item: any) => {
+      if(item.IdSabor == this.idSaborSeleccionado2)
+      {
+        this.saborProd2 = item.SaboresProd2;
+      }
+    });
+
+    this.checkoutService.changeSaborPromocionProducto2(this.saborProd2);
   }
 
   // 

@@ -94,7 +94,7 @@ cargarCarrito() {
                           {
                             IdItem: value.IdPromocion,
                             Nombre: value.Promocion,
-                            Sabor: '-',
+                            Sabor: value.Sabores,
                             Precio: value.PrecioPromo,
                             Cantidad: value.Cantidad,
                             SubTotal: value.SubTotal,

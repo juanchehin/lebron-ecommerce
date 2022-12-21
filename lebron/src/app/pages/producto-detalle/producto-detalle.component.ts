@@ -52,6 +52,7 @@ export class ProductoDetalleComponent implements OnInit {
   urlImg5: any;
   urlImg6: any;
   mensajeCantidad = false;
+  mensajeSabor = false;
 
   constructor(
     public usuariosService: UsuariosService,
@@ -69,7 +70,7 @@ export class ProductoDetalleComponent implements OnInit {
     this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
 
     this.changeCantidad();
-    this.cargarDatosProducto();    
+    this.cargarDatosProducto();
     
   }
 
@@ -93,13 +94,23 @@ export class ProductoDetalleComponent implements OnInit {
     this.checkoutService.changeCantidadProducto(this.Cantidad);
   }
   
+// =================================================================
+  changeSabor() {
+    this.sabores.forEach((item: any) => {
+      if(item.IdSabor == this.idSaborSeleccionado)
+      {
+        this.Sabor = item.Sabor;
+      }
+    });
 
+    this.checkoutService.changeSaborProducto(this.Sabor);
+  }
   // =================================
   // Carga el costo del envio y la direccion del usuario 
   // seleccionada por defecto por el
 // =================================
 
-cargarDatosProducto(){
+  cargarDatosProducto(){
 
   this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
 
@@ -135,6 +146,7 @@ cargarDatosProducto(){
     
           this.sabores = resp[1];
           this.imagenes = resp[2];
+          console.log("pasa sabores");
 
           for (let i = 0; i < 7; i++) {
             
@@ -189,11 +201,24 @@ cargarDatosProducto(){
   }
 
   // =================================
+  // cambioSabot(event: any)
+  // { 
+  //   this.Sabor = event.target.value;
+  //   this.changeSabor();
+  // }
+
+  // =================================
   agregarCarrito()
   {     
     if(this.Cantidad <= 0 || this.Stock <= 0 || (this.Cantidad > this.Stock))
     {
       this.mensajeCantidad = true;
+      return;
+    }
+
+    if(this.idSaborSeleccionado <= 0)
+    {
+      this.mensajeSabor = true;
       return;
     }
 
@@ -225,16 +250,23 @@ cargarDatosProducto(){
       return;
     }
 
+    if(this.idSaborSeleccionado <= 0)
+    {
+      this.mensajeSabor = true;
+      return;
+    }
+
     this.mensajeCantidad = false;
+    this.mensajeSabor = false;
     this.router.navigate(['/comprar-ahora/producto',this.IdProducto,this.IdPersona]);
   }
 
   // =================================
     cambioIdSabor(event: any)
     { 
-      // console.log("event : ",event);
       this.idSaborSeleccionado = event.target.value;
       this.dameStockSaborProducto();
+      this.changeSabor();
     }
 
   // ==============================

@@ -128,8 +128,9 @@ public async altaProductoCarrito(req: Request, res: Response) {
     var IdProducto = req.body[0];
     var IdCliente = req.body[1];
     var Cantidad = req.body[2];
+    var IdSaborSeleccionado = req.body[2]
     
-    pool.query(`call bsp_alta_producto_carrito('${IdCliente}','${IdProducto}','${Cantidad}')`,function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_producto_carrito('${IdCliente}','${IdProducto}','${IdSaborSeleccionado}','${Cantidad}')`,function(err: any, result: any, fields: any){
         
                 console.log("result ",result)
 
@@ -199,7 +200,7 @@ public async listarCarritoCliente(req: Request, res: Response): Promise<void> {
     
     var IdPersona = req.params.IdPersona;
 
-    pool.query(`call bsp_listar_productos_carrito_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_listar_items_carrito_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
        if(err){
            res.status(404).json(result);
            return;

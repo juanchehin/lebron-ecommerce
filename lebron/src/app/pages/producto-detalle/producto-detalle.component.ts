@@ -201,8 +201,9 @@ cargarDatosProducto(){
 
     const datosCarrito = new Array(
       this.IdProducto,
-      this.IdPersona,
-      this.Cantidad
+      this.IdPersona,      
+      this.Cantidad,
+      this.idSaborSeleccionado
     )
 
     this.clientesService.agregarItemCarrito(datosCarrito,this.IdPersona)

@@ -68,13 +68,13 @@
                 <tbody>
                     <tr *ngFor="let itemCarrito of itemsCarrito">
                         <td>
-                            <span class="item_cart">{{itemCarrito.Producto}}</span>
+                            <span class="item_cart">{{itemCarrito.Nombre}}</span>
                         </td>
                         <td>
                             <span>{{itemCarrito.Sabor}}</span>
                         </td>
                         <td>
-                            <strong>$ {{itemCarrito.PrecioVenta}}</strong>
+                            <strong>$ {{itemCarrito.Precio}}</strong>
                         </td>
                         <td>
                             <strong>{{itemCarrito.Cantidad}}</strong>
@@ -83,7 +83,7 @@
                             <strong>$ {{itemCarrito.SubTotal}}</strong>
                         </td>
                         <td class="options">
-                            <a (click)="eliminarItemCarrito(itemCarrito.IdProducto)"><i class="ti-trash"></i></a>
+                            <a (click)="eliminarItemCarrito(itemCarrito.IdItem)"><i class="ti-trash"></i></a>
                         </td>
                     </tr>
                 </tbody>

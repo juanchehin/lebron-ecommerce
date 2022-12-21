@@ -4,6 +4,7 @@ import { CheckoutService } from 'src/app/services/checkout.service';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { environment } from 'src/environments/environment';
+import { IItemCarritoStructure } from 'src/app/interfaces/IItemCarritoStructure.interface';
 
 const ruta_img = environment.ruta_img;
 
@@ -21,7 +22,9 @@ export class CarritoComponent implements OnInit {
   Total = 0;
   direccionesCliente: any;
   banderaCarritoVacio = false;
-  itemsCarrito!: any;
+  itemsCarrito: IItemCarritoStructure[] = [];
+  itemsProductos: any[] = [];
+  itemsPromociones: any[] = [];
   totalItemsCarrito = 0;
   IdPersona: any;
   totalUsuarios = 0;
@@ -31,6 +34,8 @@ export class CarritoComponent implements OnInit {
   costoEnvioMP = 0;
   envioSeleccionado: any = -1;
   banderaSeleccionarEnvio: boolean = false;
+  productosCarritoCliente: any[] = [];
+  promocionesCarritoCliente: any[] = [];
 
   constructor(
     public usuariosService: UsuariosService,
@@ -45,7 +50,8 @@ export class CarritoComponent implements OnInit {
   }
 
 // ==================================================
-// Carga
+// Carga las promociones y los productos que agrego
+// el cliente al carrito de compras
 // ==================================================
 
 cargarCarrito() {
@@ -53,28 +59,74 @@ cargarCarrito() {
     this.clientesService.listarCarritoCliente(   )
                .subscribe( {
                 next: (resp: any) => { 
-                  this.totalItemsCarrito = resp[1][0].cantProductosCarrito;
 
-                  this.itemsCarrito = resp[0];
-  
-                  localStorage.setItem('items-carrito',String(this.totalItemsCarrito));
-  
-                  if(this.itemsCarrito.length <= 0 || this.totalItemsCarrito <= 0)
+                  if((resp[2] != undefined) && (resp[5][0].Mensaje == 'Ok') && (resp[5][0].Mensaje != undefined) && (resp[5][0].Mensaje != 'undefined')) 
                   {
-                    this.banderaCarritoVacio = true;
-                    return;
+                    this.totalItemsCarrito = resp[2][0].cantItemsCarrito;
+                    this.productosCarritoCliente = resp[0];
+                    this.promocionesCarritoCliente = resp[1];
+
+                    // cargo en el array los productos
+                    if(this.productosCarritoCliente.length > 0)
+                    {
+                        this.productosCarritoCliente.forEach( (value) => {
+
+                          this.itemsCarrito.push(
+                            {
+                              IdItem: value.IdProductoSabor,
+                              Nombre: value.Producto,
+                              Sabor: value.Sabor,
+                              Precio: value.PrecioVenta,
+                              Cantidad: value.Cantidad,
+                              SubTotal: value.SubTotal,
+                            }
+                            );
+                        });
+
+                    }
+
+                    
+                    // cargo en el array las promociones
+                    if(this.promocionesCarritoCliente.length > 0)
+                    {
+                      this.promocionesCarritoCliente.forEach( (value) => {
+                        this.itemsCarrito.push(
+                          {
+                            IdItem: value.IdPromocion,
+                            Nombre: value.Promocion,
+                            Sabor: '-',
+                            Precio: value.PrecioPromo,
+                            Cantidad: value.Cantidad,
+                            SubTotal: value.SubTotal,
+                          }
+                          );
+                      });
+                    }
+    
+                    localStorage.setItem('items-carrito',String(this.totalItemsCarrito));
+
+                    if(this.itemsCarrito.length <= 0 || this.totalItemsCarrito <= 0)
+                    {
+                      this.banderaCarritoVacio = true;
+                      return;
+                    }
+                    this.banderaCarritoVacio = false;
+    
+                    this.costoEnvio = resp[3][0].costo_envio;
+    
+                    this.direccionesCliente = resp[4];
+    
+                    this.itemsCarrito.forEach((item:any) => {
+                      this.Total += +item.SubTotal;
+                    });
+    
+                    this.SubTotal = this.Total;
                   }
-                  this.banderaCarritoVacio = false;
-  
-                  this.costoEnvio = resp[2][0].costo_envio;
-  
-                  this.direccionesCliente = resp[3];
-  
-                  this.itemsCarrito.forEach((item:any) => {
-                    this.Total += +item.SubTotal;
-                  });
-  
-                  this.SubTotal = this.Total;
+                  else
+                  {
+                    this.router.navigate(['/failure']);
+                  }
+                 
                   
                  },
                 error: (err: any) => { 

@@ -93,7 +93,7 @@
                         <li *ngIf="comprobarLogueo()">
                             <div class="dropdown dropdown-cart">
                                 <a (click)="rutearCarritoCliente()" class="cart_bt">
-                                    <strong>{{cargarCantItemsCarrito()}}</strong>
+                                    <strong>{{cargarCantItemsCarrito() || 0}}</strong>
                                 </a>
                             </div>
                             <!-- /dropdown-cart-->

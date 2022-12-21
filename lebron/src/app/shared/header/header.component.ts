@@ -130,7 +130,14 @@ buscarProducto() {
 
 cargarCantItemsCarrito() {
 
-  return this.cantItemsCarrito = localStorage.getItem('items-carrito');
+  if((this.cantItemsCarrito = localStorage.getItem('items-carrito') == undefined) || (this.cantItemsCarrito = localStorage.getItem('items-carrito') == 'undefined')) {
+    return this.cantItemsCarrito = 0;
+  }
+  else
+  {
+    return this.cantItemsCarrito = localStorage.getItem('items-carrito');
+  }
+
 }
 
 }

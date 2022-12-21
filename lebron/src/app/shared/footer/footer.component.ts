@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfiguracionesService } from 'src/app/services/configuraciones.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -20,7 +21,8 @@ export class FooterComponent implements OnInit {
   email = '';
 
   constructor(
-    private configuracionesService: ConfiguracionesService
+    private configuracionesService: ConfiguracionesService,
+    private router: Router
    ) {
 
     }
@@ -87,5 +89,20 @@ goYouTube() {
   window.location.href='https://www.youtube.com/' + this.youtube;
 }
 
+
+// ==================================================
+// Carga
+// ==================================================
+
+async rutearCategoria(IdCategoria: any) {
+  
+  var url = "/categoria/" + IdCategoria;
+
+  await this.router.navigateByUrl('.', { skipLocationChange: true });
+
+
+  return this.router.navigateByUrl(url);
+
+}
 
 }

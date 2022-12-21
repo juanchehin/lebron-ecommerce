@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductosService } from 'src/app/services/productos.service';
+import { environment } from 'src/environments/environment';
+
+const url_imagenes_producto = environment.ruta_img_productos;
 
 @Component({
   selector: 'app-categorias',
@@ -12,6 +15,8 @@ export class CategoriasComponent implements OnInit {
   IdCategoria: any;
   desde = '0';
   categoriaSeleccionada = '';
+  url_imagenes_producto = url_imagenes_producto;
+  public imgTemp: any = 'lebron_lebron.png';
 
   numbers: any[] = [];
 
@@ -37,14 +42,13 @@ export class CategoriasComponent implements OnInit {
 // ==================================================
 
 cargarProductosCategoria() {
-  console.log("pasa cargar cargarProductosCategoria");
 
   this.IdCategoria = this.activatedRoute.snapshot.paramMap.get('IdCategoria');
 
     this.productosService.listarProductosCategoria( this.IdCategoria,this.desde  )
                .subscribe( (resp: any) => {
 
-                console.log("resp cargarProductosCategoria es : ",resp)
+                console.log("prod cate : ",resp)
 
                 this.productosCategoria = resp[0];
 
@@ -61,12 +65,7 @@ cargarProductosCategoria() {
                   this.cantidadPaginado = 1;
                 }
 
-                console.log("cantidadPaginado: " + this.cantidadPaginado)
-
                 this.numbers = Array.from({length: this.cantidadPaginado}, (_, i) => i + 1)
-
-
-                // this.cargando = false;
 
               });
 

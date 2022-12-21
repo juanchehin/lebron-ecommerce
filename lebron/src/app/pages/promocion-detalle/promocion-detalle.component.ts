@@ -108,8 +108,6 @@ cargarDatosProductos(){
     this.productosService.dameDatosPromocion(this.IdPromocion,this.idSaborSeleccionado1,this.idSaborSeleccionado2)
     .subscribe( {
       next: (resp: any) => { 
-
-        console.log("cargarDatosProductos : ",resp)
       
         if ( resp[0][0].Mensaje != 'La promocion no cuenta con stock suficiente' && resp[6][0].Mensaje === 'Ok' && resp[0].length > 0 ) {
 
@@ -215,14 +213,12 @@ cargarDatosProductos(){
   // =================================
   cambioIdSabor1(event: any)
   { 
-    console.log(event.target.value);
     this.idSaborSeleccionado1 = event.target.value;
     this.dameDisponiblesProducto(1,this.IdProducto1, this.idSaborSeleccionado1);
   }
   // =================================
   cambioIdSabor2(event: any)
   { 
-    console.log(event.target.value);
     this.idSaborSeleccionado2 = event.target.value;
     this.dameDisponiblesProducto(2,this.IdProducto2, this.idSaborSeleccionado2);
   }
@@ -233,8 +229,6 @@ cargarDatosProductos(){
     this.productosService.dameStockSaborProducto(IdProducto, IdSabor)
     .subscribe( {
       next: (resp: any) => {
-
-        console.log("reso es ; dameDisponiblesProducto ",resp)
 
         if(resp[1][0].Mensaje == 'Ok' && resp[0].length > 0)
         {
@@ -282,15 +276,11 @@ cargarDatosProductos(){
 
   // =================================================================
   changeCantidad() {
-    console.log("changeCantidad : ",this.Cantidad)
     this.checkoutService.changeCantidadPromocion(this.Cantidad);
   }
 
   // 
   rutearComprarAhora(){
-    console.log("stockSaborProducto1 ",this.stockSaborProducto1)
-    console.log("stockSaborProducto2 ",this.stockSaborProducto2)
-
     if(this.stockSaborProducto1 <= 0 || this.stockSaborProducto2 <= 0)
     {
       this.mensajeStockProducto = true;

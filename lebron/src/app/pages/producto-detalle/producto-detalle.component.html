@@ -43,7 +43,7 @@
                         <div class="row">
                             <div class="col-sm-6 form-group">
                                 <label>Sabor : </label>
-                                <select tabindex="2" [(ngModel)]="idSaborSeleccionado" name="IdSabor" class="form-control">
+                                <select tabindex="2" [(ngModel)]="idSaborSeleccionado" name="IdSabor" (input)="cambioIdSabor($event)" class="form-control">
                                             <option *ngFor="let sabor of sabores" [value]="sabor.IdSabor">
                                                 {{sabor.Sabor}}
                                             </option>
@@ -51,6 +51,9 @@
                             </div>
                         </div>
                         <!-- cantidad -->
+                        <div *ngIf="mensajeCantidad">
+                            <p style="color:red;">Seleccione una cantidad valida</p>
+                        </div>
                         <div class="row">
                             <label class="col-md-3">
                                 <strong >Cantidad : </strong>
@@ -69,7 +72,7 @@
                             <div class="price_main"><span class="new_price">$ {{PrecioVenta}}</span></div>
                         </div>
                         <div class="col-lg-4 col-md-6">
-                            <div style="color:#FFFFFF"><a class="btn_1">Comprar ahora</a></div>
+                            <div style="color:#FFFFFF"><a class="btn_1" (click)="rutearComprarAhora()">Comprar ahora</a></div>
                         </div>
                     </div>
                     <div class="row">

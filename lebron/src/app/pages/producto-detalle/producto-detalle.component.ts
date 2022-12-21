@@ -51,6 +51,7 @@ export class ProductoDetalleComponent implements OnInit {
   urlImg4: any;
   urlImg5: any;
   urlImg6: any;
+  mensajeCantidad = false;
 
   constructor(
     public usuariosService: UsuariosService,
@@ -102,12 +103,13 @@ cargarDatosProducto(){
 
   this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
 
-    this.productosService.dameDatosProducto(this.IdProducto, this.idSaborSeleccionado)
+  this.productosService.dameDatosProducto(this.IdProducto, this.idSaborSeleccionado)
     .subscribe( {
-
       next: (resp: any) => { 
+
+        console.log("resp es dam ",resp)
       
-        if ( resp[3][0].Mensaje === 'Ok' && resp[0].length > 0) {
+        if ( resp[3][0].Mensaje == 'Ok' && resp[0].length > 0) {
 
           if(!resp[0][0].Descripcion || resp[0][0].Descripcion == 'null' || resp[0][0].Descripcion == null)
           {
@@ -182,7 +184,6 @@ cargarDatosProducto(){
   // =================================
   cambioCantidad(event: any)
   { 
-    console.log(event.target.value);
     this.Cantidad = event.target.value;
     this.changeCantidad();
   }
@@ -190,6 +191,14 @@ cargarDatosProducto(){
   // =================================
   agregarCarrito()
   {     
+    if(this.Cantidad <= 0 || this.Stock <= 0 || (this.Cantidad > this.Stock))
+    {
+      this.mensajeCantidad = true;
+      return;
+    }
+
+    this.mensajeCantidad = false;
+
     const datosCarrito = new Array(
       this.IdProducto,
       this.IdPersona,
@@ -204,5 +213,48 @@ cargarDatosProducto(){
       },
       error: () => { this.authService.logout(); }
     });
+  }
+
+   // 
+   rutearComprarAhora(){
+
+    if(this.Cantidad <= 0 || this.Stock <= 0 || (this.Cantidad > this.StockSabor))
+    {
+      this.mensajeCantidad = true;
+      return;
+    }
+
+    this.mensajeCantidad = false;
+    this.router.navigate(['/comprar-ahora/producto',this.IdProducto,this.IdPersona]);
+  }
+
+  // =================================
+    cambioIdSabor(event: any)
+    { 
+      // console.log("event : ",event);
+      this.idSaborSeleccionado = event.target.value;
+      this.dameStockSaborProducto();
+    }
+
+  // ==============================
+  dameStockSaborProducto(){
+    
+    this.productosService.dameStockSaborProducto(this.IdProducto,this.idSaborSeleccionado)
+    .subscribe( {
+      next: (resp: any) => { 
+
+        if ( resp[1][0].Mensaje == 'Ok' && resp[0].length > 0 ) {
+          this.StockSabor = resp[0][0].Stock;
+        }
+        else
+        {
+          this.StockSabor = 0;
+        }
+        return;
+        
+      },
+      error: () => { this.router.navigate(['/failure']); }
+    }
+  );
   }
 }

@@ -314,6 +314,12 @@ cargarDatosProductos(){
       return;
     }
 
+    if(this.IdPersona == null || this.IdPersona == undefined || this.IdPersona == 'undefined')
+    {
+      this.authService.logout();
+      return;
+    }
+    
     this.mensajeStockProducto = false;
     this.router.navigate(['/comprar-ahora/promocion',this.IdPromocion,this.IdPersona]);
   }

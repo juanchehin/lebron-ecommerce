@@ -64,12 +64,15 @@
                                 <strong>{{cantidadMostrar}}</strong>
                             </td>
                             <td>
-                                <strong>$ {{precioVenta}}</strong>
+                                <strong>$ {{SubTotal}}</strong>
                             </td>
                         </tr>
                         <tr *ngIf="habilitarCostoEnvio">
                             <td>
                                 <span class="item_cart">Costo de envio</span>
+                            </td>
+                            <td>
+                                <strong>-</strong>
                             </td>
                             <td>
                                 <strong>$ {{costoEnvio}}</strong>

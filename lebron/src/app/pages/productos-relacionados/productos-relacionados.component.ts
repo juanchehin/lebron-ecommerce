@@ -59,15 +59,16 @@ cargarProductosRelacionados() {
 // Carga
 // ==================================================
 
-  async rutearDetalleProducto(IdProducto: any) {
+async rutearDetalleProducto(IdProducto: any) {
   
   var url = "/producto/detalle/" + IdProducto;
 
   await this.router.navigateByUrl('.', { skipLocationChange: true });
 
+
   return this.router.navigateByUrl(url);
 
-  }
+}
 
 // ==================================================
 // Carga

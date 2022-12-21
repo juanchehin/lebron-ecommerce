@@ -33,6 +33,8 @@ export class PromocionesComponent implements OnInit {
     this.productosService.cargarPromocionHome(  )
       .subscribe( (resp: any) => {
 
+        console.log("resp cargar promo",resp)
+
      this.promocionesHome = resp[0];
 
    });

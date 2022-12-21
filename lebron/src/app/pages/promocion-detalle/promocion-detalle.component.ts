@@ -21,7 +21,8 @@ export class PromocionDetalleComponent implements OnInit {
   cargando = true;
   IdPromocion: any;
   IdPersona: any;
-
+  mensajeStockProducto = false;
+  mensajeCantidad = false;
   //
   url_imagenes_producto = url_imagenes_producto;
   public imgTemp: any = 'lebron_lebron.png';
@@ -32,6 +33,7 @@ export class PromocionDetalleComponent implements OnInit {
   stockSaborProducto1 = 0; 
   saboresProd1: any;
   idSaborSeleccionado1 = 0;
+  Cantidad: any = 1;
 
   //
   IdProducto2: any;
@@ -96,7 +98,7 @@ export class PromocionDetalleComponent implements OnInit {
   
 
   // =================================
-  // Carga 
+  // Carga los datos de los productos de la promocion
 // =================================
 
 cargarDatosProductos(){
@@ -107,9 +109,9 @@ cargarDatosProductos(){
     .subscribe( {
       next: (resp: any) => { 
 
-        console.log("resp promo detalle es : ",resp)
+        console.log("cargarDatosProductos : ",resp)
       
-        if ( resp[6][0].Mensaje === 'Ok' && resp[0].length > 0) {
+        if ( resp[0][0].Mensaje != 'La promocion no cuenta con stock suficiente' && resp[6][0].Mensaje === 'Ok' && resp[0].length > 0 ) {
 
           if(!resp[0][0].Descripcion || resp[0][0].Descripcion == 'null' || resp[0][0].Descripcion == null)
           {
@@ -121,7 +123,6 @@ cargarDatosProductos(){
           }
 
           // Datos de la promocion
-          
           this.promocion = resp[0][0].Promocion;
           this.descripcionPromo = resp[0][0].Descripcion;
           this.precioPromo = resp[0][0].precioPromo;
@@ -188,6 +189,12 @@ cargarDatosProductos(){
   // =================================
   agregarCarrito()
   { 
+    if(this.stockSaborProducto1 <= 0 || this.stockSaborProducto2 <= 0)
+    {
+      this.mensajeStockProducto = true;
+      return;
+    }
+    this.mensajeStockProducto = false;
     
     const datosCarrito = new Array(
       this.IdPromocion,
@@ -206,14 +213,14 @@ cargarDatosProductos(){
   }
 
   // =================================
-  async cambioIdSabor1(event: any)
+  cambioIdSabor1(event: any)
   { 
     console.log(event.target.value);
     this.idSaborSeleccionado1 = event.target.value;
     this.dameDisponiblesProducto(1,this.IdProducto1, this.idSaborSeleccionado1);
   }
   // =================================
-  async cambioIdSabor2(event: any)
+  cambioIdSabor2(event: any)
   { 
     console.log(event.target.value);
     this.idSaborSeleccionado2 = event.target.value;
@@ -225,8 +232,9 @@ cargarDatosProductos(){
     
     this.productosService.dameStockSaborProducto(IdProducto, IdSabor)
     .subscribe( {
-      next: (resp: any) => { 
-        console.log("resp dameDisponiblesProducto : ",resp)
+      next: (resp: any) => {
+
+        console.log("reso es ; dameDisponiblesProducto ",resp)
 
         if(resp[1][0].Mensaje == 'Ok' && resp[0].length > 0)
         {
@@ -270,5 +278,32 @@ cargarDatosProductos(){
       error: () => { this.router.navigate(['/failure']); }
     }
   );
+  }
+
+  // =================================================================
+  changeCantidad() {
+    console.log("changeCantidad : ",this.Cantidad)
+    this.checkoutService.changeCantidadPromocion(this.Cantidad);
+  }
+
+  // 
+  rutearComprarAhora(){
+    console.log("stockSaborProducto1 ",this.stockSaborProducto1)
+    console.log("stockSaborProducto2 ",this.stockSaborProducto2)
+
+    if(this.stockSaborProducto1 <= 0 || this.stockSaborProducto2 <= 0)
+    {
+      this.mensajeStockProducto = true;
+      return;
+    }
+
+    if(this.cantidad <= 0)
+    {
+      this.mensajeCantidad = true;
+      return;
+    }
+
+    this.mensajeStockProducto = false;
+    this.router.navigate(['/comprar-ahora/promocion',this.IdPromocion,this.IdPersona]);
   }
 }

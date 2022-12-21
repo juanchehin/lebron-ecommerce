@@ -63,6 +63,7 @@ const pagesRoutes: Routes = [
             { path: 'perfil/direcciones/nueva/:IdPersona', component: NuevaDireccionComponent },
             { path: 'checkout/direcciones/:IdPersona', component: DireccionEnvioComponent },    // proteger ruta
             { path: 'comprar-ahora/:IdProducto/:IdPersona', component: ComprarAhoraComponent },    // proteger ruta
+            { path: 'comprar-ahora/promocion/:IdPromocion/:IdPersona', component: ComprarAhoraComponent },    // proteger ruta
             { path: 'carrito/:IdPersona', component: CarritoComponent },
             { path: 'envio/:IdPersona', component: EnvioComponent },
             { path: 'mis-compras', component: MisComprasComponent },

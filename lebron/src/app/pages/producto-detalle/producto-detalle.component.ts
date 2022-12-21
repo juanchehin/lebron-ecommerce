@@ -89,7 +89,7 @@ export class ProductoDetalleComponent implements OnInit {
 
   // =================================================================
   changeCantidad() {
-    this.checkoutService.changeCantidad(this.Cantidad);
+    this.checkoutService.changeCantidadProducto(this.Cantidad);
   }
   
 

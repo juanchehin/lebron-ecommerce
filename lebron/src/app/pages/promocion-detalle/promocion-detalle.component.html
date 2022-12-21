@@ -33,12 +33,9 @@
                                 <label>Sabor : </label>
                                 <select [(ngModel)]="idSaborSeleccionado1" (input)="cambioIdSabor1($event)" name="IdSabor" class="form-control">
                                     <option *ngFor="let saborProd1 of saboresProd1" [value]="saborProd1.IdSabor">
-                                        {{saborProd1.SaboresProd1}}
+                                        {{saborProd1.SaboresProd1}} ( {{stockSaborProducto1}} disponibles)
                                     </option>
                                  </select>
-                            </div>
-                            <div class="col-sm-6 form-group">
-                                ( {{stockSaborProducto1}} disponibles)
                             </div>
                         </div>
                         <div class="row">
@@ -51,12 +48,9 @@
                                 <label>Sabor : </label>
                                 <select [(ngModel)]="idSaborSeleccionado2" name="IdSabor" (input)="cambioIdSabor2($event)" class="form-control">
                                     <option *ngFor="let saborProd2 of saboresProd2" [value]="saborProd2.IdSabor">
-                                        {{saborProd2.SaboresProd2}}
+                                        {{saborProd2.SaboresProd2}} ( {{stockSaborProducto2}} disponibles)
                                     </option>
                                 </select>
-                            </div>
-                            <div class="col-sm-6 form-group">
-                                ( {{stockSaborProducto2}} disponibles)
                             </div>
                         </div>
                         <!-- cantidad -->
@@ -65,20 +59,25 @@
                                 <strong >Cantidad : </strong>
                             </label>
                             <div class="col-md-2">
-                                <input type="text" class="form-control" style="width:50px;" [(ngModel)]="cantidad" maxLength="3">
+                                <input type="text" class="form-control" style="width:50px;" [(ngModel)]="Cantidad" (input)="changeCantidad()" maxLength="3">
                             </div>
                             <div class="col-md-4">
-                                <!-- <strong>( {{StockSabor}} disponibles ) </strong> -->
+                                <div *ngIf="mensajeStockProducto">
+                                    <p style="color:red;">Debe seleccionar una cantidad valida</p>
+                                </div>
                             </div>
                         </div>
                         <!-- Fin cantidad -->
+                    </div>
+                    <div *ngIf="mensajeStockProducto">
+                        <p style="color:red;">Algunos productos no cuentan con stock</p>
                     </div>
                     <div class="row">
                         <div class="col-lg-5 col-md-6">
                             <div class="price_main"><span class="new_price">$ {{precioPromo}}</span></div>
                         </div>
                         <div class="col-lg-4 col-md-6">
-                            <div style="color:#FFFFFF"><a class="btn_1" [routerLink]="['/comprar-ahora' , IdPromocion , IdPersona]">Comprar ahora</a></div>
+                            <div style="color:#FFFFFF"><a class="btn_1" (click)="rutearComprarAhora()">Comprar ahora</a></div>
                         </div>
                     </div>
                     <div class="row">

@@ -15,7 +15,8 @@ class CheckoutRoutes {
     config(): void {
 
         // 
-        this.router.get('/datos-comprar-ahora/:pIdPersona/:pIdProducto',checkoutController.datosComprarAhora);
+        this.router.get('/datos-comprar-ahora/:pIdPersona/:pIdProducto',checkoutController.datosComprarAhoraProducto);
+        this.router.get('/datos-comprar-ahora/promocion/:pIdPersona/:pIdPromocion',checkoutController.datosComprarAhoraPromocion);
         // 
         this.router.post("/payment/new/:costoEnvio/:pIdDireccion/:IdPersona/:pTotal",checkoutController.getMercadoPagoLink); 
         this.router.post("/webhook",checkoutController.webhook); 

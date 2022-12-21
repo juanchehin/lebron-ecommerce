@@ -12,7 +12,10 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 export class CheckoutService {
 
   private cantidadProductoSource = new BehaviorSubject<string>('');
-  cantidad = this.cantidadProductoSource.asObservable()
+  cantidadProducto = this.cantidadProductoSource.asObservable()
+
+  private cantidadPromocionSource = new BehaviorSubject<string>('');
+  cantidadPromocion = this.cantidadPromocionSource.asObservable()
 
   // ==============================
   get IdPersona(): any {
@@ -33,18 +36,34 @@ export class CheckoutService {
     ) { }
 
   // ==============================
-  changeCantidad(cantidad: string) {
-    this.cantidadProductoSource.next(cantidad);
+  changeCantidadProducto(cantidadProducto: string) {
+    this.cantidadProductoSource.next(cantidadProducto);
+  }
+
+  // ==============================
+  changeCantidadPromocion(cantidadPromocion: string) {
+    this.cantidadPromocionSource.next(cantidadPromocion);
   }
 
 // ==================================================
 //
 // ==================================================
-dameDatosComprarAhora(IdPersona: any,IdProducto: any){
+dameDatosComprarAhora(IdPersona: any,IdProductoPromo: any,tipo: any){
 
-    let url = URL_SERVICIOS + '/checkout/datos-comprar-ahora/' + IdPersona + '/' + IdProducto;
+  if(tipo == 'producto')
+  {
+    let url = URL_SERVICIOS + '/checkout/datos-comprar-ahora/' + IdPersona + '/' + IdProductoPromo;
 
     return this.http.get( url );
+  }
+  else
+  {
+    let url = URL_SERVICIOS + '/checkout/datos-comprar-ahora/promocion/' + IdPersona + '/' + IdProductoPromo;
+
+    return this.http.get( url );
+  }
+
+    
   }
 // ==================================================
 //

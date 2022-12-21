@@ -10,11 +10,11 @@ class CheckoutController {
 // ==================================================
 //        
 // ==================================================
-public async datosComprarAhora(req: Request, res: Response): Promise<void> {
+public async datosComprarAhoraProducto(req: Request, res: Response): Promise<void> {
     var pIdPersona = req.params.pIdPersona;
     var pIdProducto = req.params.pIdProducto;
 
-    pool.query(`call bsp_datos_comprar_ahora('${pIdPersona}','${pIdProducto}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_datos_comprar_ahora_producto('${pIdPersona}','${pIdProducto}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json({ text: err });
             return;
@@ -22,7 +22,21 @@ public async datosComprarAhora(req: Request, res: Response): Promise<void> {
         res.status(200).json(result);
     })
 }
+// ==================================================
+//        
+// ==================================================
+public async datosComprarAhoraPromocion(req: Request, res: Response): Promise<void> {
+  var pIdPersona = req.params.pIdPersona;
+  var pIdPromocion = req.params.pIdPromocion;
 
+  pool.query(`call bsp_datos_comprar_ahora_promocion('${pIdPersona}','${pIdPromocion}')`, function(err: any, result: any, fields: any){
+      if(err){
+          res.status(404).json({ text: err });
+          return;
+      }
+      res.status(200).json(result);
+  })
+}
 // ==================================================
 //        Lista personas desde cierto valor
 // ==================================================

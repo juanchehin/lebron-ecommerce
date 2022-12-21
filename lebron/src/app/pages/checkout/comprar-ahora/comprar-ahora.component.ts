@@ -20,11 +20,13 @@ export class ComprarAhoraComponent implements OnInit  {
   ) { }
 
   forma!: FormGroup;
-  Cantidad: any = 1;
+  cantidadProducto: any = 1;
+  cantidadPromocion: any = 1;
   habilitarCostoEnvio = false;
   envioSeleccionado: any = -1;
   cargando = false;
   IdProducto: any;
+  IdPromocion: any;
   IdPersona: any;
   direccionesCliente: any;
   costoEnvio: any = 0;
@@ -34,12 +36,17 @@ export class ComprarAhoraComponent implements OnInit  {
   datosCompra: any[] = [];
   costoEnvioMP = 0;
   banderaSeleccionarEnvio: boolean = false;
+  cantidadMostrar = 0;
+
 
   producto: any = '';
   precioVenta: any = '';
 
 
   ngOnInit(): void {
+    this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
+    this.IdPromocion = this.activatedRoute.snapshot.paramMap.get('IdPromocion');
+    this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
 
     this.forma = new FormGroup({
       IdDireccion: new FormControl('0', Validators.required ),
@@ -47,12 +54,21 @@ export class ComprarAhoraComponent implements OnInit  {
       Cantidad: new FormControl(null, Validators.required )
     });
 
-    this.checkoutService.cantidad.subscribe((data : any)=>{
-      this.Cantidad = data;
-    });
-
-    this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
-
+    if(this.IdProducto)
+    {
+      this.checkoutService.cantidadProducto.subscribe((data : any)=>{
+        this.cantidadProducto = data;
+        this.cantidadMostrar = data;
+      });
+    }
+    else{
+      this.checkoutService.cantidadPromocion.subscribe((data : any)=>{
+        this.cantidadPromocion = data;
+        this.cantidadMostrar = data;
+      });
+    }
+    
+    
 
     if(this.IdPersona || (this.IdPersona.length == 0))
     { 
@@ -75,24 +91,46 @@ export class ComprarAhoraComponent implements OnInit  {
   // ===============================
   dameDatosComprarAhora(){
 
-    this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
     
-    this.checkoutService.dameDatosComprarAhora( this.IdPersona,this.IdProducto  )
-      .subscribe( (resp: any) => {
 
-        console.log("resp : ", resp);
+    if(this.IdProducto)
+    {
+      this.checkoutService.dameDatosComprarAhora( this.IdPersona,this.IdProducto ,'producto' )
+        .subscribe( (resp: any) => {
 
-        this.direccionesCliente = resp[0];
+          console.log("resp if : ", resp);
 
-        this.producto = resp[1][0].Producto;
-        this.precioVenta = resp[1][0].PrecioVenta;
+          this.direccionesCliente = resp[0];
 
-        this.costoEnvio = resp[2][0].costo_envio;
+          this.producto = resp[1][0].Producto;
+          this.precioVenta = resp[1][0].PrecioVenta;
 
-        this.SubTotal = this.precioVenta * this.Cantidad;
-        this.Total = this.SubTotal;
+          this.costoEnvio = resp[2][0].costo_envio;
 
-   });
+          this.SubTotal = this.precioVenta * this.cantidadProducto;
+          this.Total = this.SubTotal;
+
+      });
+    }
+    else
+    {
+      this.checkoutService.dameDatosComprarAhora( this.IdPersona,this.IdPromocion ,'promocion' )
+        .subscribe( (resp: any) => {
+
+          console.log("resp else : ", resp);
+
+          this.direccionesCliente = resp[0];
+
+          this.producto = resp[1][0].Promocion;
+          this.precioVenta = resp[1][0].precioPromo;
+          this.costoEnvio = resp[2][0].costo_envio;
+          this.SubTotal = this.precioVenta * this.cantidadPromocion;
+          this.Total = this.SubTotal;
+
+      });
+    }
+    
+   
   }
 
 // =================================================
@@ -110,15 +148,30 @@ confirmarCompra( ) {
 
   this.cargando = true;
 
-  this.datosCompra.push(
-    { 
-      IdProducto: this.producto.IdProducto,
-      title: this.producto.Producto,
-      unit_price: Number(this.Total),
-      quantity: this.Cantidad,
-      picture_url: ''
-    }
-  );
+  if(this.IdProducto)
+  {
+    this.datosCompra.push(
+      { 
+        IdProducto: this.producto.IdProducto,
+        title: this.producto.Producto,
+        unit_price: Number(this.Total),
+        quantity: this.cantidadProducto,
+        picture_url: ''
+      }
+    );
+  }
+  else
+  {
+    this.datosCompra.push(
+      { 
+        IdPromocion: this.IdPromocion,
+        title: this.producto,
+        unit_price: Number(this.Total),
+        quantity: this.cantidadPromocion,
+        picture_url: ''
+      }
+    );
+  }
 
   if(this.habilitarCostoEnvio == false){
     this.costoEnvioMP = 0;

@@ -68,7 +68,7 @@ cargarPromociones() {
 
 rutearDetallePromocion(IdPromocion: any) {
 
-  this.router.navigate(['/promocion/detalle',IdPromocion]);
+  this.router.navigate(['/promocion',IdPromocion]);
 
   }
 

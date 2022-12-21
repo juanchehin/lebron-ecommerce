@@ -146,7 +146,6 @@ export class ProductoDetalleComponent implements OnInit {
     
           this.sabores = resp[1];
           this.imagenes = resp[2];
-          console.log("pasa sabores");
 
           for (let i = 0; i < 7; i++) {
             

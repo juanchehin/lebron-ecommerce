@@ -137,27 +137,6 @@ cargarCarrito() {
   }
 
 
-// ==================================================
-//        Cambio de valor
-// ==================================================
-
-cambiarDesde( valor: number ) {
-
-  const desde = this.desde + valor;
-
-  if ( desde >= this.totalUsuarios ) {
-    return;
-  }
-
-  if ( desde < 0 ) {
-    return;
-  }
-
-  this.desde += valor;
-  // this.cargarUsuarios();
-
-}
-
 
 // =================================================
 //        
@@ -210,13 +189,13 @@ confirmarCompra( ) {
 
     this.datosCompra.push(
       { 
-        IdProducto: item.IdProducto,
-        title: item.Producto,
-        unit_price: Number(item.PrecioVenta),
-        quantity: item.Cantidad,
+        IdProducto: item.IdItem,  // IdProducto o promocion
+        title: item.Nombre,
+        unit_price: Number(item.Precio),
+        quantity: Number(item.Cantidad),
         picture_url: ''
       }
-      );
+    );
 
   });
 
@@ -232,6 +211,7 @@ confirmarCompra( ) {
   this.checkoutService.confirmarCompra( this.datosCompra, this.costoEnvioMP , this.envioSeleccionado ,this.Total )
     .subscribe({
       next: (resp: any) => { 
+        
         if (this.validURL(resp.url)) {                
           window.location.href = resp.url;
         } else {                
@@ -275,4 +255,25 @@ validURL(str: string) {
     '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
   return !!pattern.test(str);
 }
+// ==================================================
+//        Cambio de valor
+// ==================================================
+
+cambiarDesde( valor: number ) {
+
+  const desde = this.desde + valor;
+
+  if ( desde >= this.totalUsuarios ) {
+    return;
+  }
+
+  if ( desde < 0 ) {
+    return;
+  }
+
+  this.desde += valor;
+  // this.cargarUsuarios();
+
+}
+
 }

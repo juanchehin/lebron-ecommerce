@@ -70,11 +70,23 @@ public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
           return;
       }
 
+      console.log("result es ; ",result)
       var pIdPedido = result[0][0].pIdPedido;
 
+      const arrayDatosComprador = new Array(
+        pIdPersona,
+        result[1][0].Apellidos,
+        result[1][0].Nombres,
+        result[1][0].Email,
+        result[1][0].Telefono,
+
+        result[2][0].Calle,
+        result[2][0].Numero,
+        result[2][0].CP
+      );
+
       try {
-        const checkout = await createPaymentMercadoPago( datosCompra , costoEnvio, pIdPedido);
-    
+        const checkout = await createPaymentMercadoPago( datosCompra , costoEnvio, pIdPedido,arrayDatosComprador);
         // guardar el pedido pendiente en la BD
         // return res.redirect(checkout.init_point); 
        //si es exitoso los llevamos a la url de Mercado Pago
@@ -173,7 +185,7 @@ public async webhook(req: Request, res: Response) {
 const checkoutController = new CheckoutController;
 export default checkoutController;
 
-async function createPaymentMercadoPago( items : any, costoEnvio: any, pIdPedidos: any) {
+async function createPaymentMercadoPago( items : any, costoEnvio: any, pIdPedidos: any,arrayDatosComprador: any) {
     const mercadoPagoUrl = "https://api.mercadopago.com/checkout"; 
 
     const url = `${mercadoPagoUrl}/preferences?access_token=${process.env.MP_ACCESS_TOKEN_PROD}`;
@@ -182,20 +194,19 @@ async function createPaymentMercadoPago( items : any, costoEnvio: any, pIdPedido
           items, 
           external_reference: pIdPedidos, 
           payer: { 
-    // información del comprador, si estan en producción tienen que //traerlos del request
-    //(al igual que hicimos con el precio del item) 
-            name: "juan",
-            surname: "chehin",
-            email: "chehin238@gmail.com",
+          // información del comprador
+            name: arrayDatosComprador[2],
+            surname: arrayDatosComprador[1],
+            email: arrayDatosComprador[3],
      // si estan en sandbox, aca tienen que poner el email de SU usuario de prueba
             phone: {
-              area_code: "3865",
-              number: "415369"
+              area_code: "",
+              number: arrayDatosComprador[4]
             },
             address: {
-              zip_code: "4000",
-              street_name: "False",
-              street_number: "123"
+              zip_code: arrayDatosComprador[7],
+              street_name: arrayDatosComprador[5],
+              street_number: arrayDatosComprador[6]
             }
           },
           shipments:{
@@ -238,7 +249,18 @@ async function createPaymentMercadoPago( items : any, costoEnvio: any, pIdPedido
           });
     
           return request.data; 
-        } catch (e) {
-          console.log(e);
+        } catch (e: any) {
+
+          var IdUsuario = arrayDatosComprador[0];
+
+          var dataErrorCode = e.response.data.status || '';
+          var dataStatusText = e.response.statusText || '';
+          var message = e.response.data.message || '';
+
+            pool.query(`call bsp_alta_log('${IdUsuario}','${dataStatusText}','checkoutController','${dataErrorCode}','createPaymentMercadoPago','${message}')`, function(err: any, result: any, fields: any){
+              if(err){
+                  return;
+              }
+          })
         }
 }

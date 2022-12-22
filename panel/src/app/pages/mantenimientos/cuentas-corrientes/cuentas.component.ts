@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
-import { ClientesService } from 'src/app/services/clientes.service';
+import { CuentasService } from 'src/app/services/cuentas.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,45 +12,91 @@ export class CuentasComponent implements OnInit {
 
   desde = 0;
   totalAsistencias = true;
-  ClasesDisponibles = 0;
+  filtroCliente = 4;  // Indica si es un cliente web o un cliente registrado desde el panel
 
-  proveedores!: any;
+  clientes!: any;
   cantPlanes = 0;
 
-  totalProveedores = 0;
+  totalClientes = 0;
   cargando = true;
 
   constructor(
-    public clientesService: ClientesService,
+    public cuentasService: CuentasService,
     private alertService: AlertService
   ) {
    }
 
   ngOnInit() {
-    this.cargarProveedores();
+    this.buscarClientes();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-cargarProveedores() {
+buscarClientes() {
 
-    // this.clientesService.listarClientesPaginado( this.desde  )
-    //            .subscribe( (resp: any) => {
+    const inputElement: HTMLInputElement = document.getElementById('clienteBuscado') as HTMLInputElement;
+    const clienteBuscado: any = inputElement.value || null;
 
-    //             console.log("resp es : ",resp)
+    this.cuentasService.buscarClientesCuentasPaginado( this.desde, clienteBuscado  )
+               .subscribe( {
+                next: (resp: any) => { 
 
-    //             this.totalProveedores = resp[1][0].cantProveedores;
-
-    //             this.proveedores = resp[0];
-
-    //             this.cargando = false;
-
-    //           });
+                  if(resp[2][0].Mensaje == 'Ok')
+                  { 
+                    this.totalClientes = resp[1][0].cantClientes;
+    
+                    this.clientes = resp[0];
+                    return;
+                  } else {
+                    this.alertService.alertFail('Ocurrio un error',false,2000);
+                  }
+                  return;
+                 },
+                error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
+              });
 
   }
 
+
+
+// ==================================================
+// 
+// ==================================================
+
+bajaCliente(IdPersona: string) {
+
+  Swal.fire({
+    title: '¿Desea eliminar el cliente?',
+    text: "Eliminacion de cliente",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si'
+  }).then((result: any) => {
+    if (result.isConfirmed) {
+      this.cuentasService.bajaCuentaCliente( IdPersona )
+      .subscribe({
+        next: (resp: any) => {
+  
+          if(resp[0].Mensaje == 'Ok') {
+            this.alertService.alertSuccess('top-end','Cuenta dada de baja',false,900);
+            this.buscarClientes();
+            
+          } else {
+            this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
+            
+          }
+         },
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
+      });
+    }
+  })
+
+  
+  }
 // ==================================================
 //        Cambio de valor
 // ==================================================
@@ -59,7 +105,7 @@ cambiarDesde( valor: number ) {
 
   const desde = this.desde + valor;
 
-  if ( desde >= this.totalProveedores ) {
+  if ( desde >= this.totalClientes ) {
     return;
   }
 
@@ -71,44 +117,6 @@ cambiarDesde( valor: number ) {
   // this.cargarProductos();
 
 }
-
-
-// ==================================================
-// 
-// ==================================================
-
-// bajaProveedor(IdProveedor: string) {
-
-//   Swal.fire({
-//     title: '¿Desea eliminar el proveedor?',
-//     text: "Eliminacion de proveedor",
-//     icon: 'warning',
-//     showCancelButton: true,
-//     confirmButtonColor: '#3085d6',
-//     cancelButtonColor: '#d33',
-//     confirmButtonText: 'Si'
-//   }).then((result: any) => {
-//     if (result.isConfirmed) {
-//       this.proveedoresService.bajaProveedor( IdProveedor )
-//       .subscribe({
-//         next: (resp: any) => { 
-  
-//           if(resp[0][0].Mensaje == 'Ok') {
-//             this.alertService.alertSuccess('top-end','Proveedor dado de baja',false,900);
-//             this.cargarProveedores();
-            
-//           } else {
-//             this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
-            
-//           }
-//          },
-//         error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
-//       });
-//     }
-//   })
-
-  
-//   }
 
 
 }

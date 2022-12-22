@@ -59,6 +59,41 @@ public async altaCliente(req: Request, res: Response) {
     
 
 }
+// ==================================================
+//      
+// ==================================================
+public async editarCliente(req: Request, res: Response) {
+
+    const { IdPersona } = req.params;
+
+    console.log("req. body : ",req.body);
+
+    var Apellidos = req.body[0];
+    var Nombres = req.body[1];
+    var Telefono = req.body[2];
+    var DNI = req.body[3];
+    var Email = req.body[4];
+    var Observaciones = req.body[5];
+
+    var pIdCliente = req.body[6];
+
+    pool.query(`call bsp_editar_cliente('${IdPersona}','${pIdCliente}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}','${Observaciones}')`,function(err: any, result: any, fields: any){
+        
+                console.log("result ",result)
+
+                if(err){
+                    res.status(404).json(err);
+                    return;
+                }
+                
+                if(result[0][0].Mensaje !== 'Ok'){
+                    return res.json( result );
+                }
+
+                return res.json({ Mensaje: 'Ok' });
+            })          
+    
+}
 
 // ==================================================
 //        Inserta una direccion
@@ -241,6 +276,23 @@ public async dameDirecionesCliente(req: Request, res: Response): Promise<void> {
        res.json(result);
    })
 }
+
+ // ==================================================
+//        Lista 
+// ==================================================
+
+public async cargarDatosFormEditarCliente(req: Request, res: Response): Promise<void> {
+    var pIdCliente = req.params.pIdCliente;
+    var IdPersona = req.params.IdPersona;
+
+    pool.query(`call bsp_dame_datos_cliente('${IdPersona}','${pIdCliente}')`, function(err: any, result: any, fields: any){
+       if(err){
+           console.log("error", err);
+           return;
+       }
+       res.json(result);
+   })
+}
 // ==================================================
 //   Elimina un cliente de la BD
 // ==================================================
@@ -262,6 +314,23 @@ public async eliminarCliente(req: Request, res: Response) {
         }
     
         return res.json({ mensaje: 'Ok' });
+    })
+
+}
+// ==================================================
+//        Obtiene un cliente de la BD
+// ==================================================
+public async bajaCliente(req: Request, res: Response): Promise<any> {
+    const { IdPersona } = req.params;
+    const { IdCliente } = req.params;
+
+    pool.query(`call bsp_baja_cliente('${IdPersona}','${IdCliente}')`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(404).json(err);
+            return;
+        }
+        
+        res.status(200).json(result[0]);
     })
 
 }

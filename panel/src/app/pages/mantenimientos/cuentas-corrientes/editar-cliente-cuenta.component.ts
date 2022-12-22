@@ -4,11 +4,11 @@ import { AlertService } from 'src/app/services/alert.service';
 import { ClientesService } from 'src/app/services/clientes.service';
 
 @Component({
-  selector: 'app-editar-cliente',
-  templateUrl: './editar-cliente.component.html',
+  selector: 'app-editar-cliente-cuenta',
+  templateUrl: './editar-cliente-cuenta.component.html',
   styles: []
 })
-export class EditarClienteComponent implements OnInit {
+export class EditarClienteCuentaComponent implements OnInit {
 
   IdPersona: any;
   Apellidos: any;

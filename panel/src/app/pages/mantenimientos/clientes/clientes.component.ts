@@ -39,7 +39,7 @@ buscarClientes() {
     const inputElement: HTMLInputElement = document.getElementById('clienteBuscado') as HTMLInputElement;
     const clienteBuscado: any = inputElement.value || null;
 
-    this.clientesService.buscarClientesPaginado( this.desde, this.filtroCliente, clienteBuscado  )
+    this.clientesService.buscarClientesPaginado( this.desde, 3, clienteBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
 
@@ -79,9 +79,9 @@ bajaCliente(IdPersona: string) {
     if (result.isConfirmed) {
       this.clientesService.bajaCliente( IdPersona )
       .subscribe({
-        next: (resp: any) => { 
+        next: (resp: any) => {
   
-          if(resp[0][0].Mensaje == 'Ok') {
+          if(resp[0].Mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','Cliente dado de baja',false,900);
             this.buscarClientes();
             

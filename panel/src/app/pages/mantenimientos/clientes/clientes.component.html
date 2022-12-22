@@ -56,7 +56,7 @@
                             <td>{{ cliente.Telefono }}</td>
                             <td>{{ cliente.Email }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button">Editar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/cliente',cliente.IdPersona]">Editar</button>
                                 <button class="btn btn-inline btn-danger" type="button" (click)="bajaCliente(cliente.IdPersona)">Eliminar</button>
                             </td>
                         </tr>

@@ -3,16 +3,26 @@
         <section class="box-typical">
             <div class="table-responsive">
                 <div class="row">
+
+                    <div class="col-sm-4 form-group">
+                        <label>Cliente:  </label>
+                        <input (keyup.enter)="buscarClientes( )" #input type="text" class="form-control" placeholder="Buscar por codigo o producto..." id="clienteBuscado">
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <button (click)="buscarClientes( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="material-icons">
+                                search
+                                </i>
+                            </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button [routerLink]="['/dashboard/cuenta/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
+                          <i class="fa fa-plus"></i> 
+                          Nueva Cuenta
+                        </button>
+                    </div>
                     <div class="col-sm-4">
                         <h3 class="card-title">Cantidad clientes ( <small> {{ totalClientes }} </small> )</h3>
-                    </div>
-                    <div class="col-4">
-                    </div>
-                    <div class="col-sm-4">
-                        <button [routerLink]="['/dashboard/clientes/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
-                          <i class="fa fa-plus"></i> 
-                          Nuevo Cliente
-                        </button>
                     </div>
                 </div>
                 <table id="table-edit" class="table table-bordered table-hover">
@@ -30,16 +40,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let cliente of clientes">
-                            <td>{{ cliente.IdPersona }}</td>
-                            <td>{{ cliente.Apellidos }}</td>
-                            <td>{{ cliente.Nombres }}</td>
-                            <td>{{ cliente.DNI }}</td>
-                            <td>{{ cliente.Telefono }}</td>
-                            <td>{{ cliente.Email }}</td>
+                        <tr *ngFor="let clienteCuenta of clientes">
+                            <td>{{ clienteCuenta.IdPersona }}</td>
+                            <td>{{ clienteCuenta.Apellidos }}</td>
+                            <td>{{ clienteCuenta.Nombres }}</td>
+                            <td>{{ clienteCuenta.DNI }}</td>
+                            <td>{{ clienteCuenta.Telefono }}</td>
+                            <td>{{ clienteCuenta.Email }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaCliente(cliente.IdPersona)">Eliminar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/cuenta',clienteCuenta.IdPersona]">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaCliente(clienteCuenta.IdPersona)">Eliminar</button>
                             </td>
                         </tr>
 

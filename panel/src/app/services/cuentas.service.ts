@@ -8,7 +8,7 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 @Injectable({
   providedIn: 'root'
 })
-export class ClientesService {
+export class CuentasService {
 
   get token(): string {
     return localStorage.getItem('token') || '';
@@ -44,9 +44,9 @@ export class ClientesService {
 // ==================================================
 //        
 // ==================================================
-altaCliente( cliente: any ) {
+altaCuenta( cliente: any ) {
 
-  let url = URL_SERVICIOS + '/clientes/alta/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/cuentas/alta/' + this.IdPersona;
 
   return this.http.post(url,cliente, this.headers );
 }
@@ -70,7 +70,7 @@ cargarClientes( parametroBusqueda: string){
 // ==================================================
 //
 // ==================================================
-buscarClientesPaginado(desde: any,filtroCliente: any, pClienteBuscado: any){
+buscarClientesCuentasPaginado(desde: any, pClienteBuscado: any){
 
   console.log("pClienteBuscado : ",pClienteBuscado)
 
@@ -79,7 +79,7 @@ buscarClientesPaginado(desde: any,filtroCliente: any, pClienteBuscado: any){
     pClienteBuscado = '0';
   }
 
-  let url = URL_SERVICIOS + '/clientes/listar/paginado/' + this.IdPersona + '/' + desde + '/' + pClienteBuscado + '/' + filtroCliente;
+  let url = URL_SERVICIOS + '/cuentas/listar/paginado/' + this.IdPersona + '/' + desde + '/' + pClienteBuscado;
 
   return this.http.get( url, this.headers );
 }
@@ -87,7 +87,7 @@ buscarClientesPaginado(desde: any,filtroCliente: any, pClienteBuscado: any){
 // ==================================================
 //        
 // ==================================================
-bajaCliente(IdCliente: any ) {
+bajaCuentaCliente(IdCliente: any ) {
 
   let url = URL_SERVICIOS + '/clientes/baja/' + IdCliente + '/' + this.IdPersona;
 
@@ -96,7 +96,7 @@ bajaCliente(IdCliente: any ) {
   // ==================================================
 //        
 // ==================================================
-editarCliente( clienteEditado: any ) {
+editarCuentaCliente( clienteEditado: any ) {
 
   let url = URL_SERVICIOS + '/clientes/editar/' + this.IdPersona;
 
@@ -107,7 +107,7 @@ editarCliente( clienteEditado: any ) {
 // ==================================================
 //        
 // ==================================================
-cargarDatosFormEditarCliente( IdCliente: any ) {
+cargarDatosFormEditarCuentaCliente( IdCliente: any ) {
 
   let url = URL_SERVICIOS + '/clientes/editar/datos-formulario/' + IdCliente + '/' + this.IdPersona;
   return this.http.get( url , this.headers );

@@ -136,7 +136,6 @@ bajaProducto(IdProductoSabor: string) {
       .subscribe({
         next: (resp: any) => { 
 
-          console.log("resp baja es : ",resp)
   
           if(resp[0][0].Mensaje == 'Ok') {
             this.alertaService.alertSuccess('top-end','Producto dado de baja',false,900);

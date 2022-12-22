@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
-import { ProveedoresService } from 'src/app/services/proveedores.service';
+import { ClientesService } from 'src/app/services/clientes.service';
 
 @Component({
   selector: 'app-cuenta',
@@ -14,68 +14,57 @@ export class CuentaComponent implements OnInit {
   forma!: FormGroup;
   cargando = true;
 
-
-
   constructor(
     private router: Router, 
     private alertService: AlertService, 
-    public proveedoresService: ProveedoresService, 
+    public clientesService: ClientesService, 
     public activatedRoute: ActivatedRoute
     ) {
-    activatedRoute.params.subscribe( (params: any) => {
-
-      const id = params.id;
-
-      if ( id !== 'nuevo' ) {
-      }
-
-    });
+      
 
   }
 
   ngOnInit() {
-    this.forma = new FormGroup({
-        Proveedor: new FormControl(null, Validators.required),
-        CUIL: new FormControl(null, Validators.required),
-        Telefono: new FormControl(null ),
-        Apellidos: new FormControl(null ),
-        Nombres: new FormControl(null ),
-        Email: new FormControl(null, Validators.email ),
-        Observaciones: new FormControl(null )
-      });
+    this.forma = new FormGroup({      
+      Apellidos: new FormControl(null, Validators.required ),
+      Nombres: new FormControl(null, Validators.required ),
+      DNI: new FormControl(null),
+      Telefono: new FormControl(null ),
+      Email: new FormControl(null, Validators.email ),
+      Observaciones: new FormControl(null )
+    });
   }
 
 // ==================================================
 //        Crear 
 // ==================================================
 
-  altaProveedor() {
+  altaCliente() {
 
       if ( this.forma.invalid ) {
         this.alertService.alertFail('Formulario invalido, chequee que los campos sean correctos',false,2000);
         return;
       }
 
-      const proveedor = new Array(
-        this.forma.value.Proveedor,
-        this.forma.value.CUIL,
-        this.forma.value.Telefono,
-        this.forma.value.Observaciones,
+      const cliente = new Array(
         this.forma.value.Apellidos,
         this.forma.value.Nombres,
-        this.forma.value.Email
+        this.forma.value.DNI,
+        this.forma.value.Telefono,
+        this.forma.value.Email,
+        this.forma.value.Observaciones
       );
 
-      this.proveedoresService.altaProveedor( proveedor )
+      this.clientesService.altaCliente( cliente )
                 .subscribe( (resp: any) => {
                   
-                  if ( resp.Mensaje === 'Ok') {
+                  if ( resp[0][0].Mensaje == 'Ok') {
 
-                    this.alertService.alertSuccess('top-end','Proveedor cargado',false,2000);
+                    this.alertService.alertSuccess('top-end','cliente cargado',false,2000);
                     
-                    this.router.navigate(['/dashboard/proveedores']);
+                    this.router.navigate(['/dashboard/clientes']);
                   } else {
-                    this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
+                    this.alertService.alertFail('Ocurrio un error : ' + resp[0][0].Mensaje,false,2000);
                   }
                   return;
                 });

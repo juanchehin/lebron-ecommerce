@@ -16,6 +16,7 @@ import checkoutRoutes from './routes/checkoutRoutes';
 import pedidosRoutes from './routes/pedidosRoutes';
 import sucursalesRoutes from './routes/sucursalRoutes';
 import comprasRoutes from './routes/comprasRoutes';
+import cuentasRoutes from './routes/cuentasRoutes';
 
 
 
@@ -87,6 +88,7 @@ class Server {
         this.app.use('/api/sucursales', sucursalesRoutes);
         this.app.use('/api/ventas', ventasRoutes);
         this.app.use('/api/compras', comprasRoutes);
+        this.app.use('/api/cuentas', cuentasRoutes);
         this.app.use('/api/login', loginRoutes);
         this.app.use('/api/uploads', uploadRoutes);
         this.app.use('/api/settings', settingsRoutes);

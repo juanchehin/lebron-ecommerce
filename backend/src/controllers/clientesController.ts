@@ -41,46 +41,20 @@ public async dameDatosCliente(req: Request, res: Response): Promise<any> {
 // ==================================================
 public async altaCliente(req: Request, res: Response) {
 
-    var Email = req.body[0];
-    var Password = req.body[1];
-    var Apellidos = req.body[2];
-    var Nombres = req.body[3];
-    var Telefono = req.body[4];
+    var Apellidos = req.body[0];
+    var Nombres = req.body[1];
+    var DNI = req.body[2];
+    var Telefono = req.body[3];
+    var Email = req.body[4];
+    var Observaciones = req.body[4];
     
-    const saltRounds = 10;  //  Data processing speed
-
-    bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
-        bcrypt.hash(Password, salt, async function(err: any, hash: any) {
-            
-            pool.query(`call bsp_alta_cliente('${Apellidos}','${Nombres}','${hash}','${Telefono}','${Email}')`, function(err: any, result: any, fields: any){
-                
-                if(err){
-                    res.status(404).json({ text: "Ocurrio un problema" });
-                    return;
-                }
-                
-                if(result[0][0].Mensaje === 'La persona ya se encuentra cargada'){
-                    return res.json({
-                        Mensaje: result[0][0].Mensaje,
-                        pIdPersona: result[1][0].IdPersona
-                    });
-                }                
-
-                if(result[0][0].Mensaje !== 'Ok'){
-                    return res.json({
-                        ok: false,
-                        Mensaje: result[0][0].Mensaje
-                    });
-                }
-                
-                // enviarMailBienvenida(Email);
-                
-                return res.json({ Mensaje: 'Ok' });
-            })
-
-            
-        });
-    });
+    pool.query(`call bsp_alta_cliente_panel('${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(404).json(err);
+            return;
+        }
+        res.status(200).json(result);
+    })
 
     
 

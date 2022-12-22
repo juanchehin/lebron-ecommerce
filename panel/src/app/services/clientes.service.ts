@@ -40,6 +40,16 @@ export class ClientesService {
     private authService: AuthService
   ) { }
 
+
+// ==================================================
+//        
+// ==================================================
+altaCliente( cliente: any ) {
+
+  let url = URL_SERVICIOS + '/clientes/alta/' + this.IdPersona;
+
+  return this.http.post(url,cliente, this.headers );
+}
 // ==================================================
 //
 // ==================================================
@@ -83,4 +93,6 @@ bajaCliente( IdPersona: any ) {
 
   return this.http.get( url, this.headers);
 }
+
+
 }

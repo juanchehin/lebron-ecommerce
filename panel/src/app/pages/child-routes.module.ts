@@ -28,6 +28,7 @@ import { TransferenciasComponent } from './mantenimientos/transferencias/transfe
 import { TransferenciaComponent } from './mantenimientos/transferencias/transferencia.component';
 import { ClientesComponent } from './mantenimientos/clientes/clientes.component';
 import { ClienteComponent } from './mantenimientos/clientes/cliente.component';
+import { EditarClienteComponent } from './mantenimientos/clientes/editar-cliente.component';
 
 
 const childRoutes: Routes = [
@@ -63,8 +64,8 @@ const childRoutes: Routes = [
   { path: 'compras/:IdPersona', component: MisComprasComponent, data: { titulo: 'Mis compras' }},
   //
   { path: 'clientes', component: ClientesComponent, data: { titulo: 'Listado de clientes' }},
-  // { path: 'clientes/nuevo', component: NuevoClienteComponent, data: { titulo: 'Nuevo cliente' }},
-  { path: 'clientes/:IdPersona', component: ClienteComponent, data: { titulo: 'Edicion de cliente' }},
+  { path: 'clientes/nuevo', component: ClienteComponent, data: { titulo: 'Nuevo cliente' }},
+  { path: 'cliente/:IdPersona', component: EditarClienteComponent, data: { titulo: 'Edicion de cliente' }},
   // Rutas de Admin
   { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' } },
   { path: 'usuarios/nuevo', component: UsuarioComponent, data: { titulo: 'Alta de Usuario' } }

@@ -35,6 +35,7 @@ import { TransferenciaComponent } from './mantenimientos/transferencias/transfer
 import { TransferenciasComponent } from './mantenimientos/transferencias/transferencias.component';
 import { ClientesComponent } from './mantenimientos/clientes/clientes.component';
 import { ClienteComponent } from './mantenimientos/clientes/cliente.component';
+import { EditarClienteComponent } from './mantenimientos/clientes/editar-cliente.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { ClienteComponent } from './mantenimientos/clientes/cliente.component';
     TransferenciasComponent,
     TransferenciaComponent,
     ClientesComponent,
-    ClienteComponent
+    ClienteComponent,
+    EditarClienteComponent
   ],
   exports: [
     DashboardComponent,

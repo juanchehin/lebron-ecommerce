@@ -178,17 +178,27 @@ public async activarCliente(req: Request, res: Response) {
 //        Lista Clientes desde cierto valor
 // ==================================================
 
-public async listarClientesPaginado(req: Request, res: Response): Promise<void> {
-     var desde = req.params.desde || 0;
-     desde  = Number(desde);
+public async buscarClientesPaginado(req: Request, res: Response): Promise<void> {
+    var desde = req.params.desde || 0;
+    desde  = Number(desde);
 
-     pool.query(`call bsp_listar_clientes_paginado('${desde}')`, function(err: any, result: any, fields: any){
+    var pIdPersona = req.params.IdPersona;
+    var clienteBuscado: any = req.params.clienteBuscado;
+    var filtroCliente: any = req.params.filtroCliente;
+    
+    if(clienteBuscado == '0' || clienteBuscado == 0)
+    {
+        clienteBuscado = "todosClientes";
+    }
+
+    pool.query(`call bsp_buscar_clientes_paginado('${pIdPersona}','${filtroCliente}','${clienteBuscado}','${desde}')`, function(err: any, result: any, fields: any){
         if(err){
-            res.status(404).json(result);
-            return;
-        }
-        res.status(200).json(result);
+           res.status(404).json(result);
+           return;
+       }
+       res.status(200).json(result);
     })
+
  }
 
  

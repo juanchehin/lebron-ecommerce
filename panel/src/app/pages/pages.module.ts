@@ -33,6 +33,8 @@ import { ProveedorComponent } from './mantenimientos/proveedores/proveedor.compo
 import { EditarProductoComponent } from './mantenimientos/productos/editar-producto.component';
 import { TransferenciaComponent } from './mantenimientos/transferencias/transferencia.component';
 import { TransferenciasComponent } from './mantenimientos/transferencias/transferencias.component';
+import { ClientesComponent } from './mantenimientos/clientes/clientes.component';
+import { ClienteComponent } from './mantenimientos/clientes/cliente.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { TransferenciasComponent } from './mantenimientos/transferencias/transfe
     MisComprasComponent,
     ComprasComponent,
     TransferenciasComponent,
-    TransferenciaComponent
+    TransferenciaComponent,
+    ClientesComponent,
+    ClienteComponent
   ],
   exports: [
     DashboardComponent,

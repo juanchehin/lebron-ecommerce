@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PerfilComponent } from './perfil/perfil.component';
-
 // Mantenimientos
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { ProveedoresComponent } from './mantenimientos/proveedores/proveedores.component';
@@ -28,6 +26,8 @@ import { ProveedorComponent } from './mantenimientos/proveedores/proveedor.compo
 import { EditarProductoComponent } from './mantenimientos/productos/editar-producto.component';
 import { TransferenciasComponent } from './mantenimientos/transferencias/transferencias.component';
 import { TransferenciaComponent } from './mantenimientos/transferencias/transferencia.component';
+import { ClientesComponent } from './mantenimientos/clientes/clientes.component';
+import { ClienteComponent } from './mantenimientos/clientes/cliente.component';
 
 
 const childRoutes: Routes = [
@@ -41,10 +41,10 @@ const childRoutes: Routes = [
   { path: 'transferencias/nueva', component: TransferenciaComponent, data: { titulo: 'Nueva transferencia de stock' }},
 
   { path: 'configuraciones', component: ConfiguracionesComponent, data: { titulo: 'Configuraciones' }},
+  // Productos
   { path: 'productos', component: ProductosComponent, data: { titulo: 'Productos' }},
   { path: 'productos/nuevo', component: ProductoComponent, data: { titulo: 'Nuevo Producto' }},
   { path: 'producto/:IdProducto', component: EditarProductoComponent, data: { titulo: 'Edicion de producto' }},
-
   { path: 'productos/unidades', component: UnidadesComponent, data: { titulo: 'Unidades' }},
   { path: 'productos/unidades/nuevo', component: UnidadComponent, data: { titulo: 'Nueva Unidad' }},
   { path: 'productos/marcas', component: MarcasComponent, data: { titulo: 'Marcas' }},
@@ -61,6 +61,10 @@ const childRoutes: Routes = [
   { path: 'compras', component: ComprasComponent, data: { titulo: 'Listado de compras' }},
   { path: 'compras/nueva', component: NuevaCompraComponent, data: { titulo: 'Nueva compra' }},
   { path: 'compras/:IdPersona', component: MisComprasComponent, data: { titulo: 'Mis compras' }},
+  //
+  { path: 'clientes', component: ClientesComponent, data: { titulo: 'Listado de clientes' }},
+  // { path: 'clientes/nuevo', component: NuevoClienteComponent, data: { titulo: 'Nuevo cliente' }},
+  { path: 'clientes/:IdPersona', component: ClienteComponent, data: { titulo: 'Edicion de cliente' }},
   // Rutas de Admin
   { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' } },
   { path: 'usuarios/nuevo', component: UsuarioComponent, data: { titulo: 'Alta de Usuario' } }

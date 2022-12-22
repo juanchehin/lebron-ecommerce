@@ -18,7 +18,7 @@ class ClientesRoutes {
         this.router.get('/:IdPersona', clientesController.dameDatosCliente);
         this.router.get('/datos-envio/:IdPersona', clientesController.dameDatosClienteEnvio);
         this.router.get('/listar/busqueda/:clienteBuscado', clientesController.buscarCliente);
-        this.router.get('/listar/paginado/:desde', clientesController.listarClientesPaginado);
+        this.router.get('/listar/paginado/:IdPersona/:desde/:clienteBuscado/:filtroCliente',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], clientesController.buscarClientesPaginado);
         this.router.post('/direccion/alta', clientesController.altaDireccionCliente);
         this.router.get('/direcciones/:IdPersona' ,  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], clientesController.dameDirecionesCliente);
         // carrito 

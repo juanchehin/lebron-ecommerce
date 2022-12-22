@@ -21,6 +21,9 @@
                           Nueva Cuenta
                         </button>
                     </div>
+
+                </div>
+                <div class="row">
                     <div class="col-sm-4">
                         <h3 class="card-title">Cantidad clientes ( <small> {{ totalClientes }} </small> )</h3>
                     </div>
@@ -48,6 +51,7 @@
                             <td>{{ clienteCuenta.Telefono }}</td>
                             <td>{{ clienteCuenta.Email }}</td>
                             <td>
+                                <button class="btn btn-inline btn-success" type="button" [routerLink]="['/dashboard/cuenta/movimientos',clienteCuenta.IdPersona]">Ver</button>
                                 <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/cuenta',clienteCuenta.IdPersona]">Editar</button>
                                 <button class="btn btn-inline btn-danger" type="button" (click)="bajaCliente(clienteCuenta.IdPersona)">Eliminar</button>
                             </td>

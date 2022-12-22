@@ -1,0 +1,63 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <button [routerLink]="['/dashboard/cuenta/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
+                          <i class="fa fa-plus"></i> 
+                          Acreditar
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button [routerLink]="['/dashboard/cuenta/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
+                          <i class="fa fa-plus"></i> 
+                          Debitar
+                        </button>
+                    </div>
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad movimientos ( <small> {{ totalMovimientos }} </small> )</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Saldo : <small> {{ saldo }} </small> </h3>
+                    </div>
+                </div>
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">
+                                #
+                            </th>
+                            <th>Fecha</th>
+                            <th>Tipo</th>
+                            <th>Monto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let movimiento of movimientos">
+                            <td>{{ movimiento.IdTransaccion }}</td>
+                            <td>{{ movimiento.Fecha | date:"dd/MM/yyyy" }}</td>
+                            <td>{{ movimiento.Tipo }}</td>
+                            <td>{{ movimiento.MontoTotal }}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </section>
+
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-15) " type="button" class="btn btn-default-outline">Anteriores</button>
+        <button (click)="cambiarDesde(15) " type="button" class="btn btn-default-outline">Siguientes</button>
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

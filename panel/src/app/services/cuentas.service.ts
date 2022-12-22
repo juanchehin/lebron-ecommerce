@@ -83,7 +83,15 @@ buscarClientesCuentasPaginado(desde: any, pClienteBuscado: any){
 
   return this.http.get( url, this.headers );
 }
+// ==================================================
+//
+// ==================================================
+cargarMovimientosClienteCuenta(desde: any,IdCliente: any){
 
+  let url = URL_SERVICIOS + '/cuentas/movimientos/listar/paginado/' + this.IdPersona + '/' + desde + '/' + IdCliente;
+
+  return this.http.get( url, this.headers );
+}
 // ==================================================
 //        
 // ==================================================

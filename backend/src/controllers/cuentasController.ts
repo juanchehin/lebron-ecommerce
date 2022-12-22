@@ -19,7 +19,7 @@ public async listarCuentasPaginado(req: Request, res: Response): Promise<void> {
         clienteBuscado = "todosClientes";
     }
 
-    pool.query(`call bsp_buscar_clientes_paginado('${pIdPersona}',4,'${pIdPersona},'${desde}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_buscar_clientes_paginado('${pIdPersona}','4','${clienteBuscado}','${desde}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json(err);
             return;
@@ -33,12 +33,15 @@ public async listarCuentasPaginado(req: Request, res: Response): Promise<void> {
 // ==================================================
 //       
 // ==================================================
-public async confirmarPedido(req: Request, res: Response): Promise<void> {
+public async cargarMovimientosClienteCuenta(req: Request, res: Response): Promise<void> {
 
-    var pIdPedido = req.body[0];
-    var pIdUsuario = req.body[1];
+    var desde = req.params.desde || 0;
+    desde  = Number(desde);
 
-    pool.query(`call bsp_confirmar_pedido('${pIdPedido}','${pIdUsuario}')`, function(err: any, result: any, fields: any){
+    var pIdUsuario = req.params.IdPersona;
+    var pIdCliente = req.params.pIdCliente;    
+
+    pool.query(`call bsp_listar_movimientos_cuenta('${pIdUsuario}','${desde}','${pIdCliente}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json(err);
             return;

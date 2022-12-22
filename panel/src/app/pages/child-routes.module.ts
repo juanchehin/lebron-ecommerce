@@ -30,6 +30,9 @@ import { ClientesComponent } from './mantenimientos/clientes/clientes.component'
 import { ClienteComponent } from './mantenimientos/clientes/cliente.component';
 import { EditarClienteComponent } from './mantenimientos/clientes/editar-cliente.component';
 import { CuentasComponent } from './mantenimientos/cuentas-corrientes/cuentas.component';
+import { EditarClienteCuentaComponent } from './mantenimientos/cuentas-corrientes/editar-cliente-cuenta.component';
+import { CuentaComponent } from './mantenimientos/cuentas-corrientes/cuenta.component';
+import { MovimientosComponent } from './mantenimientos/cuentas-corrientes/movimientos.component';
 
 
 const childRoutes: Routes = [
@@ -69,6 +72,10 @@ const childRoutes: Routes = [
   { path: 'cliente/:IdPersona', component: EditarClienteComponent, data: { titulo: 'Edicion de cliente' }},
   //
   { path: 'cuentas', component: CuentasComponent, data: { titulo: 'Clientes con cuenta corriente' }},
+  { path: 'cuenta/nueva', component: CuentaComponent, data: { titulo: 'Nueva cuenta' }},
+  { path: 'cuenta/:IdPersona', component: EditarClienteCuentaComponent, data: { titulo: 'Edicion de cliente' }},
+  { path: 'cuenta/movimientos/:IdPersona', component: MovimientosComponent, data: { titulo: 'Movimientos' }},
+
   // Rutas de Admin
   { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' } },
   { path: 'usuarios/nuevo', component: UsuarioComponent, data: { titulo: 'Alta de Usuario' } }

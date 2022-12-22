@@ -39,6 +39,7 @@ import { EditarClienteComponent } from './mantenimientos/clientes/editar-cliente
 import { CuentasComponent } from './mantenimientos/cuentas-corrientes/cuentas.component';
 import { EditarClienteCuentaComponent } from './mantenimientos/cuentas-corrientes/editar-cliente-cuenta.component';
 import { CuentaComponent } from './mantenimientos/cuentas-corrientes/cuenta.component';
+import { MovimientosComponent } from './mantenimientos/cuentas-corrientes/movimientos.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { CuentaComponent } from './mantenimientos/cuentas-corrientes/cuenta.comp
     EditarClienteComponent,
     CuentasComponent,
     CuentaComponent,
-    EditarClienteCuentaComponent
+    EditarClienteCuentaComponent,
+    MovimientosComponent
   ],
   exports: [
     DashboardComponent,

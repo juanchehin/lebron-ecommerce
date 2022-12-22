@@ -15,6 +15,7 @@ class CuentasRoutes {
     config(): void {
         // 
         this.router.get('/listar/paginado/:IdPersona/:desde/:clienteBuscado',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], cuentasController.listarCuentasPaginado);
+        this.router.get('/movimientos/listar/paginado/:IdPersona/:desde/:pIdCliente',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], cuentasController.cargarMovimientosClienteCuenta);
     }
 }
 

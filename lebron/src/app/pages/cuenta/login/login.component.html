@@ -15,8 +15,7 @@
                     <div *ngIf="errorCredenciales">
                         <p style="color:red;">Error de credenciales</p>
                     </div>
-                    <div class="float-right"><a id="forgot" href="javascript:void(0);">Olvidaste tu contraseña?</a></div>
-
+                    <div class="float-right"><a id="forgot" [routerLink]="['/recuperar-clave']">Olvidaste tu contraseña?</a></div>
                     <div class="text-center">
                         <input type="submit" value="Iniciar sesion" class="btn_1 full-width">
                     </div>

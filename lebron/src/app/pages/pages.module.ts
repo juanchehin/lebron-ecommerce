@@ -34,6 +34,8 @@ import { FailureComponent } from './failure/failure.component';
 import { ComprarAhoraComponent } from './checkout/comprar-ahora/comprar-ahora.component';
 import { MisComprasComponent } from './mis-compras/mis-compras.component';
 import { PromocionDetalleComponent } from './promocion-detalle/promocion-detalle.component';
+import { RecuperarClaveComponent } from './cuenta/recuperar-clave/recuperar-clave.component';
+import { NuevaPassComponent } from './cuenta/nueva-contraseña/nueva-pass.component';
 
 @NgModule({
     declarations: [
@@ -63,7 +65,9 @@ import { PromocionDetalleComponent } from './promocion-detalle/promocion-detalle
         FailureComponent,
         ComprarAhoraComponent,
         MisComprasComponent,
-        PromocionDetalleComponent
+        PromocionDetalleComponent,
+        RecuperarClaveComponent,
+        NuevaPassComponent
     ],
     exports: [
         PagesComponent

@@ -4,9 +4,9 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-recuperar-clave',
-  templateUrl: './recuperar-clave.component.html',
-  styleUrls: ['./recuperar-clave.component.css']
+  selector: 'app-nueva-pass',
+  templateUrl: './nueva-pass.component.html',
+  styleUrls: ['./nueva-pass.component.css']
 })
 export class NuevaPassComponent implements OnInit {
 

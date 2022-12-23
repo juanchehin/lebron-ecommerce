@@ -4,7 +4,7 @@
         <div class="box_account">
             <h3 class="client">Ingrese su nueva contraseña</h3>
             <div class="form_container">
-                <form ngNativeValidate #f="ngForm" class="login100-form validate-form p-b-33 p-t-5" (ngSubmit)="resetPassword(f)">
+                <form ngNativeValidate #f="ngForm" class="login100-form validate-form p-b-33 p-t-5" (ngSubmit)="recuperarClave(f)">
                     <div class="form-group" [ngClass]="{'input-error': passCheck}">
                         <label>Password* : </label>
                         <input formControlName="Password" type="password" class="form-control" name="password" placeholder="Contraseña">

@@ -28,6 +28,7 @@ import { PagoExitosoComponent } from './checkout/pago-exitoso/pago-exitoso.compo
 import { MisComprasComponent } from './mis-compras/mis-compras.component';
 import { PromocionDetalleComponent } from './promocion-detalle/promocion-detalle.component';
 import { NuevaPassComponent } from './cuenta/nueva-contraseña/nueva-pass.component';
+import { RecuperarClaveComponent } from './cuenta/recuperar-clave/recuperar-clave.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -48,8 +49,9 @@ const pagesRoutes: Routes = [
             { path: 'contacto', component: ContactoComponent },
             { path: 'franquicia', component: FranquiciaComponent },
             { path: 'politicas-de-seguridad', component: PoliticasComponent },
-            { path: 'failure', component: FailureComponent }
-            { path: 'nueva-pass/:pToken', component: NuevaPassComponent }
+            { path: 'failure', component: FailureComponent },
+            { path: 'nueva-pass/:pToken', component: NuevaPassComponent },
+            { path: 'recuperar-clave', component: RecuperarClaveComponent }
         ]
     },
     // *** Acceso para el cliente logueado y con token actualizado ****

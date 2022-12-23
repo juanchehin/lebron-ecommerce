@@ -17,7 +17,6 @@ export class RecuperarClaveComponent implements OnInit {
     public route: Router
     ) { }
   ngOnInit() {
-    this.authService.logout();
   }
 
 // ==================================================

@@ -192,4 +192,29 @@ logout() {
   this.router.navigate(['/login']);
 }
 
+// ==================================================
+//   
+// ==================================================
+recuperarClave( pEmail: string ) {
+  
+  const url = URL_SERVICIOS + '/login/recuperar-clave/' + pEmail;
+  return this.http.get(url);
+  
+}
+
+// ==================================================
+//     
+// ==================================================
+nuevaClave( token: any,Password: any ): any {
+
+  const url = URL_SERVICIOS + '/login/nueva-pass';
+
+  const datos = new Array(
+    token,
+    Password
+  );
+  
+  return this.http.post( url, datos );
+
+}
 }

@@ -13,6 +13,9 @@ class LoginRoutes {
     config() {
         this.router.post('/usuario', loginController.loginUsuario);
         this.router.post('/cliente', loginController.loginCliente);
+        this.router.post('/recuperar-clave/:pEmail', loginController.recuperarClave);
+        this.router.post('/nueva-pass', loginController.nuevaPassword);
+
     }
 
 }

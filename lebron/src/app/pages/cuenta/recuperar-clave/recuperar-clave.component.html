@@ -1,0 +1,22 @@
+<br /><br /><br />
+<div class="row justify-content-center">
+    <div class="col-xl-6 col-lg-6 col-md-8">
+        <div class="box_account">
+            <h3 class="client">¿Olvido su contraseña?</h3>
+            <div class="form_container">
+                <form ngNativeValidate #f="ngForm" class="login100-form validate-form p-b-33 p-t-5" (ngSubmit)="loginCliente(f)">
+                    <div class="form-group" [ngClass]="errorMail ? 'error' : ''">
+                        <input ngModel type="email" class="form-control" name="email" required placeholder="Email">
+                    </div>
+                    <br>
+                    <div class="float-right">
+                        <a>Recuperar contraseña</a>
+                    </div>
+                    <br>
+                </form>
+            </div>
+            <!-- /form_container -->
+        </div>
+        <!-- /box_account -->
+    </div>
+    <br /><br /><br /><br />

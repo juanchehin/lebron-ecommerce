@@ -18,7 +18,7 @@
 <div class="container margin_30">
     <div class="row small-gutters">
         <div class="col-6 col-md-4 col-xl-3" *ngFor="let producto of productosCategoria">
-            <div class="grid_item">
+            <div class="grid_item" (click)="rutearDetalleProducto(producto.IdProducto)">
                 <figure>
                     <a>
                         <img width="100" height="100" *ngIf="producto.Archivo != null" [src]="url_imagenes_producto + producto.Archivo" class="img-fluid lazy">

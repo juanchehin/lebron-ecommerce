@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductosService } from 'src/app/services/productos.service';
 import { environment } from 'src/environments/environment';
 
@@ -29,7 +29,8 @@ export class CategoriasComponent implements OnInit {
 
   constructor(
     public productosService: ProductosService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public router: Router
   ) {
    }
 
@@ -47,8 +48,6 @@ cargarProductosCategoria() {
 
     this.productosService.listarProductosCategoria( this.IdCategoria,this.desde  )
                .subscribe( (resp: any) => {
-
-                console.log("prod cate : ",resp)
 
                 this.productosCategoria = resp[0];
 
@@ -71,33 +70,6 @@ cargarProductosCategoria() {
 
   }
 
-
-// ==================================================
-//  Busca un cliente por plan o por todos
-// ==================================================
-
-  buscarCliente( ) {
-
-    const inputElement: HTMLInputElement = document.getElementById('buscarApellidos') as HTMLInputElement;
-    const Apellidos: any = inputElement.value || null;
-
-    const inputElement1: HTMLInputElement = document.getElementById('buscarNombres') as HTMLInputElement;
-    const Nombres: any = inputElement1.value || null;
-
-    // this.personaService.buscarClientePorPlan( Apellidos, Nombres , this.planSeleccionado.toString()  )
-    //         .subscribe( (resp: any) => {
-
-    //           if( resp.length !== 0 ) {
-    //             this.clientes = resp[0];
-    //             this.totalClientes = resp[1][0].cantCli;
-    //           } else {
-    //             this.totalClientes = 0;
-    //             this.clientes = resp[0];
-    //           }
-    //         });
-
-  }
-
 cambiarDesde( valor: number ) {
 
   // const desde = this.desde + valor;
@@ -115,7 +87,15 @@ cambiarDesde( valor: number ) {
 
 }
 
+// ==================================================
+// Carga
+// ==================================================
 
+rutearDetalleProducto(IdProducto: any) {
+
+  this.router.navigate(['/producto/detalle',IdProducto]);
+
+  }
 
 
 }

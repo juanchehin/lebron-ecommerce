@@ -189,12 +189,17 @@ public async recuperarClave(req: Request, res: Response): Promise<void> {
     var pEmail = req.params.pEmail;
 
     pool.query(`call bsp_recuperar_clave('${pEmail}')`, function(err: any, result: any, fields: any){
+        console.log("err : ",err);
+        console.log("result : ",result);
+
+        console.log("result : ",result);
+
         if(err){
             res.status(404).json(err);
             return;
         }
 
-        if(result[0].Mensaje == 'Ok'){
+        if(result[0][0].Mensaje == 'Ok'){
             var token = jwt.sign({ IdPersona: result[0].vIdPersona }, SEED, { expiresIn: "1h"});
 
             enviarMailRecuperarClave(pEmail,token);

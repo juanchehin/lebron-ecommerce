@@ -6,9 +6,9 @@ var SEED = process.env.JWT_KEY;
 import pool from '../database';
 
 const nodemailer = require("nodemailer");
-import keys from '../keys';
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
+// import keys from '../keys';
+// const { google } = require("googleapis");
+// const OAuth2 = google.auth.OAuth2;
 
 class LoginController {
 
@@ -228,29 +228,27 @@ export default loginController;
 
 async function enviarMailRecuperarClave(pEmail: string,pToken: any) {
 
-    const OAuth2_client = new OAuth2(keys.mail.client_id,keys.mail.client_secret);
-    OAuth2_client.setCredentials({ refresh_token: keys.mail.refresh_token});
-    const access_token = OAuth2_client.getAccessToken();
+    // const OAuth2_client = new OAuth2(keys.mail.client_id,keys.mail.client_secret);
+    // OAuth2_client.setCredentials({ refresh_token: keys.mail.refresh_token});
+    // const access_token = OAuth2_client.getAccessToken();
   // Generate test SMTP service account from ethereal.email
   // Only needed if you don't have a real mail account for testing
 //   let testAccount = await nodemailer.createTestAccount();
 
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'lebron-suplementos.com',
+    port: 465,
+    secure: true,
     auth: {
-        type: 'OAuth2',
-        user: keys.mail.user, //your gmail account you used to set the project up in google cloud console"
-        clientId: keys.mail.client_id,
-        clientSecret: keys.mail.client_secret,
-        refreshToken: keys.mail.refresh_token,
-        accessToken: access_token //access token variable we defined earlier
-    },
+        user: process.env.USER_MAIL,
+        pass: process.env.PASS_MAIL
+    }
   });
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: '"Lebron - Suplementos Deportivos" <lebron@example.com>', // sender address
+    from: '"Lebron - Suplementos Deportivos" <administracion@lebron-suplementos.com>', // sender address
     to: pEmail, // list of receivers
     subject: "[Lebron] Recuperar clave!", // Subject line
     text: "Ingresa al siguiente link para recuperar tu contraseña", // plain text body

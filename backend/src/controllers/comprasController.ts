@@ -17,7 +17,7 @@ public async listarCompras(req: Request, res: Response): Promise<void> {
     var FechaFin = req.params.FechaFin;
     var IdPersona = req.params.IdPersona;
 
-    pool.query(`call bsp_listar_compras('${IdPersona}','${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_listar_compras_paginado_fechas('${IdPersona}','${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
        if(err){
         res.status(404).json(err);
            return;

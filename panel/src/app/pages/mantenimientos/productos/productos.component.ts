@@ -152,8 +152,26 @@ bajaProducto(IdProductoSabor: string) {
   })
 }
 
+// =================================================================
 publicarProducto(IdProducto: string){
   console.log("pasa publicar producto IdProducto : ",IdProducto)
+ 
+  this.productosService.publicarProducto( IdProducto  )
+  .subscribe( {
+   next: (resp: any) => {
+
+     console.log("resp busc es : ",resp)
+
+     if ( resp[1][0].Mensaje === 'Ok') {       
+      this.alertaService.alertSuccess('top-end','Operacion exitosa',false,900);
+     } else {
+       this.alertaService.alertFail('Ocurrio un error',false,2000);
+     }
+     return;
+    },
+   error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
+ });
+
 }
 
 

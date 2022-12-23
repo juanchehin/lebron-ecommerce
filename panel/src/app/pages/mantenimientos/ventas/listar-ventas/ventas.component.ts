@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { VentasService } from 'src/app/services/ventas.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-ventas',
@@ -10,29 +11,60 @@ export class VentasComponent implements OnInit {
 
   desde = 0;
   cargando = false;
-
-  FechaInicio = new Date(2000, 1 , 1);
-  FechaFin = new Date(Date.now());
+  fechaInicio = this.formatDateNow(new Date(Date.now()));
+  fechaFin = this.formatDateNow(new Date(Date.now()));
   controlFechas = false;
-
   totalVentas = 0;
   ventas!: Array < any > ;
 
   constructor(
-    public ventasService: VentasService
+    public ventasService: VentasService,
+    private alertService: AlertService
   ) {
    }
 
   ngOnInit() {
     this.cargarVentas();
   }
+
+
+// ==================================================
+//        Carga 
+// ==================================================
+
+cargarVentas() {
+
+  const pfechaInicio  = this.formatDate(this.fechaInicio);
+  const pfechaFin = this.formatDate(this.fechaFin);
+
+  this.cargando = true;
+
+  this.ventasService.listarVentasFecha( this.desde , pfechaInicio , pfechaFin)
+             .subscribe( {
+              next: (resp: any) => { 
+                
+                this.totalVentas = resp[1][0].totalVentas;
+
+                this.ventas = resp[0];
+
+                if (resp[1][0].cantVentas === undefined || resp[1][0].cantVentas === null) {
+                  this.totalVentas = 0;
+                }else {
+                  this.alertService.alertFail('Ocurrio un error',false,2000);
+                }
+                return;
+               },
+              error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
+            });
+
+}
 // ==================================================
 // Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
 // ==================================================
-cambiosFechaInicio(nuevaFechaInicio: any) {
+cambiosfechaInicio(nuevafechaInicio: any) {
 
-  if (nuevaFechaInicio > this.FechaFin) {
-    // this.FechaInicio = nuevaFechaInicio;
+  if (nuevafechaInicio > this.fechaFin) {
+    // this.fechaInicio = nuevafechaInicio;
     this.controlFechas = true;
   } else {
     this.controlFechas = false;
@@ -43,15 +75,15 @@ cambiosFechaInicio(nuevaFechaInicio: any) {
 // ==================================================
 // Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
 // ==================================================
-cambiosFechaFin(nuevaFechaFin: any) {
+cambiosfechaFin(nuevafechaFin: any) {
 
-  if (nuevaFechaFin < this.FechaInicio) {
-    // this.FechaInicio = nuevaFechaFin;
+  if (nuevafechaFin < this.fechaInicio) {
+    // this.fechaInicio = nuevafechaFin;
     this.controlFechas = true;
   } else {
     this.controlFechas = false;
   }
-  // this.FechaFin = nuevaFechaFin;
+  // this.fechaFin = nuevafechaFin;
 
 }
 
@@ -63,7 +95,7 @@ formatDate(date: any) {
     // tslint:disable-next-line: one-variable-per-declaration
     let d = new Date(date),
     month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate(),
+    day = '' + (d.getDate() + 1),
     // tslint:disable-next-line: prefer-const
     year = d.getFullYear();
 
@@ -72,37 +104,24 @@ formatDate(date: any) {
 
     return [year, month, day].join('-');
 }
-
 // ==================================================
-//        Carga 
+//    Formatea la fecha a yyyy-mm-dd
 // ==================================================
 
-cargarVentas() {
+formatDateNow(date: any) {
+  // tslint:disable-next-line: one-variable-per-declaration
+  let d = new Date(date),
+  month = '' + (d.getMonth() + 1),
+  day = '' + (d.getDate()),
+  // tslint:disable-next-line: prefer-const
+  year = d.getFullYear();
 
-  const pFechaInicio  = this.formatDate(this.FechaInicio);
-  const pFechaFin = this.formatDate(this.FechaFin);
+  if (month.length < 2) { month = '0' + month; }
+  if (day.length < 2) { day = '0' + day; }
 
-  this.cargando = true;
-
-  this.ventasService.listarVentasFecha( this.desde , pFechaInicio , pFechaFin)
-             .subscribe( (resp: any) => {
-              // Controlar que el cliente exista AQUI , ver como se puede capturar el mensaje enviado desde el SQL
-
-              this.totalVentas = resp[1][0].cantVentas;
-
-              this.ventas = resp[0];
-
-              console.log("resp es : ",resp);
-
-              if (resp[1][0].cantVentas === undefined || resp[1][0].cantVentas === null) {
-                this.totalVentas = 0;
-              }
-
-              this.cargando = false;
-
-            });
-
+  return [year, month, day].join('-');
 }
+
 
 // ==================================================
 //        Cambio de valor
@@ -123,20 +142,6 @@ cambiarDesde( valor: number ) {
   this.desde += valor;
   this.cargarVentas();
 
-}
-
-
-// ==================================================
-//        Mensaje al presionar un boton
-// ==================================================
-mensajeIngreso() {
-  // Swal.fire({
-  //   position: 'top-end',
-  //   icon: 'info',
-  //   title: 'Seleccione el cliente',
-  //   showConfirmButton: false,
-  //   timer: 2000
-  // });
 }
 
 // ==================================================

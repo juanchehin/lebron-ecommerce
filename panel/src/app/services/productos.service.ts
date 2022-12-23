@@ -68,6 +68,24 @@ altaProducto( producto: any ) {
 );
 }
 
+
+  // ==================================================
+//        
+// ==================================================
+publicarProducto( IdProducto: any ) {
+
+  let url = URL_SERVICIOS + '/productos/publicar/' + this.IdPersona;
+
+  return this.http.post(
+    url,
+    IdProducto,
+    {
+      headers: {
+        token: this.token
+      }
+    }
+);
+}
   // ==================================================
 //        
 // ==================================================

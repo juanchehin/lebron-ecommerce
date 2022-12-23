@@ -12,7 +12,6 @@ export class ClientesComponent implements OnInit {
 
   desde = 0;
   totalAsistencias = true;
-  filtroCliente = 4;  // Indica si es un cliente web o un cliente registrado desde el panel
 
   clientes!: any;
   cantPlanes = 0;
@@ -39,11 +38,11 @@ buscarClientes() {
     const inputElement: HTMLInputElement = document.getElementById('clienteBuscado') as HTMLInputElement;
     const clienteBuscado: any = inputElement.value || null;
 
-    this.clientesService.buscarClientesPaginado( this.desde, 3, clienteBuscado  )
+    this.clientesService.buscarClientesPaginado( this.desde, 2, clienteBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
 
-                  if(resp[2][0].Mensaje == 'Ok')
+                  if(resp[2] && resp[2][0].Mensaje == 'Ok')
                   { 
                     this.totalClientes = resp[1][0].cantClientes;
     

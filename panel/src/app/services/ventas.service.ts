@@ -43,7 +43,7 @@ export class VentasService {
 // ==================================================
 //
 // ==================================================
-  listarVentasFecha(desde: number , FechaInicio: string , FechaFin: string){
+  listarVentasFecha(desde: number , FechaInicio: any , FechaFin: any){
 
     let url = URL_SERVICIOS + '/ventas/listar/' + desde + '/' + FechaInicio + '/' + FechaFin;
 

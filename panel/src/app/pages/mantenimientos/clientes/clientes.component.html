@@ -3,18 +3,9 @@
         <section class="box-typical">
             <div class="table-responsive">
                 <div class="row">
-
                     <div class="col-sm-4 form-group">
                         <label>Cliente:  </label>
                         <input (keyup.enter)="buscarClientes( )" #input type="text" class="form-control" placeholder="Buscar por codigo o producto..." id="clienteBuscado">
-                    </div>
-
-                    <div class="col-sm-2 form-group">
-                        <label>Tipo cliente : </label>
-                        <select tabindex="4" [(ngModel)]="filtroCliente" (change)="buscarClientes()" name="filtroCliente" class="form-control">
-                                <option value="2">Web</option>
-                                <option value="4">Panel</option>
-                            </select>
                     </div>
                     <div class="col-sm-1 form-group">
                         <button (click)="buscarClientes( )" class="btn btn-primary" style="margin-top: 26px;">

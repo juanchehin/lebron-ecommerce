@@ -12,8 +12,8 @@ export class ComprasComponent implements OnInit {
   cargando = false;
   fecha: any;
 
-  FechaInicio = new Date(Date.now());
-  FechaFin = new Date(Date.now());
+  fechaInicio = this.formatDateNow(new Date(Date.now()));
+  fechaFin = this.formatDateNow(new Date(Date.now()));
   controlFechas = false;
 
   totalCompras = 0;
@@ -30,10 +30,10 @@ export class ComprasComponent implements OnInit {
 // ==================================================
 // Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
 // ==================================================
-cambiosFechaInicio(nuevaFechaInicio: any) {
+cambiosFechaInicio(nuevafechaInicio: any) {
 
-  if (nuevaFechaInicio > this.FechaFin) {
-    // this.FechaInicio = nuevaFechaInicio;
+  if (nuevafechaInicio > this.fechaFin) {
+    // this.fechaInicio = nuevafechaInicio;
     this.controlFechas = true;
   } else {
     this.controlFechas = false;
@@ -44,22 +44,22 @@ cambiosFechaInicio(nuevaFechaInicio: any) {
 // ==================================================
 // Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
 // ==================================================
-cambiosFechaFin(nuevaFechaFin: any) {
+cambiosFechaFin(nuevafechaFin: any) {
 
-  if (nuevaFechaFin < this.FechaInicio) {
-    // this.FechaInicio = nuevaFechaFin;
+  if (nuevafechaFin < this.fechaInicio) {
+    // this.fechaInicio = nuevafechaFin;
     this.controlFechas = true;
   } else {
     this.controlFechas = false;
   }
-  // this.FechaFin = nuevaFechaFin;
+  // this.fechaFin = nuevafechaFin;
 
 }
 
 // ==================================================
 // Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
 // ==================================================
-cambiosFecha(nuevaFechaFin: any) {
+cambiosFecha(nuevafechaFin: any) {
 
   
 
@@ -72,7 +72,7 @@ cambiosFecha(nuevaFechaFin: any) {
 formatDate(date: any) {
     // tslint:disable-next-line: one-variable-per-declaration
     let d = new Date(date),
-    month = '' + (d.getMonth() + 1),
+    month = '' + (d.getMonth()),
     day = '' + d.getDate(),
     // tslint:disable-next-line: prefer-const
     year = d.getFullYear();
@@ -82,19 +82,35 @@ formatDate(date: any) {
 
     return [year, month, day].join('-');
 }
+// ==================================================
+//    Formatea la fecha a yyyy-mm-dd
+// ==================================================
 
+formatDateNow(date: any) {
+  // tslint:disable-next-line: one-variable-per-declaration
+  let d = new Date(date),
+  month = '' + (d.getMonth() + 1),
+  day = '' + (d.getDate()),
+  // tslint:disable-next-line: prefer-const
+  year = d.getFullYear();
+
+  if (month.length < 2) { month = '0' + month; }
+  if (day.length < 2) { day = '0' + day; }
+
+  return [year, month, day].join('-');
+}
 // ==================================================
 //        Carga 
 // ==================================================
 
 cargarCompras() {
 
-  const pFechaInicio  = this.formatDate(this.FechaInicio);
-  const pFechaFin = this.formatDate(this.FechaFin);
+  const pfechaInicio  = this.formatDate(this.fechaInicio);
+  const pfechaFin = this.formatDate(this.fechaFin);
 
   this.cargando = true;
 
-  this.comprasService.listarComprasFecha( this.desde , pFechaInicio , pFechaFin)
+  this.comprasService.listarComprasFecha( this.desde , pfechaInicio , pfechaFin)
              .subscribe( (resp: any) => {
               // Controlar que el cliente exista AQUI , ver como se puede capturar el mensaje enviado desde el SQL
 

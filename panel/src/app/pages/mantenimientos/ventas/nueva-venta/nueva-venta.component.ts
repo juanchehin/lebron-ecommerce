@@ -170,6 +170,7 @@ cargarDatosVendedor() {
   
     this.usuariosService.cargarDatosVendedor(  this.IdPersona )
                .subscribe( (resp: any) => {
+                console.log("resp cargarDatosVendedor : ",resp)
 
                 this.datosVendedor = resp[0][0];
 

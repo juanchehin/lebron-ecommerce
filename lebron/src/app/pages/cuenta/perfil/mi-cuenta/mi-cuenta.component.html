@@ -6,23 +6,32 @@
             <div class="form_container">
                 <div class="form-group">
                     <label>Apellidos : </label>
-                    <input [(ngModel)]="Apellidos" type="text" class="form-control" name="apellidos" placeholder="Apellidos*">
+                    <input [(ngModel)]="Apellidos" type="text" class="form-control" name="apellidos" placeholder="Apellidos*" maxlength="22">
                 </div>
                 <div class="form-group">
                     <label>Nombres : </label>
-                    <input [(ngModel)]="Nombres" type="text" class="form-control" name="nombres" placeholder="Nombres*">
+                    <input [(ngModel)]="Nombres" type="text" class="form-control" name="nombres" placeholder="Nombres*" maxlength="22">
+                </div>
+                <div *ngIf="errorEmail">
+                    <p style="color:red;">Email invalido</p>
                 </div>
                 <div class="form-group">
                     <label>Email : </label>
-                    <input [(ngModel)]="Email" type="text" class="form-control" name="email" placeholder="Email*">
+                    <input [(ngModel)]="Email" type="text" class="form-control" name="email" placeholder="Email*" maxlength="22">
+                </div>
+                <div *ngIf="errorDNI">
+                    <p style="color:red;">DNI invalido</p>
                 </div>
                 <div class="form-group">
                     <label>DNI : </label>
-                    <input [(ngModel)]="DNI" type="text" class="form-control" name="DNI" placeholder="DNI">
+                    <input [(ngModel)]="DNI" type="text" class="form-control" name="DNI" placeholder="DNI" maxlength="10">
+                </div>
+                <div *ngIf="errorTelefono">
+                    <p style="color:red;">Telefono invalido</p>
                 </div>
                 <div class="form-group">
                     <label>Telefono : </label>
-                    <input [(ngModel)]="Telefono" type="text" class="form-control" name="Telefono" placeholder="Telefono">
+                    <input [(ngModel)]="Telefono" type="text" class="form-control" name="Telefono" placeholder="Telefono" maxlength="15">
                 </div>
                 <hr>
             </div>

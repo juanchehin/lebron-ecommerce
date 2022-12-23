@@ -26,6 +26,9 @@ export class MiCuentaComponent implements OnInit {
   Nombres!: string;
   DNI!: any;
   Telefono!: any;
+  errorTelefono = false;
+  errorDNI = false;
+  errorEmail = false;
 
   constructor(
     public authService: AuthService,
@@ -96,6 +99,27 @@ comprobarLogueo() {
 // ==================================================
 actualizarCliente(){
 
+  if(this.isValidPhone(this.Telefono)){
+    this.errorTelefono = true;
+    return;
+  }
+
+  this.errorTelefono = false;
+
+  if(this.isNumber(this.DNI)){
+    this.errorDNI = true;
+    return;
+  }
+
+  this.errorDNI = false;
+
+  if(this.validateEmail(this.Email)){
+    this.errorEmail = true;
+    return;
+  }
+
+  this.errorEmail = false;  
+
   const clienteEditado = new Array(
     this.Apellidos,
     this.Nombres,
@@ -120,5 +144,25 @@ actualizarCliente(){
             });
 
         };
+
+// =========
+isValidPhone(p: any) {
+  var phoneRe = /^[2-9]\d{2}[2-9]\d{2}\d{4}$/;
+  var digits = p.replace(/\D/g, "");
+  return phoneRe.test(digits);
+}
+
+// =======================
+isNumber(value: string | number): boolean
+{
+   return ((value != null) &&
+           (value !== '') &&
+           !isNaN(Number(value.toString())));
+}
+// =======================
+validateEmail(email: any) {
+  var re = /\S+@\S+\.\S+/;
+  return re.test(email);
+}
 
 }

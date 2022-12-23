@@ -117,14 +117,15 @@ public async editarClienteFront(req: Request, res: Response) {
 // ==================================================
 public async altaDireccionCliente(req: Request, res: Response) {
 
+    var IdCliente = req.params.IdPersona;
+
     var IdLocalidad = req.body[0];
-    var IdCliente = req.body[1];
-    var Calle = req.body[2];
-    var Numero = req.body[3];
-    var Piso = req.body[4];
-    var Departamento = req.body[5];
-    var Referencia = req.body[6];
-    var Telefono = req.body[7];
+    var Calle = req.body[1];
+    var Numero = req.body[2];
+    var Piso = req.body[3];
+    var Departamento = req.body[4];
+    var Referencia = req.body[5];
+    var Telefono = req.body[6];
     
     pool.query(`call bsp_alta_direccion_cliente('${IdLocalidad}','${IdCliente}','${Calle}','${Numero}','${Piso}','${Departamento}','${Referencia}','${Telefono}')`, 
     function(err: any, result: any, fields: any){
@@ -407,7 +408,7 @@ public async bajaProductoCarrito(req: Request, res: Response) {
     var IdProducto = req.params.IdProducto;
     var IdCliente = req.params.IdPersona;
 
-    pool.query(`call bsp_baja_producto_carrito('${IdCliente}','${IdProducto}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_baja_producto_carrito('${IdCliente}','${IdProducto}')`, function(err: any, result: any){
 
         if(err){
             res.status(404).json(result);

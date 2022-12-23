@@ -20,7 +20,7 @@ class ClientesRoutes {
         this.router.get('/datos-envio/:IdPersona', clientesController.dameDatosClienteEnvio);
         this.router.get('/listar/busqueda/:clienteBuscado', clientesController.buscarCliente);
         this.router.get('/listar/paginado/:IdPersona/:desde/:clienteBuscado/:filtroCliente',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], clientesController.buscarClientesPaginado);
-        this.router.post('/direccion/alta', clientesController.altaDireccionCliente);
+        this.router.post('/direccion/alta/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], clientesController.altaDireccionCliente);
         this.router.get('/direcciones/:IdPersona' ,  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], clientesController.dameDirecionesCliente);
         this.router.get('/editar/datos-formulario/:pIdCliente/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], clientesController.cargarDatosFormEditarCliente);
         this.router.post('/editar/:IdPersona', clientesController.editarCliente);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { DireccionesService } from 'src/app/services/direcciones.service';
@@ -12,7 +12,6 @@ import { DireccionesService } from 'src/app/services/direcciones.service';
 })
 export class NuevaDireccionComponent implements OnInit {
 
-  formularioRegistroCliente!: FormGroup;
   datosDirecionesCliente: any;
   datosProvinciaLocalidades: any;
   cargando = true;
@@ -27,6 +26,8 @@ export class NuevaDireccionComponent implements OnInit {
   habilitarLocalidad = true;
   cpInvalido = false;
   banderaCompletarCamposRequeridos = false;
+  telefonoInvalido = false;
+  numeroInvalido = false;
 
   constructor(
     public authService: AuthService,
@@ -62,9 +63,29 @@ altaDireccion() {
     return;
   }
 
+  if(this.forma.value.Telefono)
+  {
+    if ( !this.isNumber(this.forma.value.Telefono) ) {
+      this.telefonoInvalido = true;
+      return;
+    }
+  }
+
+  this.telefonoInvalido = false;
+ 
+
+  if(this.forma.value.Numero)
+  {
+    if ( !this.isNumber(this.forma.value.Numero) ) {
+      this.numeroInvalido = true;
+      return;
+    }
+  }
+
+  this.numeroInvalido = false;
+
   const direccion = new Array(
     this.forma.value.IdLocalidad,
-    this.IdPersona,
     this.forma.value.Calle,
     this.forma.value.Numero,
     this.forma.value.Piso,
@@ -130,4 +151,11 @@ inputHandle(event: any) {
   }
 }
 
+// =======================
+isNumber(value: string | number): boolean
+{
+   return ((value != null) &&
+           (value !== '') &&
+           !isNaN(Number(value.toString())));
+}
 }

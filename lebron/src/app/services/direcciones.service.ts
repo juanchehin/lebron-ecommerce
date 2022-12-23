@@ -27,6 +27,17 @@ export class DireccionesService {
         }
       }
     }
+    // ==============================
+    get IdPersona(): any {
+      if(this.authService.IdPersona)
+      {
+        return this.authService.IdPersona;
+      }
+      else
+      {
+        return localStorage.getItem('id') || '';
+      }
+    }
 
 // ==================================================
 //

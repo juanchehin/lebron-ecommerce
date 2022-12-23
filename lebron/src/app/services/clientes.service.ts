@@ -79,11 +79,12 @@ editarCliente( clienteEditado: any ) {
 // ==================================================
 nuevaDireccion( direccion: any ) {
 
-  let url = URL_SERVICIOS + '/clientes/direccion/alta';
+  let url = URL_SERVICIOS + '/clientes/direccion/alta/' + this.IdPersona;
 
   return this.http.post(
     url,
-    direccion
+    direccion,
+    this.headers
 );
 }
 // ==================================================

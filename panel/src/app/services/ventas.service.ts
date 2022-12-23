@@ -47,7 +47,7 @@ export class VentasService {
 
     let url = URL_SERVICIOS + '/ventas/listar/' + desde + '/' + FechaInicio + '/' + FechaFin;
 
-    return this.http.get( url );
+    return this.http.get( url, this.headers );
   }
 
 // ==================================================

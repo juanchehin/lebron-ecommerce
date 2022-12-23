@@ -33,6 +33,7 @@ import { CuentasComponent } from './mantenimientos/cuentas-corrientes/cuentas.co
 import { EditarClienteCuentaComponent } from './mantenimientos/cuentas-corrientes/editar-cliente-cuenta.component';
 import { CuentaComponent } from './mantenimientos/cuentas-corrientes/cuenta.component';
 import { MovimientosComponent } from './mantenimientos/cuentas-corrientes/movimientos.component';
+import { VentasComponent } from './mantenimientos/ventas/listar-ventas/ventas.component';
 
 
 const childRoutes: Routes = [
@@ -60,6 +61,7 @@ const childRoutes: Routes = [
   { path: 'promociones/nueva', component: PromocionComponent, data: { titulo: 'Nueva Promocion' }},
   //
   { path: 'pedidos', component: PedidosComponent, data: { titulo: 'Pedidos' }},
+  { path: 'ventas/listar', component: VentasComponent, data: { titulo: 'Listado de Ventas' }},
   { path: 'venta/nueva', component: NuevaVentaComponent, data: { titulo: 'Nueva venta' }},
   { path: 'ventas/:IdPersona', component: MisVentasComponent, data: { titulo: 'Mis ventas' }},
   //

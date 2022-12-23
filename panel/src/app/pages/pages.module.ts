@@ -40,6 +40,7 @@ import { CuentasComponent } from './mantenimientos/cuentas-corrientes/cuentas.co
 import { EditarClienteCuentaComponent } from './mantenimientos/cuentas-corrientes/editar-cliente-cuenta.component';
 import { CuentaComponent } from './mantenimientos/cuentas-corrientes/cuenta.component';
 import { MovimientosComponent } from './mantenimientos/cuentas-corrientes/movimientos.component';
+import { VentasComponent } from './mantenimientos/ventas/listar-ventas/ventas.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,6 @@ import { MovimientosComponent } from './mantenimientos/cuentas-corrientes/movimi
     UsuarioComponent,
     UnidadesComponent,
     UnidadComponent,
-    NuevaVentaComponent,
     ConfiguracionesComponent,
     ImagenesProductoComponent,
     NuevaImagenProductoComponent,
@@ -64,7 +64,9 @@ import { MovimientosComponent } from './mantenimientos/cuentas-corrientes/movimi
     PromocionesComponent,
     PromocionComponent,
     EditarPromocionComponent,
+    VentasComponent,
     MisVentasComponent,
+    NuevaVentaComponent,
     NuevaCompraComponent,
     MisComprasComponent,
     ComprasComponent,

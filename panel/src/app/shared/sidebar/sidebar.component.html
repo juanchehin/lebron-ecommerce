@@ -65,7 +65,6 @@
                         <span class="hide-menu">Ventas </span>
                     </a>
                     <ul aria-expanded="false" [ngClass]="expandirVentas ? 'collapse' : ''">
-                        <li *ngIf="activarSubMenu('Ventas','Ver')"><a routerLinkActive="active" [routerLink]="['/dashboard/productos']">Listar Productos </a></li>
                         <li><a [routerLink]="['/dashboard/ventas/listar']">Listar ventas</a></li>
                         <li><a [routerLink]="['/dashboard/venta/nueva']">Nuevo venta</a></li>
                         <li><a [routerLink]="['/dashboard/ventas',IdPersona]">Mis ventas</a></li>

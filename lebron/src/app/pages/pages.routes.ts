@@ -31,6 +31,7 @@ import { NuevaPassComponent } from './cuenta/nueva-contraseña/nueva-pass.compon
 import { RecuperarClaveComponent } from './cuenta/recuperar-clave/recuperar-clave.component';
 import { ChequearMailComponent } from './cuenta/chequear-mail/chequear-mail.component';
 import { PassRecuperadaComponent } from './cuenta/pass-recuperada/pass-recuperada.component';
+import { ActualizacionExitosaComponent } from './cuenta/perfil/mi-cuenta/actualizacion-exitosa/actualizacion-exitosa.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -55,8 +56,8 @@ const pagesRoutes: Routes = [
             { path: 'nueva-pass/:pToken', component: NuevaPassComponent },
             { path: 'recuperar-clave', component: RecuperarClaveComponent },
             { path: 'chequear-mail', component: ChequearMailComponent },
-            { path: 'pass-recuperada', component: PassRecuperadaComponent }
-
+            { path: 'pass-recuperada', component: PassRecuperadaComponent },
+            { path: 'actualizacion-cuenta', component: ActualizacionExitosaComponent }
         ]
     },
     // *** Acceso para el cliente logueado y con token actualizado ****

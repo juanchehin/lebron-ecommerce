@@ -5,7 +5,6 @@
             <h3 class="client">Acceso</h3>
             <div class="form_container">
                 <form ngNativeValidate #f="ngForm" class="login100-form validate-form p-b-33 p-t-5" (ngSubmit)="loginCliente(f)">
-
                     <div class="form-group" [ngClass]="errorCredenciales ? 'error' : ''">
                         <input ngModel type="email" class="form-control" name="email" required placeholder="Email">
                     </div>

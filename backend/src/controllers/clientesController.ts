@@ -8,16 +8,6 @@ const OAuth2 = google.auth.OAuth2;
 
 class ClientesController {
 
-    
- // ==================================================
-//        Lista los roles del sistema
-// ==================================================
-
-public async listarRoles(req: Request, res: Response): Promise<void> {
-     const roles = await pool.query('call bsp_listar_roles()');
-
-     res.json(roles);
- }
 
 // ==================================================
 //        Obtiene un cliente de la BD
@@ -27,7 +17,7 @@ public async dameDatosCliente(req: Request, res: Response): Promise<any> {
 
     pool.query(`call bsp_dame_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
         if(err){
-            res.status(404).json({ text: "La personas no existe" });
+            res.status(404).json(err);
             return;
         }
         
@@ -96,6 +86,38 @@ public async editarCliente(req: Request, res: Response) {
 }
 
 // ==================================================
+//   Edita el cliente desde la cuenta del cliente por el cliente
+// ==================================================
+public async editarClienteFront(req: Request, res: Response) {
+
+    const { IdPersona } = req.params;
+
+    console.log("req. body : ",req.body);
+
+    var Apellidos = req.body[0];
+    var Nombres = req.body[1];
+    var Telefono = req.body[2];
+    var DNI = req.body[3];
+    var Email = req.body[4];
+
+    pool.query(`call bsp_editar_cliente_front('${IdPersona}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}')`,function(err: any, result: any){
+        
+                console.log("result ",result)
+
+                if(err){
+                    res.status(404).json(err);
+                    return;
+                }
+                
+                if(result[0][0].Mensaje !== 'Ok'){
+                    return res.json( result );
+                }
+
+                return res.json({ Mensaje: 'Ok' });
+            })          
+    
+}
+// ==================================================
 //        Inserta una direccion
 // ==================================================
 public async altaDireccionCliente(req: Request, res: Response) {
@@ -163,8 +185,6 @@ public async altaProductoCarrito(req: Request, res: Response) {
 // ==================================================
 //   Activa un cliente (caso de ya existencia en la BD)
 // ==================================================
-
-
 public async activarCliente(req: Request, res: Response) {
 
     var IdPersona = req.params.IdPersona;
@@ -186,7 +206,6 @@ public async activarCliente(req: Request, res: Response) {
 // ==================================================
 //        Lista Clientes desde cierto valor
 // ==================================================
-
 public async buscarClientesPaginado(req: Request, res: Response): Promise<void> {
     var desde = req.params.desde || 0;
     desde  = Number(desde);
@@ -210,7 +229,6 @@ public async buscarClientesPaginado(req: Request, res: Response): Promise<void> 
 
  }
 
- 
  // ==================================================
 //        Lista
 // ==================================================

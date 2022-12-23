@@ -3,38 +3,32 @@
     <div class="col-xl-6 col-lg-6 col-md-8">
         <div class="box_account">
             <h3 class="new_client">Su cuenta</h3> <small class="float-right pt-2"></small>
-            <form ngNativeValidate [formGroup]="formularioRegistroCliente" (ngSubmit)="actualizarCliente()">
-
-                <div class="form_container">
-                    <div class="form-group">
-                        <input formControlName="Apellidos" [value]="Apellidos" type="text" class="form-control" name="apellidos" placeholder="Apellidos*">
-                    </div>
-                    <div class="form-group">
-                        <input formControlName="Nombres" [value]="Nombres" type="text" class="form-control" name="nombres" placeholder="Nombres*">
-                    </div>
-                    <div class="form-group">
-                        <input formControlName="Documento" [value]="Documento" type="text" class="form-control" name="Documento" placeholder="Documento">
-                    </div>
-                    <hr>
-                    <div class="private box">
-                        <div class="form-group">
-                            <input formControlName="Email" [value]="Email" type="text" class="form-control" name="email" placeholder="Email*">
-                        </div>
-                        <div class="form-group">
-                            <input formControlName="Password" type="password" class="form-control" name="password" placeholder="Contraseña">
-                        </div>
-                        <div class="form-group">
-                            <input formControlName="Password2" type="password" class="form-control" name="password2" placeholder="Repetir Contraseña">
-                        </div>
-                        <!-- /row -->
-                    </div>
-                    <!-- /company -->
-                    <hr>
+            <div class="form_container">
+                <div class="form-group">
+                    <label>Apellidos : </label>
+                    <input [(ngModel)]="Apellidos" type="text" class="form-control" name="apellidos" placeholder="Apellidos*">
                 </div>
-                <br>
-                <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Guardar</button>
-                <br>
-            </form>
+                <div class="form-group">
+                    <label>Nombres : </label>
+                    <input [(ngModel)]="Nombres" type="text" class="form-control" name="nombres" placeholder="Nombres*">
+                </div>
+                <div class="form-group">
+                    <label>Email : </label>
+                    <input [(ngModel)]="Email" type="text" class="form-control" name="email" placeholder="Email*">
+                </div>
+                <div class="form-group">
+                    <label>DNI : </label>
+                    <input [(ngModel)]="DNI" type="text" class="form-control" name="DNI" placeholder="DNI">
+                </div>
+                <div class="form-group">
+                    <label>Telefono : </label>
+                    <input [(ngModel)]="Telefono" type="text" class="form-control" name="Telefono" placeholder="Telefono">
+                </div>
+                <hr>
+            </div>
+            <br>
+            <button type="submit" (click)="actualizarCliente()" class="btn btn-info btn-lg btn-block text-uppercase">Guardar</button>
+            <br>
             <!-- /form_container -->
         </div>
         <!-- /box_account -->

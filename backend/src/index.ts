@@ -1,6 +1,5 @@
 import express, { Application } from 'express';
 import cors from 'cors';
-import personasRoutes from './routes/personasRoutes';
 import loginRoutes from './routes/loginRoutes';
 import uploadRoutes from './routes/uploadRoutes';
 import settingsRoutes from './routes/settingsRoutes';
@@ -76,7 +75,6 @@ class Server {
 
 
         // this.app.use('/', cors(configuracionCORS),indexRoutes);
-        this.app.use('/api/personas', personasRoutes);
         this.app.use('/api/marcas', marcasRoutes);
         this.app.use('/api/usuarios', usuariosRoutes);
         this.app.use('/api/clientes', clientesRoutes);

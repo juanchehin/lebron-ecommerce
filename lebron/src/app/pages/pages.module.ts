@@ -38,6 +38,7 @@ import { RecuperarClaveComponent } from './cuenta/recuperar-clave/recuperar-clav
 import { NuevaPassComponent } from './cuenta/nueva-contraseña/nueva-pass.component';
 import { ChequearMailComponent } from './cuenta/chequear-mail/chequear-mail.component';
 import { PassRecuperadaComponent } from './cuenta/pass-recuperada/pass-recuperada.component';
+import { ActualizacionExitosaComponent } from './cuenta/perfil/mi-cuenta/actualizacion-exitosa/actualizacion-exitosa.component';
 
 @NgModule({
     declarations: [
@@ -71,7 +72,8 @@ import { PassRecuperadaComponent } from './cuenta/pass-recuperada/pass-recuperad
         RecuperarClaveComponent,
         NuevaPassComponent,
         ChequearMailComponent,
-        PassRecuperadaComponent
+        PassRecuperadaComponent,
+        ActualizacionExitosaComponent
     ],
     exports: [
         PagesComponent

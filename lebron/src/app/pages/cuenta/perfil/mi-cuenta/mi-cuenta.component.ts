@@ -11,7 +11,6 @@ import { ClientesService } from 'src/app/services/clientes.service';
 })
 export class MiCuentaComponent implements OnInit {
 
-  formularioRegistroCliente!: FormGroup;
   datosCliente: any;
   cargando = true;
   cantPlanes = 0;
@@ -25,50 +24,35 @@ export class MiCuentaComponent implements OnInit {
   Password!: string;
   Apellidos!: string;
   Nombres!: string;
-  Documento!: string;
-  Telefono!: string;
+  DNI!: any;
+  Telefono!: any;
 
   constructor(
     public authService: AuthService,
     public clientesService: ClientesService,
-    public router: Router,
-    private activatedRoute: ActivatedRoute
+    public router: Router
     ) { }
   ngOnInit() {
     this.comprobarLogueo();
     this.cargarDatosCliente();
 
-    this.formularioRegistroCliente = new FormGroup({
-      Apellidos: new FormControl(null, Validators.required ),
-      Nombres: new FormControl(null, Validators.required ),
-      Documento: new FormControl(null ),
-      Password: new FormControl(null, Validators.required ),
-      Password2: new FormControl(null, Validators.required ),
-      Email: new FormControl( null , [Validators.required , Validators.email ])
-    }, {
-      // validator: this.sonIguales('Password' , 'Password2')
-    })
   }
 // ==================================================
 //  Carga el cliente con sus datos para mostrar en el formulario
 // ==================================================
 
 cargarDatosCliente() {
-  console.log("cargarDatosCliente es : ")
 
-  this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
-
-  this.clientesService.dameDatosCliente( this.IdPersona )
+  this.clientesService.dameDatosCliente( )
              .subscribe( (resp: any) => {
 
-              console.log("resp es : ",resp)
               this.datosCliente = resp[0];
 
               this.Email = this.datosCliente.Email;
               this.Password =  this.datosCliente.Password;
               this.Apellidos =  this.datosCliente.Apellidos;
               this.Nombres = this.datosCliente.Nombres;
-              this.Documento = this.datosCliente.Documento;
+              this.DNI = this.datosCliente.DNI;
               this.Telefono =  this.datosCliente.Telefono;
 
               this.cargando = false;
@@ -107,8 +91,34 @@ comprobarLogueo() {
     this.router.navigate(['/']);
   }
 }
-
+// ==================================================
+//     
+// ==================================================
 actualizarCliente(){
-  
-}
+
+  const clienteEditado = new Array(
+    this.Apellidos,
+    this.Nombres,
+    this.Telefono,
+    this.DNI,
+    this.Email
+  );
+
+  this.clientesService.editarCliente( clienteEditado )
+            .subscribe( {
+              next: (resp: any) => {
+              
+                if ( (resp != null) && (resp.Mensaje == 'Ok') ) {
+                  
+                  this.router.navigate(['/actualizacion-cuenta']);
+                } else {
+                  this.router.navigate(['/failure'])
+                }
+                return;
+               },
+              error: () => { this.router.navigate(['/failure']) }
+            });
+
+        };
+
 }

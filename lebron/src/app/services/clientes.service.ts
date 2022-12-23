@@ -64,6 +64,16 @@ altaCliente( cliente: any ) {
     cliente
 );
 }
+
+// ==================================================
+//        
+// ==================================================
+editarCliente( clienteEditado: any ) {
+
+  let url = URL_SERVICIOS + '/clientes/front/editar/' + this.IdPersona;
+
+  return this.http.post( url, clienteEditado,this.headers);
+}
 // ==================================================
 //        
 // ==================================================
@@ -95,11 +105,11 @@ agregarItemCarrito( datosCarrito : any , IdPersona: any) {
 // Busca una persona en la BD
 // ==================================================
 
-dameDatosCliente(  IdPersona: string  ): any {
+dameDatosCliente(  ): any {
 
-  const url = URL_SERVICIOS + '/clientes/' + IdPersona;
+  const url = URL_SERVICIOS + '/clientes/' + this.IdPersona;
 
-  return this.http.get(url);
+  return this.http.get(url,this.headers);
 
 }
 

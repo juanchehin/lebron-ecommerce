@@ -44,7 +44,7 @@
                             </ng-autocomplete>
                         </div>
                         <ng-template #itemTemplateProducto let-item>
-                            <a [innerHTML]="item.NombreCompleto"></a>
+                            <a [innerHTML]="item.codigoProductoSabor"></a>
                         </ng-template>
                         <ng-template #notFoundTemplateProducto let-notFound>
                             <div [innerHTML]="notFound"></div>

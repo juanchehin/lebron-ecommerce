@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IItemStructure } from 'src/app/interfaces/item.interface';
+import { IItemVentaStructure } from 'src/app/interfaces/item-venta.interface';
 import { IItemTipoPagoStructure } from 'src/app/interfaces/item_tp.interface';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -18,7 +18,7 @@ import { VentasService } from 'src/app/services/ventas.service';
 export class NuevaVentaComponent implements OnInit {
 
   keywordCliente = 'NombreCompleto';
-  keywordProducto = 'NombreCompleto';
+  keywordProducto = 'codigoProductoSabor';
   cargando = true;
   activarModal = false;
   productos: any;
@@ -26,8 +26,8 @@ export class NuevaVentaComponent implements OnInit {
   productoBuscado = '';
   IdPersona = '';
   local = '';
-  lineas_venta: IItemStructure[] = [];
-  checkExists: IItemStructure[] = [];
+  lineas_venta: IItemVentaStructure[] = [];
+  checkExists: IItemVentaStructure[] = [];
   lineas_tipos_pago: IItemTipoPagoStructure[] = [];  
   itemPendiente: any = [];
   tiposPago: any;
@@ -44,7 +44,7 @@ export class NuevaVentaComponent implements OnInit {
   totalTiposPago = 0;
   arrayVenta: any = [];
   itemCheckExists: any = 0;
-  itemIdProducto: any;
+  itemIdProductoSabor: any;
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
 
 
@@ -81,7 +81,7 @@ altaVenta() {
         this.alertaService.alertFail('Los totales no coinciden',false,2000);
         return;
       }
-
+      console.log("altaVenta 2")
       this.arrayVenta.push(        
         this.IdCliente,
         this.lineas_venta,
@@ -89,10 +89,14 @@ altaVenta() {
         this.totalVenta
       );
 
+      console.log("altaVenta 3 ",this.arrayVenta); 
+
       this.ventasService.altaVenta(  this.arrayVenta )
       .subscribe({
         next: (resp: any) => { 
   
+          console.log("erws resp : ",resp)
+
           if ( resp[0][0].Mensaje === 'Ok') {
             this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
 
@@ -137,6 +141,8 @@ cargarProductos() {
 
   this.productosService.cargarProductos( this.productoBuscado )
              .subscribe( (resp: any) => {
+
+              console.log("resp carg prod : ",resp)
 
               this.productos = resp[0];
 
@@ -198,7 +204,7 @@ agregarLineaVenta() {
   this.totalVenta += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaVenta;
 
   const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
-    return linea_venta.IdProducto == this.itemPendiente.IdProducto;
+    return linea_venta.IdProductoSabor == this.itemPendiente.IdProductoSabor;
   });
 
   if(!(checkExistsLineaVenta != undefined))
@@ -206,7 +212,7 @@ agregarLineaVenta() {
     this.lineas_venta.push(
       {
         IdItem: this.IdItem,
-        IdProducto: Number(this.itemPendiente.IdProducto),
+        IdProductoSabor: Number(this.itemPendiente.IdProductoSabor),
         Codigo: this.itemPendiente.Codigo,
         Producto: this.itemPendiente.Producto,
         Cantidad: this.cantidadLineaVenta,
@@ -220,11 +226,11 @@ agregarLineaVenta() {
   }
   else{
     this.itemCheckExists = checkExistsLineaVenta;
-    this.itemIdProducto = this.itemCheckExists.IdProducto;
+    this.itemIdProductoSabor = this.itemCheckExists.IdProductoSabor;
 
 
     for (let item of this.lineas_venta) {
-      if(item.IdProducto == this.itemCheckExists.IdProducto)
+      if(item.IdProductoSabor == this.itemCheckExists.IdProductoSabor)
       { 
         item.Cantidad = Number(item.Cantidad) + Number(this.cantidadLineaVenta);
       }
@@ -354,10 +360,10 @@ agregarLineaTipoPago() {
 // ==============================
   // 
   // ================================
-  eliminarItemVenta(IdProducto: any){
+  eliminarItemVenta(IdProductoSabor: any){
 
     this.lineas_venta.forEach( (item, index) => {
-      if(item.IdProducto === IdProducto) 
+      if(item.IdProductoSabor === IdProductoSabor) 
       {
         this.totalVenta -= item.PrecioVenta * item.Cantidad;
         this.lineas_venta.splice(index,1);
@@ -392,7 +398,6 @@ agregarLineaTipoPago() {
   }
 
   onChangeTipoPago(val: any){
-    console.log("val es : ",val)
     this.IdTipoPagoSelect = val;
   }
 }

@@ -2,9 +2,6 @@ import { Request, Response, NextFunction, response } from 'express';
 import pool from '../database';
 const bcrypt = require('bcrypt');
 const nodemailer = require("nodemailer");
-import keys from '../keys';
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
 
 class ClientesController {
 
@@ -45,6 +42,8 @@ public async altaCliente(req: Request, res: Response) {
         }
         res.status(200).json(result);
     })
+
+    enviarMailBienvenida(Email);
 
     
 
@@ -92,8 +91,6 @@ public async editarClienteFront(req: Request, res: Response) {
 
     const { IdPersona } = req.params;
 
-    console.log("req. body : ",req.body);
-
     var Apellidos = req.body[0];
     var Nombres = req.body[1];
     var Telefono = req.body[2];
@@ -102,8 +99,6 @@ public async editarClienteFront(req: Request, res: Response) {
 
     pool.query(`call bsp_editar_cliente_front('${IdPersona}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}')`,function(err: any, result: any){
         
-                console.log("result ",result)
-
                 if(err){
                     res.status(404).json(err);
                     return;
@@ -453,46 +448,30 @@ const clientesController = new ClientesController;
 export default clientesController;
 
 
-
 // ==================================================
 //   
 // ==================================================
 
 async function enviarMailBienvenida(pEmail: string) {
 
-    const OAuth2_client = new OAuth2(keys.mail.client_id,keys.mail.client_secret);
-    OAuth2_client.setCredentials({ refresh_token: keys.mail.refresh_token});
-    const access_token = OAuth2_client.getAccessToken();
-  // Generate test SMTP service account from ethereal.email
-  // Only needed if you don't have a real mail account for testing
-//   let testAccount = await nodemailer.createTestAccount();
-
   // create reusable transporter object using the default SMTP transport
   let transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'lebron-suplementos.com',
+    port: 465,
+    secure: true,
     auth: {
-        type: 'OAuth2',
-        user: keys.mail.user, //your gmail account you used to set the project up in google cloud console"
-        clientId: keys.mail.client_id,
-        clientSecret: keys.mail.client_secret,
-        refreshToken: keys.mail.refresh_token,
-        accessToken: access_token //access token variable we defined earlier
-    },
+        user: process.env.USER_MAIL,
+        pass: process.env.PASS_MAIL
+    }
   });
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: '"Lebron - Suplementos Deportivos" <lebron@example.com>', // sender address
+    from: '"Lebron - Suplementos Deportivos" <administracion@lebron-suplementos.com>', // sender address
     to: pEmail, // list of receivers
     subject: "[Lebron] ¡Bienvenido!", // Subject line
-    text: "Gracias por crear una cuenta en Lebron", // plain text body
-    html: "<b>Gracias por crear una cuenta en Lebron</b>", // html body
+    text: "Gracias por crear su cuenta en Lebron - Suplementos deportivos", // plain text body
+    html: "<a>https://lebron-suplementos.com/</a>", // html body
   });
 
-//   console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-  // Preview only available when sending through an Ethereal account
-//   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }

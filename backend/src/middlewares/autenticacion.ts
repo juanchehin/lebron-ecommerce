@@ -14,7 +14,7 @@ exports.verificaToken = function(req: Request,res:Response,next: NextFunction){
 
 var token = req.headers.token;
 
-jwt.verify(token , SEED, (err: any,decoded: any) =>{
+jwt.verify(token , SEED, (err: any) =>{
 
     if(err){
         return res.status(401).json({

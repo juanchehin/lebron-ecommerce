@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class NuevaPassComponent implements OnInit {
 
   errorEmail = false;
-  formularioNuevaContraseña!: FormGroup;
+  formularioNuevaPass!: FormGroup;
   passCheck = false;
   passSecure = false;
   token: any;
@@ -42,15 +42,15 @@ export class NuevaPassComponent implements OnInit {
     
     this.token = this.activatedRoute.snapshot.paramMap.get('pToken');
 
-    this.formularioNuevaContraseña = new FormGroup({
+    console.log("this.token es ; ",this.token)
+
+    this.formularioNuevaPass = new FormGroup({
       Password: new FormControl(null,
         [
           Validators.required,
           Validators.pattern(this.pattern)
          ] ),
       Password2: new FormControl(null, Validators.required )
-    }, {
-      // validators: this.checkPasswords
     })
 
   }
@@ -58,30 +58,36 @@ export class NuevaPassComponent implements OnInit {
 // ==================================================
 //  Proceso de LOGUEO
 // ==================================================
-  recuperarClave(forma: NgForm) {
+  recuperarClave() {
 
-    if ( this.formularioNuevaContraseña.controls['Password'].status == 'INVALID') {
+    console.log("status : ",this.formularioNuevaPass.controls['Password'].status)
+
+    if ( this.formularioNuevaPass.controls['Password'].status == 'INVALID') {
       this.passSecure = true;
       return;
     } 
-  
-    if(this.formularioNuevaContraseña.value.Password != this.formularioNuevaContraseña.value.Password2){
+    this.passSecure = false;
+
+    console.log("Password : ",this.formularioNuevaPass.value.Password)
+    console.log("Password2 : ",this.formularioNuevaPass.value.Password2)
+
+
+
+    if(this.formularioNuevaPass.value.Password != this.formularioNuevaPass.value.Password2){
       this.passCheck = true;
       return;
     }
-  
-    if ( this.formularioNuevaContraseña.invalid ) {
+    this.passCheck = false;
+    if ( this.formularioNuevaPass.invalid ) {
+      this.passSecure = true;
       return;
     }
 
-    this.authService.nuevaClave(this.token,forma.value.Password)
+    this.authService.nuevaClave(this.token,this.formularioNuevaPass.value.Password)
       .subscribe({
       next: (resp: any) => { 
-
-      if ( resp === true) {
-        // Mostrar mensaje de que se envio el mail y chequee la casilla
-
-        // this.router.navigate(['/']);
+      if (resp.Mensaje == 'Ok') {
+        this.route.navigate(['/pass-recuperada']);
         return;
       }else {
          this.route.navigate(['/failure']);                    

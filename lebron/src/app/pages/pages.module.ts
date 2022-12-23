@@ -36,6 +36,8 @@ import { MisComprasComponent } from './mis-compras/mis-compras.component';
 import { PromocionDetalleComponent } from './promocion-detalle/promocion-detalle.component';
 import { RecuperarClaveComponent } from './cuenta/recuperar-clave/recuperar-clave.component';
 import { NuevaPassComponent } from './cuenta/nueva-contraseña/nueva-pass.component';
+import { ChequearMailComponent } from './cuenta/chequear-mail/chequear-mail.component';
+import { PassRecuperadaComponent } from './cuenta/pass-recuperada/pass-recuperada.component';
 
 @NgModule({
     declarations: [
@@ -67,7 +69,9 @@ import { NuevaPassComponent } from './cuenta/nueva-contraseña/nueva-pass.compon
         MisComprasComponent,
         PromocionDetalleComponent,
         RecuperarClaveComponent,
-        NuevaPassComponent
+        NuevaPassComponent,
+        ChequearMailComponent,
+        PassRecuperadaComponent
     ],
     exports: [
         PagesComponent

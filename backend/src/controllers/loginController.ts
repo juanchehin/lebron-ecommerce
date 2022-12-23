@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 require("dotenv").config();
 var SEED = process.env.JWT_KEY;
+var SEED_MAIL = process.env.JWT_KEY_MAIL;
 import pool from '../database';
 
 const nodemailer = require("nodemailer");
@@ -62,51 +63,7 @@ pool.query(`call bsp_login_panel('${email}')`, function(err: any, resultLogin: s
 })
 
 }
-// ==================================================
-//       
-// ==================================================
-public async nuevaPassword(req: Request, res: Response): Promise<void> {
 
-    var token = req.body[0];
-    var nuevaPass = req.body[1];
-
-    jwt.verify(token , SEED, (err: any,decoded: any) =>{
-
-        if(err){
-            return res.status(401).json({
-                ok:false,
-                mensaje: 'TOKEN incorrecto',
-                errors: err
-            });
-        }
-        // next();
-
-    });
-
-    var decoded = jwt.verify(token, SEED);
-    var pIdPersona = decoded.IdPersona;
-
-    const saltRounds = 10;  //  Data processing speed
-
-    bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
-        bcrypt.hash(nuevaPass, salt, async function(err: any, hash: any) {
-
-            pool.query(`call bsp_nueva_pass_cliente('${pIdPersona}','${hash}')`, function(err: any, result: any, fields: any){        
-                                
-                if(err || result[0][0].Mensaje != 'Ok'){
-                    return res.json({
-                        ok: false,
-                        Mensaje: 'Ocurrio un error, contactese con el administrador'
-                    });
-                }
-                // =============Fin permisos=================
-                return res.json({ Mensaje: 'Ok' });
-            })
-
-        });
-    });
-
-}
 
 // ========================================================
 // Login - clientes
@@ -129,6 +86,7 @@ pool.query(`call bsp_login_cliente('${email}')`, function(err: any, resultLogin:
 
     // Chequeo la contraseña
     bcrypt.compare(pass, resultLogin[0][0].lPassword, function(err: any, result: any) {
+
         if(result != true){
 
             res.status(500).json({
@@ -181,18 +139,14 @@ public async actualizaEstadoCliente(req: Request, res: Response): Promise<void> 
  }
 
  // ==========================================
-//  Renueva TOKEN
+//  
 // ==========================================
 public async recuperarClave(req: Request, res: Response): Promise<void> {
-    
+
     // chequear que el email exista y la persona de ese mail exista
     var pEmail = req.params.pEmail;
 
-    pool.query(`call bsp_recuperar_clave('${pEmail}')`, function(err: any, result: any, fields: any){
-        console.log("err : ",err);
-        console.log("result : ",result);
-
-        console.log("result : ",result);
+    pool.query(`call bsp_dame_id_por_email('${pEmail}')`, function(err: any, result: any, fields: any){
 
         if(err){
             res.status(404).json(err);
@@ -200,9 +154,22 @@ public async recuperarClave(req: Request, res: Response): Promise<void> {
         }
 
         if(result[0][0].Mensaje == 'Ok'){
-            var token = jwt.sign({ IdPersona: result[0].vIdPersona }, SEED, { expiresIn: "1h"});
+            var token = jwt.sign({ IdPersona: result[0][0].vIdPersona }, SEED_MAIL, { expiresIn: "1h"});
+
+            pool.query(`call bsp_alta_token_recuperar_pass('${result[0][0].vIdPersona}','${token}')`, function(err: any, result: any, fields: any){        
+
+                if(err || result[0][0].Mensaje != 'Ok'){
+                    return res.json({
+                        ok: false,
+                        Mensaje: err
+                    });
+                }
+            })
 
             enviarMailRecuperarClave(pEmail,token);
+
+            // Envio de email exitoso
+            return res.json({ Mensaje: 'Ok' });
            
         } 
         else{ 
@@ -214,6 +181,57 @@ public async recuperarClave(req: Request, res: Response): Promise<void> {
             return;
         }
     })
+
+}
+
+// ==================================================
+//       
+// ==================================================
+public async nuevaPassword(req: Request, res: Response): Promise<any> {
+
+    var token = String(req.body[0]);
+    var nuevaPass = req.body[1];
+
+    try {
+        var decoded = jwt.verify(String(token), SEED_MAIL);
+        var IdPersona = decoded.IdPersona;
+        // next();
+    } catch(err) {
+        return res.json({
+            ok: false,
+            Mensaje: err
+        });
+    }
+
+    pool.query(`call bsp_checkear_token('${IdPersona}','${token}')`, function(err: any, result: any, fields: any){
+
+        if(err || (result[0][0].Mensaje != 'Ok')){
+            return res.json({
+                ok: false,
+                Mensaje: err
+            });
+        }
+    })
+   
+    const saltRounds = 10;  //  Data processing speed
+
+    bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
+        bcrypt.hash(nuevaPass, salt, async function(err: any, hash: any) {
+
+            pool.query(`call bsp_nueva_pass_cliente('${IdPersona}','${hash}','${token}')`, function(err: any, result: any, fields: any){        
+                                
+                if(err || result[0][0].Mensaje != 'Ok'){
+                    return res.json({
+                        ok: false,
+                        Mensaje: err
+                    });
+                }
+            })
+
+        });
+    });    
+
+    return res.status(200).json({Mensaje : 'Ok'});
 
 }
 }
@@ -252,13 +270,7 @@ async function enviarMailRecuperarClave(pEmail: string,pToken: any) {
     to: pEmail, // list of receivers
     subject: "[Lebron] Recuperar clave!", // Subject line
     text: "Ingresa al siguiente link para recuperar tu contraseña", // plain text body
-    html: "<a>" + process.env.URL_FRONT + "/recuperar-clave/"+ pToken + "</a>", // html body
+    html: "<a>" + process.env.URL_FRONT + "/nueva-pass/"+ pToken + "</a>", // html body
   });
 
-//   console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-  // Preview only available when sending through an Ethereal account
-//   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 }

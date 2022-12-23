@@ -4,7 +4,7 @@
         <div class="box_account">
             <h3 class="client">Ingrese su nueva contraseña</h3>
             <div class="form_container">
-                <form ngNativeValidate #f="ngForm" class="login100-form validate-form p-b-33 p-t-5" (ngSubmit)="recuperarClave(f)">
+                <form ngNativeValidate [formGroup]="formularioNuevaPass" class="login100-form validate-form p-b-33 p-t-5" (ngSubmit)="recuperarClave()">
                     <div class="form-group" [ngClass]="{'input-error': passCheck}">
                         <label>Password* : </label>
                         <input formControlName="Password" type="password" class="form-control" name="password" placeholder="Contraseña">
@@ -20,8 +20,8 @@
                         <p style="color:red;">Las contraseñas deben ser iguales</p>
                     </div>
                     <br>
-                    <div class="float-right">
-                        <a>Recuperar contraseña</a>
+                    <div class="text-center">
+                        <input type="submit" value="Recuperar contraseña" class="btn_1 full-width">
                     </div>
                     <br>
                 </form>

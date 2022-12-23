@@ -32,10 +32,12 @@ export class RecuperarClaveComponent implements OnInit {
     .subscribe({
      next: (resp: any) => { 
 
-      if ( resp === true) {
+      console.log("resp recuperar clave : ",resp)
+
+      if ( resp.Mensaje == 'Ok') {
         // Mostrar mensaje de que se envio el mail y chequee la casilla
 
-        // this.router.navigate(['/']);
+        this.route.navigate(['/chequear-mail']);
         return;
       }else {
          this.route.navigate(['/failure']);                    

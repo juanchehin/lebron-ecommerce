@@ -29,6 +29,8 @@ import { MisComprasComponent } from './mis-compras/mis-compras.component';
 import { PromocionDetalleComponent } from './promocion-detalle/promocion-detalle.component';
 import { NuevaPassComponent } from './cuenta/nueva-contraseña/nueva-pass.component';
 import { RecuperarClaveComponent } from './cuenta/recuperar-clave/recuperar-clave.component';
+import { ChequearMailComponent } from './cuenta/chequear-mail/chequear-mail.component';
+import { PassRecuperadaComponent } from './cuenta/pass-recuperada/pass-recuperada.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -51,7 +53,10 @@ const pagesRoutes: Routes = [
             { path: 'politicas-de-seguridad', component: PoliticasComponent },
             { path: 'failure', component: FailureComponent },
             { path: 'nueva-pass/:pToken', component: NuevaPassComponent },
-            { path: 'recuperar-clave', component: RecuperarClaveComponent }
+            { path: 'recuperar-clave', component: RecuperarClaveComponent },
+            { path: 'chequear-mail', component: ChequearMailComponent },
+            { path: 'pass-recuperada', component: PassRecuperadaComponent }
+
         ]
     },
     // *** Acceso para el cliente logueado y con token actualizado ****

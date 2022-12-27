@@ -63,6 +63,16 @@ altaCompra( compra : any){
 // ==================================================
 //
 // ==================================================
+altaGasto( gasto : any){
+
+  let url = URL_SERVICIOS + '/compras/gastos/alta/' + this.IdPersona;
+
+  return this.http.post( url, gasto,this.headers );
+}
+
+// ==================================================
+//
+// ==================================================
 listarComprasIdUsuario(desde: number , Fecha: string ){
 
   let url = URL_SERVICIOS + '/compras/listar/mis-compras/' + desde + '/' + Fecha + '/' + this.IdPersona;

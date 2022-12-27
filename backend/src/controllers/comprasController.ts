@@ -102,6 +102,30 @@ altaCompra(req: Request, res: Response) {
 // ==================================================
 //        Lista 
 // ==================================================
+altaGasto(req: Request, res: Response) {
+
+    var pMonto = req.body[0];
+    var pDescripcion = req.body[1];
+    var pIdUsuario = req.params.IdPersona;
+
+    console.log("req.body : ",req.body)
+
+    pool.query(`call bsp_alta_gasto('${pIdUsuario}','${pMonto}','${pDescripcion}')`, function(err: any, result: any){
+
+        console.log("result : ",result)
+        console.log("err : ",err)
+
+       if(err){
+            res.status(404).json(err);
+           return;
+       }      
+        res.send({ Mensaje: 'Ok'});
+   })
+
+}
+// ==================================================
+//        Lista 
+// ==================================================
 listarTiposPago(req: Request, res: Response) {
 
     pool.query(`call bsp_listar_tipos_pago()`, function(err: any, result: any){

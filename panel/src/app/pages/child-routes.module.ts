@@ -34,6 +34,7 @@ import { EditarClienteCuentaComponent } from './mantenimientos/cuentas-corriente
 import { CuentaComponent } from './mantenimientos/cuentas-corrientes/cuenta.component';
 import { MovimientosComponent } from './mantenimientos/cuentas-corrientes/movimientos.component';
 import { VentasComponent } from './mantenimientos/ventas/listar-ventas/ventas.component';
+import { NuevoGastoComponent } from './mantenimientos/compras/gastos/nuevo-gasto/nuevo-gasto.component';
 
 
 const childRoutes: Routes = [
@@ -68,6 +69,10 @@ const childRoutes: Routes = [
   { path: 'compras', component: ComprasComponent, data: { titulo: 'Listado de compras' }},
   { path: 'compras/nueva', component: NuevaCompraComponent, data: { titulo: 'Nueva compra' }},
   { path: 'compras/:IdPersona', component: MisComprasComponent, data: { titulo: 'Mis compras' }},
+  //
+  // { path: 'gastos', component: GastosComponent, data: { titulo: 'Listado de gastos' }},
+  { path: 'gastos/nuevo', component: NuevoGastoComponent, data: { titulo: 'Nuevo gasto' }},
+  // { path: 'gastos/:IdGasto', component: MisComprasComponent, data: { titulo: 'Mis compras' }},
   //
   { path: 'clientes', component: ClientesComponent, data: { titulo: 'Listado de clientes' }},
   { path: 'clientes/nuevo', component: ClienteComponent, data: { titulo: 'Nuevo cliente' }},

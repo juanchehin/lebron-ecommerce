@@ -67,24 +67,24 @@ altaProducto( producto: any ) {
     }
 );
 }
+  // ==================================================
+//        
+// ==================================================
+destacarProducto( IdProducto: any ) {
 
+  let url = URL_SERVICIOS + '/productos/destacar/' + IdProducto + '/' + this.IdPersona;
+
+  return this.http.get(url,this.headers);
+}
 
   // ==================================================
 //        
 // ==================================================
 publicarProducto( IdProducto: any ) {
 
-  let url = URL_SERVICIOS + '/productos/publicar/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/productos/publicar/' + IdProducto + '/' + this.IdPersona;
 
-  return this.http.post(
-    url,
-    IdProducto,
-    {
-      headers: {
-        token: this.token
-      }
-    }
-);
+  return this.http.get(url,this.headers);
 }
   // ==================================================
 //        

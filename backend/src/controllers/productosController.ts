@@ -250,26 +250,44 @@ public async listarProductosDestacadosHome(req: Request, res: Response): Promise
     })
 }
 // ==================================================
-//        Lista los productos destacados para mostrar en el home
+//        
 // ==================================================
 public async publicarProducto(req: Request, res: Response): Promise<void> {
 
-    console.log("req body ",req.body)
+    var pIdProducto = req.params.IdProducto;
 
     // var IdProducto = req.body[0];
 
-    
-    // pool.query(`call bsp_publicar_producto('${IdProducto}')`, function(err: any, result: any){
+    pool.query(`call bsp_publicar_producto('${pIdProducto}')`, function(err: any, result: any){
 
-    //     if(err || result[0][0].Mensaje !== 'Ok'){
-    //         return res.status(200).json({
-    //             ok: false,
-    //             Mensaje: result[0][0].Mensaje
-    //         });
-    //     }
+        if(err || result[0][0].Mensaje !== 'Ok'){
+            return res.status(200).json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
         
-    //     res.status(200).json(result);
-    // })
+        res.status(200).json(result);
+    })
+}
+// ==================================================
+//      me
+// ==================================================
+public async destacarProducto(req: Request, res: Response): Promise<void> {
+
+    var pIdProducto = req.params.IdProducto;
+
+    pool.query(`call bsp_destacar_producto('${pIdProducto}')`, function(err: any, result: any){
+
+        if(err || result[0][0].Mensaje !== 'Ok'){
+            return res.status(200).json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
+        
+        res.status(200).json(result);
+    })
 }
 // ==================================================
 //        Lista los productos destacados para mostrar en el home

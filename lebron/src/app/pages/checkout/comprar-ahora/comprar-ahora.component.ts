@@ -10,15 +10,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./comprar-ahora.component.css']
 })
 export class ComprarAhoraComponent implements OnInit  {
-  
-
-  constructor(
-    public checkoutService: CheckoutService,
-    public activatedRoute: ActivatedRoute,
-    public authService: AuthService,
-    public router: Router
-  ) { }
-
+  retencion_mp: any;
+  retencion_mp_calculo: any;
   forma!: FormGroup;
   cantidadProducto: any = 1;
   habilitarCostoEnvio = false;
@@ -26,7 +19,6 @@ export class ComprarAhoraComponent implements OnInit  {
   cargando = false;
   IdProducto: any;
   IdPromocion: any;
-  IdPersona: any;
   direccionesCliente: any;
   costoEnvio: any = 0;
   Total = 0;
@@ -45,11 +37,19 @@ export class ComprarAhoraComponent implements OnInit  {
   producto: any = '';
   precioVenta: any = '';
 
+  constructor(
+    public checkoutService: CheckoutService,
+    public activatedRoute: ActivatedRoute,
+    public authService: AuthService,
+    public router: Router
+  ) { }
+
+ 
+
 
   ngOnInit(): void {
     this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
     this.IdPromocion = this.activatedRoute.snapshot.paramMap.get('IdPromocion');
-    this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
 
     this.forma = new FormGroup({
       IdDireccion: new FormControl('0', Validators.required ),
@@ -88,19 +88,6 @@ export class ComprarAhoraComponent implements OnInit  {
     }
     
     
-
-    if(this.IdPersona || (this.IdPersona.length == 0))
-    { 
-      this.authService.quoteIdPersona.subscribe((data : any)=>{
-        this.IdPersona = data;
-
-        if(Object.keys(this.IdPersona).length <= 0)
-        { 
-          this.IdPersona = localStorage.getItem('id');
-        }
-      });
-    }
-
     this.dameDatosComprarAhora();
   }
 
@@ -111,36 +98,45 @@ export class ComprarAhoraComponent implements OnInit  {
   dameDatosComprarAhora(){
     if(this.IdProducto)
     {
-      this.checkoutService.dameDatosComprarAhora( this.IdPersona,this.IdProducto ,'producto' )
+      this.checkoutService.dameDatosComprarAhora( this.IdProducto ,'producto' )
         .subscribe( {
           next: (resp: any) => {
     
             this.direccionesCliente = resp[0];
   
             this.producto = resp[1][0].Producto;
-            this.precioVenta = resp[1][0].PrecioVenta;
-  
+            this.precioVenta = resp[1][0].PrecioVenta;  
             this.costoEnvio = resp[2][0].costo_envio;
-  
+            this.retencion_mp = resp[2][0].retencion_mp;
+
             this.SubTotal = this.precioVenta * this.cantidadProducto;
-            this.Total = this.SubTotal;
+
+            this.retencion_mp_calculo = Math.floor((this.SubTotal * this.retencion_mp)/100);
+
+            this.Total = this.SubTotal + +this.retencion_mp_calculo;
+
           },
           error: () => { this.router.navigate(['/failure']); }
         });
     }
     else
     {
-      this.checkoutService.dameDatosComprarAhora( this.IdPersona,this.IdPromocion ,'promocion' )
+      this.checkoutService.dameDatosComprarAhora(this.IdPromocion ,'promocion' )
         .subscribe( {
           next: (resp: any) => {
 
-            this.direccionesCliente = resp[0];
+          this.direccionesCliente = resp[0];
 
           this.producto = resp[1][0].Promocion;
           this.precioVenta = resp[1][0].precioPromo;
           this.costoEnvio = resp[2][0].costo_envio;
-          this.SubTotal = this.precioVenta * this.cantidadPromocion;
-          this.Total = this.SubTotal;
+          this.retencion_mp = resp[2][0].retencion_mp;
+
+          this.SubTotal = this.precioVenta * this.cantidadProducto;
+
+          this.retencion_mp_calculo = Math.floor((this.SubTotal * this.retencion_mp)/100);
+
+          this.Total = this.SubTotal + +this.retencion_mp_calculo;
         },
         error: () => { this.router.navigate(['/failure']);}
       });
@@ -160,6 +156,12 @@ confirmarCompra( ) {
   if(this.envioSeleccionado < 0)
   {
     this.banderaSeleccionarEnvio = true;
+    return;
+  }
+
+  if(this.SubTotal <= 0 || this.Total <= 0)
+  {
+    this.router.navigate(['/failure']);
     return;
   }
 

@@ -153,41 +153,44 @@ bajaProducto(IdProductoSabor: string) {
 }
 
 // =================================================================
-publicarProducto(IdProducto: string){
-  console.log("pasa publicar producto IdProducto : ",IdProducto)
- 
+publicarProducto(IdProducto: string){ 
   this.productosService.publicarProducto( IdProducto  )
   .subscribe( {
    next: (resp: any) => {
 
-     console.log("resp busc es : ",resp)
-
-     if ( resp[1][0].Mensaje === 'Ok') {       
+     if ( resp[0][0].Mensaje == 'Ok') {       
       this.alertaService.alertSuccess('top-end','Operacion exitosa',false,900);
      } else {
        this.alertaService.alertFail('Ocurrio un error',false,2000);
      }
      return;
     },
-   error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
+   error: (err: any) => { 
+    this.alertaService.alertFail('Ocurrio un error',false,2000) 
+  
+  }
  });
 
 }
 
 
 destacarProducto(IdProducto: string){
-  console.log("pasa destacarProducto producto IdProducto : ",IdProducto)
+  this.productosService.destacarProducto( IdProducto  )
+  .subscribe( {
+   next: (resp: any) => {
+
+     if ( resp[0][0].Mensaje == 'Ok') {       
+      this.alertaService.alertSuccess('top-end','Operacion exitosa',false,900);
+     } else {
+       this.alertaService.alertFail('Ocurrio un error',false,2000);
+     }
+     return;
+    },
+   error: (err: any) => { 
+    this.alertaService.alertFail('Ocurrio un error',false,2000) 
+  
+  }
+ });
 }
-
-
-promocionProducto(IdProducto: string){
-  console.log("pasa promocionProducto producto IdProducto : ",IdProducto)
-}
-
-
-ofertaProducto(IdProducto: string){
-  console.log("pasa ofertaProducto producto IdProducto : ",IdProducto)
-}
-
 
 }

@@ -32,6 +32,7 @@ export class ConfiguracionesComponent implements OnInit {
   Tarjeta6Pago!: string;
   CostoEnvio!: string;
   Dolar!:string;
+  retencionMP!:string;
 
   constructor(
     private router: Router, 
@@ -59,7 +60,8 @@ export class ConfiguracionesComponent implements OnInit {
       Tarjeta3Pago: new FormControl(null ),
       Tarjeta6Pago: new FormControl(null ),
       CostoEnvio: new FormControl(null ),
-      Dolar: new FormControl(null )
+      Dolar: new FormControl(null ),
+      retencionMP: new FormControl(null )
       });
   }
 
@@ -90,7 +92,8 @@ actualizarConfiguraciones() {
         this.forma.value.Tarjeta3Pago || this.Tarjeta3Pago,
         this.forma.value.Tarjeta6Pago || this.Tarjeta6Pago,
         this.forma.value.CostoEnvio || this.CostoEnvio,
-        this.forma.value.Dolar || this.Dolar
+        this.forma.value.Dolar || this.Dolar,
+        this.forma.value.retencionMP || this.retencionMP
       );
 
       this.configuracionesService.actualizarConfiguracion( configuraciones )
@@ -145,6 +148,7 @@ cargarConfiguraciones() {
               this.Tarjeta6Pago = this.configuraciones.tarjeta6pagos;
               this.CostoEnvio =  this.configuraciones.costo_envio;
               this.Dolar =  this.configuraciones.dolar;
+              this.retencionMP =  this.configuraciones.retencion_mp;
 
               this.cargando = false;
 

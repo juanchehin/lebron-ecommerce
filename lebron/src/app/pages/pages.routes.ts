@@ -72,7 +72,7 @@ const pagesRoutes: Routes = [
             { path: 'perfil/pedidos/:IdPersona', component: MisPedidosComponent },
             { path: 'perfil/direcciones/nueva/:IdPersona', component: NuevaDireccionComponent },
             { path: 'checkout/direcciones/:IdPersona', component: DireccionEnvioComponent },
-            { path: 'comprar-ahora/producto/:IdProducto/:IdPersona', component: ComprarAhoraComponent },
+            { path: 'comprar-ahora/producto/:IdProducto', component: ComprarAhoraComponent },
             { path: 'comprar-ahora/promocion/:IdPromocion/:IdPersona', component: ComprarAhoraComponent },
             { path: 'carrito/:IdPersona', component: CarritoComponent },
             { path: 'envio/:IdPersona', component: EnvioComponent },

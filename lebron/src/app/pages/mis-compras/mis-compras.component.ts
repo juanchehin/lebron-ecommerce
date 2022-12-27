@@ -50,7 +50,7 @@ cargarCompras() {
 
                   console.log("resp mis socmpra es : ",resp)
 
-                  if(resp[1][0].Mensaje == 'Ok') {
+                  if(resp[1][0] && resp[1][0].Mensaje == 'Ok') {
                     this.totalItemsCarrito = resp[1][0].cantProductosCarrito;
 
                     this.itemsCompras = resp[0];

@@ -257,7 +257,7 @@ export class ProductoDetalleComponent implements OnInit {
 
     this.mensajeCantidad = false;
     this.mensajeSabor = false;
-    this.router.navigate(['/comprar-ahora/producto',this.IdProducto,this.IdPersona]);
+    this.router.navigate(['/comprar-ahora/producto',this.IdProducto]);
   }
 
   // =================================

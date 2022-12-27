@@ -74,17 +74,17 @@ export class CheckoutService {
 // ==================================================
 //
 // ==================================================
-dameDatosComprarAhora(IdPersona: any,IdProductoPromo: any,tipo: any){
+dameDatosComprarAhora(IdProductoPromo: any,tipo: any){
 
   if(tipo == 'producto')
   {
-    let url = URL_SERVICIOS + '/checkout/datos-comprar-ahora/' + IdPersona + '/' + IdProductoPromo;
+    let url = URL_SERVICIOS + '/checkout/datos-comprar-ahora/' + this.IdPersona + '/' + IdProductoPromo;
 
     return this.http.get( url );
   }
   else
   {
-    let url = URL_SERVICIOS + '/checkout/datos-comprar-ahora/promocion/' + IdPersona + '/' + IdProductoPromo;
+    let url = URL_SERVICIOS + '/checkout/datos-comprar-ahora/promocion/' + this.IdPersona + '/' + IdProductoPromo;
 
     return this.http.get( url );
   }

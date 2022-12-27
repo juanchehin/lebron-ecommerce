@@ -80,11 +80,12 @@ public async actualizarConfiguraciones(req: Request, res: Response): Promise<voi
     var pTarjeta6Pago = req.body[14] || '';
     var pCostoEnvio = req.body[15] || '';
     var pDolar = req.body[16] || '';
+    var pRetencionMP = req.body[17] || '';
 
 
   pool.query(`call bsp_actualizar_configuraciones('${pNombre}','${pCUIT}','${pEmail}','${pImagen}','${pTelefono}','${pDireccion}',
             '${pIngBrutos}','${pIVA}','${pInstagram}','${pTwitter}','${pFacebook}','${pYoutube}','${pTarjeta1Pago}','${pTarjeta3Pago}',
-            '${pTarjeta6Pago}','${pCostoEnvio}','${pDolar}')`, function(err: any, result: any, fields: any){
+            '${pTarjeta6Pago}','${pCostoEnvio}','${pDolar}','${pRetencionMP}')`, function(err: any, result: any, fields: any){
       if(err){
           res.status(400).json(err);
           return;

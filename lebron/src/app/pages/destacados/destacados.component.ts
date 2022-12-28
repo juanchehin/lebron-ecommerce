@@ -60,27 +60,6 @@ cargarProductosDestacadosHome() {
 // Carga
 // ==================================================
 
-  agregarItemCarrito(IdProducto: any){
-
-    this.clientesService.altaItemCarrito( IdProducto,this.IdPersona )
-      .subscribe( (resp: any) => {
-
-        // this.productosDestacados = resp[0];
-
-        if(resp[0].Mensaje == 'Ok'){
-          this.router.navigate(['/carrito/producto-agregado',IdProducto]);
-        }
-        else
-        { 
-          // Mostrar cartel de error al agregar producto al carrito
-        }
-    });
-  }
-
-// ==================================================
-// Carga
-// ==================================================
-
 rutearDetalleProducto(IdProducto: any) {
 
   this.router.navigate(['/producto/detalle',IdProducto]);

@@ -209,7 +209,8 @@ export class ProductoDetalleComponent implements OnInit {
   // =================================
   agregarCarrito()
   {     
-    if(this.Cantidad <= 0 || this.Stock <= 0 || (this.Cantidad > this.Stock))
+
+    if(this.Cantidad <= 0 || this.Stock <= 0 || (this.Cantidad > this.StockSabor))
     {
       this.mensajeCantidad = true;
       return;
@@ -236,7 +237,7 @@ export class ProductoDetalleComponent implements OnInit {
 
         this.router.navigate(['carrito',this.IdPersona])
       },
-      error: () => { this.authService.logout(); }
+      error: () => {this.router.navigate(['/failure']);  }
     });
   }
 

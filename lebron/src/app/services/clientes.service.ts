@@ -92,7 +92,7 @@ nuevaDireccion( direccion: any ) {
 // ==================================================
 agregarItemCarrito( datosCarrito : any , IdPersona: any) {
 
-  let url = URL_SERVICIOS + '/clientes/carrito/alta/' + IdPersona;
+  let url = URL_SERVICIOS + '/clientes/carrito/alta/producto/' + IdPersona;
 
   return this.http.post(
     url,
@@ -129,14 +129,14 @@ dameDirecionesCliente(  ): any {
 // ==================================================
 //        Crear cliente
 // ==================================================
-altaItemCarrito( IdProducto: any,IdPersona: any) {
+altaProductoCarrito( IdProducto: any,IdPersona: any) {
 
   const data = Array(
     IdProducto,
     IdPersona
   )
 
-  let url = URL_SERVICIOS + '/clientes/carrito/alta';
+  let url = URL_SERVICIOS + '/clientes/carrito/producto/alta';
 
   return this.http.post(
     url,
@@ -144,6 +144,25 @@ altaItemCarrito( IdProducto: any,IdPersona: any) {
 );
 }
 
+// ==================================================
+//        Crear cliente
+// ==================================================
+altaPromocionCarrito( IdProducto: any,IdSabor1: any,IdSabor2: any,IdPersona: any) {
+
+  const data = Array(
+    IdProducto,
+    IdSabor1,
+    IdSabor2,
+    IdPersona
+  )
+
+  let url = URL_SERVICIOS + '/clientes/carrito/promocion/alta';
+
+  return this.http.post(
+    url,
+    data
+);
+}
 // ==================================================
 // Lista las direcciones de un cliente
 // ==================================================

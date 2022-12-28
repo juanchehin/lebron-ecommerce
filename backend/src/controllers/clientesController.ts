@@ -155,12 +155,10 @@ public async altaProductoCarrito(req: Request, res: Response) {
     var IdProducto = req.body[0];
     var IdCliente = req.body[1];
     var Cantidad = req.body[2];
-    var IdSaborSeleccionado = req.body[2]
+    var IdSaborSeleccionado = req.body[3]
     
     pool.query(`call bsp_alta_producto_carrito('${IdCliente}','${IdProducto}','${IdSaborSeleccionado}','${Cantidad}')`,function(err: any, result: any, fields: any){
         
-                console.log("result ",result)
-
                 if(err){
                     res.status(404).json(err);
                     return;
@@ -178,6 +176,35 @@ public async altaProductoCarrito(req: Request, res: Response) {
     
 }
 
+// ==================================================
+//        Inserta
+// ==================================================
+public async altaPromocionCarrito(req: Request, res: Response) {
+
+    var IdPromocion = req.body[0];
+    var IdCliente = req.body[1];
+    var IdSabor1 = req.body[2];
+    var IdSabor2 = req.body[3];
+    var Cantidad = req.body[4];
+    
+    pool.query(`call bsp_alta_promocion_carrito('${IdCliente}','${IdPromocion}','${IdSabor1}','${IdSabor2}','${Cantidad}')`,function(err: any, result: any, fields: any){
+        
+                if(err){
+                    res.status(404).json(err);
+                    return;
+                }
+                
+                if(result[0][0].Mensaje !== 'Ok'){
+                    return res.json({
+                        ok: false,
+                        Mensaje: result[0][0].Mensaje
+                    });
+                }
+                                
+                return res.json({ Mensaje: 'Ok' });
+            })          
+    
+}
 // ==================================================
 //   Activa un cliente (caso de ya existencia en la BD)
 // ==================================================

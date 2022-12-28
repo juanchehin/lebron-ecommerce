@@ -410,12 +410,46 @@ public async bajaProductoCarrito(req: Request, res: Response) {
 
     pool.query(`call bsp_baja_producto_carrito('${IdCliente}','${IdProducto}')`, function(err: any, result: any){
 
+        console.log("result : ",result);
+        console.log("err : ",err);
+
         if(err){
             res.status(404).json(result);
             return;
         }
     
-        if(result[0].Mensaje !== 'Ok'){
+        if(result[1][0].Mensaje !== 'Ok'){
+            return res.json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
+
+        res.json(result);
+    })
+
+}
+// ==================================================
+//       
+// ==================================================
+public async bajaPromocionCarrito(req: Request, res: Response) {
+
+    var IdPromocion = req.params.IdPromocion;
+    var IdCliente = req.params.IdPersona;    
+    var IdSabor1 = req.params.IdSabor1;
+    var IdSabor2 = req.params.IdSabor2;
+
+    pool.query(`call bsp_baja_promocion_carrito('${IdCliente}','${IdPromocion}','${IdSabor1}','${IdSabor2}')`, function(err: any, result: any){
+
+        console.log("result : ",result);
+        console.log("err : ",err);
+
+        if(err){
+            res.status(404).json(result);
+            return;
+        }
+    
+        if(result[1][0].Mensaje !== 'Ok'){
             return res.json({
                 ok: false,
                 Mensaje: result[0][0].Mensaje

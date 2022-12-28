@@ -188,11 +188,12 @@ cargarDatosProductos(){
   // =================================
   agregarCarrito()
   { 
-    if(this.stockSaborProducto1 <= 0 || this.stockSaborProducto2 <= 0)
+    if(this.stockSaborProducto1 <= 0 || this.stockSaborProducto2 <= 0 || (+this.cantidad > this.stockSaborProducto1) || (+this.cantidad > this.stockSaborProducto2))
     {
       this.mensajeStockProducto = true;
       return;
     }
+    
     this.mensajeStockProducto = false;
     
     const datosCarrito = new Array(

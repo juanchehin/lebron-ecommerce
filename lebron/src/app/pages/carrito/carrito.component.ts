@@ -36,6 +36,8 @@ export class CarritoComponent implements OnInit {
   banderaSeleccionarEnvio: boolean = false;
   productosCarritoCliente: any[] = [];
   promocionesCarritoCliente: any[] = [];
+  retencion_mp: any;
+  retencion_mp_calculo: any;
 
   constructor(
     public usuariosService: UsuariosService,
@@ -65,7 +67,9 @@ cargarCarrito() {
                     this.totalItemsCarrito = resp[2][0].cantItemsCarrito;
                     this.productosCarritoCliente = resp[0];
                     this.promocionesCarritoCliente = resp[1];
+                    var IdItem = 1;
 
+                    // ***** Para productos *****
                     // cargo en el array los productos
                     if(this.productosCarritoCliente.length > 0)
                     {
@@ -73,33 +77,43 @@ cargarCarrito() {
 
                           this.itemsCarrito.push(
                             {
-                              IdItem: value.IdProductoSabor,
+                              IdItem: IdItem,
+                              IdProdProm: value.IdProductoSabor,
                               Nombre: value.Producto,
+                              Tipo: 'P',
                               Sabor: value.Sabor,
+                              IdSabor1: '-',
+                              IdSabor2: '-',
                               Precio: value.PrecioVenta,
                               Cantidad: value.Cantidad,
                               SubTotal: value.SubTotal,
                             }
                             );
+                            IdItem++;
                         });
 
                     }
 
-                    
+                    // ***** Para promociones *****
                     // cargo en el array las promociones
                     if(this.promocionesCarritoCliente.length > 0)
                     {
                       this.promocionesCarritoCliente.forEach( (value) => {
                         this.itemsCarrito.push(
                           {
-                            IdItem: value.IdPromocion,
+                            IdItem: IdItem,
+                            IdProdProm: value.IdPromocion,
                             Nombre: value.Promocion,
+                            Tipo: 'R',
                             Sabor: value.Sabores,
+                            IdSabor1: value.IdSabor1,
+                            IdSabor2: value.IdSabor2,
                             Precio: value.PrecioPromo,
                             Cantidad: value.Cantidad,
                             SubTotal: value.SubTotal,
                           }
-                          );
+                        );
+                        IdItem++;
                       });
                     }
     
@@ -113,14 +127,36 @@ cargarCarrito() {
                     this.banderaCarritoVacio = false;
     
                     this.costoEnvio = resp[3][0].costo_envio;
+                    this.retencion_mp = resp[3][0].retencion_mp;
     
                     this.direccionesCliente = resp[4];
     
                     this.itemsCarrito.forEach((item:any) => {
                       this.Total += +item.SubTotal;
                     });
+
+                    
     
-                    this.SubTotal = this.Total;
+                    this.retencion_mp_calculo = Math.floor((this.Total * this.retencion_mp)/100);
+
+                    this.SubTotal = this.Total + this.retencion_mp_calculo;
+        
+                    this.Total = this.Total + +this.retencion_mp_calculo;
+
+                    // Agrego las retenciones de MP a los items del carrito
+                    // this.itemsCarrito.push(
+                    //   {
+                    //     IdItem: IdItem,
+                    //     IdProdProm: 0,
+                    //     Nombre: 'Retencion MP',
+                    //     Tipo: '-',
+                    //     Sabor: '-',
+                    //     Precio: this.retencion_mp_calculo,
+                    //     Cantidad: 1,
+                    //     SubTotal: this.retencion_mp_calculo,
+                    //   }
+                    //   );
+
                   }
                   else
                   {
@@ -189,13 +225,24 @@ confirmarCompra( ) {
 
     this.datosCompra.push(
       { 
-        IdProducto: item.IdItem,  // IdProducto o promocion
+        IdProducto: item.IdItem,  // IdProductoSabor o promocion
         title: item.Nombre,
+        unit_price: Number(this.retencion_mp_calculo),
+        quantity: Number(1),
+        picture_url: ''
+      }
+    );
+
+    // Agrego las retenciones de MP
+    this.datosCompra.push(
+      { 
+        IdProducto: 0,  // IdProductoSabor o promocion
+        title: 'Retencion MP',
         unit_price: Number(item.Precio),
         quantity: Number(item.Cantidad),
         picture_url: ''
       }
-    );
+      );
 
   });
 
@@ -228,21 +275,102 @@ confirmarCompra( ) {
 // =================================================
 //        
 // ==================================================
-eliminarItemCarrito(IdProducto: string){
-  
-  this.clientesService.eliminarItemCarrito(  IdProducto )
-      .subscribe( (resp: any) => {
+eliminarItemCarrito(pIdItem: any){
 
-        if ( resp.Mensaje === 'Ok') {
-          this.cargarCarrito();
+  console.log("eliminar carr ",pIdItem);
+  var pIdProductoSaborOrPromocion: any;
+  var pTipo: any;
+  var pIdSabor1: any;
+  var pIdSabor2: any;
+  var pPrecio: any;
+
+  // Quitar el producto del array
+  // delete this.itemsCarrito[IdProductoSabor];
+
+  console.log("this.itemsCarrito carr ",this.itemsCarrito);
+
+  this.itemsCarrito.forEach( (item, index) => {
+    console.log("item ",item)
+    console.log("index ",index)
+
+    if(item.IdItem === pIdItem) 
+    {
+      this.itemsCarrito.splice(index,1);
+      pIdProductoSaborOrPromocion = item.IdProdProm;
+      pTipo = item.Tipo;
+      pIdSabor1 = item.IdSabor1;
+      pIdSabor2 = item.IdSabor2;
+      pPrecio = item.Precio;
+    }
+
+  });
+
+ 
+
+  console.log("this.itemsCarrito carr 2 ",this.itemsCarrito);
+
+  // Caso productos
+  if(pTipo == 'P')
+  {
+    this.clientesService.eliminarItemCarritoProducto( pIdProductoSaborOrPromocion )
+    .subscribe({
+      next: (resp: any) => { 
+        
+        this.totalItemsCarrito = resp[0][0].cantItemsCarrito;
+
+        if ( resp[1][0].Mensaje === 'Ok') {
+          
+            this.Total = this.Total - +pPrecio;
+            
+            localStorage.setItem('items-carrito',String(this.totalItemsCarrito));
+            
+          } else {
+            this.router.navigate(['/failure']);
+          }
+       },
+      error: (err: any) => { 
+        this.router.navigate(['/failure'])
+       }
+    });
+  }
+
+  // Caso promociones
+  if(pTipo == 'R')
+  {
+    console.log("pasa pIdSabor1 ",pIdSabor1)
+    console.log("pasa pIdSabor2 ",pIdSabor2)
+    console.log("pasa pIdProductoSaborOrPromocion ",pIdProductoSaborOrPromocion)
+
+    this.clientesService.eliminarItemCarritoPromocion( pIdProductoSaborOrPromocion, pIdSabor1,pIdSabor2 )
+    .subscribe({
+      next: (resp: any) => { 
+        
+        this.totalItemsCarrito = resp[0][0].cantItemsCarrito;
+
+        if ( resp[1][0].Mensaje === 'Ok') {
+
+          this.Total = this.Total - +pPrecio;
+          localStorage.setItem('items-carrito',String(this.totalItemsCarrito));
+          
         } else {
           this.router.navigate(['/failure']);
         }
 
-  
+        
+        },
+        error: (err: any) => { 
+          this.router.navigate(['/failure'])
+        }
+      });
+  }
 
- });
+  if(this.itemsCarrito.length <= 0)
+  {
+    this.banderaCarritoVacio = true;
+    return;
+  }
 }
+
 // =================================================
 //        
 // ==================================================

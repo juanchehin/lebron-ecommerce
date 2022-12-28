@@ -243,17 +243,17 @@ export class ProductoDetalleComponent implements OnInit {
    // 
    rutearComprarAhora(){
 
-    if(this.Cantidad <= 0 || this.Stock <= 0 || (this.Cantidad > this.StockSabor))
-    {
-      this.mensajeCantidad = true;
-      return;
-    }
-
     if(this.idSaborSeleccionado <= 0)
     {
       this.mensajeSabor = true;
       return;
     }
+
+    if(this.Cantidad <= 0 || this.Stock <= 0 || (this.Cantidad > this.StockSabor))
+    {
+      this.mensajeCantidad = true;
+      return;
+    }   
 
     this.mensajeCantidad = false;
     this.mensajeSabor = false;

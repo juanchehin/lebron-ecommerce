@@ -182,11 +182,22 @@ cardarDatosEnvio(  IdPersona: string  ): any {
 // ==================================================
 // 
 // ==================================================
-eliminarItemCarrito(  IdProducto: any  ): any {
+eliminarItemCarritoProducto(  IdProducto: any  ): any {
 
-  const url = URL_SERVICIOS + '/clientes/carrito/baja/' + this.IdPersona + '/' + IdProducto;
+  const url = URL_SERVICIOS + '/clientes/carrito/baja/producto/' + this.IdPersona + '/' + IdProducto;
 
   return this.http.get(url,this.headers);
 
 }
+// ==================================================
+// 
+// ==================================================
+eliminarItemCarritoPromocion(  IdPromocion: any ,pIdSabor1: any,pIdSabor2: any ): any {
+
+  const url = URL_SERVICIOS + '/clientes/carrito/baja/promocion/' + this.IdPersona + '/' + IdPromocion + '/' + pIdSabor1 + '/' + pIdSabor2;
+
+  return this.http.get(url,this.headers);
+
+}
+
 }

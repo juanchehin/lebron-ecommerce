@@ -64,8 +64,7 @@
                             </div>
                             <div class="owl-nav"><button type="button" role="presentation" class="owl-prev disabled"><span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next"><span aria-label="Next">›</span></button></div>
                             <div class="owl-dots"><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot active"><span></span></button>
-                                <button
-                                    role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button></div>
+                                <button role="button" class="owl-dot"><span></span></button><button role="button" class="owl-dot"><span></span></button></div>
                         </div>
                         <div _ngcontent-alo-c76="" class="left-t nonl-t"></div>
                         <div _ngcontent-alo-c76="" class="right-t"></div>
@@ -85,9 +84,7 @@
                     <div class="prod_options">
                         <div class="row">
                             <div class="col-sm-6 form-group">
-                                <div *ngIf="mensajeSabor">
-                                    <p style="color:red;">Seleccione un sabor</p>
-                                </div>
+
                                 <label>Sabor : </label>
                                 <select tabindex="2" [(ngModel)]="idSaborSeleccionado" name="IdSabor" (input)="cambioIdSabor($event)" class="form-control">
                                             <option *ngFor="let sabor of sabores" [value]="sabor.IdSabor">
@@ -98,9 +95,10 @@
 
                         </div>
                         <!-- cantidad -->
-                        <div *ngIf="mensajeCantidad">
-                            <p style="color:red;">Seleccione una cantidad valida</p>
+                        <div *ngIf="mensajeSabor">
+                            <p style="color:red;">Seleccione un sabor</p>
                         </div>
+
                         <div class="row">
                             <label class="col-md-3">
                                 <strong >Cantidad : </strong>
@@ -111,6 +109,9 @@
                             <div class="col-md-4">
                                 <strong>( {{StockSabor}} disponibles ) </strong>
                             </div>
+                        </div>
+                        <div *ngIf="mensajeCantidad">
+                            <p style="color:red;">Seleccione una cantidad valida</p>
                         </div>
                         <!-- Fin cantidad -->
                     </div>

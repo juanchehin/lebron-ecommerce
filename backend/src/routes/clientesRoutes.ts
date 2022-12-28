@@ -29,7 +29,8 @@ class ClientesRoutes {
         // carrito 
         this.router.post('/carrito/alta/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], clientesController.altaProductoCarrito);
         this.router.get('/carrito/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], clientesController.listarCarritoCliente);
-        this.router.get('/carrito/baja/:IdPersona/:IdProducto', clientesController.bajaProductoCarrito);
+        this.router.get('/carrito/baja/producto/:IdPersona/:IdProducto', clientesController.bajaProductoCarrito);
+        this.router.get('/carrito/baja/promocion/:IdPersona/:IdPromocion/:IdSabor1/:IdSabor2', clientesController.bajaPromocionCarrito);
         // carrito 
         this.router.get('/mis-compras/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], clientesController.listarComprasCliente);
     }

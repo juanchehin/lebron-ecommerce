@@ -66,6 +66,7 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     <tr *ngFor="let itemCarrito of itemsCarrito">
                         <td>
                             <span class="item_cart">{{itemCarrito.Nombre}}</span>
@@ -84,6 +85,25 @@
                         </td>
                         <td class="options">
                             <a (click)="eliminarItemCarrito(itemCarrito.IdItem)"><i class="ti-trash"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="item_cart">Retencion Mercado pago</span>
+                        </td>
+                        <td>
+                            <strong>-</strong>
+                        </td>
+                        <td>
+                            <strong>$ {{retencion_mp_calculo}}</strong>
+                        </td>
+                        <td>
+                            <strong>-</strong>
+                        </td>
+                        <td>
+                            <strong>$ {{retencion_mp_calculo}}</strong>
+                        </td>
+                        <td>
                         </td>
                     </tr>
                 </tbody>

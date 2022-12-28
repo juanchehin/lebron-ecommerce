@@ -50,7 +50,7 @@ export class CheckoutService {
   }
 
   // ==============================
-  changeCantidadPromocion(cantidadPromocion: string) {
+  changeCantidadPromocion(cantidadPromocion: any) {
     this.cantidadPromocionSource.next(cantidadPromocion);
   }
 

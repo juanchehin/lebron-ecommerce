@@ -171,13 +171,14 @@ confirmarCompra( ) {
   {
     this.datosCompra.push(
       { 
-        IdProducto: this.producto.IdProducto,
-        title: this.producto.Producto,
+        IdProducto: this.IdProducto,
+        title: this.producto,
         unit_price: Number(this.Total),
-        quantity: this.cantidadProducto,
+        quantity: Number(1),
         picture_url: ''
       }
     );
+
   }
   else
   {
@@ -186,7 +187,7 @@ confirmarCompra( ) {
         IdPromocion: this.IdPromocion,
         title: this.producto,
         unit_price: Number(this.Total),
-        quantity: this.cantidadPromocion,
+        quantity: Number(1),
         picture_url: ''
       }
     );

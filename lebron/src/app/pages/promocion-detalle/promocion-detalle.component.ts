@@ -33,7 +33,6 @@ export class PromocionDetalleComponent implements OnInit {
   stockSaborProducto1 = 0; 
   saboresProd1: any;
   idSaborSeleccionado1 = 0;
-  Cantidad: any = 1;
   saborProd1: any;
 
   //
@@ -295,14 +294,23 @@ cargarDatosProductos(){
   );
   }
 
+   // =================================
+   cambioCantidad(event: any)
+   { 
+    console.log("pasa cambio cantidad ",event.target.value)
+     this.cantidad = event.target.value;
+     this.changeCantidad();
+   }
+
   // =================================================================
   changeCantidad() {
-    this.checkoutService.changeCantidadPromocion(this.Cantidad);
+    this.checkoutService.changeCantidadPromocion(this.cantidad);
   }
 
   // 
   rutearComprarAhora(){
-    if(this.stockSaborProducto1 <= 0 || this.stockSaborProducto2 <= 0)
+
+    if(this.stockSaborProducto1 <= 0 || this.stockSaborProducto2 <= 0 || (+this.cantidad > this.stockSaborProducto1) || (+this.cantidad > this.stockSaborProducto2))
     {
       this.mensajeStockProducto = true;
       return;

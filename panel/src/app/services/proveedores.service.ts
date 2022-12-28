@@ -97,5 +97,30 @@ bajaProveedor( IdProveedor: any ) {
 );
 }
 
+// ==================================================
+// Cargo la data del proveedor
+// ==================================================
+cargarDatosFormEditarProveedor(IdProveedor: any ){
 
+  let url = URL_SERVICIOS + '/proveedores/editar/datos-formulario/' + IdProveedor + '/' + this.IdPersona;
+  return this.http.get( url , this.headers );
+
+}
+  // ==================================================
+//        
+// ==================================================
+editarProveedor( proveedorEditado: any ) {
+
+  let url = URL_SERVICIOS + '/proveedores/editar/' + this.IdPersona;
+
+  return this.http.post(
+    url,
+    proveedorEditado,
+    {
+      headers: {
+        token: this.token
+      }
+    }
+);
+}
 }

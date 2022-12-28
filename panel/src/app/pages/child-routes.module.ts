@@ -36,6 +36,7 @@ import { MovimientosComponent } from './mantenimientos/cuentas-corrientes/movimi
 import { VentasComponent } from './mantenimientos/ventas/listar-ventas/ventas.component';
 import { NuevoGastoComponent } from './mantenimientos/compras/gastos/nuevo-gasto/nuevo-gasto.component';
 import { ListarGastosComponent } from './mantenimientos/compras/gastos/listar-gastos/listar-gastos.component';
+import { EditarProveedorComponent } from './mantenimientos/proveedores/editar-proveedor.component';
 
 
 const childRoutes: Routes = [
@@ -44,6 +45,7 @@ const childRoutes: Routes = [
   // Mantenimientos
   { path: 'proveedores', component: ProveedoresComponent, data: { titulo: 'Proveedores' }},
   { path: 'proveedores/nuevo', component: ProveedorComponent, data: { titulo: 'Alta de proveedor' }},
+  { path: 'proveedor/:IdProveedor', component: EditarProveedorComponent, data: { titulo: 'Edicion de proveedor' }},
   // transferencias
   { path: 'transferencias', component: TransferenciasComponent, data: { titulo: 'Transferencias' }},
   { path: 'transferencias/nueva', component: TransferenciaComponent, data: { titulo: 'Nueva transferencia de stock' }},

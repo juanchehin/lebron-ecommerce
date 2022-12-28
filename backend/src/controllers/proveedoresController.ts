@@ -81,6 +81,61 @@ public async bajaProveedor(req: Request, res: Response): Promise<void> {
         res.status(200).json(result);
     })
 }
+
+
+// ==================================================
+//        Edita un proveedor
+// ==================================================
+public async editarProveedor(req: Request, res: Response) {
+
+    var IdUsuario = req.params.IdPersona; // Usuario que realiza la transaccion
+
+    var IdProveedor = req.body[0];
+    var Proveedor = req.body[1];
+    var Apellidos = req.body[2];
+    var Nombres = req.body[3];
+    var Telefono = req.body[4];
+    var CUIL = req.body[5];
+    var Email = req.body[6];
+    var Observaciones = req.body[7];
+
+    pool.query(`call bsp_editar_proveedor('${IdUsuario}','${IdProveedor}','${Proveedor}','${Apellidos}','${Nombres}','${Telefono}','${CUIL}','${Email}','${Observaciones}')`, function(err: any, result: any){
+        
+        if(err){
+            res.status(404).json({ text: "Ocurrio un problema" });
+            return;
+        }
+
+        if(result[0][0].Mensaje !== 'Ok'){
+            return res.json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
+
+        return res.json({ Mensaje: 'Ok' });
+    })
+
+}
+
+// ==================================================
+//   Cargo las marcas,categorias,subcategorias,unidades,sucursal principal
+// ==================================================
+public async cargarDatosFormEditarProveedor(req: Request, res: Response): Promise<void> {
+
+    const { pIdProveedor } = req.params;
+    const { IdPersona } = req.params;
+
+    pool.query(`call bsp_dame_datos_form_editar_proveedor('${IdPersona}','${pIdProveedor}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
+
 }
 
 

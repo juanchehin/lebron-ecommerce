@@ -77,5 +77,13 @@ cargarDatosVendedor( IdPersona: any ) {
     url
 );
 }
+// ==================================================
+//        
+// ==================================================
+bajaUsuario( IdUsuario: any ) {
 
+  let url = URL_SERVICIOS + '/usuarios/baja/' + this.IdPersona + '/' + IdUsuario;
+
+  return this.http.get(url,this.headers);
+}
 }

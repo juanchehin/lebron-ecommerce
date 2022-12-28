@@ -1,7 +1,5 @@
 import { Router } from 'express';
-
 var mdAutenticacion = require('../middlewares/autenticacion');
-
 import usuariosController from '../controllers/usuariosController';
 
 class UsuariosRoutes {
@@ -18,6 +16,8 @@ class UsuariosRoutes {
         this.router.get('/listarPaginado/:desde/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],usuariosController.listarUsuariosPaginado);
         this.router.post('/alta/:IdPersona' ,  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario] , usuariosController.altaUsuario); 
         this.router.get('/:pIdPersona', usuariosController.dameUsuario);
+        this.router.get('/baja/:IdPersona/:pIdUsuario',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], usuariosController.bajaUsuario);
+
 
     }
 

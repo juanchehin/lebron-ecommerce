@@ -92,6 +92,22 @@ public async dameUsuario(req: Request, res: Response): Promise<void> {
     })
 }
 
+// ==================================================
+//        Lista personas desde cierto valor
+// ==================================================
+public async bajaUsuario(req: Request, res: Response): Promise<void> {
+    
+    var pIdPersona = req.params.IdPersona; // persona que realiza la transaccion
+    var pIdUsuario = req.params.pIdUsuario; // usuario que sera dado de baja
+
+    pool.query(`call bsp_baja_usuario('${pIdPersona}','${pIdUsuario}')`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(404).json({ text: err });
+            return;
+        }
+        res.status(200).json(result);
+    })
+}
 }
 
 

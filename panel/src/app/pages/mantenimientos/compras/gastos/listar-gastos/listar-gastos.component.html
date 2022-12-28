@@ -1,0 +1,46 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="col-sm-4">
+                <h3 class="card-title">Cantidad Gastos ( <small> {{ totalGastos }} </small> )</h3>
+            </div>
+            <div class="table-responsive">
+                <div>
+                    <label for="start">Fecha : &nbsp;</label>
+                    <input type="date" [(ngModel)]="fecha" (ngModelChange)="cambiosFecha($event)" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button [disabled]="controlFechas" (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                        refresh
+                        </span></button>
+                </div>
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">
+                                #
+                            </th>
+                            <th>Usuario</th>
+                            <th>Monto</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let gasto of gastos">
+                            <td>{{ gasto.IdTransaccion }}</td>
+                            <td>{{ gasto.Usuario }}</td>
+                            <td>$ {{ gasto.MontoTotal }}</td>
+                            <td>{{ gasto.Descripcion }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline">Anteriores</button>
+            <button (click)="cambiarDesde(20) " type="button" class="btn btn-default-outline">Siguientes</button>
+        </div>
+        <!--.box-typical-->
+
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

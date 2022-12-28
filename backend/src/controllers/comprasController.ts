@@ -152,6 +152,26 @@ dameDatosPDFVenta(req: Request, res: Response) {
    })
 
 }
+
+// ==================================================
+//        Lista 
+// ==================================================
+listarGastosPaginado(req: Request, res: Response) {
+
+    var desde = req.params.pDesde || 0;
+    desde  = Number(desde);
+
+    var pFecha = req.params.pFecha;
+    var pIdPersona = req.params.IdPersona;
+
+    pool.query(`call bsp_listar_gastos_paginado_fecha('${desde}','${pFecha}','${pIdPersona}')`, function(err: any, result: any){
+       if(err){
+           return;
+       }
+       res.json(result);
+   })
+
+}
 }
 
 

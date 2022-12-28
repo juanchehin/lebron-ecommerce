@@ -42,6 +42,7 @@ import { CuentaComponent } from './mantenimientos/cuentas-corrientes/cuenta.comp
 import { MovimientosComponent } from './mantenimientos/cuentas-corrientes/movimientos.component';
 import { VentasComponent } from './mantenimientos/ventas/listar-ventas/ventas.component';
 import { NuevoGastoComponent } from './mantenimientos/compras/gastos/nuevo-gasto/nuevo-gasto.component';
+import { ListarGastosComponent } from './mantenimientos/compras/gastos/listar-gastos/listar-gastos.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { NuevoGastoComponent } from './mantenimientos/compras/gastos/nuevo-gasto
     NuevaCompraComponent,
     MisComprasComponent,
     NuevoGastoComponent,
+    ListarGastosComponent,
     ComprasComponent,
     TransferenciasComponent,
     TransferenciaComponent,

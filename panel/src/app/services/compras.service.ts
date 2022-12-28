@@ -63,6 +63,17 @@ altaCompra( compra : any){
 // ==================================================
 //
 // ==================================================
+listarComprasIdUsuario(desde: number , Fecha: string ){
+
+  let url = URL_SERVICIOS + '/compras/listar/mis-compras/' + desde + '/' + Fecha + '/' + this.IdPersona;
+
+  return this.http.get( url );
+}
+
+
+// ==================================================
+//
+// ==================================================
 altaGasto( gasto : any){
 
   let url = URL_SERVICIOS + '/compras/gastos/alta/' + this.IdPersona;
@@ -73,12 +84,11 @@ altaGasto( gasto : any){
 // ==================================================
 //
 // ==================================================
-listarComprasIdUsuario(desde: number , Fecha: string ){
+listarGastosPaginado(desde: number , fecha: string ){
 
-  let url = URL_SERVICIOS + '/compras/listar/mis-compras/' + desde + '/' + Fecha + '/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/compras/gastos/listar/' + desde + '/' + fecha + '/' + this.IdPersona;
 
-  return this.http.get( url );
+  return this.http.get( url,this.headers );
 }
-
 
 }

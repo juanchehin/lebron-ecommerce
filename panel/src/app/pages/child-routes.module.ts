@@ -35,6 +35,7 @@ import { CuentaComponent } from './mantenimientos/cuentas-corrientes/cuenta.comp
 import { MovimientosComponent } from './mantenimientos/cuentas-corrientes/movimientos.component';
 import { VentasComponent } from './mantenimientos/ventas/listar-ventas/ventas.component';
 import { NuevoGastoComponent } from './mantenimientos/compras/gastos/nuevo-gasto/nuevo-gasto.component';
+import { ListarGastosComponent } from './mantenimientos/compras/gastos/listar-gastos/listar-gastos.component';
 
 
 const childRoutes: Routes = [
@@ -70,7 +71,7 @@ const childRoutes: Routes = [
   { path: 'compras/nueva', component: NuevaCompraComponent, data: { titulo: 'Nueva compra' }},
   { path: 'compras/:IdPersona', component: MisComprasComponent, data: { titulo: 'Mis compras' }},
   //
-  // { path: 'gastos', component: GastosComponent, data: { titulo: 'Listado de gastos' }},
+  { path: 'gastos', component: ListarGastosComponent, data: { titulo: 'Listado de gastos' }},
   { path: 'gastos/nuevo', component: NuevoGastoComponent, data: { titulo: 'Nuevo gasto' }},
   // { path: 'gastos/:IdGasto', component: MisComprasComponent, data: { titulo: 'Mis compras' }},
   //

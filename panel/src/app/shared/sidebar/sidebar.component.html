@@ -53,10 +53,11 @@
                         <span class="hide-menu">Compras </span>
                     </a>
                     <ul aria-expanded="false" [ngClass]="expandirCompras ? 'collapse' : ''">
-                        <li *ngIf="activarSubMenu('Compras','Ver')"><a routerLinkActive="active" [routerLink]="['/dashboard/productos']">Listar Productos </a></li>
+                        <li *ngIf="activarSubMenu('Compras','Ver')"><a routerLinkActive="active" [routerLink]="['/dashboard/compras']">Listar Compras</a></li>
                         <li><a [routerLink]="['/dashboard/compras']">Listar compras</a></li>
                         <li><a [routerLink]="['/dashboard/compras/nueva']">Nueva compra</a></li>
                         <li><a [routerLink]="['/dashboard/gastos/nuevo']">Nuevo gasto</a></li>
+                        <li><a [routerLink]="['/dashboard/gastos/nuevo']">Listar gastos</a></li>
                     </ul>
                 </li>
                 <!-- ===== ** Ventas ** ====== -->

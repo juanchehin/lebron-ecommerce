@@ -19,6 +19,7 @@ export class FooterComponent implements OnInit {
   direccion = '';
   telefono = '';
   email = '';
+  monto_envio_gratis = 0;
 
   constructor(
     private configuracionesService: ConfiguracionesService,
@@ -49,6 +50,7 @@ export class FooterComponent implements OnInit {
         this.facebook = resp[0][0].facebook;
         this.instagram = resp[0][0].instagram;
         this.youtube = resp[0][0].youtube;
+        this.monto_envio_gratis = Math.floor(resp[0][0].monto_envio_gratis);
 
    });
   }

@@ -175,18 +175,20 @@ public async buscarProductoPaginadoFront(req: Request, res: Response): Promise<v
     })
 }
 // ==================================================
-//        buscarProductoPaginado
+//        Autocomplete productos
 // ==================================================
 public async buscarProductoAutoComplete(req: Request, res: Response): Promise<void> {
 
     var pParametroBusqueda = req.params.pParametroBusqueda || '';
+    var pIdSucursal = req.params.IdSucursal;
+    var pIdUsuario = req.params.IdPersona;
 
     if(pParametroBusqueda == null || pParametroBusqueda == 'null')
     {
         pParametroBusqueda = '';
     }
 
-    pool.query(`call bsp_buscar_producto_autocomplete('${pParametroBusqueda}')`, function(err: any, result: any){
+    pool.query(`call bsp_buscar_producto_autocomplete('${pParametroBusqueda}','${pIdSucursal}','${pIdUsuario}')`, function(err: any, result: any){
         
         if(err){
             res.status(400).json(err);

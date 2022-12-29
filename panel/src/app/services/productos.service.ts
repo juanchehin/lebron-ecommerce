@@ -120,11 +120,11 @@ bajaProducto( IdProductoSabor: any ) {
 );
 }
 // ==================================================
-//
+//  Carga los productos en el autocomplete, que coincidan con el parametroBusqueda
 // ==================================================
-cargarProductos( parametroBusqueda: string){
+cargarProductos( parametroBusqueda: string, IdSucursal: any){
 
-    let url = URL_SERVICIOS + '/productos/listar/busqueda/autocomplete/' + parametroBusqueda;
+    let url = URL_SERVICIOS + '/productos/listar/busqueda/autocomplete/' + parametroBusqueda + '/' + IdSucursal + '/' + this.IdPersona;
     return this.http.get( url, this.headers ); 
     
 }

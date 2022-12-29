@@ -45,6 +45,7 @@ export class NuevaVentaComponent implements OnInit {
   arrayVenta: any = [];
   itemCheckExists: any = 0;
   itemIdProductoSabor: any;
+  idSucursalVendedor: any;
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
 
 
@@ -133,12 +134,12 @@ cargarClientes() {
   }
 
 // ==================================================
-// Carga
+// Autocompletar de productos
 // ==================================================
 
 cargarProductos() {
 
-  this.productosService.cargarProductos( this.productoBuscado )
+  this.productosService.cargarProductos( this.productoBuscado, this.idSucursalVendedor )
              .subscribe( (resp: any) => {
 
               this.productos = resp[0];
@@ -170,6 +171,8 @@ cargarDatosVendedor() {
 
                 this.datosVendedor = resp[0][0];
 
+                this.idSucursalVendedor = this.datosVendedor.IdSucursal;
+
               });
 
   }
@@ -195,7 +198,13 @@ agregarLineaVenta() {
     this.alertaService.alertFail('Error en cantidad',false,2000);
     return;
   }
-  
+
+  if((this.itemPendiente.Stock <= 0) || (this.itemPendiente.Stock < this.cantidadLineaVenta))
+  { 
+    this.alertaService.alertFail('Stock insuficiente para ' + this.itemPendiente.Producto,false,2000);
+    return;
+  }
+
   this.totalVenta += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaVenta;
 
   const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
@@ -292,6 +301,11 @@ agregarLineaTipoPago() {
 
   onChangeSearch(val: any) {
 
+    if(val == '' || val == null)
+    {
+      return;
+    }
+
     this.clienteBuscado = val;
     this.cargarClientes();
     // fetch remote data from here
@@ -312,6 +326,10 @@ agregarLineaTipoPago() {
   }
 
   onChangeSearchProducto(val: any) {
+    if(val == '' || val == null)
+    {
+      return;
+    }
     this.productoBuscado = val;
     this.cargarProductos();
   }

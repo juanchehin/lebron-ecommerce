@@ -109,7 +109,7 @@ cargarProductos() {
     return;
   }
 
-  this.productosService.cargarProductos( this.productoBuscado )
+  this.productosService.cargarProductos( this.productoBuscado , 0)
   .subscribe({
     next: (resp: any) => { 
 

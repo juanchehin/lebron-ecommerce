@@ -91,7 +91,7 @@ altaPromocion() {
 
 cargarProductos() {
 
-  this.productosService.cargarProductos( this.productoBuscado )
+  this.productosService.cargarProductos( this.productoBuscado, 0 )
              .subscribe( (resp: any) => {
 
               this.productos = resp[0];
@@ -144,6 +144,11 @@ agregarLineaPromocion() {
   }
 
   onChangeSearchProducto(val: any) {
+
+    if(val == '')
+    {
+      return;
+    }
 
     this.productoBuscado = val;
     this.cargarProductos();

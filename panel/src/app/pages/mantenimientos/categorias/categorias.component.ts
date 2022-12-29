@@ -77,8 +77,8 @@ bajaCategoria(IdCategoria: string) {
       .subscribe({
         next: (resp: any) => {
   
-          if(resp[0].Mensaje == 'Ok') {
-            this.alertService.alertSuccess('top-end','Categoria dado de baja',false,900);
+          if(resp[0][0].Mensaje == 'Ok') {
+            this.alertService.alertSuccess('top-end','Categoria dada de baja',false,900);
             this.buscarCategoriasPaginado();
             
           } else {

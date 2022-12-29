@@ -70,35 +70,35 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(1)">
+                            <input [checked]="listarProductos" type="checkbox" class="custom-control-input" (click)="agregarPermiso(1)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Listar productos</span>
                         </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(2)">
+                            <input [checked]="altaProductos" type="checkbox" class="custom-control-input" (click)="agregarPermiso(2)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Alta de productos</span>
                         </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(62)">
+                            <input [checked]="importarProductos" type="checkbox" class="custom-control-input" (click)="agregarPermiso(62)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Importar productos</span>
                         </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(3)">
+                            <input [checked]="editarProductos" type="checkbox" class="custom-control-input" (click)="agregarPermiso(3)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Editar productos</span>
                         </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(4)">
+                            <input [checked]="borrarProductos" type="checkbox" class="custom-control-input" (click)="agregarPermiso(4)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Borrar productos</span>
                         </label>
@@ -115,14 +115,14 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(5)">
+                            <input [checked]="listarClientes" type="checkbox" class="custom-control-input" (click)="agregarPermiso(5)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Listar clientes</span>
                         </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(6)">
+                            <input [checked]="altaClientes" type="checkbox" class="custom-control-input" (click)="agregarPermiso(6)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Alta de clientes</span>
                         </label>
@@ -130,14 +130,14 @@
 
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(7)">
+                            <input [checked]="editarClientes" type="checkbox" class="custom-control-input" (click)="agregarPermiso(7)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Editar clientes</span>
                         </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(8)">
+                            <input [checked]="borrarClientes" type="checkbox" class="custom-control-input" (click)="agregarPermiso(8)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Borrar clientes</span>
                         </label>
@@ -154,14 +154,14 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(9)">
+                            <input [checked]="listarProveedores" type="checkbox" class="custom-control-input" (click)="agregarPermiso(9)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Listar proveedores</span>
                         </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(10)">
+                            <input [checked]="altaProveedores" type="checkbox" class="custom-control-input" (click)="agregarPermiso(10)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Alta Proveedores</span>
                         </label>
@@ -169,14 +169,14 @@
 
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(11)">
+                            <input [checked]="editarProveedores" type="checkbox" class="custom-control-input" (click)="agregarPermiso(11)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Editar proveedores</span>
                         </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(12)">
+                            <input [checked]="borrarProveedores" type="checkbox" class="custom-control-input" (click)="agregarPermiso(12)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Borrar proveedores</span>
                         </label>
@@ -193,14 +193,14 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(13)">
+                                <input [checked]="listarSucursales" type="checkbox" class="custom-control-input" (click)="agregarPermiso(13)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Listar Sucursal</span>
                             </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(14)">
+                                <input [checked]="altaSucursales" type="checkbox" class="custom-control-input" (click)="agregarPermiso(14)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Alta Sucursal</span>
                             </label>
@@ -208,14 +208,14 @@
 
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(15)">
+                                <input [checked]="editarSucursales" type="checkbox" class="custom-control-input" (click)="agregarPermiso(15)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Editar Sucursal</span>
                             </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(16)">
+                                <input [checked]="borrarSucursales" type="checkbox" class="custom-control-input" (click)="agregarPermiso(16)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Borrar Sucursal</span>
                             </label>
@@ -232,14 +232,14 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(17)">
+                                <input [checked]="listarEmpleados" type="checkbox" class="custom-control-input" (click)="agregarPermiso(17)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Listar Empleados</span>
                             </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(18)">
+                                <input [checked]="altaEmpleados" type="checkbox" class="custom-control-input" (click)="agregarPermiso(18)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Alta Empleados</span>
                             </label>
@@ -247,14 +247,14 @@
 
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(19)">
+                                <input [checked]="editarEmpleados" type="checkbox" class="custom-control-input" (click)="agregarPermiso(19)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Editar Empleados</span>
                             </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(20)">
+                                <input [checked]="borrarEmpleados" type="checkbox" class="custom-control-input" (click)="agregarPermiso(20)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Borrar Empleados</span>
                             </label>
@@ -271,16 +271,16 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(21)">
+                                <input [checked]="listarConfiguraciones" type="checkbox" class="custom-control-input" (click)="agregarPermiso(21)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Listar Configuraciones</span>
                             </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(23)">
+                                <input [checked]="editarConfiguraciones" type="checkbox" class="custom-control-input" (click)="agregarPermiso(23)">
                                 <span class="custom-control-indicator"></span>
-                                <span class="custom-control-description">Alta Configuraciones</span>
+                                <span class="custom-control-description">Editar Configuraciones</span>
                             </label>
                     </div>
                 </div>
@@ -295,14 +295,14 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(29)">
+                                <input [checked]="listarPedidos" type="checkbox" class="custom-control-input" (click)="agregarPermiso(29)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Listar Pedidos</span>
                             </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(30)">
+                                <input [checked]="altaPedidos" type="checkbox" class="custom-control-input" (click)="agregarPermiso(30)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Alta Pedidos</span>
                             </label>
@@ -310,14 +310,14 @@
 
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(31)">
+                                <input [checked]="editarPedidos" type="checkbox" class="custom-control-input" (click)="agregarPermiso(31)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Editar Pedidos</span>
                             </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(32)">
+                                <input [checked]="borrarPedidos" type="checkbox" class="custom-control-input" (click)="agregarPermiso(32)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Borrar Pedidos</span>
                             </label>
@@ -334,14 +334,14 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(33)">
+                                <input [checked]="listarCategorias" type="checkbox" class="custom-control-input" (click)="agregarPermiso(33)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Listar Categorias</span>
                             </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(34)">
+                                <input [checked]="altaCategorias" type="checkbox" class="custom-control-input" (click)="agregarPermiso(34)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Alta Categorias</span>
                             </label>
@@ -349,14 +349,14 @@
 
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(35)">
+                                <input [checked]="editarCategorias" type="checkbox" class="custom-control-input" (click)="agregarPermiso(35)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Editar Categorias</span>
                             </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(36)">
+                                <input [checked]="borrarCategorias" type="checkbox" class="custom-control-input" (click)="agregarPermiso(36)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Borrar Categorias</span>
                             </label>
@@ -373,14 +373,14 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(57)">
+                                <input [checked]="listarPromociones" type="checkbox" class="custom-control-input" (click)="agregarPermiso(57)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Listar Promociones</span>
                             </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(58)">
+                                <input [checked]="altaPromociones" type="checkbox" class="custom-control-input" (click)="agregarPermiso(58)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Alta Promociones</span>
                             </label>
@@ -388,14 +388,14 @@
 
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(59)">
+                                <input [checked]="editarPromociones" type="checkbox" class="custom-control-input" (click)="agregarPermiso(59)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Editar Promociones</span>
                             </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(60)">
+                                <input [checked]="borrarPromociones" type="checkbox" class="custom-control-input" (click)="agregarPermiso(60)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Borrar Promociones</span>
                             </label>
@@ -412,35 +412,35 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(45)">
+                                <input [checked]="listarVentas" type="checkbox" class="custom-control-input" (click)="agregarPermiso(45)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Listar Ventas</span>
                             </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(46)">
+                                <input [checked]="altaVentas" type="checkbox" class="custom-control-input" (click)="agregarPermiso(46)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Alta Ventas</span>
                             </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(47)">
+                                <input [checked]="editarVentas" type="checkbox" class="custom-control-input" (click)="agregarPermiso(47)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Editar Ventas</span>
                             </label>
                     </div>
                     <div class="col-sm-4">
                         <label class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" (click)="agregarPermiso(48)">
+                                <input [checked]="borrarVentas" type="checkbox" class="custom-control-input" (click)="agregarPermiso(48)">
                                 <span class="custom-control-indicator"></span>
                                 <span class="custom-control-description">Borrar Ventas</span>
                             </label>
                     </div>
                 </div>
             </div>
-            <br>
+            <br><br><br>
             <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar Usuario</button>
             <br>
         </div>

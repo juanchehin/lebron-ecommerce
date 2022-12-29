@@ -117,7 +117,7 @@ export class UsuarioComponent implements OnInit {
 
 // ==================================================
 //   Agrega un Permiso
-// El idpermiso tiene correspondencia con la BD (chequear BD - tabla permisos)
+// El idpermiso tiene correspondencia con la BD (chequear BD - tabla 'permisos')
 // ==================================================
   agregarPermiso(idPermiso: any){
 
@@ -233,6 +233,21 @@ checkTodosProductos()
     this.importarProductos = false;
     this.editarProductos = false;
     this.borrarProductos = false;
+
+    var idPermiso = 1;
+    for(let i = 0; i < 4; i++)
+    {
+      const index = this.permisos.indexOf(idPermiso, 0);
+      if (index > -1) {
+        this.permisos.splice(index, 1);
+      }
+      idPermiso++;
+    }
+
+    const index = this.permisos.indexOf(62, 0);
+      if (index > -1) {
+        this.permisos.splice(index, 1);
+      }
   }
  
 }
@@ -252,6 +267,9 @@ checkTodosClientes()
   this.importarClientes = true;
   this.editarClientes   = true;
   this.borrarClientes   = true;
+
+  // Agregar todos al array
+  this.permisos.push(5,6,7,8);
 }else
 { 
   this.banderaCheckClientes = false;
@@ -261,6 +279,16 @@ checkTodosClientes()
   this.importarClientes = false;
   this.editarClientes   = false;
   this.borrarClientes   = false;
+
+  var idPermiso = 5;
+  for(let i = 0; i < 4; i++)
+  {
+    const index = this.permisos.indexOf(idPermiso, 0);
+    if (index > -1) {
+      this.permisos.splice(index, 1);
+    }
+    idPermiso++;
+  }
 }
 }
 
@@ -279,6 +307,9 @@ checkTodosProveedores()
   this.importarProveedores = true;
   this.editarProveedores = true;
   this.borrarProveedores = true;
+
+  // Agregar todos al array
+  this.permisos.push(9,10,11,12);
 }else
 {
   this.banderaCheckProveedores = false;
@@ -288,6 +319,16 @@ checkTodosProveedores()
   this.importarProveedores = false;
   this.editarProveedores = false;
   this.borrarProveedores = false;
+
+  var idPermiso = 9;
+  for(let i = 0; i < 4; i++)
+  {
+    const index = this.permisos.indexOf(idPermiso, 0);
+    if (index > -1) {
+      this.permisos.splice(index, 1);
+    }
+    idPermiso++;
+  }
 }
 
 }
@@ -307,6 +348,9 @@ checkTodosSucursales()
   this.importarSucursales = true;
   this.editarSucursales = true;
   this.borrarSucursales = true;
+  
+  // Agregar todos al array
+  this.permisos.push(13,14,15,16);
 }else
 {
   this.banderaCheckSucursales = false;
@@ -316,6 +360,16 @@ checkTodosSucursales()
   this.importarSucursales = false;
   this.editarSucursales = false;
   this.borrarSucursales = false; 
+
+  var idPermiso = 13;
+  for(let i = 0; i < 4; i++)
+  {
+    const index = this.permisos.indexOf(idPermiso, 0);
+    if (index > -1) {
+      this.permisos.splice(index, 1);
+    }
+    idPermiso++;
+  }
 }
 
 }
@@ -336,6 +390,9 @@ checkTodosEmpleados()
   this.importarEmpleados = true;
   this.editarEmpleados = true;
   this.borrarEmpleados = true;
+
+  // Agregar todos al array
+  this.permisos.push(17,18,19,20);
 }else
 {
   this.banderaCheckEmpleados = false;
@@ -345,6 +402,16 @@ checkTodosEmpleados()
   this.importarEmpleados = false;
   this.editarEmpleados = false;
   this.borrarEmpleados = false;
+
+  var idPermiso = 17;
+  for(let i = 0; i < 4; i++)
+  {
+    const index = this.permisos.indexOf(idPermiso, 0);
+    if (index > -1) {
+      this.permisos.splice(index, 1);
+    }
+    idPermiso++;
+  }
 }
 }
 
@@ -360,12 +427,27 @@ checkTodosConfiguraciones()
 
   this.listarConfiguraciones = true;
   this.editarConfiguraciones = true;
+
+  // Agregar todos al array
+  this.permisos.push(21,23);
 }else
 {
   this.banderaCheckConfiguraciones = false;
 
   this.listarConfiguraciones = false;
   this.editarConfiguraciones = false;
+
+    const index = this.permisos.indexOf(21, 0);
+    if (index > -1) {
+      this.permisos.splice(index, 1);
+    }
+
+    const index1 = this.permisos.indexOf(23, 0);
+    if (index1 > -1) {
+      this.permisos.splice(index1, 1);
+    }
+  
+
 }
 }
 
@@ -385,6 +467,9 @@ checkTodosPedidos()
   this.importarPedidos = true;
   this.editarPedidos = true;
   this.borrarPedidos = true;
+
+  // Agregar todos al array
+  this.permisos.push(29,30,31,32);
 }else
 {
   this.banderaCheckPedidos = false;
@@ -394,11 +479,21 @@ checkTodosPedidos()
   this.importarPedidos = false;
   this.editarPedidos = false;
   this.borrarPedidos = false;
+
+  var idPermiso = 29;
+  for(let i = 0; i < 4; i++)
+  {
+    const index = this.permisos.indexOf(idPermiso, 0);
+    if (index > -1) {
+      this.permisos.splice(index, 1);
+    }
+    idPermiso++;
+  }
 }
 }
 
 // ==================================================
-//      
+//      Categorias
 // ==================================================
 
 checkTodosCategorias()
@@ -413,6 +508,9 @@ checkTodosCategorias()
   this.importarCategorias = true;
   this.editarCategorias = true;
   this.borrarCategorias = true;
+
+  // Agregar todos al array
+  this.permisos.push(33,34,35,36);
 }else
 {
   this.banderaCheckCategorias = false;
@@ -422,11 +520,21 @@ checkTodosCategorias()
   this.importarCategorias = false;
   this.editarCategorias = false;
   this.borrarCategorias = false;
+
+  var idPermiso = 33;
+  for(let i = 0; i < 4; i++)
+  {
+    const index = this.permisos.indexOf(idPermiso, 0);
+    if (index > -1) {
+      this.permisos.splice(index, 1);
+    }
+    idPermiso++;
+  }
 }
 }
 
 // ==================================================
-//      
+//      Promociones
 // ==================================================
 
 checkTodosPromociones()
@@ -441,6 +549,9 @@ checkTodosPromociones()
   this.importarPromociones = true;
   this.editarPromociones = true;
   this.borrarPromociones = true;
+
+  // Agregar todos al array
+  this.permisos.push(57,58,59,60);
 }else
 {
   this.banderaCheckPromociones = false;
@@ -450,11 +561,21 @@ checkTodosPromociones()
   this.importarPromociones = false;
   this.editarPromociones = false;
   this.borrarPromociones = false;
+
+  var idPermiso = 57;
+  for(let i = 0; i < 4; i++)
+  {
+    const index = this.permisos.indexOf(idPermiso, 0);
+    if (index > -1) {
+      this.permisos.splice(index, 1);
+    }
+    idPermiso++;
+  }
 }
 }
 
 // ==================================================
-//      
+//      Ventas
 // ==================================================
 
 checkTodosVentas()
@@ -469,6 +590,9 @@ checkTodosVentas()
   this.importarVentas = true;
   this.editarVentas = true;
   this.borrarVentas = true;
+
+  // Agregar todos al array
+  this.permisos.push(45,46,47,48);
 }else
 {
   this.banderaCheckVentas = false;
@@ -478,6 +602,16 @@ checkTodosVentas()
   this.importarVentas = false;
   this.editarVentas = false;
   this.borrarVentas = false;
+
+  var idPermiso = 45;
+  for(let i = 0; i < 4; i++)
+  {
+    const index = this.permisos.indexOf(idPermiso, 0);
+    if (index > -1) {
+      this.permisos.splice(index, 1);
+    }
+    idPermiso++;
+  }
 }
 }
 

@@ -150,6 +150,12 @@ cambiarDesde( valor: number ) {
 
 refrescar() {
   // Reseteo 'desde' a cero
+
+  if(this.fechaInicio > this.fechaFin)
+  {
+    this.alertService.alertFail('Error de fechas',false,2000)
+    return;
+  }
   this.desde = 0;
   this.cargarVentas();
 }

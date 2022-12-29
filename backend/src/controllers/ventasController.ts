@@ -107,7 +107,7 @@ altaVenta(req: Request, res: Response) {
                     {             
                         pLineaTipoPago.forEach(function (value: any) {
              
-                             pool.query(`call bsp_alta_tipos_pago('${result[0][0].IdVenta}','${value.IdTipoPago}','${value.SubTotal}')`, function(err: any, result3: any){
+                             pool.query(`call bsp_alta_tipo_pago('${result[0][0].IdVenta}','${value.IdTipoPago}','${value.SubTotal}','${pIdCliente}')`, function(err: any, result3: any){
                                 console.log("err 3 es : ",err)
         console.log("result 3 es : ",result3)
 

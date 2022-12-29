@@ -55,17 +55,8 @@ export class ProductosService {
 altaProducto( producto: any ) {
 
   let url = URL_SERVICIOS + '/productos/alta/' + this.IdPersona;
-  // url += '?IdRol=' + this.IdRol;
 
-  return this.http.post(
-    url,
-    producto,
-    {
-      headers: {
-        token: this.token
-      }
-    }
-);
+  return this.http.post( url, producto, this.headers);
 }
   // ==================================================
 //        

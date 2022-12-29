@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 form-group">
+            <label>Categoria : </label>
+            <input [(ngModel)]="Categoria" name="Categoria" type="text" placeholder="Categoria..." class="form-control">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 form-group">
+            <label>Descripcion : </label>
+            <textarea [(ngModel)]="Descripcion" name="Descripcion" type="textarea" placeholder="Descripcion..." rows="3" class="form-control"></textarea>
+        </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase" (click)="editarCategoria()">Cargar categoria</button>
+    <br>
+</div>

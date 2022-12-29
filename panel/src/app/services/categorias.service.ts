@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { AuthService } from './auth.service';
 
 const URL_SERVICIOS = environment.URL_SERVICIOS;
 
@@ -9,15 +10,40 @@ const URL_SERVICIOS = environment.URL_SERVICIOS;
 })
 export class CategoriasService {
 
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
 
-  constructor(private http: HttpClient) { }
+  get headers() {
+    return {
+      headers: {
+        'token': this.token
+      }
+    }
+  }
+  // ==============================
+  get IdPersona(): any {
+    if(this.authService.IdPersona)
+    {
+      return this.authService.IdPersona;
+    }
+    else
+    {
+      return localStorage.getItem('id') || '';
+    }
+  }
+
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService
+    ) { }
 
 // ==================================================
 //
 // ==================================================
   listarCategoriasPaginado(desde: any){
 
-    let url = URL_SERVICIOS + '/productos/listar/' + desde;
+    let url = URL_SERVICIOS + '/categorias/listar/' + desde;
 
     return this.http.get( url );
   }
@@ -27,20 +53,11 @@ export class CategoriasService {
   // ==================================================
 //        
 // ==================================================
-altaCategoria( producto: any ) {
+altaCategoria( categoria: any ) {
 
-  let url = URL_SERVICIOS + '/productos/alta';
-  // url += '?IdRol=' + this.IdRol;
+  let url = URL_SERVICIOS + '/categorias/alta';
 
-  return this.http.post(
-    url,
-    producto
-    // {
-    //   headers: {
-    //     token: this.token
-    //   }
-    // }
-);
+  return this.http.post(url,categoria,this.headers);
 }
 // ==================================================
 //
@@ -48,18 +65,20 @@ altaCategoria( producto: any ) {
 cargarCategorias( parametroBusqueda: string){
 
   if(parametroBusqueda == '' || parametroBusqueda == null){
-    let url = URL_SERVICIOS + '/productos/listar/' + 0;
+    let url = URL_SERVICIOS + '/categorias/listar/' + 0;
     return this.http.get( url );
   }
   else
   { 
-    let url = URL_SERVICIOS + '/productos/listar/busqueda/' + parametroBusqueda;
+    let url = URL_SERVICIOS + '/categorias/listar/busqueda/' + parametroBusqueda;
     return this.http.get( url );
   }
 
 
 }
-
+// ==================================================
+//
+// ==================================================
 cargarSubcategoriaIdCategoria( IdCategoria: string){
 
 
@@ -69,5 +88,44 @@ cargarSubcategoriaIdCategoria( IdCategoria: string){
 
 
 }
+// ==================================================
+//
+// ==================================================
 
+buscarCategoriasPaginado(desde: any,pParametroBusqueda: any){
+
+  let url = URL_SERVICIOS + '/categorias/buscar/' + desde + '/' + pParametroBusqueda + '/' + this.IdPersona;
+
+  return this.http.get( url, this.headers );
+}  
+
+// ==================================================
+//        
+// ==================================================
+bajaCategoria( IdCategoria: any ) {
+
+  let url = URL_SERVICIOS + '/categorias/baja/' + IdCategoria + '/' + this.IdPersona;
+
+  return this.http.get( url,this.headers);
+}
+
+// ==================================================
+// Cargo las marcas,categorias,unidades,sucursal principal
+// ==================================================
+cargarDatosFormEditarCategoria( ){
+  
+  let url = URL_SERVICIOS + '/categorias/editar/datos-formulario/' + this.IdPersona;
+  return this.http.get( url,this.headers );
+
+}
+
+// ==================================================
+//        
+// ==================================================
+editarCategoria( categoriaEditado: any ) {
+
+  let url = URL_SERVICIOS + '/categorias/editar/' + this.IdPersona;
+
+  return this.http.post(url,categoriaEditado,this.headers);
+}
 }

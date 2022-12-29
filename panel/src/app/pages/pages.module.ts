@@ -44,6 +44,9 @@ import { VentasComponent } from './mantenimientos/ventas/listar-ventas/ventas.co
 import { NuevoGastoComponent } from './mantenimientos/compras/gastos/nuevo-gasto/nuevo-gasto.component';
 import { ListarGastosComponent } from './mantenimientos/compras/gastos/listar-gastos/listar-gastos.component';
 import { EditarProveedorComponent } from './mantenimientos/proveedores/editar-proveedor.component';
+import { EditarCategoriaComponent } from './mantenimientos/categorias/editar-categoria.component';
+import { CategoriaComponent } from './mantenimientos/categorias/categoria.component';
+import { CategoriasComponent } from './mantenimientos/categorias/categorias.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,9 @@ import { EditarProveedorComponent } from './mantenimientos/proveedores/editar-pr
     EditarProveedorComponent,
     ProductosComponent,
     ProductoComponent,
+    CategoriaComponent,
+    CategoriasComponent,
+    EditarCategoriaComponent,
     EditarProductoComponent,
     MarcasComponent,
     UsuarioComponent,

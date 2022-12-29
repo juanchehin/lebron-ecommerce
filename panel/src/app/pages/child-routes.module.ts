@@ -37,6 +37,8 @@ import { VentasComponent } from './mantenimientos/ventas/listar-ventas/ventas.co
 import { NuevoGastoComponent } from './mantenimientos/compras/gastos/nuevo-gasto/nuevo-gasto.component';
 import { ListarGastosComponent } from './mantenimientos/compras/gastos/listar-gastos/listar-gastos.component';
 import { EditarProveedorComponent } from './mantenimientos/proveedores/editar-proveedor.component';
+import { CategoriasComponent } from './mantenimientos/categorias/categorias.component';
+import { CategoriaComponent } from './mantenimientos/categorias/categoria.component';
 
 
 const childRoutes: Routes = [
@@ -49,7 +51,6 @@ const childRoutes: Routes = [
   // transferencias
   { path: 'transferencias', component: TransferenciasComponent, data: { titulo: 'Transferencias' }},
   { path: 'transferencias/nueva', component: TransferenciaComponent, data: { titulo: 'Nueva transferencia de stock' }},
-
   { path: 'configuraciones', component: ConfiguracionesComponent, data: { titulo: 'Configuraciones' }},
   // Productos
   { path: 'productos', component: ProductosComponent, data: { titulo: 'Productos' }},
@@ -63,6 +64,9 @@ const childRoutes: Routes = [
   //
   { path: 'promociones', component: PromocionesComponent, data: { titulo: 'Promociones' }},
   { path: 'promociones/nueva', component: PromocionComponent, data: { titulo: 'Nueva Promocion' }},
+  //
+  { path: 'productos/categorias', component: CategoriasComponent, data: { titulo: 'Categorias' }},
+  { path: 'productos/categoria/nueva', component: CategoriaComponent, data: { titulo: 'Nueva Categoria' }},
   //
   { path: 'pedidos', component: PedidosComponent, data: { titulo: 'Pedidos' }},
   { path: 'ventas/listar', component: VentasComponent, data: { titulo: 'Listado de Ventas' }},

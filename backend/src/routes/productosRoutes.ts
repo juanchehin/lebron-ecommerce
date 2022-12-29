@@ -27,13 +27,6 @@ class ProductosRoutes {
         this.router.get('/destacar/:IdProducto/:IdPersona',  [mdAutenticacion.verificaToken],productosController.destacarProducto); 
         this.router.get('/listar/:desde/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.listarProductosPaginado); 
         this.router.get('/listar/busqueda/autocomplete/:pProductoBuscado/:IdSucursal/:IdPersona',  [mdAutenticacion.verificaToken],productosController.buscarProductoAutoComplete); 
-        // Categorias
-        this.router.get('/listar/categoria/:IdCategoria/:pDesde/:IdPersona',productosController.listarProductosCategoria);
-        this.router.get('/buscar/:pDesde/:pParametroBusqueda/:IdSucursal/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.buscarProductoPaginado);
-        this.router.get('/destacados/home',productosController.listarProductosDestacadosHome);
-        this.router.get('/relacionados/:pIdProducto',productosController.listarProductosRelacionados);
-        this.router.get('/nuevo/datos-formulario', productosController.cargarDatosFormNuevoProducto);
-        this.router.get('/editar/datos-formulario/:pIdProducto/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], productosController.cargarDatosFormEditarProducto);
         // Unidades
         this.router.get('/unidades/listar/:desde',productosController.listarUnidadesPaginado);
         this.router.get('/unidades/listar/',productosController.listarTodasUnidades);

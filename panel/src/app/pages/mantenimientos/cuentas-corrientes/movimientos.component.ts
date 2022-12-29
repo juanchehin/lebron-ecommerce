@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { CuentasService } from 'src/app/services/cuentas.service';
@@ -14,14 +14,15 @@ export class MovimientosComponent implements OnInit {
   desde = 0;
   totalAsistencias = true;
   filtroCliente = 4;  // Indica si es un cliente web o un cliente registrado desde el panel
-
+  activarModal = false;
   movimientos!: any;
   cantPlanes = 0;
   IdPersona: any;
   saldo = 0;
-
   totalMovimientos = 0;
   cargando = true;
+  monto = 0;
+  @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
 
   constructor(
     public cuentasService: CuentasService,
@@ -138,5 +139,22 @@ formatDate(date: any) {
   return [year, month, day].join('-');
 }
 
+// ==================================================
+//   
+// ==================================================
 
+acreditar() {
+  console.log("pasa acreditar")
+ this.activarModal = true;
+
+
+}
+
+  // ==============================
+  // 
+  // ================================
+  cerrarModal(){
+    let el: HTMLElement = this.divCerrarModal.nativeElement;
+    el.click();
+  }
 }

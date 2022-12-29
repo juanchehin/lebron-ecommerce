@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { IItemVentaStructure } from 'src/app/interfaces/item-venta.interface';
 import { IItemTipoPagoStructure } from 'src/app/interfaces/item_tp.interface';
 import { AlertService } from 'src/app/services/alert.service';
@@ -49,7 +49,6 @@ export class NuevaVentaComponent implements OnInit {
 
 
   constructor(
-    private router: Router,
     public productosService: ProductosService, 
     public ventasService: VentasService, 
     public authService: AuthService, 
@@ -142,8 +141,6 @@ cargarProductos() {
   this.productosService.cargarProductos( this.productoBuscado )
              .subscribe( (resp: any) => {
 
-              console.log("resp carg prod : ",resp)
-
               this.productos = resp[0];
 
             });
@@ -170,11 +167,8 @@ cargarDatosVendedor() {
   
     this.usuariosService.cargarDatosVendedor(  this.IdPersona )
                .subscribe( (resp: any) => {
-                console.log("resp cargarDatosVendedor : ",resp)
 
                 this.datosVendedor = resp[0][0];
-
-                // this.cargando = false;
 
               });
 
@@ -242,7 +236,6 @@ agregarLineaVenta() {
 }
 // ==================================================
 // Carga
-//  
 // ==================================================
 agregarLineaTipoPago() {
   
@@ -276,8 +269,6 @@ agregarLineaTipoPago() {
     }
   );
 
-  console.log("obj : ",obj)
-
   this.lineas_tipos_pago.push(
     {
       IdItem: this.IdItemTipoPago,
@@ -288,8 +279,6 @@ agregarLineaTipoPago() {
   );
 
   this.IdItemTipoPago += 1;
-
-  // this.cantidadLineaVenta = 1;
 
 }
   // ==============================

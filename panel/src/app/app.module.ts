@@ -7,7 +7,7 @@ import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 import { AppComponent } from './app.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
-import { NgbdModalBasic } from './pages/mantenimientos/ventas/nueva-venta/modal-forma-pago/modal-forma-pago.component';
+// import { NgbdModalBasic } from './pages/mantenimientos/ventas/nueva-venta/modal-forma-pago/modal-forma-pago.component';
 
 
 @NgModule({
@@ -15,7 +15,7 @@ import { NgbdModalBasic } from './pages/mantenimientos/ventas/nueva-venta/modal-
     AppComponent,
     NopagefoundComponent,
   ],
-  providers: [NgbdModalBasic],
+  providers: [],
   imports: [
     BrowserModule,
     AppRoutingModule,

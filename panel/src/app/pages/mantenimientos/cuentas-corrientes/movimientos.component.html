@@ -4,15 +4,9 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm-2">
-                        <button [routerLink]="['/dashboard/cuenta/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
+                        <button data-toggle="modal" data-target="#responsive-modal" type="button" (click)="acreditar()" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
                           <i class="fa fa-plus"></i> 
                           Acreditar
-                        </button>
-                    </div>
-                    <div class="col-sm-2">
-                        <button [routerLink]="['/dashboard/cuenta/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
-                          <i class="fa fa-plus"></i> 
-                          Debitar
                         </button>
                     </div>
                     <div class="col-sm-4">
@@ -42,17 +36,11 @@
                             <td>{{ movimiento.Tipo }}</td>
                             <td>{{ movimiento.MontoTotal }}</td>
                         </tr>
-
                     </tbody>
                 </table>
-
-
-
             </div>
         </section>
-
         <!--.box-typical-->
-
     </div>
     <div role="group" aria-label="Basic example" style="text-align: right;">
         <button (click)="cambiarDesde(-15) " type="button" class="btn btn-default-outline">Anteriores</button>
@@ -61,3 +49,46 @@
     <!--.container-fluid-->
 </div>
 <!--.page-content-->
+
+<!-- =========== MODAL =========== -->
+<div class="col-md-4" *ngIf="activarModal">
+    <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Acreditar - Cuenta corriente</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Monto : </label>
+                                <input type="text" [(ngModel)]="monto" name="monto" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button #divCerrarModal type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light">Finalizar venta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+    <!-- <button class="btn btn-lg btn-outline-primary" alt="default" data-toggle="modal" data-target="#responsive-modal" class="model_img img-responsive">Continuar</button> -->
+
+</div>

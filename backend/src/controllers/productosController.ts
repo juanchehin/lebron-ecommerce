@@ -438,7 +438,24 @@ public async listarTodasUnidades(req: Request, res: Response): Promise<void> {
         res.status(200).json(result);
     })
 }
+// ==================================================
+//    Nueva unidad
+// ==================================================
+public async altaUnidad(req: Request, res: Response, callback: any) {
 
+    var pUnidad = req.body[0];
+    var pNombreCorto = req.body[1];
+
+    pool.query(`call bsp_alta_unidad('${pUnidad}','${pNombreCorto}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+   
+}
 // ==================================================
 //       ***** Promociones *****
 // ==================================================

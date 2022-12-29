@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductosService } from 'src/app/services/productos.service';
-import Swal from 'sweetalert2';
+import { AlertService } from '../../../../services/alert.service';
 
 @Component({
   selector: 'app-unidad',
@@ -12,31 +12,15 @@ import Swal from 'sweetalert2';
 export class UnidadComponent implements OnInit {
 
   forma!: FormGroup;
-  cargando = true;
-  marcas: any;
-  categorias: any;
-  codigo: any;
-  banderaGenerarCodigo = false;
 
   constructor(
-    private router: Router, 
     public productosService: ProductosService, 
     public activatedRoute: ActivatedRoute,
-    
-    ) {
-    activatedRoute.params.subscribe( (params: any) => {
-
-      const id = params.id;
-
-      if ( id !== 'nuevo' ) {
-      }
-
-    });
-
-  }
+    private alertService: AlertService,
+    private router: Router
+    ) {}
 
   ngOnInit() {
-
     this.forma = new FormGroup({
       Unidad: new FormControl(null, Validators.required ),
       NombreCorto: new FormControl(null, Validators.required)
@@ -60,29 +44,22 @@ altaUnidad() {
       );
 
       this.productosService.altaUnidad( unidad )
-                .subscribe( (resp: any) => {
-                  console.log("resp en plan es : ",resp)
-                  if ( resp.Mensaje === 'Ok') {
-                    Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'Plan cargado',
-                      showConfirmButton: false,
-                      timer: 2000
-                    });
-                    this.router.navigate(['/dashboard/unidades']);
+                .subscribe(  {
+                  next: (resp: any) => {
+                  if ( resp[0][0].Mensaje == 'Ok') {       
+                   this.alertService.alertSuccess('top-end','Unidad creada',false,900);
+                   this.router.navigate(['/dashboard/productos/unidades']);
                   } else {
-                    Swal.fire({
-                      icon: 'error',
-                      title: 'Hubo un problema al cargar',
-                      text: 'Contactese con el administrador',
-                    });
+                    this.alertService.alertFailWithText('Ocurrio un error',resp[0][0].Mensaje || resp[0][0].Message,false,2000);
                   }
                   return;
-                });
-
-
-            }
+                 },
+                error: (err: any) => { 
+                 this.alertService.alertFail('Ocurrio un error',false,2000) 
+               
+               }
+        });
+}
 
 
 }

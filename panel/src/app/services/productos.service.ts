@@ -186,23 +186,14 @@ listarUnidadesPaginado(desde: any){
   return this.http.get( url );
 }
 
-  // ==================================================
+// ==================================================
 //        
 // ==================================================
 altaUnidad( unidad: any ) {
 
-  let url = URL_SERVICIOS + '/productos/unidades/alta';
-  // url += '?IdRol=' + this.IdRol;
+  let url = URL_SERVICIOS + '/productos/unidades/alta/' + this.IdPersona;
 
-  return this.http.post(
-    url,
-    unidad
-    // {
-    //   headers: {
-    //     token: this.token
-    //   }
-    // }
-);
+  return this.http.post( url,unidad,this.headers );
 }
 
 // ==================================================

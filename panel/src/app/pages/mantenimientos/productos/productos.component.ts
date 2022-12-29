@@ -24,8 +24,7 @@ export class ProductosComponent implements OnInit {
   constructor(
     public productosService: ProductosService,
     private sucursalesService: SucursalesService,
-    public alertaService: AlertService,
-    private route: ActivatedRoute
+    public alertaService: AlertService
   ) {
    }
 
@@ -43,13 +42,9 @@ buscarProducto() {
     const inputElement: HTMLInputElement = document.getElementById('buscarProducto') as HTMLInputElement;
     const productoBuscado: any = inputElement.value || null;
 
-    console.log("productoBuscado : ",productoBuscado)
-
     this.productosService.listarProductosPaginado( this.desde , this.IdSucursal, productoBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
-
-                  console.log("resp busc es : ",resp)
 
                   if(resp[0].length <= 0)
                   { 
@@ -173,7 +168,7 @@ publicarProducto(IdProducto: string){
 
 }
 
-
+// =================================================================
 destacarProducto(IdProducto: string){
   this.productosService.destacarProducto( IdProducto  )
   .subscribe( {

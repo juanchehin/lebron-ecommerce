@@ -124,13 +124,14 @@ public async cargarDatosFormEditarCategoria(req: Request, res: Response): Promis
 public editarCategoria(req: Request, res: Response) {
 
     const { IdPersona } = req.params;
+    const { IdCategoria } = req.params;
 
     console.log("req. body : ",req.body);
 
     var Categoria = req.body[0];
     var Descripcion = req.body[1];
 
-    pool.query(`call bsp_editar_categoria('${IdPersona}','${Categoria}','${Descripcion}')`,function(err: any, result: any){
+    pool.query(`call bsp_editar_categoria('${IdPersona}','${IdCategoria}','${Categoria}','${Descripcion}')`,function(err: any, result: any){
         
                 console.log("result ",result)
 

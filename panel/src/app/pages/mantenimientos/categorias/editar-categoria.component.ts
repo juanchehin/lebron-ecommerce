@@ -33,7 +33,7 @@ export class EditarCategoriaComponent implements OnInit {
 
 cargarDatosFormEditarCategoria() {
 
-  this.categoriasService.cargarDatosFormEditarCategoria(  )
+  this.categoriasService.cargarDatosFormEditarCategoria( this.IdCategoria  )
              .subscribe( {
               next: (resp: any) => {
 
@@ -60,7 +60,7 @@ editarCategoria() {
         this.Descripcion
       );
 
-      this.categoriasService.editarCategoria( categoriaEditado )
+      this.categoriasService.editarCategoria(this.IdCategoria, categoriaEditado )
                 .subscribe( {
                   next: (resp: any) => {
                   

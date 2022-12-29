@@ -55,7 +55,7 @@ export class CategoriasService {
 // ==================================================
 altaCategoria( categoria: any ) {
 
-  let url = URL_SERVICIOS + '/categorias/alta';
+  let url = URL_SERVICIOS + '/categorias/alta/' + this.IdPersona;
 
   return this.http.post(url,categoria,this.headers);
 }
@@ -112,9 +112,9 @@ bajaCategoria( IdCategoria: any ) {
 // ==================================================
 // Cargo las marcas,categorias,unidades,sucursal principal
 // ==================================================
-cargarDatosFormEditarCategoria( ){
+cargarDatosFormEditarCategoria( IdCategoria: any){
   
-  let url = URL_SERVICIOS + '/categorias/editar/datos-formulario/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/categorias/editar/datos-formulario/' + IdCategoria + '/' + this.IdPersona;
   return this.http.get( url,this.headers );
 
 }
@@ -122,9 +122,9 @@ cargarDatosFormEditarCategoria( ){
 // ==================================================
 //        
 // ==================================================
-editarCategoria( categoriaEditado: any ) {
+editarCategoria( IdCategoria: any,categoriaEditado: any ) {
 
-  let url = URL_SERVICIOS + '/categorias/editar/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/categorias/editar/' + IdCategoria + '/'+ this.IdPersona;
 
   return this.http.post(url,categoriaEditado,this.headers);
 }

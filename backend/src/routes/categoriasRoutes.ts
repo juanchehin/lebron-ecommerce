@@ -24,7 +24,7 @@ class CategoriasRoutes {
         // this.router.get('/buscar/datos-formulario', categoriasController.cargarDatosFormNuevoProducto);
         this.router.get('/editar/datos-formulario/:pIdCategoria/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], categoriasController.cargarDatosFormEditarCategoria);
         this.router.get('/baja/:pIdCategoria/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],categoriasController.bajaCategoria); 
-        this.router.post('/editar/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],categoriasController.editarCategoria); 
+        this.router.post('/editar/:IdCategoria/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],categoriasController.editarCategoria); 
         this.router.post('/alta/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],categoriasController.altaCategoria); 
 
     }

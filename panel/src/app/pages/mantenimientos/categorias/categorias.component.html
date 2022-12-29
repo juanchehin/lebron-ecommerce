@@ -15,7 +15,7 @@
                             </button>
                     </div>
                     <div class="col-sm-2">
-                        <button [routerLink]="['/dashboard/categorias/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
+                        <button [routerLink]="['/dashboard/productos/categorias/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
                           <i class="fa fa-plus"></i> 
                           Nueva Categoria
                         </button>
@@ -41,7 +41,7 @@
                             <td>{{ categoria.created_at }}</td>
                             <td>{{ categoria.Categoria }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/categoria',categoria.IdCategoria]">Editar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/categoria',categoria.IdCategoria]">Editar</button>
                                 <button class="btn btn-inline btn-danger" type="button" (click)="bajaCategoria(categoria.IdCategoria)">Eliminar</button>
                             </td>
                         </tr>

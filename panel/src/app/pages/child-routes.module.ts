@@ -39,6 +39,7 @@ import { ListarGastosComponent } from './mantenimientos/compras/gastos/listar-ga
 import { EditarProveedorComponent } from './mantenimientos/proveedores/editar-proveedor.component';
 import { CategoriasComponent } from './mantenimientos/categorias/categorias.component';
 import { CategoriaComponent } from './mantenimientos/categorias/categoria.component';
+import { EditarCategoriaComponent } from './mantenimientos/categorias/editar-categoria.component';
 
 
 const childRoutes: Routes = [
@@ -64,9 +65,10 @@ const childRoutes: Routes = [
   //
   { path: 'promociones', component: PromocionesComponent, data: { titulo: 'Promociones' }},
   { path: 'promociones/nueva', component: PromocionComponent, data: { titulo: 'Nueva Promocion' }},
-  //
+  // Categorias
   { path: 'productos/categorias', component: CategoriasComponent, data: { titulo: 'Categorias' }},
-  { path: 'productos/categoria/nueva', component: CategoriaComponent, data: { titulo: 'Nueva Categoria' }},
+  { path: 'productos/categorias/nueva', component: CategoriaComponent, data: { titulo: 'Nueva Categoria' }},
+  { path: 'productos/categoria/:IdCategoria', component: EditarCategoriaComponent, data: { titulo: 'Editar Categoria' }},
   //
   { path: 'pedidos', component: PedidosComponent, data: { titulo: 'Pedidos' }},
   { path: 'ventas/listar', component: VentasComponent, data: { titulo: 'Listado de Ventas' }},

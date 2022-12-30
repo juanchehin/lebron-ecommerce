@@ -47,6 +47,9 @@ import { EditarProveedorComponent } from './mantenimientos/proveedores/editar-pr
 import { EditarCategoriaComponent } from './mantenimientos/categorias/editar-categoria.component';
 import { CategoriaComponent } from './mantenimientos/categorias/categoria.component';
 import { CategoriasComponent } from './mantenimientos/categorias/categorias.component';
+import { SubCategoriaComponent } from './mantenimientos/subcategorias/subcategoria.component';
+import { SubCategoriasComponent } from './mantenimientos/subcategorias/subcategorias.component';
+import { EditarSubcategoriaComponent } from './mantenimientos/subcategorias/editar-subcategoria.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +65,9 @@ import { CategoriasComponent } from './mantenimientos/categorias/categorias.comp
     CategoriaComponent,
     CategoriasComponent,
     EditarCategoriaComponent,
+    SubCategoriaComponent,
+    SubCategoriasComponent,
+    EditarSubcategoriaComponent,
     EditarProductoComponent,
     MarcasComponent,
     UsuarioComponent,

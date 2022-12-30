@@ -49,6 +49,15 @@ export class CategoriasService {
   }
 
   
+// ==================================================
+//
+// ==================================================
+listarCategorias(){
+
+  let url = URL_SERVICIOS + '/categorias/listar/' + this.IdPersona;
+
+  return this.http.get( url,this.headers );
+}
 
   // ==================================================
 //        
@@ -128,4 +137,61 @@ editarCategoria( IdCategoria: any,categoriaEditado: any ) {
 
   return this.http.post(url,categoriaEditado,this.headers);
 }
+// ==================================================
+// ==================================================
+//        ** Subcategorias **
+// ==================================================
+// ==================================================
+
+
+// ==================================================
+//        
+// ==================================================
+altaSubCategoria( SubCategoria: any ) {
+
+let url = URL_SERVICIOS + '/categorias/subcategorias/alta/' + this.IdPersona;
+
+return this.http.post(url,SubCategoria,this.headers);
+}
+// ==================================================
+//
+// ==================================================
+
+buscarSubCategoriasPaginado(desde: any,pParametroBusqueda: any){
+
+let url = URL_SERVICIOS + '/categorias/subcategorias/buscar/' + desde + '/' + pParametroBusqueda + '/' + this.IdPersona;
+
+return this.http.get( url, this.headers );
+}  
+
+// ==================================================
+//        
+// ==================================================
+bajaSubCategoria( IdCategoria: any ) {
+
+let url = URL_SERVICIOS + '/categorias/subcategorias/baja/' + IdCategoria + '/' + this.IdPersona;
+
+return this.http.get( url,this.headers);
+}
+
+// ==================================================
+// Cargo las marcas,categorias,unidades,sucursal principal
+// ==================================================
+cargarDatosFormEditarSubCategoria( IdCategoria: any){
+
+let url = URL_SERVICIOS + '/categorias/subcategorias/editar/datos-formulario/' + IdCategoria + '/' + this.IdPersona;
+return this.http.get( url,this.headers );
+
+}
+
+// ==================================================
+//        
+// ==================================================
+editarSubCategoria( IdCategoria: any,categoriaEditado: any ) {
+
+let url = URL_SERVICIOS + '/categorias/subcategorias/editar/' + IdCategoria + '/'+ this.IdPersona;
+
+return this.http.post(url,categoriaEditado,this.headers);
+}
+
 }

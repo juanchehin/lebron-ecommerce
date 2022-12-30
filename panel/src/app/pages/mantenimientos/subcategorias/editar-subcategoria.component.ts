@@ -4,11 +4,11 @@ import { AlertService } from 'src/app/services/alert.service';
 import { CategoriasService } from 'src/app/services/categorias.service';
 
 @Component({
-  selector: 'app-editar-categoria',
-  templateUrl: './editar-categoria.component.html',
+  selector: 'app-editar-subcategoria',
+  templateUrl: './editar-subcategoria.component.html',
   styles: []
 })
-export class EditarCategoriaComponent implements OnInit {
+export class EditarSubcategoriaComponent implements OnInit {
 
   IdCategoria: any;
   Categoria: any;

@@ -40,6 +40,9 @@ import { EditarProveedorComponent } from './mantenimientos/proveedores/editar-pr
 import { CategoriasComponent } from './mantenimientos/categorias/categorias.component';
 import { CategoriaComponent } from './mantenimientos/categorias/categoria.component';
 import { EditarCategoriaComponent } from './mantenimientos/categorias/editar-categoria.component';
+import { SubCategoriasComponent } from './mantenimientos/subcategorias/subcategorias.component';
+import { SubCategoriaComponent } from './mantenimientos/subcategorias/subcategoria.component';
+import { EditarSubcategoriaComponent } from './mantenimientos/subcategorias/editar-subcategoria.component';
 
 
 const childRoutes: Routes = [
@@ -69,6 +72,10 @@ const childRoutes: Routes = [
   { path: 'productos/categorias', component: CategoriasComponent, data: { titulo: 'Categorias' }},
   { path: 'productos/categorias/nueva', component: CategoriaComponent, data: { titulo: 'Nueva Categoria' }},
   { path: 'productos/categoria/:IdCategoria', component: EditarCategoriaComponent, data: { titulo: 'Editar Categoria' }},
+  // SubCategorias
+  { path: 'productos/subcategorias', component: SubCategoriasComponent, data: { titulo: 'Subcategorias' }},
+  { path: 'productos/subcategorias/nueva', component: SubCategoriaComponent, data: { titulo: 'Nueva Subcategoria' }},
+  { path: 'productos/subcategoria/:IdCategoria', component: EditarSubcategoriaComponent, data: { titulo: 'Editar Subcategoria' }},
   //
   { path: 'pedidos', component: PedidosComponent, data: { titulo: 'Pedidos' }},
   { path: 'ventas/listar', component: VentasComponent, data: { titulo: 'Listado de Ventas' }},

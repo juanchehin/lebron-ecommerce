@@ -105,8 +105,10 @@ export class EditarUsuarioComponent implements OnInit {
   ngOnInit() {
     this.IdUsuario = this.activatedRoute.snapshot.paramMap.get('IdUsuario');
     this.cargarDatosFormEditarUsuario();
+    // this.recorrerPermisos();
   }
-  // ==================================================
+
+// ==================================================
 // Carga
 // ==================================================
 
@@ -130,7 +132,15 @@ cargarDatosFormEditarUsuario() {
                   this.Observaciones = resp[0][0].Observaciones;
 
                   this.permisos = resp[1];
+
+                  console.log("this.permisos es ",this.permisos)
+
                   this.sucursales = resp[2];
+
+                  this.permisos.forEach( (value) => {
+                    console.log("value ",value.IdPermiso)
+                    this.habilitarBanderas(value.IdPermiso);
+                  });
 
                 } else {
                   this.alertService.alertFail('Ocurrio un error. ' + resp,false,2000);
@@ -173,21 +183,6 @@ editarUsuario() {
                 });
 
             };
-
-
-  // Chequeo si existe el permiso 'itemPermiso'
-  activarCkeck(itemPermiso: any): boolean{
-    const found = this.permisos.find((obj: any) => {
-      return obj.description === itemPermiso;
-    });
-
-    if (found !== undefined) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
 
 // ==================================================
 //      
@@ -616,5 +611,240 @@ agregarPermiso(idPermiso: any){
   }
 
   console.log("permisos va quedando : " + this.permisos)
+}
+
+
+// ===============================================
+habilitarBanderas(itemIdPermisos: any){
+
+  switch (itemIdPermisos) {
+    // Productos
+    case 1:
+        this.listarProductos = true;
+        break;
+    case 2:
+        this.altaProductos = true;
+        break;
+    case 3:
+        this.editarProductos = true;
+        break;
+    case 4:
+        this.borrarProductos = true;
+        break;
+    // Clientes
+    case 5:
+        this.listarClientes = true;
+        break;
+    case 6:
+        this.altaClientes = true;
+        break;
+    case 7:
+        this.editarClientes = true;
+        break;
+    case 8:
+        this.borrarClientes = true;
+        break;
+    // Proveedores
+    case 9:
+        this.listarProveedores = true;
+        break;
+    case 10:
+        this.altaProveedores = true;
+        break;
+    case 11:
+        this.editarProveedores = true;
+        break;
+    case 12:
+        this.borrarProveedores = true;
+        break;
+    // Sucursales
+    case 13:
+        this.listarSucursales = true;
+        break;
+    case 14:
+        this.altaSucursales = true;
+        break;
+    case 15:
+        this.editarSucursales = true;
+        break;
+    case 16:
+        this.borrarSucursales = true;
+        break;
+    // Empleados
+    case 17:
+        this.listarEmpleados = true;
+        break;
+    case 18:
+        this.altaEmpleados = true;
+        break;
+    case 19:
+        this.editarEmpleados = true;
+        break;
+    case 20:
+        this.borrarEmpleados = true;
+        break;
+    // Configuraciones
+    case 21:
+        this.listarConfiguraciones = true;
+        break;
+    case 22:
+        // this.altaConfiguraciones = true;
+        break;
+    case 23:
+        this.editarConfiguraciones = true;
+        break;
+    case 24:
+        // this.borrarConfiguraciones = true;
+        break;
+    // Backups
+    case 25:
+        // this.listarBackups = true;
+        break;
+    case 26:
+        // this.altaBackups = true;
+        break;
+    case 27:
+        // this.editarBackups = true;
+        break;
+    case 28:
+        // this.borrarBackups = true;
+        break;
+    // Pedidos
+    case 29:
+          this.listarPedidos = true;
+          break;
+    case 30:
+          this.altaPedidos = true;
+          break;
+    case 31:
+          this.editarPedidos = true;
+          break;
+    case 32:
+          this.borrarPedidos = true;
+          break;
+    // Categorias
+    case 33:
+          this.listarCategorias = true;
+          break;
+    case 34:
+          this.altaCategorias = true;
+          break;
+    case 35:
+          this.editarCategorias = true;
+          break;
+    case 36:
+          this.borrarCategorias = true;
+          break;
+    // Usuarios
+    case 33:
+          // this.listarUsuarios = true;
+          break;
+    case 34:
+          // this.altaUsuarios = true;
+          break;
+    case 35:
+          // this.editarUsuarios = true;
+          break;
+    case 36:
+          // this.borrarUsuarios = true;
+          break;
+    // Compras
+    case 41:
+          // this.listarCompras = true;
+          break;
+    case 42:
+          // this.altaCompras = true;
+          break;
+    case 43:
+          // this.editarCompras = true;
+          break;
+    case 44:
+          // this.borrarCompras = true;
+          break;
+    // Ventas
+    case 45:
+          this.listarVentas = true;
+          break;
+    case 46:
+          this.altaVentas = true;
+          break;
+    case 47:
+          this.editarVentas = true;
+          break;
+    case 48:
+          this.borrarVentas = true;
+          break;
+    // Transferencias
+    case 49:
+          // this.listarTransferencias = true;
+          break;
+    case 50:
+          // this.altaTransferencias = true;
+          break;
+    case 51:
+          // this.editarTransferencias = true;
+          break;
+    case 52:
+          // this.borrarTransferencias = true;
+          break;
+  // Informes
+    case 53:
+      // this.listarTransferencias = true;
+      break;
+    case 54:
+      // this.altaTransferencias = true;
+      break;
+    case 55:
+      // this.editarTransferencias = true;
+      break;
+    case 56:
+      // this.borrarTransferencias = true;
+      break;
+    // Promociones
+    case 57:
+      this.listarPromociones = true;
+      break;
+    case 58:
+      this.altaPromociones = true;
+      break;
+    case 59:
+      this.editarPromociones = true;
+      break;
+    case 60:
+      this.borrarPromociones = true;
+      break;
+    // Todos los permisos (admin)
+    case 61:
+        this.checkTodosProductos();
+        this.checkTodosCategorias();
+        this.checkTodosClientes();
+        this.checkTodosEmpleados();
+        this.checkTodosPedidos();
+        this.checkTodosPromociones();
+        this.checkTodosSucursales();
+        this.checkTodosVentas();
+        this.checkTodosProveedores();
+        this.checkTodosConfiguraciones();
+        break;
+    // Productos
+    case 62:
+      this.importarProductos = true;
+      break;
+    case 63:
+      // this.listarCuentas = true;
+      break;
+    case 64:
+      // this.editarCuentas = true;
+      break;
+    case 65:
+      // this.borrarCuentas = true;
+    break;
+    case 66:
+      // this.borrarCuentas = true;
+    break;
+    default:
+        break;
+}
+
 }
 }

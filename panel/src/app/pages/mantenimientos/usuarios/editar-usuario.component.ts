@@ -118,23 +118,23 @@ editarUsuario() {
     this.Apellidos,
     this.Nombres,
     this.Usuario,
-    this.DNI,
     this.Email,
+    this.Telefono,
+    this.DNI,
+    this.Password,
+    this.Observaciones,
     this.FechaNac,
     this.IdSucursal,
-    this.Telefono,
-    this.Observaciones,
-    this.Password,
     this.permisos
   );
 
   console.log("usuario editado es : ",usuarioEditado);
 
-  return;
-
   this.usuariosService.editarUsuario(this.IdUsuario, usuarioEditado )
             .subscribe( {
               next: (resp: any) => {
+
+                console.log("resp editar usuario : ",resp)
               
                 if ( (resp != null) && (resp.Mensaje == 'Ok') ) {
                   this.alertService.alertSuccess('top-end','Usuario actualizado',false,2000);
@@ -159,13 +159,12 @@ cargarDatosFormEditarUsuario() {
              .subscribe( {
               next: (resp: any) => {
 
-                console.log("rep es ",resp)
-
                 if ( (resp != null) && (resp[3][0].Mensaje == 'Ok') ) {
 
                   this.Apellidos = resp[0][0].Apellidos;
                   this.Nombres = resp[0][0].Nombres;
                   this.Usuario = resp[0][0].Usuario;
+                  this.DNI = resp[0][0].DNI;
                   this.Email = resp[0][0].Email;
                   this.FechaNac = resp[0][0].FechaNac;
                   this.IdSucursal = resp[0][0].IdSucursal;
@@ -173,8 +172,6 @@ cargarDatosFormEditarUsuario() {
                   this.Observaciones = resp[0][0].Observaciones;
 
                   this.permisosUsuario = resp[1];
-
-                  console.log("this.permisos es ",this.permisos)
 
                   this.sucursales = resp[2];
 
@@ -620,7 +617,6 @@ agregarPermiso(idPermiso: any){
     // delete this.permisos[idPermiso];
   }
 
-  console.log("permisos va quedando : " + this.permisos)
 }
 
 

@@ -102,7 +102,7 @@ cargarDatosFormEditarUsuario( IdUsuario: any){
 // ==================================================
 editarUsuario( IdUsuario: any,usuarioEditado: any ) {
 
-  let url = URL_SERVICIOS + '/categorias/editar/' + IdUsuario + '/'+ this.IdPersona;
+  let url = URL_SERVICIOS + '/usuarios/editar/' + IdUsuario + '/'+ this.IdPersona;
 
   return this.http.post(url,usuarioEditado,this.headers);
 }

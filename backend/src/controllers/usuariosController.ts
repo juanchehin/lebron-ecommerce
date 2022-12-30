@@ -124,6 +124,107 @@ public async cargarDatosFormEditarUsuario(req: Request, res: Response): Promise<
         res.status(200).json(result);
     })
 }
+
+
+
+// ==================================================
+//       
+// ==================================================
+public async editarUsuario(req: Request, res: Response) {
+
+    var respuestaFinal = 'Ok';
+
+    var IdPersona = req.params.IdPersona;
+    var IdUsuario = req.params.IdUsuario;
+
+    var Apellidos = req.body[0];
+    var Nombres = req.body[1];
+    var Usuario = req.body[2];
+    var Correo = req.body[3];
+    var Telefono = req.body[4];
+    var DNI = req.body[5];
+    var Password = req.body[6];
+    var Observaciones = req.body[7];
+    var FechaNac = req.body[8];
+    var IdSucursal = req.body[9];
+    var arrayPermisos = req.body[10];
+
+    const saltRounds = 10;  //  Data processing speed
+
+    if(Password != null && Password != '' && Password != 'null' && Password != 'undefined' && Password != undefined)
+    {
+        bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
+            bcrypt.hash(Password, salt, async function(err: any, hash: any) {
+    
+                pool.query(`call bsp_editar_usuario('${IdPersona}','${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}',${FechaNac},'${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any){        
+                                    
+                    if(err || result[0][0].Mensaje != 'Ok'){
+                        respuestaFinal = 'Ocurrio un error, contactese con el administrador';
+                        return;
+                    }
+    
+                    // =========== Cargo los permisos para el usuario ===================
+                    arrayPermisos.forEach(function (pIdPermiso: any) {
+    
+                        pool.query(`call bsp_editar_permisos_usuario('${IdPersona}','${IdUsuario}','${pIdPermiso}')`, function(err2: any, result2: any){
+
+                            if(err2 || result2[0][0].Mensaje != 'Ok'){
+                                respuestaFinal = result2[0][0].Mensaje;
+                                return;
+                            }
+                            
+                        })
+    
+                    }); 
+                    // =============Fin permisos=================
+                    console.log("pasa 4")
+                    return res.json({ Mensaje: respuestaFinal });
+                })
+    
+            });
+        });
+    }
+    else
+    {
+        pool.query(`call bsp_editar_usuario('${IdPersona}','${IdUsuario}','${Apellidos}','${Nombres}',null,'${Telefono}','${DNI}','${Correo}','${FechaNac}','${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any){        
+   
+
+            if(err || result[0][0].Mensaje != 'Ok'){
+                return res.json({
+                    ok: false,
+                    Mensaje: 'Ocurrio un error, contactese con el administrador'
+                });
+            }
+    
+            // =========== Cargo los permisos para el usuario ===================
+            arrayPermisos.forEach(function (pIdPermiso: any) {
+    
+                pool.query(`call bsp_editar_permisos_usuario('${IdPersona}','${IdUsuario}','${pIdPermiso}')`, function(err2: any, result2: any){
+
+                    if(err2 || result2[0][0].Mensaje != 'Ok'){
+                        return res.json({
+                            ok: false,
+                            Mensaje: 'Ocurrio un error, contactese con el administrador'
+                        });
+                    }
+                    
+                })
+    
+            }); 
+            // =============Fin permisos=================
+            return res.json({ Mensaje: 'Ok' });
+        })
+    }
+
+
+    
+
+    return;
+
+   
+
+}
+
 }
 
 

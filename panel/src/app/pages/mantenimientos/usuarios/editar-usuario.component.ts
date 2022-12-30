@@ -25,6 +25,7 @@ export class EditarUsuarioComponent implements OnInit {
   Password2: any;
   
   permisos: Array<any> = new Array();
+  permisosUsuario: Array<any> = new Array();
   sucursales: any;
 
   banderaCheckProductos = false;
@@ -105,8 +106,48 @@ export class EditarUsuarioComponent implements OnInit {
   ngOnInit() {
     this.IdUsuario = this.activatedRoute.snapshot.paramMap.get('IdUsuario');
     this.cargarDatosFormEditarUsuario();
-    // this.recorrerPermisos();
   }
+
+// ==================================================
+//        Crear 
+// ==================================================
+
+editarUsuario() {
+
+  const usuarioEditado = new Array(
+    this.Apellidos,
+    this.Nombres,
+    this.Usuario,
+    this.DNI,
+    this.Email,
+    this.FechaNac,
+    this.IdSucursal,
+    this.Telefono,
+    this.Observaciones,
+    this.Password,
+    this.permisos
+  );
+
+  console.log("usuario editado es : ",usuarioEditado);
+
+  return;
+
+  this.usuariosService.editarUsuario(this.IdUsuario, usuarioEditado )
+            .subscribe( {
+              next: (resp: any) => {
+              
+                if ( (resp != null) && (resp.Mensaje == 'Ok') ) {
+                  this.alertService.alertSuccess('top-end','Usuario actualizado',false,2000);
+                  this.router.navigate(['/dashboard/usuarios']);
+                } else {
+                  this.alertService.alertFail('Ocurrio un error. ' + resp,false,2000);
+                }
+                return;
+               },
+              error: () => { this.alertService.alertFailWithText('Ocurrio un error', 'Contactese con el administrador',false,2000) }
+            });
+
+        };
 
 // ==================================================
 // Carga
@@ -131,14 +172,15 @@ cargarDatosFormEditarUsuario() {
                   this.Telefono = resp[0][0].Telefono;
                   this.Observaciones = resp[0][0].Observaciones;
 
-                  this.permisos = resp[1];
+                  this.permisosUsuario = resp[1];
 
                   console.log("this.permisos es ",this.permisos)
 
                   this.sucursales = resp[2];
 
-                  this.permisos.forEach( (value) => {
+                  this.permisosUsuario.forEach( (value) => {
                     console.log("value ",value.IdPermiso)
+                    this.permisos.push(value.IdPermiso);
                     this.habilitarBanderas(value.IdPermiso);
                   });
 
@@ -151,38 +193,6 @@ cargarDatosFormEditarUsuario() {
           });
 
       };
-// ==================================================
-//        Crear 
-// ==================================================
-
-editarUsuario() {
-
-      const usuarioEditado = new Array(
-        this.Apellidos,
-        this.Nombres,
-        this.Usuario,
-        this.IdSucursal,
-        this.Telefono,
-        this.Observaciones,
-        this.permisos
-      );
-
-      this.usuariosService.editarUsuario(this.IdUsuario, usuarioEditado )
-                .subscribe( {
-                  next: (resp: any) => {
-                  
-                    if ( (resp != null) && (resp.Mensaje == 'Ok') ) {
-                      this.alertService.alertSuccess('top-end','Usuario actualizado',false,2000);
-                      this.router.navigate(['/dashboard/usuarios']);
-                    } else {
-                      this.alertService.alertFail('Ocurrio un error. ' + resp,false,2000);
-                    }
-                    return;
-                   },
-                  error: () => { this.alertService.alertFailWithText('Ocurrio un error',' Contactese con el administrador',false,2000) }
-                });
-
-            };
 
 // ==================================================
 //      

@@ -43,6 +43,7 @@ import { EditarCategoriaComponent } from './mantenimientos/categorias/editar-cat
 import { SubCategoriasComponent } from './mantenimientos/subcategorias/subcategorias.component';
 import { SubCategoriaComponent } from './mantenimientos/subcategorias/subcategoria.component';
 import { EditarSubcategoriaComponent } from './mantenimientos/subcategorias/editar-subcategoria.component';
+import { EditarUsuarioComponent } from './mantenimientos/usuarios/editar-usuario.component';
 
 
 const childRoutes: Routes = [
@@ -98,10 +99,11 @@ const childRoutes: Routes = [
   { path: 'cuenta/nueva', component: CuentaComponent, data: { titulo: 'Nueva cuenta' }},
   { path: 'cuenta/:IdPersona', component: EditarClienteCuentaComponent, data: { titulo: 'Edicion de cliente' }},
   { path: 'cuenta/movimientos/:IdPersona', component: MovimientosComponent, data: { titulo: 'Movimientos' }},
-
   // Rutas de Admin
   { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuarios' } },
-  { path: 'usuarios/nuevo', component: UsuarioComponent, data: { titulo: 'Alta de Usuario' } }
+  { path: 'usuarios/nuevo', component: UsuarioComponent, data: { titulo: 'Alta de Usuario' } },
+  { path: 'usuario/:IdUsuario', component: EditarUsuarioComponent, data: { titulo: 'Edicion de Usuario' } }
+
 ]
 
 @NgModule({

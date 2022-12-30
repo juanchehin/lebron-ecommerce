@@ -36,7 +36,7 @@
                             <td>{{ usuario.Usuario }}</td>
                             <td>{{ usuario.created_at | date:"dd/MM/yyyy" }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button">Editar</button>
+                                <button [routerLink]="['/dashboard/usuario',usuario.IdPersona]" class="btn btn-inline" type="button">Editar</button>
                                 <button class="btn btn-inline btn-danger" (click)="bajaUsuario(usuario.IdPersona)" type="button">Eliminar</button>
                             </td>
                         </tr>

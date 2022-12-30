@@ -50,6 +50,7 @@ import { CategoriasComponent } from './mantenimientos/categorias/categorias.comp
 import { SubCategoriaComponent } from './mantenimientos/subcategorias/subcategoria.component';
 import { SubCategoriasComponent } from './mantenimientos/subcategorias/subcategorias.component';
 import { EditarSubcategoriaComponent } from './mantenimientos/subcategorias/editar-subcategoria.component';
+import { EditarUsuarioComponent } from './mantenimientos/usuarios/editar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { EditarSubcategoriaComponent } from './mantenimientos/subcategorias/edit
     PagesComponent,
     PerfilComponent,
     UsuariosComponent,
+    EditarUsuarioComponent,
     ProveedoresComponent,
     ProveedorComponent,
     EditarProveedorComponent,

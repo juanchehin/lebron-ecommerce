@@ -108,6 +108,22 @@ public async bajaUsuario(req: Request, res: Response): Promise<void> {
         res.status(200).json(result);
     })
 }
+
+// ==================================================
+//     
+// ==================================================
+public async cargarDatosFormEditarUsuario(req: Request, res: Response): Promise<void> {
+    var pIdPersona = req.params.IdPersona;
+    var pIdUsuario = req.params.IdUsuario;
+
+    pool.query(`call bsp_dame_datos_form_editar_usuario('${pIdPersona}','${pIdUsuario}')`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(404).json({ text: err });
+            return;
+        }
+        res.status(200).json(result);
+    })
+}
 }
 
 

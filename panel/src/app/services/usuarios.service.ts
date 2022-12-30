@@ -86,4 +86,24 @@ bajaUsuario( IdUsuario: any ) {
 
   return this.http.get(url,this.headers);
 }
+
+// ==================================================
+// 
+// ==================================================
+cargarDatosFormEditarUsuario( IdUsuario: any){
+  
+  let url = URL_SERVICIOS + '/usuarios/editar/datos-formulario/' + IdUsuario + '/' + this.IdPersona;
+  return this.http.get( url,this.headers );
+
+}
+
+// ==================================================
+//        
+// ==================================================
+editarUsuario( IdUsuario: any,usuarioEditado: any ) {
+
+  let url = URL_SERVICIOS + '/categorias/editar/' + IdUsuario + '/'+ this.IdPersona;
+
+  return this.http.post(url,usuarioEditado,this.headers);
+}
 }

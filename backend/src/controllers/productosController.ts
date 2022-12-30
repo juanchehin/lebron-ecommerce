@@ -126,7 +126,7 @@ public async bajaProducto(req: Request, res: Response): Promise<void> {
 }
 
 // ==================================================
-//        buscarProductoPaginado
+//   Listado de productos en panel
 // ==================================================
 public async buscarProductoPaginado(req: Request, res: Response): Promise<void> {
 
@@ -135,9 +135,9 @@ public async buscarProductoPaginado(req: Request, res: Response): Promise<void> 
     var pParametroBusqueda = req.params.pParametroBusqueda || '';
     const IdSucursal = req.params.IdSucursal;
 
-    if(pParametroBusqueda == null || pParametroBusqueda == 'null')
+    if(pParametroBusqueda == null || pParametroBusqueda == 'null' || pParametroBusqueda == '-' || pParametroBusqueda == '')
     {
-        pParametroBusqueda = '';
+        pParametroBusqueda = '-';
     }
 
     pool.query(`call bsp_buscar_producto_paginado('${req.params.IdPersona}','${pParametroBusqueda}','${desde}','${IdSucursal}')`, function(err: any, result: any){

@@ -40,7 +40,7 @@ export class ProductosComponent implements OnInit {
 buscarProducto() {
 
     const inputElement: HTMLInputElement = document.getElementById('buscarProducto') as HTMLInputElement;
-    const productoBuscado: any = inputElement.value || null;
+    const productoBuscado: any = inputElement.value || '-';
 
     this.productosService.listarProductosPaginado( this.desde , this.IdSucursal, productoBuscado  )
                .subscribe( {
@@ -53,9 +53,9 @@ buscarProducto() {
                     return;
                   }
   
-                  if ( resp[1][0].Mensaje === 'Ok') {
+                  if ( resp[1][0].Mensaje == 'Ok') {
                     
-                    this.totalProductos = resp[0][0].cantProductosBuscados;
+                    this.totalProductos = resp[2][0].cantProductosBuscados;
                     this.productos = resp[0];
                     
                     // this.router.navigate(['/dashboard/ventas']);

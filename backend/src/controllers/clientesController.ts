@@ -33,7 +33,7 @@ public async altaCliente(req: Request, res: Response) {
     var DNI = req.body[2];
     var Telefono = req.body[3];
     var Email = req.body[4];
-    var Observaciones = req.body[4];
+    var Observaciones = req.body[5];
     
     pool.query(`call bsp_alta_cliente_panel('${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
         if(err){

@@ -44,7 +44,7 @@ editarCliente() {
         this.DNI,        
         this.Email,
         this.Observaciones,
-        this.IdPersona,
+        this.IdPersona
       );
 
       this.clientesService.editarCliente( clienteEditado )

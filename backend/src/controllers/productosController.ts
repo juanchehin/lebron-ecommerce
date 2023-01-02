@@ -201,29 +201,6 @@ public async buscarProductoAutoComplete(req: Request, res: Response): Promise<vo
 
 
 // ==================================================
-//        buscarProductoAutoCompleteTransferencia
-// ==================================================
-public async buscarProductoAutoCompleteTransferencia(req: Request, res: Response): Promise<void> {
-
-    var pParametroBusqueda = req.params.pParametroBusqueda || '';
-    var pIdSucursalOrigen = req.params.pIdSucursalOrigen || '';
-
-    if(pParametroBusqueda == null || pParametroBusqueda == 'null')
-    {
-        pParametroBusqueda = '';
-    }
-
-    pool.query(`call bsp_buscar_producto_autocomplete_sucursal('${pParametroBusqueda}','${pIdSucursalOrigen}')`, function(err: any, result: any){
-        
-        if(err){
-            res.status(400).json(err);
-            return;
-        }
-
-        res.status(200).json(result);
-    })
-}
-// ==================================================
 //        Lista
 // ==================================================
 public async listarPromociones(req: Request, res: Response): Promise<void> {
@@ -588,22 +565,24 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
     var pIdUsuario = req.params.IdPersona;
 
     pool.query(`call bsp_alta_transferencia('${pIdUsuario}','${fechaTransferencia}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${totalTransferencia}')`, (err: any, result: any) =>{
-
+        console.log("result transf : ",result);
+        console.log("err transf : ",err);
 
        if(err || result[0][0].Mensaje != 'Ok' || result[0][0].Level == 'Error'){
             callback(err,null);
+
+            pool.query(`call bsp_alta_log('${pIdUsuario}',"${String(result[0][0].Message)}",'productosController','${result[0][0].code}','bsp_alta_linea_transferencia','${err}')`, function(err: any, result: any){               
+                if(err){
+                    return;
+                }
+            })
 
             pool.query(`call bsp_baja_transferencia('${result[0][0].pIdTransferencia}')`, function(err: any, result: any){
                 if(err){
                     return;
                 }
             })
-
-            pool.query(`call bsp_alta_log('${pIdUsuario}',"${String(result[0][0].Message)}",'productosController','${result[0][0].Code}','bsp_alta_linea_transferencia','${err}')`, function(err: any, result: any){               
-                if(err){
-                    return;
-                }
-            })
+           
             res.status(404).json(result[0][0].Mensaje);
             return;
        }
@@ -641,6 +620,31 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
         
     });
    
+}
+
+
+// ==================================================
+//        buscarProductoAutoCompleteTransferencia
+// ==================================================
+public async buscarProductoAutoCompleteTransferencia(req: Request, res: Response): Promise<void> {
+
+    var pParametroBusqueda = req.params.pParametroBusqueda || '';
+    var pIdSucursalOrigen = req.params.pIdSucursalOrigen || '';
+
+    if(pParametroBusqueda == null || pParametroBusqueda == 'null')
+    {
+        pParametroBusqueda = '';
+    }
+
+    pool.query(`call bsp_buscar_producto_autocomplete_sucursal('${pParametroBusqueda}','${pIdSucursalOrigen}')`, function(err: any, result: any){
+        
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
 }
 
 }

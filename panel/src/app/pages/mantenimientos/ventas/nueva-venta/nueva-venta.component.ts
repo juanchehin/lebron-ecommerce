@@ -234,9 +234,17 @@ agregarLineaVenta() {
 
 
     for (let item of this.lineas_venta) {
+
+      if(this.itemPendiente.Stock < (Number(item.Cantidad) + Number(this.cantidadLineaVenta)))
+      { 
+        this.alertaService.alertFail('Stock insuficiente para ' + this.itemPendiente.Producto,false,2000);
+        return;
+      }
+
       if(item.IdProductoSabor == this.itemCheckExists.IdProductoSabor)
       { 
         item.Cantidad = Number(item.Cantidad) + Number(this.cantidadLineaVenta);
+
       }
      }
   }

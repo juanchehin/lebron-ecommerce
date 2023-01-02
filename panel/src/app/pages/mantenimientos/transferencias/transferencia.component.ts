@@ -30,7 +30,6 @@ export class TransferenciaComponent implements OnInit {
 
 
   constructor(
-    private router: Router, 
     private alertService: AlertService,
     private sucursalesService: SucursalesService, 
     public productosService: ProductosService, 
@@ -142,6 +141,13 @@ agregarLineaTransferencia() {
     this.alertaService.alertFail('Error en cantidad',false,2000);
     return;
   }
+
+  
+  if((this.itemPendiente.Stock <= 0) || (this.itemPendiente.Stock < this.cantidadLineaTransferencia))
+  { 
+    this.alertaService.alertFail('Stock insuficiente para ' + this.itemPendiente.Producto,false,2000);
+    return;
+  }
   
   this.totalTransferencia += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaTransferencia;
 
@@ -170,10 +176,19 @@ agregarLineaTransferencia() {
 
 
     for (let item of this.lineas_transferencia) {
+
+      if(this.itemPendiente.Stock < (Number(item.Cantidad) + Number(this.cantidadLineaTransferencia)))
+      { 
+        this.alertaService.alertFail('Stock insuficiente para ' + this.itemPendiente.Producto,false,2000);
+        return;
+      }
+
       if(item.IdProductoSabor == this.itemCheckExists.IdProductoSabor)
       { 
         item.Cantidad = Number(item.Cantidad) + Number(this.cantidadLineaTransferencia);
       }
+
+      
      }
   }
  
@@ -182,12 +197,12 @@ agregarLineaTransferencia() {
 // ==============================
   // 
   // ================================
-  eliminarItemTransferencia(IdProducto: any){
+  eliminarItemTransferencia(pIdProductoSabor: any){
 
     this.lineas_transferencia.forEach( (item: any, index: any) => {
-      if(item.IdProducto === IdProducto) 
+      if(item.IdProductoSabor === pIdProductoSabor) 
       {
-        this.totalTransferencia -= item.PrecioVenta * item.Cantidad;
+        this.totalTransferencia -= (item.PrecioVenta * item.Cantidad);
         this.lineas_transferencia.splice(index,1);
       }
         

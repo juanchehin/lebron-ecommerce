@@ -39,6 +39,8 @@ public async listarTodosProveedores(req: Request, res: Response): Promise<void> 
 // ==================================================
 public async altaProveedor(req: Request, res: Response) {
 
+    var IdUsuario = req.params.IdPersona;
+
     var Proveedor = req.body[0];
     var CUIL = req.body[1];
     var Telefono = req.body[2];
@@ -47,7 +49,7 @@ public async altaProveedor(req: Request, res: Response) {
     var Nombres = req.body[5];
     var Email = req.body[6];
 
-    pool.query(`call bsp_alta_proveedor('${Proveedor}','${CUIL}','${Telefono}','${Apellidos}','${Nombres}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_proveedor('${IdUsuario}','${Proveedor}','${CUIL}','${Telefono}','${Apellidos}','${Nombres}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
         
         if(err){
             res.status(404).json({ text: err });

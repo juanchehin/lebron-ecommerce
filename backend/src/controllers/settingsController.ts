@@ -8,6 +8,7 @@ const readline = require('readline');
 // const { google } = require('googleapis');
 
 class SettingsController {
+  
 
 // ==================================================
 //        Lista todos los backups
@@ -63,6 +64,8 @@ public async listarDatosFooter(req: Request, res: Response): Promise<void> {
 
 public async actualizarConfiguraciones(req: Request, res: Response): Promise<void> {
 
+  var IdUsuario = req.params.IdPersona;
+
   var pNombre = req.body[0] || '';
     var pCUIT = req.body[1] || '';
     var pEmail = req.body[2]|| '';
@@ -83,7 +86,7 @@ public async actualizarConfiguraciones(req: Request, res: Response): Promise<voi
     var pRetencionMP = req.body[17] || '';
 
 
-  pool.query(`call bsp_actualizar_configuraciones('${pNombre}','${pCUIT}','${pEmail}','${pImagen}','${pTelefono}','${pDireccion}',
+  pool.query(`call bsp_actualizar_configuraciones('${IdUsuario}','${pNombre}','${pCUIT}','${pEmail}','${pImagen}','${pTelefono}','${pDireccion}',
             '${pIngBrutos}','${pIVA}','${pInstagram}','${pTwitter}','${pFacebook}','${pYoutube}','${pTarjeta1Pago}','${pTarjeta3Pago}',
             '${pTarjeta6Pago}','${pCostoEnvio}','${pDolar}','${pRetencionMP}')`, function(err: any, result: any, fields: any){
       if(err){

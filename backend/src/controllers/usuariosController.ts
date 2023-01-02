@@ -25,7 +25,7 @@ public async listarUsuariosPaginado(req: Request, res: Response): Promise<void> 
 // ==================================================
 public async altaUsuario(req: Request, res: Response) {
 
-    var IdUsuario = req.params.pIdPersona;
+    var IdUsuario = req.params.IdPersona;
 
     var Apellidos = req.body[0];
     var Nombres = req.body[1];
@@ -42,10 +42,13 @@ public async altaUsuario(req: Request, res: Response) {
     const saltRounds = 10;  //  Data processing speed
 
     bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
-        bcrypt.hash(Password, salt, async function(err: any, hash: any) {
+        bcrypt.hash(Password, salt, async function(err: any, hash: any) {            
 
-            pool.query(`call bsp_alta_usuario('${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}',${FechaNac},'${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any, fields: any){        
-                                
+            pool.query(`call bsp_alta_usuario('${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}','${FechaNac}','${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any, fields: any){        
+            
+                console.log("result ",result)
+                console.log("err ",err)
+
                 if(err || result[0][0].Mensaje != 'Ok'){
                     return res.json({
                         ok: false,
@@ -60,6 +63,9 @@ public async altaUsuario(req: Request, res: Response) {
 
                     pool.query(`call bsp_alta_permisos_usuario('${IdUsuario}','${pIdPersona}','${pIdPermiso}')`, function(err: any, result: any, fields: any){
                         
+                        console.log("result 2",result)
+                        console.log("err 2",err)
+
                         if(err){
                             res.status(404).json({ text: err });
                             return;

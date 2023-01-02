@@ -74,25 +74,6 @@ export class ProductoComponent implements OnInit {
 
   ngOnInit() {
     this.cargarDatosFormNuevoProducto();
-
-    // this.forma = new FormGroup({
-    //   IdCategoria: new FormControl(null ),
-    //   IdSubCategoria: new FormControl(null ),
-    //   IdMarca: new FormControl(null),
-    //   IdUnidad: new FormControl(null ),
-    //   IdProveedor: new FormControl(null),
-    //   Producto: new FormControl(null, Validators.required),
-    //   FechaVencimiento: new FormControl(null ),
-    //   Descripcion: new FormControl(null ),
-    //   StockAlerta: new FormControl(null ),
-    //   Medida: new FormControl(null ),
-    //   PrecioCompra: new FormControl(null ),
-    //   PrecioVenta: new FormControl(null , Validators.required),
-    //   PrecioMayorista: new FormControl(null ),
-    //   PrecioMeli: new FormControl(null ),
-    //   Descuento: new FormControl(null ),
-    //   Moneda: new FormControl(null )
-    //   });
   }
 
 // ==================================================
@@ -137,15 +118,6 @@ altaProducto() {
        { 
          this.alertaFechaVencimiento = false;
        }
-      //** */
-      // if((this.forma.value.Codigo == '') || (this.forma.value.Codigo == null) ){
-      //   this.alertaCodigoVacio = true;
-      //   return;
-      // }
-      // else
-      // { 
-      //   this.alertaCodigoVacio = false;
-      // }
 
       const producto = new Array(
         this.IdCategoria,

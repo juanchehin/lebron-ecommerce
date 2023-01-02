@@ -22,15 +22,6 @@ export class ProveedorComponent implements OnInit {
     public proveedoresService: ProveedoresService, 
     public activatedRoute: ActivatedRoute
     ) {
-    activatedRoute.params.subscribe( (params: any) => {
-
-      const id = params.id;
-
-      if ( id !== 'nuevo' ) {
-      }
-
-    });
-
   }
 
   ngOnInit() {
@@ -75,7 +66,7 @@ export class ProveedorComponent implements OnInit {
                     
                     this.router.navigate(['/dashboard/proveedores']);
                   } else {
-                    this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
+                    this.alertService.alertFailWithText('Ocurrio un error',resp.Mensaje,false,2000);
                   }
                   return;
                 });

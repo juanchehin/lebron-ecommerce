@@ -188,16 +188,18 @@ export class UsuarioComponent implements OnInit {
         this.permisos
       );
 
+
       this.usuariosService.altaUsuario( usuario )
       .subscribe({
         next: (resp: any) => { 
 
+          console.log("resp es ;: ",resp)
 
           if(resp.Mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','Usuario creado con exito',false,900);   
             this.router.navigate(['/dashboard/usuarios']);
           } else {
-            this.alertService.alertFail('Ocurrio un error',false,700);            
+            this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,700);            
           }
          },
         error: (err: any) => {

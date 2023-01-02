@@ -134,7 +134,7 @@ cargarProductosTranferencia( parametroBusqueda: string, IdSucursalOrigen: any){
 cargarDatosFormNuevoProducto( ){
   
     let url = URL_SERVICIOS + '/productos/nuevo/datos-formulario';
-    return this.http.get( url );
+    return this.http.get( url , this.headers);
   
 }
 // ==================================================

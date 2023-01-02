@@ -165,18 +165,6 @@ agregarLineaPromocion() {
      }
   }
 
-
-  // this.lineas_promocion.push(
-  //   {
-  //     IdItem: this.IdItem,
-  //     IdProducto: this.itemPendiente.IdProducto,
-  //     Codigo: this.itemPendiente.Codigo,
-  //     Producto: this.itemPendiente.Producto,
-  //     Cantidad: this.cantidadLineaPromocion,
-  //     PrecioVenta: this.itemPendiente.PrecioMayorista
-  //   }
-  // );
-
 }
 
   // ==============================

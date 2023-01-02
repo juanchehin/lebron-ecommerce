@@ -31,6 +31,29 @@ public async listarMarcas(req: Request, res: Response): Promise<void> {
     })
 }
 
+// ==================================================
+//        Inserta 
+// ==================================================
+public async altaMarca(req: Request, res: Response) {
+
+    var pMarca = req.body[0];
+    var pDescripcion = req.body[1];
+
+    pool.query(`call bsp_alta_marca('${req.params.IdPersona}','${pMarca}','${pDescripcion}')`, async function(err: any, result: any, fields: any){
+
+        if(err || result[0][0].Mensaje !== 'Ok'){
+            return res.status(200).json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
+
+        return res.json({ Mensaje: 'Ok' });
+    })
+
+}
+
+
 }
 
 

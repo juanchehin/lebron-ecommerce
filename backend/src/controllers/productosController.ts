@@ -235,8 +235,6 @@ public async publicarProducto(req: Request, res: Response): Promise<void> {
 
     var pIdProducto = req.params.IdProducto;
 
-    // var IdProducto = req.body[0];
-
     pool.query(`call bsp_publicar_producto('${pIdProducto}')`, function(err: any, result: any){
 
         if(err || result[0][0].Mensaje !== 'Ok'){

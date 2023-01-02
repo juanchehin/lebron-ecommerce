@@ -139,8 +139,6 @@ altaProducto() {
         this.sabores_cargados
       );
 
-      console.log("producto es : ",producto)
-
       this.productosService.altaProducto( producto )
                 .subscribe( {
                   next: (resp: any) => { 

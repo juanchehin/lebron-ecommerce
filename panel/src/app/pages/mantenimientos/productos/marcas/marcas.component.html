@@ -2,6 +2,19 @@
     <div class="container-fluid">
         <section class="box-typical">
             <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad marcas ( <small> {{ totalMarcas }} </small> )</h3>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <button [routerLink]="['/dashboard/productos/marcas/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                          <i class="fa fa-plus"></i>
+                          Nueva Marca
+                        </button>
+                    </div>
+                </div>
                 <table id="table-edit" class="table table-bordered table-hover">
                     <thead>
                         <tr>
@@ -21,20 +34,15 @@
                                 <button class="btn btn-inline btn-danger" type="button">Eliminar</button>
                             </td>
                         </tr>
-
                     </tbody>
                 </table>
-
-
-
             </div>
         </section>
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button (click)="cambiarDesde(-5) " type="button" class="btn btn-default-outline">Anteriores</button>
-            <button (click)="cambiarDesde(5) " type="button" class="btn btn-default-outline">Siguientes</button>
+            <button (click)="cambiarDesde(-15) " type="button" class="btn btn-default-outline">Anteriores</button>
+            <button (click)="cambiarDesde(15) " type="button" class="btn btn-default-outline">Siguientes</button>
         </div>
         <!--.box-typical-->
-
     </div>
     <!--.container-fluid-->
 </div>

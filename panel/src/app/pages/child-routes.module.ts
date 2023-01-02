@@ -6,7 +6,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { ProveedoresComponent } from './mantenimientos/proveedores/proveedores.component';
 import { ProductosComponent } from './mantenimientos/productos/productos.component';
-import { MarcasComponent } from './mantenimientos/marcas/marcas.component';
+import { MarcasComponent } from './mantenimientos/productos/marcas/marcas.component';
 import { UsuarioComponent } from './mantenimientos/usuarios/usuario.component';
 import { ProductoComponent } from './mantenimientos/productos/producto.component';
 import { UnidadesComponent } from './mantenimientos/productos/unidades/unidades.component';
@@ -44,6 +44,7 @@ import { SubCategoriasComponent } from './mantenimientos/subcategorias/subcatego
 import { SubCategoriaComponent } from './mantenimientos/subcategorias/subcategoria.component';
 import { EditarSubcategoriaComponent } from './mantenimientos/subcategorias/editar-subcategoria.component';
 import { EditarUsuarioComponent } from './mantenimientos/usuarios/editar-usuario.component';
+import { MarcaComponent } from './mantenimientos/productos/marcas/marca.component';
 
 
 const childRoutes: Routes = [
@@ -63,7 +64,10 @@ const childRoutes: Routes = [
   { path: 'producto/:IdProducto', component: EditarProductoComponent, data: { titulo: 'Edicion de producto' }},
   { path: 'productos/unidades', component: UnidadesComponent, data: { titulo: 'Unidades' }},
   { path: 'productos/unidades/nuevo', component: UnidadComponent, data: { titulo: 'Nueva Unidad' }},
+  // Productos
   { path: 'productos/marcas', component: MarcasComponent, data: { titulo: 'Marcas' }},
+  { path: 'productos/marcas/nueva', component: MarcaComponent, data: { titulo: 'Nueva Marca' }},
+  // Imagenes
   { path: 'productos/imagenes/:IdProducto', component: ImagenesProductoComponent, data: { titulo: 'Imagenes' }},
   { path: 'productos/imagenes/nueva/:IdProducto', component: NuevaImagenProductoComponent, data: { titulo: 'Nueva Imagen' }},
   //

@@ -9,9 +9,6 @@ class ProductosController {
 // ==================================================
 public async altaProducto(req: Request, res: Response) {
 
-    const connection = await pool.getConnection();
-    await connection.beginTransaction();
-
     var IdCategoria = req.body[0];
     var IdSubCategoria = req.body[1];
     var IdMarca = req.body[2];
@@ -30,7 +27,9 @@ public async altaProducto(req: Request, res: Response) {
     var Moneda = req.body[15].charAt(0);
     var arraySaboresCodigo = req.body[16];
 
-    if(IdSubCategoria == undefined || IdSubCategoria == 'undefined')
+    console.log("req.body es ",req.body)
+
+    if(IdSubCategoria == undefined || IdSubCategoria == 'undefined' || IdSubCategoria == null || IdSubCategoria == 'null')
     { 
         IdSubCategoria = 1; // sin subcategoria
     }
@@ -40,13 +39,14 @@ public async altaProducto(req: Request, res: Response) {
         FechaVencimiento = null;
     }
 
-    const { err, result } = pool.query(`call bsp_alta_producto('${req.params.IdPersona}','${IdCategoria}','${IdSubCategoria}','${IdMarca}','${IdUnidad}','${IdProveedor}','${Producto}','${FechaVencimiento}','${Descripcion}',${StockAlerta},'${Medida}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${PrecioMeli}',${Descuento},'${Moneda}')`, async function(err: any, result: any, fields: any){
-        
+    console.log("IdSubCategoria es ",IdSubCategoria)
 
+    pool.query(`call bsp_alta_producto('${req.params.IdPersona}','${IdCategoria}','${IdSubCategoria}','${IdMarca}','${IdUnidad}','${IdProveedor}','${Producto}','${FechaVencimiento}','${Descripcion}',${StockAlerta},'${Medida}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${PrecioMeli}',${Descuento},'${Moneda}')`, async function(err: any, result: any, fields: any){
+        
         console.log("err : ",err)
         console.log("resulta : ",result)
 
-        if(err){
+        if(err || result[0][0].Mensaje != 'Ok'){
             res.status(404).json({ text: err });
             return;
         }
@@ -64,7 +64,7 @@ public async altaProducto(req: Request, res: Response) {
                     console.log("resulta 2: ",result2)
 
 
-                    if(err2){
+                    if(err2 || result2[0][0].Mensaje != 'Ok'){
                         return false;
                     }
 

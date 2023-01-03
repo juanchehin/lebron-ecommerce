@@ -154,16 +154,23 @@ public async editarUsuario(req: Request, res: Response) {
     var FechaNac = req.body[8];
     var IdSucursal = req.body[9];
     var arrayPermisos = req.body[10];
+    
+    const myDateString = FechaNac.substring(0, FechaNac.length - 5);
 
     const saltRounds = 10;  //  Data processing speed
+
+    console.log("req.body es : ",req.body)
 
     if(Password != null && Password != '' && Password != 'null' && Password != 'undefined' && Password != undefined)
     {
         bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
             bcrypt.hash(Password, salt, async function(err: any, hash: any) {
     
-                pool.query(`call bsp_editar_usuario('${IdPersona}','${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}',${FechaNac},'${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any){        
+                pool.query(`call bsp_editar_usuario('${IdPersona}','${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}','${myDateString}','${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any){        
                                     
+                    console.log("result es ; ",result);
+                    console.log("err es ; ",err);
+
                     if(err || result[0][0].Mensaje != 'Ok'){
                         respuestaFinal = 'Ocurrio un error, contactese con el administrador';
                         return;
@@ -173,6 +180,9 @@ public async editarUsuario(req: Request, res: Response) {
                     arrayPermisos.forEach(function (pIdPermiso: any) {
     
                         pool.query(`call bsp_editar_permisos_usuario('${IdPersona}','${IdUsuario}','${pIdPermiso}')`, function(err2: any, result2: any){
+
+                            console.log("result2 es ; ",result2);
+                                console.log("err2 es ; ",err2);
 
                             if(err2 || result2[0][0].Mensaje != 'Ok'){
                                 respuestaFinal = result2[0][0].Mensaje;

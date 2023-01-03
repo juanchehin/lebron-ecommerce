@@ -128,13 +128,9 @@ editarUsuario() {
     this.permisos
   );
 
-  console.log("usuario editado es : ",usuarioEditado);
-
   this.usuariosService.editarUsuario(this.IdUsuario, usuarioEditado )
             .subscribe( {
               next: (resp: any) => {
-
-                console.log("resp editar usuario : ",resp)
               
                 if ( (resp != null) && (resp.Mensaje == 'Ok') ) {
                   this.alertService.alertSuccess('top-end','Usuario actualizado',false,2000);

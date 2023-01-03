@@ -68,7 +68,7 @@
                                 <div class="col-sm-3">
                                     <div class="switch">
                                         <label>
-                                        <input type="checkbox" [checked]="producto.Publicado" (click)="publicarProducto(producto.IdProducto)"><span class="lever switch-col-light-blue"></span></label>
+                                        <input type="checkbox" [attr.disabled]="(producto.Stock <= 0) ? true : null" [checked]="producto.Publicado" (click)="publicarProducto(producto.IdProducto)"><span class="lever switch-col-light-blue"></span></label>
                                     </div>
                                 </div>
                             </td>

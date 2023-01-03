@@ -44,11 +44,11 @@ export class MarcasService {
 // ==================================================
 //
 // ==================================================
-  listarMarcasPaginado(desde: any){
+buscarMarcasPaginado(desde: any,pParametroBusqueda: any){
 
-    let url = URL_SERVICIOS + '/marcas/listar/' + desde;
+  let url = URL_SERVICIOS + '/marcas/buscar/' + desde + '/' + pParametroBusqueda +  '/' + this.IdPersona;
 
-    return this.http.get( url );
+  return this.http.get( url, this.headers );
   }
 
   // ==================================================
@@ -61,4 +61,33 @@ altaMarca( marca: any ) {
   return this.http.post( url, marca,this.headers);
 }
 
+
+// ==================================================
+// Cargo la data del marca
+// ==================================================
+cargarDatosFormEditarMarca(IdMarca: any ){
+
+  let url = URL_SERVICIOS + '/marcas/editar/datos-formulario/' + IdMarca + '/' + this.IdPersona;
+  return this.http.get( url , this.headers );
+
+}
+  // ==================================================
+//        
+// ==================================================
+editarMarca( marcaEditado: any ) {
+
+  let url = URL_SERVICIOS + '/marcas/editar/' + this.IdPersona;
+
+  return this.http.post( url, marcaEditado, this.headers);
+}
+
+  // ==================================================
+//        
+// ==================================================
+bajaMarca( IdMarca: any ) {
+
+  let url = URL_SERVICIOS + '/marcas/baja/' + IdMarca + '/' + this.IdPersona;
+
+  return this.http.get(url,this.headers);
+}
 }

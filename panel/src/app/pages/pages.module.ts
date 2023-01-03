@@ -52,6 +52,7 @@ import { SubCategoriasComponent } from './mantenimientos/subcategorias/subcatego
 import { EditarSubcategoriaComponent } from './mantenimientos/subcategorias/editar-subcategoria.component';
 import { EditarUsuarioComponent } from './mantenimientos/usuarios/editar-usuario.component';
 import { MarcaComponent } from './mantenimientos/productos/marcas/marca.component';
+import { EditarMarcaComponent } from './mantenimientos/productos/marcas/editar-marca.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { MarcaComponent } from './mantenimientos/productos/marcas/marca.componen
     EditarProductoComponent,
     MarcasComponent,
     MarcaComponent,
+    EditarMarcaComponent,
     UsuarioComponent,
     UnidadesComponent,
     UnidadComponent,

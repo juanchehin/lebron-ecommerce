@@ -45,6 +45,7 @@ import { SubCategoriaComponent } from './mantenimientos/subcategorias/subcategor
 import { EditarSubcategoriaComponent } from './mantenimientos/subcategorias/editar-subcategoria.component';
 import { EditarUsuarioComponent } from './mantenimientos/usuarios/editar-usuario.component';
 import { MarcaComponent } from './mantenimientos/productos/marcas/marca.component';
+import { EditarMarcaComponent } from './mantenimientos/productos/marcas/editar-marca.component';
 
 
 const childRoutes: Routes = [
@@ -67,6 +68,7 @@ const childRoutes: Routes = [
   // Productos
   { path: 'productos/marcas', component: MarcasComponent, data: { titulo: 'Marcas' }},
   { path: 'productos/marcas/nueva', component: MarcaComponent, data: { titulo: 'Nueva Marca' }},
+  { path: 'productos/marca/:IdMarca', component: EditarMarcaComponent, data: { titulo: 'Editar Marca' }},
   // Imagenes
   { path: 'productos/imagenes/:IdProducto', component: ImagenesProductoComponent, data: { titulo: 'Imagenes' }},
   { path: 'productos/imagenes/nueva/:IdProducto', component: NuevaImagenProductoComponent, data: { titulo: 'Nueva Imagen' }},

@@ -3,12 +3,21 @@
         <section class="box-typical">
             <div class="table-responsive">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 form-group">
+                        <label>Marca:  </label>
+                        <input (keyup.enter)="buscarMarcaPaginado( )" #input type="text" class="form-control" placeholder="Buscar marca..." id="marcaBuscada">
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <button (click)="buscarMarcaPaginado( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="material-icons">
+                                search
+                                </i>
+                            </button>
+                    </div>
+                    <div class="col-sm-2">
                         <h3 class="card-title">Cantidad marcas ( <small> {{ totalMarcas }} </small> )</h3>
                     </div>
-                    <div class="col-4">
-                    </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <button [routerLink]="['/dashboard/productos/marcas/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                           <i class="fa fa-plus"></i>
                           Nueva Marca
@@ -30,8 +39,8 @@
                             <td>{{ marca.IdMarca }}</td>
                             <td>{{ marca.Marca }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button">Eliminar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/marca',marca.IdMarca]">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaMarca(marca.IdMarca)">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>

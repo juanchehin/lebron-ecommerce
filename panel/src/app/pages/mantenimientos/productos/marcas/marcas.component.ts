@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { MarcasService } from 'src/app/services/marcas.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-marcas',
@@ -20,41 +20,51 @@ export class MarcasComponent implements OnInit {
   cargando = true;
 
   constructor(
-    private router: Router,
     public marcasService: MarcasService,
     public alertService: AlertService
   ) {
    }
 
   ngOnInit() {
-    this.cargarMarcas();
+    this.buscarMarcaPaginado();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-cargarMarcas() {
+buscarMarcaPaginado() {
 
-    this.marcasService.listarMarcasPaginado( this.desde  )
-               .subscribe(  {
-                next: (resp: any) => { 
-                
-                  if ( resp[2][0].Mensaje === 'Ok') {
-                    this.totalMarcas = resp[1][0].cantMarcas;
+  const inputElement: HTMLInputElement = document.getElementById('marcaBuscada') as HTMLInputElement;
+  const marcaBuscada: any = inputElement.value || '-';
 
-                    this.marcas = resp[0];
+  this.marcasService.buscarMarcasPaginado( this.desde , marcaBuscada  )
+             .subscribe( {
+              next: (resp: any) => { 
 
-                    this.cargando = false;
-                  } else {
-                    this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
-                  }
+                console.log("resp marcfas ",resp)
+
+                if(resp[0].length <= 0)
+                { 
+                  this.marcas = [];
+                  this.totalMarcas = 0;
                   return;
-                 },
-                error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
-              });
-  }
+                }
 
+                if ( resp[2][0].Mensaje == 'Ok') {
+                  
+                  this.totalMarcas = resp[1][0].totalMarcas;
+                  this.marcas = resp[0];
+                  
+                } else {
+                  this.alertService.alertFail('Ocurrio un error',false,2000);
+                }
+                return;
+               },
+              error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
+            });
+
+}
 
 // ==================================================
 //        Cambio de valor
@@ -73,8 +83,44 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  this.cargarMarcas();
+  this.buscarMarcaPaginado();
 
 }
+// ==================================================
+// 
+// ==================================================
 
+bajaMarca(IdMarca: string) {
+
+  Swal.fire({
+    title: '¿Desea eliminar la marca?',
+    text: "Eliminacion de marca",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si'
+  }).then((result: any) => {
+    if (result.isConfirmed) {
+      this.marcasService.bajaMarca( IdMarca )
+      .subscribe({
+        next: (resp: any) => {
+  
+          if(resp[0].Mensaje == 'Ok') {
+            this.alertService.alertSuccess('top-end','Marca dada de baja',false,900);
+            this.desde = 0;
+            this.buscarMarcaPaginado();
+            
+          } else {
+            this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
+            
+          }
+         },
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
+      });
+    }
+  })
+
+  
+  }
 }

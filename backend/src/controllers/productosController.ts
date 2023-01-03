@@ -248,7 +248,7 @@ public async publicarProducto(req: Request, res: Response): Promise<void> {
     })
 }
 // ==================================================
-//      me
+//      
 // ==================================================
 public async destacarProducto(req: Request, res: Response): Promise<void> {
 

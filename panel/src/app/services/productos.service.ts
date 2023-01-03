@@ -205,18 +205,9 @@ listarPromocionesPaginado(desde: any){
 // ==================================================
 altaPromocion( promocion: any ) {
 
-  let url = URL_SERVICIOS + '/productos/promocion/alta';
-  // url += '?IdRol=' + this.IdRol;
+  let url = URL_SERVICIOS + '/productos/promocion/alta/'+ this.IdPersona;
 
-  return this.http.post(
-    url,
-    promocion
-    // {
-    //   headers: {
-    //     token: this.token
-    //   }
-    // }
-);
+  return this.http.post( url, promocion, this.headers);
 }
 
 

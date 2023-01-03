@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AlertService } from 'src/app/services/alert.service';
 import { ProductosService } from 'src/app/services/productos.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class PromocionesComponent implements OnInit {
 
   constructor(
     public productosService: ProductosService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public alertaService: AlertService
   ) {
    }
 
@@ -30,14 +32,25 @@ export class PromocionesComponent implements OnInit {
 cargarPromociones() {
 
     this.productosService.listarPromocionesPaginado( this.desde  )
-               .subscribe( (resp: any) => {
+               .subscribe( {
+                next: (resp: any) => { 
 
-                this.totalPromociones = resp[1][0].cantPromociones;
+                  console.log("resp es ",resp)
+          
+                  if(resp[2][0].Mensaje == 'Ok') {
+                    this.totalPromociones = resp[1][0].cantPromociones;
 
-                this.promociones = resp[0];
-
-
+                    this.promociones = resp[0];
+                    
+                  } else {
+                    this.alertaService.alertFail('Ocurrio un error',false,400);
+                    
+                  }
+                 },
+                error: () => {  this.alertaService.alertFail('Ocurrio un error',false,400); }
               });
+
+
 
   }
 

@@ -76,16 +76,17 @@ altaPromocion() {
   
 
       const promocion = new Array(
-        this.lineas_promocion,
+        this.lineas_promocion[0].IdProducto,
+        this.lineas_promocion[1].IdProducto,
         this.Promocion,
-        this.PrecioPromocion,
         this.Descripcion
       );
 
-      console.log("nueva promo es ",promocion)
+      console.log("promo es : ",promocion);
 
       this.productosService.altaPromocion( promocion )
                 .subscribe( (resp: any) => {
+                  console.log("resp es : ",resp)
                   if ( resp[0][0].Mensaje === 'Ok') {
 
                     this.alertaService.alertSuccess('top-end','Promocion cargada',false,2000);
@@ -104,12 +105,19 @@ altaPromocion() {
 // ==================================================
 // 
 // ==================================================
-  cambiaCantidadPromocion(cantidad: any) {
+  cambiaPromocion(event: any) {
     
-    // this.cantidadLineaPromocion = cantidad.data;
+    this.Promocion = event.target.value;;
     
   }
+  // ==================================================
+// 
+// ==================================================
+cambiaDescripcion(event: any) {
+    
+  this.Descripcion = event.target.value;;
   
+}
 // ==================================================
 // Carga los datos de la persona que esta realizando la venta
 //  junto con la sucursal en la cual se desempeña
@@ -129,7 +137,6 @@ agregarLineaPromocion() {
     return;
   }
 
-  console.log("item pendiente ",this.itemPendiente);
   this.totalPromocion += Number(this.itemPendiente.PrecioMayorista) * this.cantidadLineaPromocion;
 
   const checkExistsLineaPromocion = this.lineas_promocion.find((lineas_promocion) => {
@@ -189,7 +196,7 @@ agregarLineaPromocion() {
   onFocusedProducto(e: any){
   }
 
-  // ==================================================
+// ==================================================
 // Autocompletar de productos
 // ==================================================
 

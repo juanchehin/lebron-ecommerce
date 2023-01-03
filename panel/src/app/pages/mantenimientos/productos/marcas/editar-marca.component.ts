@@ -40,7 +40,6 @@ editarMarca() {
     this.Descripcion
   );
 
-  console.log("marca editado es ",marcaEditado)
   this.marcasService.editarMarca( marcaEditado )
             .subscribe( {
               next: (resp: any) => {

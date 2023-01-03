@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import Swal from 'sweetalert2';
 import { ConfiguracionesService } from 'src/app/services/configuraciones.service';
 import { AlertService } from 'src/app/services/alert.service';
 
@@ -104,7 +103,7 @@ actualizarConfiguraciones() {
                   next: (resp: any) => { 
   
                     if ( resp[0][0].Mensaje === 'Ok') {
-                      this.alertService.alertSuccess('top-end','Producto cargado',false,2000);
+                      this.alertService.alertSuccess('top-end','Configuracion guardada',false,2000);
                       this.router.navigate(['/dashboard/configuraciones']);
                     } else {
                       this.alertService.alertFailWithText('Ocurrio un error',resp[0][0].Mensaje,false,2000);

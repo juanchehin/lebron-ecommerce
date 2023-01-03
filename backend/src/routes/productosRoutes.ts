@@ -37,7 +37,7 @@ class ProductosRoutes {
         // Promociones
         this.router.get('/promocion/detalle/:pIdPromocion/:pIdSabor1/:pIdSabor2',productosController.dameDatosPromocion);
         this.router.get('/promociones/listar/:pDesde',productosController.listarPromocionesPaginado);
-        this.router.post('/promocion/alta',productosController.altaPromocion);
+        this.router.post('/promocion/alta/:IdPersona',  [mdAutenticacion.verificaToken],productosController.altaPromocion);
         this.router.get('/listar/promociones/:desde/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.listarPromociones);
         // Transferencias
         this.router.post('/transferencias/alta/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.altaTransferencia); 

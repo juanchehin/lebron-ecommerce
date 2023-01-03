@@ -471,9 +471,9 @@ public async dameDatosPromocion(req: Request, res: Response): Promise<void> {
 // ==============================
 public async altaPromocion(req: Request, res: Response) {
 
-    var pProductosPromocion = req.body[0]; 
-    var pPromocion = req.body[1];
-    var pPrecio = req.body[2];
+    var pIdProdUno = req.body[0]; 
+    var pIdProdDos = req.body[1];
+    var pPromocion = req.body[2];
     var pDescripcion = req.body[3];
 
     if(pDescripcion == undefined || pDescripcion == 'undefined')
@@ -481,7 +481,7 @@ public async altaPromocion(req: Request, res: Response) {
         pDescripcion = '';
     }
 
-    pool.query(`call bsp_alta_promocion('${pPromocion}','${pPrecio}','${pDescripcion}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_promocion('${req.params.IdPersona}','${pIdProdUno}','${pIdProdDos}','${pPromocion}','${pDescripcion}')`, function(err: any, result: any, fields: any){
         
         if(err){
             res.status(404).json({ text: err });
@@ -495,34 +495,8 @@ public async altaPromocion(req: Request, res: Response) {
             });
         }
 
-        var pIdPromocion = result[0][0].pIdPromocion;
-
-        // *** Recorro los productos cargados a la promo ***
-        pProductosPromocion.forEach(function (value: any) {
-
-            var pIdProducto = value.IdProducto;
-            var pCantidad = value.Cantidad;
-
-            pool.query(`call bsp_alta_item_promocion('${pIdPromocion}','${pIdProducto}','${pCantidad}')`, function(err: any, result: any, fields: any){
-        
-                if(err){
-                    res.status(404).json({ text: err });
-                    return;
-                }
-        
-                if(result[0][0].Mensaje !== 'Ok'){
-                    return res.status(404).json({
-                        ok: false,
-                        Mensaje: result[0][0].Mensaje
-                    });
-                }
-            })
-
-        });
-
         res.status(200).json(result);
 
-        // *** Fin Recorro los productos cargados a la promo ***
     })
 
 }
@@ -563,8 +537,6 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
     var pIdUsuario = req.params.IdPersona;
 
     pool.query(`call bsp_alta_transferencia('${pIdUsuario}','${fechaTransferencia}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${totalTransferencia}')`, (err: any, result: any) =>{
-        console.log("result transf : ",result);
-        console.log("err transf : ",err);
 
        if(err || result[0][0].Mensaje != 'Ok' || result[0][0].Level == 'Error'){
             callback(err,null);
@@ -607,7 +579,6 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
                 }
                 else
                 {
-                    console.log("pasa ok")
                     res.status(200).json({Mensaje: 'Ok'});
                 }
             });

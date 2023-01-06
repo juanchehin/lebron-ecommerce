@@ -247,6 +247,26 @@ public async publicarProducto(req: Request, res: Response): Promise<void> {
         res.status(200).json(result);
     })
 }
+
+// ==================================================
+//        
+// ==================================================
+public async ofertarProducto(req: Request, res: Response): Promise<void> {
+
+    var pIdProducto = req.params.IdProducto;
+
+    pool.query(`call bsp_ofertar_producto('${pIdProducto}')`, function(err: any, result: any){
+
+        if(err || result[0][0].Mensaje !== 'Ok'){
+            return res.status(200).json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
+        
+        res.status(200).json(result);
+    })
+}
 // ==================================================
 //      
 // ==================================================
@@ -318,7 +338,7 @@ public async dameDatosProducto(req: Request, res: Response): Promise<void> {
 }
 
 // ==================================================
-//        get one
+//       
 // ==================================================
 public async listarProductosRelacionados(req: Request, res: Response): Promise<void> {
 

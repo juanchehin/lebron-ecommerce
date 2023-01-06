@@ -50,6 +50,7 @@
                             <th>Descuento(%)</th>
                             <th>Publicado</th>
                             <th>Destacado</th>
+                            <th>Oferta</th>
                             <th>En promocion</th>
                             <th></th>
                             <th></th>
@@ -77,6 +78,14 @@
                                     <div class="switch">
                                         <label>
                                         <input type="checkbox" [checked]="producto.Destacado" (click)="destacarProducto(producto.IdProducto)"><span class="lever switch-col-cyan"></span></label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-sm-3">
+                                    <div class="switch">
+                                        <label>
+                                        <input type="checkbox" [checked]="producto.Oferta" (click)="ofertarProducto(producto.IdProducto)"><span class="lever switch-col-cyan"></span></label>
                                     </div>
                                 </div>
                             </td>

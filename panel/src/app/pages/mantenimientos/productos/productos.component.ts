@@ -168,6 +168,27 @@ publicarProducto(IdProducto: string){
  });
 
 }
+// =================================================================
+ofertarProducto(IdProducto: string){ 
+
+  this.productosService.ofertarProducto( IdProducto  )
+  .subscribe( {
+   next: (resp: any) => {
+
+     if ( resp[0][0].Mensaje == 'Ok') {       
+      this.alertaService.alertSuccess('top-end','Operacion exitosa',false,900);
+     } else {
+       this.alertaService.alertFail('Ocurrio un error',false,2000);
+     }
+     return;
+    },
+   error: (err: any) => { 
+    this.alertaService.alertFail('Ocurrio un error',false,2000) 
+  
+  }
+ });
+
+}
 
 // =================================================================
 destacarProducto(IdProducto: string){

@@ -67,7 +67,15 @@ destacarProducto( IdProducto: any ) {
 
   return this.http.get(url,this.headers);
 }
+  // ==================================================
+//        
+// ==================================================
+ofertarProducto( IdProducto: any ) {
 
+  let url = URL_SERVICIOS + '/productos/ofertar/' + IdProducto + '/' + this.IdPersona;
+
+  return this.http.get(url,this.headers);
+}
   // ==================================================
 //        
 // ==================================================

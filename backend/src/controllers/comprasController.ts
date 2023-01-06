@@ -62,7 +62,7 @@ altaCompra(req: Request, res: Response) {
 
     console.log("req.body : ",req.body)
 
-    pool.query(`call bsp_alta_compra('${pIdComprador}','${pIdProveedor}','${pMontoTotal}')`, function(err: any, result: any){
+    pool.query(`call bsp_alta_compra('${pIdComprador}','${pMontoTotal}')`, function(err: any, result: any){
 
         console.log("result : ",result)
         console.log("err : ",err)

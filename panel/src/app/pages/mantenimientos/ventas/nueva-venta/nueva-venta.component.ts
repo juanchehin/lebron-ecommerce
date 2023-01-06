@@ -205,6 +205,12 @@ agregarLineaVenta() {
     return;
   }
 
+  if(this.itemPendiente.length <= 0)
+  { 
+    this.alertaService.alertFailWithText('Atencion','Debe seleccionar un producto en el buscador',false,2000);
+    return;
+  }
+
   this.totalVenta += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaVenta;
 
   const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {

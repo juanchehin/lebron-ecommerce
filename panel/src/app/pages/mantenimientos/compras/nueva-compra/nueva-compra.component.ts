@@ -71,6 +71,14 @@ export class NuevaCompraComponent implements OnInit {
 
 altaCompra() {
 
+  console.log("total com",this.totalCompra)
+
+    if(isNaN(this.totalCompra) || this.totalCompra == null)
+    {
+      this.alertaService.alertFailWithText('Error','Ocurrio un problema con el total de la compra',false,1200);
+      return;
+    }
+
       this.arrayCompra.push(        
         this.IdProveedor,
         this.lineas_compra,
@@ -153,7 +161,13 @@ agregarLineaCompra() {
 
   if(isNaN(Number(this.cantidadLineaCompra)))
   { 
-    this.alertaService.alertFail('Error en cantidad',false,2000);
+    this.alertaService.alertFailWithText('Atencion','Problema con la cantidad',false,2000);
+    return;
+  }
+
+  if(this.itemPendiente.length <= 0)
+  { 
+    this.alertaService.alertFailWithText('Atencion','Debe seleccionar un producto en el buscador',false,2000);
     return;
   }
   

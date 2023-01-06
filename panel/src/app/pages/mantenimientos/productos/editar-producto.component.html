@@ -31,7 +31,8 @@
                     </div>
                 </div>
                 <div class="col-sm-6 form-group">
-                    <label>Fecha vencimiento : </label><input tabindex="5" [(ngModel)]="FechaVencimiento" name="FechaVencimiento" type="date" placeholder="Fecha vencimiento..." class="form-control">
+                    <label>Fecha vencimiento : </label>
+                    <input tabindex="5" [(ngModel)]="FechaVencimiento" name="FechaVencimiento" type="date" placeholder="Fecha vencimiento..." class="form-control">
                 </div>
                 <div *ngIf="alertaCodigoVacio">
                     <p style="color:red;">La fecha debe ser mayor a la fecha actual</p>

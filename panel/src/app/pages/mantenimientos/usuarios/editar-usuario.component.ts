@@ -172,7 +172,7 @@ cargarDatosFormEditarUsuario() {
                   this.sucursales = resp[2];
 
                   this.permisosUsuario.forEach( (value) => {
-                    console.log("value ",value.IdPermiso)
+                    
                     this.permisos.push(value.IdPermiso);
                     this.habilitarBanderas(value.IdPermiso);
                   });

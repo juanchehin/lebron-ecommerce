@@ -140,6 +140,10 @@ public async editarUsuario(req: Request, res: Response) {
 
     var respuestaFinal = 'Ok';
 
+    console.log("req.body es : ",req.body)
+
+    // var myDateString: any = '0000-00-00 ';
+
     var IdPersona = req.params.IdPersona;
     var IdUsuario = req.params.IdUsuario;
 
@@ -154,12 +158,21 @@ public async editarUsuario(req: Request, res: Response) {
     var FechaNac = req.body[8];
     var IdSucursal = req.body[9];
     var arrayPermisos = req.body[10];
+
     
-    const myDateString = FechaNac.substring(0, FechaNac.length - 5);
+    if(FechaNac != null && FechaNac != 'null')
+    {
+        var myDateString = FechaNac;
+    }
+    else
+    {
+        var myDateString = null;
+    }
 
     const saltRounds = 10;  //  Data processing speed
 
-    console.log("req.body es : ",req.body)
+    console.log(" FechaNac es : ",FechaNac)
+    console.log(" myDateString es : ",myDateString)
 
     if(Password != null && Password != '' && Password != 'null' && Password != 'undefined' && Password != undefined)
     {
@@ -202,8 +215,10 @@ public async editarUsuario(req: Request, res: Response) {
     }
     else
     {
-        pool.query(`call bsp_editar_usuario('${IdPersona}','${IdUsuario}','${Apellidos}','${Nombres}',null,'${Telefono}','${DNI}','${Correo}','${FechaNac}','${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any){        
+        pool.query(`call bsp_editar_usuario('${IdPersona}','${IdUsuario}','${Apellidos}','${Nombres}',null,'${Telefono}','${DNI}','${Correo}','${myDateString}','${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any){        
    
+            console.log("result es ; ",result);
+            console.log("err es ; ",err);
 
             if(err || result[0][0].Mensaje != 'Ok'){
                 return res.json({

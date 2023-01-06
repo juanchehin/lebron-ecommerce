@@ -169,6 +169,8 @@ factura( pIdTransaccion: any) {
     .subscribe({
       next: (resp: any) => { 
 
+        console.log("resp es : ",resp)
+
         if(resp[4][0].Mensaje == 'Ok') {
 
           this.generarPDF(resp[0],resp[1],pIdTransaccion,resp[2],resp[3]);

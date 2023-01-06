@@ -121,15 +121,6 @@ altaProducto() {
        { 
          this.alertaFechaVencimiento = false;
        }
-      //** */
-      // if((this.forma.value.Codigo == '') || (this.forma.value.Codigo == null) ){
-      //   this.alertaCodigoVacio = true;
-      //   return;
-      // }
-      // else
-      // { 
-      //   this.alertaCodigoVacio = false;
-      // }
 
       const productoEditado = new Array(
         this.IdCategoria,
@@ -202,7 +193,7 @@ cargarDatosFormEditarProducto() {
                 this.IdUnidad = this.producto.IdUnidad;        
                 this.Producto = this.producto.Producto;
                 this.IdProveedor = this.producto.IdProveedor;
-                this.FechaVencimiento = this.producto.FechaVencimiento;
+                this.FechaVencimiento = this.producto.Fecha_vencimiento;
                 this.Descripcion = this.producto.Descripcion;
                 this.StockAlerta = this.producto.StockAlerta;
                 this.Medida = this.producto.Medida;

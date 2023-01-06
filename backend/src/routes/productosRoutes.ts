@@ -29,6 +29,7 @@ class ProductosRoutes {
         this.router.get('/listar/busqueda/autocomplete/:pProductoBuscado/:IdSucursal/:IdPersona',  [mdAutenticacion.verificaToken],productosController.buscarProductoAutoComplete); 
         this.router.get('/buscar/:pDesde/:pParametroBusqueda/:IdSucursal/:IdPersona',  [mdAutenticacion.verificaToken],productosController.buscarProductoPaginado); 
         this.router.get('/nuevo/datos-formulario',  [mdAutenticacion.verificaToken], productosController.cargarDatosFormNuevoProducto);
+        this.router.get('/editar/datos-formulario/:IdProducto/:IdPersona',  [mdAutenticacion.verificaToken], productosController.cargarDatosFormEditarProducto);
 
         // Unidades
         this.router.get('/unidades/listar/:desde',productosController.listarUnidadesPaginado);

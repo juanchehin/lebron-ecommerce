@@ -338,10 +338,10 @@ public async listarProductosRelacionados(req: Request, res: Response): Promise<v
 // ==================================================
 public async cargarDatosFormEditarProducto(req: Request, res: Response): Promise<void> {
 
-    const { pIdProducto } = req.params;
+    const { IdProducto } = req.params;
     const { IdPersona } = req.params;
 
-    pool.query(`call bsp_dame_datos_form_editar_producto('${IdPersona}','${pIdProducto}')`, function(err: any, result: any){
+    pool.query(`call bsp_dame_datos_form_editar_producto('${IdPersona}','${IdProducto}')`, function(err: any, result: any){
         if(err){
             res.status(400).json(err);
             return;

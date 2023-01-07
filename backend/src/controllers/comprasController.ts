@@ -55,14 +55,14 @@ public async listarVentasIdUsuario(req: Request, res: Response): Promise<void> {
 // ==================================================
 altaCompra(req: Request, res: Response) {
 
-    var pIdProveedor = req.body[0];
+    var pDescripcion = req.body[0];
     var pLineasCompras = req.body[1];
     var pMontoTotal = req.body[2];
     var pIdComprador = req.params.IdPersona;
 
     console.log("req.body : ",req.body)
 
-    pool.query(`call bsp_alta_compra('${pIdComprador}','${pMontoTotal}')`, function(err: any, result: any){
+    pool.query(`call bsp_alta_compra('${pIdComprador}','${pMontoTotal}','${pDescripcion}')`, function(err: any, result: any){
 
         console.log("result : ",result)
         console.log("err : ",err)
@@ -80,7 +80,7 @@ altaCompra(req: Request, res: Response) {
 
             console.log("value : ",value)
 
-                pool.query(`call bsp_alta_linea_compra('${result[0][0].IdCompra}','${value.IdProducto}','${value.Cantidad}')`, function(err: any, result2: any){
+                pool.query(`call bsp_alta_linea_compra('${result[0][0].IdCompra}','${value.IdProductoSabor}','${value.Cantidad}')`, function(err: any, result2: any){
                     
                     console.log("err : ",err)
                     console.log("result2 : ",result2)

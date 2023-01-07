@@ -105,15 +105,15 @@ formatDateNow(date: any) {
 
 cargarCompras() {
 
-  const pfechaInicio  = this.formatDate(this.fechaInicio);
-  const pfechaFin = this.formatDate(this.fechaFin);
+  const pfechaInicio  = this.fechaInicio;
+  const pfechaFin = this.fechaFin;
 
   this.cargando = true;
 
   this.comprasService.listarComprasFecha( this.desde , pfechaInicio , pfechaFin)
              .subscribe( (resp: any) => {
               // Controlar que el cliente exista AQUI , ver como se puede capturar el mensaje enviado desde el SQL
-
+              console.log("resp es :",resp)
               this.totalCompras = resp[1][0].cantCompras;
 
               this.compras = resp[0];

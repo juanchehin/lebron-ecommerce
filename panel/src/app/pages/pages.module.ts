@@ -53,6 +53,9 @@ import { EditarSubcategoriaComponent } from './mantenimientos/subcategorias/edit
 import { EditarUsuarioComponent } from './mantenimientos/usuarios/editar-usuario.component';
 import { MarcaComponent } from './mantenimientos/productos/marcas/marca.component';
 import { EditarMarcaComponent } from './mantenimientos/productos/marcas/editar-marca.component';
+import { SaboresComponent } from './mantenimientos/productos/sabores/sabores.component';
+import { SaborComponent } from './mantenimientos/productos/sabores/sabor.component';
+import { EditarSaborComponent } from './mantenimientos/productos/sabores/editar-sabor.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +79,9 @@ import { EditarMarcaComponent } from './mantenimientos/productos/marcas/editar-m
     MarcasComponent,
     MarcaComponent,
     EditarMarcaComponent,
+    SaboresComponent,
+    SaborComponent,
+    EditarSaborComponent,
     UsuarioComponent,
     UnidadesComponent,
     UnidadComponent,

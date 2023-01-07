@@ -1,0 +1,58 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Sabor:  </label>
+                        <input (keyup.enter)="buscarSaborPaginado( )" #input type="text" class="form-control" placeholder="Buscar Sabor..." id="saborBuscada">
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <button (click)="buscarSaborPaginado( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="material-icons">
+                                search
+                                </i>
+                            </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <h3 class="card-title">Cantidad sabores ( <small> {{ totalSabores }} </small> )</h3>
+                    </div>
+                    <div class="col-sm-2">
+                        <button [routerLink]="['/dashboard/productos/sabores/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                          <i class="fa fa-plus"></i>
+                          Nuevo Sabor
+                        </button>
+                    </div>
+                </div>
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">
+                                #
+                            </th>
+                            <th>Sabor</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let sabor of sabores">
+                            <td>{{ sabor.IdSabor }}</td>
+                            <td>{{ sabor.Sabor }}</td>
+                            <td>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/sabor',sabor.IdSabor]">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaSabor(sabor.IdSabor)">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <button (click)="cambiarDesde(-15) " type="button" class="btn btn-default-outline">Anteriores</button>
+            <button (click)="cambiarDesde(15) " type="button" class="btn btn-default-outline">Siguientes</button>
+        </div>
+        <!--.box-typical-->
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

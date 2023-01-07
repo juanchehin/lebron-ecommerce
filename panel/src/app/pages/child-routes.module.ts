@@ -46,6 +46,9 @@ import { EditarSubcategoriaComponent } from './mantenimientos/subcategorias/edit
 import { EditarUsuarioComponent } from './mantenimientos/usuarios/editar-usuario.component';
 import { MarcaComponent } from './mantenimientos/productos/marcas/marca.component';
 import { EditarMarcaComponent } from './mantenimientos/productos/marcas/editar-marca.component';
+import { SaboresComponent } from './mantenimientos/productos/sabores/sabores.component';
+import { SaborComponent } from './mantenimientos/productos/sabores/sabor.component';
+import { EditarSaborComponent } from './mantenimientos/productos/sabores/editar-sabor.component';
 
 
 const childRoutes: Routes = [
@@ -65,10 +68,14 @@ const childRoutes: Routes = [
   { path: 'producto/:IdProducto', component: EditarProductoComponent, data: { titulo: 'Edicion de producto' }},
   { path: 'productos/unidades', component: UnidadesComponent, data: { titulo: 'Unidades' }},
   { path: 'productos/unidades/nuevo', component: UnidadComponent, data: { titulo: 'Nueva Unidad' }},
-  // Productos
+  // Productos - marcas
   { path: 'productos/marcas', component: MarcasComponent, data: { titulo: 'Marcas' }},
   { path: 'productos/marcas/nueva', component: MarcaComponent, data: { titulo: 'Nueva Marca' }},
   { path: 'productos/marca/:IdMarca', component: EditarMarcaComponent, data: { titulo: 'Editar Marca' }},
+  // Productos - sabores
+  { path: 'productos/sabores', component: SaboresComponent, data: { titulo: 'Sabores' }},
+  { path: 'productos/sabores/nueva', component: SaborComponent, data: { titulo: 'Nueva Sabor' }},
+  { path: 'productos/sabor/:IdSabor', component: EditarSaborComponent, data: { titulo: 'Editar Sabor' }},
   // Imagenes
   { path: 'productos/imagenes/:IdProducto', component: ImagenesProductoComponent, data: { titulo: 'Imagenes' }},
   { path: 'productos/imagenes/nueva/:IdProducto', component: NuevaImagenProductoComponent, data: { titulo: 'Nueva Imagen' }},

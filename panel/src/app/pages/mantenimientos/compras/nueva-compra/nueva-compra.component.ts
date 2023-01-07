@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { IItemLineaCompraStructure } from 'src/app/interfaces/item-linea-compra.interface';
 import { IItemStructure } from 'src/app/interfaces/item.interface';
 import { IItemTipoPagoStructure } from 'src/app/interfaces/item_tp.interface';
 import { AlertService } from 'src/app/services/alert.service';
@@ -25,12 +26,11 @@ export class NuevaCompraComponent implements OnInit {
   productoBuscado = '';
   IdPersona = '';
   local = '';
-  lineas_compra: IItemStructure[] = [];
+  lineas_compra: IItemLineaCompraStructure[] = [];
   checkExists: IItemStructure[] = [];
   lineas_tipos_pago: IItemTipoPagoStructure[] = [];  
   itemPendiente: any = [];
   tiposPago: any;
-  proveedores = [];
   currentDate = new Date();
   datosVendedor: any;
   totalCompra: number = 0;
@@ -39,7 +39,7 @@ export class NuevaCompraComponent implements OnInit {
   IdItemTipoPago = 0;
   IdTipoPagoSelect = 0;
   monto = 0;
-  IdProveedor = 0;
+  Descripcion: any;
   totalTiposPago = 0;
   arrayCompra: any = [];
   itemCheckExists: any = 0;
@@ -62,7 +62,6 @@ export class NuevaCompraComponent implements OnInit {
 
   ngOnInit() {   
     this.IdPersona = this.authService.IdPersona;
-    this.cargarProveedores();
   }
   
 // ==================================================
@@ -80,7 +79,7 @@ altaCompra() {
     }
 
       this.arrayCompra.push(        
-        this.IdProveedor,
+        this.Descripcion,
         this.lineas_compra,
         this.totalCompra
       );
@@ -117,35 +116,12 @@ cargarProductos() {
     return;
   }
 
-  this.productosService.cargarProductos( this.productoBuscado , 0)
+  this.productosService.cargarProductos( this.productoBuscado , -1)
   .subscribe({
     next: (resp: any) => { 
 
         this.productos = resp[0];
         
-     },
-    error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
-  });
-
-}
-// ==================================================
-// Carga
-// ==================================================
-
-cargarProveedores() {
-
-  this.proveedoresService.listarProveedores(  )
-  .subscribe({
-    next: (resp: any) => { 
-
-      if ( resp[1][0].Mensaje === 'Ok') {
-        
-        this.proveedores = resp[0];
-        
-      } else {
-        this.alertaService.alertFail('Ocurrio un error',false,2000);
-      }
-      return;
      },
     error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
   });
@@ -170,11 +146,11 @@ agregarLineaCompra() {
     this.alertaService.alertFailWithText('Atencion','Debe seleccionar un producto en el buscador',false,2000);
     return;
   }
-  
+
   this.totalCompra += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaCompra;
 
   const checkExistsLineaCompra = this.lineas_compra.find((linea_compra) => {
-    return linea_compra.IdProducto == this.itemPendiente.IdProducto;
+    return linea_compra.IdProductoSabor == this.itemPendiente.IdProductoSabor;
   });
 
   if(!(checkExistsLineaCompra != undefined))
@@ -182,7 +158,7 @@ agregarLineaCompra() {
     this.lineas_compra.push(
       {
         IdItem: this.IdItem,
-        IdProducto: Number(this.itemPendiente.IdProducto),
+        IdProductoSabor: Number(this.itemPendiente.IdProductoSabor),
         Codigo: this.itemPendiente.Codigo,
         Producto: this.itemPendiente.Producto,
         Cantidad: this.cantidadLineaCompra,
@@ -196,11 +172,11 @@ agregarLineaCompra() {
   }
   else{
     this.itemCheckExists = checkExistsLineaCompra;
-    this.itemIdProducto = this.itemCheckExists.IdProducto;
+    this.itemIdProducto = this.itemCheckExists.IdProductoSabor;
 
 
     for (let item of this.lineas_compra) {
-      if(item.IdProducto == this.itemCheckExists.IdProducto)
+      if(item.IdProductoSabor == this.itemCheckExists.IdProductoSabor)
       { 
         item.Cantidad = Number(item.Cantidad) + Number(this.cantidadLineaCompra);
       }
@@ -213,29 +189,6 @@ agregarLineaCompra() {
  
 
 }
-
-  // ==============================
-  // Para proveedores
-  // ================================
-  selectEvent(item: any) {
-    console.log("item es : ",item)
-    this.IdProveedor = item.IdProveedor;
-    // this.agregarLineaVenta(item);
-    // do something with selected item
-  }
-
-  onChangeSearch(val: any) {
-
-    this.proveedorBuscado = val;
-    this.cargarProveedores();
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-  }
-  
-  onFocused(e: any){
-    // console.log("pasa on onFocused",e)
-    // do something when input is focused
-  }
 
   // ==============================
   // Para productos
@@ -277,10 +230,10 @@ agregarLineaCompra() {
 // ==============================
   // 
   // ================================
-  eliminarItemCompra(IdProducto: any){
+  eliminarItemCompra(IdProductoSabor: any){
 
     this.lineas_compra.forEach( (item, index) => {
-      if(item.IdProducto === IdProducto) 
+      if(item.IdProductoSabor === IdProductoSabor) 
       {
         this.totalCompra -= item.PrecioVenta * item.Cantidad;
         this.lineas_compra.splice(index,1);
@@ -290,21 +243,6 @@ agregarLineaCompra() {
 
   }
 
-  // ==============================
-  // 
-  // ================================
-  eliminarItemTipoPago(IdItem: any){
-
-    this.lineas_tipos_pago.forEach( (item, index) => {
-      if(item.IdItem === IdItem) 
-      {
-        this.totalTiposPago -= +item.SubTotal;
-        this.lineas_tipos_pago.splice(index,1);
-      }
-        
-    });
-
-  }
 
 }
 

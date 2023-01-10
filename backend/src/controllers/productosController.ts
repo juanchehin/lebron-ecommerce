@@ -520,6 +520,27 @@ public async altaPromocion(req: Request, res: Response) {
     })
 
 }
+
+// ==================================================
+//        
+// ==================================================
+public async publicarPromocion(req: Request, res: Response): Promise<void> {
+
+    var pIdPromocion = req.params.IdPromocion;
+
+    pool.query(`call bsp_publicar_promocion('${pIdPromocion}')`, function(err: any, result: any){
+
+        if(err || result[0][0].Mensaje !== 'Ok'){
+            return res.status(200).json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
+        
+        res.status(200).json(result);
+    })
+}
+
 // ==================================================
 //       ***** Tranferencias *****
 // ==================================================

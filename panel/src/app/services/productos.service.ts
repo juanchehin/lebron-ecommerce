@@ -237,6 +237,16 @@ editarPromocion( promocion: any ) {
     // }
 );
 }
+
+  // ==================================================
+//        
+// ==================================================
+publicarPromocion( IdPromocion: any ) {
+
+  let url = URL_SERVICIOS + '/productos/promocion/publicar/' + IdPromocion + '/' + this.IdPersona;
+
+  return this.http.get(url,this.headers);
+}
 // ==================================================
 //  ******* Transferencias *******        
 // ==================================================

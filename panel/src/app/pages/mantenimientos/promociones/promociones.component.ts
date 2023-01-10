@@ -77,8 +77,28 @@ cambiarDesde( valor: number ) {
 }
 
 
-publicarPromocion(IdPromocion: string){
-  console.log("pasa publicar publicarPromocion IdPromocion : ",IdPromocion)
+// =================================================================
+publicarPromocion(IdPromocion: string){ 
+
+  this.productosService.publicarPromocion( IdPromocion  )
+  .subscribe( {
+   next: (resp: any) => {
+
+    console.log("resp promo ",resp)
+
+     if ( resp[0][0].Mensaje == 'Ok') {       
+      this.alertaService.alertSuccess('top-end','Operacion exitosa',false,900);
+     } else {
+       this.alertaService.alertFail('Ocurrio un error',false,2000);
+     }
+     return;
+    },
+   error: (err: any) => { 
+    this.alertaService.alertFail('Ocurrio un error',false,2000) 
+  
+  }
+ });
+
 }
 
 }

@@ -247,6 +247,17 @@ publicarPromocion( IdPromocion: any ) {
 
   return this.http.get(url,this.headers);
 }
+
+  // ==================================================
+//        
+// ==================================================
+bajaPromocion( IdPromocion: any ) {
+
+  let url = URL_SERVICIOS + '/productos/promocion/baja/' + IdPromocion + '/' + this.IdPersona;
+
+  return this.http.get(url,this.headers);
+
+}
 // ==================================================
 //  ******* Transferencias *******        
 // ==================================================

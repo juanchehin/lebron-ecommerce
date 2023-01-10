@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { ProductosService } from 'src/app/services/productos.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-promociones',
@@ -16,7 +17,6 @@ export class PromocionesComponent implements OnInit {
 
   constructor(
     public productosService: ProductosService,
-    private route: ActivatedRoute,
     public alertaService: AlertService
   ) {
    }
@@ -34,8 +34,6 @@ cargarPromociones() {
     this.productosService.listarPromocionesPaginado( this.desde  )
                .subscribe( {
                 next: (resp: any) => { 
-
-                  console.log("resp es ",resp)
           
                   if(resp[2][0].Mensaje == 'Ok') {
                     this.totalPromociones = resp[1][0].cantPromociones;
@@ -99,6 +97,42 @@ publicarPromocion(IdPromocion: string){
   }
  });
 
+}
+
+// ==================================================
+// 
+// ==================================================
+
+bajaPromocion(IdPromocion: string) {
+
+  Swal.fire({
+    title: '¿Desea eliminar la promocion?',
+    text: "Eliminacion de promocion",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si'
+  }).then((result: any) => {
+    if (result.isConfirmed) {
+      this.productosService.bajaPromocion( IdPromocion )
+      .subscribe({
+        next: (resp: any) => { 
+
+  
+          if(resp[0][0].Mensaje == 'Ok') {
+            this.alertaService.alertSuccess('top-end','Promocion dado de baja',false,900);
+            this.cargarPromociones();
+            
+          } else {
+            this.alertaService.alertFail(resp[0][0].Mensaje,false,1200);
+            
+          }
+         },
+        error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].Mensaje,false,1200); }
+      });
+    }
+  })
 }
 
 }

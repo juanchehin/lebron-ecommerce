@@ -199,6 +199,22 @@ public async buscarProductoAutoComplete(req: Request, res: Response): Promise<vo
     })
 }
 
+// ==================================================
+//        
+// ==================================================
+public async bajaPromocion(req: Request, res: Response): Promise<void> {
+
+    var IdPersona = req.params.IdPersona;
+    var pIdPromocion = req.params.pIdPromocion;
+
+    pool.query(`call bsp_baja_promocion('${IdPersona}','${pIdPromocion}')`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(404).json(err);
+            return;
+        }
+        res.status(200).json(result);
+    })
+}
 
 // ==================================================
 //        Lista

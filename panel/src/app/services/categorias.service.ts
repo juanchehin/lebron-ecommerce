@@ -177,10 +177,11 @@ return this.http.get( url,this.headers);
 // ==================================================
 // Cargo las marcas,categorias,unidades,sucursal principal
 // ==================================================
-cargarDatosFormEditarSubCategoria( IdCategoria: any){
+cargarDatosFormEditarSubCategoria( IdSubCategoria: any){
 
-let url = URL_SERVICIOS + '/categorias/subcategorias/editar/datos-formulario/' + IdCategoria + '/' + this.IdPersona;
-return this.http.get( url,this.headers );
+  let url = URL_SERVICIOS + '/categorias/subcategorias/editar/datos-formulario/' + IdSubCategoria + '/' + this.IdPersona;
+  
+  return this.http.get( url,this.headers );
 
 }
 

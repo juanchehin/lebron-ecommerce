@@ -246,6 +246,8 @@ public async cargarDatosFormEditarSubCategoria(req: Request, res: Response): Pro
     var pIdSubCategoria = req.params.pIdSubCategoria;
     var pIdUsuario = req.params.IdPersona;
 
+    console.log("pIdSubCategoria ; ",pIdSubCategoria)
+
     pool.query(`call bsp_dame_datos_form_editar_subcategoria('${pIdUsuario}','${pIdSubCategoria}')`, function(err: any, result: any){
         if(err){
             res.status(400).json(err);
@@ -267,10 +269,11 @@ public editarSubCategoria(req: Request, res: Response) {
 
     console.log("req. body : ",req.body);
 
-    var SubCategoria = req.body[0];
-    var Descripcion = req.body[1];
+    var IdCategoria = req.body[0];
+    var SubCategoria = req.body[1];
+    var Descripcion = req.body[2];
 
-    pool.query(`call bsp_editar_subcategoria('${IdPersona}','${IdSubCategoria}','${SubCategoria}','${Descripcion}')`,function(err: any, result: any){
+    pool.query(`call bsp_editar_subcategoria('${IdPersona}','${IdSubCategoria}','${IdCategoria}','${SubCategoria}','${Descripcion}')`,function(err: any, result: any){
         
                 if(err){
                     res.status(404).json(err);

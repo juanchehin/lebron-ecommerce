@@ -37,8 +37,6 @@ buscarCategoriasPaginado() {
                .subscribe( {
                 next: (resp: any) => { 
 
-                  console.log("resp es : ",resp);
-
                   if(resp[2] && resp[2][0].Mensaje == 'Ok')
                   { 
                     this.totalCategorias = resp[1][0].totalCategorias;
@@ -110,7 +108,7 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  // this.cargarProductos();
+  this.buscarCategoriasPaginado();
 
 }
 

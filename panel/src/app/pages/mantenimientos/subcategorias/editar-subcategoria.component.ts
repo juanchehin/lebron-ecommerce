@@ -11,7 +11,9 @@ import { CategoriasService } from 'src/app/services/categorias.service';
 export class EditarSubcategoriaComponent implements OnInit {
 
   IdCategoria: any;
-  Categoria: any;
+  IdSubCategoria: any;
+  categorias: any;
+  SubCategoria: any;
   Descripcion: any;
 
   constructor(
@@ -23,49 +25,57 @@ export class EditarSubcategoriaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.IdCategoria = this.activatedRoute.snapshot.paramMap.get('IdCategoria');
+    this.IdSubCategoria = this.activatedRoute.snapshot.paramMap.get('IdSubCategoria');
     this.cargarDatosFormEditarCategoria();
   }
-  // ==================================================
+
+// ==================================================
 // Carga
 // ==================================================
 
 cargarDatosFormEditarCategoria() {
 
-  this.categoriasService.cargarDatosFormEditarCategoria( this.IdCategoria  )
+  this.categoriasService.cargarDatosFormEditarSubCategoria( this.IdSubCategoria  )
              .subscribe( {
               next: (resp: any) => {
+                  
+                if ( (resp != null) && (resp[2][0].Mensaje == 'Ok') ) {
 
-                if ( (resp != null) && (resp[1][0].Mensaje == 'Ok') ) {
-                  this.Categoria = resp[0][0].Categoria;
-                  this.Descripcion = resp[0][0].Descripcion;
+                  this.categorias = resp[0];
+
+                  this.IdCategoria = resp[1][0].IdCategoria;
+                  this.SubCategoria = resp[1][0].SubCategoria;
+                  this.Descripcion = resp[1][0].Descripcion;
+                  
                 } else {
                   this.alertService.alertFail('Ocurrio un error. ' + resp,false,2000);
                 }
                 return;
-            },
+               },
             error: () => { this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000) }
           });
 
       };
 // ==================================================
-//        Crear 
+//        editarSubCategoria 
 // ==================================================
 
-editarCategoria() {
+editarSubCategoria() {
 
-      const categoriaEditado = new Array(
-        this.Categoria,
+      const subcategoriaEditado = new Array(
+        this.IdCategoria,
+        this.SubCategoria,
         this.Descripcion
       );
 
-      this.categoriasService.editarCategoria(this.IdCategoria, categoriaEditado )
+      this.categoriasService.editarSubCategoria(this.IdSubCategoria, subcategoriaEditado )
                 .subscribe( {
                   next: (resp: any) => {
                   
                     if ( (resp != null) && (resp.Mensaje == 'Ok') ) {
-                      this.alertService.alertSuccess('top-end','Categoria actualizada',false,2000);
-                      this.router.navigate(['/dashboard/productos/categorias']);
+
+                      this.alertService.alertSuccess('top-end','SubCategoria actualizada',false,2000);
+                      this.router.navigate(['/dashboard/productos/subcategorias']);
                     } else {
                       this.alertService.alertFail('Ocurrio un error. ' + resp,false,2000);
                     }
@@ -76,5 +86,7 @@ editarCategoria() {
 
             };
 
+
+ 
 
 }

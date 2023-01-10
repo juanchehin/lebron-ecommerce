@@ -1,9 +1,18 @@
+<h3>Edicion de - {{ SubCategoria }} -</h3>
 <div class="container">
     <div class="row">
         <div class="col-sm-6 form-group">
-            <label>Categoria : </label>
-            <input [(ngModel)]="Categoria" name="Categoria" type="text" placeholder="Categoria..." class="form-control">
+            <label>Categoria principal: </label>
+            <select tabindex="2" [(ngModel)]="IdCategoria" name="IdCategoria" class="form-control">
+                        <option *ngFor="let categoria of categorias" [value]="categoria.IdCategoria">
+                            {{categoria.Categoria}}
+                        </option>
+            </select>
         </div>
+        <div class="col-sm-6 form-group">
+            <label>SubCategoria : </label>
+            <input [(ngModel)]="SubCategoria" name="SubCategoria" type="text" placeholder="SubCategoria..." class="form-control">
+        </div>        
     </div>
     <div class="row">
         <div class="col-sm-6 form-group">
@@ -12,6 +21,6 @@
         </div>
     </div>
     <br>
-    <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase" (click)="editarCategoria()">Cargar categoria</button>
+    <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase" (click)="editarSubCategoria()">Guardar Cambios</button>
     <br>
 </div>

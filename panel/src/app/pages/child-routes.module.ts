@@ -89,7 +89,7 @@ const childRoutes: Routes = [
   // SubCategorias
   { path: 'productos/subcategorias', component: SubCategoriasComponent, data: { titulo: 'Subcategorias' }},
   { path: 'productos/subcategorias/nueva', component: SubCategoriaComponent, data: { titulo: 'Nueva Subcategoria' }},
-  { path: 'productos/subcategoria/:IdCategoria', component: EditarSubcategoriaComponent, data: { titulo: 'Editar Subcategoria' }},
+  { path: 'productos/subcategoria/:IdSubCategoria', component: EditarSubcategoriaComponent, data: { titulo: 'Editar Subcategoria' }},
   //
   { path: 'pedidos', component: PedidosComponent, data: { titulo: 'Pedidos' }},
   { path: 'ventas/listar', component: VentasComponent, data: { titulo: 'Listado de Ventas' }},

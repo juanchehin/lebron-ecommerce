@@ -20,6 +20,8 @@ class ProductosRoutes {
         this.router.get('/listar/busqueda/autocomplete/transferencia/:pProductoBuscado/:pIdSucursalOrigen',  [mdAutenticacion.verificaToken],productosController.buscarProductoAutoCompleteTransferencia); 
         this.router.get('/stock/sabor/producto/:pIdProducto/:pIdSabor',productosController.dameStockSaborProducto);
         this.router.get('/promocion/home',productosController.listarPromocionesHome);
+        this.router.get('/promociones/home/paginado/:pDesde',productosController.listarPromocionesPaginadoFront);
+        this.router.get('/destacados/home',productosController.listarProductosDestacadosHome);
 
         // *** Back ***
         // Productos

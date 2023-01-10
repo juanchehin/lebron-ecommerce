@@ -39,7 +39,7 @@ export class ProductosPromocionComponent implements OnInit {
 
 cargarPromociones() {
 
-    this.productosService.listarPromociones( this.desde  )
+    this.productosService.listarPromocionesPaginado( this.desde  )
                .subscribe( (resp: any) => {
 
                 this.promociones = resp[0];

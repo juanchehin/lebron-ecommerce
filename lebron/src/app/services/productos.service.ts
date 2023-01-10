@@ -54,6 +54,15 @@ listarPromociones(desde: any){
   return this.http.get( url );
 }
 
+// ==================================================
+//
+// ==================================================
+listarPromocionesPaginado(desde: any){
+
+  let url = URL_SERVICIOS + '/productos/promociones/home/paginado/' + desde;
+
+  return this.http.get( url );
+}
 
 // ==================================================
 //

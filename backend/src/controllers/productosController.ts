@@ -556,6 +556,23 @@ public async publicarPromocion(req: Request, res: Response): Promise<void> {
         res.status(200).json(result);
     })
 }
+// ==================================================
+//        
+// ==================================================
+public async listarPromocionesPaginadoFront(req: Request, res: Response): Promise<void> {
+
+    var desde = req.params.pDesde || 0;
+    desde  = Number(desde);
+
+    pool.query(`call bsp_listar_promociones_paginado_front('${desde}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
 
 // ==================================================
 //       ***** Tranferencias *****

@@ -39,7 +39,7 @@ listarProductosDestacados(desde: any){
 // ==================================================
 listarCategoriasSubcategorias(){
 
-  let url = URL_SERVICIOS + '/categorias/listar/subcategorias';
+  let url = URL_SERVICIOS + '/categorias/listar/front/subcategorias';
 
   return this.http.get( url );
 }

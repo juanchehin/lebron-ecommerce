@@ -22,7 +22,7 @@ export class SubCategoriasComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.categorias();
+    // this.cargarCategorias();
     this.buscarSubCategoriasPaginado();
   }
 
@@ -32,10 +32,10 @@ export class SubCategoriasComponent implements OnInit {
 
 buscarSubCategoriasPaginado() {
 
-    const inputElement: HTMLInputElement = document.getElementById('categoriaBuscado') as HTMLInputElement;
-    const categoriaBuscado: any = inputElement.value || '-';
+    const inputElement: HTMLInputElement = document.getElementById('subcategoriaBuscado') as HTMLInputElement;
+    const subcategoriaBuscado: any = inputElement.value || '-';
 
-    this.categoriasService.buscarSubCategoriasPaginado( this.desde, categoriaBuscado  )
+    this.categoriasService.buscarSubCategoriasPaginado( this.desde, subcategoriaBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
 
@@ -66,8 +66,6 @@ cargarCategorias() {
   this.categoriasService.listarCategorias( )
              .subscribe( {
               next: (resp: any) => { 
-
-                console.log("resp es : ",resp);
 
                 if(resp.Mensaje == 'Ok')
                 { 

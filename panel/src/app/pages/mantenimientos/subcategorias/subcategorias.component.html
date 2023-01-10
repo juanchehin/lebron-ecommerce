@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-sm-4 form-group">
                         <label>SubCategoria:  </label>
-                        <input (keyup.enter)="buscarSubCategoriasPaginado( )" #input type="text" class="form-control" placeholder="Buscar Categoria..." id="categoriaBuscado">
+                        <input (keyup.enter)="buscarSubCategoriasPaginado( )" #input type="text" class="form-control" placeholder="Buscar SubCategoria..." id="subcategoriaBuscado">
                     </div>
                     <div class="col-sm-1 form-group">
                         <button (click)="buscarSubCategoriasPaginado( )" class="btn btn-primary" style="margin-top: 26px;">
@@ -38,7 +38,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let subcategoria of subcategorias">
-                            <td>{{ subcategoria.IdSubCategoria }}</td>
+                            <td>{{ subcategoria.IdSubcategoria }}</td>
                             <td>{{ subcategoria.Fecha }}</td>
                             <td>{{ subcategoria.SubCategoria }}</td>
                             <td>{{ subcategoria.Categoria }}</td>

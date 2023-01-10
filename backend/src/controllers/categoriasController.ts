@@ -178,11 +178,12 @@ public editarCategoria(req: Request, res: Response) {
 // ==================================================
 public async altaSubCategoria(req: Request, res: Response) {
 
-    var pSubCategoria = req.body[0];
-    var pDescripcion = req.body[1];
+    var pIdCategoria = req.body[0];
+    var pSubCategoria = req.body[1];
+    var pDescripcion = req.body[2];
     var pIdUsuario = req.params.IdPersona;
 
-    pool.query(`call bsp_alta_subcategoria('${pIdUsuario}','${pSubCategoria}','${pDescripcion}')`, function(err: any, result: any){
+    pool.query(`call bsp_alta_subcategoria('${pIdUsuario}','${pIdCategoria}','${pSubCategoria}','${pDescripcion}')`, function(err: any, result: any){
         if(err){
             res.status(400).json(err);
             return;

@@ -97,7 +97,7 @@ altaVenta() {
   
           console.log("erws resp : ",resp)
 
-          if ( resp[0][0].Mensaje === 'Ok') {
+          if ( resp[0][0].Mensaje == 'Ok') {
             this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
 
             this.activarModal = false;

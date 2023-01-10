@@ -50,6 +50,34 @@ public async cargarMovimientosClienteCuenta(req: Request, res: Response): Promis
     })
 }
 
+// ==================================================
+//      
+// ==================================================
+altaAcreditarCliente(req: Request, res: Response) {
+
+    console.log("req.body : ",req.body)
+
+    
+    var pIdCliente = req.body[0].IdCliente;
+    var pMonto = req.body[0].monto;
+    var pDescripcion = req.body[0].descripcion;
+
+    var pIdUsuario = req.params.IdPersona;
+
+
+    pool.query(`call bsp_alta_acreditar_cliente('${pIdUsuario}','${pIdCliente}','${pMonto}','${pDescripcion}')`, function(err: any, result: any){
+
+        console.log("result : ",result)
+        console.log("err : ",err)
+
+       if(err){
+            res.status(404).json(err);
+           return;
+       }      
+        res.send({ Mensaje: 'Ok'});
+   })
+
+}
 }
 
 

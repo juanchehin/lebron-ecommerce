@@ -22,14 +22,13 @@ export class SubCategoriaComponent implements OnInit {
     public categoriaService: CategoriasService, 
     public activatedRoute: ActivatedRoute
     ) {
-      
-
   }
 
   ngOnInit() {
     this.cargarCategorias();
     this.forma = new FormGroup({      
-      Categoria: new FormControl(null, Validators.required ),
+      IdCategoria: new FormControl(null, Validators.required ),
+      SubCategoria: new FormControl(null, Validators.required ),
       Descripcion: new FormControl(null )
     });
   }
@@ -44,9 +43,7 @@ cargarCategorias() {
              .subscribe( {
               next: (resp: any) => { 
 
-                console.log("resp es : ",resp);
-
-                if(resp.Mensaje == 'Ok')
+                if(resp[1][0].Mensaje == 'Ok')
                 { 
                   this.categorias = resp[0];
                   return;
@@ -64,26 +61,27 @@ cargarCategorias() {
 //        Crear 
 // ==================================================
 
-  altaCategoria() {
+altaSubCategoria() {
 
       if ( this.forma.invalid ) {
         this.alertService.alertFail('Formulario invalido, chequee que los campos sean correctos',false,2000);
         return;
       }
 
-      const cliente = new Array(
-        this.forma.value.Categoria,
+      const subcategoria = new Array(
+        this.forma.value.IdCategoria,
+        this.forma.value.SubCategoria,
         this.forma.value.Descripcion
       );
 
-      this.categoriaService.altaCategoria( cliente )
+      this.categoriaService.altaSubCategoria( subcategoria )
                 .subscribe( (resp: any) => {
                   
                   if ( resp[0][0].Mensaje == 'Ok') {
 
-                    this.alertService.alertSuccess('top-end','Categoria cargado',false,2000);
+                    this.alertService.alertSuccess('top-end','SubCategoria cargado',false,2000);
                     
-                    this.router.navigate(['/dashboard/productos/categorias']);
+                    this.router.navigate(['/dashboard/productos/subcategorias']);
                   } else {
                     this.alertService.alertFailWithText('Ocurrio un error : ',resp[0][0].Mensaje,false,2000);
                   }

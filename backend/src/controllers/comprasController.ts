@@ -172,6 +172,8 @@ listarGastosPaginado(req: Request, res: Response) {
    })
 
 }
+
+
 }
 
 

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { CuentasService } from 'src/app/services/cuentas.service';
 import Swal from 'sweetalert2';
@@ -22,12 +22,14 @@ export class MovimientosComponent implements OnInit {
   totalMovimientos = 0;
   cargando = true;
   monto = 0;
+  descripcion: any;
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
 
   constructor(
     public cuentasService: CuentasService,
     private alertService: AlertService,
-    public activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
    }
 
@@ -119,7 +121,7 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  // this.cargarProductos();
+  this.cargarMovimientosClienteCuenta();
 
 }
 // ==================================================
@@ -144,17 +146,44 @@ formatDate(date: any) {
 // ==================================================
 
 acreditar() {
-  console.log("pasa acreditar")
+  
  this.activarModal = true;
-
-
 }
 
-  // ==============================
-  // 
-  // ================================
-  cerrarModal(){
-    let el: HTMLElement = this.divCerrarModal.nativeElement;
-    el.click();
-  }
+// ==============================
+// 
+// ================================
+cerrarModal(){
+  let el: HTMLElement = this.divCerrarModal.nativeElement;
+  el.click();
+}
+
+// ==============================
+// 
+// ================================
+guardarAcreditacion(){
+
+  this.cuentasService.altaAcreditarCliente( this.monto , this.IdPersona ,this.descripcion )
+  .subscribe( {
+   next: (resp: any) => { 
+
+    this.cerrarModal();
+
+     if(resp.Mensaje == 'Ok')
+     { 
+      this.alertService.alertSuccess('top-end','Registro guardado',false,2000);
+
+      this.router.navigate(['/dashboard/cuentas'])
+
+      return;
+     } else {
+       this.alertService.alertFail('Ocurrio un error',false,2000);
+     }
+     return;
+    },
+   error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
+ });
+
+  
+}
 }

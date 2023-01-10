@@ -1,9 +1,9 @@
 <div class="container">
-    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="altaCategoria()">
+    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="altaSubCategoria()">
         <div class="row">
             <div class="col-sm-6 form-group">
                     <label>Categoria principal: </label>
-                    <select tabindex="2" [(ngModel)]="IdCategoria" name="IdCategoria" class="form-control">
+                    <select tabindex="2" formControlName="IdCategoria" name="IdCategoria" class="form-control">
                                 <option *ngFor="let categoria of categorias" [value]="categoria.IdCategoria">
                                     {{categoria.Categoria}}
                                 </option>
@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col-sm-6 form-group">
                 <label>SubCategoria : </label>
-                <input formControlName="SubCategoria" name="Categoria" type="text" placeholder="Categoria..." class="form-control">
+                <input formControlName="SubCategoria" name="SubCategoria" type="text" placeholder="SubCategoria..." class="form-control">
             </div>
         </div>
         <div class="row">
@@ -23,7 +23,7 @@
             </div>
         </div>
         <br>
-        <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar Categoria</button>
+        <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar SubCategoria</button>
         <br>
     </form>
 </div>

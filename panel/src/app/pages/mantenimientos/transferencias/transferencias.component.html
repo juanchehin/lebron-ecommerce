@@ -41,7 +41,7 @@
                             <td>{{ transferencia.Fecha | date:"dd/MM/yyyy" }}</td>
                             <td>{{ transferencia.SucOrigen }}</td>
                             <td>{{ transferencia.SucDestino }}</td>
-                            <td>{{ transferencia.MontoTotal }}</td>
+                            <td>$ {{ transferencia.MontoTotal }}</td>
                             <td>
                                 <button class="btn btn-inline" type="button">Editar</button>
                                 <button class="btn btn-inline btn-danger" type="button" (click)="bajaTransferencia(transferencia.IdTransferencia)">Eliminar</button>

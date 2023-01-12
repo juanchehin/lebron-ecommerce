@@ -29,12 +29,12 @@
                     <tbody>
                         <tr *ngFor="let pedido of pedidos">
                             <td>{{ pedido.IdPedido }}</td>
-                            <td>{{ pedido.Fecha | date:"dd/MM/yyyy" }}</td>
+                            <td>{{ pedido.Fecha }}</td>
                             <td>{{ pedido.IdTransaccion }}</td>
                             <td>{{ pedido.ApNomCliente }}</td>
                             <td>{{ pedido.EstadoPedido }}</td>
                             <td>
-                                <button [disabled]="pedido.EstadoPedido == 'C'" class="btn btn-success" type="button" (click)="confirmarPedido(pedido.IdPedido)">Confirmar</button>
+                                <button [disabled]="pedido.EstadoPedido == 'C' || pedido.EstadoPedido == 'E'" class="btn btn-success" type="button" (click)="confirmarPedido(pedido.IdPedido)">Confirmar</button>
                             </td>
                         </tr>
 

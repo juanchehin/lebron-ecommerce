@@ -96,7 +96,8 @@ public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
 }
 
 // ==================================================
-//  **SIN USO EN LOCALHOST** Aqui recibimos las notificacinoes de MP 
+//  **SIN USO EN LOCALHOST** 
+// Aqui recibimos las notificacinoes de MP 
 // ==================================================
 public async webhook(req: Request, res: Response) {
 
@@ -108,7 +109,7 @@ public async webhook(req: Request, res: Response) {
       'hostname': 'api.mercadopago.com',
       'path': '/v1/payments/'+ paymentId,
       'headers': {
-        'Authorization': 'Bearer ' + process.env.MP_ACCESS_TOKEN_TEST
+        'Authorization': 'Bearer ' + process.env.MP_VEND_ACCESS_TOKEN_PROD
       },
       'maxRedirects': 20
     };
@@ -131,17 +132,17 @@ public async webhook(req: Request, res: Response) {
    
              pool.query(`call bsp_dame_pedido_id('${idOrden}')`, function(err: any, result: any) {
                
-               if(err){
+               if(err || result[2][0].Mensaje != 'Ok'){
                  return;
                }
                var estadoPedidoBD = result[0][0].EstadoPedido;
 
-               if(estadoPedidoBD == 'C')
+               if(estadoPedidoBD == 'C' || estadoPedidoBD == 'E')
                {
                   return;
                }
    
-               var montoTotalBD = result[0][0].MontoTotal;
+               var montoTotalBD = result[1][0].MontoTotal;
    
                if (Number(montoTotalBD) === Number(parsed.transaction_amount)) {
                  if (parsed.status === 'approved') {
@@ -174,7 +175,7 @@ export default checkoutController;
 async function createPaymentMercadoPago( items : any, costoEnvio: any, pIdPedidos: any,arrayDatosComprador: any) {
     const mercadoPagoUrl = "https://api.mercadopago.com/checkout"; 
 
-    const url = `${mercadoPagoUrl}/preferences?access_token=${process.env.MP_ACCESS_TOKEN_PROD}`;
+    const url = `${mercadoPagoUrl}/preferences?access_token=${process.env.MP_VEND_ACCESS_TOKEN_PROD}`;
 
     const preferences = { 
           items, 

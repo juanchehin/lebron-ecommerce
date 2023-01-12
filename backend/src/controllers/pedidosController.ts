@@ -31,7 +31,7 @@ public async confirmarPedido(req: Request, res: Response): Promise<void> {
     var pIdPedido = req.body[0];
     var pIdUsuario = req.body[1];
 
-    pool.query(`call bsp_confirmar_pedido('${pIdPedido}','${pIdUsuario}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_entregar_pedido('${pIdPedido}','${pIdUsuario}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json(err);
             return;

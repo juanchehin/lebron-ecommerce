@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pedidos',
@@ -62,21 +63,36 @@ cargarPedidos() {
 
 confirmarPedido(IdPedido: string) {
 
-  this.pedidosService.confirmarPedido( IdPedido )
-    .subscribe({
-      next: (resp: any) => { 
+  
+  Swal.fire({
+    title: '¿Desea confirmar el pedido?',
+    text: "Confirmacion entrega de pedido",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si'
+  }).then((result: any) => {
+    if (result.isConfirmed) {
+      this.pedidosService.confirmarPedido( IdPedido )
+      .subscribe({
+        next: (resp: any) => { 
+  
+          if(resp[0][0].Mensaje == 'Ok') {
+            this.alertService.alertSuccess('top-end','Pedido confirmado',false,900);
+            this.cargarPedidos();
+            
+          } else {
+            this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
+            
+          }
+         },
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
+      });
+    }
+  })
 
-        if(resp[0][0].Mensaje == 'Ok') {
-          this.alertService.alertSuccess('top-end','Pedido confirmado',false,900);
-          this.cargarPedidos();
-          
-        } else {
-          this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
-          
-        }
-       },
-      error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
-    });
+  
   }
 // ==================================================
 //        Cambio de valor

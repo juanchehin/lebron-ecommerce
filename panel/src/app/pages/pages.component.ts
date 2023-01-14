@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
 import { SidebarService } from '../services/sidebar.service';
-import { ConfiguracionesService } from '../services/configuraciones.service';
-
-// declare function customInitFunctions();
 
 @Component({
   selector: 'app-pages',
@@ -13,8 +9,7 @@ import { ConfiguracionesService } from '../services/configuraciones.service';
 })
 export class PagesComponent implements OnInit {
 
-  constructor( private configuracionesService: ConfiguracionesService,
-               private sidebarService: SidebarService ) { }
+  constructor( private sidebarService: SidebarService ) { }
 
   ngOnInit(): void {
     // customInitFunctions();

@@ -4,11 +4,11 @@ import { ProveedoresService } from 'src/app/services/proveedores.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-proveedores',
-  templateUrl: './proveedores.component.html',
+  selector: 'app-listar-proveedores',
+  templateUrl: './listar-proveedores.component.html',
   styles: []
 })
-export class ProveedoresComponent implements OnInit {
+export class ListarProveedoresComponent implements OnInit {
 
   desde = 0;
   totalAsistencias = true;

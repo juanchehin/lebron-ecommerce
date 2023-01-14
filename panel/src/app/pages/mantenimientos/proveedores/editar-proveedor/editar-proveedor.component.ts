@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MarcasService } from 'src/app/services/marcas.service';
-import { UnidadesService } from '../../../services/unidades.service';
-import { CategoriasService } from '../../../services/categorias.service';
+import { UnidadesService } from '../../../../services/unidades.service';
+import { CategoriasService } from '../../../../services/categorias.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 

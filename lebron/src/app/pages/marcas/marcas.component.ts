@@ -35,6 +35,7 @@ export class MarcasComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.cargarProductosMarca();
   }
 
@@ -46,10 +47,10 @@ cargarProductosMarca() {
 
   this.IdMarca = this.activatedRoute.snapshot.paramMap.get('IdMarca');
 
-  console.log("id marca ",this.IdMarca)
-
     this.marcasService.listarProductosMarca( this.IdMarca,this.desde  )
                .subscribe( (resp: any) => {
+
+                console.log("res ",resp)
 
                 this.productosMarca = resp[0];
 

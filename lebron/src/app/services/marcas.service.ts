@@ -21,5 +21,14 @@ export class MarcasService {
     return this.http.get( url );
   }
 
+  // ==================================================
+//
+// ==================================================
+listarProductosMarca(IdMarca: any, desde: string){
+
+  let url = URL_SERVICIOS + '/marcas/listar/productos/' + IdMarca + '/' + desde;
+
+  return this.http.get( url );
+}
 
 }

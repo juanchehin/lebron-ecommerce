@@ -22,6 +22,7 @@ class MarcasRoutes {
         this.router.get('/buscar/:pDesde/:pParametroBusqueda/:IdPersona',  [mdAutenticacion.verificaToken],marcasController.buscarMarcasPaginado); 
         this.router.get('/baja/:IdPersona/:pIdMarca',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],marcasController.bajaMarca); 
         this.router.post('/editar/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],marcasController.editarMarca);
+        this.router.get('/listar/productos/:pIdMarca/:pDesde',marcasController.dameProductosMarca); 
 
     }
 

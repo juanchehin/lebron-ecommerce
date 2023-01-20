@@ -27,11 +27,12 @@
                         </div>
                         <ul>
                             <li class="submenu">
-                                <a href="javascript:void(0);" class="show-submenu">Marcas</a>
+                                <a class="show-submenu">Marcas</a>
                                 <ul>
                                     <li *ngFor="let marca of marcas">
-                                        <a href="">{{ marca.Marca }}</a>
-                                    </li>
+                                        <span>
+                                            <a [routerLink]="['marca/'  , marca.IdMarca]">{{marca.Marca}}</a>
+                                        </span>
                                 </ul>
                             </li>
                             <li>

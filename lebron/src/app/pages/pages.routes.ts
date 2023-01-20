@@ -1,37 +1,11 @@
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './cuenta/login/login.component';
 import { PagesComponent } from './pages.component';
-import { PrincipalComponent } from './principal/principal.component';
-import { ProductosPromocionComponent } from './productos-promocion/productos-promocion.component';
-import { CategoriasComponent } from './categorias/categorias.component';
-import { BuscadorComponent } from './buscador/buscador.component';
-import { RegisterComponent } from './cuenta/register/register.component';
-import { PerfilComponent } from './cuenta/perfil/perfil.component';
-import { MiCuentaComponent } from './cuenta/perfil/mi-cuenta/mi-cuenta.component';
-import { MisDireccionesComponent } from './cuenta/perfil/direcciones/mis-direcciones.component';
-import { MisPedidosComponent } from './cuenta/perfil/pedidos/mis-pedidos.component';
-import { MailComponent } from './cuenta/mail/mail.component';
-import { TerminosCondicionesComponent } from './institucional/terminos-condiciones/terminos-condiciones.component';
-import { ContactoComponent } from './institucional/contacto/contacto.component';
-import { FranquiciaComponent } from './institucional/franquicia/franquicia.component';
-import { PoliticasComponent } from './institucional/politicas-seguridad/politicas-seguridad.component';
-import { CarritoComponent } from './carrito/carrito.component';
-import { EnvioComponent } from './envio/envio.component';
-import { ProductoDetalleComponent } from './producto-detalle/producto-detalle.component';
-import { DireccionEnvioComponent } from './checkout/direccion-envio/direccion-envio.component';
-import { NuevaDireccionComponent } from './cuenta/perfil/direcciones/nueva-direccion/nueva-direccion.component';
-import { FailureComponent } from './failure/failure.component';
-import { ComprarAhoraComponent } from './checkout/comprar-ahora/comprar-ahora.component';
+import { PrincipalComponent } from './principal/principal/principal.component';
+import { CategoriasComponent } from './categorias/categorias/categorias.component';
 import { LoginGuardGuard } from '../services/guards/login-guard.guard';
 import { VerificaTokenGuard } from '../services/guards/verifica-token.guard';
-import { PagoExitosoComponent } from './checkout/pago-exitoso/pago-exitoso.component';
-import { MisComprasComponent } from './mis-compras/mis-compras.component';
-import { PromocionDetalleComponent } from './promocion-detalle/promocion-detalle.component';
-import { NuevaPassComponent } from './cuenta/nueva-contraseña/nueva-pass.component';
-import { RecuperarClaveComponent } from './cuenta/recuperar-clave/recuperar-clave.component';
-import { ChequearMailComponent } from './cuenta/chequear-mail/chequear-mail.component';
-import { PassRecuperadaComponent } from './cuenta/pass-recuperada/pass-recuperada.component';
-import { ActualizacionExitosaComponent } from './cuenta/perfil/mi-cuenta/actualizacion-exitosa/actualizacion-exitosa.component';
+import { PromocionDetalleComponent } from './promocion-detalle/promocion-detalle/promocion-detalle.component';
+import { CarritoComponent } from './checkout/carrito/carrito.component';
 
 const pagesRoutes: Routes = [
       // *** Acceso publico ****
@@ -40,24 +14,24 @@ const pagesRoutes: Routes = [
         component: PagesComponent,
         children: [
             { path: '', component: PrincipalComponent },
-            { path: 'login', component: LoginComponent },
-            { path: 'registro', component: RegisterComponent },
-            { path: 'cuenta-creada', component: MailComponent },
-            { path: 'promociones', component: ProductosPromocionComponent },
-            { path: 'producto/detalle/:IdProducto', component: ProductoDetalleComponent },
+            // { path: 'promociones', loadChildren: () => import('./principal/promociones/promociones.module').then(m => m.PromocionesModule) },
+            { path: 'producto-detalle', loadChildren: () => import('./producto-detalle/producto-detalle.module').then(m => m.ProductoDetalleModule) },
+            { path: 'marca/:IdMarca', loadChildren: () => import('./marcas/marcas.module').then(m => m.MarcasModule) },
             { path: 'categoria/:IdCategoria', component: CategoriasComponent },
             { path: 'promocion/:IdPromocion', component: PromocionDetalleComponent },
-            { path: 'busqueda/:productoBuscado', component: BuscadorComponent },
-            { path: 'terminos-y-condiciones', component: TerminosCondicionesComponent },
-            { path: 'contacto', component: ContactoComponent },
-            { path: 'franquicia', component: FranquiciaComponent },
-            { path: 'politicas-de-seguridad', component: PoliticasComponent },
-            { path: 'failure', component: FailureComponent },
-            { path: 'nueva-pass/:pToken', component: NuevaPassComponent },
-            { path: 'recuperar-clave', component: RecuperarClaveComponent },
-            { path: 'chequear-mail', component: ChequearMailComponent },
-            { path: 'pass-recuperada', component: PassRecuperadaComponent },
-            { path: 'actualizacion-cuenta', component: ActualizacionExitosaComponent }
+            { path: 'busqueda', loadChildren: () => import('./buscador/buscador.module').then(m => m.BuscadorModule) },
+            { path: 'failure', loadChildren: () => import('./failure/failure.module').then(m => m.FailureModule) },
+            { path: 'categorias', loadChildren: () => import('./categorias/categorias.module').then(m => m.CategoriasModule) },
+            // { path: 'destacados', loadChildren: () => import('./principal/destacados/destacados.module').then(m => m.DestacadosModule) },
+            { path: 'failure', loadChildren: () => import('./failure/failure.module').then(m => m.FailureModule) },
+            { path: 'institucional', loadChildren: () => import('./institucional/institucional.module').then(m => m.InstitucionalModule) },
+            { path: 'producto-detalle', loadChildren: () => import('./producto-detalle/producto-detalle.module').then(m => m.ProductoDetalleModule) },
+            // { path: 'promociones', loadChildren: () => import('./principal/promociones/promociones.module').then(m => m.PromocionesModule) },
+            { path: 'promociones', loadChildren: () => import('./productos-promocion/productos-promocion.module').then(m => m.ProductosPromocionModule) },
+            { path: 'principal', loadChildren: () => import('./principal/principal.module').then(m => m.PrincipalModule) },
+            { path: 'productos-relacionados', loadChildren: () => import('./productos-relacionados/productos-relacionados.module').then(m => m.ProductosRelacionadosModule) },
+            { path: 'promocion-detalle', loadChildren: () => import('./promocion-detalle/promocion-detalle.module').then(m => m.PromocionDetalleModule) }, 
+            { path: 'marcas', loadChildren: () => import('./marcas/marcas.module').then(m => m.MarcasModule) }, 
         ]
     },
     // *** Acceso para el cliente logueado y con token actualizado ****
@@ -66,20 +40,20 @@ const pagesRoutes: Routes = [
         component: PagesComponent,
         canActivate: [LoginGuardGuard, VerificaTokenGuard],
         children: [
-            { path: 'perfil', component: PerfilComponent },
-            { path: 'perfil/cuenta/:IdPersona', component: MiCuentaComponent },
-            { path: 'perfil/direcciones/:IdPersona', component: MisDireccionesComponent },
-            { path: 'perfil/pedidos/:IdPersona', component: MisPedidosComponent },
-            { path: 'perfil/direcciones/nueva/:IdPersona', component: NuevaDireccionComponent },
-            { path: 'checkout/direcciones/:IdPersona', component: DireccionEnvioComponent },
-            { path: 'comprar-ahora/producto/:IdProducto', component: ComprarAhoraComponent },
-            { path: 'comprar-ahora/promocion/:IdPromocion/:IdPersona', component: ComprarAhoraComponent },
+            { path: 'perfil', loadChildren: () => import('./cuenta/perfil/perfil.module').then(m => m.PerfilModule) },
+            { path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule) },
+            { path: 'perfil', loadChildren: () => import('./envio/envio.module').then(m => m.EnvioModule) },
+            { path: 'mis-compras', loadChildren: () => import('./mis-compras/mis-compras.module').then(m => m.MisComprasModule) },
+            { path: 'cuenta', loadChildren: () => import('./cuenta/cuenta.module').then(m => m.CuentaModule) },
+            { path: 'perfil', loadChildren: () => import('./cuenta/perfil/perfil.module').then(m => m.PerfilModule) },
+            { path: 'mis-compras', loadChildren: () => import('./mis-compras/mis-compras.module').then(m => m.MisComprasModule) },
+            { path: 'envio', loadChildren: () => import('./envio/envio.module').then(m => m.EnvioModule) },
+            { path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule) },
             { path: 'carrito/:IdPersona', component: CarritoComponent },
-            { path: 'envio/:IdPersona', component: EnvioComponent },
-            { path: 'mis-compras', component: MisComprasComponent },
-            { path: 'pago-exitoso', component: PagoExitosoComponent }
         ]
     }
 ];
+
+
 
 export const PAGES_ROUTES = RouterModule.forChild( pagesRoutes );

@@ -7,8 +7,6 @@ import { Router } from '@angular/router';
 
 const url_imagenes_producto = environment.ruta_img_productos;
 
-
-
 @Component({
   selector: 'app-destacados',
   templateUrl: './destacados.component.html',

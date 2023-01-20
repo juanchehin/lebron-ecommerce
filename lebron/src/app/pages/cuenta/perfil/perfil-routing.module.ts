@@ -8,7 +8,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 
 const routes: Routes = [
   { path: '', component: PerfilComponent },
-  { path: 'cuenta/:IdPersona', component: MiCuentaComponent },
+  { path: 'mis-datos/:IdPersona', component: MiCuentaComponent },
   { path: 'direcciones/:IdPersona', component: MisDireccionesComponent },
   { path: 'pedidos/:IdPersona', component: MisPedidosComponent },
   { path: 'direcciones/nueva/:IdPersona', component: NuevaDireccionComponent },

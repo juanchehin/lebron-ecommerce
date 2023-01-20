@@ -56,8 +56,6 @@ loginCliente( persona: any ): any {
                   return false;
                 }
 
-                console.log("resp auth es : ",resp)
-
       this.IdPersona = resp.IdPersona;
 
       this.setIdPersona(resp.IdPersona);  //
@@ -126,42 +124,6 @@ estaLogueado() {
   }
 }
 
-// ==================================================
-//        Renueva TOKEN
-// ==================================================
-  renuevaToken() {
-
-    let url = URL_SERVICIOS + '/login/renuevatoken';
-
-    // return this.http.get( url,
-    //   {
-    //     headers: {
-    //       token: this.token
-    //     }
-    //   }
-    //   ).map( (resp: any) => {
-
-    //               this.token = resp.token;
-    //               localStorage.setItem('token', this.token );
-
-    //               return true;
-    //             })
-    //             .catch( err => {
-    //               this.router.navigate(['/login']);
-    //               Swal.fire({
-    //                 position: 'top-end',
-    //                 icon: 'error',
-    //                 title: 'No se pudo renovar token',
-    //                 showConfirmButton: false,
-    //                 timer: 2000
-    //               });
-    //               // tslint:disable-next-line: deprecation
-    //               return Observable.throw( err );
-    //             });
-
-
-  }
-
 
 // ==================================================
 //   Actualiza los datos del usuario (Estado,Clases disponibles,mesesCredito,etc)
@@ -189,7 +151,7 @@ logout() {
   localStorage.removeItem('id');
   localStorage.removeItem('items-carrito');
 
-  this.router.navigate(['/login']);
+  this.router.navigate(['/cuenta/login']);
 }
 
 // ==================================================

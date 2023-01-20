@@ -330,6 +330,6 @@ cargarDatosProductos(){
     }
     
     this.mensajeStockProducto = false;
-    this.router.navigate(['/comprar-ahora/promocion',this.IdPromocion,this.IdPersona]);
+    this.router.navigate(['/checkout/comprar-ahora/promocion',this.IdPromocion,this.IdPersona]);
   }
 }

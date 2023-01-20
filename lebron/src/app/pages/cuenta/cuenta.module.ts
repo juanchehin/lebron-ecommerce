@@ -7,7 +7,6 @@ import { LoginComponent } from './login/login.component';
 import { MailComponent } from './mail/mail.component';
 import { NuevaPassComponent } from './nueva-contraseña/nueva-pass.component';
 import { PassRecuperadaComponent } from './pass-recuperada/pass-recuperada.component';
-import { PerfilComponent } from './perfil/perfil/perfil.component';
 import { RecuperarClaveComponent } from './recuperar-clave/recuperar-clave.component';
 import { RegisterComponent } from './register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

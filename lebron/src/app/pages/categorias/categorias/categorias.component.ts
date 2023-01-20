@@ -35,6 +35,7 @@ export class CategoriasComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.cargarProductosCategoria();
   }
 

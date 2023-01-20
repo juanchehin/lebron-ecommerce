@@ -48,6 +48,8 @@ export class ComprarAhoraComponent implements OnInit  {
 
 
   ngOnInit(): void {
+    console.log("pasa comprar ahora")
+
     this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
     this.IdPromocion = this.activatedRoute.snapshot.paramMap.get('IdPromocion');
 
@@ -96,6 +98,7 @@ export class ComprarAhoraComponent implements OnInit  {
   //  y las direcciones del cliente
   // ===============================
   dameDatosComprarAhora(){
+    console.log("pasa datos comprar ahora")
     if(this.IdProducto)
     {
       this.checkoutService.dameDatosComprarAhora( this.IdProducto ,'producto' )

@@ -8,7 +8,6 @@ import { MiCuentaComponent } from './mi-cuenta/mi-cuenta.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MisDireccionesComponent } from './direcciones/mis-direcciones.component';
 import { NuevaDireccionComponent } from './direcciones/nueva-direccion/nueva-direccion.component';
-import { ActualizacionExitosaComponent } from './mi-cuenta/actualizacion-exitosa/actualizacion-exitosa.component';
 import { MisPedidosComponent } from './pedidos/mis-pedidos.component';
 
 
@@ -18,8 +17,7 @@ import { MisPedidosComponent } from './pedidos/mis-pedidos.component';
     MisPedidosComponent,
     MiCuentaComponent,
     MisDireccionesComponent,
-    NuevaDireccionComponent,
-    ActualizacionExitosaComponent
+    NuevaDireccionComponent
   ],
   imports: [
     CommonModule,

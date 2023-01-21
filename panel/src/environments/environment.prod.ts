@@ -2,5 +2,8 @@
 
 export const environment = {
   production: true,
-  base_url: 'https://adminpro-backend.herokuapp.com/api'
+  base_url: '',
+  URL_SERVICIOS: 'http://localhost:3000/api',
+  ruta_img_productos: 'http://localhost:3000/uploads/images/productos/',
+  ruta_img_marcas: 'http://localhost:3000/uploads/images/marcas/'
 };

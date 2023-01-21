@@ -1,5 +1,6 @@
 import express, { Application } from 'express';
 import cors from 'cors';
+const path = require('path');
 import loginRoutes from './routes/loginRoutes';
 import uploadRoutes from './routes/uploadRoutes';
 import settingsRoutes from './routes/settingsRoutes';
@@ -48,6 +49,8 @@ class Server {
         this.app.use(express.urlencoded({extended: false}));
 
         this.app.use(express.static('public'))
+        this.app.set('views', path.join(__dirname, './public'));
+
         
     }
 
@@ -100,6 +103,7 @@ class Server {
 //   Inicio el servicio en el puerto 3000
 // ==================================================
     start() {
+
         this.app.listen(this.app.get('port'), () => {
             console.log('Server en puerto', this.app.get('port'));
         });

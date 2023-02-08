@@ -106,14 +106,15 @@ class Server {
     start() {
 
         const enableHttps = false;
+        const ssloptions: any = {}
 
         if (enableHttps) {
-            https.createServer(
-                {
-                    key: fs.readFileSync("/etc/letsencrypt/live/lebron.chehin.online/fullchain.pem"),
-                    cert: fs.readFileSync("/etc/letsencrypt/live/lebron.chehin.online/privkey.pem"),
-                },this.app
-            ).listen(3000, function () {
+                ssloptions.key = fs.readFileSync('/etc/letsencrypt/live/lebron.chehin.online/fullchain.pem');
+                ssloptions.cert = fs.readFileSync('/etc/letsencrypt/live/lebron.chehin.online/privkey.pem');
+        }
+
+        if (enableHttps) {
+            https.createServer(ssloptions,this.app).listen(3000, function () {
                 console.log("HTTPS Server running on port 3000");
             });
         } else {
@@ -122,7 +123,6 @@ class Server {
             });
         }
 
-        
     }
 
 }

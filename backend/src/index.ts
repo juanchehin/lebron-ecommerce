@@ -1,6 +1,9 @@
 import express, { Application } from 'express';
 import cors from 'cors';
 const path = require('path');
+const https = require("https");
+const fs = require("fs");
+
 import loginRoutes from './routes/loginRoutes';
 import uploadRoutes from './routes/uploadRoutes';
 import settingsRoutes from './routes/settingsRoutes';
@@ -43,15 +46,13 @@ class Server {
         //     res.header("Access-Control-Allow-Methods", "POST, GET, PUT , DELETE, OPTIONS");
         //     next();
         //   });
-          
+
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: false}));
 
         this.app.use(express.static('public'))
-        this.app.set('views', path.join(__dirname, './public'));
 
-        
     }
 
 // ==================================================
@@ -104,9 +105,24 @@ class Server {
 // ==================================================
     start() {
 
-        this.app.listen(this.app.get('port'), () => {
-            console.log('Server en puerto', this.app.get('port'));
-        });
+        const enableHttps = false;
+
+        if (enableHttps) {
+            https.createServer(
+                {
+                    key: fs.readFileSync("/etc/letsencrypt/live/lebron.chehin.online/fullchain.pem"),
+                    cert: fs.readFileSync("/etc/letsencrypt/live/lebron.chehin.online/privkey.pem"),
+                },this.app
+            ).listen(3000, function () {
+                console.log("HTTPS Server running on port 3000");
+            });
+        } else {
+            this.app.listen(this.app.get('port'), () => {
+                console.log('Server en puerto', this.app.get('port'));
+            });
+        }
+
+        
     }
 
 }

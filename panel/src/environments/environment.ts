@@ -11,6 +11,15 @@ export const environment = {
 };
 
 /*
+export const environment = {
+  production: false,
+  URL_SERVICIOS: 'https://lebron.chehin.online:3000/api',
+  base_url: '',
+  ruta_img_productos: 'https://lebron.chehin.online:3000/uploads/images/productos/',
+  ruta_img_marcas: 'https://lebron.chehin.online:3000/uploads/images/marcas/'
+};
+*/
+/*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
  *

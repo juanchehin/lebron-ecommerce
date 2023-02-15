@@ -5,9 +5,9 @@ import { MisVentasComponent } from './mis-ventas/mis-ventas.component';
 import { NuevaVentaComponent } from './nueva-venta/nueva-venta.component';
 
 const routes: Routes = [
-  { path: 'ventas/listar', component: VentasComponent, data: { titulo: 'Listado de Ventas' }},
-  { path: 'venta/nueva', component: NuevaVentaComponent, data: { titulo: 'Nueva venta' }},
-  { path: 'ventas/:IdPersona', component: MisVentasComponent, data: { titulo: 'Mis ventas' }},];
+  { path: 'listar', component: VentasComponent, data: { titulo: 'Listado de Ventas' }},
+  { path: 'nueva', component: NuevaVentaComponent, data: { titulo: 'Nueva venta' }},
+  { path: ':IdPersona', component: MisVentasComponent, data: { titulo: 'Mis ventas' }},];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -49,3 +49,4 @@ e2e
 
 # Android/Capacitor
 android
+capacitor.config.ts

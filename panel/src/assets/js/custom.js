@@ -1,13 +1,13 @@
 /*
-Template Name: Admin Pro Admin
-Author: Wrappixel
-Email: niravjoshi87@gmail.com
 File: js
 */
 
 const customInitFunctions = () => {
+    console.log("pasa customInitFunctions")
     $(function() {
         "use strict";
+        console.log("pasa customInitFunctions 2")
+        
         $(function() {
             $(".preloader").fadeOut();
         });
@@ -44,6 +44,7 @@ const customInitFunctions = () => {
         // Theme options
         // ==============================================================     
         $(".sidebartoggler").on('click', function() {
+            
             if ($("body").hasClass("mini-sidebar")) {
                 $("body").trigger("resize");
                 $("body").removeClass("mini-sidebar");

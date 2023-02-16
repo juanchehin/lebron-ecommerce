@@ -81,8 +81,6 @@ editarProveedor() {
 
 cargarDatosFormEditarProveedor() {
 
-  console.log("this.IdProducto editar perod es : ",this.IdProveedor)
-
     this.proveedoresService.cargarDatosFormEditarProveedor( this.IdProveedor )
     .subscribe( {
       next: (resp: any) => {

@@ -19,6 +19,12 @@ import { ImagenesProductoComponent } from './imagenes/imagenes-producto.componen
 import { NuevaImagenProductoComponent } from './imagenes/nueva-imagen-producto.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { CategoriasComponent } from './categorias/categorias/categorias.component';
+import { CategoriaComponent } from './categorias/categoria/categoria.component';
+import { EditarCategoriaComponent } from './categorias/editar-categoria/editar-categoria.component';
+import { EditarSubcategoriaComponent } from './subcategorias/editar-subcategoria/editar-subcategoria.component';
+import { SubCategoriaComponent } from './subcategorias/subcategoria/subcategoria.component';
+import { SubCategoriasComponent } from './subcategorias/subcategorias/subcategorias.component';
 
 @NgModule({
   imports: [
@@ -42,7 +48,15 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     UnidadesComponent,
     UnidadComponent,
     ImagenesProductoComponent,
-    NuevaImagenProductoComponent
+    NuevaImagenProductoComponent,
+    //
+    CategoriaComponent,
+    CategoriasComponent,
+    EditarCategoriaComponent,
+    //
+    SubCategoriasComponent,
+    EditarSubcategoriaComponent,
+    SubCategoriaComponent
   ]
 })
 export class ProductosModule { }

@@ -13,13 +13,19 @@ import { SaborComponent } from './sabores/sabor.component';
 import { SaboresComponent } from './sabores/sabores.component';
 import { UnidadComponent } from './unidades/unidad.component';
 import { UnidadesComponent } from './unidades/unidades.component';
+import { CategoriaComponent } from './categorias/categoria/categoria.component';
+import { EditarCategoriaComponent } from './categorias/editar-categoria/editar-categoria.component';
+import { CategoriasComponent } from './categorias/categorias/categorias.component';
+import { SubCategoriasComponent } from './subcategorias/subcategorias/subcategorias.component';
+import { SubCategoriaComponent } from './subcategorias/subcategoria/subcategoria.component';
+import { EditarSubcategoriaComponent } from './subcategorias/editar-subcategoria/editar-subcategoria.component';
 
 
 const routes: Routes = [
    // Productos
    { path: '', component: ProductosComponent, data: { titulo: 'Productos' }},
    { path: 'nuevo', component: ProductoComponent, data: { titulo: 'Nuevo Producto' }},
-   { path: ':IdProducto', component: EditarProductoComponent, data: { titulo: 'Edicion de producto' }},
+   { path: 'editar/:IdProducto', component: EditarProductoComponent, data: { titulo: 'Edicion de producto' }},
    { path: 'unidades', component: UnidadesComponent, data: { titulo: 'Unidades' }},
    { path: 'unidades/nuevo', component: UnidadComponent, data: { titulo: 'Nueva Unidad' }},
    { path: 'sabor/:IdSabor', component: EditarSaborComponent, data: { titulo: 'Editar Sabor' }},
@@ -33,6 +39,15 @@ const routes: Routes = [
    // Productos - sabores
    { path: 'sabores', component: SaboresComponent, data: { titulo: 'Sabores' }},
    { path: 'sabores/nueva', component: SaborComponent, data: { titulo: 'Nueva Sabor' }},
+   // Productos - categorias
+   { path: 'categorias', component: CategoriasComponent, data: { titulo: 'Categorias' }},
+   { path: 'categorias/nueva', component: CategoriaComponent, data: { titulo: 'Nueva Categoria' }},
+   { path: 'categoria/:IdCategoria', component: EditarCategoriaComponent, data: { titulo: 'Editar Categoria' }},
+   // Productos - subcategorias
+   { path: 'subcategorias', component: SubCategoriasComponent, data: { titulo: 'Categorias' }},
+   { path: 'subcategorias/nueva', component: SubCategoriaComponent, data: { titulo: 'Nueva Categoria' }},
+   { path: 'subcategoria/:IdSubCategoria', component: EditarSubcategoriaComponent, data: { titulo: 'Editar Categoria' }}
+
 ];
 
 @NgModule({

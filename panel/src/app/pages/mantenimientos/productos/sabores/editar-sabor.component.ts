@@ -63,8 +63,6 @@ editarSabor() {
 
 cargarDatosFormEditarSabor() {
 
-  console.log("this.IdProducto editar perod es : ",this.IdSabor)
-
     this.saboresService.cargarDatosFormEditarSabor( this.IdSabor )
     .subscribe( {
       next: (resp: any) => {

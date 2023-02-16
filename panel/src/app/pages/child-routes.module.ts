@@ -47,16 +47,6 @@ const childRoutes: Routes = [
     loadChildren: () => import('./mantenimientos/clientes/clientes-routing.module').then( m => m.ClientesRoutingModule )
   },
   { 
-    path: 'categorias',
-    canActivate: [LoginGuardGuard, VerificaTokenGuard],
-    loadChildren: () => import('./mantenimientos/categorias/categorias-routing.module').then( m => m.CategoriasRoutingModule )
-  },
-  { 
-    path: 'subcategorias',
-    canActivate: [LoginGuardGuard, VerificaTokenGuard],
-    loadChildren: () => import('./mantenimientos/subcategorias/subcategorias-routing.module').then( m => m.SubcategoriasRoutingModule )
-  },
-  { 
     path: 'cuentas',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     loadChildren: () => import('./mantenimientos/cuentas-corrientes/cuentas-corrientes-routing.module').then( m => m.CuentasCorrientesRoutingModule )

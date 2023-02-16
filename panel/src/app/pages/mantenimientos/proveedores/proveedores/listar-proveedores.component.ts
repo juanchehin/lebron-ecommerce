@@ -39,8 +39,6 @@ cargarProveedores() {
     this.proveedoresService.listarProveedoresPaginado( this.desde  )
                .subscribe( (resp: any) => {
 
-                console.log("resp es : ",resp)
-
                 this.totalProveedores = resp[1][0].cantProveedores;
 
                 this.proveedores = resp[0];

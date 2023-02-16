@@ -169,8 +169,6 @@ altaProducto() {
 
 cargarDatosFormEditarProducto() {
 
-  console.log("this.IdProducto editar perod es : ",this.IdProducto)
-
     this.productosService.cargarDatosFormEditarProducto( this.IdProducto )
                .subscribe( (resp: any) => {
 

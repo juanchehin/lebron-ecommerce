@@ -72,8 +72,6 @@ cargarClientes( parametroBusqueda: string){
 // ==================================================
 buscarClientesPaginado(desde: any,filtroCliente: any, pClienteBuscado: any){
 
-  console.log("pClienteBuscado : ",pClienteBuscado)
-
   if(pClienteBuscado == '' || pClienteBuscado == null || pClienteBuscado == 'null' || !pClienteBuscado || pClienteBuscado.length === 0)
   {
     pClienteBuscado = '0';

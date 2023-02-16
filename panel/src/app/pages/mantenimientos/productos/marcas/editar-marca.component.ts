@@ -63,8 +63,6 @@ editarMarca() {
 
 cargarDatosFormEditarMarca() {
 
-  console.log("this.IdProducto editar perod es : ",this.IdMarca)
-
     this.marcasService.cargarDatosFormEditarMarca( this.IdMarca )
     .subscribe( {
       next: (resp: any) => {

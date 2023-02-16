@@ -35,8 +35,7 @@ cargarUnidades() {
 
     this.productosService.listarUnidadesPaginado( this.desde  )
                .subscribe( (resp: any) => {
-
-                console.log("resp unidades ",resp)
+                
                 this.totalUnidades = resp[1][0].cantUnidades;
 
                 this.unidades = resp[0];

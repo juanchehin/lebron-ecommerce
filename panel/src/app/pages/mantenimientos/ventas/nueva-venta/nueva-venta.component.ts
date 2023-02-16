@@ -64,6 +64,7 @@ export class NuevaVentaComponent implements OnInit {
 
   ngOnInit() {   
     this.IdPersona = this.authService.IdPersona;
+    this.datosVendedor = [];
     this.cargarDatosVendedor();    
 
   }
@@ -81,7 +82,7 @@ altaVenta() {
         this.alertaService.alertFail('Los totales no coinciden',false,2000);
         return;
       }
-      console.log("altaVenta 2")
+      
       this.arrayVenta.push(        
         this.IdCliente,
         this.lineas_venta,
@@ -89,13 +90,9 @@ altaVenta() {
         this.totalVenta
       );
 
-      console.log("altaVenta 3 ",this.arrayVenta); 
-
       this.ventasService.altaVenta(  this.arrayVenta )
       .subscribe({
-        next: (resp: any) => { 
-  
-          console.log("erws resp : ",resp)
+        next: (resp: any) => {
 
           if ( resp[0][0].Mensaje == 'Ok') {
             this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);

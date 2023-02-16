@@ -167,8 +167,6 @@ cargarDatosFormNuevoProducto() {
     this.productosService.cargarDatosFormNuevoProducto(  )
                .subscribe( (resp: any) => {
 
-                console.log("resp es : ",resp)
-
                 this.marcas = resp[0];
                 this.categorias = resp[1];
                 this.unidades = resp[2];

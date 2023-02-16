@@ -41,9 +41,7 @@ buscarSaborPaginado() {
   this.saboresService.buscarSaboresPaginado( this.desde , saborBuscada  )
              .subscribe( {
               next: (resp: any) => { 
-
-                console.log("resp marcfas ",resp)
-
+                
                 if(resp[0].length <= 0)
                 { 
                   this.sabores = [];

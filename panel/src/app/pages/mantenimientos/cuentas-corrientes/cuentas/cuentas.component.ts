@@ -43,8 +43,6 @@ buscarClientes() {
                .subscribe( {
                 next: (resp: any) => { 
 
-                  console.log("buscar cl : ",resp)
-
                   if(resp[2][0].Mensaje == 'Ok')
                   { 
                     this.totalClientes = resp[1][0].cantClientes;

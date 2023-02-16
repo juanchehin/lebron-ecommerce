@@ -39,8 +39,6 @@ buscarSubCategoriasPaginado() {
                .subscribe( {
                 next: (resp: any) => { 
 
-                  console.log("resp es : ",resp);
-
                   if(resp[2] && resp[2][0].Mensaje == 'Ok')
                   { 
                     this.totalSubCategorias = resp[1][0].totalSubCategorias;

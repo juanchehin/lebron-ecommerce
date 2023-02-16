@@ -10,19 +10,7 @@ import { PagesComponent } from './pages.component';
 import { PerfilComponent } from './perfil/perfil.component';
 
 import { ConfiguracionesComponent } from './mantenimientos/configuraciones/configuraciones.component';
-
-
-// odules
-import { ProveedoresModule } from './mantenimientos/proveedores/proveedores.module';
-import { ProductosModule } from './mantenimientos/productos/productos.module';
-// import { CategoriasModule } from './mantenimientos/categorias/categorias.module';
-import { ClientesModule } from './mantenimientos/clientes/clientes.module';
-import { ComprasModule } from './mantenimientos/compras/compras.module';
-import { CuentasCorrientesModule } from './mantenimientos/cuentas-corrientes/cuentas-corrientes.module';
 import { PromocionesModule } from './mantenimientos/promociones/promociones.module';
-// import { SubcategoriasModule } from './mantenimientos/subcategorias/subcategorias.module';
-import { UsuariosModule } from './mantenimientos/usuarios/usuarios.module';
-import { VentasModule } from './mantenimientos/ventas/ventas.module';
 
 @NgModule({
   declarations: [
@@ -42,16 +30,7 @@ import { VentasModule } from './mantenimientos/ventas/ventas.module';
     ReactiveFormsModule,
     SharedModule,
     RouterModule,
-    // ProveedoresModule,
-    // ProductosModule,
-    // CategoriasModule,
-    // ClientesModule,
-    // ComprasModule,
-    // CuentasCorrientesModule,
-    PromocionesModule,
-    // SubcategoriasModule,
-    // UsuariosModule,
-    // VentasModule
+    PromocionesModule
   ]
 })
 export class PagesModule { }

@@ -8,9 +8,9 @@ import { NuevaCompraComponent } from './nueva-compra/nueva-compra.component';
 
 const routes: Routes = [
   //
-  { path: 'compras', component: ComprasComponent, data: { titulo: 'Listado de compras' }},
-  { path: 'compras/nueva', component: NuevaCompraComponent, data: { titulo: 'Nueva compra' }},
-  { path: 'compras/:IdPersona', component: MisComprasComponent, data: { titulo: 'Mis compras' }},
+  { path: '', component: ComprasComponent, data: { titulo: 'Listado de compras' }},
+  { path: 'nueva', component: NuevaCompraComponent, data: { titulo: 'Nueva compra' }},
+  { path: 'editar/:IdCompra', component: MisComprasComponent, data: { titulo: 'Mis compras' }},
   //
   { path: 'gastos', component: ListarGastosComponent, data: { titulo: 'Listado de gastos' }},
   { path: 'gastos/nuevo', component: NuevoGastoComponent, data: { titulo: 'Nuevo gasto' }},

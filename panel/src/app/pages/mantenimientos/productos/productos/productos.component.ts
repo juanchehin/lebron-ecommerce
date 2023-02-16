@@ -78,8 +78,6 @@ cargarSucursales() {
   this.sucursalesService.listarTodasSucursales(   )
              .subscribe( (resp: any) => {
 
-              console.log("resp es : ",resp)
-
               this.sucursales  = resp[0];
 
               this.cargando = false;

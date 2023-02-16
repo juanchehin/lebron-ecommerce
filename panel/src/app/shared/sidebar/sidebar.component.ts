@@ -36,7 +36,22 @@ export class SidebarComponent implements OnInit {
 
   // Genera menu y submenu
   armarMenu(){
-    this.elementosMenuPadre = this.authService.menuBack;
+
+    var long: any = localStorage.getItem('menu')?.length;
+
+    if(long == undefined || long <= 0){
+
+      this.authService.logout();
+      return;
+    }
+
+    if(this.authService.menuBack.length <= 0)
+    {
+      this.elementosMenuPadre = JSON.parse(localStorage.getItem('menu')!);
+    }
+    else{
+      this.elementosMenuPadre = this.authService.menuBack;
+    }
 
     var pivot = this.elementosMenuPadre[0].Permiso;
     var proximovalor = this.elementosMenuPadre[1].Permiso;

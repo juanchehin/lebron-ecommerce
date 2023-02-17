@@ -1,11 +1,6 @@
 import { Request, Response } from 'express';
-// import mysqldump from 'mysqldump';
-import keys from '../keys';
 import pool from '../database';
-
-const fs = require('fs');
-const readline = require('readline');
-// const { google } = require('googleapis');
+const logger = require("../utils/logger").logger;
 
 class SettingsController {
   
@@ -90,6 +85,8 @@ public async actualizarConfiguraciones(req: Request, res: Response): Promise<voi
             '${pIngBrutos}','${pIVA}','${pInstagram}','${pTwitter}','${pFacebook}','${pYoutube}','${pTarjeta1Pago}','${pTarjeta3Pago}',
             '${pTarjeta6Pago}','${pCostoEnvio}','${pDolar}','${pRetencionMP}')`, function(err: any, result: any, fields: any){
       if(err){
+        logger.error("Error en actualizarConfiguraciones - bsp_actualizar_configuraciones - settingsController");
+
           res.status(400).json(err);
           return;
       }

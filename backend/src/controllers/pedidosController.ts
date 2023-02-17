@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../database';
+const logger = require("../utils/logger").logger;
 
 class PedidosController {
 
@@ -33,6 +34,8 @@ public async confirmarPedido(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_entregar_pedido('${pIdPedido}','${pIdUsuario}')`, function(err: any, result: any, fields: any){
         if(err){
+            logger.error("Error en confirmarPedido - pedidosController " + err);
+
             res.status(404).json(err);
             return;
         }

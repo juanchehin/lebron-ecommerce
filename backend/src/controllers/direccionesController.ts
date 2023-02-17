@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import pool from '../database';
-const bcrypt = require('bcrypt');
 
 class DireccionesController {
 

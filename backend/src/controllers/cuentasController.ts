@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../database';
+const logger = require("../utils/logger").logger;
 
 class CuentasController {
 
@@ -54,9 +55,6 @@ public async cargarMovimientosClienteCuenta(req: Request, res: Response): Promis
 //      
 // ==================================================
 altaAcreditarCliente(req: Request, res: Response) {
-
-    console.log("req.body : ",req.body)
-
     
     var pIdCliente = req.body[0].IdCliente;
     var pMonto = req.body[0].monto;
@@ -67,10 +65,9 @@ altaAcreditarCliente(req: Request, res: Response) {
 
     pool.query(`call bsp_alta_acreditar_cliente('${pIdUsuario}','${pIdCliente}','${pMonto}','${pDescripcion}')`, function(err: any, result: any){
 
-        console.log("result : ",result)
-        console.log("err : ",err)
-
        if(err){
+            logger.error("Error en altaAcreditarCliente - CuentasController " + err );
+
             res.status(404).json(err);
            return;
        }      

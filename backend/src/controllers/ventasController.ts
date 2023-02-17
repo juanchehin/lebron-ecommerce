@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../database';
+const logger = require("../utils/logger").logger;
 
 class VentasController {
 
@@ -79,7 +80,7 @@ altaVenta(req: Request, res: Response) {
     pool.query(`call bsp_alta_venta('${pIdVendedor}','${pIdCliente}','${pMontoTotal}')`, function(err: any, result: any){
 
        if(err){
-            console.log("Linea 86 - ventasController : ",err + result)
+            logger.error("Error bsp_alta_venta - altaVenta - ventasController " + err);
 
             pool.query(`call bsp_alta_log('${pIdVendedor}',"${String(result[0][0].Message)}",'ventasController','${result[0][0].Code}','bsp_alta_venta','${err}')`);
 
@@ -97,7 +98,7 @@ altaVenta(req: Request, res: Response) {
 
                     if(err || result2[0][0].Mensaje != 'Ok'){
 
-                        console.log("Linea 106 - ventasController : ",err + result2)
+                        logger.error("Error bsp_alta_venta 2 - altaVenta - ventasController " + err);
 
                         pool.query(`call bsp_alta_log('${pIdVendedor}',"${String(result2[0][0].Message)}",'ventasController','${result2[0][0].Code}','bsp_alta_venta','${err}')`);
 
@@ -113,7 +114,7 @@ altaVenta(req: Request, res: Response) {
                              pool.query(`call bsp_alta_tipo_pago('${result[0][0].IdVenta}','${value.IdTipoPago}','${value.SubTotal}','${pIdCliente}')`, function(err: any, result3: any){
                                 
                                 if(err){
-                                    console.log("Linea 122 - ventasController : ",err + result3)
+                                    logger.error("Error bsp_alta_venta 3 - altaVenta - ventasController " + err);
 
                                     pool.query(`call bsp_alta_log('${pIdVendedor}',"${String(result3[0][0].Message)}",'ventasController','${result3[0][0].Code}','bsp_alta_venta','${err}')`);
             
@@ -131,7 +132,7 @@ altaVenta(req: Request, res: Response) {
         }
         else
         {
-            console.log("Linea 136 - ventasController : ")
+            logger.error("Error bsp_alta_venta - altaVenta - ventasController " + err);
 
             pool.query(`call bsp_alta_log('${pIdVendedor}',"Error alta venta",'ventasController','${result}','bsp_alta_venta','${err}')`);
             

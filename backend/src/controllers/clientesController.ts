@@ -2,6 +2,7 @@ import { Request, Response, NextFunction, response } from 'express';
 import pool from '../database';
 const bcrypt = require('bcrypt');
 const nodemailer = require("nodemailer");
+const logger = require("../utils/logger").logger;
 
 class ClientesController {
 
@@ -43,9 +44,7 @@ public async altaCliente(req: Request, res: Response) {
         res.status(200).json(result);
     })
 
-    enviarMailBienvenida(Email);
-
-    
+    enviarMailBienvenida(Email);   
 
 }
 // ==================================================
@@ -54,8 +53,6 @@ public async altaCliente(req: Request, res: Response) {
 public async editarCliente(req: Request, res: Response) {
 
     const { IdPersona } = req.params;
-
-    console.log("req. body : ",req.body);
 
     var Apellidos = req.body[0];
     var Nombres = req.body[1];
@@ -68,8 +65,6 @@ public async editarCliente(req: Request, res: Response) {
 
     pool.query(`call bsp_editar_cliente('${IdPersona}','${pIdCliente}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}','${Observaciones}')`,function(err: any, result: any, fields: any){
         
-                console.log("result ",result)
-
                 if(err){
                     res.status(404).json(err);
                     return;
@@ -100,11 +95,15 @@ public async editarClienteFront(req: Request, res: Response) {
     pool.query(`call bsp_editar_cliente_front('${IdPersona}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}')`,function(err: any, result: any){
         
                 if(err){
+                    logger.error("Error en editarClienteFront - clientesController " + err);
+
                     res.status(404).json(err);
                     return;
                 }
                 
                 if(result[0][0].Mensaje !== 'Ok'){
+                    logger.error("Error en editarClienteFront - clientesController " + result );
+
                     return res.json( result );
                 }
 
@@ -131,6 +130,8 @@ public async altaDireccionCliente(req: Request, res: Response) {
     function(err: any, result: any, fields: any){
         
                 if(err){
+                    logger.error("Error en altaDireccionCliente - clientesController " + result );
+
                     res.status(404).json(err);
                     return;
                 }
@@ -160,6 +161,8 @@ public async altaProductoCarrito(req: Request, res: Response) {
     pool.query(`call bsp_alta_producto_carrito('${IdCliente}','${IdProducto}','${IdSaborSeleccionado}','${Cantidad}')`,function(err: any, result: any, fields: any){
         
                 if(err){
+                    logger.error("Error en altaProductoCarrito - clientesController " + err );
+
                     res.status(404).json(err);
                     return;
                 }
@@ -190,6 +193,8 @@ public async altaPromocionCarrito(req: Request, res: Response) {
     pool.query(`call bsp_alta_promocion_carrito('${IdCliente}','${IdPromocion}','${IdSabor1}','${IdSabor2}','${Cantidad}')`,function(err: any, result: any, fields: any){
         
                 if(err){
+                    logger.error("Error en altaPromocionCarrito - clientesController " + err );
+
                     res.status(404).json(err);
                     return;
                 }
@@ -437,10 +442,9 @@ public async bajaProductoCarrito(req: Request, res: Response) {
 
     pool.query(`call bsp_baja_producto_carrito('${IdCliente}','${IdProducto}')`, function(err: any, result: any){
 
-        console.log("result : ",result);
-        console.log("err : ",err);
-
         if(err){
+            logger.error("Error en bajaProductoCarrito - clientesController " + err );
+
             res.status(404).json(result);
             return;
         }
@@ -468,10 +472,9 @@ public async bajaPromocionCarrito(req: Request, res: Response) {
 
     pool.query(`call bsp_baja_promocion_carrito('${IdCliente}','${IdPromocion}','${IdSabor1}','${IdSabor2}')`, function(err: any, result: any){
 
-        console.log("result : ",result);
-        console.log("err : ",err);
-
         if(err){
+            logger.error("Error en bajaPromocionCarrito - clientesController " + err );
+
             res.status(404).json(result);
             return;
         }

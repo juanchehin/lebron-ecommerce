@@ -3,6 +3,7 @@ import pool from '../database';
 const axios = require("axios");
 require('dotenv').config()
 var https = require('follow-redirects').https;
+const logger = require("../utils/logger").logger;
 
 class CheckoutController {
 
@@ -52,11 +53,11 @@ public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
     pool.query(`call bsp_alta_pedido('${pIdPersona}','${pIdDireccion}','${pTotal}')`, async function(err: any, result: any, fields: any){
       
       if(err || result[0][0].Mensaje != 'Ok'){
+          logger.error("Error en alta pedido - getMercadoPagoLink - checkoutController " + err + " " + result[0][0].Mensaje);
           res.status(400).json({ text: err });
           return;
       }
 
-      console.log("result es ; ",result)
       var pIdPedido = result[0][0].pIdPedido;
 
       const arrayDatosComprador = new Array(
@@ -82,6 +83,8 @@ public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
   
   
       } catch (err) { 
+        logger.error("Error en createPaymentMercadoPago - getMercadoPagoLink - checkoutController " + err);
+
         return res.status(500).json({
           error: true,
           msg: "Hubo un error con Mercado Pago" + err
@@ -149,7 +152,8 @@ public async webhook(req: Request, res: Response) {
                    pool.query(`call bsp_aprobar_pedido('${idOrden}','${paymentId}')`, async function(err: any, result: any, fields: any){
    
                      if(err){
-                       return;
+                        logger.error("Error en webhook - checkoutController " + err);
+                        return;
                      }
                    })
                  }
@@ -238,12 +242,15 @@ async function createPaymentMercadoPago( items : any, costoEnvio: any, pIdPedido
           return request.data; 
         } catch (e: any) {
 
+          
           var IdUsuario = arrayDatosComprador[0];
-
+          
           var dataErrorCode = e.response.data.status || '';
           var dataStatusText = e.response.statusText || '';
           var message = e.response.data.message || '';
 
+          logger.error("Error en createPaymentMercadoPago - checkoutController " + message + "; StatusCode : " + dataStatusText + "; errorCode : " + dataErrorCode);
+          
             pool.query(`call bsp_alta_log('${IdUsuario}','${dataStatusText}','checkoutController','${dataErrorCode}','createPaymentMercadoPago','${message}')`, function(err: any, result: any, fields: any){
               if(err){
                   return;

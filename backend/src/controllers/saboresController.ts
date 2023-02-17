@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../database';
+const logger = require("../utils/logger").logger;
 
 class SaboresController {
 // ==================================================
@@ -117,6 +118,8 @@ public async editarSabor(req: Request, res: Response) {
     pool.query(`call bsp_editar_sabor('${pIdSabor}','${pSabor}','${pDescripcion}')`, function(err: any, result: any){
         
         if(err || result.Mensaje !== 'Ok'){
+            logger.error("Error en editarSabor - bsp_editar_sabor - saboresController");
+
             return res.json({
                 ok: false,
                 Mensaje: result[0][0].Mensaje

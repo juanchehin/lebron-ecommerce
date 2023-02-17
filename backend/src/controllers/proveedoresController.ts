@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../database';
+const logger = require("../utils/logger").logger;
 
 class ProveedoresController {
 
@@ -52,11 +53,15 @@ public async altaProveedor(req: Request, res: Response) {
     pool.query(`call bsp_alta_proveedor('${IdUsuario}','${Proveedor}','${CUIL}','${Telefono}','${Apellidos}','${Nombres}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
         
         if(err){
+            logger.error("Error en altaProveedor - bsp_alta_proveedor - proveedoresController");
+
             res.status(404).json({ text: err });
             return;
         }
 
         if(result[0][0].Mensaje !== 'Ok'){
+            logger.error("Error en altaProveedor - bsp_alta_proveedor - proveedoresController");
+
             return res.json({
                 ok: false,
                 Mensaje: result[0][0].Mensaje
@@ -104,11 +109,15 @@ public async editarProveedor(req: Request, res: Response) {
     pool.query(`call bsp_editar_proveedor('${IdUsuario}','${IdProveedor}','${Proveedor}','${Apellidos}','${Nombres}','${Telefono}','${CUIL}','${Email}','${Observaciones}')`, function(err: any, result: any){
         
         if(err){
+            logger.error("Error en editarProveedor - bsp_editar_proveedor - proveedoresController");
+
             res.status(404).json({ text: "Ocurrio un problema" });
             return;
         }
 
         if(result[0][0].Mensaje !== 'Ok'){
+            logger.error("Error en editarProveedor - bsp_editar_proveedor - proveedoresController");
+
             return res.json({
                 ok: false,
                 Mensaje: result[0][0].Mensaje

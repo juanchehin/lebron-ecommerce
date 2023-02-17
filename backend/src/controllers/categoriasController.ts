@@ -32,7 +32,6 @@ public async listarCategoriasSubcategorias(req: Request, res: Response): Promise
             res.status(400).json(err);
             return;
         }
-        // res.json(result);
 
         res.status(200).json(result);
     })
@@ -49,7 +48,6 @@ public async listarSubcategoriasPorIdCategoria(req: Request, res: Response): Pro
             res.status(400).json(err);
             return;
         }
-        // res.json(result);
 
         res.status(200).json(result);
     })
@@ -93,7 +91,6 @@ public async bajaCategoria(req: Request, res: Response): Promise<void> {
             res.status(400).json(err);
             return;
         }
-        // res.json(result);
 
         res.status(200).json(result);
     })
@@ -111,7 +108,6 @@ public async listarCategorias(req: Request, res: Response): Promise<void> {
             res.status(400).json(err);
             return;
         }
-        // res.json(result);
 
         res.status(200).json(result);
     })
@@ -129,7 +125,6 @@ public async cargarDatosFormEditarCategoria(req: Request, res: Response): Promis
             res.status(400).json(err);
             return;
         }
-        // res.json(result);
 
         res.status(200).json(result);
     })
@@ -142,8 +137,6 @@ public editarCategoria(req: Request, res: Response) {
 
     const { IdPersona } = req.params;
     const { IdCategoria } = req.params;
-
-    console.log("req. body : ",req.body);
 
     var Categoria = req.body[0];
     var Descripcion = req.body[1];

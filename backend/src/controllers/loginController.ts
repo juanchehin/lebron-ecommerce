@@ -5,6 +5,7 @@ require("dotenv").config();
 var SEED = process.env.JWT_KEY;
 var SEED_MAIL = process.env.JWT_KEY_MAIL;
 import pool from '../database';
+const logger = require("../utils/logger").logger;
 
 const nodemailer = require("nodemailer");
 // import keys from '../keys';
@@ -26,6 +27,13 @@ pool.query(`call bsp_login_panel('${email}')`, function(err: any, resultLogin: s
     var menu: any = [];
 
     if(err){
+        pool.query(`call bsp_alta_log('0','0','LoginController','0','loginUsuario','Error de login en panel + ${email}')`, function(err: any, result: any, fields: any){
+            if(err){
+                logger.error("Error en bsp_alta_log - loginUsuario - loginController " + email);
+                return;
+            }
+        })
+
         res.status(401).json({
             ok: true,
             mensaje : 'Error de credenciales'
@@ -35,6 +43,7 @@ pool.query(`call bsp_login_panel('${email}')`, function(err: any, resultLogin: s
     bcrypt.compare(pass, resultLogin[0][0].lPassword, function(err: any, result: any) {
 
         if(result != true || err){
+            logger.error("Error en bcrypt.compare - loginUsuario - loginController ");
 
             res.status(500).json({
                 ok: true,
@@ -77,6 +86,13 @@ public async loginCliente(req: Request, res: Response){
 pool.query(`call bsp_login_cliente('${email}')`, function(err: any, resultLogin: string | any[]){
 
     if(err){
+        pool.query(`call bsp_alta_log('0','0','LoginController','0','loginCliente','Error de login en front + ${email}')`, function(err: any, result: any, fields: any){
+            if(err){
+                logger.error("Error en bsp_login_cliente - loginUsuario - loginController " + email);
+                return;
+            }
+        })
+
         res.status(401).json({
             ok: true,
             mensaje : 'Error de credenciales'
@@ -88,6 +104,7 @@ pool.query(`call bsp_login_cliente('${email}')`, function(err: any, resultLogin:
     bcrypt.compare(pass, resultLogin[0][0].lPassword, function(err: any, result: any) {
 
         if(result != true){
+            logger.error("Error en bcrypt.compare - loginCliente - loginController " + email);
 
             res.status(500).json({
                 ok: true,
@@ -149,6 +166,8 @@ public async recuperarClave(req: Request, res: Response): Promise<void> {
     pool.query(`call bsp_dame_id_por_email('${pEmail}')`, function(err: any, result: any, fields: any){
 
         if(err){
+            logger.error("Error en recuperarClave - loginController " + err);
+
             res.status(404).json(err);
             return;
         }
@@ -159,6 +178,8 @@ public async recuperarClave(req: Request, res: Response): Promise<void> {
             pool.query(`call bsp_alta_token_recuperar_pass('${result[0][0].vIdPersona}','${token}')`, function(err: any, result: any, fields: any){        
 
                 if(err || result[0][0].Mensaje != 'Ok'){
+                    logger.error("Error en bsp_alta_token_recuperar_pass - loginController " + err);
+
                     return res.json({
                         ok: false,
                         Mensaje: err
@@ -173,6 +194,8 @@ public async recuperarClave(req: Request, res: Response): Promise<void> {
            
         } 
         else{ 
+            logger.error("Error en recuperarClave - loginController " + err);
+
             res.status(500).json({
                 ok: true,
                 mensaje : 'Ocurrio un problema, contactese con el administrador'
@@ -197,6 +220,8 @@ public async nuevaPassword(req: Request, res: Response): Promise<any> {
         var IdPersona = decoded.IdPersona;
         // next();
     } catch(err) {
+        logger.error("Error en nuevaPassword - loginController " + err);
+
         return res.json({
             ok: false,
             Mensaje: err
@@ -206,6 +231,8 @@ public async nuevaPassword(req: Request, res: Response): Promise<any> {
     pool.query(`call bsp_checkear_token('${IdPersona}','${token}')`, function(err: any, result: any, fields: any){
 
         if(err || (result[0][0].Mensaje != 'Ok')){
+            logger.error("Error en bsp_checkear_token - loginController " + err);
+
             return res.json({
                 ok: false,
                 Mensaje: err
@@ -221,6 +248,8 @@ public async nuevaPassword(req: Request, res: Response): Promise<any> {
             pool.query(`call bsp_nueva_pass_cliente('${IdPersona}','${hash}','${token}')`, function(err: any, result: any, fields: any){        
                                 
                 if(err || result[0][0].Mensaje != 'Ok'){
+                    logger.error("Error en bsp_nueva_pass_cliente - loginController " + err);
+
                     return res.json({
                         ok: false,
                         Mensaje: err

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../database';
+const logger = require("../utils/logger").logger;
 
 class ProductosController {   
 
@@ -39,14 +40,11 @@ public async altaProducto(req: Request, res: Response) {
         FechaVencimiento = null;
     }
 
-    console.log("IdSubCategoria es ",IdSubCategoria)
-
     pool.query(`call bsp_alta_producto('${req.params.IdPersona}','${IdCategoria}','${IdSubCategoria}','${IdMarca}','${IdUnidad}','${IdProveedor}','${Producto}',${FechaVencimiento},'${Descripcion}',${StockAlerta},'${Medida}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${PrecioMeli}',${Descuento},'${Moneda}')`, async function(err: any, result: any, fields: any){
         
-        console.log("err : ",err)
-        console.log("resulta : ",result)
-
         if(err || result[0][0].Mensaje != 'Ok'){
+            logger.error("Error en bsp_alta_producto - productosController " + err);
+
             res.status(404).json({ text: err });
             return;
         }
@@ -60,23 +58,23 @@ public async altaProducto(req: Request, res: Response) {
 
                 var respuesta = pool.query(`call bsp_alta_sabores_codigo_producto('${result[1][0].pIdProducto}','${value.IdSabor}','${value.Codigo}')`, function(err2: any, result2: any){
                     
-                    console.log("err 2: ",err2)
-                    console.log("resulta 2: ",result2)
-
-
                     if(err2 || result2[0][0].Mensaje != 'Ok'){
+                        logger.error("Error en bsp_alta_sabores_codigo_producto - productosController " + err);
+
                         return false;
                     }
 
                     if(result2[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_alta_sabores_codigo_producto - productosController " + result2[0][0].Level);
+
                         return false;
                     }
                     
                 })
 
-                console.log("respuesta : ",respuesta)
-
                 if(!respuesta){
+                    logger.error("Error en bsp_alta_sabores_codigo_producto - productosController 2 ");
+
                     return res.json({
                         ok: false,
                         Mensaje: 'Ocurrio un error'
@@ -189,7 +187,8 @@ public async buscarProductoAutoComplete(req: Request, res: Response): Promise<vo
     }
 
     pool.query(`call bsp_buscar_producto_autocomplete('${pParametroBusqueda}','${pIdSucursal}','${pIdUsuario}')`, function(err: any, result: any){
-        
+        logger.error("Error en bsp_buscar_producto_autocomplete - productosController");
+
         if(err){
             res.status(400).json(err);
             return;
@@ -254,6 +253,7 @@ public async publicarProducto(req: Request, res: Response): Promise<void> {
     pool.query(`call bsp_publicar_producto('${pIdProducto}')`, function(err: any, result: any){
 
         if(err || result[0][0].Mensaje !== 'Ok'){
+            
             return res.status(200).json({
                 ok: false,
                 Mensaje: result[0][0].Mensaje
@@ -520,6 +520,8 @@ public async altaPromocion(req: Request, res: Response) {
     pool.query(`call bsp_alta_promocion('${req.params.IdPersona}','${pIdProdUno}','${pIdProdDos}','${pPromocion}','${pDescripcion}')`, function(err: any, result: any, fields: any){
         
         if(err){
+            logger.error("Error en bsp_alta_promocion - productosController");
+
             res.status(404).json({ text: err });
             return;
         }
@@ -613,6 +615,8 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
     pool.query(`call bsp_alta_transferencia('${pIdUsuario}','${fechaTransferencia}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${totalTransferencia}')`, (err: any, result: any) =>{
 
        if(err || result[0][0].Mensaje != 'Ok' || result[0][0].Level == 'Error'){
+        logger.error("Error en altaTransferencia - bsp_alta_transferencia - productosController");
+
             callback(err,null);
 
             pool.query(`call bsp_alta_log('${pIdUsuario}',"${String(result[0][0].Message)}",'productosController','${result[0][0].code}','bsp_alta_linea_transferencia','${err}')`, function(err: any, result: any){               
@@ -637,6 +641,8 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
     
     
                 if (err2 || result2[0][0].Mensaje != 'Ok' || result2[0][0].Level == 'Error') {
+                    logger.error("Error en altaTransferencia - bsp_alta_linea_transferencia - productosController");
+
     
                     pool.query(`call bsp_baja_transferencia('${result[0][0].pIdTransferencia}')`, function (err: any, result: any) {
                         if (err) {

@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 const path = require('path');
 const fs = require('fs');
 import pool from '../database';
+const logger = require("../utils/logger").logger;
 
 class UploadController {
 
@@ -27,6 +28,8 @@ public async subirImagen(req: any, res: Response){
 
     // Validar que exista un archivo
     if (!req.file || Object.keys(req.file).length === 0) {
+        logger.error("Error en subirImagen - uploadController");
+
         return res.status(400).json({
             ok: false,
             msg: 'No hay ningún archivo'
@@ -68,6 +71,8 @@ public async subirImagen(req: any, res: Response){
     // Mover la imagen
     fs.rename( pathTemporal , filePathMove, (err: any) => {
         if (err){
+            logger.error("Error al mover imagen - uploadController " + err);
+
             return res.status(500).json({
                 ok: false,
                 msg: 'Error al mover la imagen'
@@ -78,6 +83,8 @@ public async subirImagen(req: any, res: Response){
         const respuestaBD = actualizarBaseDeDatos( tipo, IdProductoOrMarcaOrBanner, nombreArchivo, NombreImagen );
 
         if (respuestaBD){
+            logger.error("Error subirImagen - uploadController " + respuestaBD);
+
             return res.status(500).json({
                 ok: false,
                 msg: 'Ocurrio un problema, contactese con el administrador'
@@ -143,6 +150,8 @@ public async eliminarImagen(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_eliminar_imagen('${IdImagen}')`, function(err: any, result: any, fields: any){
         if(err){
+            logger.error("Error bsp_eliminar_imagen - uploadController " + err);
+
             res.status(404).json(result);
             return;
         }
@@ -190,6 +199,8 @@ function actualizarBaseDeDatos(tipo: any, IdProductoOrMarcaOrBanner: any, nombre
 
             pool.query(`call bsp_alta_imagen_producto('${IdProductoOrMarcaOrBanner}','${nombreArchivo}','${NombreImagen}')`, function(err: any, result: any, fields: any){
                 if(err || result.Mensaje != 'Ok'){
+                    logger.error("Error bsp_alta_imagen_producto - actualizarBaseDeDatos - uploadController " + err);
+
                     return false;
                 }
                 return true;

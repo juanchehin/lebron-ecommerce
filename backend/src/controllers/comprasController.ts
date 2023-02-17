@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../database';
+const logger = require("../utils/logger").logger;
 
 class ComprasController {
 
@@ -19,6 +20,8 @@ public async listarCompras(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_listar_compras_paginado_fechas('${IdPersona}','${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
        if(err){
+        logger.error("Error en listarCompras - ComprasController " + err );
+
         res.status(404).json(err);
            return;
        }
@@ -60,14 +63,12 @@ altaCompra(req: Request, res: Response) {
     var pMontoTotal = req.body[2];
     var pIdComprador = req.params.IdPersona;
 
-    console.log("req.body : ",req.body)
-
     pool.query(`call bsp_alta_compra('${pIdComprador}','${pMontoTotal}','${pDescripcion}')`, function(err: any, result: any){
 
-        console.log("result : ",result)
-        console.log("err : ",err)
 
        if(err){
+            logger.error("Error en altaCompra - ComprasController " + err );
+
             res.status(404).json(err);
            return;
        }      
@@ -78,13 +79,11 @@ altaCompra(req: Request, res: Response) {
 
         pLineasCompras.forEach(function (value: any) {
 
-            console.log("value : ",value)
-
                 pool.query(`call bsp_alta_linea_compra('${result[0][0].IdCompra}','${value.IdProductoSabor}','${value.Cantidad}')`, function(err: any, result2: any){
                     
-                    console.log("err : ",err)
-                    console.log("result2 : ",result2)
                     if(err){
+                        logger.error("Error en bsp_alta_linea_compra - ComprasController " + err );
+
                         res.send(err);
                         return;
                     }
@@ -92,6 +91,9 @@ altaCompra(req: Request, res: Response) {
                 })
                 
             });
+        }
+        else{
+            logger.error("Error en altaCompra - ComprasController " + result[0][0].Mensaje );
         }
         // ==============================
         res.send({ Mensaje: 'Ok'});
@@ -108,14 +110,11 @@ altaGasto(req: Request, res: Response) {
     var pDescripcion = req.body[1];
     var pIdUsuario = req.params.IdPersona;
 
-    console.log("req.body : ",req.body)
-
     pool.query(`call bsp_alta_gasto('${pIdUsuario}','${pMonto}','${pDescripcion}')`, function(err: any, result: any){
 
-        console.log("result : ",result)
-        console.log("err : ",err)
-
        if(err){
+            logger.error("Error en altaGasto - ComprasController " + err );
+
             res.status(404).json(err);
            return;
        }      

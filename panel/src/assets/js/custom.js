@@ -42,8 +42,9 @@ const customInitFunctions = () => {
     
         // ============================================================== 
         // Theme options
-        // ==============================================================     
-        $(".sidebartoggler").on('click', function() {
+        // ==============================================================   
+        // ****** Se movio a header.component.ts *******  
+       /* $(".sidebartoggler").on('click', function() {
             
             if ($("body").hasClass("mini-sidebar")) {
                 $("body").trigger("resize");
@@ -64,6 +65,7 @@ const customInitFunctions = () => {
             $(".nav-toggler i").toggleClass("ti-menu");
             $(".nav-toggler i").addClass("ti-close");
         });
+        */
     
         $(".search-box a, .search-box .app-search .srh-btn").on('click', function() {
             $(".app-search").toggle(200);

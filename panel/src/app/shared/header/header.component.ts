@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { UsuariosService } from 'src/app/services/usuarios.service';
 var $ = require( "jquery" );
 @Component({
   selector: 'app-header',
@@ -12,11 +11,10 @@ var $ = require( "jquery" );
 export class HeaderComponent {
 
   public usuario: any;
+  banderaOcultarSidebar = false;
 
-  constructor( private usuarioService: UsuariosService,
-              private authService: AuthService,
+  constructor( private authService: AuthService,
                private router: Router ) {
-    // this.usuario = usuarioService.usuario;
   }
 
   logout() {
@@ -35,18 +33,26 @@ export class HeaderComponent {
   // ==================
   mostrarOcultarSidebar( ) {
     
-    if ($("body").hasClass("mini-sidebar")) {
+      if ($("body").hasClass("mini-sidebar")) {
+          $("body").trigger("resize");
+          $("body").removeClass("mini-sidebar");
+          $('.navbar-brand span').show();
+          
+      } else {
+          $("body").trigger("resize");
+          $("body").addClass("mini-sidebar");
+          $('.navbar-brand span').hide();
+          
+      }
 
-      $("body").trigger("resize");
-      $("body").removeClass("mini-sidebar");
-      $('.navbar-brand span').show();
-      
-  } else {
-      $("body").trigger("resize");
-      $("body").addClass("mini-sidebar");
-      $('.navbar-brand span').hide();
-      
-  }
+    //   // this is for close icon when navigation open in mobile view
+    //   $(".nav-toggler").click(function() {
+    //     console.log("pasa sidebar mobile")
+    //     $("body").toggleClass("show-sidebar");
+    //     $(".nav-toggler i").toggleClass("ti-menu");
+    //     $(".nav-toggler i").addClass("ti-close");
+    // });
+    
   }
 
 }

@@ -80,11 +80,13 @@ altaVenta(req: Request, res: Response) {
 
     pool.query(`call bsp_alta_venta('${pIdVendedor}','${pIdCliente}','${pMontoTotal}')`, function(err: any, result: any){
 
-        console.log("err es : ",err)
-        console.log("result es : ",result)
        if(err){
+            console.log("Linea 86 - ventasController : ",err + result)
+
+            pool.query(`call bsp_alta_log('${pIdVendedor}',"${String(result[0][0].Message)}",'ventasController','${result[0][0].Code}','bsp_alta_venta','${err}')`);
+
             res.status(404).json(err);
-           return;
+            return;
        }      
 
        // ==============================
@@ -93,13 +95,14 @@ altaVenta(req: Request, res: Response) {
 
             pLineaVenta.forEach(function (value: any) {
 
-                console.log("value 2 es : ",value)
-
                 pool.query(`call bsp_alta_linea_venta('${result[0][0].IdVenta}','${value.IdProductoSabor}','${result[0][0].pIdSucursal}','${value.Cantidad}')`, function(err: any, result2: any){
-                    console.log("err 2 es : ",err)
-        console.log("result 2 es : ",result2)
 
                     if(err || result2[0][0].Mensaje != 'Ok'){
+
+                        console.log("Linea 106 - ventasController : ",err + result2)
+
+                        pool.query(`call bsp_alta_log('${pIdVendedor}',"${String(result2[0][0].Message)}",'ventasController','${result2[0][0].Code}','bsp_alta_venta','${err}')`);
+
                         res.status(404).json(err);
                         return;
                     }
@@ -110,11 +113,12 @@ altaVenta(req: Request, res: Response) {
                         pLineaTipoPago.forEach(function (value: any) {
              
                              pool.query(`call bsp_alta_tipo_pago('${result[0][0].IdVenta}','${value.IdTipoPago}','${value.SubTotal}','${pIdCliente}')`, function(err: any, result3: any){
-                                console.log("err 3 es : ",err)
-        console.log("result 3 es : ",result3)
-
+                                
                                 if(err){
-                                    // res.send(err);
+                                    console.log("Linea 122 - ventasController : ",err + result3)
+
+                                    pool.query(`call bsp_alta_log('${pIdVendedor}',"${String(result3[0][0].Message)}",'ventasController','${result3[0][0].Code}','bsp_alta_venta','${err}')`);
+            
                                      return;
                                  }
 

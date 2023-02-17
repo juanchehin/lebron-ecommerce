@@ -2,6 +2,7 @@ import express, { Application } from 'express';
 import cors from 'cors';
 const https = require("https");
 const fs = require("fs");
+const logger = require("./utils/logger").logger;
 
 import loginRoutes from './routes/loginRoutes';
 import uploadRoutes from './routes/uploadRoutes';
@@ -21,8 +22,6 @@ import comprasRoutes from './routes/comprasRoutes';
 import cuentasRoutes from './routes/cuentasRoutes';
 import saboresRoutes from './routes/saboresRoutes';
 
-
-
 class Server {
 
     public app: Application;
@@ -34,22 +33,10 @@ class Server {
     }
 
     config(): void {
-        // this.app.set('port', process.env.PORT || 3000);
-        this.app.set('port', 3000);
-        // CORS
-        // this.app.use(function(req, res, next) {
-        //     console.log('req es : ', req);
-        //     res.header("Access-Control-Allow-Origin: http://localhost", "*");
-        //     // res.header("Access-Control-Allow-Origin", "localhost:4220");
-        //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        //     res.header("Access-Control-Allow-Methods", "POST, GET, PUT , DELETE, OPTIONS");
-        //     next();
-        //   });
-
+        this.app.set('port', 3000);        
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: false}));
-
         this.app.use(express.static('public'))
 
     }
@@ -59,26 +46,6 @@ class Server {
 // ==================================================
     routes(): void {
 
-        // ******* Configuracion de CORS ********
-        // Creo una lista blanca
-        // var listaBlanca = ['*']
-        // // Creo la configuracion
-        //   var configuracionCORS = {
-        //     origin: function (req:any, res:any) {
-        //       // console.log('req es : ', req);
-        //       // console.log('listaBlanca.indexOf(req) es : ', listaBlanca.indexOf(req));
-        //       // Pregunro si se encontro el valor ; -1 si no se encuentra dicho valor
-        //       if (listaBlanca.indexOf(req) !== -1) {
-        //         res(null, true)
-        //       } else {
-        //         res(new Error('Bloqueado por CORS'))
-        //         return;
-        //       }
-        //     }
-        //   }
-
-
-        // this.app.use('/', cors(configuracionCORS),indexRoutes);
         this.app.use('/api/marcas', marcasRoutes);
         this.app.use('/api/usuarios', usuariosRoutes);
         this.app.use('/api/clientes', clientesRoutes);
@@ -114,10 +81,12 @@ class Server {
 
         if (enableHttps) {
             https.createServer(ssloptions,this.app).listen(3000, function () {
+                logger.info("HTTPS Server running on port 3000")
                 console.log("HTTPS Server running on port 3000");
             });
         } else {
             this.app.listen(this.app.get('port'), () => {
+                logger.info("HTTP Server running on port 3000")
                 console.log('Server en puerto', this.app.get('port'));
             });
         }

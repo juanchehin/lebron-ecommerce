@@ -117,8 +117,6 @@ export class ProductoDetalleComponent implements OnInit {
   this.productosService.dameDatosProducto(this.IdProducto, this.idSaborSeleccionado)
     .subscribe( {
       next: (resp: any) => { 
-
-        console.log("resp es dam ",resp)
       
         if ( resp[3][0].Mensaje == 'Ok' && resp[0].length > 0) {
 
@@ -260,6 +258,7 @@ export class ProductoDetalleComponent implements OnInit {
     this.mensajeSabor = false;
     this.router.navigate(['/checkout/comprar-ahora/producto',this.IdProducto]);
   }
+
 
   // =================================
     cambioIdSabor(event: any)

@@ -11,7 +11,7 @@
                         <a [routerLink]="['/']"><img src="../../../assets/img/lebron_lebron.png" alt="" width="100" height="35"></a>
                     </div>
                 </div>
-                <nav class="col-xl-6 col-lg-7">
+                <nav class="col-xl-6 col-lg-7" *ngIf="!isMobile">
                     <a class="open_close" href="javascript:void(0);">
                         <div class="hamburger hamburger--spin">
                             <div class="hamburger-box">
@@ -52,7 +52,7 @@
         <div class="container">
 
             <div class="row small-gutters">
-                <div class="col-xl-3 col-lg-3 col-md-3">
+                <div class="col-xl-3 col-lg-3 col-md-3" *ngIf="!isMobile">
                     <nav class="categories">
                         <ul class="clearfix">
                             <li><span>
@@ -84,7 +84,8 @@
                         </ul>
                     </nav>
                 </div>
-                <div class="col-xl-6 col-lg-7 col-md-6 d-none d-md-block">
+                <!-- ====== Buscador ======== -->
+                <div class="col-xl-6 col-lg-7 col-md-6 d-md-block">
                     <div class="custom-search-input">
                         <input (keyup.enter)="buscarProducto( )" type="text" placeholder="Busca entre 10.000 productos" id="buscarProducto">
                         <button (click)="buscarProducto( )" type="submit">
@@ -104,7 +105,8 @@
                         </li>
                         <li>
                             <div class="dropdown dropdown-access">
-                                <a class="access_link" data-toggle="dropdown"><span>Cuenta</span></a>
+                                <a class="access_link" data-toggle="dropdown" (click)="routerLogin()">
+                                    <span>Cuenta</span></a>
                                 <div class="dropdown-menu" style="position: absolute; transform: translate3d(0px, 60px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-start">
                                     <a [routerLink]="['cuenta/login']" class="btn_1">Acceso</a>
                                     <ul *ngIf="comprobarLogueo()">

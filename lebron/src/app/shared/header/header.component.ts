@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { AuthService } from 'src/app/services/auth.service';
 import { CategoriasService } from 'src/app/services/categorias.service';
 import { ClientesService } from 'src/app/services/clientes.service';
@@ -17,8 +18,10 @@ export class HeaderComponent implements OnInit {
   usuarioActual: any;
   IdUsuario: any;
   cantItemsCarrito: any = '';
+  isMobile = this.deviceService.isMobile();
 
   constructor(
+    private deviceService: DeviceDetectorService,
     private marcasService: MarcasService,
     private categoriasService: CategoriasService,
     public router: Router,
@@ -123,6 +126,21 @@ buscarProducto() {
   { 
     this.authService.logout();
   }
+  
+
+    // =================================
+    routerLogin()
+    { 
+      if(this.authService.estaLogueado())
+      {
+        return;
+      }
+      else
+      {
+        this.router.navigate(['/cuenta/login']);
+        return;
+      }
+    }
 
 // ==================================================
 //    

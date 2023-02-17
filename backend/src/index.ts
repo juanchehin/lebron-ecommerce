@@ -1,6 +1,5 @@
 import express, { Application } from 'express';
 import cors from 'cors';
-const path = require('path');
 const https = require("https");
 const fs = require("fs");
 

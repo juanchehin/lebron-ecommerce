@@ -14,6 +14,7 @@ import categoriasRoutes from './routes/categoriasRoutes';
 import proveedoresRoutes from './routes/proveedoresRoutes';
 import ventasRoutes from './routes/ventasRoutes';
 import clientesRoutes from './routes/clientesRoutes';
+import inversoresRoutes from './routes/inversoresRoutes';
 import direccionesRoutes from './routes/direccionesRoutes';
 import checkoutRoutes from './routes/checkoutRoutes';
 import pedidosRoutes from './routes/pedidosRoutes';
@@ -49,6 +50,7 @@ class Server {
         this.app.use('/api/marcas', marcasRoutes);
         this.app.use('/api/usuarios', usuariosRoutes);
         this.app.use('/api/clientes', clientesRoutes);
+        this.app.use('/api/inversores', inversoresRoutes);
         this.app.use('/api/productos', productosRoutes);
         this.app.use('/api/pedidos', pedidosRoutes);
         this.app.use('/api/proveedores', proveedoresRoutes);

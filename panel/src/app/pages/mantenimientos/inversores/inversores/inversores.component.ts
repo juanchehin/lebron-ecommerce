@@ -14,7 +14,7 @@ export class InversoresComponent implements OnInit {
   desde = 0;
   inversores!: any;
   cantPlanes = 0;
-
+  tasaInteres = 0;
   totalInversores = 0;
   cargando = true;
 
@@ -41,10 +41,11 @@ buscarInversores() {
                .subscribe( {
                 
                 next: (resp: any) => { 
-                  if(resp[2] && resp[2][0].Mensaje == 'Ok')
+                  
+                  if(resp[3] && resp[3][0].Mensaje == 'Ok')
                   { 
                     this.totalInversores = resp[1][0].cantInversores;
-    
+                    this.tasaInteres = resp[2][0].tasaInteres;    
                     this.inversores = resp[0];
                     return;
                   } else {

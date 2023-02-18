@@ -1,0 +1,52 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad transacciones ( <small> {{ totalHistorico }} </small> )</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="start">Fecha Inicio : &nbsp;</label>
+                        <input type="date" [(ngModel)]="fechaInicio" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="start">Fecha Fin : &nbsp;</label>
+                        <input type="date" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                        refresh
+                        </span></button>
+                </div>
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">
+                                #
+                            </th>
+                            <th>Fecha Transaccion</th>
+                            <th>Monto invertido</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let historico of historicoInversor">
+                            <td>{{ historico.IdTransaccion }}</td>
+                            <td>{{ historico.Fecha }}</td>
+                            <td>{{ historico.MontoTotal }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-12) " type="button" class="btn btn-default-outline">Anteriores</button>
+        <button (click)="cambiarDesde(12) " type="button" class="btn btn-default-outline">Siguientes</button>
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

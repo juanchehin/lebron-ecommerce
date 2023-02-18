@@ -6,13 +6,15 @@ import { EditarInversorComponent } from './editar-inversor/editar-inversor.compo
 import { InversoresRoutingModule } from './inversores-routing.module';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HistoricoInversorComponent } from './historico-inversor/historico-inversor.component';
 
 
 @NgModule({
   declarations: [
     InversoresComponent,
     InversorComponent,
-    EditarInversorComponent
+    EditarInversorComponent,
+    HistoricoInversorComponent
   ],
   imports: [
     CommonModule,

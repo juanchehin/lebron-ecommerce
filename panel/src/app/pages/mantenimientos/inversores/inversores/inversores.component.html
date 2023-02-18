@@ -1,11 +1,14 @@
 <div class="page-content">
     <div class="container-fluid">
+        <div class="text-themecolor">
+            <label>Tasa de interes : % {{tasaInteres}}</label>
+        </div>
         <section class="box-typical">
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm-4 form-group">
                         <label>Inversor:  </label>
-                        <input (keyup.enter)="buscarInversores( )" #input type="text" class="form-control" placeholder="Buscar..." id="inversorBuscado">
+                        <input (keyup.enter)="buscarInversores( )" #input type="text" class="form-control" placeholder="Buscar inversor..." id="inversorBuscado">
                     </div>
                     <div class="col-sm-1 form-group">
                         <button (click)="buscarInversores( )" class="btn btn-primary" style="margin-top: 26px;">
@@ -45,7 +48,10 @@
                                     </button>
                                     <button class="btn btn-inline btn-warning" type="button" (click)="quitarDinero(inversor.IdPersona)">
                                         <i class="material-icons"> remove </i>
-                                    </button>                                    
+                                    </button>    
+                                    <button class="btn btn-inline btn-info" type="button" [routerLink]="['/dashboard/inversores/historico',inversor.IdPersona]">
+                                        <i class="material-icons"> wysiwyg </i>
+                                    </button>                                
                                     <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/inversores',inversor.IdPersona]">
                                         <i class="material-icons"> edit </i>
                                     </button>

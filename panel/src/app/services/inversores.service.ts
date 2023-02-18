@@ -111,4 +111,14 @@ cargarDatosFormEditarInversor( IdInversor: any ) {
   return this.http.get( url , this.headers );
 
 }
+
+// ==================================================
+//
+// ==================================================
+buscarHistoricoInversores(desde: number , FechaInicio: any , FechaFin: any){
+
+  let url = URL_SERVICIOS + '/inversores/listar/' + desde + '/' + FechaInicio + '/' + FechaFin;
+
+  return this.http.get( url, this.headers );
+}
 }

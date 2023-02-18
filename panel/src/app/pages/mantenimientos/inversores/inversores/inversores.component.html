@@ -1,0 +1,66 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Inversor:  </label>
+                        <input (keyup.enter)="buscarInversores( )" #input type="text" class="form-control" placeholder="Buscar..." id="inversorBuscado">
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <button (click)="buscarInversores( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="material-icons">
+                                search
+                                </i>
+                            </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button [routerLink]="['/dashboard/inversores/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
+                          <i class="fa fa-plus"></i> 
+                          Nuevo Inversor
+                        </button>
+                    </div>
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad de inversores ( <small> {{ totalInversores }} </small> )</h3>
+                    </div>
+                </div>
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">
+                                #
+                            </th>
+                            <th>Apellidos y nombre</th>
+                            <th>Monto Invertido</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let inversor of inversores">
+                            <td>{{ inversor.IdPersona }}</td>
+                            <td>{{ inversor.Apellidos }} {{ inversor.Nombres }}</td>
+                            <td>{{ inversor.MontoInvertido }}</td>
+                            <td>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/inversor',inversor.IdPersona]">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaInversor(inversor.IdPersona)">Eliminar</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </section>
+
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-12) " type="button" class="btn btn-default-outline">Anteriores</button>
+        <button (click)="cambiarDesde(12) " type="button" class="btn btn-default-outline">Siguientes</button>
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

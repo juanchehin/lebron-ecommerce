@@ -97,6 +97,12 @@
                         <span class="hide-menu">Cuentas corrientes </span>
                     </a>
                 </li>
+                 <!-- ===== ** Inversores ** ====== -->
+                 <li class="user-profile" [routerLink]="['/dashboard/inversores']" *ngIf="activarMenu('Inversores')">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <span class="hide-menu">Inversores </span>
+                    </a>
+                </li>
                 <!-- ===== ** Promociones ** ====== -->
                 <li class="user-profile" [routerLink]="['/dashboard/promociones']" *ngIf="activarMenu('Promociones')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">

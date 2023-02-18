@@ -56,6 +56,11 @@ const childRoutes: Routes = [
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     loadChildren: () => import('./mantenimientos/transferencias/transferencias-routing.module').then( m => m.TransferenciasRoutingModule )
   },
+  { 
+    path: 'inversores',
+    canActivate: [LoginGuardGuard, VerificaTokenGuard],
+    loadChildren: () => import('./mantenimientos/inversores/inversores-routing.module').then( m => m.InversoresRoutingModule )
+  },
   { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' }},
   { path: 'configuraciones', component: ConfiguracionesComponent, data: { titulo: 'Configuraciones' }},
   { path: 'pedidos', component: PedidosComponent, data: { titulo: 'Pedidos' }}

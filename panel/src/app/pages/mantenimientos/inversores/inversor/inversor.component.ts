@@ -55,21 +55,23 @@ export class InversorComponent implements OnInit {
         this.forma.value.Observaciones
       );
 
-      this.inversoresService.altaInversor( inversor )
-                .subscribe( (resp: any) => {
-                  
-                  if ( resp[0][0].Mensaje == 'Ok') {
-
-                    this.alertService.alertSuccess('top-end','inversor cargado',false,2000);
+      this.inversoresService.altaInversor(  inversor )
+      .subscribe({
+        next: (resp: any) => { 
+  
+          if ( resp.Mensaje === 'Ok') {
+            this.alertService.alertSuccess('top-end','inversor cargado',false,2000);
                     
-                    this.router.navigate(['/dashboard/inversores']);
-                  } else {
-                    this.alertService.alertFail('Ocurrio un error : ' + resp[0][0].Mensaje,false,2000);
-                  }
-                  return;
-                });
-
-
-              }
+            this.router.navigate(['/dashboard/inversores']);
+            
+          } else {
+            this.alertService.alertFail('Ocurrio un error : ' + resp.Mensaje,false,2000);
+          }
+          return;
+         },
+        error: () => { this.alertService.alertFail('Ocurrio un error,contactese con el administrador ',false,2000);
+      }
+      });
+}
 
 }

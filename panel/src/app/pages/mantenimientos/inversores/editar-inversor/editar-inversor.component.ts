@@ -17,6 +17,7 @@ export class EditarInversorComponent implements OnInit {
   DNI: any;        
   Email: any;
   Observaciones: any;   
+  montoInvertido = 0;
 
   constructor(
     private router: Router, 
@@ -80,6 +81,8 @@ cargarDatosFormEditarInversor() {
                 this.DNI = resp[0][0].DNI;
                 this.Email = resp[0][0].Email;
                 this.Observaciones = resp[0][0].Observaciones;
+                this.montoInvertido = resp[0][0].montoInvertido || 0;
+
              
               },
               error: () => { this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000) }

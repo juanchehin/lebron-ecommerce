@@ -31,29 +31,35 @@
                                 #
                             </th>
                             <th>Apellidos y nombre</th>
-                            <th>Monto Invertido</th>
-                            <th></th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let inversor of inversores">
                             <td>{{ inversor.IdPersona }}</td>
-                            <td>{{ inversor.Apellidos }} {{ inversor.Nombres }}</td>
-                            <td>{{ inversor.MontoInvertido }}</td>
+                            <td>{{ inversor.Apellidos }}, {{ inversor.Nombres }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/inversor',inversor.IdPersona]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaInversor(inversor.IdPersona)">Eliminar</button>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button class="btn btn-inline btn-success" type="button" (click)="agregarDinero(inversor.IdPersona)">
+                                        <i class="material-icons"> add </i>
+                                    </button>
+                                    <button class="btn btn-inline btn-warning" type="button" (click)="quitarDinero(inversor.IdPersona)">
+                                        <i class="material-icons"> remove </i>
+                                    </button>                                    
+                                    <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/inversores',inversor.IdPersona]">
+                                        <i class="material-icons"> edit </i>
+                                    </button>
+                                    <button class="btn btn-inline btn-danger" type="button" (click)="bajaInversor(inversor.IdPersona)">
+                                        <i class="material-icons"> delete </i>
+                                    </button>
+                                </div>
+                            
                             </td>
                         </tr>
-
                     </tbody>
                 </table>
-
-
-
             </div>
         </section>
-
         <!--.box-typical-->
 
     </div>

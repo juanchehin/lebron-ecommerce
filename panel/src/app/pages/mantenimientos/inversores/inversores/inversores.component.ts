@@ -35,12 +35,12 @@ export class InversoresComponent implements OnInit {
 buscarInversores() {
 
     const inputElement: HTMLInputElement = document.getElementById('inversorBuscado') as HTMLInputElement;
-    const clienteBuscado: any = inputElement.value || null;
+    const inversorBuscado: any = inputElement.value || null;
 
-    this.inversoresService.buscarInversorPaginado( this.desde, clienteBuscado  )
+    this.inversoresService.buscarInversorPaginado( this.desde, inversorBuscado  )
                .subscribe( {
+                
                 next: (resp: any) => { 
-
                   if(resp[2] && resp[2][0].Mensaje == 'Ok')
                   { 
                     this.totalInversores = resp[1][0].cantInversores;
@@ -113,6 +113,20 @@ cambiarDesde( valor: number ) {
 
   this.desde += valor;
   this.buscarInversores();
+
+}
+// ==================================================
+//        Cambio de valor
+// ==================================================
+
+agregarDinero(IdPersona: any){
+
+}
+
+// ==================================================
+//        Cambio de valor
+// ==================================================
+quitarDinero(IdPersona: any){
 
 }
 

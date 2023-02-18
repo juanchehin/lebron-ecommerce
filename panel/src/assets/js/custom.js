@@ -3,10 +3,8 @@ File: js
 */
 
 const customInitFunctions = () => {
-    console.log("pasa customInitFunctions")
     $(function() {
         "use strict";
-        console.log("pasa customInitFunctions 2")
         
         $(function() {
             $(".preloader").fadeOut();

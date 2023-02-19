@@ -15,7 +15,7 @@ class DolaresRoutes {
     config(): void {
 
         // 
-        this.router.get('/listar/:desde/:FechaInicio/:FechaFin',[mdAutenticacion.verificaToken],dolaresController.listarHistoricoDolares);
+        this.router.get('/listar/:pIdPersona/:pFiltroTipo/:desde/:FechaInicio/:FechaFin',[mdAutenticacion.verificaToken],dolaresController.listarHistoricoDolares);
         this.router.post('/alta/compra/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], dolaresController.altaCompraDolar);
         this.router.post('/alta/venta/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], dolaresController.altaVentaDolar);
 

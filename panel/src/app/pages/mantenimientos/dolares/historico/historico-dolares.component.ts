@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { DolaresService } from 'src/app/services/dolares.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-historico-dolares',
@@ -19,6 +18,7 @@ export class HistoricoDolaresComponent implements OnInit {
   totalHistorico = 0;
   historicoDolares: any;
   dolarHoy = 0;
+  filtroTipo = 0;
 
   constructor(
     public dolaresService: DolaresService,
@@ -41,19 +41,14 @@ listarHistoricoDolares() {
 
   this.cargando = true;
 
-  this.dolaresService.listarHistoricoDolares( this.desde , pfechaInicio , pfechaFin)
+  this.dolaresService.listarHistoricoDolares( this.filtroTipo, this.desde , pfechaInicio , pfechaFin)
              .subscribe( {
               next: (resp: any) => { 
-                
-                this.totalHistorico = resp[1][0].totalHistorico;
+
+                this.totalHistorico = resp[1][0].totalTransacciones;
 
                 this.historicoDolares = resp[0];
 
-                if (resp[1][0].cantHistorico === undefined || resp[1][0].cantHistorico === null) {
-                  this.totalHistorico = 0;
-                }else {
-                  this.alertService.alertFail('Ocurrio un error',false,2000);
-                }
                 return;
                },
               error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }

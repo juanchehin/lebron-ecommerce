@@ -43,22 +43,19 @@ export class DolaresService {
 // ==================================================
 //
 // ==================================================
-listarHistoricoDolares(desde: number , FechaInicio: any , FechaFin: any){
+listarHistoricoDolares(filtroTipo: number, desde: number , FechaInicio: any , FechaFin: any){
 
-  let url = URL_SERVICIOS + '/dolares/listar/' + desde + '/' + FechaInicio + '/' + FechaFin;
+  let url = URL_SERVICIOS + '/dolares/listar/' + this.IdPersona + '/' +  filtroTipo + '/' + desde + '/' + FechaInicio + '/' + FechaFin;
 
   return this.http.get( url, this.headers );
 }
-// ==================================================
-//     ******   Compra Dolares  *******
-// ==================================================
 
 // ==================================================
 //        
 // ==================================================
 altaCompraDolares( cliente: any ) {
 
-  let url = URL_SERVICIOS + '/cuentas/alta/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/dolares/alta/compra/' + this.IdPersona;
 
   return this.http.post(url,cliente, this.headers );
 }

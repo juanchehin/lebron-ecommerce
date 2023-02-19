@@ -74,8 +74,7 @@ export class NuevaVentaComponent implements OnInit {
 // ==================================================
 
 altaVenta() {
-  console.log("altaVenta")
-  // this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdProducto');
+  
   this.IdPersona = this.authService.IdPersona;
 
       if ( this.totalVenta != this.totalTiposPago ) {

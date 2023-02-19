@@ -6,7 +6,7 @@ class DolaresController {
 
 
 // ==================================================
-//        Lista los ingresos
+//  Lista los movimientos que se realizo en la compra/venta de dolares
 // ==================================================
 
 public async listarHistoricoDolares(req: Request, res: Response): Promise<void> {
@@ -14,11 +14,15 @@ public async listarHistoricoDolares(req: Request, res: Response): Promise<void> 
     var desde = req.params.desde || 0;
     desde  = Number(desde);
 
+    var pIdPersona = req.params.pIdPersona;
+    var pFiltroTipo = req.params.pFiltroTipo;
+    
     var FechaInicio = req.params.FechaInicio;
     var FechaFin = req.params.FechaFin;
 
-    pool.query(`call bsp_listar_historico_dolares_paginado_fechas('${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_listar_historico_dolares_paginado_fechas('${pIdPersona}','${pFiltroTipo}','${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
        if(err){
+            logger.error("Error en listarHistoricoDolares - DolaresController " + err);
             res.status(404).json(err);
            return;
        }
@@ -29,34 +33,18 @@ public async listarHistoricoDolares(req: Request, res: Response): Promise<void> 
 
 
 // ==================================================
-//        Lista 
-// ==================================================
-
-public async listarDolaresIdUsuario(req: Request, res: Response): Promise<void> {
-
-    var desde = req.params.pDesde || 0;
-    desde  = Number(desde);
-    var pFecha = req.params.pFecha;
-    var pIdPersona = req.params.pIdPersona;
-
-
-    pool.query(`call bsp_listar_dolars_idusuario('${desde}','${pFecha}','${pIdPersona}')`, function(err: any, result: any, fields: any){
-       if(err){
-            res.status(404).json(err);
-           return;
-       }
-       res.json(result);
-   })
-
-}
-
-// ==================================================
-//        Lista 
+//  Permite almacenar una compra de dolares
 // ==================================================
 altaCompraDolar(req: Request, res: Response) {
 
-    pool.query(`call bsp_listar_tipos_pago()`, function(err: any, result: any){
+    var IdPersona = req.params.IdPersona;
+    var monto = req.body[0];
+    var observaciones = req.body[1];
+
+    pool.query(`call bsp_alta_compra_dolares('${IdPersona}','${monto}','${observaciones}')`, function(err: any, result: any){
        if(err){
+           logger.error("Error en altaCompraDolar - DolaresController " + err);
+           res.status(404).json(err);
            return;
        }
        res.json(result);
@@ -65,15 +53,21 @@ altaCompraDolar(req: Request, res: Response) {
 }
 
 // ==================================================
-//        
+//  Permite almacenar una venta de dolar a un cierto comprador con monto
 // ==================================================
 altaVentaDolar(req: Request, res: Response) {
 
-    var IdTransaccion = req.params.pIdTransaccion;
+    var IdPersona = req.params.IdPersona;
 
-    pool.query(`call bsp_dame_datos_pdf_dolar('${IdTransaccion}')`, function(err: any, result: any){
+    var IdComprador = req.body[0];
+    var monto = req.body[1];
+    var observaciones = req.body[2];
+
+    pool.query(`call bsp_alta_venta_dolares('${IdPersona}','${IdComprador}','${monto}','${observaciones}')`, function(err: any, result: any){
        if(err){
-           return;
+            logger.error("Error en altaVentaDolar - DolaresController " + err);
+            res.status(404).json(err);
+            return;
        }
        res.json(result);
    })

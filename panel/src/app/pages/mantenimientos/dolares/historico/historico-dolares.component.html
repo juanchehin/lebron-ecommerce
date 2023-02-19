@@ -17,6 +17,20 @@
                         refresh
                         </span>
                     </button>
+                    <div class="col-sm-4 form-group">
+                        <label>Tipo : </label>
+                        <select tabindex="4" [(ngModel)]="filtroTipo" name="filtroTipo" class="form-control">
+                                <option value="0">
+                                    Todos
+                                </option>
+                                <option value="1">
+                                    Venta
+                                </option>
+                                <option value="2">
+                                    Compra
+                                </option>
+                            </select>
+                    </div>
                 </div>
                 <!-- ======================= -->
                 <div class="row">
@@ -52,9 +66,9 @@
                     <tbody>
                         <tr *ngFor="let historico of historicoDolares">
                             <td>{{ historico.IdTransaccion }}</td>
-                            <td>{{ historico.Monto }}</td>
-                            <td>{{ historico.Tipo }}</td>
-                            <td>{{ historico.Apellidos }}, {{ historico.Nombres }}</td>
+                            <td>$ {{ historico.MontoTotal }}</td>
+                            <td>{{ historico.tipo }}</td>
+                            <td>{{ historico.NombreCompleto }}</td>
 
                         </tr>
                     </tbody>
@@ -62,7 +76,6 @@
             </div>
         </section>
         <!--.box-typical-->
-
     </div>
     <div role="group" aria-label="Basic example" style="text-align: right;">
         <button (click)="cambiarDesde(-12) " type="button" class="btn btn-default-outline">Anteriores</button>

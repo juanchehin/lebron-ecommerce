@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'cuentas-corrientes', loadChildren: () => import('./pages/mantenimientos/cuentas-corrientes/cuentas-corrientes.module').then(m => m.CuentasCorrientesModule) },
   { path: 'clientes', loadChildren: () => import('./pages/mantenimientos/clientes/clientes.module').then(m => m.ClientesModule) },
   { path: 'inversores', loadChildren: () => import('./pages/mantenimientos/inversores/inversores.module').then(m => m.InversoresModule) },
+  { path: 'dolares', loadChildren: () => import('./pages/mantenimientos/dolares/dolares.module').then(m => m.DolaresModule) },
 
   { path: 'transferencias', loadChildren: () => import('./pages/mantenimientos/transferencias/transferencias.module').then(m => m.TransferenciasModule) },
   { path: 'pedidos', loadChildren: () => import('./pages/mantenimientos/pedidos/pedidos.module').then(m => m.PedidosModule) },

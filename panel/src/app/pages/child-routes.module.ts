@@ -61,6 +61,11 @@ const childRoutes: Routes = [
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     loadChildren: () => import('./mantenimientos/inversores/inversores-routing.module').then( m => m.InversoresRoutingModule )
   },
+  { 
+    path: 'dolares',
+    canActivate: [LoginGuardGuard, VerificaTokenGuard],
+    loadChildren: () => import('./mantenimientos/dolares/dolares-routing.module').then( m => m.DolaresRoutingModule )
+  },
   { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' }},
   { path: 'configuraciones', component: ConfiguracionesComponent, data: { titulo: 'Configuraciones' }},
   { path: 'pedidos', component: PedidosComponent, data: { titulo: 'Pedidos' }}

@@ -1,0 +1,73 @@
+<div class="page-content">
+    <div class="container-fluid">
+            <iframe width="250px" height="85px" src="https://www.dolarsi.com/cotizador/cotizadorDolarsiSmall.php" frameborder="0" scrolling="0" allowfullscreen=""></iframe>
+        <section class="box-typical">
+            <div class="table-responsive">
+                <!-- ======================= -->
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="start">Fecha Inicio : &nbsp;</label>
+                        <input type="date" [(ngModel)]="fechaInicio" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="start">Fecha Fin : &nbsp;</label>
+                        <input type="date" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                        refresh
+                        </span>
+                    </button>
+                </div>
+                <!-- ======================= -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h3 class="card-title">Cantidad de transacciones ( <small> {{ totalHistorico }} </small> )</h3>
+                    </div>
+                    <div class="col-sm-2">
+                        <button [routerLink]="['/dashboard/dolares/compra']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
+                          <i class="fa fa-plus"></i> 
+                          Nueva Compra
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button [routerLink]="['/dashboard/dolares/venta']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
+                          <i class="fa fa-plus"></i> 
+                          Nueva Venta
+                        </button>
+                    </div>
+                </div>
+                <!-- ======================= -->
+                <br>
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">
+                                #
+                            </th>
+                            <th>Monto</th>
+                            <th>Tipo</th>
+                            <th>Apellidos y nombre</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let historico of historicoDolares">
+                            <td>{{ historico.IdTransaccion }}</td>
+                            <td>{{ historico.Monto }}</td>
+                            <td>{{ historico.Tipo }}</td>
+                            <td>{{ historico.Apellidos }}, {{ historico.Nombres }}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-12) " type="button" class="btn btn-default-outline">Anteriores</button>
+        <button (click)="cambiarDesde(12) " type="button" class="btn btn-default-outline">Siguientes</button>
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

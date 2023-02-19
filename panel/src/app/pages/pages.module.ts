@@ -8,7 +8,6 @@ import { SharedModule } from '../shared/shared.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PagesComponent } from './pages.component';
 import { PerfilComponent } from './perfil/perfil.component';
-
 import { ConfiguracionesComponent } from './mantenimientos/configuraciones/configuraciones.component';
 import { PromocionesModule } from './mantenimientos/promociones/promociones.module';
 

@@ -47,6 +47,12 @@
                         <li><a [routerLink]="['/dashboard/productos/unidades']">Unidades</a></li>
                     </ul>
                 </li>
+                <!-- ===== ** Promociones ** ====== -->
+                <li class="user-profile" [routerLink]="['/dashboard/promociones']" *ngIf="activarMenu('Promociones')">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <span class="hide-menu">Promociones </span>
+                    </a>
+                </li>
                 <!-- ===== ** Compras ** ====== -->
                 <li class="user-profile" (click)="expandirComprasFuncion()" *ngIf="activarMenu('Compras')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
@@ -103,10 +109,10 @@
                         <span class="hide-menu">Inversores </span>
                     </a>
                 </li>
-                <!-- ===== ** Promociones ** ====== -->
-                <li class="user-profile" [routerLink]="['/dashboard/promociones']" *ngIf="activarMenu('Promociones')">
+                <!-- ===== ** Dolares ** ====== -->
+                <li class="user-profile" [routerLink]="['/dashboard/dolares']" *ngIf="activarMenu('Dolares')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
-                        <span class="hide-menu">Promociones </span>
+                        <span class="hide-menu">Dolares </span>
                     </a>
                 </li>
                 <!-- ===== ** Configuraciones ** ====== -->

@@ -130,7 +130,6 @@ altaQuimico() {
         this.PrecioCompra,
         this.PrecioVenta,
         this.PrecioMayorista,
-        this.PrecioMeli,
         this.Moneda,
         this.sabores_cargados
       );
@@ -141,7 +140,9 @@ altaQuimico() {
   
                     console.log("resp prod : ",resp)
                   
-                    if ( resp.Mensaje === 'Ok') {
+                    console.log("resp.Mensaje prod : ",resp.Mensaje)
+
+                    if ( resp.Mensaje == 'Ok') {
                       this.alertService.alertSuccess('top-end','Quimico cargado',false,2000);
                       this.router.navigate(['/dashboard/quimicos']);
                     } else {
@@ -149,7 +150,11 @@ altaQuimico() {
                     }
                     return;
                    },
-                  error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
+                  error: (resp: any) => { 
+                    console.log("resp err prod : ",resp)
+
+                    this.alertService.alertFail('Ocurrio un error',false,2000) 
+                  }
                 });
 
             }

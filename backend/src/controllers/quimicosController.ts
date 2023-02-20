@@ -19,22 +19,21 @@ public async altaQuimico(req: Request, res: Response) {
     var PrecioCompra = req.body[6];
     var PrecioVenta = req.body[7];
     var PrecioMayorista = req.body[8];
-    var PrecioMeli = req.body[9];
-    var Descuento = req.body[10];
-    var Moneda = req.body[11].charAt(0);
-    var arraySaboresCodigo = req.body[12];
-
-    console.log("req.body es ",req.body)
+    var Moneda = req.body[9].charAt(0);
+    var arraySaboresCodigo = req.body[10];
 
     if(FechaVencimiento == null || FechaVencimiento == 'null')
     { 
         FechaVencimiento = null;
     }
 
-    pool.query(`call bsp_alta_quimico('${req.params.IdPersona}','${IdUnidad}','${Quimico}',${FechaVencimiento},'${Descripcion}',${StockAlerta},'${Medida}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${PrecioMeli}',${Descuento},'${Moneda}')`, async function(err: any, result: any, fields: any){
-        
+    pool.query(`call bsp_alta_quimico('${req.params.IdPersona}','${IdUnidad}','${Quimico}','${FechaVencimiento}','${Descripcion}',${StockAlerta},'${Medida}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${Moneda}')`, async function(err: any, result: any, fields: any){
+         
+        console.log("err 2 : ",err)
+        console.log("result2 2 : ",result)
+
         if(err || result[0][0].Mensaje != 'Ok'){
-            logger.error("Error en bsp_alta_quimico - quimicoController " + err);
+            logger.error("Error en bsp_alta_quimico - quimicoController " + err + result);
 
             res.status(404).json({ text: err });
             return;
@@ -46,31 +45,25 @@ public async altaQuimico(req: Request, res: Response) {
 
             arraySaboresCodigo.forEach(function (value: any) {
                 
-
-                var respuesta = pool.query(`call bsp_alta_sabores_codigo_quimico('${result[1][0].pIdQuimico}','${value.IdSabor}','${value.Codigo}')`, function(err2: any, result2: any){
+                pool.query(`call bsp_alta_sabores_codigo_producto('${result[1][0].pIdProducto}','${value.IdSabor}','${value.Codigo}')`, function(err2: any, result2: any){
                     
+                    console.log("err 2 : ",err2)
+                    console.log("result2 2 : ",result2)
+
                     if(err2 || result2[0][0].Mensaje != 'Ok'){
-                        logger.error("Error en bsp_alta_sabores_codigo_quimico - quimicoController " + err);
+                        logger.error("Error en bsp_alta_sabores_codigo_producto - quimicoController " + err);
 
                         return false;
                     }
 
                     if(result2[0][0].Level == 'Error'){
-                        logger.error("Error en bsp_alta_sabores_codigo_quimico - quimicoController " + result2[0][0].Level);
+                        logger.error("Error en bsp_alta_sabores_codigo_producto - quimicoController " + result2[0][0].Level);
 
                         return false;
                     }
                     
                 })
 
-                if(!respuesta){
-                    logger.error("Error en bsp_alta_sabores_codigo_quimico - quimicoController 2 ");
-
-                    return res.json({
-                        ok: false,
-                        Mensaje: 'Ocurrio un error'
-                    });
-                }
             });
         }
         // ==============================      

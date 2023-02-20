@@ -39,8 +39,7 @@ buscarQuimico() {
 
     this.quimicosService.listarQuimicosPaginado( this.desde , quimicoBuscado  )
                .subscribe( {
-                next: (resp: any) => { 
-                  console.log("resp : ",resp)
+                next: (resp: any) => {
 
                   if(resp[0].length <= 0)
                   { 
@@ -49,9 +48,9 @@ buscarQuimico() {
                     return;
                   }
   
-                  if ( resp[1][0].Mensaje == 'Ok') {
+                  if ( resp[2][0].Mensaje == 'Ok') {
                     
-                    this.totalQuimicos = resp[2][0].cantQuimicosBuscados;
+                    this.totalQuimicos = resp[1][0].cantProductosBuscados;
                     this.quimicos = resp[0];
                     
                     // this.router.navigate(['/dashboard/ventas']);

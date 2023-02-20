@@ -46,19 +46,11 @@
                     <tbody>
                         <tr *ngFor="let quimico of quimicos">
                             <td>{{ quimico.Codigo }}</td>
-                            <td>{{ quimico.Quimico }}</td>
+                            <td>{{ quimico.Producto }}</td>
                             <td>{{ quimico.Stock }}</td>
                             <td>${{ quimico.PrecioVenta }}</td>
                             <td>${{ quimico.PrecioMayorista }}</td>
                             <td>{{ quimico.Moneda }}</td>
-                            <td>
-                                <div class="col-sm-3">
-                                    <div class="switch">
-                                        <label>
-                                        <input type="checkbox" [attr.disabled]="(quimico.Stock <= 0) ? true : null" ><span class="lever switch-col-light-blue"></span></label>
-                                    </div>
-                                </div>
-                            </td>
                             <td>
                                 <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/quimico',quimico.IdProducto]">Editar</button>
                                 <button class="btn btn-inline btn-danger" type="button" (click)="bajaQuimico(quimico.IdProducto)">Eliminar</button>

@@ -19,6 +19,8 @@ class QuimicosRoutes {
         this.router.get('/buscar/:pDesde/:pParametroBusqueda/:IdPersona',  [mdAutenticacion.verificaToken],quimicosController.buscarQuimicoPaginado); 
         this.router.get('/nuevo/datos-formulario',  [mdAutenticacion.verificaToken], quimicosController.cargarDatosFormNuevoQuimico);
         this.router.get('/editar/datos-formulario/:IdQuimico/:IdPersona',  [mdAutenticacion.verificaToken], quimicosController.cargarDatosFormEditarQuimico);
+        this.router.post('/alta/:IdPersona',quimicosController.altaQuimico);
+
     }
 
 }

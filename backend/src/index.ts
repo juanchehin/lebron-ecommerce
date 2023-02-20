@@ -23,6 +23,7 @@ import comprasRoutes from './routes/comprasRoutes';
 import cuentasRoutes from './routes/cuentasRoutes';
 import saboresRoutes from './routes/saboresRoutes';
 import dolaresRoutes from './routes/dolaresRoutes';
+import quimicosRoutes from './routes/quimicosRoutes';
 
 class Server {
 
@@ -54,6 +55,7 @@ class Server {
         this.app.use('/api/inversores', inversoresRoutes);
         this.app.use('/api/dolares', dolaresRoutes);
         this.app.use('/api/productos', productosRoutes);
+        this.app.use('/api/quimicos', quimicosRoutes);
         this.app.use('/api/pedidos', pedidosRoutes);
         this.app.use('/api/proveedores', proveedoresRoutes);
         this.app.use('/api/categorias', categoriasRoutes);

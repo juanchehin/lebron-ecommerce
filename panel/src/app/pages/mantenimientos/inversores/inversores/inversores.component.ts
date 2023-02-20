@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { InversoresService } from 'src/app/services/inversores.service';
 import Swal from 'sweetalert2';
 
@@ -11,16 +12,23 @@ import Swal from 'sweetalert2';
 
 export class InversoresComponent implements OnInit {
 
+  activarModalNuevaInversion = false;
   desde = 0;
   inversores!: any;
   cantPlanes = 0;
   tasaInteres = 0;
   totalInversores = 0;
   cargando = true;
+  IdPersona = 0;
+  monto = 0;
+  @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
+
 
   constructor(
     public inversoresService: InversoresService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    public authService: AuthService,
+    public alertaService: AlertService
   ) {
    }
 
@@ -39,7 +47,6 @@ buscarInversores() {
 
     this.inversoresService.buscarInversorPaginado( this.desde, inversorBuscado  )
                .subscribe( {
-                
                 next: (resp: any) => { 
                   
                   if(resp[3] && resp[3][0].Mensaje == 'Ok')
@@ -58,7 +65,63 @@ buscarInversores() {
 
   }
 
+// ==================================================
+//        Cambio de valor
+// ==================================================
 
+altaMontoInversion(){
+
+  this.IdPersona = this.authService.IdPersona;
+
+  if ( this.monto <= 0 ) {
+    this.alertaService.alertFail('Monto invalido',false,2000);
+    return;
+  }
+
+  const datosNuevaInversion = [
+    this.IdPersona,
+    this.monto
+  ]
+
+  this.inversoresService.altaMontoInversion( datosNuevaInversion )
+  .subscribe({
+    next: (resp: any) => {
+
+      if ( resp[0][0].Mensaje == 'Ok') {
+        this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
+
+        this.activarModalNuevaInversion = false;
+        
+        this.cerrarModal();
+        
+        // this.router.navigate(['/dashboard/ventas']);
+      } else {
+        this.alertaService.alertFail('Ocurrio un error',false,2000);
+      }
+      return;
+     },
+    error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
+  });
+}
+
+  // ==============================
+  // 
+  // ================================
+  continuarAltaMontoInversion()
+  {
+    console.log("pasa continuarAltaMontoInversion : ")
+
+    this.activarModalNuevaInversion = true;
+
+    console.log("activarModalNuevaInversion : ",this.activarModalNuevaInversion)
+
+  }
+// ==================================================
+//        Cambio de valor
+// ==================================================
+bajaMontoInversion(){
+
+}
 
 // ==================================================
 // 
@@ -116,20 +179,12 @@ cambiarDesde( valor: number ) {
   this.buscarInversores();
 
 }
-// ==================================================
-//        Cambio de valor
-// ==================================================
-
-agregarDinero(IdPersona: any){
-
-}
-
-// ==================================================
-//        Cambio de valor
-// ==================================================
-quitarDinero(IdPersona: any){
-
-}
-
+  // ==============================
+  // 
+  // ================================
+  cerrarModal(){
+    let el: HTMLElement = this.divCerrarModal.nativeElement;
+    el.click();
+  }
 
 }

@@ -65,8 +65,7 @@ export class NuevaVentaComponent implements OnInit {
   ngOnInit() {   
     this.IdPersona = this.authService.IdPersona;
     this.datosVendedor = [];
-    this.cargarDatosVendedor();    
-
+    this.cargarDatosVendedor();
   }
   
 // ==================================================
@@ -81,7 +80,7 @@ altaVenta() {
         this.alertaService.alertFail('Los totales no coinciden',false,2000);
         return;
       }
-      
+
       this.arrayVenta.push(        
         this.IdCliente,
         this.lineas_venta,
@@ -321,7 +320,7 @@ agregarLineaTipoPago() {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
-  
+
   onFocused(e: any){
     // console.log("pasa on onFocused",e)
     // do something when input is focused

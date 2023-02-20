@@ -115,12 +115,19 @@
                         <span class="hide-menu">Dolares </span>
                     </a>
                 </li>
+                <!-- ===== ** Quimicos ** ====== -->
+                <li class="user-profile" [routerLink]="['/dashboard/quimicos']" *ngIf="activarMenu('Quimicos')">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <span class="hide-menu">Quimicos </span>
+                    </a>
+                </li>
                 <!-- ===== ** Configuraciones ** ====== -->
                 <li class="user-profile" [routerLink]="['/dashboard/configuraciones']" *ngIf="activarMenu('Configuraciones')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <span class="hide-menu">Configuraciones </span>
                     </a>
                 </li>
+                <br/><br/>
                 <br/><br/>
                 <li class="nav-devider"></li>
             </ul>

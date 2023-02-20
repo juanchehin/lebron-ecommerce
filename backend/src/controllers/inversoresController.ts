@@ -176,6 +176,37 @@ public async listarHistoricoInversor(req: Request, res: Response): Promise<void>
 
 }
 
+// ==================================================
+//        Inserta 
+// ==================================================
+public async altaMontoInversor(req: Request, res: Response) {
+
+    var pIdPersona = req.params.IdPersona;
+
+    var pIdInversor = req.body[0];
+    var pMontoInvertido = req.body[1];
+    var pObservaciones = req.body[2];
+
+    pool.query(`call bsp_alta_monto_inversion('${pIdPersona}','${pIdInversor}','${pMontoInvertido}','${pObservaciones}')`, function(err: any, result: any, fields: any){
+        
+        if(err){
+            logger.error("Error en altaMontoInversor - bsp_alta_monto_inversion - inversoresController");
+            res.status(404).json({ text: err });
+            return;
+        }
+
+        if(result[0][0].Mensaje !== 'Ok'){
+            logger.error("Error en altaMontoInversor - bsp_alta_monto_inversion - inversoresController");
+            return res.json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
+
+        return res.json({ Mensaje: 'Ok' });
+    })
+
+}
 
 }
 

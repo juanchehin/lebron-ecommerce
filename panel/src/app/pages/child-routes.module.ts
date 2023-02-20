@@ -17,6 +17,11 @@ const childRoutes: Routes = [
     loadChildren: () => import('./mantenimientos/productos/productos-routing.module').then( m => m.ProductosRoutingModule )
   },
   { 
+    path: 'quimicos',
+    canActivate: [LoginGuardGuard, VerificaTokenGuard],
+    loadChildren: () => import('./mantenimientos/quimicos/quimicos-routing.module').then( m => m.QuimicosRoutingModule )
+  },
+  { 
     path: 'usuarios',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     loadChildren: () => import('./mantenimientos/usuarios/usuarios-routing.module').then( m => m.UsuariosRoutingModule )

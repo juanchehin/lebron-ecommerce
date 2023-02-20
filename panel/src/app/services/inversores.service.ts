@@ -121,4 +121,14 @@ buscarHistoricoInversores(desde: number , FechaInicio: any , FechaFin: any){
 
   return this.http.get( url, this.headers );
 }
+
+// ==================================================
+//        
+// ==================================================
+altaMontoInversion( datosInversion: any ) {
+
+  let url = URL_SERVICIOS + '/inversores/alta/monto/' + this.IdPersona;
+
+  return this.http.post(url,datosInversion, this.headers );
+}
 }

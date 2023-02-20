@@ -1,0 +1,81 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Quimico:  </label>
+                        <input (keyup.enter)="buscarQuimico( )" #input type="text" class="form-control" placeholder="Busqueda..." id="buscarQuimico">
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <button (click)="buscarQuimico( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="material-icons">
+                                search
+                                </i>
+                            </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad quimicos ( <small> {{totalQuimicos }} </small> )</h3>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <button [routerLink]="['/dashboard/quimicos/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                          <i class="fa fa-plus"></i> 
+                            Nuevo Quimico
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div style="overflow:auto;">
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Codigo</th>
+                            <th>Producto</th>
+                            <th>Stock</th>
+                            <th>PrecioVenta</th>
+                            <th>PrecioMayorista</th>
+                            <th>Moneda</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let quimico of quimicos">
+                            <td>{{ quimico.Codigo }}</td>
+                            <td>{{ quimico.Quimico }}</td>
+                            <td>{{ quimico.Stock }}</td>
+                            <td>${{ quimico.PrecioVenta }}</td>
+                            <td>${{ quimico.PrecioMayorista }}</td>
+                            <td>{{ quimico.Moneda }}</td>
+                            <td>
+                                <div class="col-sm-3">
+                                    <div class="switch">
+                                        <label>
+                                        <input type="checkbox" [attr.disabled]="(quimico.Stock <= 0) ? true : null" ><span class="lever switch-col-light-blue"></span></label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/quimico',quimico.IdProducto]">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaQuimico(quimico.IdProducto)">Eliminar</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-12) " type="button" class="btn btn-default-outline">Anteriores</button>
+        <button (click)="cambiarDesde(12) " type="button" class="btn btn-default-outline">Siguientes</button>
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

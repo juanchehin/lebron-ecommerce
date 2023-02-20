@@ -14,6 +14,8 @@ const routes: Routes = [
   },
   { path: 'proveedores', loadChildren: () => import('./pages/mantenimientos/proveedores/proveedores.module').then(m => m.ProveedoresModule) },
   { path: 'productos', loadChildren: () => import('./pages/mantenimientos/productos/productos.module').then(m => m.ProductosModule) },
+  { path: 'quimicos', loadChildren: () => import('./pages/mantenimientos/quimicos/quimicos.module').then(m => m.QuimicosModule) },
+
   { path: 'compras', loadChildren: () => import('./pages/mantenimientos/compras/compras.module').then(m => m.ComprasModule) },
   { path: 'compras', loadChildren: () => import('./pages/mantenimientos/compras/compras.module').then(m => m.ComprasModule) },
   { path: 'promociones', loadChildren: () => import('./pages/mantenimientos/promociones/promociones.module').then(m => m.PromocionesModule) },

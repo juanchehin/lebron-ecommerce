@@ -33,6 +33,7 @@ export class ConfiguracionesComponent implements OnInit {
   CostoEnvio!: string;
   Dolar!:string;
   retencionMP!:string;
+  tasaInteres!: any;
 
   constructor(
     private router: Router, 
@@ -63,7 +64,8 @@ export class ConfiguracionesComponent implements OnInit {
       Tarjeta6Pago: new FormControl(null ),
       CostoEnvio: new FormControl(null ),
       Dolar: new FormControl(null ),
-      retencionMP: new FormControl(null )
+      retencionMP: new FormControl(null ),
+      tasaInteres: new FormControl(null )
       });
   }
 
@@ -95,7 +97,9 @@ actualizarConfiguraciones() {
         this.forma.value.Tarjeta6Pago || this.Tarjeta6Pago,
         this.forma.value.CostoEnvio || this.CostoEnvio,
         this.forma.value.Dolar || this.Dolar,
-        this.forma.value.retencionMP || this.retencionMP
+        this.forma.value.retencionMP || this.retencionMP,
+        this.forma.value.tasaInteres || this.tasaInteres
+
       );
 
       this.configuracionesService.actualizarConfiguracion( configuraciones )
@@ -104,7 +108,7 @@ actualizarConfiguraciones() {
   
                     if ( resp[0][0].Mensaje === 'Ok') {
                       this.alertService.alertSuccess('top-end','Configuracion guardada',false,2000);
-                      this.router.navigate(['/dashboard/configuraciones']);
+                      // this.router.navigate(['/dashboard/configuraciones']);
                     } else {
                       this.alertService.alertFailWithText('Ocurrio un error',resp[0][0].Mensaje,false,2000);
                     }
@@ -143,6 +147,7 @@ cargarConfiguraciones() {
               this.CostoEnvio =  this.configuraciones.costo_envio;
               this.Dolar =  this.configuraciones.dolar;
               this.retencionMP =  this.configuraciones.retencion_mp;
+              this.tasaInteres =  this.configuraciones.tasa_interes_inversores;
 
               this.cargando = false;
 

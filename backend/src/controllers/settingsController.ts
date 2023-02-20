@@ -79,11 +79,12 @@ public async actualizarConfiguraciones(req: Request, res: Response): Promise<voi
     var pCostoEnvio = req.body[15] || '';
     var pDolar = req.body[16] || '';
     var pRetencionMP = req.body[17] || '';
+    var pTasaInteresInversor = req.body[18] || '';
 
 
   pool.query(`call bsp_actualizar_configuraciones('${IdUsuario}','${pNombre}','${pCUIT}','${pEmail}','${pImagen}','${pTelefono}','${pDireccion}',
             '${pIngBrutos}','${pIVA}','${pInstagram}','${pTwitter}','${pFacebook}','${pYoutube}','${pTarjeta1Pago}','${pTarjeta3Pago}',
-            '${pTarjeta6Pago}','${pCostoEnvio}','${pDolar}','${pRetencionMP}')`, function(err: any, result: any, fields: any){
+            '${pTarjeta6Pago}','${pCostoEnvio}','${pDolar}','${pRetencionMP}','${pTasaInteresInversor}')`, function(err: any, result: any, fields: any){
       if(err){
         logger.error("Error en actualizarConfiguraciones - bsp_actualizar_configuraciones - settingsController");
 

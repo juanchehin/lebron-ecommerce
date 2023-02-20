@@ -1,0 +1,196 @@
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Producto : </label>
+                    <input tabindex="1" [(ngModel)]="Producto" name="Producto" required type="text" placeholder="Producto..." class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Marca : </label>
+                    <select tabindex="2" [(ngModel)]="IdMarca" name="IdMarca" class="form-control">
+                                <option *ngFor="let marca of marcas" [value]="marca.IdMarca">
+                                    {{marca.Marca}}
+                                </option>
+                            </select>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Medida : </label>
+                            <input tabindex="3" min="0" [(ngModel)]="Medida" name="Medida" required type="number" placeholder="Medida" class="form-control">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Unidad : </label>
+                            <select tabindex="4" [(ngModel)]="IdUnidad" name="IdUnidad" class="form-control">
+                                    <option *ngFor="let unidad of unidades" [value]="unidad.IdUnidad">
+                                        {{unidad.NombreCorto}}
+                                    </option>
+                                </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Fecha vencimiento : </label>
+                    <input tabindex="5" [(ngModel)]="FechaVencimiento" name="FechaVencimiento" type="date" placeholder="Fecha vencimiento..." class="form-control">
+                </div>
+                <div *ngIf="alertaCodigoVacio">
+                    <p style="color:red;">La fecha debe ser mayor a la fecha actual</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Categoria : </label>
+                    <select (change)="onChangeCategorias($event.target.value)" tabindex="6" [(ngModel)]="IdCategoria" name="IdCategoria" class="form-control">
+                                <option *ngFor="let categoria of categorias" [value]="categoria.IdCategoria">
+                                    {{categoria.Categoria}}
+                                </option>
+                            </select>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>SubCategoria : </label>
+                    <select [attr.disabled]="deshabilitarSubcategorias ? '' : null" tabindex="7" [(ngModel)]="IdSubCategoria" name="IdSubCategoria" class="form-control">
+                                <option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.IdSubcategoria">
+                                    {{subcategoria.Subcategoria}}
+                                </option>
+                            </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Proveedor : </label>
+                    <select tabindex="4" [(ngModel)]="IdProveedor" name="IdProveedor" class="form-control">
+                            <option *ngFor="let proveedor of proveedores" [value]="proveedor.IdProveedor">
+                                {{proveedor.Proveedor}}
+                            </option>
+                        </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- ***** Sabores ******* -->
+    <!-- ============================================================== -->
+    <div class="card">
+        <div class="card-body">
+            <!-- ===== Tabla con listado de sabores ===== -->
+            <!-- ========== Buscador producto ============ -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="ng-autocomplete" tabindex="8">
+                        <ng-autocomplete #saboresReference [data]="sabores" [searchKeyword]="keywordSabor" placeholder="Carga los sabores" (selected)='selectEventSabor($event)' (inputChanged)='onChangeSearch($event)' [itemTemplate]="itemTemplateSabor" [notFoundTemplate]="notFoundTemplateSabor">
+                        </ng-autocomplete>
+                    </div>
+                    <ng-template #itemTemplateSabor let-item>
+                        <a [innerHTML]="item.Sabor"></a>
+                    </ng-template>
+                    <ng-template #notFoundTemplateSabor let-notFound>
+                        <div [innerHTML]="notFound"></div>
+                    </ng-template>
+                </div>
+            </div>
+            <br>
+            <!-- ========== Codigo producto ============ -->
+            <div class="row">
+                <div class="col-sm-6">
+                    <label>Codigo : </label>
+                </div>
+                <div *ngIf="alertaCodigoVacio">
+                    <p style="color:red;">Debe proveer un codigo</p>
+                </div>
+                <div style="text-align:right;" (click)="generarCodigo()">
+                    <input [checked]="banderaGenerarCodigo" type="checkbox" class="chk-col-teal" tabindex="9" />
+                    <label>Generar Codigo</label>
+                </div>
+                <div class="col-sm-6">
+                    <input tabindex="2" [(ngModel)]="codigoLineaSabor" name="codigoLineaSabor" type="text" placeholder="Codigo..." class="form-control" tabindex="10">
+                </div>
+                <div class="col-sm-6">
+                    <button (click)="agregarLineaSabor()" type="button" class="btn btn-info btn-circle"><i class="fa fa-plus" tabindex="11"></i> </button>
+                </div>
+            </div>
+            <!-- ========== Fin Codigo producto ============ -->
+            <br>
+            <!-- ========== Tabla con sabores agregados ============ -->
+            <h4 class="card-title">Sabores agregados</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Sabor</th>
+                            <th>Codigo</th>
+                            <th class="text-nowrap"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let sabor_cargado of sabores_cargados">
+                            <td>{{sabor_cargado.Sabor }}</td>
+                            <td>{{sabor_cargado.Codigo }}</td>
+                            <td class="text-nowrap">
+                                <a data-toggle="tooltip" (click)="eliminarItemSabor(sabor_cargado.IdSabor)" data-original-title="Close">
+                                    <i class="fa fa-close text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- ===== Fin Tabla con listado de sabores ===== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- ***** Fin Sabores ******* -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- ***** Precios ******* -->
+    <!-- ============================================================== -->
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Precio Compra : </label><input min="1" tabindex="12" [(ngModel)]="PrecioCompra" name="PrecioCompra" type="number" placeholder="Precio Compra..." class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Precio Venta : </label><input min="1" tabindex="13" [(ngModel)]="PrecioVenta" name="PrecioVenta" type="number" placeholder="Precio de Venta" class="form-control">
+                    <div *ngIf="alertaPrecioVentaCompra">
+                        <p style="color:red;">El precio de venta debe ser mayor que el precio de compra</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Precio Mayorista : </label><input min="1" tabindex="14" [(ngModel)]="PrecioMayorista" name="PrecioMayorista" type="number" placeholder="Precio Mayorista..." class="form-control">
+                    <div *ngIf="alertaPrecioVentaMayorista">
+                        <p style="color:red;">El precio de venta debe ser mayor que el precio de compra</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Precio Meli : </label><input min="1" tabindex="15" [(ngModel)]="PrecioMeli" name="PrecioMeli" type="number" placeholder="Precio Meli..." class="form-control">
+                    <div *ngIf="alertaPrecioVentaMeli">
+                        <p style="color:red;">El precio de venta debe ser mayor que el precio de compra</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Descuento % : </label><input min="0" max="99" tabindex="16" [(ngModel)]="Descuento" name="Descuento" required type="number" placeholder="Descuento..." class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label class="control-label">Moneda : </label>
+                    <select required tabindex="13" [(ngModel)]="Moneda" class="form-control" tabindex="17">
+                            <option selected value="ARS"> ARS </option>
+                            <option value="USD"> USD </option>
+                        </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- ***** Fin Precios ******* -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-sm-12 form-group">
+            <label>Descripcion : </label>
+            <textarea tabindex="18" [(ngModel)]="Descripcion" name="Descripcion" type="textarea" placeholder="Descripcion..." rows="3" class="form-control"></textarea>
+        </div>
+    </div>
+    <br>
+    <button type="submit" tabindex="19" class="btn btn-info btn-lg btn-block text-uppercase" (click)="altaQuimico()">Cargar Producto</button>
+    <br>
+</div>

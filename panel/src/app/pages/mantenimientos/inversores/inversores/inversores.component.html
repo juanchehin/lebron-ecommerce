@@ -43,10 +43,10 @@
                             <td>{{ inversor.Apellidos }}, {{ inversor.Nombres }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button class="btn btn-inline btn-success" type="button" (click)="agregarDinero(inversor.IdPersona)">
+                                    <button class="btn btn-inline btn-success" type="button" (click)="continuarAltaMontoInversion()">
                                         <i class="material-icons"> add </i>
                                     </button>
-                                    <button class="btn btn-inline btn-warning" type="button" (click)="quitarDinero(inversor.IdPersona)">
+                                    <button class="btn btn-inline btn-warning" type="button" (click)="bajaMontoInversion()">
                                         <i class="material-icons"> remove </i>
                                     </button>    
                                     <button class="btn btn-inline btn-info" type="button" [routerLink]="['/dashboard/inversores/historico',inversor.IdPersona]">
@@ -58,8 +58,7 @@
                                     <button class="btn btn-inline btn-danger" type="button" (click)="bajaInversor(inversor.IdPersona)">
                                         <i class="material-icons"> delete </i>
                                     </button>
-                                </div>
-                            
+                                </div>                            
                             </td>
                         </tr>
                     </tbody>
@@ -76,3 +75,31 @@
     <!--.container-fluid-->
 </div>
 <!--.page-content-->
+
+<!-- =========== MODAL Nueva inversion =========== -->
+<div class="col-md-4" *ngIf="activarModalNuevaInversion">
+    <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Nueva inversion para ----</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                            <div class="col-sm-4">
+                                <label>Monto : </label>
+                                <input type="text" [(ngModel)]="monto" name="monto" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button #divCerrarModal type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light" (click)="altaMontoInversion()">Finalizar inversion</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+    <!-- <button class="btn btn-lg btn-outline-primary" alt="default" data-toggle="modal" data-target="#responsive-modal" class="model_img img-responsive">Continuar</button> -->

@@ -42,9 +42,11 @@ export class QuimicosService {
 // ==================================================
 //
 // ==================================================
-  listarQuimicosPaginado(desde: any,IdSucursal: any,pParametroBusqueda: any){
+  listarQuimicosPaginado(desde: any,pParametroBusqueda: any){
 
-    let url = URL_SERVICIOS + '/quimicos/buscar/' + desde + '/' + pParametroBusqueda + '/' + IdSucursal + '/' + this.IdPersona;
+    console.log("listarQuimicosPaginado : ",desde + pParametroBusqueda)
+
+    let url = URL_SERVICIOS + '/quimicos/buscar/' + desde + '/' + pParametroBusqueda + '/' + this.IdPersona;
 
     return this.http.get( url, this.headers );
   }  

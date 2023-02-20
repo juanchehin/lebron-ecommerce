@@ -37,9 +37,10 @@ buscarQuimico() {
     const inputElement: HTMLInputElement = document.getElementById('buscarQuimico') as HTMLInputElement;
     const quimicoBuscado: any = inputElement.value || '-';
 
-    this.quimicosService.listarQuimicosPaginado( this.desde , this.IdSucursal, quimicoBuscado  )
+    this.quimicosService.listarQuimicosPaginado( this.desde , quimicoBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
+                  console.log("resp : ",resp)
 
                   if(resp[0].length <= 0)
                   { 

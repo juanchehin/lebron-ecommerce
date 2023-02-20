@@ -122,14 +122,13 @@ public async buscarQuimicoPaginado(req: Request, res: Response): Promise<void> {
     var desde = req.params.desde || 0;
     desde  = Number(desde);
     var pParametroBusqueda = req.params.pParametroBusqueda || '';
-    const IdSucursal = req.params.IdSucursal;
 
     if(pParametroBusqueda == null || pParametroBusqueda == 'null' || pParametroBusqueda == '-' || pParametroBusqueda == '')
     {
         pParametroBusqueda = '-';
     }
 
-    pool.query(`call bsp_buscar_quimico_paginado('${req.params.IdPersona}','${pParametroBusqueda}','${desde}','${IdSucursal}')`, function(err: any, result: any){
+    pool.query(`call bsp_buscar_quimico_paginado('${req.params.IdPersona}','${pParametroBusqueda}','${desde}')`, function(err: any, result: any){
         
         if(err){
             res.status(400).json(err);

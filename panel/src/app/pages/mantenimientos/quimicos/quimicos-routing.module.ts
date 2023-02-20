@@ -8,7 +8,7 @@ import { EditarQuimicoComponent } from './quimicos/editar-quimico.component';
 const routes: Routes = [
    // Quimicos
    { path: '', component: QuimicosComponent, data: { titulo: 'Productos quimicos' }},
-   { path: 'nuevo', component: QuimicoComponent, data: { titulo: 'Nuevo Producto quimico' }},
+   { path: 'nuevo', component: QuimicoComponent, data: { titulo: 'Nuevo producto quimico' }},
    { path: 'editar/:IdProducto', component: EditarQuimicoComponent, data: { titulo: 'Edicion de producto quimico' }}   
 ];
 

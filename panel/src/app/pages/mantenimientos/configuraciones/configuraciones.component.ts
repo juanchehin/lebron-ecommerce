@@ -45,7 +45,6 @@ export class ConfiguracionesComponent implements OnInit {
 
   ngOnInit() {
     this.cargarConfiguraciones();
-    this.configuracionesService.checkCurrentTheme();
 
     this.forma = new FormGroup({
       NombreEmpresa: new FormControl(null),
@@ -155,10 +154,4 @@ cargarConfiguraciones() {
 
 }
 
-// ================================
-changeTheme( theme: string ) {
-
-  this.configuracionesService.changeTheme( theme );
-
-}
 }

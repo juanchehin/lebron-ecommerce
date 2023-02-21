@@ -55,8 +55,9 @@
                 <table id="table-edit" class="table table-bordered table-hover">
                     <thead>
                         <tr>
+                            <th>Fecha</th>
                             <th width="1">
-                                #
+                                Nro. Transaccion
                             </th>
                             <th>Monto</th>
                             <th>Tipo</th>
@@ -65,6 +66,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let historico of historicoDolares">
+                            <td>{{ historico.Fecha }}</td>
                             <td>{{ historico.IdTransaccion }}</td>
                             <td>$ {{ historico.MontoTotal }}</td>
                             <td>{{ historico.tipo }}</td>

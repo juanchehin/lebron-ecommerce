@@ -38,7 +38,7 @@ export class CompraDolarComponent implements OnInit {
 //        Crear 
 // ==================================================
 
-altaVentaDolar() {
+altaCompraDolar() {
   
   this.IdPersona = this.authService.IdPersona;
 

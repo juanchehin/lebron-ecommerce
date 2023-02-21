@@ -760,7 +760,7 @@ Main sidebar
   top: 0px;
   z-index: 20;
   padding-top: 70px;
-  background: #fff;
+  background: #000000;
   -webkit-box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
   box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08); }
 
@@ -794,7 +794,7 @@ sidebar navigation
   display: block; }
 
 .sidebar-nav {
-  background: #fff;
+  background: #000000;
   padding: 15px 0 0 0px; }
   .sidebar-nav ul {
     margin: 0px;

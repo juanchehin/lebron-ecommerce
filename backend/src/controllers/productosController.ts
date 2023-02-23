@@ -140,6 +140,8 @@ public async buscarProductoPaginado(req: Request, res: Response): Promise<void> 
     pool.query(`call bsp_buscar_producto_paginado('${req.params.IdPersona}','${pParametroBusqueda}','${desde}','${IdSucursal}')`, function(err: any, result: any){
         
         if(err){
+            logger.error("Error en bsp_buscar_producto_paginado - productosController");
+
             res.status(400).json(err);
             return;
         }

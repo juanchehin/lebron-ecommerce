@@ -6,7 +6,8 @@ import Swal from 'sweetalert2';
 })
 export class AlertService {
 
-
+  cargando = false;
+  
   constructor() { }
 
   // ==============================

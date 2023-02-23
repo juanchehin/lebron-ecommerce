@@ -41,6 +41,8 @@ buscarProducto() {
     const inputElement: HTMLInputElement = document.getElementById('buscarProducto') as HTMLInputElement;
     const productoBuscado: any = inputElement.value || '-';
 
+    this.alertaService.cargando = true;
+
     this.productosService.listarProductosPaginado( this.desde , this.IdSucursal, productoBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
@@ -49,6 +51,9 @@ buscarProducto() {
                   { 
                     this.productos = [];
                     this.totalProductos = 0;
+
+                    this.alertaService.cargando = false;
+                    
                     return;
                   }
   
@@ -57,13 +62,17 @@ buscarProducto() {
                     this.totalProductos = resp[2][0].cantProductosBuscados;
                     this.productos = resp[0];
                     
-                    // this.router.navigate(['/dashboard/ventas']);
+                    this.alertaService.cargando = false;
                   } else {
                     this.alertaService.alertFail('Ocurrio un error',false,2000);
+                    this.alertaService.cargando = false;
                   }
                   return;
                  },
-                error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
+                error: () => { 
+                  this.alertaService.alertFail('Ocurrio un error',false,2000)
+                  this.alertaService.cargando = false;
+                }
               });
 
   }

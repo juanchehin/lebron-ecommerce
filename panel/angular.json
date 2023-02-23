@@ -23,7 +23,7 @@
                             "src/assets"
                         ],
                         "styles": [],
-                        "scripts": []
+                        "scripts": ["src/assets/js/perfect-scrollbar.jquery.min.js"]
                     },
                     "configurations": {
                         "production": {

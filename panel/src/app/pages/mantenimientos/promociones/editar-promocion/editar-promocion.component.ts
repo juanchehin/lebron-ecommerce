@@ -128,7 +128,6 @@ cargarPromocion() {
               this.FechaAlta = this.persona.FechaAlta;
               this.FechaBaja = this.persona.FechaBaja;
 
-              this.cargando = false;
 
             });
 */

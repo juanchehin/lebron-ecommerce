@@ -15,7 +15,6 @@ import { IItemStructure } from 'src/app/interfaces/item.interface';
 export class PromocionComponent implements OnInit {
 
   keywordProducto = 'codigoProductoSabor';
-  cargando = true;
   productos: any;
   clienteBuscado = '';
   productoBuscado = '';

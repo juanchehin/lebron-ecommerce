@@ -52,8 +52,6 @@ cargarImagenes() {
 
                 this.imagenes = resp[0];
 
-                this.cargando = false;
-
       });
 
   }

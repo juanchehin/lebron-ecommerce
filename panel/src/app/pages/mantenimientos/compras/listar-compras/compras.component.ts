@@ -9,7 +9,6 @@ import { ComprasService } from 'src/app/services/compras.service';
 export class ComprasComponent implements OnInit {
 
   desde = 0;
-  cargando = false;
   fecha: any;
 
   fechaInicio = this.formatDateNow(new Date(Date.now()));
@@ -108,12 +107,9 @@ cargarCompras() {
   const pfechaInicio  = this.fechaInicio;
   const pfechaFin = this.fechaFin;
 
-  this.cargando = true;
-
   this.comprasService.listarComprasFecha( this.desde , pfechaInicio , pfechaFin)
              .subscribe( (resp: any) => {
               // Controlar que el cliente exista AQUI , ver como se puede capturar el mensaje enviado desde el SQL
-              console.log("resp es :",resp)
               this.totalCompras = resp[1][0].cantCompras;
 
               this.compras = resp[0];
@@ -121,8 +117,6 @@ cargarCompras() {
               if (resp[1][0].cantCompras === undefined || resp[1][0].cantCompras === null) {
                 this.totalCompras = 0;
               }
-
-              this.cargando = false;
 
             });
 

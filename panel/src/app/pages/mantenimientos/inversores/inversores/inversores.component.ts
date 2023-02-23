@@ -18,7 +18,6 @@ export class InversoresComponent implements OnInit {
   cantPlanes = 0;
   tasaInteres = 0;
   totalInversores = 0;
-  cargando = true;
   IdPersona = 0;
   monto = 0;
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
@@ -54,13 +53,16 @@ buscarInversores() {
                     this.totalInversores = resp[1][0].cantInversores;
                     this.tasaInteres = resp[2][0].tasaInteres;    
                     this.inversores = resp[0];
+
                     return;
                   } else {
                     this.alertService.alertFail('Ocurrio un error',false,2000);
                   }
                   return;
                  },
-                error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
+                error: () => { 
+                  this.alertService.alertFail('Ocurrio un error',false,2000)
+                }
               });
 
   }

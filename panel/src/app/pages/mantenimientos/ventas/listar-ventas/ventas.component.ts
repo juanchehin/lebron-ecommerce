@@ -37,8 +37,6 @@ cargarVentas() {
   const pfechaInicio  = this.formatDate(this.fechaInicio);
   const pfechaFin = this.formatDate(this.fechaFin);
 
-  this.alertService.cargando = true;
-
   this.ventasService.listarVentasFecha( this.desde , pfechaInicio , pfechaFin)
              .subscribe( {
               next: (resp: any) => { 
@@ -52,13 +50,10 @@ cargarVentas() {
                 }else {
                   this.alertService.alertFail('Ocurrio un error',false,2000);
                 }
-                this.alertService.cargando = false;
-
                 return;
                },
               error: () => { 
                 this.alertService.alertFail('Ocurrio un error',false,2000)
-                this.alertService.cargando = false;
               }
             });
 

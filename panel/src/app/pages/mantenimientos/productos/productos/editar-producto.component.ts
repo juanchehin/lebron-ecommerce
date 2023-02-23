@@ -183,8 +183,6 @@ cargarDatosFormEditarProducto() {
                 this.producto = resp[6][0];
                 this.sabores_cargados = resp[7];
 
-                this.cargando = false;
-
                 this.IdCategoria = this.producto.IdCategoria;
                 this.IdSubCategoria = this.producto.IdSubCategoria;
                 this.IdMarca = this.producto.IdMarca;
@@ -217,8 +215,6 @@ cargarSubcategoriaIdCategoria(IdCategoria: any) {
                .subscribe( (resp: any) => {
 
                 this.subcategorias = resp[0];
-
-                this.cargando = false;
 
               });
 

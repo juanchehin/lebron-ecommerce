@@ -11,14 +11,8 @@ import Swal from 'sweetalert2';
 export class ListarProveedoresComponent implements OnInit {
 
   desde = 0;
-  totalAsistencias = true;
-  ClasesDisponibles = 0;
-
   proveedores!: any;
-  cantPlanes = 0;
-
   totalProveedores = 0;
-  cargando = true;
 
   constructor(
     public proveedoresService: ProveedoresService,
@@ -42,8 +36,6 @@ cargarProveedores() {
                 this.totalProveedores = resp[1][0].cantProveedores;
 
                 this.proveedores = resp[0];
-
-                this.cargando = false;
 
               });
 
@@ -107,6 +99,5 @@ bajaProveedor(IdProveedor: string) {
 
   
   }
-
 
 }

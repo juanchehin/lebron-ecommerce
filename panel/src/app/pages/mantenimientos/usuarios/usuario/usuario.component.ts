@@ -79,6 +79,27 @@ export class UsuarioComponent implements OnInit {
   editarVentas   = false;
   borrarVentas   = false;
 
+  banderaCheckInversores = false;
+  listarInversores   = false;
+  altaInversores     = false;
+  importarInversores = false;
+  editarInversores   = false;
+  borrarInversores   = false;
+
+  banderaCheckDolares = false;
+  listarDolares   = false;
+  altaDolares     = false;
+  importarDolares = false;
+  editarDolares   = false;
+  borrarDolares   = false;
+
+  banderaCheckQuimicos = false;
+  listarQuimicos   = false;
+  altaQuimicos     = false;
+  importarQuimicos = false;
+  editarQuimicos   = false;
+  borrarQuimicos   = false;
+
   banderaCheckConfiguraciones = false;
   listarConfiguraciones = false;
   editarConfiguraciones = false;
@@ -617,6 +638,140 @@ checkTodosVentas()
 }
 }
 
+// ==================================================
+//      
+// ==================================================
+
+checkTodosInversores()
+{
+  if(!this.banderaCheckInversores){
+    
+    this.banderaCheckInversores = true;
+
+    this.listarInversores = true;
+    this.altaInversores = true;
+    this.importarInversores = true;
+    this.editarInversores = true;
+    this.borrarInversores = true;
+
+    this.permisos.push(67,68,69,70);
+  }else
+  { 
+    this.banderaCheckInversores = false;
+
+    this.listarInversores = false;
+    this.altaInversores = false;
+    this.importarInversores = false;
+    this.editarInversores = false;
+    this.borrarInversores = false;
+
+    var idPermiso = 1;
+    for(let i = 0; i < 4; i++)
+    {
+      const index = this.permisos.indexOf(idPermiso, 0);
+      if (index > -1) {
+        this.permisos.splice(index, 1);
+      }
+      idPermiso++;
+    }
+
+    const index = this.permisos.indexOf(62, 0);
+      if (index > -1) {
+        this.permisos.splice(index, 1);
+      }
+  }
+ 
+}
+
+// ==================================================
+//      
+// ==================================================
+
+checkTodosDolares()
+{
+  if(!this.banderaCheckDolares){
+    
+    this.banderaCheckDolares = true;
+
+    this.listarDolares = true;
+    this.altaDolares = true;
+    this.importarDolares = true;
+    this.editarDolares = true;
+    this.borrarDolares = true;
+
+    this.permisos.push(71,72,73,74);
+  }else
+  { 
+    this.banderaCheckDolares = false;
+
+    this.listarDolares = false;
+    this.altaDolares = false;
+    this.importarDolares = false;
+    this.editarDolares = false;
+    this.borrarDolares = false;
+
+    var idPermiso = 1;
+    for(let i = 0; i < 4; i++)
+    {
+      const index = this.permisos.indexOf(idPermiso, 0);
+      if (index > -1) {
+        this.permisos.splice(index, 1);
+      }
+      idPermiso++;
+    }
+
+    const index = this.permisos.indexOf(62, 0);
+      if (index > -1) {
+        this.permisos.splice(index, 1);
+      }
+  }
+ 
+}
+
+// ==================================================
+//      
+// ==================================================
+
+checkTodosQuimicos()
+{
+  if(!this.banderaCheckQuimicos){
+    
+    this.banderaCheckQuimicos = true;
+
+    this.listarQuimicos = true;
+    this.altaQuimicos = true;
+    this.importarQuimicos = true;
+    this.editarQuimicos = true;
+    this.borrarQuimicos = true;
+
+    this.permisos.push(75,76,77,78);
+  }else
+  { 
+    this.banderaCheckQuimicos = false;
+
+    this.listarQuimicos = false;
+    this.altaQuimicos = false;
+    this.importarQuimicos = false;
+    this.editarQuimicos = false;
+    this.borrarQuimicos = false;
+
+    var idPermiso = 1;
+    for(let i = 0; i < 4; i++)
+    {
+      const index = this.permisos.indexOf(idPermiso, 0);
+      if (index > -1) {
+        this.permisos.splice(index, 1);
+      }
+      idPermiso++;
+    }
+
+    const index = this.permisos.indexOf(62, 0);
+      if (index > -1) {
+        this.permisos.splice(index, 1);
+      }
+  }
+ 
+}
 // ==================================================
 //      
 // ==================================================

@@ -174,8 +174,6 @@ cargarDatosFormNuevoProducto() {
                 this.sucursalPrincipal = resp[4][0].Sucursal;
                 this.sabores = resp[5];
 
-                this.cargando = false;
-
               });
 
   }
@@ -191,8 +189,6 @@ cargarSubcategoriaIdCategoria(IdCategoria: any) {
                .subscribe( (resp: any) => {
 
                 this.subcategorias = resp[0];
-
-                this.cargando = false;
 
               });
 

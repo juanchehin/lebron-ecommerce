@@ -39,8 +39,6 @@ listarHistoricoDolares() {
   const pfechaInicio  = this.formatDate(this.fechaInicio);
   const pfechaFin = this.formatDate(this.fechaFin);
 
-  this.cargando = true;
-
   this.dolaresService.listarHistoricoDolares( this.filtroTipo, this.desde , pfechaInicio , pfechaFin)
              .subscribe( {
               next: (resp: any) => { 

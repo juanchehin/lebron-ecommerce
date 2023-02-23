@@ -171,8 +171,6 @@ cargarDatosFormNuevoQuimico() {
                 this.unidades = resp[0];
                 this.sabores = resp[1];
 
-                this.cargando = false;
-
               });
 
   }

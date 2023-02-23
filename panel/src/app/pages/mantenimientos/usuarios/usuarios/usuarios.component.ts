@@ -43,8 +43,6 @@ export class UsuariosComponent implements OnInit {
 
                 this.usuarios = resp[0];
 
-                this.cargando = false;
-
               });
 
   }

@@ -439,6 +439,120 @@
                             </label>
                     </div>
                 </div>
+                  <!-- =============== Inversores ================= -->
+                  <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Inversores</h4>
+                        <input [checked]="banderaCheckInversores" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosInversores()">Todos</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="listarInversores" type="checkbox" class="custom-control-input" (click)="agregarPermiso(67)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Listar inversores</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="altaInversores" type="checkbox" class="custom-control-input" (click)="agregarPermiso(68)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Alta de inversores</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="editarInversores" type="checkbox" class="custom-control-input" (click)="agregarPermiso(69)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Editar Inversores</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="borrarInversores" type="checkbox" class="custom-control-input" (click)="agregarPermiso(70)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Borrar Inversores</span>
+                        </label>
+                    </div>
+                </div>
+                <!-- =============== Dolares ================= -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Dolares</h4>
+                        <input [checked]="banderaCheckDolares" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosDolares()">Todos</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="listarDolares" type="checkbox" class="custom-control-input" (click)="agregarPermiso(71)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Listar dolares</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="altaDolares" type="checkbox" class="custom-control-input" (click)="agregarPermiso(72)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Alta de dolares</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="editarDolares" type="checkbox" class="custom-control-input" (click)="agregarPermiso(73)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Editar dolares</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="borrarDolares" type="checkbox" class="custom-control-input" (click)="agregarPermiso(74)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Borrar dolares</span>
+                        </label>
+                    </div>
+                </div>
+                 <!-- =============== Quimicos ================= -->
+                 <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Quimicos</h4>
+                        <input [checked]="banderaCheckQuimicos" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosQuimicos()">Todos</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="listarQuimicos" type="checkbox" class="custom-control-input" (click)="agregarPermiso(75)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Listar Quimicos</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="altaQuimicos" type="checkbox" class="custom-control-input" (click)="agregarPermiso(76)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Alta de Quimicos</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="editarQuimicos" type="checkbox" class="custom-control-input" (click)="agregarPermiso(77)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Editar Quimicos</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="borrarQuimicos" type="checkbox" class="custom-control-input" (click)="agregarPermiso(78)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Borrar Quimicos</span>
+                        </label>
+                    </div>
+                </div>
             </div>
             <br><br><br>
             <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar Usuario</button>

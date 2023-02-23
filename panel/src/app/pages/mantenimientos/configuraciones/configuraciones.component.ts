@@ -148,8 +148,6 @@ cargarConfiguraciones() {
               this.retencionMP =  this.configuraciones.retencion_mp;
               this.tasaInteres =  this.configuraciones.tasa_interes_inversores;
 
-              this.cargando = false;
-
             });
 
 }

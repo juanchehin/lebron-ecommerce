@@ -38,8 +38,6 @@ buscarClientes() {
     const inputElement: HTMLInputElement = document.getElementById('clienteBuscado') as HTMLInputElement;
     const clienteBuscado: any = inputElement.value || null;
 
-    this.alertService.cargando = true;
-
     this.clientesService.buscarClientesPaginado( this.desde, 2, clienteBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
@@ -49,14 +47,15 @@ buscarClientes() {
                     this.totalClientes = resp[1][0].cantClientes;
     
                     this.clientes = resp[0];
-                    this.alertService.cargando = false;
                     return;
                   } else {
                     this.alertService.alertFail('Ocurrio un error',false,2000);
                   }
                   return;
                  },
-                error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
+                error: () => { 
+                  this.alertService.alertFail('Ocurrio un error',false,2000)
+                 }
               });
 
   }
@@ -119,6 +118,5 @@ cambiarDesde( valor: number ) {
   this.buscarClientes();
 
 }
-
 
 }

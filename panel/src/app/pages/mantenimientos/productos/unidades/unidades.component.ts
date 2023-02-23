@@ -16,7 +16,6 @@ export class UnidadesComponent implements OnInit {
   cantPlanes = 0;
 
   totalUnidades = 0;
-  cargando = true;
 
   constructor(
     public productosService: ProductosService
@@ -39,9 +38,6 @@ cargarUnidades() {
                 this.totalUnidades = resp[1][0].cantUnidades;
 
                 this.unidades = resp[0];
-
-                this.cargando = false;
-
               });
 
   }

@@ -28,7 +28,6 @@ public async altaProducto(req: Request, res: Response) {
     var Moneda = req.body[15].charAt(0);
     var arraySaboresCodigo = req.body[16];
 
-    console.log("req.body es ",req.body)
 
     if(IdSubCategoria == undefined || IdSubCategoria == 'undefined' || IdSubCategoria == null || IdSubCategoria == 'null')
     { 

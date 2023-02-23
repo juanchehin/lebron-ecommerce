@@ -37,6 +37,8 @@ buscarQuimico() {
     const inputElement: HTMLInputElement = document.getElementById('buscarQuimico') as HTMLInputElement;
     const quimicoBuscado: any = inputElement.value || '-';
 
+    this.alertaService.cargando = true;
+
     this.quimicosService.listarQuimicosPaginado( this.desde , quimicoBuscado  )
                .subscribe( {
                 next: (resp: any) => {
@@ -45,6 +47,8 @@ buscarQuimico() {
                   { 
                     this.quimicos = [];
                     this.totalQuimicos = 0;
+                    this.alertaService.cargando = false;
+
                     return;
                   }
   
@@ -53,13 +57,17 @@ buscarQuimico() {
                     this.totalQuimicos = resp[1][0].cantProductosBuscados;
                     this.quimicos = resp[0];
                     
-                    // this.router.navigate(['/dashboard/ventas']);
+                    this.alertaService.cargando = false;
                   } else {
                     this.alertaService.alertFail('Ocurrio un error',false,2000);
+                    this.alertaService.cargando = false;
                   }
                   return;
                  },
-                error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
+                error: () => { 
+                  this.alertaService.alertFail('Ocurrio un error',false,2000)
+                  this.alertaService.cargando = false;
+                }
               });
 
   }

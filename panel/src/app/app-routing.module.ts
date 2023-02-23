@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 // Modulos
 import { PagesRoutingModule } from './pages/pages.routing';
-import { AuthRoutingModule } from './auth/auth.routing';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
 
@@ -12,11 +11,11 @@ const routes: Routes = [
     redirectTo: '/dashboard',
     pathMatch: 'full'
   },
+  { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
   { path: 'proveedores', loadChildren: () => import('./pages/mantenimientos/proveedores/proveedores.module').then(m => m.ProveedoresModule) },
   { path: 'productos', loadChildren: () => import('./pages/mantenimientos/productos/productos.module').then(m => m.ProductosModule) },
   { path: 'quimicos', loadChildren: () => import('./pages/mantenimientos/quimicos/quimicos.module').then(m => m.QuimicosModule) },
 
-  { path: 'compras', loadChildren: () => import('./pages/mantenimientos/compras/compras.module').then(m => m.ComprasModule) },
   { path: 'compras', loadChildren: () => import('./pages/mantenimientos/compras/compras.module').then(m => m.ComprasModule) },
   { path: 'promociones', loadChildren: () => import('./pages/mantenimientos/promociones/promociones.module').then(m => m.PromocionesModule) },
   { path: 'ventas', loadChildren: () => import('./pages/mantenimientos/ventas/ventas.module').then(m => m.VentasModule) },
@@ -31,12 +30,10 @@ const routes: Routes = [
   { path: '**', component: NopagefoundComponent },
 ];
 
-
 @NgModule({
   imports: [
     RouterModule.forRoot( routes ),
-    PagesRoutingModule,
-    AuthRoutingModule
+    PagesRoutingModule
   ],
   exports: [ RouterModule ]
 })

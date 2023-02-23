@@ -7,7 +7,6 @@ import { BehaviorSubject } from 'rxjs';
 
 const URL_SERVICIOS = environment.URL_SERVICIOS;
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -106,9 +105,6 @@ guardarStorage( id: string, token: string, usuario: any, menu: any[], IdRol: any
 
       const var3 = localStorage.getItem('id');
       this.IdPersona = var3;
-
-      // this.menuBack = localStorage.getItem('menu');
-      // this.menu = JSON.parse( localStorage.getItem('menu') );
     }
 
   }
@@ -126,42 +122,6 @@ estaLogueado() {
 
   }
 }
-
-// ==================================================
-//        Renueva TOKEN
-// ==================================================
-  renuevaToken() {
-
-    let url = URL_SERVICIOS + '/login/renuevatoken';
-
-    // return this.http.get( url,
-    //   {
-    //     headers: {
-    //       token: this.token
-    //     }
-    //   }
-    //   ).map( (resp: any) => {
-
-    //               this.token = resp.token;
-    //               localStorage.setItem('token', this.token );
-
-    //               return true;
-    //             })
-    //             .catch( err => {
-    //               this.router.navigate(['/login']);
-    //               Swal.fire({
-    //                 position: 'top-end',
-    //                 icon: 'error',
-    //                 title: 'No se pudo renovar token',
-    //                 showConfirmButton: false,
-    //                 timer: 2000
-    //               });
-    //               // tslint:disable-next-line: deprecation
-    //               return Observable.throw( err );
-    //             });
-
-
-  }
 
 
 // ==================================================

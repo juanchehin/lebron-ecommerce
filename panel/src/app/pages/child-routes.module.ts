@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PerfilComponent } from './perfil/perfil.component';
 // Mantenimientos
 import { ConfiguracionesComponent } from './mantenimientos/configuraciones/configuraciones.component';
 import { PedidosComponent } from './mantenimientos/pedidos/pedidos/pedidos.component';
@@ -71,7 +70,6 @@ const childRoutes: Routes = [
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     loadChildren: () => import('./mantenimientos/dolares/dolares-routing.module').then( m => m.DolaresRoutingModule )
   },
-  { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' }},
   { path: 'configuraciones', component: ConfiguracionesComponent, data: { titulo: 'Configuraciones' }},
   { path: 'pedidos', component: PedidosComponent, data: { titulo: 'Pedidos' }}
   

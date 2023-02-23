@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { VentasService } from 'src/app/services/ventas.service';
-import { ConfiguracionesService } from 'src/app/services/configuraciones.service';
-
 
 @Component({
   selector: 'app-dashboard',
@@ -19,8 +17,7 @@ export class DashboardComponent implements OnInit {
   pedidosConfirmadosHoy: any;
 
   constructor(
-    private ventasService: VentasService,
-    private configuracionesService: ConfiguracionesService
+    private ventasService: VentasService
   ) { }
 
   ngOnInit(): void {
@@ -47,4 +44,6 @@ export class DashboardComponent implements OnInit {
 
 
   }
+
+  
 }

@@ -6,7 +6,7 @@
 
                     <div class="col-sm-4 form-group">
                         <label>Cliente:  </label>
-                        <input (keyup.enter)="buscarClientes( )" #input type="text" class="form-control" placeholder="Buscar por codigo o producto..." id="clienteBuscado">
+                        <input (keyup.enter)="buscarClientes( )" #input type="text" class="form-control" placeholder="Buscar cuenta..." id="clienteBuscado">
                     </div>
                     <div class="col-sm-1 form-group">
                         <button (click)="buscarClientes( )" class="btn btn-primary" style="margin-top: 26px;">
@@ -51,17 +51,21 @@
                             <td>{{ clienteCuenta.Telefono }}</td>
                             <td>{{ clienteCuenta.Email }}</td>
                             <td>
-                                <button class="btn btn-inline btn-success" type="button" [routerLink]="['/dashboard/cuenta/movimientos',clienteCuenta.IdPersona]">Ver</button>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/cuenta',clienteCuenta.IdPersona]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaCliente(clienteCuenta.IdPersona)">Eliminar</button>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button class="btn btn-inline btn-success" type="button" [routerLink]="['/dashboard/cuentas/movimientos',clienteCuenta.IdPersona]">
+                                        <i class="material-icons"> wysiwyg </i>
+                                    </button>
+                                    <button class="btn btn-inline btn-warning" type="button" [routerLink]="['/dashboard/cuentas',clienteCuenta.IdPersona]">
+                                        <i class="material-icons"> edit </i>
+                                    </button>    
+                                    <button class="btn btn-inline btn-danger" type="button" (click)="bajaCliente(clienteCuenta.IdPersona)">
+                                        <i class="material-icons"> delete </i>
+                                    </button>
+                                </div>                            
                             </td>
                         </tr>
-
                     </tbody>
                 </table>
-
-
-
             </div>
         </section>
 

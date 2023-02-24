@@ -48,6 +48,7 @@ export class BajaMontoInversionComponent implements OnInit {
       }
 
       const inversion = new Array(
+        this.IdInversor,
         this.forma.value.monto,
         this.forma.value.observaciones
       );

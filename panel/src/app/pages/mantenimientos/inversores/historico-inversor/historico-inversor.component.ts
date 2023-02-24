@@ -46,7 +46,7 @@ buscarHistoricoInversores() {
   const pfechaInicio  = this.formatDate(this.fechaInicio);
   const pfechaFin = this.formatDate(this.fechaFin);
 
-  this.inversoresService.buscarHistoricoInversores( this.desde , pfechaInicio , pfechaFin)
+  this.inversoresService.listarHistoricoInversor(this.IdInversor, this.desde , pfechaInicio , pfechaFin)
              .subscribe( {
               next: (resp: any) => { 
                 

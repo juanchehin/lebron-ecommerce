@@ -141,4 +141,14 @@ bajaMontoInversion( datosInversion: any ) {
 
   return this.http.post(url,datosInversion, this.headers );
 }
+
+// ==================================================
+//
+// ==================================================
+listarHistoricoInversor(IdInversor: number,desde: number , FechaInicio: any , FechaFin: any){
+
+  let url = URL_SERVICIOS + '/inversores/historico/inversor/' + IdInversor + '/' + this.IdPersona + '/' + desde + '/' + FechaInicio + '/' + FechaFin;
+
+  return this.http.get( url, this.headers );
+}
 }

@@ -12,7 +12,6 @@ import { ClientesService } from 'src/app/services/clientes.service';
 export class ClienteComponent implements OnInit {
 
   forma!: FormGroup;
-  cargando = true;
 
   constructor(
     private router: Router, 

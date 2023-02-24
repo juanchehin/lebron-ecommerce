@@ -18,12 +18,13 @@ class InversoresRoutes {
         this.router.post('/alta/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],inversoresController.altaInversor);
         this.router.post('/editar/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],inversoresController.editarInversor);
         this.router.post('/alta/monto/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],inversoresController.altaMontoInversor);
+        this.router.post('/baja/monto/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],inversoresController.bajaMontoInversor);
 
         this.router.get('/listar/paginado/:IdPersona/:desde/:inversorBuscado',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], inversoresController.buscarInversoresPaginado);
         this.router.get('/dame/todos/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario] ,inversoresController.listarTodosInversores); 
         this.router.get('/baja/:pIdInversor/:IdPersona/one',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario] ,inversoresController.bajaInversor); 
         this.router.get('/editar/datos-formulario/:pIdInversor/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], inversoresController.cargarDatosFormEditarInversor);
-        this.router.get('/listar/:desde/:FechaInicio/:FechaFin',[mdAutenticacion.verificaToken],inversoresController.listarHistoricoInversor);
+        this.router.get('/listar/paginado/:IdPersona/:desde/:FechaInicio/:FechaFin',[mdAutenticacion.verificaToken],inversoresController.listarHistoricoInversor);
 
     }
 

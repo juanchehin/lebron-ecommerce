@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
+import { ClientesService } from 'src/app/services/clientes.service';
 import { InversoresService } from 'src/app/services/inversores.service';
 import Swal from 'sweetalert2';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-historico-inversor',
@@ -17,14 +19,21 @@ export class HistoricoInversorComponent implements OnInit {
   cargando = true;
   fechaInicio = this.formatDateNow(new Date(Date.now()));
   fechaFin = this.formatDateNow(new Date(Date.now()));
+  IdInversor: any;
+  Apellidos: any;
+  Nombres: any;
 
   constructor(
     public inversoresService: InversoresService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    public clientesService: ClientesService,
+    public activatedRoute: ActivatedRoute
   ) {
    }
 
   ngOnInit() {
+    this.IdInversor = this.activatedRoute.snapshot.paramMap.get('IdPersona');
+    this.cargarDatosInversor();
     this.buscarHistoricoInversores();
   }
 
@@ -41,13 +50,11 @@ buscarHistoricoInversores() {
              .subscribe( {
               next: (resp: any) => { 
                 
-                this.totalHistorico = resp[1][0].totalTransacciones;
                 this.historicoInversor = resp[0];
+                this.totalHistorico = resp[1][0].totalTransacciones;
 
-                if (resp[1][0].totalHistorico === undefined || resp[1][0].totalHistorico === null) {
+                if (resp[1][0].totalTransacciones === undefined || resp[1][0].totalTransacciones === null) {
                   this.totalHistorico = 0;
-                }else {
-                  this.alertService.alertFail('Ocurrio un error',false,2000);
                 }
                 return;
                },
@@ -166,4 +173,22 @@ refrescar() {
   this.buscarHistoricoInversores();
 }
 
+// ==================================================
+//        
+// ==================================================
+
+cargarDatosInversor()
+{
+  this.clientesService.cargarDatosFormEditarCliente( this.IdInversor )
+        .subscribe( {
+        next: (resp: any) => {
+          
+        this.Apellidos = resp[0][0].Apellidos;
+        this.Nombres = resp[0][0].Nombres;
+
+      },
+      error: () => { this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000) }
+      });
+
+};
 }

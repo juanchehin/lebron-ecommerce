@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-inversores',
   templateUrl: './inversores.component.html',
-  styles: []
+  styleUrls: []
 })
 
 export class InversoresComponent implements OnInit {
@@ -104,25 +104,6 @@ altaMontoInversion(){
      },
     error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
   });
-}
-
-  // ==============================
-  // 
-  // ================================
-  continuarAltaMontoInversion()
-  {
-    console.log("pasa continuarAltaMontoInversion : ")
-
-    this.activarModalNuevaInversion = true;
-
-    console.log("activarModalNuevaInversion : ",this.activarModalNuevaInversion)
-
-  }
-// ==================================================
-//        Cambio de valor
-// ==================================================
-bajaMontoInversion(){
-
 }
 
 // ==================================================

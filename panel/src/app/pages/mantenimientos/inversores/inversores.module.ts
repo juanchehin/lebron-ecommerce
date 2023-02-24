@@ -7,6 +7,8 @@ import { InversoresRoutingModule } from './inversores-routing.module';
 
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HistoricoInversorComponent } from './historico-inversor/historico-inversor.component';
+import { AltaMontoInversionComponent } from './alta-monto/alta-monto.component';
+import { BajaMontoInversionComponent } from './baja-monto/baja-monto.component';
 
 
 @NgModule({
@@ -14,7 +16,9 @@ import { HistoricoInversorComponent } from './historico-inversor/historico-inver
     InversoresComponent,
     InversorComponent,
     EditarInversorComponent,
-    HistoricoInversorComponent
+    HistoricoInversorComponent,
+    AltaMontoInversionComponent,
+    BajaMontoInversionComponent
   ],
   imports: [
     CommonModule,

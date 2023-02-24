@@ -42,7 +42,7 @@ export class InversoresService {
 
 
 // ==================================================
-//        
+//    Carga una nueva persona inverson  
 // ==================================================
 altaInversor( inversor: any ) {
 
@@ -117,7 +117,7 @@ cargarDatosFormEditarInversor( IdInversor: any ) {
 // ==================================================
 buscarHistoricoInversores(desde: number , FechaInicio: any , FechaFin: any){
 
-  let url = URL_SERVICIOS + '/inversores/listar/' + desde + '/' + FechaInicio + '/' + FechaFin;
+  let url = URL_SERVICIOS + '/inversores/listar/paginado/' + this.IdPersona + '/' + desde + '/' + FechaInicio + '/' + FechaFin;
 
   return this.http.get( url, this.headers );
 }
@@ -128,6 +128,16 @@ buscarHistoricoInversores(desde: number , FechaInicio: any , FechaFin: any){
 altaMontoInversion( datosInversion: any ) {
 
   let url = URL_SERVICIOS + '/inversores/alta/monto/' + this.IdPersona;
+
+  return this.http.post(url,datosInversion, this.headers );
+}
+
+// ==================================================
+//        
+// ==================================================
+bajaMontoInversion( datosInversion: any ) {
+
+  let url = URL_SERVICIOS + '/inversores/baja/monto/' + this.IdPersona;
 
   return this.http.post(url,datosInversion, this.headers );
 }

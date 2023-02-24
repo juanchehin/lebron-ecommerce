@@ -43,10 +43,10 @@
                             <td>{{ inversor.Apellidos }}, {{ inversor.Nombres }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button class="btn btn-inline btn-success" type="button" (click)="continuarAltaMontoInversion()">
+                                    <button class="btn btn-inline btn-success" type="button" [routerLink]="['/dashboard/inversores/alta-monto',inversor.IdPersona]">
                                         <i class="material-icons"> add </i>
                                     </button>
-                                    <button class="btn btn-inline btn-warning" type="button" (click)="bajaMontoInversion()">
+                                    <button class="btn btn-inline btn-warning" type="button" [routerLink]="['/dashboard/inversores/baja-monto',inversor.IdPersona]">
                                         <i class="material-icons"> remove </i>
                                     </button>    
                                     <button class="btn btn-inline btn-info" type="button" [routerLink]="['/dashboard/inversores/historico',inversor.IdPersona]">
@@ -77,8 +77,8 @@
 <!--.page-content-->
 
 <!-- =========== MODAL =========== -->
-<div class="col-md-4" *ngIf="activarModalNuevaInversion">
-    <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div *ngIf="activarModalNuevaInversion">
+    <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: block;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -86,7 +86,23 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
+                       
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Items de pago</h4>
+                                    <div class="table-responsive">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

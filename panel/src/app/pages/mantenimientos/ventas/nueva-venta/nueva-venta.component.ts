@@ -102,7 +102,6 @@ altaVenta() {
             this.totalVenta = 0;
             this.totalTiposPago = 0;
             
-            // this.router.navigate(['/dashboard/ventas']);
           } else {
             this.alertaService.alertFail('Ocurrio un error',false,2000);
           }

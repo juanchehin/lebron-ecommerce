@@ -160,13 +160,15 @@ public async cargarDatosFormEditarInversor(req: Request, res: Response): Promise
 
 public async listarHistoricoInversor(req: Request, res: Response): Promise<void> {
 
+    var pIdPersona = req.params.IdPersona;
+
     var desde = req.params.desde || 0;
     desde  = Number(desde);
 
     var FechaInicio = req.params.FechaInicio;
     var FechaFin = req.params.FechaFin;
 
-    pool.query(`call bsp_listar_transacciones_inversor_paginado_fechas('${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_listar_transacciones_inversor_paginado_fechas('${pIdPersona}','${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
        if(err){
         res.status(404).json(err);
            return;
@@ -177,7 +179,7 @@ public async listarHistoricoInversor(req: Request, res: Response): Promise<void>
 }
 
 // ==================================================
-//        Inserta 
+//   
 // ==================================================
 public async altaMontoInversor(req: Request, res: Response) {
 
@@ -197,6 +199,39 @@ public async altaMontoInversor(req: Request, res: Response) {
 
         if(result[0][0].Mensaje !== 'Ok'){
             logger.error("Error en altaMontoInversor - bsp_alta_monto_inversion - inversoresController");
+            return res.json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
+
+        return res.json({ Mensaje: 'Ok' });
+    })
+
+}
+
+
+// ==================================================
+//   
+// ==================================================
+public async bajaMontoInversor(req: Request, res: Response) {
+
+    var pIdPersona = req.params.IdPersona;
+
+    var pIdInversor = req.body[0];
+    var pMontoInvertido = req.body[1];
+    var pObservaciones = req.body[2];
+
+    pool.query(`call bsp_baja_monto_inversion('${pIdPersona}','${pIdInversor}','${pMontoInvertido}','${pObservaciones}')`, function(err: any, result: any, fields: any){
+        
+        if(err){
+            logger.error("Error en bajaMontoInversor - bsp_baja_monto_inversion - inversoresController");
+            res.status(404).json({ text: err });
+            return;
+        }
+
+        if(result[0][0].Mensaje !== 'Ok'){
+            logger.error("Error en bajaMontoInversor - bsp_baja_monto_inversion - inversoresController");
             return res.json({
                 ok: false,
                 Mensaje: result[0][0].Mensaje

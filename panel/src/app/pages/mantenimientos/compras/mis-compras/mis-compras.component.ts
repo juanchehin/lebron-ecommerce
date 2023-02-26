@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { ComprasService } from 'src/app/services/compras.service';
+import { UtilService } from 'src/app/services/util.service';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class MisComprasComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public authService: AuthService,
     public comprasService: ComprasService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private utilService: UtilService
   ) {
    }
 
@@ -41,7 +43,7 @@ export class MisComprasComponent implements OnInit {
     this.fecha = new Date();
     const previous = new Date(this.fecha.getTime());
     previous.setDate(this.fecha.getDate() - 1);
-    this.fecha = this.formatDate(previous);
+    this.fecha = this.utilService.formatDate(previous);
     this.cargarComprasIdUsuario();
 
     
@@ -53,7 +55,7 @@ export class MisComprasComponent implements OnInit {
 
 cargarComprasIdUsuario() { 
 
-  const pFecha = this.formatDate(this.fecha);
+  const pFecha = this.utilService.formatDate(this.fecha);
 
     this.comprasService.listarComprasIdUsuario(this.desde, pFecha  )
     .subscribe({
@@ -117,23 +119,6 @@ cambiarDesde( valor: number ) {
   this.desde += valor;
   // this.cargarProductos();
 
-}
-
-// ==================================================
-//    Formatea la fecha a yyyy-mm-dd
-// ==================================================
-
-formatDate(date: any) {
-
-  // tslint:disable-next-line: one-variable-per-declaration
-  let d = new Date(date),month = '' + (d.getMonth() + 1),day = '' + (d.getDate() + 1),
-  // tslint:disable-next-line: prefer-const
-  year = d.getFullYear();
-
-  if (month.length < 2) { month = '0' + month; }
-  if (day.length < 2) { day = '0' + day; }
-
-  return [year, month, day].join('-');
 }
 
 

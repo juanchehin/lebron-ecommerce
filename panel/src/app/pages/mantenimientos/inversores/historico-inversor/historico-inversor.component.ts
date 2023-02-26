@@ -4,6 +4,7 @@ import { ClientesService } from 'src/app/services/clientes.service';
 import { InversoresService } from 'src/app/services/inversores.service';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-historico-inversor',
@@ -17,8 +18,9 @@ export class HistoricoInversorComponent implements OnInit {
   historicoInversor!: any;
   totalHistorico = 0;
   cargando = true;
-  fechaInicio = this.formatDateNow(new Date(Date.now()));
-  fechaFin = this.formatDateNow(new Date(Date.now()));
+  fechaInicio = this.utilService.formatDateNow(new Date(Date.now()));
+
+  fechaFin = this.utilService.formatDateNow(new Date(Date.now()));
   IdInversor: any;
   Apellidos: any;
   Nombres: any;
@@ -27,7 +29,8 @@ export class HistoricoInversorComponent implements OnInit {
     public inversoresService: InversoresService,
     private alertService: AlertService,
     public clientesService: ClientesService,
-    public activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute,
+    private utilService: UtilService
   ) {
    }
 
@@ -43,8 +46,8 @@ export class HistoricoInversorComponent implements OnInit {
 
 buscarHistoricoInversores() {
 
-  const pfechaInicio  = this.formatDate(this.fechaInicio);
-  const pfechaFin = this.formatDate(this.fechaFin);
+  const pfechaInicio  = this.utilService.formatDate(this.fechaInicio);
+  const pfechaFin = this.utilService.formatDate(this.fechaFin);
 
   this.inversoresService.listarHistoricoInversor(this.IdInversor, this.desde , pfechaInicio , pfechaFin)
              .subscribe( {
@@ -122,41 +125,6 @@ cambiarDesde( valor: number ) {
 
 }
 
-// ==================================================
-//    Formatea la fecha a yyyy-mm-dd
-// ==================================================
-
-formatDate(date: any) {
-  // tslint:disable-next-line: one-variable-per-declaration
-  let d = new Date(date),
-  month = '' + (d.getMonth() + 1),
-  day = '' + (d.getDate() + 1),
-  // tslint:disable-next-line: prefer-const
-  year = d.getFullYear();
-
-  if (month.length < 2) { month = '0' + month; }
-  if (day.length < 2) { day = '0' + day; }
-
-  return [year, month, day].join('-');
-}
-
-// ==================================================
-//    Formatea la fecha a yyyy-mm-dd
-// ==================================================
-
-formatDateNow(date: any) {
-  // tslint:disable-next-line: one-variable-per-declaration
-  let d = new Date(date),
-  month = '' + (d.getMonth() + 1),
-  day = '' + (d.getDate()),
-  // tslint:disable-next-line: prefer-const
-  year = d.getFullYear();
-
-  if (month.length < 2) { month = '0' + month; }
-  if (day.length < 2) { day = '0' + day; }
-
-  return [year, month, day].join('-');
-}
 // ==================================================
 //    Funcion para recargar el listado
 // ==================================================

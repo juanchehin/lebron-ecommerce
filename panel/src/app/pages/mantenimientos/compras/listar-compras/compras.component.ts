@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ComprasService } from 'src/app/services/compras.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-compras',
@@ -11,15 +12,16 @@ export class ComprasComponent implements OnInit {
   desde = 0;
   fecha: any;
 
-  fechaInicio = this.formatDateNow(new Date(Date.now()));
-  fechaFin = this.formatDateNow(new Date(Date.now()));
+  fechaInicio = this.utilService.formatDateNow(new Date(Date.now()));
+  fechaFin = this.utilService.formatDateNow(new Date(Date.now()));
   controlFechas = false;
 
   totalCompras = 0;
   compras!: Array < any > ;
 
   constructor(
-    public comprasService: ComprasService
+    public comprasService: ComprasService,
+    private utilService: UtilService
   ) {
    }
 
@@ -64,40 +66,6 @@ cambiosFecha(nuevafechaFin: any) {
 
 }
 
-// ==================================================
-//    Formatea la fecha a yyyy-mm-dd
-// ==================================================
-
-formatDate(date: any) {
-    // tslint:disable-next-line: one-variable-per-declaration
-    let d = new Date(date),
-    month = '' + (d.getMonth()),
-    day = '' + d.getDate(),
-    // tslint:disable-next-line: prefer-const
-    year = d.getFullYear();
-
-    if (month.length < 2) { month = '0' + month; }
-    if (day.length < 2) { day = '0' + day; }
-
-    return [year, month, day].join('-');
-}
-// ==================================================
-//    Formatea la fecha a yyyy-mm-dd
-// ==================================================
-
-formatDateNow(date: any) {
-  // tslint:disable-next-line: one-variable-per-declaration
-  let d = new Date(date),
-  month = '' + (d.getMonth() + 1),
-  day = '' + (d.getDate()),
-  // tslint:disable-next-line: prefer-const
-  year = d.getFullYear();
-
-  if (month.length < 2) { month = '0' + month; }
-  if (day.length < 2) { day = '0' + day; }
-
-  return [year, month, day].join('-');
-}
 // ==================================================
 //        Carga 
 // ==================================================

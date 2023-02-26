@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
+import { UtilService } from 'src/app/services/util.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,7 +22,8 @@ export class TransferenciasComponent implements OnInit {
 
   constructor(
     public productosService: ProductosService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private utilService: UtilService
   ) {
    }
 
@@ -35,7 +37,7 @@ export class TransferenciasComponent implements OnInit {
 
 cargarTransferencias() { 
 
-  const pFecha = this.formatDate(this.fecha);
+  const pFecha = this.utilService.formatDate(this.fecha);
 
     this.productosService.listarTransferenciasPaginado(this.desde, pFecha  )
     .subscribe({
@@ -123,22 +125,6 @@ bajaTransferencia(IdTransferencia: string) {
 
   
   }
-// ==================================================
-//    Formatea la fecha a yyyy-mm-dd
-// ==================================================
-
-formatDate(date: any) {
-
-  // tslint:disable-next-line: one-variable-per-declaration
-  let d = new Date(date),month = '' + (d.getMonth() + 1),day = '' + (d.getDate() + 1),
-  // tslint:disable-next-line: prefer-const
-  year = d.getFullYear();
-
-  if (month.length < 2) { month = '0' + month; }
-  if (day.length < 2) { day = '0' + day; }
-
-  return [year, month, day].join('-');
-}
 // ==================================================
 //    Funcion para recargar el listado
 // ==================================================

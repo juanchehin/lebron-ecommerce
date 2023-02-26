@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
+import { UtilService } from 'src/app/services/util.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,7 +22,8 @@ export class PedidosComponent implements OnInit {
 
   constructor(
     public pedidosService: PedidosService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private utilService: UtilService
   ) {
    }
 
@@ -29,7 +31,7 @@ export class PedidosComponent implements OnInit {
     this.fecha = new Date();
     const previous = new Date(this.fecha.getTime());
     previous.setDate(this.fecha.getDate() - 1);
-    this.fecha = this.formatDate(previous);
+    this.fecha = this.utilService.formatDate(previous);
     this.cargarPedidos();
   }
 
@@ -39,7 +41,7 @@ export class PedidosComponent implements OnInit {
 
 cargarPedidos() {
 
-  const pFecha = this.formatDate(this.fecha);
+  const pFecha = this.utilService.formatDate(this.fecha);
 
     this.pedidosService.listarPedidosPaginado( this.desde ,pFecha )
     .subscribe({
@@ -138,23 +140,5 @@ refrescar() {
   this.desde = 0;
   this.cargarPedidos();
 }
-
-// ==================================================
-//    Formatea la fecha a yyyy-mm-dd
-// ==================================================
-
-formatDate(date: any) {
-
-  // tslint:disable-next-line: one-variable-per-declaration
-  let d = new Date(date),month = '' + (d.getMonth() + 1),day = '' + (d.getDate() + 1),
-  // tslint:disable-next-line: prefer-const
-  year = d.getFullYear();
-
-  if (month.length < 2) { month = '0' + month; }
-  if (day.length < 2) { day = '0' + day; }
-
-  return [year, month, day].join('-');
-}
-
 
 }

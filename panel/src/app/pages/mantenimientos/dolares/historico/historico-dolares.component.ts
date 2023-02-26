@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { DolaresService } from 'src/app/services/dolares.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-historico-dolares',
@@ -12,8 +13,8 @@ export class HistoricoDolaresComponent implements OnInit {
 
   desde = 0;
   cargando = false;
-  fechaInicio = this.formatDateNow(new Date(Date.now()));
-  fechaFin = this.formatDateNow(new Date(Date.now()));
+  fechaInicio = this.utilService.formatDateNow(new Date(Date.now()));
+  fechaFin = this.utilService.formatDateNow(new Date(Date.now()));
   controlFechas = false;
   totalHistorico = 0;
   historicoDolares: any;
@@ -22,7 +23,8 @@ export class HistoricoDolaresComponent implements OnInit {
 
   constructor(
     public dolaresService: DolaresService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private utilService: UtilService
   ) {
    }
 
@@ -36,8 +38,8 @@ export class HistoricoDolaresComponent implements OnInit {
 
 listarHistoricoDolares() {
 
-  const pfechaInicio  = this.formatDate(this.fechaInicio);
-  const pfechaFin = this.formatDate(this.fechaFin);
+  const pfechaInicio  = this.utilService.formatDate(this.fechaInicio);
+  const pfechaFin = this.utilService.formatDate(this.fechaFin);
 
   this.dolaresService.listarHistoricoDolares( this.filtroTipo, this.desde , pfechaInicio , pfechaFin)
              .subscribe( {
@@ -81,41 +83,6 @@ cambiosfechaFin(nuevafechaFin: any) {
   }
   // this.fechaFin = nuevafechaFin;
 
-}
-
-// ==================================================
-//    Formatea la fecha a yyyy-mm-dd
-// ==================================================
-
-formatDate(date: any) {
-  // tslint:disable-next-line: one-variable-per-declaration
-  let d = new Date(date),
-  month = '' + (d.getMonth() + 1),
-  day = '' + (d.getDate() + 1),
-  // tslint:disable-next-line: prefer-const
-  year = d.getFullYear();
-
-  if (month.length < 2) { month = '0' + month; }
-  if (day.length < 2) { day = '0' + day; }
-
-  return [year, month, day].join('-');
-}
-// ==================================================
-//    Formatea la fecha a yyyy-mm-dd
-// ==================================================
-
-formatDateNow(date: any) {
-// tslint:disable-next-line: one-variable-per-declaration
-let d = new Date(date),
-month = '' + (d.getMonth() + 1),
-day = '' + (d.getDate()),
-// tslint:disable-next-line: prefer-const
-year = d.getFullYear();
-
-if (month.length < 2) { month = '0' + month; }
-if (day.length < 2) { day = '0' + day; }
-
-return [year, month, day].join('-');
 }
 
 

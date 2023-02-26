@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { ComprasService } from 'src/app/services/compras.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-nuevo-gasto',
@@ -11,31 +12,23 @@ import { ComprasService } from 'src/app/services/compras.service';
 })
 export class NuevoGastoComponent implements OnInit {
 
-  forma!: FormGroup;
-  cargando = true;
+  fecha_gasto: any;
+  monto: any;
+  descripcion: any;
+
 
   constructor(
     private router: Router, 
     private alertService: AlertService, 
     public comprasService: ComprasService, 
-    public activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute,
+    private utilService: UtilService
     ) {
-    activatedRoute.params.subscribe( (params: any) => {
-
-      const id = params.id;
-
-      if ( id !== 'nuevo' ) {
-      }
-
-    });
 
   }
 
   ngOnInit() {
-    this.forma = new FormGroup({
-        Monto: new FormControl(null, Validators.required),
-        Descripcion: new FormControl(null, Validators.required )
-      });
+    this.fecha_gasto = this.utilService.formatDateNow(new Date(Date.now()));
   }
 
 // ==================================================
@@ -44,31 +37,34 @@ export class NuevoGastoComponent implements OnInit {
 
   altaGasto() {
 
-      if ( this.forma.invalid ) {
-        this.alertService.alertFail('Formulario invalido, chequee que los campos sean correctos',false,2000);
+      if ( this.monto <= 0 ) {
+        this.alertService.alertFail('El monto debe ser mayor a cero',false,2000);
         return;
       }
 
       const gasto = new Array(
-        this.forma.value.Monto,
-        this.forma.value.Descripcion
+        this.monto,
+        this.fecha_gasto,
+        this.descripcion
       );
 
       this.comprasService.altaGasto( gasto )
-                .subscribe( (resp: any) => {
+                .subscribe( {
+                  next: (resp: any) => { 
+
                   
                   if ( resp.Mensaje === 'Ok') {
 
                     this.alertService.alertSuccess('top-end','Gasto cargado',false,2000);
                     
-                    this.router.navigate(['/dashboard/gastos']);
+                    this.router.navigate(['/dashboard/compras/gastos']);
                   } else {
                     this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
                   }
                   return;
-                });
 
-
-              }
-
+              },
+              error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
+            });
+    }
 }

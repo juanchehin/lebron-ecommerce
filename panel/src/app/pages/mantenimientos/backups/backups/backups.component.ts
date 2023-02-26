@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
-import { QuimicosService } from 'src/app/services/quimicos.service';
-import Swal from 'sweetalert2';
+import { BackupsService } from 'src/app/services/backups.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-backups',
@@ -11,60 +11,50 @@ import Swal from 'sweetalert2';
 export class BackupsComponent implements OnInit {
 
   desde = 0;
-  totalAsistencias = true;
-  ClasesDisponibles = 0;
-  IdSucursal = 1;
-  quimicos!: any;
+  backups!: any;
   totalBackups = 0;
+  fecha: any;
   cargando = true;
+  controlFechas = false;
 
   constructor(
     public backupsService: BackupsService,
-    public alertaService: AlertService
+    public alertService: AlertService,
+    private utilService: UtilService
   ) {
    }
 
   ngOnInit() {
-    this.buscarQuimico();
+    this.fecha = new Date();
+    const previous = new Date(this.fecha.getTime());
+    previous.setDate(this.fecha.getDate() - 1);
+    this.fecha = this.utilService.formatDate(previous);
+    this.cargarBackups();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-buscarQuimico() {
+cargarBackups() {
 
-    const inputElement: HTMLInputElement = document.getElementById('buscarQuimico') as HTMLInputElement;
-    const quimicoBuscado: any = inputElement.value || '-';
+  const pFecha = this.utilService.formatDate(this.fecha);
 
-    this.quimicosService.listarQuimicosPaginado( this.desde , quimicoBuscado  )
-               .subscribe( {
-                next: (resp: any) => {
+    this.backupsService.listarBackupsPaginado( this.desde ,pFecha )
+    .subscribe({
+      next: (resp: any) => { 
 
-                  if(resp[0].length <= 0)
-                  { 
-                    this.quimicos = [];
-                    this.totalQuimicos = 0;
-
-                    return;
-                  }
-  
-                  if ( resp[2][0].Mensaje == 'Ok') {
-                    
-                    this.totalQuimicos = resp[1][0].cantProductosBuscados;
-                    this.quimicos = resp[0];
-                  } else {
-                    this.alertaService.alertFail('Ocurrio un error',false,2000);
-                  }
-                  return;
-                 },
-                error: () => { 
-                  this.alertaService.alertFail('Ocurrio un error',false,2000)
-                }
-              });
-
+        if(resp[1][0].Mensaje == 'Ok') {
+          this.backups = resp[0];
+          
+        } else {
+          this.alertService.alertFail('Ocurrio un error',false,400);
+          
+        }
+       },
+      error: () => {  this.alertService.alertFail('Ocurrio un error',false,400); }
+    });
   }
-
 
 // ==================================================
 //        Cambio de valor
@@ -74,7 +64,7 @@ cambiarDesde( valor: number ) {
 
   const desde = this.desde + valor;
 
-  if ( desde >= this.totalQuimicos ) {
+  if ( desde >= this.totalBackups ) {
     return;
   }
 
@@ -83,45 +73,32 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  this.buscarQuimico();
+  this.cargarBackups();
 
 }
 
+// ==================================================
+// Detecta los cambios en el select
+// ==================================================
+cambiosFecha(nuevaFechaInicio: any) {
+
+  if (nuevaFechaInicio > this.fecha) {
+    // this.FechaInicio = nuevaFechaInicio;
+    this.controlFechas = true;
+  } else {
+    this.controlFechas = false;
+  }
+
+}
 
 // ==================================================
-// 
+//    Funcion para recargar el listado
 // ==================================================
 
-bajaQuimico(IdProductoSabor: string) {
-
-  Swal.fire({
-    title: '¿Desea eliminar el quimico?',
-    text: "Eliminacion de quimico",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Si'
-  }).then((result: any) => {
-    if (result.isConfirmed) {
-      this.quimicosService.bajaQuimico( IdProductoSabor )
-      .subscribe({
-        next: (resp: any) => { 
-
-  
-          if(resp[0][0].Mensaje == 'Ok') {
-            this.alertaService.alertSuccess('top-end','Quimico dado de baja',false,900);
-            this.buscarQuimico();
-            
-          } else {
-            this.alertaService.alertFail(resp[0][0].Mensaje,false,1200);
-            
-          }
-         },
-        error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].Mensaje,false,1200); }
-      });
-    }
-  })
+refrescar() {
+  // Reseteo 'desde' a cero
+  this.desde = 0;
+  this.cargarBackups();
 }
 
 }

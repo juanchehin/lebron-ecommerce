@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'clientes', loadChildren: () => import('./pages/mantenimientos/clientes/clientes.module').then(m => m.ClientesModule) },
   { path: 'inversores', loadChildren: () => import('./pages/mantenimientos/inversores/inversores.module').then(m => m.InversoresModule) },
   { path: 'dolares', loadChildren: () => import('./pages/mantenimientos/dolares/dolares.module').then(m => m.DolaresModule) },
+  { path: 'backups', loadChildren: () => import('./pages/mantenimientos/backups/backups.module').then(m => m.BackupsModule) },
 
   { path: 'transferencias', loadChildren: () => import('./pages/mantenimientos/transferencias/transferencias.module').then(m => m.TransferenciasModule) },
   { path: 'pedidos', loadChildren: () => import('./pages/mantenimientos/pedidos/pedidos.module').then(m => m.PedidosModule) },

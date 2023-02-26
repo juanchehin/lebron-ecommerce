@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { QuimicosComponent } from './backups/backups.component';
+import { BackupsComponent } from './backups/backups.component';
 
 
 const routes: Routes = [
-   // Quimicos
-   { path: '', component: BackupsComponent, data: { titulo: 'Productos quimicos' }}
+   // Backups
+   { path: '', component: BackupsComponent, data: { titulo: 'Backups' }}
 ];
 
 @NgModule({

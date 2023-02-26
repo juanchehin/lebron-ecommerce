@@ -104,27 +104,6 @@ altaCompra(req: Request, res: Response) {
 // ==================================================
 //        Lista 
 // ==================================================
-altaGasto(req: Request, res: Response) {
-
-    var pMonto = req.body[0];
-    var pDescripcion = req.body[1];
-    var pIdUsuario = req.params.IdPersona;
-
-    pool.query(`call bsp_alta_gasto('${pIdUsuario}','${pMonto}','${pDescripcion}')`, function(err: any, result: any){
-
-       if(err){
-            logger.error("Error en altaGasto - ComprasController " + err );
-
-            res.status(404).json(err);
-           return;
-       }      
-        res.send({ Mensaje: 'Ok'});
-   })
-
-}
-// ==================================================
-//        Lista 
-// ==================================================
 listarTiposPago(req: Request, res: Response) {
 
     pool.query(`call bsp_listar_tipos_pago()`, function(err: any, result: any){
@@ -152,6 +131,29 @@ dameDatosPDFVenta(req: Request, res: Response) {
 
 }
 
+
+// ==================================================
+//        Lista 
+// ==================================================
+altaGasto(req: Request, res: Response) {
+
+    var pMonto = req.body[0];
+    var pFechaGasto = req.body[1];
+    var pDescripcion = req.body[2];
+    var pIdUsuario = req.params.IdPersona;
+
+    pool.query(`call bsp_alta_gasto('${pIdUsuario}','${pMonto}','${pFechaGasto}','${pDescripcion}')`, function(err: any, result: any){
+
+       if(err){
+            logger.error("Error en altaGasto - ComprasController " + err );
+
+            res.status(404).json(err);
+           return;
+       }      
+        res.send({ Mensaje: 'Ok'});
+   })
+
+}
 // ==================================================
 //        Lista 
 // ==================================================

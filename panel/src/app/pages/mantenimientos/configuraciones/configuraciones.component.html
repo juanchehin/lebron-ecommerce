@@ -63,6 +63,10 @@
                 <div class="col-sm-6 form-group">
                     <label>% Tarjeta 6 Pago : </label><input [value]="Tarjeta6Pago" formControlName="Tarjeta6Pago" name="Tarjeta6Pago" type="text" min="1" max="4" placeholder="6 pagos" class="form-control">
                 </div>
+            </div>
+        </div>
+        <div class="card card-body">
+            <div class="row">
                 <div class="col-sm-6 form-group">
                     <label>Costo de Envio : </label><input [value]="CostoEnvio" formControlName="CostoEnvio" name="CostoEnvio" type="text" min="1" max="4" placeholder="Costo de Envio..." class="form-control">
                 </div>
@@ -70,7 +74,10 @@
                     <label>Retenciones MP : </label><input [value]="retencionMP" formControlName="retencionMP" name="retencionMP" type="text" min="1" max="4" placeholder="Retenciones mercado pago..." class="form-control">
                 </div>
                 <div class="col-sm-6 form-group">
-                    <label>Tasa interes inversion : </label><input [value]="tasaInteres" formControlName="tasaInteres" name="tasaInteres" type="text" min="1" max="4" placeholder="Tasa interes..." class="form-control">
+                    <label>Tasa interes inversion % : </label><input [value]="tasaInteres" formControlName="tasaInteres" name="tasaInteres" type="text" min="1" max="4" placeholder="Tasa interes..." class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Dias vencimiento cta. cte. : </label><input [value]="dias_cc" formControlName="dias_cc" name="dias_cc" type="text" min="1" max="4" placeholder="Dias vencimiento" class="form-control">
                 </div>
             </div>
         </div>

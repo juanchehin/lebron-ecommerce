@@ -34,6 +34,7 @@ export class ConfiguracionesComponent implements OnInit {
   Dolar!:string;
   retencionMP!:string;
   tasaInteres!: any;
+  dias_cc: any;
 
   constructor(
     private router: Router, 
@@ -64,7 +65,8 @@ export class ConfiguracionesComponent implements OnInit {
       CostoEnvio: new FormControl(null ),
       Dolar: new FormControl(null ),
       retencionMP: new FormControl(null ),
-      tasaInteres: new FormControl(null )
+      tasaInteres: new FormControl(null ),
+      dias_cc: new FormControl(null)
       });
   }
 
@@ -97,8 +99,8 @@ actualizarConfiguraciones() {
         this.forma.value.CostoEnvio || this.CostoEnvio,
         this.forma.value.Dolar || this.Dolar,
         this.forma.value.retencionMP || this.retencionMP,
-        this.forma.value.tasaInteres || this.tasaInteres
-
+        this.forma.value.tasaInteres || this.tasaInteres,
+        this.forma.value.dias_cc || this.dias_cc
       );
 
       this.configuracionesService.actualizarConfiguracion( configuraciones )
@@ -147,6 +149,7 @@ cargarConfiguraciones() {
               this.Dolar =  this.configuraciones.dolar;
               this.retencionMP =  this.configuraciones.retencion_mp;
               this.tasaInteres =  this.configuraciones.tasa_interes_inversores;
+              this.dias_cc = this.configuraciones.dias_vencimiento_cc;
 
             });
 

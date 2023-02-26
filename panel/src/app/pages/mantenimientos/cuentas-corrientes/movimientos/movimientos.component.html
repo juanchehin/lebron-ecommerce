@@ -1,41 +1,51 @@
+<div class="">
+    <h3 class="">Cliente : {{ apellidos }},{{ nombres }}</h3>
+</div>
 <div class="page-content">
     <div class="container-fluid">
         <section class="box-typical">
             <div class="table-responsive">
+                <!-- ============================= -->
                 <div class="row">
-                    <div class="col-sm-2">
+                    <div class="col-sm-6">
+                            <h3 >Saldo : $ {{ saldo }} </h3>
+                    </div>
+                </div>
+                <!-- ============================= -->
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3>Cantidad movimientos ( <small> {{ totalMovimientos }} </small> )</h3>
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
                         <button data-toggle="modal" data-target="#responsive-modal" type="button" (click)="acreditar()" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
-                          <i class="fa fa-plus"></i> 
-                          Acreditar
-                        </button>
-                    </div>
-                    <div class="col-sm-4">
-                        <h3 class="card-title">Cantidad movimientos ( <small> {{ totalMovimientos }} </small> )</h3>
+                            <i class="fa fa-plus"></i> 
+                            Acreditar
+                          </button>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <h3 class="card-title">Saldo : $ {{ saldo }} </h3>
-                    </div>
-                </div>
+                <!-- ============================= -->
                 <table id="table-edit" class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th width="1">
                                 #
                             </th>
-                            <th>Fecha</th>
-                            <th>Tipo</th>
+                            <th>Estado</th>
                             <th>Monto</th>
+                            <th>Fecha vencimiento</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let movimiento of movimientos">
+                        
+                        <tr *ngFor="let movimiento of movimientos" [ngClass]="(movimiento.Estado == 'Vencida') ? 'table-danger' : ''">
                             <td>{{ movimiento.IdTransaccion }}</td>
-                            <td>{{ movimiento.Fecha | date:"dd/MM/yyyy" }}</td>
-                            <td>{{ movimiento.Tipo }}</td>
-                            <td>{{ movimiento.MontoTotal }}</td>
+                                <td>{{ movimiento.Estado }}</td>
+                                <td>$ {{ movimiento.Monto }}</td>
+                                <td>{{ movimiento.FechaVencimiento | date:"dd/MM/yyyy" }}</td>
                         </tr>
+
                     </tbody>
                 </table>
             </div>

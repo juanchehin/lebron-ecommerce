@@ -2,17 +2,14 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { CuentasService } from 'src/app/services/cuentas.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-movimientos',
-  templateUrl: './movimientos.component.html',
-  styles: []
+  templateUrl: './movimientos.component.html'
 })
 export class MovimientosComponent implements OnInit {
 
   desde = 0;
-  totalAsistencias = true;
   filtroCliente = 4;  // Indica si es un cliente web o un cliente registrado desde el panel
   activarModal = false;
   movimientos!: any;
@@ -23,6 +20,8 @@ export class MovimientosComponent implements OnInit {
   cargando = true;
   monto = 0;
   descripcion: any;
+  apellidos: any;
+  nombres: any;
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
 
   constructor(
@@ -48,13 +47,18 @@ cargarMovimientosClienteCuenta() {
                .subscribe( {
                 next: (resp: any) => { 
 
-                  if(resp[3][0].Mensaje == 'Ok')
-                  { 
-                    this.saldo = resp[1][0].saldo;
-    
-                    this.movimientos = resp[0];
+                  console.log("resp mov cl : ",resp);
 
-                    this.totalMovimientos = resp[2][0].cantMovimientos;
+                  if(resp[4][0].Mensaje == 'Ok')
+                  { 
+                    this.apellidos = resp[0][0].Apellidos;
+                    this.nombres = resp[0][0].Nombres;
+
+                    this.saldo = resp[2][0].saldo;
+    
+                    this.movimientos = resp[1];
+
+                    this.totalMovimientos = resp[3][0].cantMovimientos;
                     return;
                   } else {
                     this.alertService.alertFail('Ocurrio un error',false,2000);
@@ -68,42 +72,6 @@ cargarMovimientosClienteCuenta() {
 
 
 
-// ==================================================
-// 
-// ==================================================
-
-bajaCliente(IdPersona: string) {
-
-  Swal.fire({
-    title: '¿Desea eliminar el cliente?',
-    text: "Eliminacion de cliente",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Si'
-  }).then((result: any) => {
-    if (result.isConfirmed) {
-      this.cuentasService.bajaCuentaCliente( IdPersona )
-      .subscribe({
-        next: (resp: any) => {
-  
-          if(resp[0].Mensaje == 'Ok') {
-            this.alertService.alertSuccess('top-end','Cuenta dada de baja',false,900);
-            this.cargarMovimientosClienteCuenta();
-            
-          } else {
-            this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
-            
-          }
-         },
-        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
-      });
-    }
-  })
-
-  
-  }
 // ==================================================
 //        Cambio de valor
 // ==================================================
@@ -124,23 +92,6 @@ cambiarDesde( valor: number ) {
   this.cargarMovimientosClienteCuenta();
 
 }
-// ==================================================
-//    Formatea la fecha a yyyy-mm-dd
-// ==================================================
-
-formatDate(date: any) {
-
-  // tslint:disable-next-line: one-variable-per-declaration
-  let d = new Date(date),month = '' + (d.getMonth() + 1),day = '' + (d.getDate() + 1),
-  // tslint:disable-next-line: prefer-const
-  year = d.getFullYear();
-
-  if (month.length < 2) { month = '0' + month; }
-  if (day.length < 2) { day = '0' + day; }
-
-  return [year, month, day].join('-');
-}
-
 // ==================================================
 //   
 // ==================================================

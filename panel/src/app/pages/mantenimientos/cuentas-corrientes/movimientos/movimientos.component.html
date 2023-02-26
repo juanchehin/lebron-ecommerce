@@ -1,30 +1,46 @@
 <div class="">
     <h3 class="">Cliente : {{ apellidos }},{{ nombres }}</h3>
 </div>
+<div class="row">
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <div class="d-flex flex-row">
+                <div class="p-10 bg-info">
+                    <h3 class="text-white box m-b-0"><i class="ti-wallet"></i></h3></div>
+                <div class="align-self-center m-l-20">
+                    <h3 class="m-b-0 text-info">$ {{ saldo }}</h3>
+                    <h5 class="text-muted m-b-0">Saldo</h5></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <div class="d-flex flex-row">
+                <div class="p-10 bg-success">
+                    <h3 class="text-white box m-b-0"><i class="ti-wallet"></i></h3></div>
+                <div class="align-self-center m-l-20">
+                    <h3 class="m-b-0 text-info">{{ totalMovimientos }}</h3>
+                    <h5 class="text-muted m-b-0">Movimientos</h5></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <button data-toggle="modal" data-target="#responsive-modal" type="button" (click)="acreditar()" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
+            <i class="fa fa-plus"></i> 
+            Acreditar
+          </button>
+    </div>
+</div>
+
 <div class="page-content">
     <div class="container-fluid">
         <section class="box-typical">
             <div class="table-responsive">
-                <!-- ============================= -->
-                <div class="row">
-                    <div class="col-sm-6">
-                            <h3 >Saldo : $ {{ saldo }} </h3>
-                    </div>
-                </div>
-                <!-- ============================= -->
-                <div class="row">
-                    <div class="col-sm-4">
-                        <h3>Cantidad movimientos ( <small> {{ totalMovimientos }} </small> )</h3>
-                    </div>
-                    <div class="col-sm-4">
-                    </div>
-                    <div class="col-sm-4">
-                        <button data-toggle="modal" data-target="#responsive-modal" type="button" (click)="acreditar()" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
-                            <i class="fa fa-plus"></i> 
-                            Acreditar
-                          </button>
-                    </div>
-                </div>
                 <!-- ============================= -->
                 <table id="table-edit" class="table table-bordered table-hover">
                     <thead>
@@ -48,6 +64,8 @@
 
                     </tbody>
                 </table>
+                <!-- ============================= -->
+
             </div>
         </section>
         <!--.box-typical-->

@@ -1,0 +1,51 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+
+            <div class="table-responsive">
+                <div>
+                    <label for="start">Fecha : &nbsp;</label>
+
+                    <input type="date" [(ngModel)]="fecha" (ngModelChange)="cambiosFecha($event)" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button [disabled]="controlFechas" (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                        refresh
+                        </span></button>
+
+                </div>
+
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">
+                                #
+                            </th>
+                            <th>Nombre</th>
+                            <th>Fecha Creacion</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let backup of backups">
+                            <td>{{ backup.IdBackup }}</td>
+                            <td>{{ backup.nombre }}</td>
+                            <td>{{ backup.created_at }}</td>
+                            <td>{{ backup.EstadoBackup }}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </section>
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-12) " type="button" class="btn btn-default-outline">Anteriores</button>
+        <button (click)="cambiarDesde(12) " type="button" class="btn btn-default-outline">Siguientes</button>
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

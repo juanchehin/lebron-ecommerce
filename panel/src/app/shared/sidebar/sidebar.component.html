@@ -127,6 +127,12 @@
                         <span class="hide-menu">Configuraciones </span>
                     </a>
                 </li>
+                <!-- ===== ** Backups ** ====== -->
+                <li class="user-profile" [routerLink]="['/dashboard/backups']" *ngIf="activarMenu('Backups')">
+                    <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
+                        <span class="hide-menu">Backups </span>
+                    </a>
+                </li>
                 <br/><br/>
                 <br/><br/>
                 <li class="nav-devider"></li>

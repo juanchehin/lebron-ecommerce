@@ -70,6 +70,11 @@ const childRoutes: Routes = [
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     loadChildren: () => import('./mantenimientos/dolares/dolares-routing.module').then( m => m.DolaresRoutingModule )
   },
+  { 
+    path: 'backups',
+    canActivate: [LoginGuardGuard, VerificaTokenGuard],
+    loadChildren: () => import('./mantenimientos/backups/backups-routing.module').then( m => m.BackupsRoutingModule )
+  },
   { path: 'configuraciones', component: ConfiguracionesComponent, data: { titulo: 'Configuraciones' }},
   { path: 'pedidos', component: PedidosComponent, data: { titulo: 'Pedidos' }}
   

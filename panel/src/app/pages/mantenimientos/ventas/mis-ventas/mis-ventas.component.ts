@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { VentasService } from 'src/app/services/ventas.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { UtilService } from 'src/app/services/util.service';
 
 const pdfMake = require('pdfmake/build/pdfmake.js');
 const pdfFonts = require('pdfmake/build/vfs_fonts.js');
@@ -28,7 +29,7 @@ export class MisVentasComponent implements OnInit {
   controlFechas = false;
   totalProveedores = 0;
   cargando = true;
-  totalVentas = '-';
+  totalVentas: any = '-';
 
   //Datos PDF
   datosEncabezado: any;
@@ -43,7 +44,8 @@ export class MisVentasComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public authService: AuthService,
     public ventasService: VentasService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private utilService: UtilService
   ) {
    }
 
@@ -51,7 +53,7 @@ export class MisVentasComponent implements OnInit {
     this.fecha = new Date();
     const previous = new Date(this.fecha.getTime());
     previous.setDate(this.fecha.getDate() - 1);
-    this.fecha = this.formatDate(previous);
+    this.fecha = this.utilService.formatDate(previous);
     this.cargarVentasIdUsuario();
 
     this.IdPersona = this.activatedRoute.snapshot.paramMap.get('IdPersona');
@@ -76,14 +78,17 @@ export class MisVentasComponent implements OnInit {
 
 cargarVentasIdUsuario() { 
 
-  const pFecha = this.formatDate(this.fecha);
+  const pFecha = this.utilService.formatDate(this.fecha);
 
     this.ventasService.listarVentasIdUsuario(this.desde, pFecha  )
     .subscribe({
       next: (resp: any) => { 
 
-        if(resp[1][0].Mensaje == 'Ok') {
+        console.log("resp cargarVentasIdUsuario : ",resp)
+
+        if(resp[2][0].Mensaje == 'Ok') {
           this.ventas = resp[0];
+          this.totalVentas = resp[1][0].totalVentas;
           
         } else {
           this.alertService.alertFail('Ocurrio un error',false,400);
@@ -129,7 +134,7 @@ cambiarDesde( valor: number ) {
 
   const desde = this.desde + valor;
 
-  if ( desde >= this.totalProveedores ) {
+  if ( desde >= this.totalVentas ) {
     return;
   }
 
@@ -138,26 +143,10 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  // this.cargarProductos();
+  this.cargarVentasIdUsuario();
 
 }
 
-// ==================================================
-//    Formatea la fecha a yyyy-mm-dd
-// ==================================================
-
-formatDate(date: any) {
-
-  // tslint:disable-next-line: one-variable-per-declaration
-  let d = new Date(date),month = '' + (d.getMonth() + 1),day = '' + (d.getDate() + 1),
-  // tslint:disable-next-line: prefer-const
-  year = d.getFullYear();
-
-  if (month.length < 2) { month = '0' + month; }
-  if (day.length < 2) { day = '0' + day; }
-
-  return [year, month, day].join('-');
-}
 
 // ==================================================
 // 
@@ -169,7 +158,7 @@ factura( pIdTransaccion: any) {
     .subscribe({
       next: (resp: any) => { 
 
-        if(resp[4][0].Mensaje == 'Ok') {
+        if((resp[4] != undefined) && (resp[4][0].Mensaje == 'Ok')) {
 
           this.generarPDF(resp[0],resp[1],pIdTransaccion,resp[2],resp[3]);
           
@@ -179,7 +168,7 @@ factura( pIdTransaccion: any) {
         }
        },
       error: (err: any) => {
-        this.alertService.alertFail('Ocurrio un error',false,400); }
+        this.alertService.alertFail('Ocurrio un error ' + err,false,400); }
     });
 
   }

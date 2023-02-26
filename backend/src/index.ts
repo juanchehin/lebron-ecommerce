@@ -24,6 +24,7 @@ import cuentasRoutes from './routes/cuentasRoutes';
 import saboresRoutes from './routes/saboresRoutes';
 import dolaresRoutes from './routes/dolaresRoutes';
 import quimicosRoutes from './routes/quimicosRoutes';
+import backupsRoutes from './routes/backupsRoutes';
 
 class Server {
 
@@ -68,6 +69,7 @@ class Server {
         this.app.use('/api/login', loginRoutes);
         this.app.use('/api/uploads', uploadRoutes);
         this.app.use('/api/settings', settingsRoutes);
+        this.app.use('/api/backups', backupsRoutes);
         this.app.use('/api/checkout', checkoutRoutes);
 
     }

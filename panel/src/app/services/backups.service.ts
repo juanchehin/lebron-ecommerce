@@ -49,5 +49,27 @@ listarBackupsPaginado(desde: any,fecha: any){
   return this.http.get( url );
 }
 
+// ==================================================
+//   Realiza backup
+// ==================================================
+
+altaBackup() {
+  let url = URL_SERVICIOS + '/backups/alta';
+  return this.http.get( url );
+}
+
+
+// ==================================================
+//   Realiza sincronizacion con drive
+// ==================================================
+
+sinc(name: string,id: string) {
+
+  let url = URL_SERVICIOS + '/backups/drive/' + name + '/' + id;
+
+  return this.http.get( url );
+
+}
+
 
 }

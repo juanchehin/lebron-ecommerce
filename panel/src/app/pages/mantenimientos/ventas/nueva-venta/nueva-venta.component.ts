@@ -9,6 +9,7 @@ import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { VentasService } from 'src/app/services/ventas.service';
+import { UtilService } from '../../../../services/util.service';
 
 @Component({
   selector: 'app-nueva-venta',
@@ -46,6 +47,7 @@ export class NuevaVentaComponent implements OnInit {
   itemCheckExists: any = 0;
   itemIdProductoSabor: any;
   idSucursalVendedor: any;
+  fecha_venta: any;
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
 
 
@@ -57,12 +59,14 @@ export class NuevaVentaComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public clientesService: ClientesService,
     public marcasService: MarcasService,
-    public alertaService: AlertService
+    public alertaService: AlertService,
+    private utilService: UtilService
     ) {
     
   }
 
   ngOnInit() {   
+    this.fecha_venta = this.utilService.formatDateNow(new Date(Date.now()));
     this.IdPersona = this.authService.IdPersona;
     this.datosVendedor = [];
     this.cargarDatosVendedor();
@@ -85,14 +89,15 @@ altaVenta() {
         this.IdCliente,
         this.lineas_venta,
         this.lineas_tipos_pago,
-        this.totalVenta
+        this.totalVenta,
+        this.fecha_venta
       );
 
       this.ventasService.altaVenta(  this.arrayVenta )
       .subscribe({
         next: (resp: any) => {
-
-          if ( resp[0][0].Mensaje == 'Ok') {
+          
+          if ( resp.mensaje[0][0].Mensaje == 'Ok') {
             this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
 
             this.activarModal = false;
@@ -416,5 +421,7 @@ agregarLineaTipoPago() {
   onChangeTipoPago(val: any){
     this.IdTipoPagoSelect = val;
   }
+
+
 }
 

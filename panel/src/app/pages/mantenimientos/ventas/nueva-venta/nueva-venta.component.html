@@ -7,8 +7,11 @@
             <h4>Sucursal : {{datosVendedor.Sucursal}}</h4>
         </div>
         <div class="col-md-4">
-            <h4>Fecha : {{currentDate | date:'dd/MM/yyyy'}}</h4>
+            <input type="date" [(ngModel)]="fecha_venta" class="form-control" placeholder="dd/mm/yyyy">
         </div>
+        <!-- <div class="col-md-4">
+            <h4>Fecha : {{currentDate | date:'dd/MM/yyyy'}}</h4>
+        </div> -->
     </div>
     <!-- ========== cliente ============ -->
     <div class="row">

@@ -69,80 +69,71 @@ public async listarVentasIdUsuario(req: Request, res: Response): Promise<void> {
 // ==================================================
 //        Lista 
 // ==================================================
-altaVenta(req: Request, res: Response) {
+async altaVenta(req: Request, res: Response) {
+
+
+    var pIdVendedor = req.params.IdPersona;
+    var pIdVenta;
 
     var pIdCliente = req.body[0];
     var pLineaVenta = req.body[1];
     var pLineaTipoPago = req.body[2];
     var pMontoTotal = req.body[3];
-    var pIdVendedor = req.params.IdPersona;
+    var pFechaVenta = req.body[4];
 
-    pool.query(`call bsp_alta_venta('${pIdVendedor}','${pIdCliente}','${pMontoTotal}')`, function(err: any, result: any){
-
-       if(err){
-            logger.error("Error bsp_alta_venta - altaVenta - ventasController " + err);
-
-            pool.query(`call bsp_alta_log('${pIdVendedor}',"${String(result[0][0].Message)}",'ventasController','${result[0][0].Code}','bsp_alta_venta','${err}')`);
-
-            res.status(404).json(err);
-            return;
-       }      
-
-       // ==============================
-       if(result[0][0].Mensaje == 'Ok')
-       {
-
-            pLineaVenta.forEach(function (value: any) {
-
-                pool.query(`call bsp_alta_linea_venta('${result[0][0].IdVenta}','${value.IdProductoSabor}','${result[0][0].pIdSucursal}','${value.Cantidad}')`, function(err: any, result2: any){
-
-                    if(err || result2[0][0].Mensaje != 'Ok'){
-
-                        logger.error("Error bsp_alta_venta 2 - altaVenta - ventasController " + err);
-
-                        pool.query(`call bsp_alta_log('${pIdVendedor}',"${String(result2[0][0].Message)}",'ventasController','${result2[0][0].Code}','bsp_alta_venta','${err}')`);
-
-                        res.status(404).json(err);
-                        return;
-                    }
-                    
-                    // ==============================
-                    if(result2[0][0].Mensaje == 'Ok')
-                    {             
-                        pLineaTipoPago.forEach(function (value: any) {
-             
-                             pool.query(`call bsp_alta_tipo_pago('${result[0][0].IdVenta}','${value.IdTipoPago}','${value.SubTotal}','${pIdCliente}')`, function(err: any, result3: any){
-                                
-                                if(err){
-                                    logger.error("Error bsp_alta_venta 3 - altaVenta - ventasController " + err);
-
-                                    pool.query(`call bsp_alta_log('${pIdVendedor}',"${String(result3[0][0].Message)}",'ventasController','${result3[0][0].Code}','bsp_alta_venta','${err}')`);
-            
-                                     return;
-                                 }
-
-                                 res.send(result3);
-                             })
-                         });
-                     }
-                    // =============================
-                    // res.json(result);
-                })
-            });
-        }
-        else
+    // ==============================
+    try {
+        // ====================== Alta Venta ===========================================
+        let sql = `call bsp_alta_venta('${pIdVendedor}','${pIdCliente}','${pMontoTotal}','${pFechaVenta}')`;
+        const [result] = await pool.promise().query(sql)
+        
+        if(result[0][0].Mensaje != 'Ok')
         {
-            logger.error("Error bsp_alta_venta - altaVenta - ventasController " + err);
+            logger.error("Error bsp_alta_venta - altaVenta - ventasController");
 
-            pool.query(`call bsp_alta_log('${pIdVendedor}',"Error alta venta",'ventasController','${result}','bsp_alta_venta','${err}')`);
-            
-            res.status(400).json(result);
-           return;
-        }
-        // ==============================
-   })
+        }       
+        // ========================== Lineas de venta =======================================
 
+        pLineaVenta.forEach(async function (value: any) {
+
+            let sql2 = `call bsp_alta_linea_venta('${result[0][0].IdVenta}','${value.IdProductoSabor}','${result[0][0].pIdSucursal}','${value.Cantidad}')`;
+            const [result2] = await pool.promise().query(sql2)
+
+            if(result2[0][0].Mensaje != 'Ok')
+            {
+                logger.error("Error bsp_alta_linea_venta - ventasController");
+            }
+        });
+
+
+        // ====================== Tipos de pago ===========================================
+        pLineaTipoPago.forEach(async function (value: any) {
+             
+            let sql3 = `call bsp_alta_tipo_pago('${result[0][0].IdVenta}','${value.IdTipoPago}','${value.SubTotal}','${pIdCliente}')`;
+            const [result3, ] = await pool.promise().query(sql3)
+
+               if(result3[0][0].Mensaje != 'Ok')
+               {
+                    logger.error("Error bsp_alta_tipo_pago - ventasController");
+                   return
+               }              
+
+        });
+
+        pIdVenta = result[0][0].IdVenta;
+
+        // ======================= Confirmar transferencia exitosa ==========================================
+      
+
+        // return result
+      } catch (error) {
+        logger.error("Error funcion altaVenta - ventasController");
+        res.status(404).json({ "error" : error});
+        return;
+      }
+      res.json({"mensaje": await confirmarTransaccion(pIdVenta)});
 }
+
 
 // ==================================================
 //        Lista 
@@ -193,3 +184,19 @@ dameDatosDashboard(req: Request, res: Response) {
 
 const ventasController = new VentasController;
 export default ventasController;
+
+async function confirmarTransaccion(pIdVenta: any) {
+
+    // ==============================
+    try {
+        let sql4 = `call bsp_confirmar_transaccion('${pIdVenta}')`;
+        const [result4] = await pool.promise().query(sql4)
+        
+        return result4;
+
+    } catch (error) {
+        logger.error("Error funcion confirmarTransaccion - ventasController : " + error);
+        return error;
+      }
+
+}

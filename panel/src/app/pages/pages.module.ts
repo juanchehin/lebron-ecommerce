@@ -5,19 +5,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Modulos
 import { SharedModule } from '../shared/shared.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { PagesComponent } from './pages.component';
 import { ConfiguracionesComponent } from './mantenimientos/configuraciones/configuraciones.component';
-import { PromocionesModule } from './mantenimientos/promociones/promociones.module';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
     PagesComponent,
     ConfiguracionesComponent
   ],
   exports: [
-    DashboardComponent,
     PagesComponent,
     ConfiguracionesComponent
   ],
@@ -26,8 +22,7 @@ import { PromocionesModule } from './mantenimientos/promociones/promociones.modu
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    RouterModule,
-    PromocionesModule
+    RouterModule
   ]
 })
 export class PagesModule { }

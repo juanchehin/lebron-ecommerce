@@ -49,6 +49,11 @@ export class NuevaVentaComponent implements OnInit {
   idSucursalVendedor: any;
   fecha_venta: any;
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
+  // =====
+  porcentaje_un_pago: any;
+  porcentaje_tres_pago: any;
+  porcentaje_seis_pago: any;
+  total_venta_inicial: any;
 
 
   constructor(
@@ -152,10 +157,19 @@ cargarProductos() {
 cargarTiposPago() {
 
   this.ventasService.cargarTiposPago( )
-             .subscribe( (resp: any) => {
+             .subscribe( {
+              next: (resp: any) => { 
               
               this.tiposPago = resp[0];
-            });
+
+              this.porcentaje_un_pago = resp[1][0].tarjeta1pagos;
+              this.porcentaje_tres_pago = resp[1][0].tarjeta3pagos;
+              this.porcentaje_seis_pago = resp[1][0].tarjeta6pagos;
+
+            },
+            error: (err: any) => {
+              this.alertaService.alertFail('Ocurrio un error al cargar los tipos de pago ' + err,false,400); }
+          });
 
 }
   // ==================================================
@@ -166,12 +180,17 @@ cargarTiposPago() {
 cargarDatosVendedor() {
   
     this.usuariosService.cargarDatosVendedor(  this.IdPersona )
-               .subscribe( (resp: any) => {
+               .subscribe( {
 
-                this.datosVendedor = resp[0][0];
+                next: (resp: any) => { 
 
-                this.idSucursalVendedor = this.datosVendedor.IdSucursal;
+                  this.datosVendedor = resp[0][0];
+                  this.fecha_venta = this.utilService.formatDateNow(resp[1][0].fecha_bd);
 
+                  this.idSucursalVendedor = this.datosVendedor.IdSucursal;
+                },
+                error: (err: any) => {
+                  this.alertaService.alertFail('Ocurrio un error al cargar los datos del vendedor' + err,false,400); }
               });
 
   }
@@ -189,7 +208,6 @@ cargarDatosVendedor() {
 // Carga los datos de la persona que esta realizando la venta
 //  junto con la sucursal en la cual se desempeña
 // ==================================================
-
 agregarLineaVenta() {
 
   if(isNaN(Number(this.cantidadLineaVenta)))
@@ -291,6 +309,41 @@ agregarLineaTipoPago() {
     }
   );
 
+  for(let item of this.lineas_tipos_pago){
+    if(item.IdTipoPago == 8 || item.IdTipoPago == 9 || item.IdTipoPago == 10)
+    {
+      this.alertaService.alertFail('No puede agregar dos tipos de pago con tarjeta',false,3000);
+      return false
+    }
+  }
+
+  switch (obj.IdTipoPago) {
+    case 8: // 1 pago
+        var monto_aumento = +this.monto * ((this.porcentaje_un_pago / 100)); 
+        
+        this.monto = +this.monto + monto_aumento;
+        this.totalVenta = +this.totalVenta + monto_aumento;
+        this.totalTiposPago = +this.totalTiposPago + monto_aumento;
+        break;
+    case 9: // 3 pago
+        var monto_aumento = +this.monto * ((this.porcentaje_tres_pago / 100)); 
+
+        this.monto = +this.monto + monto_aumento;
+        this.totalVenta = this.totalVenta + monto_aumento;
+        this.totalTiposPago = +this.totalTiposPago + monto_aumento;
+        break;
+    case 10:  // 6 pago
+        var monto_aumento = +this.monto * (this.porcentaje_seis_pago / 100); 
+
+        
+        // this.monto = +this.monto + monto_aumento;
+        this.totalVenta = +this.monto + monto_aumento;
+        this.totalTiposPago = +this.totalTiposPago + monto_aumento;
+        break;
+    default:
+        break;
+  }
+
   this.lineas_tipos_pago.push(
     {
       IdItem: this.IdItemTipoPago,
@@ -301,6 +354,8 @@ agregarLineaTipoPago() {
   );
 
   this.IdItemTipoPago += 1;
+
+  this.monto = 0;
 
 }
   // ==============================
@@ -374,6 +429,7 @@ agregarLineaTipoPago() {
       return;
     }
 
+    this.total_venta_inicial = this.totalVenta;
     this.activarModal = true;
 
     this.cargarTiposPago();
@@ -402,10 +458,17 @@ agregarLineaTipoPago() {
     this.lineas_tipos_pago.forEach( (item, index) => {
       if(item.IdItem === IdItem) 
       {
-        this.totalTiposPago -= +item.SubTotal;
         this.lineas_tipos_pago.splice(index,1);
+        // if(+item.IdTipoPago == 8 || +item.IdTipoPago == 9 || +item.IdTipoPago == 10)
+        // {
+        //   this.totalTiposPago = +this.totalTiposPago - +item.SubTotal;
+        // }else{
+        // }
+        console.log("item.SubTotal : ",item.SubTotal)
+        this.totalTiposPago -= +item.SubTotal;
+        this.totalVenta = this.total_venta_inicial;
       }
-        
+
     });
 
   }

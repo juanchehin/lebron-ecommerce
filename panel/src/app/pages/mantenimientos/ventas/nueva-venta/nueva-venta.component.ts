@@ -22,6 +22,8 @@ export class NuevaVentaComponent implements OnInit {
   keywordProducto = 'codigoProductoSabor';
   cargando = true;
   activarModal = false;
+  activarModalDescuentoEfectivo = false;
+  descuentoEfectivo: any = 0;
   productos: any;
   clienteBuscado = '';
   productoBuscado = '';
@@ -41,6 +43,7 @@ export class NuevaVentaComponent implements OnInit {
   IdItemTipoPago = 0;
   IdTipoPagoSelect = 0;
   monto = 0;
+  
   IdCliente = 0;
   totalTiposPago = 0;
   arrayVenta: any = [];
@@ -49,6 +52,11 @@ export class NuevaVentaComponent implements OnInit {
   idSucursalVendedor: any;
   fecha_venta: any;
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
+  @ViewChild('divCerrarModalDescuentoEfectivo') divCerrarModalDescuentoEfectivo!: ElementRef<HTMLElement>;
+  @ViewChild('buttonAbrirModalDescuentoEfectivo') buttonAbrirModalDescuentoEfectivo!: ElementRef<HTMLElement>;
+  porcentajeDescuentoEfectivo: any = 0;
+  montoEfectivo = 0;
+
   // =====
   porcentaje_un_pago: any;
   porcentaje_tres_pago: any;
@@ -205,8 +213,7 @@ cargarDatosVendedor() {
   }
   
 // ==================================================
-// Carga los datos de la persona que esta realizando la venta
-//  junto con la sucursal en la cual se desempeña
+// 
 // ==================================================
 agregarLineaVenta() {
 
@@ -291,7 +298,7 @@ agregarLineaTipoPago(): any {
   if((this.totalTiposPago + +this.monto) > this.totalVenta)
   {
     this.alertaService.alertFail('El monto total es mayor que el total de la venta',false,2000);
-    this.totalTiposPago -= +this.monto;
+    // this.totalTiposPago -= +this.monto;
     return;
   }
 
@@ -314,10 +321,12 @@ agregarLineaTipoPago(): any {
   // Busco si ya existe el IdTipoPago en el array de lineas_tipos_pago
   let exists_ltp = this.lineas_tipos_pago.find((ltp_item: any) => 
     {
+      
+
       if(ltp_item.IdTipoPago == this.IdTipoPagoSelect)
       { // linea_tipo_pago existente
         // No suma el subtotal en caso de ser con tarjeta en cuotas
-        if((this.IdTipoPagoSelect == 8) || (this.IdTipoPagoSelect == 9) || (this.IdTipoPagoSelect == 10))
+        if((ltp_item.IdTipoPago == 8) || (ltp_item.IdTipoPago == 9) || (ltp_item.IdTipoPago == 10))
         {
           bandera = true;
         }else
@@ -326,14 +335,13 @@ agregarLineaTipoPago(): any {
         }
       }else{
         if(
-          ((this.IdTipoPagoSelect == 8) || (this.IdTipoPagoSelect == 9) || (this.IdTipoPagoSelect == 10)
-          &&
-          ((ltp_item.IdTipoPago == 8) || (ltp_item.IdTipoPago == 9) || (ltp_item.IdTipoPago == 10)) 
+            ((this.IdTipoPagoSelect == 8) || (this.IdTipoPagoSelect == 9) || (this.IdTipoPagoSelect == 10))
+            &&
+            ((ltp_item.IdTipoPago == 8) || (ltp_item.IdTipoPago == 9) || (ltp_item.IdTipoPago == 10)) 
           )
-        )
-        {
-          bandera = true;
-        }
+          {
+            bandera = true;
+          }
       }
     }
   );
@@ -344,43 +352,76 @@ agregarLineaTipoPago(): any {
     if(exists_ltp)
     {
         exists_ltp.SubTotal = +exists_ltp.SubTotal + +this.monto;
+        this.totalTiposPago = this.totalTiposPago + +this.monto;  
+
         return;
     }else
     {
 
+      this.lineas_tipos_pago.push(
+        {
+            IdItem: this.IdItemTipoPago,
+            IdTipoPago: this.IdTipoPagoSelect,
+            TipoPago: obj.TipoPago,
+            SubTotal: this.monto
+        });
+
       switch (obj.IdTipoPago) {
+        case 1: // Pago efectivo
+            this.montoEfectivo = this.monto;
+            this.abrirModalDescuentoEfectivo();
+            this.totalTiposPago = this.totalTiposPago + +this.monto;  
+            break;
         case 8: // 1 pago
             var monto_aumento = +this.monto * ((this.porcentaje_un_pago / 100)); 
-            this.monto = +this.monto + monto_aumento;
+            // this.monto = +this.monto + monto_aumento;
             this.totalVenta = +this.totalVenta + +monto_aumento;
-            this.totalTiposPago = this.totalTiposPago + +this.monto;
+            this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;
+
+            this.lineas_tipos_pago.push(
+            {
+                  IdItem: this.IdItemTipoPago,
+                  IdTipoPago: 12,
+                  TipoPago: 'Recargo Tarjeta',
+                  SubTotal: monto_aumento
+            });
+
             break;
-        case 9: // 3 pago
-            
+        case 9: // 3 pago            
             var monto_aumento = +this.monto * ((this.porcentaje_tres_pago / 100)); 
-            this.monto = +this.monto + monto_aumento;
+            // this.monto = +this.monto + monto_aumento;
             this.totalVenta = +this.totalVenta + +monto_aumento;
-            this.totalTiposPago = this.totalTiposPago + +this.monto;
+            this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;
+
+            this.lineas_tipos_pago.push(
+            {
+                  IdItem: this.IdItemTipoPago,
+                  IdTipoPago: 12,
+                  TipoPago: 'Recargo Tarjeta',
+                  SubTotal: monto_aumento
+            });
+
             break;
         case 10:  // 6 pago
             var monto_aumento = +this.monto * (this.porcentaje_seis_pago / 100);  
-            this.monto = +this.monto + monto_aumento;      
+            // this.monto = +this.monto + monto_aumento;      
             this.totalVenta = +this.totalVenta + +monto_aumento;
-            this.totalTiposPago = this.totalTiposPago + +this.monto;
+            this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;
+
+            this.lineas_tipos_pago.push(
+            {
+                  IdItem: this.IdItemTipoPago,
+                  IdTipoPago: 12,
+                  TipoPago: 'Recargo Tarjeta',
+                  SubTotal: monto_aumento
+            });
+
             break;
         default:
             this.totalTiposPago = +this.totalTiposPago + +this.monto;
             break;
       }
   
-      this.lineas_tipos_pago.push(
-        {
-          IdItem: this.IdItemTipoPago,
-          IdTipoPago: this.IdTipoPagoSelect,
-          TipoPago: obj.TipoPago,
-          SubTotal: this.monto
-      }
-      );
       this.IdItemTipoPago += 1;
     }
 
@@ -467,7 +508,7 @@ agregarLineaTipoPago(): any {
 
     this.cargarTiposPago();
   }
-// ==============================
+  // ==============================
   // 
   // ================================
   eliminarItemVenta(IdProductoSabor: any){
@@ -492,8 +533,14 @@ agregarLineaTipoPago(): any {
       if(item.IdItem === IdItem) 
       {
         this.lineas_tipos_pago.splice(index,1);
+
+        if(item.IdTipoPago != 11)
+        {
+          this.totalTiposPago -= +item.SubTotal;
+        }else{
+          this.totalTiposPago += +item.SubTotal;
+        }
         
-        this.totalTiposPago -= +item.SubTotal;
         this.totalVenta = this.total_venta_inicial;
       }
 
@@ -509,8 +556,48 @@ agregarLineaTipoPago(): any {
     el.click();
   }
 
+  // ==============================
+  // 
+  // ================================
+  abrirModalDescuentoEfectivo(){
+    let el: HTMLElement = this.buttonAbrirModalDescuentoEfectivo.nativeElement;
+    el.click();
+  }
+
+  // ==============================
+  // 
+  // ================================
+  cerrarModalDescuentoEfectivo(){
+    let el: HTMLElement = this.divCerrarModalDescuentoEfectivo.nativeElement;
+    el.click();
+  }
+
   onChangeTipoPago(val: any){
     this.IdTipoPagoSelect = val;
+  }
+
+  // ==============================
+  // 
+  // ================================
+  aplicarDescuentoEfectivo()
+  {
+    this.cerrarModalDescuentoEfectivo();
+    
+    if(this.porcentajeDescuentoEfectivo > 0)
+    {
+      let monto_descuento = (this.porcentajeDescuentoEfectivo * this.montoEfectivo / 100);
+      this.totalVenta -= monto_descuento;
+      this.totalTiposPago = this.totalTiposPago - monto_descuento;
+
+      this.lineas_tipos_pago.push(
+      {
+            IdItem: this.IdItemTipoPago,
+            IdTipoPago: 11,
+            TipoPago: 'Descuento Efectivo',
+            SubTotal: monto_descuento
+      });
+
+    }
   }
 
 

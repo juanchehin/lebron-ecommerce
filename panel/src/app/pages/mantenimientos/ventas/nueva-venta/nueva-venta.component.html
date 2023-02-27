@@ -107,6 +107,7 @@
         </div>
     </div>
     <br>
+    <button hidden #buttonAbrirModalDescuentoEfectivo class="btn btn-primary" data-toggle="modal" data-target="#divCerrarModalDescuentoEfectivo" data-whatever="@mdo"></button>
     <button type="submit" (click)="continuarVenta()" class="btn btn-info btn-lg btn-block text-uppercase" alt="default" data-toggle="modal" data-target="#responsive-modal">Continuar</button>
     <br>
     <!-- ====================== -->
@@ -159,9 +160,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr *ngFor="let linea_tp of lineas_tipos_pago">
+                                                <tr *ngFor="let linea_tp of lineas_tipos_pago" [ngClass]="{'table-success': (linea_tp.TipoPago == 'Descuento Efectivo'), 'table-warning' : (linea_tp.TipoPago == 'Recargo Tarjeta') }">
+                                                <!-- "(linea_tp.TipoPago == 'Descuento Efectivo') ? 'table-success' : '',(linea_tp.TipoPago == 'Recargo Tarjeta') ? 'table-warning' : ''"> -->
                                                     <td>{{linea_tp.TipoPago }}</td>
-                                                    <td>{{linea_tp.SubTotal }}</td>
+                                                    <td>$ {{linea_tp.SubTotal }}</td>
                                                     <td class="text-nowrap">
                                                         <a (click)="eliminarItemTipoPago(linea_tp.IdItem)" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
                                                     </td>
@@ -187,4 +189,28 @@
         </div>
     </div>
     <!-- /.modal -->
+</div>
+
+<!-- =========== MODAL descuento efectivo =========== -->
+<div id="divCerrarModalDescuentoEfectivo" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Descuento efectivo</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Porcentaje descuento %:</label>
+                        <input [(ngModel)]="porcentajeDescuentoEfectivo" name="porcentajeDescuentoEfectivo" type="text" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button #divCerrarModalDescuentoEfectivo type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button (click)="aplicarDescuentoEfectivo()" type="button" class="btn btn-primary">Aplicar</button>
+            </div>
+        </div>
+    </div>
 </div>

@@ -158,9 +158,9 @@ factura( pIdTransaccion: any) {
     .subscribe({
       next: (resp: any) => { 
 
-        if((resp[4] != undefined) && (resp[4][0].Mensaje == 'Ok')) {
+        if((resp[5] != undefined) && (resp[5][0].Mensaje == 'Ok')) {
 
-          this.generarPDF(resp[0],resp[1],pIdTransaccion,resp[2],resp[3]);
+          this.generarPDF(resp[0],resp[1],pIdTransaccion,resp[2],resp[3],resp[4]);
           
         } else {
           this.alertService.alertFail('Ocurrio un error',false,400);
@@ -176,13 +176,19 @@ factura( pIdTransaccion: any) {
 // 
 // ==================================================
 
-generarPDF( pDatosEncabezado: any,pDatosCliente: any,pIdTransaccion: any,pDatosTransaccion: any,pDatosLineasVenta: any) { 
+generarPDF( pDatosEncabezado: any,pDatosCliente: any,pIdTransaccion: any,pDatosTransaccion: any,pDatosLineasVenta: any,pCondVenta: any) { 
 
   var rows = [];
   rows.push(['CANT.', 'DETALLE', 'P. UNIT.', 'SUBTOTAL']);
+  var condVentaLinea: any = '';
+
 
   for(var item of pDatosLineasVenta) {
     rows.push([item.Cantidad, item.Producto, item.precioVentaUnitario, item.SubTotal]);
+  }
+
+  for(var item of pCondVenta) {
+    condVentaLinea += item.TipoPago + ' $ ' + item.Monto + ' | ';
   }
 
   rows.push(['', '', 'TOTAL', pDatosTransaccion[0].MontoTotal]);
@@ -271,7 +277,7 @@ generarPDF( pDatosEncabezado: any,pDatosCliente: any,pIdTransaccion: any,pDatosT
                 [
                       {
                           colSpan: 2,
-                          text: 'Cond. de Venta | $ ' + pDatosTransaccion[0].MontoTotal
+                          text: 'Cond. de Venta | $ ' + condVentaLinea
                       },
                       [
                         ''

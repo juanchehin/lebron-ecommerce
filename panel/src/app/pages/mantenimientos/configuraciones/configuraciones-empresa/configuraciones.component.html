@@ -1,0 +1,88 @@
+<div class="container">
+    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="actualizarConfiguraciones()" id="forma">
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Nombre Empresa : </label>
+                    <input formControlName="NombreEmpresa" [value]="NombreEmpresa" name="NombreEmpresa" type="text" placeholder="Nombre..." class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>CUIT : </label><input [value]="CUIT" formControlName="CUIT" name="CUIT" type="text" placeholder="CUIT" class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Email : </label><input [value]="Email" formControlName="Email" name="Email" type="text" asda placeholder="Email" class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Telefono : </label><input [value]="Telefono" formControlName="Telefono" name="Telefono" type="text" min="1" max="12" step="1" placeholder="Telefono" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Direccion : </label>
+                    <input formControlName="Direccion" [value]="Direccion" name="Direccion" type="text" placeholder="Direccion..." class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Ing. Brutos : </label><input [value]="IngBrutos" formControlName="IngBrutos" name="IngBrutos" type="text" placeholder="Ing Brutos..." class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>IVA : </label><input formControlName="IVA" [value]="IVA" name="IVA" type="text" placeholder="IVA" class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Valor dolar : </label><input formControlName="Dolar" [value]="Dolar" name="Dolar" type="text" placeholder="Dolar" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Instagram : </label>
+                    <input formControlName="Instagram" name="Instagram" type="text" [value]="Instagram" placeholder="Instagram..." class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Twitter : </label><input formControlName="Twitter" name="Twitter" type="text" [value]="Twitter" placeholder="Twitter..." class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Facebook : </label><input formControlName="Facebook" name="Facebook" type="text" placeholder="Facebook..." [value]="Facebook" class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Youtube : </label><input formControlName="Youtube" name="Youtube" type="text" placeholder="Youtube..." [value]="Youtube" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>% Tarjeta 1 Pago : </label>
+                    <input formControlName="Tarjeta1Pago" name="Tarjeta1Pago" type="text" placeholder="1 pagos" class="form-control" [value]="Tarjeta1Pago">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>% Tarjeta 3 Pago : </label><input [value]="Tarjeta3Pago" formControlName="Tarjeta3Pago" name="Tarjeta3Pago" type="text" placeholder="3 pagos" class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>% Tarjeta 6 Pago : </label><input [value]="Tarjeta6Pago" formControlName="Tarjeta6Pago" name="Tarjeta6Pago" type="text" min="1" max="4" placeholder="6 pagos" class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="card card-body">
+            <div class="row">
+                <div class="col-sm-6 form-group">
+                    <label>Costo de Envio : </label><input [value]="CostoEnvio" formControlName="CostoEnvio" name="CostoEnvio" type="text" min="1" max="4" placeholder="Costo de Envio..." class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Retenciones MP : </label><input [value]="retencionMP" formControlName="retencionMP" name="retencionMP" type="text" min="1" max="4" placeholder="Retenciones mercado pago..." class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Tasa interes inversion % : </label><input [value]="tasaInteres" formControlName="tasaInteres" name="tasaInteres" type="text" min="1" max="4" placeholder="Tasa interes..." class="form-control">
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label>Dias vencimiento cta. cte. : </label><input [value]="dias_cc" formControlName="dias_cc" name="dias_cc" type="text" min="1" max="4" placeholder="Dias vencimiento" class="form-control">
+                </div>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Actualizar Configuraciones</button>
+        <br>
+    </form>
+</div>

@@ -25,6 +25,8 @@ import { EditarCategoriaComponent } from './categorias/editar-categoria/editar-c
 import { EditarSubcategoriaComponent } from './subcategorias/editar-subcategoria/editar-subcategoria.component';
 import { SubCategoriaComponent } from './subcategorias/subcategoria/subcategoria.component';
 import { SubCategoriasComponent } from './subcategorias/subcategorias/subcategorias.component';
+import { QuimicosComponent } from './quimicos/quimicos/quimicos.component';
+import { QuimicosModule } from './quimicos/quimicos.module';
 
 @NgModule({
   imports: [
@@ -33,7 +35,8 @@ import { SubCategoriasComponent } from './subcategorias/subcategorias/subcategor
     ProductosRoutingModule,
     RouterModule,
     AutocompleteLibModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    QuimicosModule
   ],
   declarations: [
     ProductoComponent,
@@ -56,7 +59,9 @@ import { SubCategoriasComponent } from './subcategorias/subcategorias/subcategor
     //
     SubCategoriasComponent,
     EditarSubcategoriaComponent,
-    SubCategoriaComponent
+    SubCategoriaComponent,
+    //
+    // QuimicosComponent
   ]
 })
 export class ProductosModule { }

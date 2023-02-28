@@ -7,13 +7,15 @@ import { MisVentasComponent } from './mis-ventas/mis-ventas.component';
 import { NuevaVentaComponent } from './nueva-venta/nueva-venta.component';
 import { FormsModule } from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 
 @NgModule({
   declarations: [
     VentasComponent,
     MisVentasComponent,
-    NuevaVentaComponent
+    NuevaVentaComponent,
+    PedidosComponent
   ],
   imports: [
     CommonModule,

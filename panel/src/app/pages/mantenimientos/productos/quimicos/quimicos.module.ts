@@ -20,7 +20,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
   declarations: [
     QuimicoComponent,
     QuimicosComponent,
-    EditarQuimicoComponent,
+    EditarQuimicoComponent
   ]
 })
 export class QuimicosModule { }

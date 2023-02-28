@@ -6,7 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Modulos
 import { SharedModule } from '../shared/shared.module';
 import { PagesComponent } from './pages.component';
-import { ConfiguracionesComponent } from './mantenimientos/configuraciones/configuraciones.component';
+import { ConfiguracionesComponent } from './mantenimientos/configuraciones/configuraciones-empresa/configuraciones.component';
+import { InversionesModule } from './mantenimientos/inversiones/inversiones.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ConfiguracionesComponent } from './mantenimientos/configuraciones/confi
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    RouterModule
+    RouterModule,
+    InversionesModule
   ]
 })
 export class PagesModule { }

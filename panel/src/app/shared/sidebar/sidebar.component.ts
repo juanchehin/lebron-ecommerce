@@ -21,6 +21,8 @@ export class SidebarComponent implements OnInit {
   expandirVentas = true;
   expandirCompras = true;
   expandirTransferencias = true;
+  expandirClientes = true;
+
 
  
   constructor( 
@@ -151,6 +153,10 @@ export class SidebarComponent implements OnInit {
   
   expandirTransferenciasFuncion(){
     this.expandirTransferencias = !this.expandirTransferencias;       
+  }
+
+  expandirClientesFuncion(){
+    this.expandirClientes = !this.expandirClientes;       
   }
 
 

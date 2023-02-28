@@ -64,9 +64,4 @@ ingresar() {
 
 }
 
-// Recarga para resetear el sidebar en al dashboard
-ngOnDestroy(): void {
-  window.location.reload();
-}
-
 }

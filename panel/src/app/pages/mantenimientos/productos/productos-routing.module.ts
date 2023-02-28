@@ -19,6 +19,8 @@ import { CategoriasComponent } from './categorias/categorias/categorias.componen
 import { SubCategoriasComponent } from './subcategorias/subcategorias/subcategorias.component';
 import { SubCategoriaComponent } from './subcategorias/subcategoria/subcategoria.component';
 import { EditarSubcategoriaComponent } from './subcategorias/editar-subcategoria/editar-subcategoria.component';
+import { LoginGuardGuard } from 'src/app/guards/login-guard.guard';
+import { VerificaTokenGuard } from 'src/app/guards/verifica-token.guard';
 
 
 const routes: Routes = [
@@ -46,7 +48,16 @@ const routes: Routes = [
    // Productos - subcategorias
    { path: 'subcategorias', component: SubCategoriasComponent, data: { titulo: 'Categorias' }},
    { path: 'subcategorias/nueva', component: SubCategoriaComponent, data: { titulo: 'Nueva Categoria' }},
-   { path: 'subcategoria/:IdSubCategoria', component: EditarSubcategoriaComponent, data: { titulo: 'Editar Categoria' }}
+   { path: 'subcategoria/:IdSubCategoria', component: EditarSubcategoriaComponent, data: { titulo: 'Editar Categoria' }},
+   // Promociones
+   { path: 'promociones', component: SaboresComponent, data: { titulo: 'Promociones' }},
+   { path: 'promocion/nueva', component: SaborComponent, data: { titulo: 'Nueva Promocion' }},
+   // Compra/Venta dolares
+  { 
+    path: 'quimicos',
+    canActivate: [LoginGuardGuard, VerificaTokenGuard],
+    loadChildren: () => import('./quimicos/quimicos-routing.module').then( m => m.QuimicosRoutingModule )
+  },
 
 ];
 

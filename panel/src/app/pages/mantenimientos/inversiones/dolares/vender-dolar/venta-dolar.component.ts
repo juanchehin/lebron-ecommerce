@@ -3,17 +3,20 @@ import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClientesService } from 'src/app/services/clientes.service';
-import { DolaresService } from '../../../../services/dolares.service';
+import { DolaresService } from 'src/app/services/dolares.service';
 
 @Component({
-  selector: 'app-compra-dolar',
-  templateUrl: './compra-dolar.component.html',
+  selector: 'app-venta-dolar',
+  templateUrl: './venta-dolar.component.html',
   styleUrls: []
 })
-export class CompraDolarComponent implements OnInit {
+export class VentaDolarComponent implements OnInit {
 
+  keywordCliente = 'NombreCompleto';
   cargando = true;
+  clienteBuscado = '';
   IdPersona = '';
+  clientes = [];
   currentDate = new Date();
   
   monto = 0;
@@ -38,7 +41,7 @@ export class CompraDolarComponent implements OnInit {
 //        Crear 
 // ==================================================
 
-altaCompraDolar() {
+altaVentaDolar() {
   
   this.IdPersona = this.authService.IdPersona;
 
@@ -47,18 +50,19 @@ altaCompraDolar() {
       this.alertaService.alertInfoWithText('Atencion','Monto incorrecto',false,2000);
     }
 
-    const datosCompraDolares: any = [
+    const datosVentaDolares: any = [
+      this.IdCliente,
       this.monto,
       this.observaciones
     ];
 
 
-    this.dolaresService.altaCompraDolares( datosCompraDolares )
+    this.dolaresService.altaVentaDolares( datosVentaDolares )
       .subscribe({
         next: (resp: any) => {
 
           if ( resp[0][0].Mensaje == 'Ok') {
-            this.alertaService.alertSuccess('top-end','Compra cargada',false,2000);
+            this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
             
             this.router.navigate(['/dashboard/dolares']);
           } else {
@@ -70,6 +74,46 @@ altaCompraDolar() {
       });
 
 }
+// ==================================================
+// Carga
+// ==================================================
 
+cargarClientes() {
+
+  this.clientesService.cargarClientes( this.clienteBuscado )
+             .subscribe( (resp: any) => {
+
+              this.clientes = resp;
+
+            });
+
+}
+
+ // ==============================
+  // Para clientes
+  // ================================
+  selectEvent(item: any) {
+    this.IdCliente = item.IdPersona;
+    // this.agregarLineaVenta(item);
+    // do something with selected item
+  }
+
+  onChangeSearch(val: any) {
+
+    if(val == '' || val == null)
+    {
+      return;
+    }
+
+    this.clienteBuscado = val;
+    this.cargarClientes();
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  onFocused(e: any){
+    // console.log("pasa on onFocused",e)
+    // do something when input is focused
+  }
 }
 

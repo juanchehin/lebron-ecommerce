@@ -2,10 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
-import { UnidadesService } from '../../../../services/unidades.service';
-import { CategoriasService } from '../../../../services/categorias.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { QuimicosService } from 'src/app/services/quimicos.service';
+import { CategoriasService } from 'src/app/services/categorias.service';
+import { UnidadesService } from 'src/app/services/unidades.service';
 
 @Component({
   selector: 'app-quimico',

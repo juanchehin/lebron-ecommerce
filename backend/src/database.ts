@@ -1,7 +1,11 @@
 const mysql = require('mysql2');
-import keys from './keys';
 
-const pool = mysql.createPool(keys.database);
+const pool = mysql.createPool(
+    process.env.DB_HOST,
+    process.env.DB_USER,
+    process.env.DB_PASS,
+    process.env.DB_NAME
+);
 
 pool.getConnection((err: any, connection: { release: () => void; }) => {
     if (err) throw err; connection.release(); 

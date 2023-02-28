@@ -6,17 +6,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Modulos
 import { SharedModule } from '../shared/shared.module';
 import { PagesComponent } from './pages.component';
-import { ConfiguracionesComponent } from './mantenimientos/configuraciones/configuraciones-empresa/configuraciones.component';
 import { InversionesModule } from './mantenimientos/inversiones/inversiones.module';
+import { ConfiguracionesModule } from './mantenimientos/configuraciones/configuraciones.module';
 
 @NgModule({
   declarations: [
-    PagesComponent,
-    ConfiguracionesComponent
+    PagesComponent
   ],
   exports: [
-    PagesComponent,
-    ConfiguracionesComponent
+    PagesComponent
   ],
   imports: [ 
     CommonModule,
@@ -24,7 +22,8 @@ import { InversionesModule } from './mantenimientos/inversiones/inversiones.modu
     ReactiveFormsModule,
     SharedModule,
     RouterModule,
-    InversionesModule
+    InversionesModule,
+    ConfiguracionesModule
   ]
 })
 export class PagesModule { }

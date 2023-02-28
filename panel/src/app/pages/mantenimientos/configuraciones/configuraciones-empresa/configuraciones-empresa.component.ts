@@ -5,11 +5,11 @@ import { ConfiguracionesService } from 'src/app/services/configuraciones.service
 import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
-  selector: 'app-configuraciones',
-  templateUrl: './configuraciones.component.html',
+  selector: 'app-configuraciones-empresa',
+  templateUrl: './configuraciones-empresa.component.html',
   styles: []
 })
-export class ConfiguracionesComponent implements OnInit {
+export class ConfiguracionesEmpresaComponent implements OnInit {
 
   forma!: FormGroup;
   cargando = true;

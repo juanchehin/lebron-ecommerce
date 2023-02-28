@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 // Mantenimientos
-import { ConfiguracionesComponent } from './mantenimientos/configuraciones/configuraciones-empresa/configuraciones.component';
 // import { PedidosComponent } from './mantenimientos/pedidos/pedidos/pedidos.component';
 import { LoginGuardGuard } from '../guards/login-guard.guard';
 import { VerificaTokenGuard } from '../guards/verifica-token.guard';
@@ -15,11 +14,6 @@ const childRoutes: Routes = [
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     loadChildren: () => import('./mantenimientos/productos/productos-routing.module').then( m => m.ProductosRoutingModule )
   },
-  // { 
-  //   path: 'quimicos',
-  //   canActivate: [LoginGuardGuard, VerificaTokenGuard],
-  //   loadChildren: () => import('./mantenimientos/quimicos/quimicos-routing.module').then( m => m.QuimicosRoutingModule )
-  // },
   { 
     path: 'usuarios',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
@@ -40,21 +34,11 @@ const childRoutes: Routes = [
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     loadChildren: () => import('./mantenimientos/ventas/ventas-routing.module').then( m => m.VentasRoutingModule )
   },
-  // { 
-  //   path: 'promociones',
-  //   canActivate: [LoginGuardGuard, VerificaTokenGuard],
-  //   loadChildren: () => import('./mantenimientos/promociones/promociones-routing.module').then( m => m.PromocionesRoutingModule )
-  // },
   { 
     path: 'clientes',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     loadChildren: () => import('./mantenimientos/clientes/clientes-routing.module').then( m => m.ClientesRoutingModule )
   },
-  // { 
-  //   path: 'cuentas',
-  //   canActivate: [LoginGuardGuard, VerificaTokenGuard],
-  //   loadChildren: () => import('./mantenimientos/cuentas-corrientes/cuentas-corrientes-routing.module').then( m => m.CuentasCorrientesRoutingModule )
-  // },
   { 
     path: 'transferencias',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
@@ -65,19 +49,12 @@ const childRoutes: Routes = [
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     loadChildren: () => import('./mantenimientos/inversiones/inversiones-routing.module').then( m => m.InversionesRoutingModule )
   },
-  // { 
-  //   path: 'dolares',
-  //   canActivate: [LoginGuardGuard, VerificaTokenGuard],
-  //   loadChildren: () => import('./mantenimientos/dolares/dolares-routing.module').then( m => m.DolaresRoutingModule )
-  // },
-  // { 
-  //   path: 'backups',
-  //   canActivate: [LoginGuardGuard, VerificaTokenGuard],
-  //   loadChildren: () => import('./mantenimientos/backups/backups-routing.module').then( m => m.BackupsRoutingModule )
-  // },
-  { path: 'configuraciones', component: ConfiguracionesComponent, data: { titulo: 'Configuraciones' }}
-  // { path: 'pedidos', component: PedidosComponent, data: { titulo: 'Pedidos' }}
-  
+  { 
+    path: 'configuraciones',
+    canActivate: [LoginGuardGuard, VerificaTokenGuard],
+    loadChildren: () => import('./mantenimientos/configuraciones/configuraciones-routing.module').then( m => m.ConfiguracionesRoutingModule )
+  }
+ 
 ]
 
 @NgModule({

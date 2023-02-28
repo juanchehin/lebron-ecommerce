@@ -60,7 +60,7 @@ cargarTransferencias() {
         }
        },
       error: (err: any) => { 
-        this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,400);
+        this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
        }
     });
 

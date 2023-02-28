@@ -42,7 +42,7 @@ buscarClientes() {
                .subscribe( {
                 next: (resp: any) => { 
 
-                  if(resp[2] && resp[2][0].Mensaje == 'Ok')
+                  if(resp[0][0] != undefined && resp[2] && resp[2][0].Mensaje == 'Ok')
                   { 
                     this.totalClientes = resp[1][0].cantClientes;
     
@@ -82,12 +82,12 @@ bajaCliente(IdPersona: string) {
       .subscribe({
         next: (resp: any) => {
   
-          if(resp[0].Mensaje == 'Ok') {
+          if(resp[0][0] != undefined && resp[0].Mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','Cliente dado de baja',false,900);
             this.buscarClientes();
             
           } else {
-            this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
+            this.alertService.alertFail('Ocurrio un error al procesar el pedido',false,1200);
             
           }
          },

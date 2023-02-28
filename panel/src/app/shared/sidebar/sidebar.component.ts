@@ -28,8 +28,7 @@ export class SidebarComponent implements OnInit {
   constructor( 
               public sidebarService: SidebarService,
               public authService: AuthService
-            ) {
-  }
+            ) {}
 
   ngOnInit(): void {
     this.armarMenu();
@@ -42,7 +41,6 @@ export class SidebarComponent implements OnInit {
     var long: any = localStorage.getItem('menu')?.length;
 
     if(long == undefined || long <= 0){
-
       this.authService.logout();
       return;
     }
@@ -54,6 +52,9 @@ export class SidebarComponent implements OnInit {
     else{
       this.elementosMenuPadre = this.authService.menuBack;
     }
+
+    console.log("this.elementosMenuPadre: ",this.elementosMenuPadre)
+    return;
 
     var pivot = this.elementosMenuPadre[0].Permiso;
     var proximovalor = this.elementosMenuPadre[1].Permiso;
@@ -104,12 +105,17 @@ export class SidebarComponent implements OnInit {
       }
 
     });
+
+
   }
+
 
   // ***
   activarMenu(itemMenu: string): boolean{
-    const found = this.menu.find((obj) => {
-      return obj.description === itemMenu;
+    // console.log("itemMenu : ",itemMenu)
+
+    const found = this.elementosMenuPadre.find((obj) => {
+      return obj.Permiso === itemMenu;
     });
 
     if (found !== undefined) {

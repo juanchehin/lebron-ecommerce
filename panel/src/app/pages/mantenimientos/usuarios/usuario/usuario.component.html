@@ -477,6 +477,44 @@
                         </label>
                     </div>
                 </div>
+                <!-- =============== Cuentas ================= -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Cuentas</h4>
+                        <input [checked]="banderaCheckCuentas" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosCuentas()">Todos</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="listarCuentas" type="checkbox" class="custom-control-input" (click)="agregarPermiso(63)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Listar Cuentas</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="altaCuentas" type="checkbox" class="custom-control-input" (click)="agregarPermiso(64)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Alta de Cuentas</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="editarCuentas" type="checkbox" class="custom-control-input" (click)="agregarPermiso(65)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Editar Cuentas</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="borrarCuentas" type="checkbox" class="custom-control-input" (click)="agregarPermiso(66)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Borrar Cuentas</span>
+                        </label>
+                    </div>
+                </div>
                 <!-- =============== Dolares ================= -->
                 <div class="row">
                     <div class="col-sm-6">
@@ -550,6 +588,44 @@
                             <input [checked]="borrarQuimicos" type="checkbox" class="custom-control-input" (click)="agregarPermiso(78)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Borrar Quimicos</span>
+                        </label>
+                    </div>
+                </div>
+                <!-- =============== Backups ================= -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Backups</h4>
+                        <input [checked]="banderaCheckBackups" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosBackups()">Todos</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="listarBackups" type="checkbox" class="custom-control-input" (click)="agregarPermiso(79)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Listar Backups</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="altaBackups" type="checkbox" class="custom-control-input" (click)="agregarPermiso(80)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Alta de Backups</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="editarBackups" type="checkbox" class="custom-control-input" (click)="agregarPermiso(81)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Editar Backups</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                            <input [checked]="borrarBackups" type="checkbox" class="custom-control-input" (click)="agregarPermiso(82)">
+                            <span class="custom-control-indicator"></span>
+                            <span class="custom-control-description">Borrar Backups</span>
                         </label>
                     </div>
                 </div>

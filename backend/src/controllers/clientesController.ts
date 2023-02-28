@@ -29,6 +29,7 @@ public async dameDatosCliente(req: Request, res: Response): Promise<any> {
 // ==================================================
 public async altaCliente(req: Request, res: Response) {
 
+    const { IdPersona } = req.params;
     var Apellidos = req.body[0];
     var Nombres = req.body[1];
     var DNI = req.body[2];
@@ -36,7 +37,7 @@ public async altaCliente(req: Request, res: Response) {
     var Email = req.body[4];
     var Observaciones = req.body[5];
     
-    pool.query(`call bsp_alta_cliente_panel('${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_cliente_panel('${IdPersona}','${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json(err);
             return;
@@ -44,7 +45,7 @@ public async altaCliente(req: Request, res: Response) {
         res.status(200).json(result);
     })
 
-    enviarMailBienvenida(Email);   
+    // enviarMailBienvenida(Email);   
 
 }
 // ==================================================

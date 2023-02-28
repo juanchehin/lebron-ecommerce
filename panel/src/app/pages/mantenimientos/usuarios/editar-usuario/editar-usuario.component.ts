@@ -91,6 +91,41 @@ export class EditarUsuarioComponent implements OnInit {
   editarVentas   = false;
   borrarVentas   = false;
 
+  banderaCheckInversores = false;
+  listarInversores   = false;
+  altaInversores     = false;
+  importarInversores = false;
+  editarInversores   = false;
+  borrarInversores   = false;
+
+  banderaCheckCuentas = false;
+  listarCuentas   = false;
+  altaCuentas     = false;
+  importarCuentas = false;
+  editarCuentas   = false;
+  borrarCuentas   = false;
+
+  banderaCheckDolares = false;
+  listarDolares   = false;
+  altaDolares     = false;
+  importarDolares = false;
+  editarDolares   = false;
+  borrarDolares   = false;
+
+  banderaCheckQuimicos = false;
+  listarQuimicos   = false;
+  altaQuimicos     = false;
+  importarQuimicos = false;
+  editarQuimicos   = false;
+  borrarQuimicos   = false;
+
+  banderaCheckBackups = false;
+  listarBackups   = false;
+  altaBackups     = false;
+  importarBackups = false;
+  editarBackups   = false;
+  borrarBackups   = false;
+
   banderaCheckConfiguraciones = false;
   listarConfiguraciones = false;
   editarConfiguraciones = false;
@@ -582,6 +617,170 @@ checkTodosVentas()
   this.importarVentas = false;
   this.editarVentas = false;
   this.borrarVentas = false;
+
+  var idPermiso = 45;
+  for(let i = 0; i < 4; i++)
+  {
+    const index = this.permisos.indexOf(idPermiso, 0);
+    if (index > -1) {
+      this.permisos.splice(index, 1);
+    }
+    idPermiso++;
+  }
+}
+}
+
+// ==================================================
+//      Cuentas
+// ==================================================
+
+checkTodosCuentas()
+{
+  if(!this.banderaCheckCuentas){
+    
+    this.banderaCheckCuentas = true;
+
+
+  this.listarCuentas = true;
+  this.altaCuentas = true;
+  this.importarCuentas = true;
+  this.editarCuentas = true;
+  this.borrarCuentas = true;
+
+  // Agregar todos al array
+  this.permisos.push(63,64,65,66);
+}else
+{
+  this.banderaCheckCuentas = false;
+
+  this.listarCuentas = false;
+  this.altaCuentas = false;
+  this.importarCuentas = false;
+  this.editarCuentas = false;
+  this.borrarCuentas = false;
+
+  var idPermiso = 45;
+  for(let i = 0; i < 4; i++)
+  {
+    const index = this.permisos.indexOf(idPermiso, 0);
+    if (index > -1) {
+      this.permisos.splice(index, 1);
+    }
+    idPermiso++;
+  }
+}
+}
+
+// ==================================================
+//      Inversores
+// ==================================================
+
+checkTodosInversores()
+{
+  if(!this.banderaCheckInversores){
+    
+    this.banderaCheckInversores = true;
+
+
+  this.listarInversores = true;
+  this.altaInversores = true;
+  this.importarInversores = true;
+  this.editarInversores = true;
+  this.borrarInversores = true;
+
+  // Agregar todos al array
+  this.permisos.push(67,68,69,70);
+}else
+{
+  this.banderaCheckInversores = false;
+
+  this.listarInversores = false;
+  this.altaInversores = false;
+  this.importarInversores = false;
+  this.editarInversores = false;
+  this.borrarInversores = false;
+
+  var idPermiso = 45;
+  for(let i = 0; i < 4; i++)
+  {
+    const index = this.permisos.indexOf(idPermiso, 0);
+    if (index > -1) {
+      this.permisos.splice(index, 1);
+    }
+    idPermiso++;
+  }
+}
+}
+
+// ==================================================
+//      Dolares
+// ==================================================
+
+checkTodosDolares()
+{
+  if(!this.banderaCheckDolares){
+    
+    this.banderaCheckDolares = true;
+
+
+  this.listarDolares = true;
+  this.altaDolares = true;
+  this.importarDolares = true;
+  this.editarDolares = true;
+  this.borrarDolares = true;
+
+  // Agregar todos al array
+  this.permisos.push(71,72,73,74);
+}else
+{
+  this.banderaCheckDolares = false;
+
+  this.listarDolares = false;
+  this.altaDolares = false;
+  this.importarDolares = false;
+  this.editarDolares = false;
+  this.borrarDolares = false;
+
+  var idPermiso = 45;
+  for(let i = 0; i < 4; i++)
+  {
+    const index = this.permisos.indexOf(idPermiso, 0);
+    if (index > -1) {
+      this.permisos.splice(index, 1);
+    }
+    idPermiso++;
+  }
+}
+}
+
+// ==================================================
+//      Backups
+// ==================================================
+
+checkTodosBackups()
+{
+  if(!this.banderaCheckBackups){
+    
+    this.banderaCheckBackups = true;
+
+
+  this.listarBackups = true;
+  this.altaBackups = true;
+  this.importarBackups = true;
+  this.editarBackups = true;
+  this.borrarBackups = true;
+
+  // Agregar todos al array
+  this.permisos.push(79,80,81,82);
+}else
+{
+  this.banderaCheckBackups = false;
+
+  this.listarBackups = false;
+  this.altaBackups = false;
+  this.importarBackups = false;
+  this.editarBackups = false;
+  this.borrarBackups = false;
 
   var idPermiso = 45;
   for(let i = 0; i < 4; i++)

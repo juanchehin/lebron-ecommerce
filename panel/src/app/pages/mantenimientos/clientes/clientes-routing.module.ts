@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'editar/:IdPersona', component: EditarClienteComponent, data: { titulo: 'Edicion de cliente' }},
   // Cuentas corr
   { path: 'cuentas', component: CuentasComponent, data: { titulo: 'Cuentas corrientes' }},
-  { path: 'cuenta/nuevo', component: CuentaComponent, data: { titulo: 'Nuevo cuenta' }},
+  { path: 'cuentas/nueva', component: CuentaComponent, data: { titulo: 'Nuevo cuenta' }},
   { path: 'cuenta/editar/:IdPersona', component: EditarClienteCuentaComponent, data: { titulo: 'Edicion de cuenta corriente' }},
   { path: 'cuenta/movimientos/:IdPersona', component: EditarClienteCuentaComponent, data: { titulo: 'Movimientos de cuenta corriente' }},
 

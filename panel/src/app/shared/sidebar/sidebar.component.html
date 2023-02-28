@@ -26,13 +26,13 @@
                     </a>
                 </li>
                  <!-- ===== ** Clientes ** ====== -->
-                 <li class="user-profile" (click)="expandirClientesFuncion()" *ngIf="activarMenu('Productos')">
+                 <li class="user-profile" (click)="expandirClientesFuncion()" *ngIf="activarMenu('Clientes')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <span class="hide-menu">Clientes </span>
                     </a>
                     <ul aria-expanded="false" [ngClass]="expandirClientes ? 'collapse' : ''">
                         <li><a routerLinkActive="active" [routerLink]="['/dashboard/clientes']">Listar Clientes </a></li>
-                        <li *ngIf="activarMenu('Cuenta')"><a [routerLink]="['/dashboard/clientes/cuentas']">Cuentas Corrientes</a></li>
+                        <li *ngIf="activarMenu('Cuentas')"><a [routerLink]="['/dashboard/clientes/cuentas']">Cuentas Corrientes</a></li>
                     </ul>
                 </li>
                 <!-- ===== ** Productos ** ====== -->
@@ -48,8 +48,8 @@
                         <li><a [routerLink]="['/dashboard/productos/marcas']">Marcas</a></li>
                         <li><a [routerLink]="['/dashboard/productos/sabores']">Sabores</a></li>
                         <li><a [routerLink]="['/dashboard/productos/unidades']">Unidades</a></li>
-                        <li *ngIf="activarMenu('Promociones')"><a [routerLink]="['/dashboard/productos/promociones']">Promociones</a></li>
-                        <li *ngIf="activarMenu('Quimicos')"><a [routerLink]="['/dashboard/productos/quimicos']">Quimicos</a></li>
+                        <li ><a [routerLink]="['/dashboard/productos/promociones']">Promociones</a></li>
+                        <li ><a [routerLink]="['/dashboard/productos/quimicos']">Quimicos</a></li>
                     </ul>
                 </li>
                 <!-- ===== ** Compras ** ====== -->
@@ -80,7 +80,6 @@
                 <!-- ===== ** Transferencias ** ====== -->
                 <li class="user-profile" (click)="expandirTransferenciasFuncion()" *ngIf="activarMenu('Transferencias')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
-                        <!-- <img [src]="usuario.imagenUrl" alt="user" /> -->
                         <span class="hide-menu">Transferencias </span>
                     </a>
                     <ul aria-expanded="false" [ngClass]="expandirTransferencias ? 'collapse' : ''">

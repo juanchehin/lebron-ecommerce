@@ -79,6 +79,13 @@ export class UsuarioComponent implements OnInit {
   editarVentas   = false;
   borrarVentas   = false;
 
+  banderaCheckCuentas = false;
+  listarCuentas   = false;
+  altaCuentas     = false;
+  importarCuentas = false;
+  editarCuentas   = false;
+  borrarCuentas   = false;
+
   banderaCheckInversores = false;
   listarInversores   = false;
   altaInversores     = false;
@@ -99,6 +106,13 @@ export class UsuarioComponent implements OnInit {
   importarQuimicos = false;
   editarQuimicos   = false;
   borrarQuimicos   = false;
+
+  banderaCheckBackups = false;
+  listarBackups   = false;
+  altaBackups     = false;
+  importarBackups = false;
+  editarBackups   = false;
+  borrarBackups   = false;
 
   banderaCheckConfiguraciones = false;
   listarConfiguraciones = false;
@@ -155,7 +169,6 @@ export class UsuarioComponent implements OnInit {
       // delete this.permisos[idPermiso];
     }
 
-    console.log("permisos va quedando : " + this.permisos)
   }
 // ==================================================
 //   Agrega un Permiso
@@ -163,19 +176,13 @@ export class UsuarioComponent implements OnInit {
 // ==================================================
   chequearPermiso(idPermiso: any){
 
-    console.log("idPermiso : " + idPermiso)
-
-    console.log("this.permisos : " + this.permisos)
-
     if(this.permisos.includes(idPermiso))
     {
-      console.log("true")
       return false;
     }
     else
     {
       delete this.permisos[idPermiso];
-      console.log("false ")
       return true;
     }
 
@@ -637,6 +644,50 @@ checkTodosVentas()
   }
 }
 }
+// ==================================================
+//      
+// ==================================================
+
+checkTodosCuentas()
+{
+  if(!this.banderaCheckCuentas){
+    
+    this.banderaCheckCuentas = true;
+
+    this.listarCuentas = true;
+    this.altaCuentas = true;
+    this.importarCuentas = true;
+    this.editarCuentas = true;
+    this.borrarCuentas = true;
+
+    this.permisos.push(63,64,65,66);
+  }else
+  { 
+    this.banderaCheckCuentas = false;
+
+    this.listarCuentas = false;
+    this.altaCuentas = false;
+    this.importarCuentas = false;
+    this.editarCuentas = false;
+    this.borrarCuentas = false;
+
+    var idPermiso = 1;
+    for(let i = 0; i < 4; i++)
+    {
+      const index = this.permisos.indexOf(idPermiso, 0);
+      if (index > -1) {
+        this.permisos.splice(index, 1);
+      }
+      idPermiso++;
+    }
+
+    const index = this.permisos.indexOf(62, 0);
+      if (index > -1) {
+        this.permisos.splice(index, 1);
+      }
+  }
+ 
+}
 
 // ==================================================
 //      
@@ -754,6 +805,52 @@ checkTodosQuimicos()
     this.importarQuimicos = false;
     this.editarQuimicos = false;
     this.borrarQuimicos = false;
+
+    var idPermiso = 1;
+    for(let i = 0; i < 4; i++)
+    {
+      const index = this.permisos.indexOf(idPermiso, 0);
+      if (index > -1) {
+        this.permisos.splice(index, 1);
+      }
+      idPermiso++;
+    }
+
+    const index = this.permisos.indexOf(62, 0);
+      if (index > -1) {
+        this.permisos.splice(index, 1);
+      }
+  }
+ 
+}
+
+
+// ==================================================
+//      
+// ==================================================
+
+checkTodosBackups()
+{
+  if(!this.banderaCheckBackups){
+    
+    this.banderaCheckBackups = true;
+
+    this.listarBackups = true;
+    this.altaBackups = true;
+    this.importarBackups = true;
+    this.editarBackups = true;
+    this.borrarBackups = true;
+
+    this.permisos.push(79,80,81,82);
+  }else
+  { 
+    this.banderaCheckBackups = false;
+
+    this.listarBackups = false;
+    this.altaBackups = false;
+    this.importarBackups = false;
+    this.editarBackups = false;
+    this.borrarBackups = false;
 
     var idPermiso = 1;
     for(let i = 0; i < 4; i++)

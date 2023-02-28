@@ -8,10 +8,12 @@ class ProveedoresController {
 //        Lista 
 // ==================================================
 public async listarProveedoresPaginado(req: Request, res: Response): Promise<void> {
+    var IdUsuario = req.params.IdPersona;
+
     var desde = req.query.desde || 0;
     desde  = Number(desde);
 
-    pool.query(`call bsp_listar_proveedores_paginado('${desde}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_listar_proveedores_paginado('${IdUsuario}','${desde}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json(err);
             return;

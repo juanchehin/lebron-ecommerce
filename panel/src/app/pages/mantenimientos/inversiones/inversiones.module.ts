@@ -9,6 +9,7 @@ import { InversorComponent } from './inversores/inversor/inversor.component';
 import { InversoresComponent } from './inversores/inversores/inversores.component';
 import { InversionesRoutingModule } from './inversiones-routing.module';
 import { DolaresModule } from './dolares/dolares.module';
+import { InversoresPrincipalComponent } from './principal/inversores-principal.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { DolaresModule } from './dolares/dolares.module';
     EditarInversorComponent,
     HistoricoInversorComponent,
     AltaMontoInversionComponent,
-    BajaMontoInversionComponent
+    BajaMontoInversionComponent,
+    InversoresPrincipalComponent
   ],
   imports: [
     CommonModule,

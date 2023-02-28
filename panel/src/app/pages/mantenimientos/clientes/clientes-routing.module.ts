@@ -10,11 +10,11 @@ import { EditarClienteCuentaComponent } from './cuentas-corrientes/editar-client
 const routes: Routes = [
   { path: '', component: ClientesComponent, data: { titulo: 'Listado de clientes' }},
   { path: 'nuevo', component: ClienteComponent, data: { titulo: 'Nuevo cliente' }},
-  { path: ':IdPersona', component: EditarClienteComponent, data: { titulo: 'Edicion de cliente' }},
+  { path: 'editar/:IdPersona', component: EditarClienteComponent, data: { titulo: 'Edicion de cliente' }},
   // Cuentas corr
   { path: 'cuentas', component: CuentasComponent, data: { titulo: 'Cuentas corrientes' }},
   { path: 'cuenta/nuevo', component: CuentaComponent, data: { titulo: 'Nuevo cuenta' }},
-  { path: 'cuenta/:IdPersona', component: EditarClienteCuentaComponent, data: { titulo: 'Edicion de cuenta corriente' }},
+  { path: 'cuenta/editar/:IdPersona', component: EditarClienteCuentaComponent, data: { titulo: 'Edicion de cuenta corriente' }},
   { path: 'cuenta/movimientos/:IdPersona', component: EditarClienteCuentaComponent, data: { titulo: 'Movimientos de cuenta corriente' }},
 
 ];

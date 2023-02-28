@@ -43,16 +43,16 @@
                             <td>{{ inversor.Apellidos }}, {{ inversor.Nombres }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button class="btn btn-inline btn-success" type="button" [routerLink]="['/dashboard/inversores/alta-monto',inversor.IdPersona]">
+                                    <button class="btn btn-inline btn-success" type="button" [routerLink]="['/dashboard/inversiones/inversores/alta-monto',inversor.IdPersona]">
                                         <i class="material-icons"> add </i>
                                     </button>
-                                    <button class="btn btn-inline btn-warning" type="button" [routerLink]="['/dashboard/inversores/baja-monto',inversor.IdPersona]">
+                                    <button class="btn btn-inline btn-warning" type="button" [routerLink]="['/dashboard/inversiones/inversores/baja-monto',inversor.IdPersona]">
                                         <i class="material-icons"> remove </i>
                                     </button>    
-                                    <button class="btn btn-inline btn-info" type="button" [routerLink]="['/dashboard/inversores/historico',inversor.IdPersona]">
+                                    <button class="btn btn-inline btn-info" type="button" [routerLink]="['/dashboard/inversiones/inversores/historico',inversor.IdPersona]">
                                         <i class="material-icons"> wysiwyg </i>
                                     </button>                                
-                                    <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/inversores',inversor.IdPersona]">
+                                    <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/inversiones/inversores',inversor.IdPersona]">
                                         <i class="material-icons"> edit </i>
                                     </button>
                                     <button class="btn btn-inline btn-danger" type="button" (click)="bajaInversor(inversor.IdPersona)">

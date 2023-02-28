@@ -55,7 +55,6 @@
                 <!-- ===== ** Compras ** ====== -->
                 <li class="user-profile" (click)="expandirComprasFuncion()" *ngIf="activarMenu('Compras')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
-                        <!-- <img [src]="usuario.imagenUrl" alt="user" /> -->
                         <span class="hide-menu">Compras </span>
                     </a>
                     <ul aria-expanded="false" [ngClass]="expandirCompras ? 'collapse' : ''">
@@ -69,15 +68,13 @@
                 <!-- ===== ** Ventas ** ====== -->
                 <li class="user-profile" (click)="expandirVentasFuncion()" *ngIf="activarMenu('Ventas')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
-                        <!-- <img [src]="usuario.imagenUrl" alt="user" /> -->
                         <span class="hide-menu">Ventas </span>
                     </a>
                     <ul aria-expanded="false" [ngClass]="expandirVentas ? 'collapse' : ''">
                         <li><a [routerLink]="['/dashboard/ventas/listar']">Listar ventas</a></li>
                         <li><a [routerLink]="['/dashboard/ventas/nueva']">Nuevo venta</a></li>
-                        <li><a [routerLink]="['/dashboard/ventas',IdPersona]">Mis ventas</a></li>
-                        <li *ngIf="activarMenu('Pedidos')"><a [routerLink]="['/dashboard/pedidos']">Mis ventas</a></li>
-
+                        <li><a [routerLink]="['/dashboard/ventas/usuario',IdPersona]">Mis ventas</a></li>
+                        <li *ngIf="activarMenu('Pedidos')"><a [routerLink]="['/dashboard/ventas/pedidos']">Pedidos</a></li>
                     </ul>
                 </li>
                 <!-- ===== ** Transferencias ** ====== -->

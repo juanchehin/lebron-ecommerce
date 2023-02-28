@@ -16,7 +16,7 @@
                             </button>
                     </div>
                     <div class="col-sm-2">
-                        <button [routerLink]="['/dashboard/cuentas/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
+                        <button [routerLink]="['/dashboard/clientes/cuentas/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
                           <i class="fa fa-plus"></i> 
                           Nueva Cuenta
                         </button>
@@ -52,10 +52,10 @@
                             <td>{{ clienteCuenta.Email }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button class="btn btn-inline btn-success" type="button" [routerLink]="['/dashboard/cuentas/movimientos',clienteCuenta.IdPersona]">
+                                    <button class="btn btn-inline btn-success" type="button" [routerLink]="['/dashboard/clientes/cuentas/movimientos',clienteCuenta.IdPersona]">
                                         <i class="material-icons"> wysiwyg </i>
                                     </button>
-                                    <button class="btn btn-inline btn-warning" type="button" [routerLink]="['/dashboard/cuentas',clienteCuenta.IdPersona]">
+                                    <button class="btn btn-inline btn-warning" type="button" [routerLink]="['/dashboard/clientes/cuentas',clienteCuenta.IdPersona]">
                                         <i class="material-icons"> edit </i>
                                     </button>    
                                     <button class="btn btn-inline btn-danger" type="button" (click)="bajaCliente(clienteCuenta.IdPersona)">

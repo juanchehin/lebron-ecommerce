@@ -8,15 +8,17 @@ import { EditarInversorComponent } from './inversores/editar-inversor/editar-inv
 import { HistoricoInversorComponent } from './inversores/historico-inversor/historico-inversor.component';
 import { InversorComponent } from './inversores/inversor/inversor.component';
 import { InversoresComponent } from './inversores/inversores/inversores.component';
+import { InversoresPrincipalComponent } from './principal/inversores-principal.component';
 
 const routes: Routes = [
-  { path: '', component: InversoresComponent, data: { titulo: 'Listado de inversores' }},
+  { path: '', component: InversoresPrincipalComponent, data: { titulo: 'Inversiones' }},
+  { path: 'inversores', component: InversoresComponent, data: { titulo: 'Listado de inversores' }},
   { path: 'nuevo', component: InversorComponent, data: { titulo: 'Nuevo inversor' }},
-  { path: ':IdPersona', component: EditarInversorComponent, data: { titulo: 'Edicion de inversor' }},
-  { path: 'historico/:IdPersona', component: HistoricoInversorComponent, data: { titulo: 'Historial de inversiones' }},
+  { path: 'inversores/editar/:IdPersona', component: EditarInversorComponent, data: { titulo: 'Edicion de inversor' }},
+  { path: 'inversores/historico/:IdPersona', component: HistoricoInversorComponent, data: { titulo: 'Historial de inversiones' }},
+  { path: 'inversores/alta-monto/:IdPersona', component: AltaMontoInversionComponent, data: { titulo: 'Alta monto inversion' }},
+  { path: 'inversores/baja-monto/:IdPersona', component: BajaMontoInversionComponent, data: { titulo: 'Baja Monto inversion' }},
   //
-  { path: 'alta-monto/:IdPersona', component: AltaMontoInversionComponent, data: { titulo: 'Nueva inversion' }},
-  { path: 'baja-monto/:IdPersona', component: BajaMontoInversionComponent, data: { titulo: 'Baja inversion' }},
   // Compra/Venta dolares
   { 
     path: 'dolares',

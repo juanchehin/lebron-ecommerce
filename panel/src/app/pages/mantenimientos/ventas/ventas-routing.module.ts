@@ -8,7 +8,7 @@ import { PedidosComponent } from './pedidos/pedidos.component';
 const routes: Routes = [
   { path: 'listar', component: VentasComponent, data: { titulo: 'Listado de Ventas' }},
   { path: 'nueva', component: NuevaVentaComponent, data: { titulo: 'Nueva venta' }},
-  { path: ':IdPersona', component: MisVentasComponent, data: { titulo: 'Mis ventas' }},
+  { path: 'usuario/:IdPersona', component: MisVentasComponent, data: { titulo: 'Mis ventas' }},
   // Pedidos
   { path: 'pedidos', component: PedidosComponent, data: { titulo: 'Pedidos' }}
 ];

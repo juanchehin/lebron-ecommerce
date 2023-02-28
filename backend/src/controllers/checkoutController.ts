@@ -228,7 +228,7 @@ async function createPaymentMercadoPago( items : any, costoEnvio: any, pIdPedido
             failure: `${process.env.URL_FRONT}/failure` 
     // url a la que va a redireccionar si falla el pago
           }, 
-          notification_url: "https://mp-checkout-api.herokuapp.com/webhook", 
+          notification_url: `${process.env.URL_WEBHOOK}/webhook`, 
           auto_return: "approved" 
         };
 

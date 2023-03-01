@@ -18,11 +18,11 @@ import { UtilService } from '../../../../services/util.service';
 })
 export class NuevaVentaComponent implements OnInit {
 
+  currentDate = new Date();
+
   keywordCliente = 'NombreCompleto';
   keywordProducto = 'codigoProductoSabor';
-  cargando = true;
-  activarModal = false;
-  activarModalDescuentoEfectivo = false;
+
   descuentoEfectivo: any = 0;
   productos: any;
   clienteBuscado = '';
@@ -35,7 +35,6 @@ export class NuevaVentaComponent implements OnInit {
   itemPendiente: any = [];
   tiposPago: any;
   clientes = [];
-  currentDate = new Date();
   datosVendedor: any;
   totalVenta: number = 0;
   cantidadLineaVenta = 1;
@@ -43,25 +42,30 @@ export class NuevaVentaComponent implements OnInit {
   IdItemTipoPago = 0;
   IdTipoPagoSelect = 0;
   monto = 0;
+  totalTiposPagoRestante = 0;
   
   IdCliente = 0;
-  totalTiposPago = 0;
   arrayVenta: any = [];
   itemCheckExists: any = 0;
   itemIdProductoSabor: any;
   idSucursalVendedor: any;
   fecha_venta: any;
+
+  // Modals
+  activarModal = false;
+  activarModalDescuentoEfectivo = false;
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
   @ViewChild('divCerrarModalDescuentoEfectivo') divCerrarModalDescuentoEfectivo!: ElementRef<HTMLElement>;
   @ViewChild('buttonAbrirModalDescuentoEfectivo') buttonAbrirModalDescuentoEfectivo!: ElementRef<HTMLElement>;
-  porcentajeDescuentoEfectivo: any = 0;
-  montoEfectivo = 0;
 
   // =====
   porcentaje_un_pago: any;
   porcentaje_tres_pago: any;
   porcentaje_seis_pago: any;
   total_venta_inicial: any;
+  porcentajeDescuentoEfectivo: any = 0;
+  montoEfectivo = 0;
+  totalTiposPago = 0;
 
 
   constructor(
@@ -79,6 +83,7 @@ export class NuevaVentaComponent implements OnInit {
   }
 
   ngOnInit() {   
+    // this.resetearVariables();
     this.fecha_venta = this.utilService.formatDateNow(new Date(Date.now()));
     this.IdPersona = this.authService.IdPersona;
     this.datosVendedor = [];
@@ -106,6 +111,8 @@ altaVenta() {
         this.fecha_venta
       );
 
+      console.log("array venta es : ",this.arrayVenta)
+
       this.ventasService.altaVenta(  this.arrayVenta )
       .subscribe({
         next: (resp: any) => {
@@ -113,12 +120,7 @@ altaVenta() {
           if ( resp.mensaje[0][0].Mensaje == 'Ok') {
             this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
 
-            this.activarModal = false;
-            this.lineas_tipos_pago = [];
-            this.lineas_venta = [];
-            this.cerrarModal();
-            this.totalVenta = 0;
-            this.totalTiposPago = 0;
+            this.resetearVariables();
             
           } else {
             this.alertaService.alertFail('Ocurrio un error',false,2000);
@@ -293,12 +295,10 @@ agregarLineaTipoPago(): any {
     return;
   }
   
-  // this.totalTiposPago += +this.monto;
 
   if((this.totalTiposPago + +this.monto) > this.totalVenta)
   {
     this.alertaService.alertFail('El monto total es mayor que el total de la venta',false,2000);
-    // this.totalTiposPago -= +this.monto;
     return;
   }
 
@@ -321,8 +321,6 @@ agregarLineaTipoPago(): any {
   // Busco si ya existe el IdTipoPago en el array de lineas_tipos_pago
   let exists_ltp = this.lineas_tipos_pago.find((ltp_item: any) => 
     {
-      
-
       if(ltp_item.IdTipoPago == this.IdTipoPagoSelect)
       { // linea_tipo_pago existente
         // No suma el subtotal en caso de ser con tarjeta en cuotas
@@ -353,6 +351,7 @@ agregarLineaTipoPago(): any {
     {
         exists_ltp.SubTotal = +exists_ltp.SubTotal + +this.monto;
         this.totalTiposPago = this.totalTiposPago + +this.monto;  
+        this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
 
         return;
     }else
@@ -374,7 +373,6 @@ agregarLineaTipoPago(): any {
             break;
         case 8: // 1 pago
             var monto_aumento = +this.monto * ((this.porcentaje_un_pago / 100)); 
-            // this.monto = +this.monto + monto_aumento;
             this.totalVenta = +this.totalVenta + +monto_aumento;
             this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;
 
@@ -389,7 +387,6 @@ agregarLineaTipoPago(): any {
             break;
         case 9: // 3 pago            
             var monto_aumento = +this.monto * ((this.porcentaje_tres_pago / 100)); 
-            // this.monto = +this.monto + monto_aumento;
             this.totalVenta = +this.totalVenta + +monto_aumento;
             this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;
 
@@ -404,7 +401,6 @@ agregarLineaTipoPago(): any {
             break;
         case 10:  // 6 pago
             var monto_aumento = +this.monto * (this.porcentaje_seis_pago / 100);  
-            // this.monto = +this.monto + monto_aumento;      
             this.totalVenta = +this.totalVenta + +monto_aumento;
             this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;
 
@@ -421,7 +417,9 @@ agregarLineaTipoPago(): any {
             this.totalTiposPago = +this.totalTiposPago + +this.monto;
             break;
       }
-  
+      
+      this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
+
       this.IdItemTipoPago += 1;
     }
 
@@ -542,26 +540,12 @@ agregarLineaTipoPago(): any {
         }
         
         this.totalVenta = this.total_venta_inicial;
+        this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
+
       }
 
     });
 
-  }
-
-  // ==============================
-  // 
-  // ================================
-  cerrarModal(){
-    let el: HTMLElement = this.divCerrarModal.nativeElement;
-    el.click();
-  }
-
-  // ==============================
-  // 
-  // ================================
-  abrirModalDescuentoEfectivo(){
-    let el: HTMLElement = this.buttonAbrirModalDescuentoEfectivo.nativeElement;
-    el.click();
   }
 
   // ==============================
@@ -600,6 +584,39 @@ agregarLineaTipoPago(): any {
     }
   }
 
+  
+  // ==============================
+  // 
+  // ================================
+  cerrarModal(){
+    let el: HTMLElement = this.divCerrarModal.nativeElement;
+    el.click();
+  }
+
+  // ==============================
+  // 
+  // ================================
+  abrirModalDescuentoEfectivo(){
+    let el: HTMLElement = this.buttonAbrirModalDescuentoEfectivo.nativeElement;
+    el.click();
+  }
+
+  // ==============================
+  // 
+  // ================================
+  resetearVariables(){
+    this.descuentoEfectivo = 0;
+    this.activarModalDescuentoEfectivo = false;
+    this.activarModal = false;
+    this.lineas_tipos_pago = [];
+    this.lineas_venta = [];
+    this.cerrarModal();
+    this.totalVenta = 0;
+    this.totalTiposPago = 0;
+    this.porcentajeDescuentoEfectivo = 0;
+    this.montoEfectivo = 0;
+
+  }
 
 }
 

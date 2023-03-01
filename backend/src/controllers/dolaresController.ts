@@ -16,7 +16,7 @@ public async listarHistoricoDolares(req: Request, res: Response): Promise<void> 
 
     var pIdPersona = req.params.pIdPersona;
     var pFiltroTipo = req.params.pFiltroTipo;
-    
+
     var FechaInicio = req.params.FechaInicio;
     var FechaFin = req.params.FechaFin;
 

@@ -137,7 +137,7 @@ public async editarInversor(req: Request, res: Response) {
 }
 
 // ==================================================
-//   Cargo las marcas,categorias,subcategorias,unidades,sucursal principal
+//   
 // ==================================================
 public async cargarDatosFormEditarInversor(req: Request, res: Response): Promise<void> {
 

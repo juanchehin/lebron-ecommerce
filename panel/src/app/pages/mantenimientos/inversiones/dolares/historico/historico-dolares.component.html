@@ -37,17 +37,15 @@
                     <div class="col-sm-6">
                         <h3 class="card-title">Cantidad de transacciones ( <small> {{ totalHistorico }} </small> )</h3>
                     </div>
-                    <div class="col-sm-2">
-                        <button [routerLink]="['/dashboard/dolares/compra']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
-                          <i class="fa fa-plus"></i> 
-                          Nueva Compra
-                        </button>
-                    </div>
-                    <div class="col-sm-2">
-                        <button [routerLink]="['/dashboard/dolares/venta']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
-                          <i class="fa fa-plus"></i> 
-                          Nueva Venta
-                        </button>
+                    <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+                        <button [routerLink]="['/dashboard/dolares/compra']" type="button" class="btn btn-secondary">
+                            <i class="fa fa-plus"></i> 
+                            Nueva Compra
+                          </button>
+                          <button [routerLink]="['/dashboard/dolares/venta']" type="button" class="btn btn-secondary">
+                            <i class="fa fa-plus"></i> 
+                            Nueva Venta
+                          </button>
                     </div>
                 </div>
                 <!-- ======================= -->

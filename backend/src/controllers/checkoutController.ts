@@ -129,19 +129,22 @@ public async webhook(req: Request, res: Response) {
    
              if(parsed.status == 404)
              {
-               return;
+                logger.error("Error en webhook - parsed.status - checkoutController " + parsed.status);
+                return;
              }
              const idOrden = parsed.external_reference;
    
              pool.query(`call bsp_dame_pedido_id('${idOrden}')`, function(err: any, result: any) {
                
                if(err || result[2][0].Mensaje != 'Ok'){
+                logger.error("Error en webhook - bsp_dame_pedido_id - checkoutController");
                  return;
                }
                var estadoPedidoBD = result[0][0].EstadoPedido;
 
                if(estadoPedidoBD == 'C' || estadoPedidoBD == 'E')
                {
+                  logger.error("Error en webhook - checkoutController - estado pedido : " + estadoPedidoBD);
                   return;
                }
    
@@ -152,7 +155,7 @@ public async webhook(req: Request, res: Response) {
                    pool.query(`call bsp_aprobar_pedido('${idOrden}','${paymentId}')`, async function(err: any, result: any, fields: any){
    
                      if(err){
-                        logger.error("Error en webhook - checkoutController " + err);
+                        logger.error("Error en webhook - bsp_aprobar_pedido - checkoutController " + err);
                         return;
                      }
                    })
@@ -163,7 +166,7 @@ public async webhook(req: Request, res: Response) {
          });
     });
     
-    res.status(200).json({ text: ''});        
+    res.status(200).json({ text: 'Ok'});        
 
     request.end();
   }

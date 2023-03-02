@@ -224,7 +224,7 @@ async function createPaymentMercadoPago( items : any, costoEnvio: any, pIdPedido
           }, 
           back_urls: {
     // declaramos las urls de redireccionamiento
-            success: `${process.env.URL_FRONT}/pago-exitoso`, 
+            success: `${process.env.URL_FRONT}/checkout/pago-exitoso`, 
     // url que va a redireccionar si sale todo bien
             pending: `${process.env.URL_FRONT}/pendiente`, 
     // url a la que va a redireccionar si decide pagar en efectivo por ejemplo

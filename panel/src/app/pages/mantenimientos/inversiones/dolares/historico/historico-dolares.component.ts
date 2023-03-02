@@ -12,7 +12,6 @@ import { UtilService } from 'src/app/services/util.service';
 export class HistoricoDolaresComponent implements OnInit {
 
   desde = 0;
-  cargando = false;
   fechaInicio = this.utilService.formatDateNow(new Date(Date.now()));
   fechaFin = this.utilService.formatDateNow(new Date(Date.now()));
   controlFechas = false;
@@ -62,7 +61,7 @@ listarHistoricoDolares() {
 cambiosfechaInicio(nuevafechaInicio: any) {
 
   if (nuevafechaInicio > this.fechaFin) {
-    // this.fechaInicio = nuevafechaInicio;
+    
     this.controlFechas = true;
   } else {
     this.controlFechas = false;
@@ -76,12 +75,10 @@ cambiosfechaInicio(nuevafechaInicio: any) {
 cambiosfechaFin(nuevafechaFin: any) {
 
   if (nuevafechaFin < this.fechaInicio) {
-    // this.fechaInicio = nuevafechaFin;
     this.controlFechas = true;
   } else {
     this.controlFechas = false;
   }
-  // this.fechaFin = nuevafechaFin;
 
 }
 
@@ -112,15 +109,14 @@ this.listarHistoricoDolares();
 // ==================================================
 
 refrescar() {
-// Reseteo 'desde' a cero
 
-if(this.fechaInicio > this.fechaFin)
-{
-  this.alertService.alertFail('Error de fechas',false,2000)
-  return;
-}
-this.desde = 0;
-this.listarHistoricoDolares();
+  if(this.fechaInicio > this.fechaFin)
+  {
+    this.alertService.alertFail('Error de fechas',false,2000)
+    return;
+  }
+  this.desde = 0;
+  this.listarHistoricoDolares();
 }
 
 

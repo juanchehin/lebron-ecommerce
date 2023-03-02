@@ -532,6 +532,8 @@ public async altaPromocion(req: Request, res: Response) {
                 ok: false,
                 Mensaje: result[0][0].Mensaje
             });
+        }else{
+            logger.error("Error en altaPromocion - productosController");
         }
 
         res.status(200).json(result);

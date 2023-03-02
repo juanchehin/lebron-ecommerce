@@ -81,22 +81,22 @@ altaPromocion() {
         this.Descripcion
       );
 
-      console.log("promo es : ",promocion);
-
       this.productosService.altaPromocion( promocion )
-                .subscribe( (resp: any) => {
-                  console.log("resp es : ",resp)
-                  if ( resp[0][0].Mensaje === 'Ok') {
+                .subscribe( {
+                  next: (resp: any) => {
+
+                  if (resp[0] != undefined && resp[0][0].Mensaje === 'Ok') {
 
                     this.alertaService.alertSuccess('top-end','Promocion cargada',false,2000);
                     
-                    this.router.navigate(['/dashboard/promociones']);
+                    this.router.navigate(['/dashboard/productos/promociones']);
                   } else {
                     this.alertaService.alertFail('Ocurrio un error',false,2000);
                   }
                   return;
-                });
-
+                },
+                error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
+              });
 
 }
 
@@ -118,8 +118,7 @@ cambiaDescripcion(event: any) {
   
 }
 // ==================================================
-// Carga los datos de la persona que esta realizando la venta
-//  junto con la sucursal en la cual se desempeña
+// 
 // ==================================================
 
 agregarLineaPromocion() {

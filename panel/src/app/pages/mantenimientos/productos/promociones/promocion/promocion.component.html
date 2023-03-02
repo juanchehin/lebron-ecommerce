@@ -36,7 +36,7 @@
                 <div class="col-md-3">
                     <input [(ngModel)]="cantidadLineaPromocion" type="text" maxlength="3" class="form-control" placeholder="Cantidad...">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2" style="left: 150px;">
                     <button (click)="agregarLineaPromocion()" type="button" class="btn btn-info btn-circle"><i class="fa fa-plus"></i> </button>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                                             <td>{{linea.Codigo }}</td>
                                             <td>{{linea.Producto }}</td>
                                             <td>{{linea.Cantidad }}</td>
-                                            <td>{{linea.PrecioMayorista }}</td>
+                                            <td>{{linea.PrecioVenta }}</td>
                                             <td class="text-nowrap">
                                                 <a href="#" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
                                                 <a href="#" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>

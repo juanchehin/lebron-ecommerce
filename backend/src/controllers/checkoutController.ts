@@ -112,7 +112,7 @@ public async webhook(req: Request, res: Response) {
       'hostname': 'api.mercadopago.com',
       'path': '/v1/payments/'+ paymentId,
       'headers': {
-        'Authorization': 'Bearer ' + process.env.MP_VEND_ACCESS_TOKEN_PROD
+        'Authorization': 'Bearer ' + process.env.MP_VEND_ACCESS_TOKEN_TEST
       },
       'maxRedirects': 20
     };
@@ -179,7 +179,7 @@ export default checkoutController;
 async function createPaymentMercadoPago( items : any, costoEnvio: any, pIdPedidos: any,arrayDatosComprador: any) {
     const mercadoPagoUrl = "https://api.mercadopago.com/checkout"; 
 
-    const url = `${mercadoPagoUrl}/preferences?access_token=${process.env.MP_VEND_ACCESS_TOKEN_PROD}`;
+    const url = `${mercadoPagoUrl}/preferences?access_token=${process.env.MP_VEND_ACCESS_TOKEN_TEST}`;
 
     const preferences = { 
           items, 

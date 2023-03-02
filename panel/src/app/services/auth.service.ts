@@ -18,7 +18,6 @@ export class AuthService {
   IdRol: any;
   token!: any;
   usuario: any;
-  // menuBack!: Array[] = [];
   menuBack: any[] = Array();
 
   private IdPersonaSource = new BehaviorSubject<string>('');

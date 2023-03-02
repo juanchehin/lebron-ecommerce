@@ -25,8 +25,10 @@ import { EditarCategoriaComponent } from './categorias/editar-categoria/editar-c
 import { EditarSubcategoriaComponent } from './subcategorias/editar-subcategoria/editar-subcategoria.component';
 import { SubCategoriaComponent } from './subcategorias/subcategoria/subcategoria.component';
 import { SubCategoriasComponent } from './subcategorias/subcategorias/subcategorias.component';
-import { QuimicosComponent } from './quimicos/quimicos/quimicos.component';
 import { QuimicosModule } from './quimicos/quimicos.module';
+import { PromocionComponent } from './promociones/promocion/promocion.component';
+import { EditarPromocionComponent } from './promociones/editar-promocion/editar-promocion.component';
+import { PromocionesComponent } from './promociones/listar-promocion/promociones.component';
 
 @NgModule({
   imports: [
@@ -42,6 +44,11 @@ import { QuimicosModule } from './quimicos/quimicos.module';
     ProductoComponent,
     ProductosComponent,
     EditarProductoComponent,
+    //
+    PromocionesComponent,
+    PromocionComponent,
+    EditarPromocionComponent,
+    //
     MarcasComponent,
     MarcaComponent,
     EditarMarcaComponent,

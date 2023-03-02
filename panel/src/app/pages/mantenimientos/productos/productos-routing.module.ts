@@ -21,6 +21,8 @@ import { SubCategoriaComponent } from './subcategorias/subcategoria/subcategoria
 import { EditarSubcategoriaComponent } from './subcategorias/editar-subcategoria/editar-subcategoria.component';
 import { LoginGuardGuard } from 'src/app/guards/login-guard.guard';
 import { VerificaTokenGuard } from 'src/app/guards/verifica-token.guard';
+import { PromocionesComponent } from './promociones/listar-promocion/promociones.component';
+import { PromocionComponent } from './promociones/promocion/promocion.component';
 
 
 const routes: Routes = [
@@ -50,8 +52,8 @@ const routes: Routes = [
    { path: 'subcategorias/nueva', component: SubCategoriaComponent, data: { titulo: 'Nueva Categoria' }},
    { path: 'subcategoria/:IdSubCategoria', component: EditarSubcategoriaComponent, data: { titulo: 'Editar Categoria' }},
    // Promociones
-   { path: 'promociones', component: SaboresComponent, data: { titulo: 'Promociones' }},
-   { path: 'promocion/nueva', component: SaborComponent, data: { titulo: 'Nueva Promocion' }},
+   { path: 'promociones', component: PromocionesComponent, data: { titulo: 'Promociones' }},
+   { path: 'promocion/nueva', component: PromocionComponent, data: { titulo: 'Nueva Promocion' }},
    // Compra/Venta dolares
   { 
     path: 'quimicos',

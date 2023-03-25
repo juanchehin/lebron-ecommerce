@@ -30,22 +30,22 @@ export class ProductoComponent implements OnInit {
   alertaFechaVencimiento = false;
 
   // ==============================
-  IdCategoria: any;
-  IdSubCategoria: any;
-  IdMarca: any;
-  IdUnidad: any;        
-  Producto: any;
-  IdProveedor: any;
+  IdCategoria = '1';
+  IdSubCategoria = '1';
+  IdMarca = '1';
+  IdUnidad = '1';        
+  Producto = '';
+  IdProveedor = '3';
   FechaVencimiento: any;
-  Descripcion: any;
-  StockAlerta: any;
-  Medida: any;
+  Descripcion = '-';
+  StockAlerta = '5';
+  Medida = '';
   PrecioCompra: any;
   PrecioVenta: any;
   PrecioMayorista: any;
   PrecioMeli: any;
   Descuento: any;
-  Moneda: any;
+  Moneda = 'ARS';
 
   // sabores
   sabores: any;
@@ -82,6 +82,16 @@ export class ProductoComponent implements OnInit {
 
 altaProducto() {
 
+      //** */
+      if((this.Producto.length <= 0 || this.Producto == '') ){
+        this.alertService.alertInfoWithText('Atencion','Debe cargar un nombre para el producto',false,2000);
+        return;
+      }
+      //** */
+      if((this.Medida.length <= 0 || this.Medida == '') ){
+        this.alertService.alertInfoWithText('Atencion','Debe cargar una Medida para el producto',false,2000);
+        return;
+      }
       //** */
       if((this.PrecioCompra > this.PrecioVenta) ){
         this.alertaPrecioVentaCompra = true;

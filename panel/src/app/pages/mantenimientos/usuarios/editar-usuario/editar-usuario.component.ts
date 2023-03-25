@@ -1031,17 +1031,31 @@ habilitarBanderas(itemIdPermisos: any){
     case 62:
       this.importarProductos = true;
       break;
+    // ** Cuentas corrientes **
     case 63:
-      // this.listarCuentas = true;
+      this.listarCuentas = true;
       break;
     case 64:
-      // this.editarCuentas = true;
+      this.altaCuentas = true;
       break;
     case 65:
-      // this.borrarCuentas = true;
+      this.editarCuentas = true;
     break;
     case 66:
-      // this.borrarCuentas = true;
+      this.borrarCuentas = true;
+    break;
+     // *** Quimicos ***
+     case 75:
+      this.listarQuimicos = true;
+      break;
+    case 76:
+      this.altaQuimicos = true;
+      break;
+    case 77:
+      this.editarQuimicos = true;
+      break;
+    case 78:
+      this.borrarQuimicos = true;
     break;
     default:
         break;

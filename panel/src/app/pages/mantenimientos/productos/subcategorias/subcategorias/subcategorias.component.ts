@@ -39,14 +39,14 @@ buscarSubCategoriasPaginado() {
                .subscribe( {
                 next: (resp: any) => { 
 
-                  if(resp[2] && resp[2][0].Mensaje == 'Ok')
+                  if(resp[2] && resp[2][0].mensaje == 'Ok')
                   { 
                     this.totalSubCategorias = resp[1][0].totalSubCategorias;
     
                     this.subcategorias = resp[0];
                     return;
                   } else {
-                    this.alertService.alertFailWithText('Ocurrio un error',resp[2][0].Mensaje,false,2000);
+                    this.alertService.alertFailWithText('Ocurrio un error',resp[2][0].mensaje,false,2000);
                   }
                   return;
                  },
@@ -65,12 +65,12 @@ cargarCategorias() {
              .subscribe( {
               next: (resp: any) => { 
 
-                if(resp.Mensaje == 'Ok')
+                if(resp.mensaje == 'Ok')
                 { 
                   this.categorias = resp[0];
                   return;
                 } else {
-                  this.alertService.alertFailWithText('Ocurrio un error',resp[2][0].Mensaje,false,2000);
+                  this.alertService.alertFailWithText('Ocurrio un error',resp[2][0].mensaje,false,2000);
                 }
                 return;
                },
@@ -100,16 +100,16 @@ bajaSubCategoria(IdSubCategoria: string) {
       .subscribe({
         next: (resp: any) => {
   
-          if(resp[0][0].Mensaje == 'Ok') {
+          if(resp[0][0].mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','SubCategoria dada de baja',false,900);
             this.buscarSubCategoriasPaginado();
             
           } else {
-            this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
+            this.alertService.alertFail(resp[0][0].mensaje,false,1200);
             
           }
          },
-        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
       });
     }
   })

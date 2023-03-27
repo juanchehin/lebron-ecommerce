@@ -140,9 +140,9 @@ altaQuimico() {
   
                     console.log("resp prod : ",resp)
                   
-                    console.log("resp.Mensaje prod : ",resp.Mensaje)
+                    console.log("resp.mensaje prod : ",resp.mensaje)
 
-                    if ( resp.Mensaje == 'Ok') {
+                    if ( resp.mensaje == 'Ok') {
                       this.alertService.alertSuccess('top-end','Quimico cargado',false,2000);
                       this.router.navigate(['/dashboard/quimicos']);
                     } else {

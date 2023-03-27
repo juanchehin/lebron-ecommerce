@@ -36,7 +36,7 @@ cargarDatosFormEditarCategoria() {
              .subscribe( {
               next: (resp: any) => {
 
-                if ( (resp != null) && (resp[1][0].Mensaje == 'Ok') ) {
+                if ( (resp != null) && (resp[1][0].mensaje == 'Ok') ) {
                   this.Categoria = resp[0][0].Categoria;
                   this.Descripcion = resp[0][0].Descripcion;
                 } else {
@@ -63,7 +63,7 @@ editarCategoria() {
                 .subscribe( {
                   next: (resp: any) => {
                   
-                    if ( (resp != null) && (resp.Mensaje == 'Ok') ) {
+                    if ( (resp != null) && (resp.mensaje == 'Ok') ) {
                       this.alertService.alertSuccess('top-end','Categoria actualizada',false,2000);
                       this.router.navigate(['/dashboard/productos/categorias']);
                     } else {

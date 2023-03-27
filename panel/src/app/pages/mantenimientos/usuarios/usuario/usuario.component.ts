@@ -223,7 +223,7 @@ export class UsuarioComponent implements OnInit {
 
           console.log("resp es ;: ",resp)
 
-          if(resp.Mensaje == 'Ok') {
+          if(resp.mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','Usuario creado con exito',false,900);   
             this.router.navigate(['/dashboard/usuarios']);
           } else {
@@ -880,7 +880,7 @@ cargarSucursales()
     .subscribe({
       next: (resp: any) => { 
 
-        if(resp[1][0].Mensaje == 'Ok') {
+        if(resp[1][0].mensaje == 'Ok') {
           this.sucursales = resp[0];
           
         } else {

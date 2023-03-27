@@ -61,7 +61,7 @@ altaVentaDolar() {
       .subscribe({
         next: (resp: any) => {
 
-          if ( resp[0][0].Mensaje == 'Ok') {
+          if ( resp[0][0].mensaje == 'Ok') {
             this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
             
             this.router.navigate(['/dashboard/dolares']);

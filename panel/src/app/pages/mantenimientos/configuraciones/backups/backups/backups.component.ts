@@ -46,7 +46,7 @@ cargarBackups() {
     .subscribe({
       next: (resp: any) => { 
 
-        if(resp[2][0].Mensaje == 'Ok') {
+        if(resp[2][0].mensaje == 'Ok') {
           this.backups = resp[0];
           
         } else {
@@ -71,7 +71,7 @@ sinc(name: string,id: string,pIndex: any) {
   this.backupsService.sinc(name,id )
   .subscribe( (resp: any) => {
 
-    if ( resp.Mensaje === 'Ok') {
+    if ( resp.mensaje === 'Ok') {
       Swal.fire({
         position: 'top-end',
         icon: 'success',
@@ -85,7 +85,7 @@ sinc(name: string,id: string,pIndex: any) {
           Swal.fire({
             icon: 'error',
             title: 'Hubo un problema',
-            text: resp.Mensaje
+            text: resp.mensaje
           });
         }
       return;
@@ -116,7 +116,7 @@ altaBackup() {
       this.backupsService.altaBackup( )
       .subscribe( (resp: any) => {
 
-        if ( resp.Mensaje === 'Ok') {
+        if ( resp.mensaje === 'Ok') {
           Swal.fire({
             position: 'top-end',
             icon: 'success',
@@ -129,7 +129,7 @@ altaBackup() {
               Swal.fire({
                 icon: 'error',
                 title: 'Hubo un problema al cargar',
-                text: resp.Mensaje
+                text: resp.mensaje
               });
             }
           return;

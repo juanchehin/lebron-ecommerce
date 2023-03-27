@@ -57,13 +57,13 @@ export class ClienteComponent implements OnInit {
       this.clientesService.altaCliente( cliente )
                 .subscribe( (resp: any) => {
                   
-                  if ( resp[0][0].Mensaje == 'Ok') {
+                  if ( resp[0][0].mensaje == 'Ok') {
 
                     this.alertService.alertSuccess('top-end','cliente cargado',false,2000);
                     
                     this.router.navigate(['/dashboard/clientes']);
                   } else {
-                    this.alertService.alertFail('Ocurrio un error : ' + resp[0][0].Mensaje,false,2000);
+                    this.alertService.alertFail('Ocurrio un error : ' + resp[0][0].mensaje,false,2000);
                   }
                   return;
                 });

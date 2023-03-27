@@ -88,7 +88,7 @@ altaCompra() {
       .subscribe({
         next: (resp: any) => { 
   
-          if ( resp.Mensaje === 'Ok') {
+          if ( resp.mensaje === 'Ok') {
             this.alertaService.alertSuccess('top-end','Compra cargada',false,2000);
 
             this.lineas_tipos_pago = [];

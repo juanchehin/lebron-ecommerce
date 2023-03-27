@@ -50,13 +50,13 @@ export class CategoriaComponent implements OnInit {
       this.categoriaService.altaCategoria( cliente )
                 .subscribe( (resp: any) => {
                   
-                  if ( resp[0][0].Mensaje == 'Ok') {
+                  if ( resp[0][0].mensaje == 'Ok') {
 
                     this.alertService.alertSuccess('top-end','Categoria cargado',false,2000);
                     
                     this.router.navigate(['/dashboard/productos/categorias']);
                   } else {
-                    this.alertService.alertFailWithText('Ocurrio un error : ',resp[0][0].Mensaje,false,2000);
+                    this.alertService.alertFailWithText('Ocurrio un error : ',resp[0][0].mensaje,false,2000);
                   }
                   return;
                 });

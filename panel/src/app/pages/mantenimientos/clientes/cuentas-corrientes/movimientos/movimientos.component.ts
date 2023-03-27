@@ -49,7 +49,7 @@ cargarMovimientosClienteCuenta() {
 
                   console.log("resp mov cl : ",resp);
 
-                  if(resp[4][0].Mensaje == 'Ok')
+                  if(resp[4][0].mensaje == 'Ok')
                   { 
                     this.apellidos = resp[0][0].Apellidos;
                     this.nombres = resp[0][0].Nombres;
@@ -120,7 +120,7 @@ guardarAcreditacion(){
 
     this.cerrarModal();
 
-     if(resp.Mensaje == 'Ok')
+     if(resp.mensaje == 'Ok')
      { 
       this.alertService.alertSuccess('top-end','Registro guardado',false,2000);
 

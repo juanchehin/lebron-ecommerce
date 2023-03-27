@@ -39,7 +39,7 @@ cargarDatosFormEditarCategoria() {
              .subscribe( {
               next: (resp: any) => {
                   
-                if ( (resp != null) && (resp[2][0].Mensaje == 'Ok') ) {
+                if ( (resp != null) && (resp[2][0].mensaje == 'Ok') ) {
 
                   this.categorias = resp[0];
 
@@ -72,7 +72,7 @@ editarSubCategoria() {
                 .subscribe( {
                   next: (resp: any) => {
                   
-                    if ( (resp != null) && (resp.Mensaje == 'Ok') ) {
+                    if ( (resp != null) && (resp.mensaje == 'Ok') ) {
 
                       this.alertService.alertSuccess('top-end','SubCategoria actualizada',false,2000);
                       this.router.navigate(['/dashboard/productos/subcategorias']);

@@ -48,13 +48,13 @@ export class MarcaComponent implements OnInit {
       this.marcasService.altaMarca( marca )
                 .subscribe( (resp: any) => {
                   
-                  if ( resp.Mensaje === 'Ok') {
+                  if ( resp.mensaje === 'Ok') {
 
                     this.alertService.alertSuccess('top-end','Marca cargada',false,2000);
                     
                     this.router.navigate(['/dashboard/productos/marcas']);
                   } else {
-                    this.alertService.alertFailWithText('Ocurrio un error',resp.Mensaje,false,2000);
+                    this.alertService.alertFailWithText('Ocurrio un error',resp.mensaje,false,2000);
                   }
                   return;
                 });

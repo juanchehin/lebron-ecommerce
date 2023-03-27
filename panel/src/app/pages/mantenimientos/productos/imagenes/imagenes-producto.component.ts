@@ -80,7 +80,7 @@ eliminarImagen( IdImagen: number ) {
 
         console.log("resp prod : ",resp)
         
-        if ( resp[1][0].Mensaje == 'Ok') {
+        if ( resp[1][0].mensaje == 'Ok') {
           this.alertService.alertSuccess('top-end','Producto eliminado',false,2000);
           this.cargarImagenes();
         } else {

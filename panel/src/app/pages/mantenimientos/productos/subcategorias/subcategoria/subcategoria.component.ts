@@ -43,12 +43,12 @@ cargarCategorias() {
              .subscribe( {
               next: (resp: any) => { 
 
-                if(resp[1][0].Mensaje == 'Ok')
+                if(resp[1][0].mensaje == 'Ok')
                 { 
                   this.categorias = resp[0];
                   return;
                 } else {
-                  this.alertService.alertFailWithText('Ocurrio un error',resp[2][0].Mensaje,false,2000);
+                  this.alertService.alertFailWithText('Ocurrio un error',resp[2][0].mensaje,false,2000);
                 }
                 return;
                },
@@ -77,13 +77,13 @@ altaSubCategoria() {
       this.categoriaService.altaSubCategoria( subcategoria )
                 .subscribe( (resp: any) => {
                   
-                  if ( resp[0][0].Mensaje == 'Ok') {
+                  if ( resp[0][0].mensaje == 'Ok') {
 
                     this.alertService.alertSuccess('top-end','SubCategoria cargado',false,2000);
                     
                     this.router.navigate(['/dashboard/productos/subcategorias']);
                   } else {
-                    this.alertService.alertFailWithText('Ocurrio un error : ',resp[0][0].Mensaje,false,2000);
+                    this.alertService.alertFailWithText('Ocurrio un error : ',resp[0][0].mensaje,false,2000);
                   }
                   return;
                 });

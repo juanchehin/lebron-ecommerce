@@ -149,7 +149,7 @@ altaQuimico() {
   
                     console.log("resp prod : ",resp)
                   
-                    if ( resp.Mensaje === 'Ok') {
+                    if ( resp.mensaje === 'Ok') {
                       this.alertService.alertSuccess('top-end','Producto cargado',false,2000);
                       this.router.navigate(['/dashboard/productos']);
                     } else {

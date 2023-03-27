@@ -53,7 +53,7 @@ export class NuevoGastoComponent implements OnInit {
                   next: (resp: any) => { 
 
                   
-                  if ( resp.Mensaje === 'Ok') {
+                  if ( resp.mensaje === 'Ok') {
 
                     this.alertService.alertSuccess('top-end','Gasto cargado',false,2000);
                     

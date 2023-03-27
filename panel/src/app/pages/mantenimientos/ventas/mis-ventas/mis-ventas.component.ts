@@ -86,7 +86,7 @@ cargarVentasIdUsuario() {
 
         console.log("resp cargarVentasIdUsuario : ",resp)
 
-        if(resp[2][0].Mensaje == 'Ok') {
+        if(resp[2][0].mensaje == 'Ok') {
           this.ventas = resp[0];
           this.totalVentas = resp[1][0].totalVentas;
           
@@ -158,7 +158,7 @@ factura( pIdTransaccion: any) {
     .subscribe({
       next: (resp: any) => { 
 
-        if((resp[5] != undefined) && (resp[5][0].Mensaje == 'Ok')) {
+        if((resp[5] != undefined) && (resp[5][0].mensaje == 'Ok')) {
 
           this.generarPDF(resp[0],resp[1],pIdTransaccion,resp[2],resp[3],resp[4]);
           

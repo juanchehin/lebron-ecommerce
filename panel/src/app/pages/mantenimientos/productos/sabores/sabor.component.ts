@@ -48,13 +48,13 @@ export class SaborComponent implements OnInit {
       this.saboresService.altaSabor( sabor )
                 .subscribe( (resp: any) => {
 
-                  if ( resp.Mensaje === 'Ok') {
+                  if ( resp.mensaje === 'Ok') {
 
                     this.alertService.alertSuccess('top-end','Sabor cargado',false,2000);
                     
                     this.router.navigate(['/dashboard/productos/sabores']);
                   } else {
-                    this.alertService.alertFailWithText('Ocurrio un error',resp.Mensaje,false,2000);
+                    this.alertService.alertFailWithText('Ocurrio un error',resp.mensaje,false,2000);
                   }
                   return;
                 });

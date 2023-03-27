@@ -59,13 +59,13 @@ export class InversorComponent implements OnInit {
       .subscribe({
         next: (resp: any) => { 
   
-          if ( resp.Mensaje === 'Ok') {
+          if ( resp.mensaje === 'Ok') {
             this.alertService.alertSuccess('top-end','inversor cargado',false,2000);
                     
             this.router.navigate(['/dashboard/inversores']);
             
           } else {
-            this.alertService.alertFail('Ocurrio un error : ' + resp.Mensaje,false,2000);
+            this.alertService.alertFail('Ocurrio un error : ' + resp.mensaje,false,2000);
           }
           return;
          },

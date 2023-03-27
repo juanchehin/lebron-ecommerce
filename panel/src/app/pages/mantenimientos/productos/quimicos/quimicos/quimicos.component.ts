@@ -49,7 +49,7 @@ buscarQuimico() {
                     return;
                   }
   
-                  if ( resp[2][0].Mensaje == 'Ok') {
+                  if ( resp[2][0].mensaje == 'Ok') {
                     
                     this.totalQuimicos = resp[1][0].cantProductosBuscados;
                     this.quimicos = resp[0];
@@ -109,16 +109,16 @@ bajaQuimico(IdProductoSabor: string) {
         next: (resp: any) => { 
 
   
-          if(resp[0][0].Mensaje == 'Ok') {
+          if(resp[0][0].mensaje == 'Ok') {
             this.alertaService.alertSuccess('top-end','Quimico dado de baja',false,900);
             this.buscarQuimico();
             
           } else {
-            this.alertaService.alertFail(resp[0][0].Mensaje,false,1200);
+            this.alertaService.alertFail(resp[0][0].mensaje,false,1200);
             
           }
          },
-        error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].Mensaje,false,1200); }
+        error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].mensaje,false,1200); }
       });
     }
   })

@@ -62,7 +62,7 @@ editarProveedor() {
             .subscribe( {
               next: (resp: any) => {
               
-                if ( (resp != null) && (resp.Mensaje == 'Ok') ) {
+                if ( (resp != null) && (resp.mensaje == 'Ok') ) {
                   this.alertService.alertSuccess('top-end','Proveedor actualizado',false,2000);
                   this.router.navigate(['/dashboard/proveedores']);
                 } else {
@@ -87,7 +87,7 @@ cargarDatosFormEditarProveedor() {
 
         console.log("resp es ;",resp)
       
-        if ( (resp != null) && (resp[1][0].Mensaje == 'Ok') ) {
+        if ( (resp != null) && (resp[1][0].mensaje == 'Ok') ) {
           this.proveedorData = resp[0][0];
 
           this.Proveedor = this.proveedorData.Proveedor;

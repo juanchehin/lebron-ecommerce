@@ -178,7 +178,7 @@ actualizaPromocion( ) {
   this.productosService.editarPromocion( promocion )
              .subscribe( (resp: any) => {
 
-             if ( resp.Mensaje === 'Ok') {
+             if ( resp.mensaje === 'Ok') {
               this.alertaService.alertSuccess('top-end','Edicion exitosa',false,2000);
               this.router.navigate(['/dashboard/promociones']);
             } else {

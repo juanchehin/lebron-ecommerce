@@ -34,7 +34,7 @@ cargarPromociones() {
                .subscribe( {
                 next: (resp: any) => { 
           
-                  if(resp[2][0].Mensaje == 'Ok') {
+                  if(resp[2][0].mensaje == 'Ok') {
                     this.totalPromociones = resp[1][0].cantPromociones;
 
                     this.promociones = resp[0];
@@ -83,7 +83,7 @@ publicarPromocion(IdPromocion: string){
 
     console.log("resp promo ",resp)
 
-     if ( resp[0][0].Mensaje == 'Ok') {       
+     if ( resp[0][0].mensaje == 'Ok') {       
       this.alertaService.alertSuccess('top-end','Operacion exitosa',false,900);
      } else {
        this.alertaService.alertFail('Ocurrio un error',false,2000);
@@ -119,16 +119,16 @@ bajaPromocion(IdPromocion: string) {
         next: (resp: any) => { 
 
   
-          if(resp[0][0].Mensaje == 'Ok') {
+          if(resp[0][0].mensaje == 'Ok') {
             this.alertaService.alertSuccess('top-end','Promocion dado de baja',false,900);
             this.cargarPromociones();
             
           } else {
-            this.alertaService.alertFail(resp[0][0].Mensaje,false,1200);
+            this.alertaService.alertFail(resp[0][0].mensaje,false,1200);
             
           }
          },
-        error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].Mensaje,false,1200); }
+        error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].mensaje,false,1200); }
       });
     }
   })

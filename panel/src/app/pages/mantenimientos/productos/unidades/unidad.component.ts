@@ -46,11 +46,11 @@ altaUnidad() {
       this.productosService.altaUnidad( unidad )
                 .subscribe(  {
                   next: (resp: any) => {
-                  if ( resp[0][0].Mensaje == 'Ok') {       
+                  if ( resp[0][0].mensaje == 'Ok') {       
                    this.alertService.alertSuccess('top-end','Unidad creada',false,900);
                    this.router.navigate(['/dashboard/productos/unidades']);
                   } else {
-                    this.alertService.alertFailWithText('Ocurrio un error',resp[0][0].Mensaje || resp[0][0].Message,false,2000);
+                    this.alertService.alertFailWithText('Ocurrio un error',resp[0][0].mensaje || resp[0][0].Message,false,2000);
                   }
                   return;
                  },

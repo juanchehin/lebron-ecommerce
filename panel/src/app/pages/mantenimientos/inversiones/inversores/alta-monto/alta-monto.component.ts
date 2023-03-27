@@ -67,13 +67,13 @@ export class AltaMontoInversionComponent implements OnInit {
           this.inversoresService.altaMontoInversion( inversion )
                 .subscribe( (resp: any) => {
                   
-                  if ( resp.Mensaje == 'Ok') {
+                  if ( resp.mensaje == 'Ok') {
 
                     this.alertService.alertSuccess('top-end','Inversion cargada',false,2000);
                     
                     this.router.navigate(['/dashboard/inversores']);
                   } else {
-                    this.alertService.alertFail('Ocurrio un error : ' + resp[0][0].Mensaje,false,2000);
+                    this.alertService.alertFail('Ocurrio un error : ' + resp[0][0].mensaje,false,2000);
                   }
                   return;
                 });

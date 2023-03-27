@@ -43,7 +43,7 @@ buscarClientes() {
                .subscribe( {
                 next: (resp: any) => { 
 
-                  if(resp[2][0].Mensaje == 'Ok')
+                  if(resp[2][0].mensaje == 'Ok')
                   { 
                     this.totalClientes = resp[1][0].cantClientes;
     
@@ -81,16 +81,16 @@ bajaCliente(IdPersona: string) {
       .subscribe({
         next: (resp: any) => {
   
-          if(resp[0].Mensaje == 'Ok') {
+          if(resp[0].mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','Cuenta dada de baja',false,900);
             this.buscarClientes();
             
           } else {
-            this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
+            this.alertService.alertFail(resp[0][0].mensaje,false,1200);
             
           }
          },
-        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
       });
     }
   })

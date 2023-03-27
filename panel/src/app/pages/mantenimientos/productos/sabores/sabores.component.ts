@@ -49,7 +49,7 @@ buscarSaborPaginado() {
                   return;
                 }
 
-                if ( resp[2][0].Mensaje == 'Ok') {
+                if ( resp[2][0].mensaje == 'Ok') {
                   
                   this.totalSabores = resp[1][0].totalSabores;
                   this.sabores = resp[0];
@@ -104,17 +104,17 @@ bajaSabor(IdSabor: string) {
       .subscribe({
         next: (resp: any) => {
   
-          if(resp[0].Mensaje == 'Ok') {
+          if(resp[0].mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','Sabor dada de baja',false,900);
             this.desde = 0;
             this.buscarSaborPaginado();
             
           } else {
-            this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
+            this.alertService.alertFail(resp[0][0].mensaje,false,1200);
             
           }
          },
-        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
       });
     }
   })

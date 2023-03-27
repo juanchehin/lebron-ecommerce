@@ -44,7 +44,7 @@ editarSabor() {
             .subscribe( {
               next: (resp: any) => {
               
-                if ( (resp != null) && (resp.Mensaje == 'Ok') ) {
+                if ( (resp != null) && (resp.mensaje == 'Ok') ) {
                   this.alertService.alertSuccess('top-end','Sabor actualizada',false,2000);
                   this.router.navigate(['/dashboard/productos/sabores']);
                 } else {
@@ -69,7 +69,7 @@ cargarDatosFormEditarSabor() {
 
         console.log("resp es ;",resp)
       
-        if ( (resp != null) && (resp[1][0].Mensaje == 'Ok') ) {
+        if ( (resp != null) && (resp[1][0].mensaje == 'Ok') ) {
           this.saborData = resp[0][0];
 
           this.Sabor = this.saborData.Sabor;

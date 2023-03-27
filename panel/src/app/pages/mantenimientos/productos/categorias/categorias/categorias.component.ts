@@ -37,14 +37,14 @@ buscarCategoriasPaginado() {
                .subscribe( {
                 next: (resp: any) => { 
 
-                  if(resp[2] && resp[2][0].Mensaje == 'Ok')
+                  if(resp[2] && resp[2][0].mensaje == 'Ok')
                   { 
                     this.totalCategorias = resp[1][0].totalCategorias;
     
                     this.categorias = resp[0];
                     return;
                   } else {
-                    this.alertService.alertFailWithText('Ocurrio un error',resp[2][0].Mensaje,false,2000);
+                    this.alertService.alertFailWithText('Ocurrio un error',resp[2][0].mensaje,false,2000);
                   }
                   return;
                  },
@@ -75,16 +75,16 @@ bajaCategoria(IdCategoria: string) {
       .subscribe({
         next: (resp: any) => {
   
-          if(resp[0][0].Mensaje == 'Ok') {
+          if(resp[0][0].mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','Categoria dada de baja',false,900);
             this.buscarCategoriasPaginado();
             
           } else {
-            this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
+            this.alertService.alertFail(resp[0][0].mensaje,false,1200);
             
           }
          },
-        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
       });
     }
   })

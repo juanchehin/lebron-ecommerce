@@ -51,7 +51,7 @@ editarCliente() {
                 .subscribe( {
                   next: (resp: any) => {
                   
-                    if ( (resp != null) && (resp.Mensaje == 'Ok') ) {
+                    if ( (resp != null) && (resp.mensaje == 'Ok') ) {
                       this.alertService.alertSuccess('top-end','Cliente actualizado',false,2000);
                       this.router.navigate(['/dashboard/clientes']);
                     } else {

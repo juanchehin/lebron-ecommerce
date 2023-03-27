@@ -46,7 +46,7 @@ cargarGastos() {
 
         console.log("resp en gastos ",resp)
 
-        if(resp[2][0].Mensaje == 'Ok') {
+        if(resp[2][0].mensaje == 'Ok') {
           this.gastos = resp[0];
           this.totalGastos = resp[1][0].totalGastos;
           

@@ -90,7 +90,7 @@ bajaUsuario(IdUsuario: string) {
       .subscribe({
         next: (resp: any) => { 
   
-          if(resp[0][0] != undefined && resp[0][0].Mensaje == 'Ok') {
+          if(resp[0][0] != undefined && resp[0][0].mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','usuario dado de baja',false,900);
             this.cargarUsuarios();
             
@@ -99,7 +99,7 @@ bajaUsuario(IdUsuario: string) {
             
           }
          },
-        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
       });
     }
   })

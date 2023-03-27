@@ -61,7 +61,7 @@ cargarComprasIdUsuario() {
     .subscribe({
       next: (resp: any) => { 
 
-        if(resp[1][0].Mensaje == 'Ok') {
+        if(resp[1][0].mensaje == 'Ok') {
           this.compras = resp[0];
           
         } else {

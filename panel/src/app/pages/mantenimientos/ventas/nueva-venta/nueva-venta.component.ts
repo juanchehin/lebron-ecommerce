@@ -117,7 +117,7 @@ altaVenta() {
       .subscribe({
         next: (resp: any) => {
           
-          if ( resp.mensaje[0][0].Mensaje == 'Ok') {
+          if ( resp.mensaje[0][0].mensaje == 'Ok') {
             this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
 
             this.resetearVariables();

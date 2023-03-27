@@ -60,13 +60,13 @@ export class ProveedorComponent implements OnInit {
       this.proveedoresService.altaProveedor( proveedor )
                 .subscribe( (resp: any) => {
                   
-                  if ( resp.Mensaje === 'Ok') {
+                  if ( resp.mensaje === 'Ok') {
 
                     this.alertService.alertSuccess('top-end','Proveedor cargado',false,2000);
                     
                     this.router.navigate(['/dashboard/proveedores']);
                   } else {
-                    this.alertService.alertFailWithText('Ocurrio un error',resp.Mensaje,false,2000);
+                    this.alertService.alertFailWithText('Ocurrio un error',resp.mensaje,false,2000);
                   }
                   return;
                 });

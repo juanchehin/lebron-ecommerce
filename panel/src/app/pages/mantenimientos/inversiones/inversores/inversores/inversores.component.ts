@@ -48,7 +48,7 @@ buscarInversores() {
                .subscribe( {
                 next: (resp: any) => { 
                   
-                  if(resp[3] && resp[3][0].Mensaje == 'Ok')
+                  if(resp[3] && resp[3][0].mensaje == 'Ok')
                   { 
                     this.totalInversores = resp[1][0].cantInversores;
                     this.tasaInteres = resp[2][0].tasaInteres;    
@@ -89,7 +89,7 @@ altaMontoInversion(){
   .subscribe({
     next: (resp: any) => {
 
-      if ( resp[0][0].Mensaje == 'Ok') {
+      if ( resp[0][0].mensaje == 'Ok') {
         this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
 
         this.activarModalNuevaInversion = false;
@@ -126,16 +126,16 @@ bajaInversor(IdPersona: string) {
       .subscribe({
         next: (resp: any) => {
   
-          if(resp[0].Mensaje == 'Ok') {
+          if(resp[0].mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','Inversor dado de baja',false,900);
             this.buscarInversores();
             
           } else {
-            this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
+            this.alertService.alertFail(resp[0][0].mensaje,false,1200);
             
           }
          },
-        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
       });
     }
   })

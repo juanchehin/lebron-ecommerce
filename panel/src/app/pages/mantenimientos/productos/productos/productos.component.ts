@@ -52,7 +52,7 @@ buscarProducto() {
                     return;
                   }
   
-                  if ( resp[1][0].Mensaje == 'Ok') {
+                  if ( resp[1][0].mensaje == 'Ok') {
                     
                     this.totalProductos = resp[2][0].cantProductosBuscados;
                     this.productos = resp[0];
@@ -127,16 +127,16 @@ bajaProducto(IdProductoSabor: string) {
         next: (resp: any) => { 
 
   
-          if(resp[0][0].Mensaje == 'Ok') {
+          if(resp[0][0].mensaje == 'Ok') {
             this.alertaService.alertSuccess('top-end','Producto dado de baja',false,900);
             this.buscarProducto();
             
           } else {
-            this.alertaService.alertFail(resp[0][0].Mensaje,false,1200);
+            this.alertaService.alertFail(resp[0][0].mensaje,false,1200);
             
           }
          },
-        error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].Mensaje,false,1200); }
+        error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].mensaje,false,1200); }
       });
     }
   })
@@ -149,7 +149,7 @@ publicarProducto(IdProducto: string){
   .subscribe( {
    next: (resp: any) => {
 
-     if ( resp[0][0].Mensaje == 'Ok') {       
+     if ( resp[0][0].mensaje == 'Ok') {       
       this.alertaService.alertSuccess('top-end','Operacion exitosa',false,900);
      } else {
        this.alertaService.alertFail('Ocurrio un error',false,2000);
@@ -170,7 +170,7 @@ ofertarProducto(IdProducto: string){
   .subscribe( {
    next: (resp: any) => {
 
-     if ( resp[0][0].Mensaje == 'Ok') {       
+     if ( resp[0][0].mensaje == 'Ok') {       
       this.alertaService.alertSuccess('top-end','Operacion exitosa',false,900);
      } else {
        this.alertaService.alertFail('Ocurrio un error',false,2000);
@@ -191,7 +191,7 @@ destacarProducto(IdProducto: string){
   .subscribe( {
    next: (resp: any) => {
 
-     if ( resp[0][0].Mensaje == 'Ok') {       
+     if ( resp[0][0].mensaje == 'Ok') {       
       this.alertaService.alertSuccess('top-end','Operacion exitosa',false,900);
      } else {
        this.alertaService.alertFail('Ocurrio un error',false,2000);

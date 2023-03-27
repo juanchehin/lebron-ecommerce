@@ -51,7 +51,7 @@ buscarMarcaPaginado() {
                   return;
                 }
 
-                if ( resp[2][0].Mensaje == 'Ok') {
+                if ( resp[2][0].mensaje == 'Ok') {
                   
                   this.totalMarcas = resp[1][0].totalMarcas;
                   this.marcas = resp[0];
@@ -106,17 +106,17 @@ bajaMarca(IdMarca: string) {
       .subscribe({
         next: (resp: any) => {
   
-          if(resp[0].Mensaje == 'Ok') {
+          if(resp[0].mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','Marca dada de baja',false,900);
             this.desde = 0;
             this.buscarMarcaPaginado();
             
           } else {
-            this.alertService.alertFail(resp[0][0].Mensaje,false,1200);
+            this.alertService.alertFail(resp[0][0].mensaje,false,1200);
             
           }
          },
-        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].Mensaje,false,1200); }
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
       });
     }
   })

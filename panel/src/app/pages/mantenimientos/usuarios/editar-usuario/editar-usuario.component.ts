@@ -167,7 +167,7 @@ editarUsuario() {
             .subscribe( {
               next: (resp: any) => {
               
-                if ( (resp != null) && (resp.Mensaje == 'Ok') ) {
+                if ( (resp != null) && (resp.mensaje == 'Ok') ) {
                   this.alertService.alertSuccess('top-end','Usuario actualizado',false,2000);
                   this.router.navigate(['/dashboard/usuarios']);
                 } else {
@@ -190,7 +190,7 @@ cargarDatosFormEditarUsuario() {
              .subscribe( {
               next: (resp: any) => {
 
-                if ( (resp != null) && (resp[3][0].Mensaje == 'Ok') ) {
+                if ( (resp != null) && (resp[3][0].mensaje == 'Ok') ) {
 
                   this.Apellidos = resp[0][0].Apellidos;
                   this.Nombres = resp[0][0].Nombres;

@@ -38,7 +38,6 @@ public async altaUsuario(req: Request, res: Response) {
     var FechaNac = req.body[8];
     var IdSucursal = req.body[9];
     var arrayPermisos = req.body[10];
-    console.log('req.body::: ', req.body);
 
     const saltRounds = 10;  //  Data processing speed
 
@@ -46,8 +45,6 @@ public async altaUsuario(req: Request, res: Response) {
         bcrypt.hash(Password, salt, async function(err: any, hash: any) {            
 
             pool.query(`call bsp_alta_usuario('${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}','${FechaNac}','${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any, fields: any){        
-                console.log('result::: ', result);
-                console.log('err::: ', err);
             
                 if(err || result[0][0].mensaje != 'Ok'){
                     logger.error("Error bsp_alta_usuario - altaUsuario - usuariosController ");
@@ -153,7 +150,6 @@ public async editarUsuario(req: Request, res: Response) {
     var FechaNac = req.body[8];
     var IdSucursal = req.body[9];
     var arrayPermisos = req.body[10];
-
     
     if(FechaNac != null && FechaNac != 'null')
     {
@@ -173,7 +169,7 @@ public async editarUsuario(req: Request, res: Response) {
     
                 pool.query(`call bsp_editar_usuario('${IdPersona}','${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}','${myDateString}','${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any){        
                                     
-                    if(err || result[0][0].Mensaje != 'Ok'){
+                    if(err || result[0][0].mensaje != 'Ok'){
                         logger.error("Error bsp_editar_usuario - editarUsuario - usuariosController " + err);
 
                         respuestaFinal = 'Ocurrio un error, contactese con el administrador';
@@ -185,10 +181,10 @@ public async editarUsuario(req: Request, res: Response) {
     
                         pool.query(`call bsp_editar_permisos_usuario('${IdPersona}','${IdUsuario}','${pIdPermiso}')`, function(err2: any, result2: any){
 
-                            if(err2 || result2[0][0].Mensaje != 'Ok'){
+                            if(err2 || result2[0][0].mensaje != 'Ok'){
                                 logger.error("Error bsp_editar_permisos_usuario - editarUsuario - usuariosController " + err);
 
-                                respuestaFinal = result2[0][0].Mensaje;
+                                respuestaFinal = result2[0][0].mensaje;
                                 return;
                             }
                             
@@ -196,7 +192,7 @@ public async editarUsuario(req: Request, res: Response) {
     
                     }); 
                     // =============Fin permisos=================
-                    return res.json({ Mensaje: respuestaFinal });
+                    return res.json({ mensaje: respuestaFinal });
                 })
     
             });
@@ -205,13 +201,13 @@ public async editarUsuario(req: Request, res: Response) {
     else
     {
         pool.query(`call bsp_editar_usuario('${IdPersona}','${IdUsuario}','${Apellidos}','${Nombres}',null,'${Telefono}','${DNI}','${Correo}','${myDateString}','${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any){        
-   
-            if(err || result[0][0].Mensaje != 'Ok'){
+
+            if(err || result[0][0].mensaje != 'Ok'){
                 logger.error("Error bsp_editar_usuario 2 - editarUsuario - usuariosController " + err);
 
                 return res.json({
                     ok: false,
-                    Mensaje: 'Ocurrio un error, contactese con el administrador'
+                    mensaje: 'Ocurrio un error, contactese con el administrador'
                 });
             }
     
@@ -220,12 +216,12 @@ public async editarUsuario(req: Request, res: Response) {
     
                 pool.query(`call bsp_editar_permisos_usuario('${IdPersona}','${IdUsuario}','${pIdPermiso}')`, function(err2: any, result2: any){
 
-                    if(err2 || result2[0][0].Mensaje != 'Ok'){
+                    if(err2 || result2[0][0].mensaje != 'Ok'){
                         logger.error("Error bsp_editar_usuario 2 - editarUsuario - usuariosController " + err2);
 
                         return res.json({
                             ok: false,
-                            Mensaje: 'Ocurrio un error, contactese con el administrador'
+                            mensaje: 'Ocurrio un error, contactese con el administrador'
                         });
                     }
                     
@@ -233,16 +229,11 @@ public async editarUsuario(req: Request, res: Response) {
     
             }); 
             // =============Fin permisos=================
-            return res.json({ Mensaje: 'Ok' });
+            return res.json({ mensaje: 'Ok' });
         })
-    }
+    }   
 
-
-    
-
-    return;
-
-   
+    return;  
 
 }
 

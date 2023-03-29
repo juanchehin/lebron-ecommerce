@@ -13,31 +13,31 @@ const childRoutes: Routes = [
   { 
     path: 'productos',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
-    data: { ruta: 'Productos'},
+    data: { ruta: 'productos'},
     loadChildren: () => import('./mantenimientos/productos/productos-routing.module').then( m => m.ProductosRoutingModule )
   },
   { 
     path: 'usuarios',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
-    data: { ruta: 'Usuarios'},
+    data: { ruta: 'usuarios'},
     loadChildren: () => import('./mantenimientos/usuarios/usuarios-routing.module').then( m => m.UsuariosRoutingModule )
   },
   { 
     path: 'proveedores',
     canActivate: [LoginGuardGuard, VerificaTokenGuard,VerificaPermisoGuard],
-    data: { ruta: 'Proveedores'},
+    data: { ruta: 'proveedores'},
     loadChildren: () => import('./mantenimientos/proveedores/proveedores-routing.module').then( m => m.ProveedoresRoutingModule )
   },
   { 
     path: 'compras',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
-    data: { ruta: 'Compras'},
+    data: { ruta: 'compras'},
     loadChildren: () => import('./mantenimientos/compras/compras-routing.module').then( m => m.ComprasRoutingModule )
   },
   { 
     path: 'ventas',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
-    data: { ruta: 'Ventas'},
+    data: { ruta: 'ventas'},
     loadChildren: () => import('./mantenimientos/ventas/ventas-routing.module').then( m => m.VentasRoutingModule )
   },
   { 
@@ -48,19 +48,19 @@ const childRoutes: Routes = [
   { 
     path: 'transferencias',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
-    data: { ruta: 'Transferencias'},
+    data: { ruta: 'transferencias'},
     loadChildren: () => import('./mantenimientos/transferencias/transferencias-routing.module').then( m => m.TransferenciasRoutingModule )
   },
   { 
     path: 'inversiones',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
-    data: { ruta: 'Inversores'},
+    data: { ruta: 'inversores'},
     loadChildren: () => import('./mantenimientos/inversiones/inversiones-routing.module').then( m => m.InversionesRoutingModule )
   },
   { 
     path: 'configuraciones',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
-    data: { ruta: 'Configuraciones'},
+    data: { ruta: 'configuraciones'},
     loadChildren: () => import('./mantenimientos/configuraciones/configuraciones-routing.module').then( m => m.ConfiguracionesRoutingModule )
   }
  

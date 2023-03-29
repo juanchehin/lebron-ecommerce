@@ -21,7 +21,7 @@ export class VerificaPermisoGuard implements CanActivate {
     const chequearRuta = route.data['ruta'];
     
     const found = this.menuPermisos.find((obj) => {
-      return obj.Permiso === chequearRuta;
+      return obj.permiso === chequearRuta;
     });
 
     if (found !== undefined) {

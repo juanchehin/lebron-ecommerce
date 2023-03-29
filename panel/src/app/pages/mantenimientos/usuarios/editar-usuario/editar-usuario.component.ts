@@ -208,8 +208,8 @@ cargarDatosFormEditarUsuario() {
 
                   this.permisosUsuario.forEach( (value) => {
                     
-                    this.permisos.push(value.IdPermiso);
-                    this.habilitarBanderas(value.IdPermiso);
+                    this.permisos.push(value.id_permiso);
+                    this.habilitarBanderas(value.id_permiso);
                   });
 
                 } else {
@@ -1056,6 +1056,19 @@ habilitarBanderas(itemIdPermisos: any){
       break;
     case 78:
       this.borrarQuimicos = true;
+    break;
+     // *** Backups ***
+     case 79:
+      this.listarBackups = true;
+      break;
+    case 80:
+      this.altaBackups = true;
+      break;
+    case 81:
+      this.editarBackups = true;
+      break;
+    case 82:
+      this.borrarBackups = true;
     break;
     default:
         break;

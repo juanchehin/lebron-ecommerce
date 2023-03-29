@@ -42,7 +42,7 @@
                         <label>Sucursal : </label>
                         <select class="form-control" [(ngModel)]="IdSucursal">
                             <option *ngFor="let sucursal of sucursales" [value]="sucursal.id_sucursal" >
-                                {{sucursal.Sucursal}}
+                                {{sucursal.sucursal}}
                             </option>
                         </select>
                     </div>
@@ -573,36 +573,36 @@
             <div class="row">
                 <div class="col-sm-4">
                     <label class="custom-control custom-checkbox">
-                            <input [checked]="listarBackups" type="checkbox" class="custom-control-input" (click)="agregarPermiso(75)">
+                            <input [checked]="listarBackups" type="checkbox" class="custom-control-input" (click)="agregarPermiso(79)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Listar Backups</span>
                         </label>
                 </div>
                 <div class="col-sm-4">
                     <label class="custom-control custom-checkbox">
-                            <input [checked]="altaBackups" type="checkbox" class="custom-control-input" (click)="agregarPermiso(76)">
+                            <input [checked]="altaBackups" type="checkbox" class="custom-control-input" (click)="agregarPermiso(80)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Alta Backups</span>
                         </label>
                 </div>
                 <div class="col-sm-4">
                     <label class="custom-control custom-checkbox">
-                            <input [checked]="editarBackups" type="checkbox" class="custom-control-input" (click)="agregarPermiso(77)">
+                            <input [checked]="editarBackups" type="checkbox" class="custom-control-input" (click)="agregarPermiso(81)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Editar Backups</span>
                         </label>
                 </div>
                 <div class="col-sm-4">
                     <label class="custom-control custom-checkbox">
-                            <input [checked]="borrarBackups" type="checkbox" class="custom-control-input" (click)="agregarPermiso(78)">
+                            <input [checked]="borrarBackups" type="checkbox" class="custom-control-input" (click)="agregarPermiso(82)">
                             <span class="custom-control-indicator"></span>
                             <span class="custom-control-description">Borrar Backups</span>
                         </label>
                 </div>
             </div>
         </div>
-            <br><br><br>
-            <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase" (click)="editarUsuario()">Guardar cambios</button>
-            <br>
         </div>
+        <br>
+        <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase" (click)="editarUsuario()">Guardar cambios</button>
+        <br>
 </div>

@@ -12,14 +12,14 @@ const timezoned = () => {
 module.exports.logger =  winston.createLogger({
   transports: [
     new winston.transports.DailyRotateFile({
-      filename: path.join( __dirname, `../logs/info-%DATE%.log` ),
+      filename: path.join( __dirname, `../../logs/info-%DATE%.log` ),
       datePattern: 'YYYY-MM-DD',
       zippedArchive: true,
       level: 'info',
       format: winston.format.combine(winston.format.timestamp({ format: timezoned }), winston.format.json())
    }),
    new winston.transports.DailyRotateFile({
-    filename: path.join( __dirname, `../logs/error-logs-%DATE%.log` ),
+    filename: path.join( __dirname, `../../logs/error-logs-%DATE%.log` ),
     datePattern: 'YYYY-MM-DD',
     zippedArchive: true,
     level: 'error',

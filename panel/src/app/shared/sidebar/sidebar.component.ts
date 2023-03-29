@@ -52,7 +52,7 @@ export class SidebarComponent implements OnInit {
     else{
       this.elementosMenuPadre = this.authService.menuBack;
     }
-
+    
     return;
 
     var pivot = this.elementosMenuPadre[0].Permiso;
@@ -113,7 +113,7 @@ export class SidebarComponent implements OnInit {
   activarMenu(itemMenu: string): boolean{
 
     const found = this.elementosMenuPadre.find((obj) => {
-      return obj.Permiso === itemMenu;
+      return obj.permiso === itemMenu;
     });
 
     if (found !== undefined) {

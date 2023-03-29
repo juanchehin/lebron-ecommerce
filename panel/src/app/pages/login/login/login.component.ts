@@ -56,7 +56,7 @@ ingresar() {
 
     },
     ( error: any) => {
-      this.alertService.alertFailWithText('Atencion','Ocurrio un error, contactese con el adminsitrador - ' + error,false,300)
+      this.alertService.alertFailWithText('Atencion','Ocurrio un error, contactese con el adminsitrador',false,300)
 
     }
 

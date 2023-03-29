@@ -135,17 +135,17 @@ export class UsuarioComponent implements OnInit {
   ngOnInit() {
     this.cargarSucursales();
     this.forma = new FormGroup({
-        Apellidos: new FormControl(null, Validators.required),
-        Nombres: new FormControl(null, Validators.required),
-        Usuario: new FormControl(null, Validators.required),
-        IdSucursal: new FormControl(null, Validators.required),
-        Telefono: new FormControl(null ),
-        Correo: new FormControl(null),
-        DNI: new FormControl(null),
-        Password: new FormControl(null, Validators.required ),
-        Password2: new FormControl(null , Validators.required),
-        Observaciones: new FormControl(null),
-        FechaNac: new FormControl(null  )        
+        apellidos: new FormControl(null, Validators.required),
+        nombres: new FormControl(null, Validators.required),
+        usuario: new FormControl(null, Validators.required),
+        id_sucursal: new FormControl(null, Validators.required),
+        telefono: new FormControl(null ),
+        correo: new FormControl(null),
+        dni: new FormControl(null),
+        password: new FormControl(null, Validators.required ),
+        password2: new FormControl(null , Validators.required),
+        observaciones: new FormControl(null),
+        fecha_nac: new FormControl(null  )        
       });
 
   }
@@ -203,31 +203,31 @@ export class UsuarioComponent implements OnInit {
       }
 
       const usuario = new Array(
-        this.forma.value.Apellidos,
-        this.forma.value.Nombres,
-        this.forma.value.Usuario,
-        this.forma.value.Correo,
-        this.forma.value.Telefono,
-        this.forma.value.DNI,
-        this.forma.value.Password,
-        this.forma.value.Observaciones,
-        this.forma.value.FechaNac,
-        this.forma.value.IdSucursal,
+        this.forma.value.apellidos,
+        this.forma.value.nombres,
+        this.forma.value.usuario,
+        this.forma.value.correo,
+        this.forma.value.telefono,
+        this.forma.value.dni,
+        this.forma.value.password,
+        this.forma.value.observaciones,
+        this.forma.value.fecha_nac,
+        this.forma.value.id_sucursal,
         this.permisos
       );
-
+        
+        console.log('usuario::: ', usuario);
 
       this.usuariosService.altaUsuario( usuario )
       .subscribe({
         next: (resp: any) => { 
-
-          console.log("resp es ;: ",resp)
+          console.log('resp::: ', resp);
 
           if(resp.mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','Usuario creado con exito',false,900);   
             this.router.navigate(['/dashboard/usuarios']);
           } else {
-            this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,700);            
+            this.alertService.alertFailWithText('Ocurrio un error',resp.mensaje,false,700);            
           }
          },
         error: (err: any) => {

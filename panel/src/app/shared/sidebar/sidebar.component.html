@@ -14,19 +14,19 @@
                     </a>
                 </li>
                 <!-- ===== ** Usuarios ** ====== -->
-                <li class="user-profile" [routerLink]="['/dashboard/usuarios']" *ngIf="activarMenu('Usuarios')">
+                <li class="user-profile" [routerLink]="['/dashboard/usuarios']" *ngIf="activarMenu('usuarios')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <span class="hide-menu">Usuarios </span>
                     </a>
                 </li>
                 <!-- ===== ** Proveedores ** ====== -->
-                <li class="user-profile" [routerLink]="['proveedores']" *ngIf="activarMenu('Proveedores')">
+                <li class="user-profile" [routerLink]="['proveedores']" *ngIf="activarMenu('proveedores')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <span class="hide-menu">Proveedores </span>
                     </a>
                 </li>
                  <!-- ===== ** Clientes ** ====== -->
-                 <li class="user-profile" (click)="expandirClientesFuncion()" *ngIf="activarMenu('Clientes')">
+                 <li class="user-profile" (click)="expandirClientesFuncion()" *ngIf="activarMenu('clientes')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <span class="hide-menu">Clientes </span>
                     </a>
@@ -36,7 +36,7 @@
                     </ul>
                 </li>
                 <!-- ===== ** Productos ** ====== -->
-                <li class="user-profile" (click)="expandirProductosFuncion()" *ngIf="activarMenu('Productos')">
+                <li class="user-profile" (click)="expandirProductosFuncion()" *ngIf="activarMenu('productos')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <span class="hide-menu">Productos </span>
                     </a>
@@ -53,7 +53,7 @@
                     </ul>
                 </li>
                 <!-- ===== ** Compras ** ====== -->
-                <li class="user-profile" (click)="expandirComprasFuncion()" *ngIf="activarMenu('Compras')">
+                <li class="user-profile" (click)="expandirComprasFuncion()" *ngIf="activarMenu('compras')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <span class="hide-menu">Compras </span>
                     </a>
@@ -66,7 +66,7 @@
                     </ul>
                 </li>
                 <!-- ===== ** Ventas ** ====== -->
-                <li class="user-profile" (click)="expandirVentasFuncion()" *ngIf="activarMenu('Ventas')">
+                <li class="user-profile" (click)="expandirVentasFuncion()" *ngIf="activarMenu('ventas')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <span class="hide-menu">Ventas </span>
                     </a>
@@ -78,7 +78,7 @@
                     </ul>
                 </li>
                 <!-- ===== ** Transferencias ** ====== -->
-                <li class="user-profile" (click)="expandirTransferenciasFuncion()" *ngIf="activarMenu('Transferencias')">
+                <li class="user-profile" (click)="expandirTransferenciasFuncion()" *ngIf="activarMenu('transferencias')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <span class="hide-menu">Transferencias </span>
                     </a>
@@ -89,13 +89,13 @@
                     </ul>
                 </li>
                  <!-- ===== ** Inversiones ** ====== -->
-                 <li class="user-profile" [routerLink]="['/dashboard/inversiones']" *ngIf="activarMenu('Inversores')">
+                 <li class="user-profile" [routerLink]="['/dashboard/inversiones']" *ngIf="activarMenu('inversores')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <span class="hide-menu">Inversiones </span>
                     </a>
                 </li>
                 <!-- ===== ** Configuraciones ** ====== -->
-                <li class="user-profile" [routerLink]="['/dashboard/configuraciones']" *ngIf="activarMenu('Configuraciones')">
+                <li class="user-profile" [routerLink]="['/dashboard/configuraciones']" *ngIf="activarMenu('configuraciones')">
                     <a class="has-arrow waves-effect waves-dark" aria-expanded="false">
                         <span class="hide-menu">Configuraciones </span>
                     </a>

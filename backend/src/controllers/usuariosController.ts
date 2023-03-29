@@ -38,6 +38,7 @@ public async altaUsuario(req: Request, res: Response) {
     var FechaNac = req.body[8];
     var IdSucursal = req.body[9];
     var arrayPermisos = req.body[10];
+    console.log('req.body::: ', req.body);
 
     const saltRounds = 10;  //  Data processing speed
 
@@ -45,13 +46,15 @@ public async altaUsuario(req: Request, res: Response) {
         bcrypt.hash(Password, salt, async function(err: any, hash: any) {            
 
             pool.query(`call bsp_alta_usuario('${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}','${FechaNac}','${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any, fields: any){        
+                console.log('result::: ', result);
+                console.log('err::: ', err);
             
-                if(err || result[0][0].Mensaje != 'Ok'){
-                    logger.error("Error bsp_alta_usuario - altaUsuario - usuariosController " + err);
+                if(err || result[0][0].mensaje != 'Ok'){
+                    logger.error("Error bsp_alta_usuario - altaUsuario - usuariosController ");
 
                     return res.json({
                         ok: false,
-                        Mensaje: 'Ocurrio un error, contactese con el administrador'
+                        mensaje: result[0][0].mensaje
                     });
                 }
 
@@ -73,7 +76,7 @@ public async altaUsuario(req: Request, res: Response) {
 
                 }); 
                 // =============Fin permisos=================
-                return res.json({ Mensaje: 'Ok' });
+                return res.json({ mensaje: 'Ok' });
             })
 
         });

@@ -192,15 +192,15 @@ cargarDatosFormEditarUsuario() {
 
                 if ( (resp != null) && (resp[3][0].mensaje == 'Ok') ) {
 
-                  this.Apellidos = resp[0][0].Apellidos;
-                  this.Nombres = resp[0][0].Nombres;
-                  this.Usuario = resp[0][0].Usuario;
-                  this.DNI = resp[0][0].DNI;
-                  this.Email = resp[0][0].Email;
-                  this.FechaNac = resp[0][0].FechaNac;
-                  this.IdSucursal = resp[0][0].IdSucursal;
-                  this.Telefono = resp[0][0].Telefono;
-                  this.Observaciones = resp[0][0].Observaciones;
+                  this.Apellidos = resp[0][0].apellidos;
+                  this.Nombres = resp[0][0].nombres;
+                  this.Usuario = resp[0][0].usuario;
+                  this.DNI = resp[0][0].dni;
+                  this.Email = resp[0][0].email;
+                  this.FechaNac = resp[0][0].fecha_nac;
+                  this.IdSucursal = resp[0][0].id_sucursal;
+                  this.Telefono = resp[0][0].telefono;
+                  this.Observaciones = resp[0][0].observaciones;
 
                   this.permisosUsuario = resp[1];
 

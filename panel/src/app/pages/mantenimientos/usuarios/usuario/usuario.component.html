@@ -5,43 +5,43 @@
                 <div class="row">
                     <div class="col-sm-6 form-group">
                         <label>Apellidos : </label>
-                        <input formControlName="Apellidos" name="Apellidos" required type="text" placeholder="Apellidos" class="form-control">
+                        <input formControlName="apellidos" name="apellidos" required type="text" placeholder="Apellidos" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Nombres : </label><input formControlName="Nombres" name="Nombres" required type="text" placeholder="Nombres" class="form-control">
+                        <label>Nombres : </label><input formControlName="nombres" name="nombres" required type="text" placeholder="Nombres" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>Telefono : </label>
-                        <input formControlName="Telefono" name="Telefono" type="text" min="15" max="15" minlength="8" maxlength="15" placeholder="Telefono" class="form-control">
+                        <input formControlName="telefono" name="telefono" type="text" min="15" max="15" minlength="8" maxlength="15" placeholder="Telefono" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>DNI : </label>
-                        <input formControlName="DNI" name="DNI" type="text" placeholder="DNI..." min="8" max="8" maxlength="8" minlength="6" class="form-control">
+                        <input formControlName="dni" name="dni" type="text" placeholder="DNI..." min="8" max="8" maxlength="8" minlength="6" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>Correo : </label>
-                        <input formControlName="Correo" name="Correo" type="text" placeholder="Correo" class="form-control">
+                        <input formControlName="correo" name="correo" type="text" placeholder="Correo" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>Usuario : </label>
-                        <input formControlName="Usuario" required name="Usuario" type="text" placeholder="Usuario" class="form-control">
+                        <input formControlName="usuario" required name="usuario" type="text" placeholder="Usuario..." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Contraseña : </label><input formControlName="Password" name="Password" required type="password" min="1" max="31" step="1" placeholder="Password" class="form-control">
+                        <label>Contraseña : </label><input formControlName="password" name="password" required type="password" min="1" max="31" step="1" placeholder="Password" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>Repetir contraseña : </label>
-                        <input formControlName="Password2" name="Password2" type="password" required placeholder="Repetir contraseña..." rows="3" class="form-control">
+                        <input formControlName="password2" name="password2" type="password" required placeholder="Repetir contraseña..." rows="3" class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
                         <label tabindex="6" for="start">Fecha de Nacimiento : </label>
-                        <input type="date" name="FechaNac" formControlName="FechaNac">
+                        <input type="date" name="fecha_nac" formControlName="fecha_nac">
                     </div>
                     <div class="col-sm-6 form-group">
                         <label>Sucursal : </label>
-                        <select class="form-control" formControlName="IdSucursal">
-                            <option *ngFor="let sucursal of sucursales" [value]="sucursal.IdSucursal" >
-                                {{sucursal.Sucursal}}
+                        <select class="form-control" formControlName="id_sucursal">
+                            <option *ngFor="let sucursal of sucursales" [value]="sucursal.id_sucursal" >
+                                {{sucursal.sucursal}}
                             </option>
                         </select>
                     </div>
@@ -49,7 +49,7 @@
                 <div class="row">
                     <div class="col-sm-6 form-group">
                         <label>Observaciones : </label>
-                        <textarea formControlName="Observaciones" name="Observaciones" type="textarea" placeholder="Observaciones..." rows="3" class="form-control"></textarea>
+                        <textarea formControlName="observaciones" name="observaciones" type="textarea" placeholder="Observaciones..." rows="3" class="form-control"></textarea>
                     </div>
                 </div>
             </div>
@@ -630,9 +630,9 @@
                     </div>
                 </div>
             </div>
-            <br><br><br>
-            <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar Usuario</button>
-            <br>
         </div>
+        <br>
+            <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase">Cargar Usuario</button>
+        <br>
     </form>
 </div>

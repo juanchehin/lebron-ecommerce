@@ -52,11 +52,11 @@ ingresar() {
           return;
         }
 
-        this.alertService.alertFailWithText('Error','Error de credenciales',false,300)
+        this.alertService.alertFailWithText('Error','Error de credenciales',false,3000)
 
     },
     ( error: any) => {
-      this.alertService.alertFailWithText('Atencion','Ocurrio un error, contactese con el adminsitrador',false,300)
+      this.alertService.alertFailWithText('Atencion','Ocurrio un error, contactese con el adminsitrador',false,3000)
 
     }
 

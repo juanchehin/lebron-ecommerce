@@ -49,7 +49,7 @@ export class ProductoComponent implements OnInit {
 
   // sabores
   sabores: any;
-  keywordSabor = 'Sabor';
+  keywordSabor = 'sabor';
   sabores_cargados: any = [];
   itemPendiente: any = [];
   cantidadLineaSabor = 1;
@@ -239,7 +239,7 @@ onChangeCategorias(IdCategoria: any) {
   eliminarItemSabor(IdProducto: any){
 
     this.sabores_cargados.forEach( (item: any, index: any) => {
-      if(item.IdProducto === IdProducto) 
+      if(item.id_producto === IdProducto) 
       {
         // this.totalVenta -= item.PrecioVenta * item.Cantidad;
         this.sabores_cargados.splice(index,1);
@@ -256,30 +256,26 @@ onChangeCategorias(IdCategoria: any) {
 
 agregarLineaSabor() {
 
-  console.log("this.itemPendiente : ",this.itemPendiente)
-
   if(this.itemPendiente.Sabor == '')
   { 
-    this.alertService.alertFail('Debe elegir un sabor',false,900)
+    this.alertService.alertFail('Debe elegir un sabor',false,2000)
     return;
   }
 
-  console.log("this.codigoLineaSabor : ",this.codigoLineaSabor)
-
   if(this.codigoLineaSabor == '' || this.codigoLineaSabor == undefined)
   { 
-    this.alertService.alertFail('Debe cargar un codigo',false,900)
+    this.alertService.alertFail('Debe cargar un codigo',false,2000)
     return;
   }
 
   if(this.itemPendiente.length <= 0)
   { 
-    this.alertService.alertFail('Debe cargar sabor/codigo',false,900)
+    this.alertService.alertFail('Debe cargar sabor/codigo',false,2000)
     return;
   }
   
   const checkExistsLineaSabor = this.sabores_cargados.find((sabor_cargado: any) => {
-    return sabor_cargado.IdSabor == this.itemPendiente.IdSabor;
+    return sabor_cargado.id_sabor == this.itemPendiente.IdSabor;
   });
 
 
@@ -287,11 +283,11 @@ agregarLineaSabor() {
   {
     this.sabores_cargados.push(
       {
-        IdSabor: Number(this.itemPendiente.IdSabor),
-        Sabor: this.itemPendiente.Sabor,
-        Producto: this.itemPendiente.Producto,
-        Codigo: this.codigoLineaSabor,
-        PrecioVenta: this.itemPendiente.PrecioVenta,
+        id_sabor: Number(this.itemPendiente.id_sabor),
+        sabor: this.itemPendiente.sabor,
+        producto: this.itemPendiente.producto,
+        codigo: this.codigoLineaSabor,
+        precio_venta: this.itemPendiente.precio_venta,
       }
     );
   
@@ -330,7 +326,7 @@ agregarLineaSabor() {
     
     this.itemPendiente = item;
   }
-
+// ================================
   onChangeSearch(val: any) {
     this.saborBuscado = val;
     // this.cargarSabores();

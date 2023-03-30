@@ -28,7 +28,6 @@ public async altaProducto(req: Request, res: Response) {
     var Moneda = req.body[15].charAt(0);
     var arraySaboresCodigo = req.body[16];
 
-
     if(IdSubCategoria == undefined || IdSubCategoria == 'undefined' || IdSubCategoria == null || IdSubCategoria == 'null')
     { 
         IdSubCategoria = 1; // sin subcategoria
@@ -41,7 +40,7 @@ public async altaProducto(req: Request, res: Response) {
 
     pool.query(`call bsp_alta_producto('${req.params.IdPersona}','${IdCategoria}','${IdSubCategoria}','${IdMarca}','${IdUnidad}','${IdProveedor}','${Producto}',${FechaVencimiento},'${Descripcion}',${StockAlerta},'${Medida}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${PrecioMeli}',${Descuento},'${Moneda}')`, async function(err: any, result: any, fields: any){
         
-        if(err || result[0][0].Mensaje != 'Ok'){
+        if(err || result[0][0].mensaje != 'Ok'){
             logger.error("Error en bsp_alta_producto - productosController " + err);
 
             res.status(404).json({ text: err });
@@ -49,15 +48,14 @@ public async altaProducto(req: Request, res: Response) {
         }
 
         // ==============================
-       if(result[0][0].Mensaje == 'Ok')
+       if(result[0][0].mensaje == 'Ok')
        {
 
             arraySaboresCodigo.forEach(function (value: any) {
-                
 
-                var respuesta = pool.query(`call bsp_alta_sabores_codigo_producto('${result[1][0].pIdProducto}','${value.IdSabor}','${value.Codigo}')`, function(err2: any, result2: any){
+                var respuesta = pool.query(`call bsp_alta_sabores_codigo_producto('${result[1][0].pIdProducto}','${value.id_sabor}','${value.codigo}')`, function(err2: any, result2: any){
                     
-                    if(err2 || result2[0][0].Mensaje != 'Ok'){
+                    if(err2 || result2[0][0].mensaje != 'Ok'){
                         logger.error("Error en bsp_alta_sabores_codigo_producto - productosController " + err);
 
                         return false;
@@ -76,14 +74,14 @@ public async altaProducto(req: Request, res: Response) {
 
                     return res.json({
                         ok: false,
-                        Mensaje: 'Ocurrio un error'
+                        mensaje: 'Ocurrio un error'
                     });
                 }
             });
         }
         // ==============================      
 
-        return res.json({ Mensaje: 'Ok' });
+        return res.json({ mensaje: 'Ok' });
     })
 
 }
@@ -253,11 +251,11 @@ public async publicarProducto(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_publicar_producto('${pIdProducto}')`, function(err: any, result: any){
 
-        if(err || result[0][0].Mensaje !== 'Ok'){
+        if(err || result[0][0].mensaje !== 'Ok'){
             
             return res.status(200).json({
                 ok: false,
-                Mensaje: result[0][0].Mensaje
+                mensaje: result[0][0].mensaje
             });
         }
         
@@ -274,10 +272,10 @@ public async ofertarProducto(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_ofertar_producto('${pIdProducto}')`, function(err: any, result: any){
 
-        if(err || result[0][0].Mensaje !== 'Ok'){
+        if(err || result[0][0].mensaje !== 'Ok'){
             return res.status(200).json({
                 ok: false,
-                Mensaje: result[0][0].Mensaje
+                mensaje: result[0][0].mensaje
             });
         }
         
@@ -293,10 +291,10 @@ public async destacarProducto(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_destacar_producto('${pIdProducto}')`, function(err: any, result: any){
 
-        if(err || result[0][0].Mensaje !== 'Ok'){
+        if(err || result[0][0].mensaje !== 'Ok'){
             return res.status(200).json({
                 ok: false,
-                Mensaje: result[0][0].Mensaje
+                mensaje: result[0][0].mensaje
             });
         }
         
@@ -527,10 +525,10 @@ public async altaPromocion(req: Request, res: Response) {
             return;
         }
 
-        if(result[0][0].Mensaje !== 'Ok'){
+        if(result[0][0].mensaje !== 'Ok'){
             return res.status(200).json({
                 ok: false,
-                Mensaje: result[0][0].Mensaje
+                mensaje: result[0][0].mensaje
             });
         }else{
             logger.error("Error en altaPromocion - productosController");
@@ -551,10 +549,10 @@ public async publicarPromocion(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_publicar_promocion('${pIdPromocion}')`, function(err: any, result: any){
 
-        if(err || result[0][0].Mensaje !== 'Ok'){
+        if(err || result[0][0].mensaje !== 'Ok'){
             return res.status(200).json({
                 ok: false,
-                Mensaje: result[0][0].Mensaje
+                mensaje: result[0][0].mensaje
             });
         }
         
@@ -617,7 +615,7 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
 
     pool.query(`call bsp_alta_transferencia('${pIdUsuario}','${fechaTransferencia}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${totalTransferencia}')`, (err: any, result: any) =>{
 
-       if(err || result[0][0].Mensaje != 'Ok' || result[0][0].Level == 'Error'){
+       if(err || result[0][0].mensaje != 'Ok' || result[0][0].Level == 'Error'){
         logger.error("Error en altaTransferencia - bsp_alta_transferencia - productosController");
 
             callback(err,null);
@@ -634,7 +632,7 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
                 }
             })
            
-            res.status(404).json(result[0][0].Mensaje);
+            res.status(404).json(result[0][0].mensaje);
             return;
        }
        else{ 
@@ -643,7 +641,7 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
             pool.query(`call bsp_alta_linea_transferencia('${result[0][0].pIdTransferencia}','${value.IdProductoSabor}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${value.Cantidad}')`, function (err2: any, result2: any) {
     
     
-                if (err2 || result2[0][0].Mensaje != 'Ok' || result2[0][0].Level == 'Error') {
+                if (err2 || result2[0][0].mensaje != 'Ok' || result2[0][0].Level == 'Error') {
                     logger.error("Error en altaTransferencia - bsp_alta_linea_transferencia - productosController");
 
     
@@ -657,12 +655,12 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
 
                     });
                     
-                    res.status(400).json({Mensaje: 'Error'});
+                    res.status(400).json({mensaje: 'Error'});
                     return;
                 }
                 else
                 {
-                    res.status(200).json({Mensaje: 'Ok'});
+                    res.status(200).json({mensaje: 'Ok'});
                 }
             });
             

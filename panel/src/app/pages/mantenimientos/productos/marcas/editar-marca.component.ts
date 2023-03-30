@@ -48,7 +48,7 @@ editarMarca() {
                   this.alertService.alertSuccess('top-end','Marca actualizada',false,2000);
                   this.router.navigate(['/dashboard/productos/marcas']);
                 } else {
-                  this.alertService.alertFail('Ocurrio un error. ' + resp,false,2000);
+                  this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000)
                 }
                 return;
                },
@@ -67,13 +67,11 @@ cargarDatosFormEditarMarca() {
     .subscribe( {
       next: (resp: any) => {
 
-        console.log("resp es ;",resp)
-      
         if ( (resp != null) && (resp[1][0].mensaje == 'Ok') ) {
           this.marcaData = resp[0][0];
 
-          this.Marca = this.marcaData.Marca;
-          this.Descripcion = this.marcaData.Descripcion;
+          this.Marca = this.marcaData.marca;
+          this.Descripcion = this.marcaData.descripcion;
           
         } else {
           this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);

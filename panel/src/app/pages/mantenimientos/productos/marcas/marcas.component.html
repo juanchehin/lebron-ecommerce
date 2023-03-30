@@ -13,8 +13,10 @@
                                 search
                                 </i>
                             </button>
-                    </div>
-                    <div class="col-sm-2">
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
                         <h3 class="card-title">Cantidad marcas ( <small> {{ totalMarcas }} </small> )</h3>
                     </div>
                     <div class="col-sm-2">
@@ -36,11 +38,11 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let marca of marcas">
-                            <td>{{ marca.IdMarca }}</td>
-                            <td>{{ marca.Marca }}</td>
+                            <td>{{ marca.id_marca }}</td>
+                            <td>{{ marca.marca }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/marca',marca.IdMarca]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaMarca(marca.IdMarca)">Eliminar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/marca',marca.id_marca]">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaMarca(marca.id_marca)">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>

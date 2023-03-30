@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../database';
+const logger = require("../utils/logger").logger;
 
 class MarcasController {
 // ==================================================
@@ -11,6 +12,7 @@ public async listarMarcasPaginado(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_listar_marcas_paginado('${desde}')`, function(err: any, result: any, fields: any){
         if(err){
+            logger.error("Error en bsp_listar_marcas_paginado - MarcasController ");
             res.status(404).json(err);
             return;
         }
@@ -24,6 +26,7 @@ public async listarMarcas(req: Request, res: Response): Promise<void> {
     
     pool.query(`call bsp_dame_marcas_home()`, function(err: any, result: any, fields: any){
         if(err){
+            logger.error("Error en bsp_dame_marcas_home - MarcasController ");
             res.status(404).json(err);
             return;
         }
@@ -42,6 +45,8 @@ public async altaMarca(req: Request, res: Response) {
     pool.query(`call bsp_alta_marca('${req.params.IdPersona}','${pMarca}','${pDescripcion}')`, async function(err: any, result: any, fields: any){
 
         if(err || result[0][0].Mensaje !== 'Ok'){
+            logger.error("Error en bsp_alta_marca - MarcasController ");
+
             return res.status(200).json({
                 ok: false,
                 Mensaje: result[0][0].Mensaje
@@ -63,6 +68,8 @@ public async cargarDatosFormEditarMarca(req: Request, res: Response): Promise<vo
 
     pool.query(`call bsp_dame_datos_form_editar_marca('${IdPersona}','${pIdMarca}')`, function(err: any, result: any){
         if(err){
+            logger.error("Error en bsp_dame_datos_form_editar_marca - MarcasController ");
+
             res.status(400).json(err);
             return;
         }
@@ -88,6 +95,8 @@ public async buscarMarcasPaginado(req: Request, res: Response): Promise<void> {
     pool.query(`call bsp_buscar_marcas_paginado('${req.params.IdPersona}','${pParametroBusqueda}','${desde}')`, function(err: any, result: any){
         
         if(err){
+            logger.error("Error en bsp_buscar_marcas_paginado - MarcasController ");
+
             res.status(400).json(err);
             return;
         }
@@ -106,6 +115,8 @@ public async bajaMarca(req: Request, res: Response): Promise<void> {
     pool.query(`call bsp_baja_marca('${pIdMarca}')`, function(err: any, result: any){
 
         if(err || result[0][0].Mensaje !== 'Ok'){
+            logger.error("Error en bsp_baja_marca - MarcasController ");
+
             return res.status(200).json({
                 ok: false,
                 Mensaje: result[0][0].Mensaje
@@ -130,14 +141,16 @@ public async editarMarca(req: Request, res: Response) {
 
     pool.query(`call bsp_editar_marca('${pIdMarca}','${pMarca}','${pDescripcion}')`, function(err: any, result: any){
         
-        if(err || result.Mensaje !== 'Ok'){
+        if(err || result[0][0].mensaje !== 'Ok'){
+            logger.error("Error en bsp_editar_marca - MarcasController ");
+
             return res.json({
                 ok: false,
-                Mensaje: result[0][0].Mensaje
+                Mensaje: result[0][0].mensaje
             });
         }
 
-        return res.json({ Mensaje: 'Ok' });
+        return res.json({ mensaje: 'Ok' });
     })
 
 }
@@ -153,6 +166,8 @@ public async dameProductosMarca(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_dame_productos_marca_id('${pIdMarca}','${desde}')`, function(err: any, result: any, fields: any){
         if(err){
+            logger.error("Error en bsp_dame_productos_marca_id - MarcasController ");
+
             res.status(404).json(err);
             return;
         }

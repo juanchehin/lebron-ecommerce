@@ -52,9 +52,9 @@ buscarProducto() {
                     return;
                   }
   
-                  if ( resp[1][0].mensaje == 'Ok') {
+                  if ( resp[2][0].mensaje == 'Ok') {
                     
-                    this.totalProductos = resp[2][0].cantProductosBuscados;
+                    this.totalProductos = resp[1][0].cantProductosBuscados;
                     this.productos = resp[0];
                   } else {
                     this.alertaService.alertFail('Ocurrio un error',false,2000);

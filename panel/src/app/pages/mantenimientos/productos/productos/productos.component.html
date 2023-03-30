@@ -17,8 +17,8 @@
                     <div class="col-sm-4 form-group">
                         <label>Sucursal : </label>
                         <select tabindex="4" [(ngModel)]="IdSucursal" name="IdSucursal" class="form-control">
-                                <option *ngFor="let sucursal of sucursales" [value]="sucursal.IdSucursal">
-                                    {{sucursal.Sucursal}}
+                                <option *ngFor="let sucursal of sucursales" [value]="sucursal.id_sucursal">
+                                    {{sucursal.sucursal}}
                                 </option>
                             </select>
                     </div>
@@ -58,18 +58,18 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let producto of productos">
-                            <td>{{ producto.Codigo }}</td>
-                            <td>{{ producto.Producto }}</td>
-                            <td>{{ producto.Sabor }}</td>
-                            <td>{{ producto.Stock }}</td>
-                            <td>${{ producto.PrecioVenta }}</td>
-                            <td>${{ producto.PrecioMayorista }}</td>
-                            <td>{{ producto.Descuento }}</td>
+                            <td>{{ producto.codigo }}</td>
+                            <td>{{ producto.producto }}</td>
+                            <td>{{ producto.sabor }}</td>
+                            <td>{{ producto.stock }}</td>
+                            <td>${{ producto.precio_venta }}</td>
+                            <td>${{ producto.precio_mayorista }}</td>
+                            <td>{{ producto.descuento }}</td>
                             <td>
                                 <div class="col-sm-3">
                                     <div class="switch">
                                         <label>
-                                        <input type="checkbox" [attr.disabled]="(producto.Stock <= 0) ? true : null" [checked]="producto.Publicado" (click)="publicarProducto(producto.IdProducto)"><span class="lever switch-col-light-blue"></span></label>
+                                        <input type="checkbox" [attr.disabled]="(producto.stock <= 0) ? true : null" [checked]="producto.publicado" (click)="publicarProducto(producto.id_producto)"><span class="lever switch-col-light-blue"></span></label>
                                     </div>
                                 </div>
                             </td>
@@ -77,7 +77,7 @@
                                 <div class="col-sm-3">
                                     <div class="switch">
                                         <label>
-                                        <input type="checkbox" [checked]="producto.Destacado" (click)="destacarProducto(producto.IdProducto)"><span class="lever switch-col-cyan"></span></label>
+                                        <input type="checkbox" [checked]="producto.destacado" (click)="destacarProducto(producto.id_producto)"><span class="lever switch-col-cyan"></span></label>
                                     </div>
                                 </div>
                             </td>
@@ -85,16 +85,16 @@
                                 <div class="col-sm-3">
                                     <div class="switch">
                                         <label>
-                                        <input type="checkbox" [checked]="producto.Oferta" (click)="ofertarProducto(producto.IdProducto)"><span class="lever switch-col-cyan"></span></label>
+                                        <input type="checkbox" [checked]="producto.oferta" (click)="ofertarProducto(producto.id_producto)"><span class="lever switch-col-cyan"></span></label>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <button class="btn btn-primary" type="button">
-                                    <i [routerLink]="['/dashboard/productos/imagenes',producto.IdProducto]" class="fa fa-camera" aria-hidden="true"></i>
+                                    <i [routerLink]="['/dashboard/productos/imagenes',producto.id_producto]" class="fa fa-camera" aria-hidden="true"></i>
                                 </button>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/producto',producto.IdProducto]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaProducto(producto.IdProducto)">Eliminar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/producto',producto.id_producto]">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaProducto(producto.id_producto)">Eliminar</button>
                             </td>
                         </tr>
 
@@ -106,8 +106,8 @@
 
     </div>
     <div role="group" aria-label="Basic example" style="text-align: right;">
-        <button (click)="cambiarDesde(-10) " type="button" class="btn btn-default-outline">Anteriores</button>
-        <button (click)="cambiarDesde(10) " type="button" class="btn btn-default-outline">Siguientes</button>
+        <button (click)="cambiarDesde(-15) " type="button" class="btn btn-default-outline">Anteriores</button>
+        <button (click)="cambiarDesde(15) " type="button" class="btn btn-default-outline">Siguientes</button>
     </div>
     <!--.container-fluid-->
 </div>

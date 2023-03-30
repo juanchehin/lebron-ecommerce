@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-sm-4 form-group">
                         <label>Usuario :  </label>
-                        <input (keyup.enter)="buscarUsuario( )" #input type="text" class="form-control" placeholder="Buscar usuario..." id="buscarUsuario">
+                        <input (keyup.enter)="buscarUsuario( )" #inputUsuarioBuscado type="text" class="form-control" placeholder="Buscar usuario..." id="buscarUsuario">
                     </div>
                     <div class="col-sm-1 form-group">
                         <button (click)="buscarUsuario( )" class="btn btn-primary" style="margin-top: 26px;">
@@ -14,7 +14,11 @@
                                 </i>
                             </button>
                     </div>
-                                   
+                    <div class="col-sm-1 form-group" style="margin-top: 25px;">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                            refresh
+                            </span></button>
+                    </div>       
                 </div>
                 <div class="row">
                     <div class="col-sm-4">

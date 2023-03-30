@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import Swal from 'sweetalert2';
@@ -20,6 +20,8 @@ export class UsuariosComponent implements OnInit {
   totalUsuarios = 0;
   cargando = true;
 
+  @ViewChild('inputUsuarioBuscado') inputUsuarioBuscado!: ElementRef;
+
   constructor(
     public usuariosService: UsuariosService,
     private alertService: AlertService
@@ -27,24 +29,7 @@ export class UsuariosComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.cargarUsuarios();
-  }
-
-// ==================================================
-// Carga
-// ==================================================
-
-  cargarUsuarios() {
-
-    this.usuariosService.listarUsuariosPaginado( this.desde  )
-               .subscribe( (resp: any) => {
-
-                this.totalUsuarios = resp[1][0].cantUsuarios;
-
-                this.usuarios = resp[0];
-
-              });
-
+    this.buscarUsuario();
   }
 
 // ==================================================
@@ -101,7 +86,7 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  this.cargarUsuarios();
+  this.buscarUsuario();
 
 }
 
@@ -128,7 +113,7 @@ bajaUsuario(IdUsuario: string) {
   
           if(resp[0][0] != undefined && resp[0][0].mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','usuario dado de baja',false,900);
-            this.cargarUsuarios();
+            this.buscarUsuario();
             
           } else {
             this.alertService.alertFail('Ocurrio un error. ',false,1400);
@@ -142,6 +127,17 @@ bajaUsuario(IdUsuario: string) {
 
   
   }
+// ==================================================
+//    Funcion para recargar el listado
+// ==================================================
 
+refrescar() {
+  // Reseteo 'desde' a cero
+  this.inputUsuarioBuscado.nativeElement.value = '';
+  
+  this.desde = 0;
+  this.buscarUsuario();
+
+}
 
 }

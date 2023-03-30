@@ -21,6 +21,32 @@ public async listarUsuariosPaginado(req: Request, res: Response): Promise<void> 
 
 
 // ==================================================
+//   Listado de usuarios en panel
+// ==================================================
+public async buscarUsuarioPaginado(req: Request, res: Response): Promise<void> {
+
+    var desde = req.params.desde || 0;
+    desde  = Number(desde);
+    var pParametroBusqueda = req.params.pParametroBusqueda || '';
+
+    if(pParametroBusqueda == null || pParametroBusqueda == 'null' || pParametroBusqueda == '-' || pParametroBusqueda == '')
+    {
+        pParametroBusqueda = '-';
+    }
+
+    pool.query(`call bsp_buscar_usuarios_paginado('${req.params.IdPersona}','${pParametroBusqueda}','${desde}')`, function(err: any, result: any){
+        
+        if(err){
+            logger.error("Error en bsp_buscar_usuarios_paginado - UsuariosController");
+
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
+// ==================================================
 //        Inserta un usuario
 // ==================================================
 public async altaUsuario(req: Request, res: Response) {

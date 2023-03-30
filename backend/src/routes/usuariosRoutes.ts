@@ -19,6 +19,7 @@ class UsuariosRoutes {
         this.router.get('/baja/:IdPersona/:pIdUsuario',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], usuariosController.bajaUsuario);
         this.router.get('/editar/datos-formulario/:IdUsuario/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], usuariosController.cargarDatosFormEditarUsuario);
         this.router.post('/editar/:IdUsuario/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], usuariosController.editarUsuario);
+        this.router.get('/buscar/:pDesde/:pParametroBusqueda/:IdPersona',  [mdAutenticacion.verificaToken],usuariosController.buscarUsuarioPaginado); 
 
     }
 

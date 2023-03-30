@@ -28,9 +28,9 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let proveedor of proveedores">
-                            <td>{{ proveedor.IdProveedor }}</td>
-                            <td>{{ proveedor.Proveedor }}</td>
-                            <td>{{ proveedor.CUIL }}</td>
+                            <td>{{ proveedor.id_proveedor }}</td>
+                            <td>{{ proveedor.proveedor }}</td>
+                            <td>{{ proveedor.cuil }}</td>
                             <td>
                                 <button [routerLink]="['/dashboard/proveedor',proveedor.IdProveedor]" class="btn btn-inline" type="button">Editar</button>
                                 <button class="btn btn-inline btn-danger" type="button" (click)="bajaProveedor(proveedor.IdProveedor)">Eliminar</button>

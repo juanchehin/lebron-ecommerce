@@ -47,6 +47,42 @@ export class UsuariosComponent implements OnInit {
 
   }
 
+// ==================================================
+// Carga
+// ==================================================
+
+buscarUsuario() {
+
+  const inputElement: HTMLInputElement = document.getElementById('buscarUsuario') as HTMLInputElement;
+  const usuarioBuscado: any = inputElement.value || '-';
+
+  this.usuariosService.buscarUsuariosPaginado( this.desde , usuarioBuscado  )
+             .subscribe( {
+              next: (resp: any) => {
+
+                if(resp[0].length <= 0)
+                { 
+                  this.usuarios = [];
+                  this.totalUsuarios = 0;
+                  
+                  return;
+                }
+
+                if ( resp[2][0].mensaje == 'Ok') {
+                  
+                  this.totalUsuarios = resp[1][0].cantUsuariosBuscados;
+                  this.usuarios = resp[0];
+                } else {
+                  this.alertService.alertFail('Ocurrio un error',false,2000);
+                }
+                return;
+               },
+              error: () => { 
+                this.alertService.alertFail('Ocurrio un error',false,2000)
+              }
+            });
+
+}
 
 // ==================================================
 //        Cambio de valor

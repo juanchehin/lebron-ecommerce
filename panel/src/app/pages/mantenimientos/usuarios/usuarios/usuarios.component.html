@@ -3,17 +3,31 @@
         <section class="box-typical">
             <div class="table-responsive">
                 <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Usuario :  </label>
+                        <input (keyup.enter)="buscarUsuario( )" #input type="text" class="form-control" placeholder="Buscar usuario..." id="buscarUsuario">
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <button (click)="buscarUsuario( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="material-icons">
+                                search
+                                </i>
+                            </button>
+                    </div>
+                                   
+                </div>
+                <div class="row">
                     <div class="col-sm-4">
                         <h3 class="card-title">Cantidad usuarios ( <small> {{ totalUsuarios }} </small> )</h3>
                     </div>
-                    <div class="col-4">
+                    <div class="col-sm-4">
                     </div>
                     <div class="col-sm-4">
                         <button [routerLink]="['/dashboard/usuarios/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                           <i class="fa fa-plus"></i> 
                           Nuevo Usuario
                         </button>
-                    </div>
+                    </div>     
                 </div>
                 <table id="table-edit" class="table table-bordered table-hover">
                     <thead>

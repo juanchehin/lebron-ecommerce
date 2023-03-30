@@ -50,6 +50,16 @@ export class UsuariosService {
     return this.http.get( url , this.headers);
   }
 
+// ==================================================
+//
+// ==================================================
+buscarUsuariosPaginado(desde: any,pParametroBusqueda: any){
+
+  let url = URL_SERVICIOS + '/usuarios/buscar/' + desde + '/' + pParametroBusqueda + '/' + this.IdPersona;
+
+  return this.http.get( url, this.headers );
+}  
+
   // ==================================================
 //        
 // ==================================================

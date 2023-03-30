@@ -42,12 +42,12 @@ export class CategoriaComponent implements OnInit {
         return;
       }
 
-      const cliente = new Array(
+      const categoria = new Array(
         this.forma.value.Categoria,
         this.forma.value.Descripcion
       );
 
-      this.categoriaService.altaCategoria( cliente )
+      this.categoriaService.altaCategoria( categoria )
                 .subscribe( (resp: any) => {
                   
                   if ( resp[0][0].mensaje == 'Ok') {

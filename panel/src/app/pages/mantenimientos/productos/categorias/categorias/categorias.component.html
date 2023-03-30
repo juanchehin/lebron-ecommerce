@@ -20,6 +20,8 @@
                           Nueva Categoria
                         </button>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-sm-4">
                         <h3 class="card-title">Cantidad categorias ( <small> {{ totalCategorias }} </small> )</h3>
                     </div>
@@ -37,12 +39,12 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let categoria of categorias">
-                            <td>{{ categoria.IdCategoria }}</td>
+                            <td>{{ categoria.id_categoria }}</td>
                             <td>{{ categoria.created_at }}</td>
-                            <td>{{ categoria.Categoria }}</td>
+                            <td>{{ categoria.categoria }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/categoria',categoria.IdCategoria]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaCategoria(categoria.IdCategoria)">Eliminar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/categoria',categoria.id_categoria]">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaCategoria(categoria.id_categoria)">Eliminar</button>
                             </td>
                         </tr>
 

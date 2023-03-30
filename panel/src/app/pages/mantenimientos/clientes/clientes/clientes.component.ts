@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { ClientesService } from 'src/app/services/clientes.service';
 import Swal from 'sweetalert2';
@@ -18,6 +18,8 @@ export class ClientesComponent implements OnInit {
 
   totalClientes = 0;
   cargando = true;
+
+  @ViewChild('inputClienteBuscado') inputClienteBuscado!: ElementRef;
 
   constructor(
     public clientesService: ClientesService,
@@ -115,6 +117,19 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
+  this.buscarClientes();
+
+}
+
+// ==================================================
+//    Funcion para recargar el listado
+// ==================================================
+
+refrescar() {
+  // Reseteo 'desde' a cero
+  this.inputClienteBuscado.nativeElement.value = '';
+  
+  this.desde = 0;
   this.buscarClientes();
 
 }

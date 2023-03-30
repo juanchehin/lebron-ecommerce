@@ -4,8 +4,8 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm-4 form-group">
-                        <label>Cliente:  </label>
-                        <input (keyup.enter)="buscarClientes( )" #input type="text" class="form-control" placeholder="Buscar..." id="clienteBuscado">
+                        <label>Cliente :  </label>
+                        <input (keyup.enter)="buscarClientes( )" #inputClienteBuscado type="text" class="form-control" placeholder="Buscar cliente..." id="clienteBuscado">
                     </div>
                     <div class="col-sm-1 form-group">
                         <button (click)="buscarClientes( )" class="btn btn-primary" style="margin-top: 26px;">
@@ -14,15 +14,24 @@
                                 </i>
                             </button>
                     </div>
-                    <div class="col-sm-2">
-                        <button [routerLink]="['/dashboard/clientes/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
-                          <i class="fa fa-plus"></i> 
-                          Nuevo Cliente
-                        </button>
-                    </div>
+                    <div class="col-sm-1 form-group" style="margin-top: 25px;">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                            refresh
+                            </span></button>
+                    </div>       
+                </div>
+                <div class="row">
                     <div class="col-sm-4">
                         <h3 class="card-title">Cantidad clientes ( <small> {{ totalClientes }} </small> )</h3>
                     </div>
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <button [routerLink]="['/dashboard/clientes/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                          <i class="fa fa-plus"></i> 
+                          Nuevo Cliente
+                        </button>
+                    </div>     
                 </div>
                 <table id="table-edit" class="table table-bordered table-hover">
                     <thead>
@@ -40,12 +49,12 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let cliente of clientes">
-                            <td>{{ cliente.IdPersona }}</td>
-                            <td>{{ cliente.Apellidos }}</td>
-                            <td>{{ cliente.Nombres }}</td>
-                            <td>{{ cliente.DNI }}</td>
-                            <td>{{ cliente.Telefono }}</td>
-                            <td>{{ cliente.Email }}</td>
+                            <td>{{ cliente.id_persona }}</td>
+                            <td>{{ cliente.apellidos }}</td>
+                            <td>{{ cliente.nombres }}</td>
+                            <td>{{ cliente.dni }}</td>
+                            <td>{{ cliente.telefono }}</td>
+                            <td>{{ cliente.email }}</td>
                             <td>
                                 <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/cliente',cliente.IdPersona]">Editar</button>
                                 <button class="btn btn-inline btn-danger" type="button" (click)="bajaCliente(cliente.IdPersona)">Eliminar</button>

@@ -3,17 +3,35 @@
         <section class="box-typical">
             <div class="table-responsive">
                 <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Proveedor :  </label>
+                        <input (keyup.enter)="buscarProveedor( )" #inputProveedorBuscado  type="text" class="form-control" placeholder="Buscar proveedor..." id="buscarProveedor">
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <button (click)="buscarProveedor( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="material-icons">
+                                search
+                                </i>
+                            </button>
+                    </div>
+                    <div class="col-sm-1 form-group" style="margin-top: 25px;">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                            refresh
+                            </span></button>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-sm-4">
                         <h3 class="card-title">Cantidad proveedores ( <small> {{ totalProveedores }} </small> )</h3>
                     </div>
-                    <div class="col-4">
+                    <div class="col-sm-4">
                     </div>
                     <div class="col-sm-4">
                         <button [routerLink]="['/dashboard/proveedores/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                           <i class="fa fa-plus"></i> 
                           Nuevo Proveedor
                         </button>
-                    </div>
+                    </div>     
                 </div>
                 <table id="table-edit" class="table table-bordered table-hover">
                     <thead>

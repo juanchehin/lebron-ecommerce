@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 import Swal from 'sweetalert2';
@@ -14,6 +14,8 @@ export class ListarProveedoresComponent implements OnInit {
   proveedores!: any;
   totalProveedores = 0;
 
+  @ViewChild('inputProveedorBuscado') inputProveedorBuscado!: ElementRef;
+
   constructor(
     public proveedoresService: ProveedoresService,
     private alertService: AlertService
@@ -21,25 +23,45 @@ export class ListarProveedoresComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.cargarProveedores();
+    this.buscarProveedor();
   }
 
 // ==================================================
 // Carga
 // ==================================================
 
-cargarProveedores() {
+buscarProveedor() {
 
-    this.proveedoresService.listarProveedoresPaginado( this.desde  )
-               .subscribe( (resp: any) => {
+  const inputElement: HTMLInputElement = document.getElementById('buscarProveedor') as HTMLInputElement;
+  const proveedorBuscado: any = inputElement.value || '-';
 
-                this.totalProveedores = resp[1][0].cantProveedores;
+  this.proveedoresService.buscarProveedoresPaginado( this.desde , proveedorBuscado  )
+             .subscribe( {
+              next: (resp: any) => {
 
-                this.proveedores = resp[0];
+                if(resp[0].length <= 0)
+                { 
+                  this.proveedores = [];
+                  this.totalProveedores = 0;
+                  
+                  return;
+                }
 
-              });
+                if ( resp[2][0].mensaje == 'Ok') {
+                  
+                  this.totalProveedores = resp[1][0].cantProveedores;
+                  this.proveedores = resp[0];
+                } else {
+                  this.alertService.alertFail('Ocurrio un error',false,2000);
+                }
+                return;
+               },
+              error: () => { 
+                this.alertService.alertFail('Ocurrio un error',false,2000)
+              }
+            });
 
-  }
+}
 
 // ==================================================
 //        Cambio de valor
@@ -58,7 +80,7 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  this.cargarProveedores();
+  this.buscarProveedor();
 
 }
 
@@ -85,7 +107,7 @@ bajaProveedor(IdProveedor: string) {
   
           if(resp[0][0].mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','Proveedor dado de baja',false,900);
-            this.cargarProveedores();
+            this.buscarProveedor();
             
           } else {
             this.alertService.alertFail(resp[0][0].mensaje,false,1200);
@@ -100,4 +122,16 @@ bajaProveedor(IdProveedor: string) {
   
   }
 
+// ==================================================
+//    Funcion para recargar el listado
+// ==================================================
+
+refrescar() {
+  // Reseteo 'desde' a cero
+  this.inputProveedorBuscado.nativeElement.value = '';
+  
+  this.desde = 0;
+  this.buscarProveedor();
+
+}
 }

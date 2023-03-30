@@ -23,6 +23,33 @@ public async listarProveedoresPaginado(req: Request, res: Response): Promise<voi
 }
 
 // ==================================================
+//   Listado de usuarios en panel
+// ==================================================
+public async buscarProveedoresPaginado(req: Request, res: Response): Promise<void> {
+
+    var desde = req.params.desde || 0;
+    desde  = Number(desde);
+    var pParametroBusqueda = req.params.pParametroBusqueda || '';
+
+    if(pParametroBusqueda == null || pParametroBusqueda == 'null' || pParametroBusqueda == '-' || pParametroBusqueda == '')
+    {
+        pParametroBusqueda = '-';
+    }
+
+    pool.query(`call bsp_buscar_proveedores_paginado('${req.params.IdPersona}','${pParametroBusqueda}','${desde}')`, function(err: any, result: any){
+        
+        if(err){
+            logger.error("Error en bsp_buscar_proveedores_paginado - ProveedoresController");
+
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
+
+// ==================================================
 //        Lista 
 // ==================================================
 public async listarTodosProveedores(req: Request, res: Response): Promise<void> {

@@ -43,12 +43,12 @@ cargarDatosFormEditarCategoria() {
 
                   this.categorias = resp[0];
 
-                  this.IdCategoria = resp[1][0].IdCategoria;
-                  this.SubCategoria = resp[1][0].SubCategoria;
-                  this.Descripcion = resp[1][0].Descripcion;
+                  this.IdCategoria = resp[1][0].id_categoria;
+                  this.SubCategoria = resp[1][0].subcategoria;
+                  this.Descripcion = resp[1][0].descripcion;
                   
                 } else {
-                  this.alertService.alertFail('Ocurrio un error. ' + resp,false,2000);
+                  this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
                 }
                 return;
                },
@@ -72,7 +72,7 @@ editarSubCategoria() {
                 .subscribe( {
                   next: (resp: any) => {
                   
-                    if ( (resp != null) && (resp.mensaje == 'Ok') ) {
+                    if ( (resp != null) && (resp[0][0].mensaje == 'Ok') ) {
 
                       this.alertService.alertSuccess('top-end','SubCategoria actualizada',false,2000);
                       this.router.navigate(['/dashboard/productos/subcategorias']);

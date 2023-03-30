@@ -38,13 +38,13 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let subcategoria of subcategorias">
-                            <td>{{ subcategoria.IdSubcategoria }}</td>
-                            <td>{{ subcategoria.Fecha }}</td>
-                            <td>{{ subcategoria.SubCategoria }}</td>
-                            <td>{{ subcategoria.Categoria }}</td>
+                            <td>{{ subcategoria.id_subcategoria }}</td>
+                            <td>{{ subcategoria.fecha }}</td>
+                            <td>{{ subcategoria.subcategoria }}</td>
+                            <td>{{ subcategoria.categoria }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/subcategoria',subcategoria.IdSubcategoria]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaSubCategoria(subcategoria.IdSubcategoria)">Eliminar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/subcategoria',subcategoria.id_subcategoria]">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaSubCategoria(subcategoria.id_subcategoria)">Eliminar</button>
                             </td>
                         </tr>
 

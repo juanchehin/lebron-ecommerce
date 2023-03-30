@@ -146,8 +146,6 @@ public async listarImagenesProductos(req: Request, res: Response): Promise<void>
 public async eliminarImagen(req: Request, res: Response): Promise<void> {
     var IdImagen = req.params.IdImagen;
 
-    console.log("IdImagen : ",IdImagen)
-
     pool.query(`call bsp_eliminar_imagen('${IdImagen}')`, function(err: any, result: any, fields: any){
         if(err){
             logger.error("Error bsp_eliminar_imagen - uploadController " + err);
@@ -158,8 +156,6 @@ public async eliminarImagen(req: Request, res: Response): Promise<void> {
 
         var archivo = result[0][0].Archivo;
         var tipo = result[0][0].Tipo;
-
-        console.log("tipo ",tipo)
 
         switch (tipo) {
             case 'P':

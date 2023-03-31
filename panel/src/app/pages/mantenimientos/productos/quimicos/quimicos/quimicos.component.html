@@ -45,15 +45,15 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let quimico of quimicos">
-                            <td>{{ quimico.Codigo }}</td>
-                            <td>{{ quimico.Producto }}</td>
-                            <td>{{ quimico.Stock }}</td>
-                            <td>${{ quimico.PrecioVenta }}</td>
-                            <td>${{ quimico.PrecioMayorista }}</td>
-                            <td>{{ quimico.Moneda }}</td>
+                            <td>{{ quimico.codigo }}</td>
+                            <td>{{ quimico.producto }}</td>
+                            <td>{{ quimico.stock }}</td>
+                            <td>${{ quimico.precio_venta }}</td>
+                            <td>${{ quimico.precio_mayorista }}</td>
+                            <td>{{ quimico.moneda }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/quimico',quimico.IdProducto]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaQuimico(quimico.IdProducto)">Eliminar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/quimico',quimico.id_producto]">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaQuimico(quimico.id_producto)">Eliminar</button>
                             </td>
                         </tr>
 

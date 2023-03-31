@@ -51,7 +51,7 @@ buscarQuimico() {
   
                   if ( resp[2][0].mensaje == 'Ok') {
                     
-                    this.totalQuimicos = resp[1][0].cantProductosBuscados;
+                    this.totalQuimicos = resp[1][0].cantQuimicosBuscados;
                     this.quimicos = resp[0];
                   } else {
                     this.alertaService.alertFail('Ocurrio un error',false,2000);

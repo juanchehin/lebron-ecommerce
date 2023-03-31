@@ -29,6 +29,7 @@ import { QuimicosModule } from './quimicos/quimicos.module';
 import { PromocionComponent } from './promociones/promocion/promocion.component';
 import { EditarPromocionComponent } from './promociones/editar-promocion/editar-promocion.component';
 import { PromocionesComponent } from './promociones/listar-promocion/promociones.component';
+import { EditarUnidadComponent } from './unidades/editar-unidad.component';
 
 @NgModule({
   imports: [
@@ -55,8 +56,11 @@ import { PromocionesComponent } from './promociones/listar-promocion/promociones
     SaboresComponent,
     SaborComponent,
     EditarSaborComponent,
+    //
     UnidadesComponent,
     UnidadComponent,
+    EditarUnidadComponent,
+    //
     ImagenesProductoComponent,
     NuevaImagenProductoComponent,
     //

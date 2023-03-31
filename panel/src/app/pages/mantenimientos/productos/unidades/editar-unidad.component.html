@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 form-group">
+            <label>Unidad : </label>
+            <input [(ngModel)]="unidad" name="unidad" required type="text" placeholder="Unidad..." class="form-control">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 form-group">
+            <label>Nombre corto : </label>
+            <textarea name="nombre_corto" type="textarea" [(ngModel)]="nombre_corto" placeholder="Nombre corto..." rows="3" class="form-control"></textarea>
+        </div>
+    </div>
+    <br>
+    <button (click)="editarUnidad()" class="btn btn-info btn-lg btn-block text-uppercase">Guardar cambios</button>
+    <br>
+</div>

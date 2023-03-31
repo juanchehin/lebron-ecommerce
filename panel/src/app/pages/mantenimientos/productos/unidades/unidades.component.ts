@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductosService } from 'src/app/services/productos.service';
+import { AlertService } from 'src/app/services/alert.service';
+import { UnidadesService } from 'src/app/services/unidades.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-unidades',
@@ -18,7 +20,8 @@ export class UnidadesComponent implements OnInit {
   totalUnidades = 0;
 
   constructor(
-    public productosService: ProductosService
+    public unidadesService: UnidadesService,
+    public alertService: AlertService
   ) {
    }
 
@@ -32,14 +35,68 @@ export class UnidadesComponent implements OnInit {
 
 cargarUnidades() {
 
-    this.productosService.listarUnidadesPaginado( this.desde  )
-               .subscribe( (resp: any) => {
-                
-                this.totalUnidades = resp[1][0].cantUnidades;
+    this.unidadesService.listarUnidadesPaginado( this.desde  )
+    .subscribe( {
+     next: (resp: any) => { 
+      
+       if(resp[0].length <= 0)
+       { 
+         this.unidades = [];
+         this.totalUnidades = 0;
+         return;
+       }
 
-                this.unidades = resp[0];
-              });
+       if ( resp[2][0].mensaje == 'Ok') {
+         
+         this.totalUnidades = resp[1][0].cantUnidades;
+         this.unidades = resp[0];
+         
+       } else {
+         this.alertService.alertFail('Ocurrio un error',false,2000);
+       }
+       return;
+      },
+     error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
+   });
 
+  }
+
+// ==================================================
+// 
+// ==================================================
+
+bajaUnidad(IdUnidad: string) {
+
+  Swal.fire({
+    title: '¿Desea eliminar la unidad?',
+    text: "Eliminacion de unidad",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si'
+  }).then((result: any) => {
+    if (result.isConfirmed) {
+      this.unidadesService.bajaUnidad( IdUnidad )
+      .subscribe({
+        next: (resp: any) => {
+  
+          if(resp[0][0].mensaje == 'Ok') {
+            this.alertService.alertSuccess('top-end','Unidad dada de baja',false,900);
+            this.desde = 0;
+            this.cargarUnidades();
+            
+          } else {
+            this.alertService.alertFail(resp[0][0].mensaje,false,1200);
+            
+          }
+         },
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
+      });
+    }
+  })
+
+  
   }
 
 
@@ -63,6 +120,4 @@ cambiarDesde( valor: number ) {
   this.cargarUnidades();
 
 }
-
-
 }

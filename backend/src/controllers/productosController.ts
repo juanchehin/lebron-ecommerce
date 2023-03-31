@@ -466,6 +466,76 @@ public async altaUnidad(req: Request, res: Response, callback: any) {
     })
    
 }
+
+// ==================================================
+//        Edita una 
+// ==================================================
+public async editarUnidad(req: Request, res: Response) {
+
+    var pIdUnidad = req.body[0];
+    var pUnidad = req.body[1];
+    var pNombreCorto = req.body[2];
+
+    var pNombreCorto =  pNombreCorto.replace(/'/g, "");
+
+    pool.query(`call bsp_editar_unidad('${pIdUnidad}','${pUnidad}','${pNombreCorto}')`, function(err: any, result: any){
+        
+        if(err || result.mensaje !== 'Ok'){
+            logger.error("Error en editarUnidad - bsp_editar_unidad - productosController");
+
+            return res.json({
+                ok: false,
+                mensaje: result[0][0].mensaje
+            });
+        }
+
+        return res.json({ mensaje: 'Ok' });
+    })
+
+}
+
+// ==================================================
+//   Cargo 
+// ==================================================
+public async cargarDatosFormEditarUnidad(req: Request, res: Response): Promise<void> {
+
+    const { IdPersona } = req.params;
+    const { IdUnidad } = req.params;
+
+    pool.query(`call bsp_dame_datos_form_editar_unidad('${IdPersona}','${IdUnidad}')`, function(err: any, result: any){
+        if(err){
+            logger.error("Error en bsp_dame_datos_form_editar_unidad - ProductosController ");
+
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
+
+// ==================================================
+//      
+// ==================================================
+public async bajaUnidad(req: Request, res: Response): Promise<void> {
+
+    var IdUnidad = req.params.IdUnidad;
+
+    pool.query(`call bsp_baja_unidad('${IdUnidad}')`, function(err: any, result: any){
+
+        if(err || result[0][0].mensaje !== 'Ok'){
+            logger.error("Error en bsp_baja_unidad - ProductosController ");
+
+            return res.status(200).json({
+                ok: false,
+                Mensaje: result[0][0].Mensaje
+            });
+        }
+        
+        res.status(200).json(result);
+    })
+}
+
 // ==================================================
 //       ***** Promociones *****
 // ==================================================
@@ -696,6 +766,7 @@ public async buscarProductoAutoCompleteTransferencia(req: Request, res: Response
         res.status(200).json(result);
     })
 }
+
 
 }
 

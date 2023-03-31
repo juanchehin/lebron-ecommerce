@@ -23,6 +23,7 @@ import { LoginGuardGuard } from 'src/app/guards/login-guard.guard';
 import { VerificaTokenGuard } from 'src/app/guards/verifica-token.guard';
 import { PromocionesComponent } from './promociones/listar-promocion/promociones.component';
 import { PromocionComponent } from './promociones/promocion/promocion.component';
+import { EditarUnidadComponent } from './unidades/editar-unidad.component';
 
 
 const routes: Routes = [
@@ -30,9 +31,10 @@ const routes: Routes = [
    { path: '', component: ProductosComponent, data: { titulo: 'Productos' }},
    { path: 'nuevo', component: ProductoComponent, data: { titulo: 'Nuevo Producto' }},
    { path: 'editar/:IdProducto', component: EditarProductoComponent, data: { titulo: 'Edicion de producto' }},
+   // Unidades
    { path: 'unidades', component: UnidadesComponent, data: { titulo: 'Unidades' }},
    { path: 'unidades/nuevo', component: UnidadComponent, data: { titulo: 'Nueva Unidad' }},
-   { path: 'sabor/:IdSabor', component: EditarSaborComponent, data: { titulo: 'Editar Sabor' }},
+   { path: 'unidades/:IdUnidad', component: EditarUnidadComponent, data: { titulo: 'Editar unidad' }},
    // Imagenes
    { path: 'imagenes/:IdProducto', component: ImagenesProductoComponent, data: { titulo: 'Imagenes' }},
    { path: 'imagenes/nueva/:IdProducto', component: NuevaImagenProductoComponent, data: { titulo: 'Nueva Imagen' }},
@@ -41,6 +43,7 @@ const routes: Routes = [
    { path: 'marcas/nueva', component: MarcaComponent, data: { titulo: 'Nueva Marca' }},
    { path: 'marca/:IdMarca', component: EditarMarcaComponent, data: { titulo: 'Editar Marca' }},
    // Productos - sabores
+   { path: 'sabor/:IdSabor', component: EditarSaborComponent, data: { titulo: 'Editar Sabor' }},
    { path: 'sabores', component: SaboresComponent, data: { titulo: 'Sabores' }},
    { path: 'sabores/nueva', component: SaborComponent, data: { titulo: 'Nueva Sabor' }},
    // Productos - categorias

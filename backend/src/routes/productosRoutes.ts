@@ -40,6 +40,10 @@ class ProductosRoutes {
         this.router.get('/unidades/listar/:desde',productosController.listarUnidadesPaginado);
         this.router.get('/unidades/listar/',productosController.listarTodasUnidades);
         this.router.post('/unidades/alta/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.altaUnidad); 
+        this.router.post('/unidades/editar/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.editarUnidad);
+        this.router.get('/unidades/datos-formulario/:IdUnidad/:IdPersona',  [mdAutenticacion.verificaToken], productosController.cargarDatosFormEditarUnidad);
+        this.router.get('/unidades/baja/:IdUnidad/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.bajaUnidad); 
+
         // Promociones
         this.router.get('/promocion/detalle/:pIdPromocion/:pIdSabor1/:pIdSabor2',productosController.dameDatosPromocion);
         this.router.get('/promociones/listar/:pDesde',productosController.listarPromocionesPaginado);

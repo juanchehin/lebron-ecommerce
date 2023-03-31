@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductosService } from 'src/app/services/productos.service';
 import { AlertService } from '../../../../services/alert.service';
+import { UnidadesService } from 'src/app/services/unidades.service';
 
 @Component({
   selector: 'app-unidad',
@@ -14,7 +15,7 @@ export class UnidadComponent implements OnInit {
   forma!: FormGroup;
 
   constructor(
-    public productosService: ProductosService, 
+    public unidadesService: UnidadesService, 
     public activatedRoute: ActivatedRoute,
     private alertService: AlertService,
     private router: Router
@@ -43,7 +44,7 @@ altaUnidad() {
        
       );
 
-      this.productosService.altaUnidad( unidad )
+      this.unidadesService.altaUnidad( unidad )
                 .subscribe(  {
                   next: (resp: any) => {
                   if ( resp[0][0].mensaje == 'Ok') {       

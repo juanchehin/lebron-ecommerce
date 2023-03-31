@@ -171,29 +171,6 @@ buscarProductos( producto: string , pDesde: any ): any {
   } 
 
 }
-// ==================================================
-//  ******* Unidades *******        
-// ==================================================
-
-// ==================================================
-//
-// ==================================================
-listarUnidadesPaginado(desde: any){
-
-  let url = URL_SERVICIOS + '/productos/unidades/listar/' + desde;
-
-  return this.http.get( url );
-}
-
-// ==================================================
-//        
-// ==================================================
-altaUnidad( unidad: any ) {
-
-  let url = URL_SERVICIOS + '/productos/unidades/alta/' + this.IdPersona;
-
-  return this.http.post( url,unidad,this.headers );
-}
 
 // ==================================================
 //  ******* Promociones *******        

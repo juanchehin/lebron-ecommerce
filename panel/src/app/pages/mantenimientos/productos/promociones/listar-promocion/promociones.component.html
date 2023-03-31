@@ -30,26 +30,26 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let promocion of promociones">
-                            <td>{{ promocion.IdPromocion }}</td>
-                            <td>{{ promocion.Promocion }}</td>
+                            <td>{{ promocion.id_promocion }}</td>
+                            <td>{{ promocion.promocion }}</td>
                             <td>${{ promocion.precioPromo }}</td>
                             <td>
                                 <div class="col-sm-3">
                                     <div class="switch">
                                         <label>
-                                        <input type="checkbox" [checked]="promocion.Publicada" (click)="publicarPromocion(promocion.IdPromocion)"><span class="lever switch-col-light-blue"></span></label>
+                                        <input type="checkbox" [checked]="promocion.publicada" (click)="publicarPromocion(promocion.id_promocion)"><span class="lever switch-col-light-blue"></span></label>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <button [routerLink]="['/dashboard/productos/promociones', promocion.IdPromocion ]" class="btn btn-primary">
+                                <button [routerLink]="['/dashboard/productos/promociones', promocion.id_promocion ]" class="btn btn-primary">
                                     <i class="material-icons">
                                         edit
                                         </i>
                                     </button>
                             </td>
                             <td>
-                                <button (click)="bajaPromocion(promocion.IdPromocion)" class="btn btn-danger">
+                                <button (click)="bajaPromocion(promocion.id_promocion)" class="btn btn-danger">
                                     <i class="material-icons">
                                         delete
                                         </i>

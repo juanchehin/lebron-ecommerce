@@ -43,12 +43,13 @@ editarSabor() {
   this.saboresService.editarSabor( saborEditado )
             .subscribe( {
               next: (resp: any) => {
+                console.log('resp::: ', resp);
               
                 if ( (resp != null) && (resp.mensaje == 'Ok') ) {
                   this.alertService.alertSuccess('top-end','Sabor actualizada',false,2000);
                   this.router.navigate(['/dashboard/productos/sabores']);
                 } else {
-                  this.alertService.alertFail('Ocurrio un error. ' + resp,false,2000);
+                  this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000)
                 }
                 return;
                },
@@ -67,13 +68,11 @@ cargarDatosFormEditarSabor() {
     .subscribe( {
       next: (resp: any) => {
 
-        console.log("resp es ;",resp)
-      
         if ( (resp != null) && (resp[1][0].mensaje == 'Ok') ) {
           this.saborData = resp[0][0];
 
-          this.Sabor = this.saborData.Sabor;
-          this.Descripcion = this.saborData.Descripcion;
+          this.Sabor = this.saborData.sabor;
+          this.Descripcion = this.saborData.descripcion;
           
         } else {
           this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);

@@ -104,7 +104,7 @@ bajaSabor(IdSabor: string) {
       .subscribe({
         next: (resp: any) => {
   
-          if(resp[0].mensaje == 'Ok') {
+          if(resp[0][0].mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','Sabor dada de baja',false,900);
             this.desde = 0;
             this.buscarSaborPaginado();

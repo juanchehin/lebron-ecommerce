@@ -86,7 +86,7 @@ editarSabor( saborEditado: any ) {
 // ==================================================
 bajaSabor( IdSabor: any ) {
 
-  let url = URL_SERVICIOS + '/sabores/baja/' + IdSabor + '/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/sabores/baja/' + this.IdPersona + '/' + IdSabor ;
 
   return this.http.get(url,this.headers);
 }

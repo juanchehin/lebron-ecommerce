@@ -14,14 +14,16 @@
                                 </i>
                             </button>
                     </div>
-                    <div class="col-sm-2">
-                        <h3 class="card-title">Cantidad sabores ( <small> {{ totalSabores }} </small> )</h3>
-                    </div>
-                    <div class="col-sm-2">
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
                         <button [routerLink]="['/dashboard/productos/sabores/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                           <i class="fa fa-plus"></i>
                           Nuevo Sabor
                         </button>
+                    </div>
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad sabores ( <small> {{ totalSabores }} </small> )</h3>
                     </div>
                 </div>
                 <table id="table-edit" class="table table-bordered table-hover">
@@ -36,11 +38,11 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let sabor of sabores">
-                            <td>{{ sabor.IdSabor }}</td>
-                            <td>{{ sabor.Sabor }}</td>
+                            <td>{{ sabor.id_sabor }}</td>
+                            <td>{{ sabor.sabor }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/sabor',sabor.IdSabor]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaSabor(sabor.IdSabor)">Eliminar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/sabor',sabor.id_sabor]">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaSabor(sabor.id_sabor)">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>

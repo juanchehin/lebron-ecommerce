@@ -92,10 +92,10 @@ public async bajaSabor(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_baja_sabor('${pIdSabor}')`, function(err: any, result: any){
 
-        if(err || result[0][0].Mensaje !== 'Ok'){
+        if(err || result[0][0].mensaje !== 'Ok'){
             return res.status(200).json({
                 ok: false,
-                Mensaje: result[0][0].Mensaje
+                Mensaje: result[0][0].mensaje
             });
         }
         
@@ -117,16 +117,16 @@ public async editarSabor(req: Request, res: Response) {
 
     pool.query(`call bsp_editar_sabor('${pIdSabor}','${pSabor}','${pDescripcion}')`, function(err: any, result: any){
         
-        if(err || result.Mensaje !== 'Ok'){
+        if(err || result.mensaje !== 'Ok'){
             logger.error("Error en editarSabor - bsp_editar_sabor - saboresController");
 
             return res.json({
                 ok: false,
-                Mensaje: result[0][0].Mensaje
+                mensaje: result[0][0].mensaje
             });
         }
 
-        return res.json({ Mensaje: 'Ok' });
+        return res.json({ mensaje: 'Ok' });
     })
 
 }

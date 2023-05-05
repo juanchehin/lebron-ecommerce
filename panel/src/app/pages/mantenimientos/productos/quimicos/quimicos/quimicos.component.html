@@ -22,7 +22,7 @@
                     <div class="col-4">
                     </div>
                     <div class="col-sm-4">
-                        <button [routerLink]="['/dashboard/quimicos/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                        <button [routerLink]="['/dashboard/productos/quimicos/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
                           <i class="fa fa-plus"></i> 
                             Nuevo Quimico
                         </button>
@@ -52,7 +52,7 @@
                             <td>${{ quimico.precio_mayorista }}</td>
                             <td>{{ quimico.moneda }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/quimico',quimico.id_producto]">Editar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/quimicos/editar',quimico.id_producto]">Editar</button>
                                 <button class="btn btn-inline btn-danger" type="button" (click)="bajaQuimico(quimico.id_producto)">Eliminar</button>
                             </td>
                         </tr>

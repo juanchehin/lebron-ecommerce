@@ -57,12 +57,11 @@ const routes: Routes = [
    // Promociones
    { path: 'promociones', component: PromocionesComponent, data: { titulo: 'Promociones' }},
    { path: 'promocion/nueva', component: PromocionComponent, data: { titulo: 'Nueva Promocion' }},
-   // Compra/Venta dolares
-  { 
-    path: 'quimicos',
-    canActivate: [LoginGuardGuard, VerificaTokenGuard],
-    loadChildren: () => import('./quimicos/quimicos-routing.module').then( m => m.QuimicosRoutingModule )
-  },
+   { 
+     path: 'quimicos',
+     canActivate: [LoginGuardGuard, VerificaTokenGuard],
+     loadChildren: () => import('./quimicos/quimicos-routing.module').then( m => m.QuimicosRoutingModule )
+   },
 
 ];
 

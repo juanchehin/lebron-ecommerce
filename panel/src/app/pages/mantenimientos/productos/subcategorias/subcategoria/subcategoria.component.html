@@ -3,9 +3,9 @@
         <div class="row">
             <div class="col-sm-6 form-group">
                     <label>Categoria principal: </label>
-                    <select tabindex="2" formControlName="IdCategoria" name="IdCategoria" class="form-control">
-                                <option *ngFor="let categoria of categorias" [value]="categoria.IdCategoria">
-                                    {{categoria.Categoria}}
+                    <select tabindex="2" formControlName="id_categoria" name="id_categoria" class="form-control">
+                                <option *ngFor="let categoria of categorias" [value]="categoria.id_categoria">
+                                    {{categoria.categoria}}
                                 </option>
                     </select>
             </div>

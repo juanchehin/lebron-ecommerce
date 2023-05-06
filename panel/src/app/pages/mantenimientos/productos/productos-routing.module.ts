@@ -52,7 +52,7 @@ const routes: Routes = [
    { path: 'categoria/:IdCategoria', component: EditarCategoriaComponent, data: { titulo: 'Editar Categoria' }},
    // Productos - subcategorias
    { path: 'subcategorias', component: SubCategoriasComponent, data: { titulo: 'Categorias' }},
-   { path: 'subcategorias/nueva', component: SubCategoriaComponent, data: { titulo: 'Nueva Categoria' }},
+   { path: 'subcategorias/nueva', component: SubCategoriaComponent, data: { titulo: 'Nueva SubCategoria' }},
    { path: 'subcategoria/:IdSubCategoria', component: EditarSubcategoriaComponent, data: { titulo: 'Editar Categoria' }},
    // Promociones
    { path: 'promociones', component: PromocionesComponent, data: { titulo: 'Promociones' }},

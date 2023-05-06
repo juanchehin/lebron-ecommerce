@@ -14,7 +14,7 @@ export class SubCategoriaComponent implements OnInit {
   forma!: FormGroup;
   cargando = true;
   categorias: any;
-  IdCategoria: any;
+  id_categoria: any;
 
   constructor(
     private router: Router, 
@@ -27,7 +27,7 @@ export class SubCategoriaComponent implements OnInit {
   ngOnInit() {
     this.cargarCategorias();
     this.forma = new FormGroup({      
-      IdCategoria: new FormControl(null, Validators.required ),
+      id_categoria: new FormControl(null, Validators.required ),
       SubCategoria: new FormControl(null, Validators.required ),
       Descripcion: new FormControl(null )
     });
@@ -69,7 +69,7 @@ altaSubCategoria() {
       }
 
       const subcategoria = new Array(
-        this.forma.value.IdCategoria,
+        this.forma.value.id_categoria,
         this.forma.value.SubCategoria,
         this.forma.value.Descripcion
       );

@@ -103,6 +103,8 @@ public async getMercadoPagoLink(req: Request, res: Response): Promise<any> {
 // Aqui recibimos las notificacinoes de MP 
 // ==================================================
 public async webhook(req: Request, res: Response) {
+  console.log("pasa wh cons");
+  logger.error("Pasa webhook MP");
 
   if (req.query.type === 'payment') {
     const paymentId = req.query['data.id'];
@@ -172,6 +174,31 @@ public async webhook(req: Request, res: Response) {
   }
 
 }
+
+
+// ==================================================
+//  **SIN USO EN LOCALHOST** 
+// Aqui recibimos las notificacinoes de MP 
+//  Da de alta un pedido al recibir una notidicacion de MP
+// ==================================================
+public async webhook_alta_pedido(req: Request, res: Response) {
+
+  logger.info("Pasa webhook_alta_pedido MP");
+
+  // dar de alta el pedido
+  pool.query(`call bsp_alta_pedido('21','6','200')`, async function(err: any, result: any, fields: any){
+      
+    if(err || result[0][0].Mensaje != 'Ok'){
+        logger.error("Error en alta pedido - getMercadoPagoLink - checkoutController " + err + " " + result[0][0].Mensaje);
+        res.status(400).json({ text: err });
+        return;
+    }
+
+  })
+  
+
+}
+
 
 }
 

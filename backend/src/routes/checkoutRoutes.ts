@@ -20,7 +20,7 @@ class CheckoutRoutes {
         // 
         this.router.post("/payment/new/:costoEnvio/:pIdDireccion/:IdPersona/:pTotal",checkoutController.getMercadoPagoLink); 
         this.router.post("/webhook",checkoutController.webhook); 
-
+        this.router.post("/webhook-alta-pedido",checkoutController.webhook_alta_pedido); 
 
     }
 

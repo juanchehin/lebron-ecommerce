@@ -37,7 +37,7 @@ class Server {
     }
 
     config(): void {
-        this.app.set('port', 3000);        
+        this.app.set('port', 3003);        
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: false}));
@@ -75,7 +75,7 @@ class Server {
     }
 
 // ==================================================
-//   Inicio el servicio en el puerto 3000
+//   Inicio el servicio en el puerto 3003
 // ==================================================
     start() {
 
@@ -83,18 +83,18 @@ class Server {
         const ssloptions: any = {}
 
         if (enableHttps) {
-                ssloptions.key = fs.readFileSync('/etc/letsencrypt/live/lebron.chehin.online/privkey.pem');
-                ssloptions.cert = fs.readFileSync('/etc/letsencrypt/live/lebron.chehin.online/fullchain.pem');
+                ssloptions.key = fs.readFileSync('/etc/letsencrypt/live/lebron-panel.chehininformatica.shop/privkey.pem');
+                ssloptions.cert = fs.readFileSync('/etc/letsencrypt/live/lebron.chehininformatica.shop/fullchain.pem');
         }
 
         if (enableHttps) {
             https.createServer(ssloptions,this.app).listen(3000, function () {
-                logger.info("HTTPS Server running on port 3000")
-                console.log("HTTPS Server running on port 3000");
+                logger.info("HTTPS Server running on port 3003")
+                console.log("HTTPS Server running on port 3003");
             });
         } else {
             this.app.listen(this.app.get('port'), () => {
-                logger.info("HTTP Server running on port 3000")
+                logger.info("HTTP Server running on port 3003")
                 console.log('Server en puerto', this.app.get('port'));
             });
         }

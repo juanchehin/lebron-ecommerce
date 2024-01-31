@@ -3,7 +3,7 @@
 export const environment = {
   production: true,
   base_url: '',
-  URL_SERVICIOS: 'https://lebron.chehin.online:3000/api',
-  ruta_img_productos: 'https://lebron.chehin.online:3000/uploads/images/productos/',
-  ruta_img_marcas: 'https://lebron.chehin.online:3000/uploads/images/marcas/'
+  URL_SERVICIOS: 'https://lebron-panel.chehininformatica.shop:3003/api',
+  ruta_img_productos: 'https://lebron-panel.chehininformatica.shop:3003/uploads/images/productos/',
+  ruta_img_marcas: 'https://lebron-panel.chehininformatica.shop:3003/uploads/images/marcas/'
 };

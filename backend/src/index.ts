@@ -83,7 +83,7 @@ class Server {
         const ssloptions: any = {}
 
         if (enableHttps) {
-                ssloptions.key = fs.readFileSync('/etc/letsencrypt/live/lebron-panel.chehininformatica.shop/privkey.pem');
+                ssloptions.key = fs.readFileSync('/etc/letsencrypt/live/lebron.chehininformatica.shop/privkey.pem');
                 ssloptions.cert = fs.readFileSync('/etc/letsencrypt/live/lebron.chehininformatica.shop/fullchain.pem');
         }
 

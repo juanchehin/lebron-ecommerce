@@ -185,16 +185,81 @@ public async webhook_alta_pedido(req: Request, res: Response) {
 
   logger.info("Pasa webhook_alta_pedido MP");
 
-  // dar de alta el pedido
-  pool.query(`call bsp_alta_pedido('21','6','200')`, async function(err: any, result: any, fields: any){
-      
-    if(err || result[0][0].Mensaje != 'Ok'){
-        logger.error("Error en alta pedido - getMercadoPagoLink - checkoutController " + err + " " + result[0][0].Mensaje);
-        res.status(400).json({ text: err });
-        return;
-    }
 
-  })
+
+//----------------------------------------------------------------
+  if (req.query.type === 'payment') {
+    const paymentId = req.query['data.id'];
+
+    var options = {
+      'method': 'GET',
+      'hostname': 'api.mercadopago.com',
+      'path': '/v1/payments/'+ paymentId,
+      'headers': {
+        'Authorization': 'Bearer ' + process.env.MP_VEND_ACCESS_TOKEN_TEST
+      },
+      'maxRedirects': 20
+    };
+    
+    console.log('options::: ', options);
+
+    var request = https.request(options, function (res: any) {
+        var body = '';
+        //  res.on('data', function(d: any) {
+        //      body += d;
+        //  });
+         return res.on('end', function() {
+   
+             // Data reception is done, do whatever with it!
+             var parsed = JSON.parse(body);
+
+             var apellido = parsed.additional_info.payer.last_name;
+             console.log('apellido::: ', apellido);
+             var nombre = parsed.additional_info.payer.first_name;
+             console.log('nombre::: ', nombre);
+             var email = parsed.payer.email;
+             var id_number = parsed.identification.number;
+             var id_type = parsed.identification.type;
+             var producto = parsed.description;
+
+             console.log('parsed::: ', parsed);
+
+                   // dar de alta el pedido
+              pool.query('call bsp_alta_pedido_2(?,?,?,?,?,?,?,?,?)',[apellido,nombre,email,id_number,id_type,producto], async function(err: any, result: any, fields: any){
+                  
+                if(err || result[0][0].Mensaje != 'Ok'){
+                    logger.error("Error en alta pedido - getMercadoPagoLink - checkoutController " + err + " " + result[0][0].Mensaje);
+                    res.status(400).json({ text: err });
+                    return;
+                }
+
+              })
+   
+             if(parsed.status == 404)
+             {
+                logger.error("Error en webhook - parsed.status - checkoutController " + parsed.status);
+                return;
+             }
+             const idOrden = parsed.external_reference;
+             console.log('idOrden::: ', idOrden);
+
+             if (parsed.status === 'approved') {
+              pool.query(`call bsp_aprobar_pedido('48','${paymentId}')`, async function(err: any, result: any, fields: any){
+
+                if(err){
+                   logger.error("Error en webhook - bsp_aprobar_pedido - checkoutController " + err);
+                   return;
+                }
+              })
+            }
+              
+         });
+    });
+    
+    res.status(200).json({ text: 'Ok'});        
+
+    request.end();
+  }
   
 
 }

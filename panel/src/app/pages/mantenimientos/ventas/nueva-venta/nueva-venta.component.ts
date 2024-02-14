@@ -14,7 +14,7 @@ import { UtilService } from '../../../../services/util.service';
 @Component({
   selector: 'app-nueva-venta',
   templateUrl: './nueva-venta.component.html',
-  styleUrls: []
+  styleUrls: ['./nueva-venta.component.css']
 })
 export class NuevaVentaComponent implements OnInit {
 
@@ -191,8 +191,7 @@ cargarDatosVendedor() {
   
     this.usuariosService.cargarDatosVendedor(  this.IdPersona )
                .subscribe( {
-
-                next: (resp: any) => { 
+                next: (resp: any) => {
 
                   this.datosVendedor = resp[0][0];
                   this.fecha_venta = this.utilService.formatDateNow(resp[1][0].fecha_bd);

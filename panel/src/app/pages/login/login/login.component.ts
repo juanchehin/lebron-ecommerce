@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
 ingresar() {
 
   if ( this.form.invalid ) {
+    this.alertService.alertInfoWithText('Atencion','Formulario invalido',false,3000);
     return;
   }
 
@@ -46,17 +47,17 @@ ingresar() {
 
   this.authService.login(persona)
       .subscribe((resp: any) => {
-        
+
         if ( resp === true) {
           this.router.navigate(['/dashboard']);
           return;
         }
 
-        this.alertService.alertFailWithText('Error','Error de credenciales',false,3000)
+        this.alertService.alertFailWithText('Error',resp.mensaje,false,3000);
 
     },
     ( error: any) => {
-      this.alertService.alertFailWithText('Atencion','Ocurrio un error, contactese con el adminsitrador',false,3000)
+      this.alertService.alertFailWithText('Atencion','Ocurrio un error, contactese con el adminsitrador',false,3000);
 
     }
 

@@ -17,59 +17,108 @@ class LoginController {
 // ========================================================
 // Login - usuario del sistema
 // ========================================================
-
 public async loginUsuario(req: Request, res: Response){
 
     const email = req.body[0];
     const pass = req.body[1];
-// 
-pool.query(`call bsp_login_panel('${email}')`, function(err: any, resultLogin: string | any[]){
-    var menu: any = [];
 
-    if(err){
-        pool.query(`call bsp_alta_log('0','0','LoginController','0','loginUsuario','Error de login en panel + ${email}')`, function(err: any, result: any, fields: any){
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion buscarAlumnoPaginado " + err);
+            throw err; // not connected!
+        }
+
+        var menu: any = [];
+       
+        // Use the connection
+        connection.query(`call bsp_login_panel('${email}')`, function(err: any, resultLogin: any){
+        
             if(err){
-                logger.error("Error en bsp_alta_log - loginUsuario - loginController " + email);
-                return;
+                connection.query(`call bsp_alta_log('0','0','LoginController','0','loginUsuario','Error de login en panel + ${email}')`, function(err: any, result: any, fields: any){
+                    if(err){
+                        logger.error("Error en bsp_alta_log - loginUsuario - loginController " + email);
+                        return;
+                    }
+                })
+        
+                res.status(401).json({
+                    status: false,
+                    mensaje : 'Error de credenciales'
+                });
             }
-        })
+       
+          // Handle error after the release.
+        if (err){
+            logger.error("Error funcion bsp_buscar_alumnos_paginado " + err);
+            throw err;    
+        }
 
-        res.status(401).json({
-            ok: true,
-            mensaje : 'Error de credenciales'
+        // Chequeo la contraseña
+        bcrypt.compare(pass, resultLogin[0][0].lPassword, function(err: any, result: any) {
+
+            if(result != true || err){
+                logger.error("Error en bcrypt.compare - loginUsuario - loginController ");
+
+                connection.query(`call bsp_alta_failed_login_panel('${email}')`, function(err: any, result_login_failed: any, fields: any){
+
+                    var result_check =  result_login_failed[0] ?? false;
+
+                    if(result_check != false){
+
+                        res.status(200).json({
+                            status: false,
+                            mensaje :  result_check[0].mensaje
+                        });
+                        
+                        return;
+                    }else{
+                        
+                        res.status(200).json({
+                            status: false,
+                            mensaje : 'Ocurrio un problema, contactese con el administrador'
+                        });
+                        
+                        return;
+                    }
+                })
+            }
+            else{ 
+                // Chequeo si la cuenta no esta bloqueada por exceso de intentos
+                connection.query(`call bsp_check_block_cuenta('${email}')`, function(err: any, result_check_block_cuenta: any, fields: any){
+
+                    var result_check_bc =  result_check_block_cuenta[0][0].mensaje ?? false;
+
+                    if(result_check_bc != 'ok'){
+
+                        res.status(200).json({
+                            status: false,
+                            mensaje :  result_check_block_cuenta[0][0].mensaje
+                        });
+                        
+                        return;
+                    }else{
+                        
+                        // Creo el token
+                        var token = jwt.sign({ IdPersona: resultLogin[0][0].lIdPersona }, SEED, { expiresIn: 14400});
+                        
+                        menu = resultLogin[1];
+                        
+                        // Respuesta
+                        res.status(200).json({
+                            status: true,
+                            IdPersona: resultLogin[0][0].lIdPersona,
+                            token: token,
+                            menu: menu
+                        });
+
+                        return;
+                    }
+                })
+            }
         });
-    }
-    // Chequeo la contraseña
-    bcrypt.compare(pass, resultLogin[0][0].lPassword, function(err: any, result: any) {
-
-        if(result != true || err){
-            logger.error("Error en bcrypt.compare - loginUsuario - loginController ");
-
-            res.status(500).json({
-                ok: true,
-                mensaje : 'Ocurrio un problema, contactese con el administrador'
-            });
-            
-            return;
-        }
-        else{ 
-             // Creo el token
-            var token = jwt.sign({ IdPersona: resultLogin[0][0].lIdPersona }, SEED, { expiresIn: 14400});
-            
-            menu = resultLogin[1];
-            
-            // Respuesta
-            res.status(200).json({
-                ok: true,
-                IdPersona: resultLogin[0][0].lIdPersona,
-                token: token,
-                menu: menu
-            });
-        }
-    });
-   
-    
-})
+       
+        });
+      });
 
 }
 

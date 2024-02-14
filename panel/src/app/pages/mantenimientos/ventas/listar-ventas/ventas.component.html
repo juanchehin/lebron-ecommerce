@@ -9,21 +9,24 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-4">
-                        <label for="start">Fecha Inicio : &nbsp;</label>
-                        <input type="date" [(ngModel)]="fechaInicio" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>Fecha Inicio : &nbsp;</label>
+                        <input type="date" class="form-control" [(ngModel)]="fechaInicio" required> &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <div class="col-sm-4">
-                        <label for="start">Fecha Fin : &nbsp;</label>
-                        <input type="date" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <label>Fecha Fin : &nbsp;</label>
+                        <input type="date" class="form-control" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
-                    <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
-                        refresh
-                        </span></button>
+                    <div class="col-sm-4" style="top: 27px;">
+                        <button (click)="refrescar()" class="btn btn-rounded btn-primary"><span class="material-icons">
+                            refresh
+                            </span>
+                        </button>
+                    </div>
                     <div class="col-sm-4">
                         <button [routerLink]="['/dashboard/ventas/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
-                      <i class="fa fa-plus"></i> 
-                      Nueva Venta
-                    </button>
+                            <i class="fa fa-plus"></i> 
+                            Nueva Venta
+                        </button>
                     </div>
                 </div>
                 <table id="table-edit" class="table table-bordered table-hover">
@@ -41,12 +44,12 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let venta of ventas">
-                            <td>{{ venta.IdTransaccion }}</td>
-                            <td>{{ venta.Fecha }}</td>
+                            <td>{{ venta.id_transaccion }}</td>
+                            <td>{{ venta.fecha }}</td>
                             <td>{{ venta.Vendedor }}</td>
                             <td>{{ venta.Comprador }}</td>
-                            <td>$ {{ venta.MontoTotal }}</td>
-                            <td>{{ venta.Sucursal }}</td>
+                            <td>$ {{ venta.monto_total }}</td>
+                            <td>{{ venta.sucursal }}</td>
                         </tr>
                     </tbody>
                 </table>

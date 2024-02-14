@@ -41,17 +41,12 @@ cargarVentas() {
 
   this.ventasService.listarVentasFecha( this.desde , pfechaInicio , pfechaFin)
              .subscribe( {
-              next: (resp: any) => { 
+              next: (resp: any) => {
                 
                 this.totalVentas = resp[1][0].totalVentas;
 
                 this.ventas = resp[0];
-
-                if (resp[1][0].cantVentas === undefined || resp[1][0].cantVentas === null) {
-                  this.totalVentas = 0;
-                }else {
-                  this.alertService.alertFail('Ocurrio un error',false,2000);
-                }
+                
                 return;
                },
               error: () => { 

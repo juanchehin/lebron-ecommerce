@@ -21,7 +21,7 @@ export class NuevaVentaComponent implements OnInit {
   currentDate = new Date();
 
   keywordCliente = 'NombreCompleto';
-  keywordProducto = 'codigoProductoSabor';
+  keywordProducto = 'codigoproductosabor';
 
   descuentoEfectivo: any = 0;
   productos: any;
@@ -110,8 +110,6 @@ altaVenta() {
         this.totalVenta,
         this.fecha_venta
       );
-
-      console.log("array venta es : ",this.arrayVenta)
 
       this.ventasService.altaVenta(  this.arrayVenta )
       .subscribe({
@@ -235,11 +233,11 @@ agregarLineaVenta() {
     this.alertaService.alertFailWithText('Atencion','Debe seleccionar un producto en el buscador',false,2000);
     return;
   }
-
-  this.totalVenta += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaVenta;
+  
+  this.totalVenta += Number(this.itemPendiente.precio_venta) * this.cantidadLineaVenta;
 
   const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
-    return linea_venta.IdProductoSabor == this.itemPendiente.IdProductoSabor;
+    return linea_venta.IdProductoSabor == this.itemPendiente.id_producto_sabor;
   });
 
   if(!(checkExistsLineaVenta != undefined))
@@ -247,11 +245,12 @@ agregarLineaVenta() {
     this.lineas_venta.push(
       {
         IdItem: this.IdItem,
-        IdProductoSabor: Number(this.itemPendiente.IdProductoSabor),
-        Codigo: this.itemPendiente.Codigo,
-        Producto: this.itemPendiente.Producto,
+        IdProductoSabor: Number(this.itemPendiente.id_producto_sabor),
+        Codigo: this.itemPendiente.codigo,
+        Producto: this.itemPendiente.producto,
         Cantidad: this.cantidadLineaVenta,
-        PrecioVenta: this.itemPendiente.PrecioVenta,
+        PrecioVenta: this.itemPendiente.precio_venta,
+        SubTotal: Number(this.itemPendiente.precio_venta) * this.cantidadLineaVenta
       }
     );
   
@@ -275,6 +274,7 @@ agregarLineaVenta() {
       if(item.IdProductoSabor == this.itemCheckExists.IdProductoSabor)
       { 
         item.Cantidad = Number(item.Cantidad) + Number(this.cantidadLineaVenta);
+        item.SubTotal = Number(item.SubTotal) + ( Number((this.itemPendiente.precio_venta)) * (Number(this.cantidadLineaVenta)));
 
       }
      }
@@ -310,7 +310,7 @@ agregarLineaTipoPago(): any {
   //
   let obj = this.tiposPago.find((o: any) => 
     {
-      if(o.IdTipoPago == this.IdTipoPagoSelect)
+      if(o.id_tipo_pago == this.IdTipoPagoSelect)
       {
         return o;
       }
@@ -319,7 +319,8 @@ agregarLineaTipoPago(): any {
 
   // Busco si ya existe el IdTipoPago en el array de lineas_tipos_pago
   let exists_ltp = this.lineas_tipos_pago.find((ltp_item: any) => 
-    {
+  {
+      console.log('ltp_item::: ', ltp_item);
       if(ltp_item.IdTipoPago == this.IdTipoPagoSelect)
       { // linea_tipo_pago existente
         // No suma el subtotal en caso de ser con tarjeta en cuotas
@@ -360,7 +361,7 @@ agregarLineaTipoPago(): any {
         {
             IdItem: this.IdItemTipoPago,
             IdTipoPago: this.IdTipoPagoSelect,
-            TipoPago: obj.TipoPago,
+            TipoPago: obj.tipo_pago,
             SubTotal: this.monto
         });
 
@@ -433,7 +434,7 @@ agregarLineaTipoPago(): any {
   // Para clientes
   // ================================
   selectEvent(item: any) {
-    this.IdCliente = item.IdPersona;
+    this.IdCliente = item.id_persona;
     // this.agregarLineaVenta(item);
     // do something with selected item
   }
@@ -464,7 +465,11 @@ agregarLineaTipoPago(): any {
     this.itemPendiente = item;
   }
 
+  // ==============================
+  //
+  // ================================
   onChangeSearchProducto(val: any) {
+    
     if(val == '' || val == null)
     {
       return;
@@ -511,9 +516,15 @@ agregarLineaTipoPago(): any {
   eliminarItemVenta(IdProductoSabor: any){
 
     this.lineas_venta.forEach( (item, index) => {
+      
       if(item.IdProductoSabor === IdProductoSabor) 
       {
-        this.totalVenta -= item.PrecioVenta * item.Cantidad;
+        
+        this.totalVenta -= item.PrecioVenta * item.Cantidad;  // precio_unitario * cantidad
+        
+        if(this.totalVenta <= 0){
+          this.totalVenta = 0;
+        }
         this.lineas_venta.splice(index,1);
       }
         

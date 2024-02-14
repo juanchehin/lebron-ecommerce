@@ -7,4 +7,5 @@ export interface IItemVentaStructure
     Producto: string;
     Cantidad: number;
     PrecioVenta: number;
+    SubTotal: number;
 }

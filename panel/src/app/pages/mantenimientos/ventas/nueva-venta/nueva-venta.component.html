@@ -46,7 +46,7 @@
                             </ng-autocomplete>
                         </div>
                         <ng-template #itemTemplateProducto let-item>
-                            <a [innerHTML]="item.codigoProductoSabor"></a>
+                            <a [innerHTML]="item.codigoproductosabor"></a>
                         </ng-template>
                         <ng-template #notFoundTemplateProducto let-notFound>
                             <div [innerHTML]="notFound"></div>
@@ -76,6 +76,7 @@
                                                 <th>Codigo</th>
                                                 <th>Producto</th>
                                                 <th>Cantidad</th>
+                                                <th>Precio Un.</th>
                                                 <th>SubTotal</th>
                                                 <th class="text-nowrap"></th>
                                             </tr>
@@ -86,6 +87,7 @@
                                                 <td>{{linea.Producto }}</td>
                                                 <td>{{linea.Cantidad }}</td>
                                                 <td>{{linea.PrecioVenta }}</td>
+                                                <td>{{linea.SubTotal }}</td>
                                                 <td class="text-nowrap">
                                                     <a data-toggle="tooltip" (click)="eliminarItemVenta(linea.IdProductoSabor)" data-original-title="Close"> 
                                                         <i class="fa fa-close text-danger"></i> </a>
@@ -132,8 +134,8 @@
                             <div class="col-sm-4">
                                 <label>Tipo pago : </label>
                                 <select tabindex="4" (ngModelChange)='onChangeTipoPago($event)' [(ngModel)]="IdTipoPagoSelect" name="IdTipoPago" class="form-control">
-                                    <option *ngFor="let tp of tiposPago" [value]="tp.IdTipoPago">
-                                        {{tp.TipoPago}}
+                                    <option *ngFor="let tp of tiposPago" [value]="tp.id_tipo_pago">
+                                        {{tp.tipo_pago}}
                                     </option>
                                 </select>
                             </div>

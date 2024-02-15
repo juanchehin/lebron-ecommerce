@@ -8,24 +8,28 @@
                 <h4 class="card-title">Articulos</h4>
                 <!-- ========== Buscador producto ============ -->
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="ng-autocomplete">
-                            <ng-autocomplete #productosReference [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)'
+                            <ng-autocomplete #productosReference [data]="productos" 
+                                [searchKeyword]="keywordProducto" placeholder="Selecciona producto" (selected)='selectEventProducto($event)' 
+                                (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)'
                                 [itemTemplate]="itemTemplateProducto" [notFoundTemplate]="notFoundTemplateProducto">
                             </ng-autocomplete>
                         </div>
                         <ng-template #itemTemplateProducto let-item>
-                            <a [innerHTML]="item.codigoProductoSabor"></a>
+                            <a [innerHTML]="item.codigoproductosabor"></a>
                         </ng-template>
                         <ng-template #notFoundTemplateProducto let-notFound>
                             <div [innerHTML]="notFound"></div>
                         </ng-template>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <input [(ngModel)]="cantidadLineaCompra" type="text" class="form-control form-control-line" placeholder="Cantidad...">
                     </div>
                     <div class="col-md-2">
-                        <button (click)="agregarLineaCompra()" type="button" class="btn btn-info btn-circle"><i class="fa fa-plus"></i> </button>
+                        <button (click)="agregarLineaCompra()" type="button" class="btn btn-info btn-circle">
+                            <i class="fa fa-plus"></i> 
+                        </button>
                     </div>
                 </div>
 
@@ -55,7 +59,9 @@
                                                 <td>{{linea.Cantidad }}</td>
                                                 <td>{{linea.PrecioVenta }}</td>
                                                 <td class="text-nowrap">
-                                                    <a data-toggle="tooltip" (click)="eliminarItemCompra(linea.IdProducto)" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                                    <a data-toggle="tooltip" (click)="eliminarItemCompra(linea.IdProducto)" data-original-title="Close"> 
+                                                        <i class="fa fa-close text-danger"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -77,7 +83,7 @@
     <div class="row">
         <div class="col-sm-12 form-group">
             <label>Descripcion : </label>
-            <textarea [(ngModel)]="Descripcion" name="Descripcion" type="textarea" placeholder="Descripcion..." rows="3" class="form-control"></textarea>
+            <textarea [(ngModel)]="descripcion" name="descripcion" type="textarea" placeholder="Descripcion..." rows="3" class="form-control"></textarea>
         </div>
     </div>
     <br><br>

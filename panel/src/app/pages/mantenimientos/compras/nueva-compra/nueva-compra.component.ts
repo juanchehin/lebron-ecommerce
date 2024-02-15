@@ -14,11 +14,11 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 @Component({
   selector: 'app-nueva-compra',
   templateUrl: './nueva-compra.component.html',
-  styleUrls: []
+  styleUrls: ['./nueva-compra.component.css']
 })
 export class NuevaCompraComponent implements OnInit {
 
-  keywordProducto = 'codigoProductoSabor';
+  keywordProducto = 'codigoproductosabor';
   cargando = true;
   activarModal = false;
   productos: any;
@@ -39,7 +39,7 @@ export class NuevaCompraComponent implements OnInit {
   IdItemTipoPago = 0;
   IdTipoPagoSelect = 0;
   monto = 0;
-  Descripcion: any;
+  descripcion: any;
   totalTiposPago = 0;
   arrayCompra: any = [];
   itemCheckExists: any = 0;
@@ -70,8 +70,6 @@ export class NuevaCompraComponent implements OnInit {
 
 altaCompra() {
 
-  console.log("total com",this.totalCompra)
-
     if(isNaN(this.totalCompra) || this.totalCompra == null)
     {
       this.alertaService.alertFailWithText('Error','Ocurrio un problema con el total de la compra',false,1200);
@@ -79,29 +77,30 @@ altaCompra() {
     }
 
       this.arrayCompra.push(        
-        this.Descripcion,
         this.lineas_compra,
-        this.totalCompra
+        this.totalCompra,
+        this.descripcion
       );
 
       this.comprasService.altaCompra(  this.arrayCompra )
       .subscribe({
         next: (resp: any) => { 
   
-          if ( resp.mensaje === 'Ok') {
+          if ( resp.Mensaje == 'Ok') {
             this.alertaService.alertSuccess('top-end','Compra cargada',false,2000);
 
             this.lineas_tipos_pago = [];
             this.lineas_compra = [];
             this.totalCompra = 0;
             this.totalTiposPago = 0;
+            this.descripcion = '-';
             
           } else {
-            this.alertaService.alertFail('Ocurrio un error',false,2000);
+            this.alertaService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
           }
           return;
          },
-        error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
+        error: () => { this.alertaService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000) }
       });
 
 }
@@ -119,6 +118,7 @@ cargarProductos() {
   this.productosService.cargarProductos( this.productoBuscado , -1)
   .subscribe({
     next: (resp: any) => { 
+      console.log('resp::: ', resp);
 
         this.productos = resp[0];
         
@@ -147,22 +147,24 @@ agregarLineaCompra() {
     return;
   }
 
-  this.totalCompra += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaCompra;
+  console.log('this.itemPendiente::: ', this.itemPendiente);
+  this.totalCompra += Number(this.itemPendiente.precio_venta) * this.cantidadLineaCompra;
 
   const checkExistsLineaCompra = this.lineas_compra.find((linea_compra) => {
-    return linea_compra.IdProductoSabor == this.itemPendiente.IdProductoSabor;
+    return linea_compra.IdProductoSabor == this.itemPendiente.id_producto_sabor;
   });
+  console.log('lineas_compra::: ', this.lineas_compra);
 
   if(!(checkExistsLineaCompra != undefined))
   {
     this.lineas_compra.push(
       {
         IdItem: this.IdItem,
-        IdProductoSabor: Number(this.itemPendiente.IdProductoSabor),
-        Codigo: this.itemPendiente.Codigo,
-        Producto: this.itemPendiente.Producto,
+        IdProductoSabor: Number(this.itemPendiente.id_producto_sabor),
+        Codigo: this.itemPendiente.codigo,
+        Producto: this.itemPendiente.producto,
         Cantidad: this.cantidadLineaCompra,
-        PrecioVenta: this.itemPendiente.PrecioVenta,
+        PrecioVenta: this.itemPendiente.precio_venta,
       }
     );
   
@@ -237,6 +239,10 @@ agregarLineaCompra() {
       {
         this.totalCompra -= item.PrecioVenta * item.Cantidad;
         this.lineas_compra.splice(index,1);
+      }
+
+      if(this.totalCompra <= 0){
+        this.totalCompra = 0;
       }
         
     });

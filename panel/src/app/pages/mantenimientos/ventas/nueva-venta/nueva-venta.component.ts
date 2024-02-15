@@ -320,7 +320,6 @@ agregarLineaTipoPago(): any {
   // Busco si ya existe el IdTipoPago en el array de lineas_tipos_pago
   let exists_ltp = this.lineas_tipos_pago.find((ltp_item: any) => 
   {
-      console.log('ltp_item::: ', ltp_item);
       if(ltp_item.IdTipoPago == this.IdTipoPagoSelect)
       { // linea_tipo_pago existente
         // No suma el subtotal en caso de ser con tarjeta en cuotas

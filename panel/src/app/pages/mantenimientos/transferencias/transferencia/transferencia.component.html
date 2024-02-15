@@ -7,8 +7,8 @@
         <div class="col-sm-4 form-group">
             <label>Sucursal origen : </label>
             <select tabindex="2" [(ngModel)]="IdSucursalOrigen" name="IdSucursalOrigen" class="form-control" (change)="onChangeSucursalOrigen($event.target.value)">
-                <option *ngFor="let sucursal of sucursales" [value]="sucursal.IdSucursal">
-                    {{sucursal.Sucursal}}
+                <option *ngFor="let sucursal of sucursales" [value]="sucursal.id_sucursal">
+                    {{sucursal.sucursal}}
                 </option>
             </select>
         </div>
@@ -16,8 +16,8 @@
         <div class="col-sm-4 form-group">
             <label>Sucursal destino : </label>
             <select tabindex="2" [(ngModel)]="IdSucursalDestino" name="IdSucursalDestino" class="form-control">
-                <option *ngFor="let sucursal of sucursales" [value]="sucursal.IdSucursal">
-                    {{sucursal.Sucursal}}
+                <option *ngFor="let sucursal of sucursales" [value]="sucursal.id_sucursal">
+                    {{sucursal.sucursal}}
                 </option>
             </select>
         </div>
@@ -31,14 +31,18 @@
                 <h4 class="card-title">Productos a transferir</h4>
                 <!-- ========== Buscador producto ============ -->
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="ng-autocomplete">
-                            <ng-autocomplete [data]="productos" [disabled]="!activarBusquedaProductosSucursal" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)'
-                                [itemTemplate]="itemTemplateProducto" [notFoundTemplate]="notFoundTemplateProducto">
+                            <ng-autocomplete 
+                            [data]="productos" [disabled]="!activarBusquedaProductosSucursal" 
+                            [searchKeyword]="keywordProducto" placeholder="Selecciona producto" (selected)='selectEventProducto($event)' 
+                            (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)'
+                            [itemTemplate]="itemTemplateProducto" [notFoundTemplate]="notFoundTemplateProducto"
+                            >
                             </ng-autocomplete>
                         </div>
                         <ng-template #itemTemplateProducto let-item>
-                            <a [innerHTML]="item.codigoProductoSabor"></a>
+                            <a [innerHTML]="item.codigoproductosabor"></a>
                         </ng-template>
                         <ng-template #notFoundTemplateProducto let-notFound>
                             <div [innerHTML]="notFound"></div>
@@ -67,7 +71,7 @@
                                                 <th>Codigo</th>
                                                 <th>Producto</th>
                                                 <th>Cantidad</th>
-                                                <th>SubTotal</th>
+                                                <th>Precio un.</th>
                                                 <th class="text-nowrap"></th>
                                             </tr>
                                         </thead>

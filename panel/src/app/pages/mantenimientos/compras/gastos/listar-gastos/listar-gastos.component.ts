@@ -36,15 +36,12 @@ export class ListarGastosComponent implements OnInit {
 // ==================================================
 
 cargarGastos() {
-  console.log("pasa cargar cargarGastos");
 
   const pFecha = this.utilService.formatDate(this.fecha);
 
     this.comprasService.listarGastosPaginado( this.desde, pFecha  )
     .subscribe({
       next: (resp: any) => { 
-
-        console.log("resp en gastos ",resp)
 
         if(resp[2][0].mensaje == 'Ok') {
           this.gastos = resp[0];

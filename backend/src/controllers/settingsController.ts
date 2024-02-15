@@ -15,7 +15,6 @@ public async listarBackups(req: Request, res: Response): Promise<void> {
 
   pool.query(`call bsp_listar_backups('${desde}')`, function(err: any, result: any, fields: any){
       if(err){
-          console.log("error", err);
           return;
       }
       res.json(result);
@@ -31,7 +30,6 @@ public async listarConfiguracionesEmpresa(req: Request, res: Response): Promise<
 
   pool.query(`call bsp_dame_datos_empresa()`, function(err: any, result: any, fields: any){
       if(err){
-          console.log("error", err);
           return;
       }
       res.status(200).json(result);

@@ -81,8 +81,6 @@ publicarPromocion(IdPromocion: string){
   .subscribe( {
    next: (resp: any) => {
 
-    console.log("resp promo ",resp)
-
      if ( resp[0][0].mensaje == 'Ok') {       
       this.alertaService.alertSuccess('top-end','Operacion exitosa',false,900);
      } else {

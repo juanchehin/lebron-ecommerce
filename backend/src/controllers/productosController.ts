@@ -686,7 +686,7 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
     pool.query(`call bsp_alta_transferencia('${pIdUsuario}','${fechaTransferencia}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${totalTransferencia}')`, (err: any, result: any) =>{
 
        if(err || result[0][0].mensaje != 'Ok' || result[0][0].Level == 'Error'){
-        logger.error("Error en altaTransferencia - bsp_alta_transferencia - productosController");
+        logger.error("Error en altaTransferencia - bsp_alta_transferencia - productosController - ",err);
 
             callback(err,null);
 
@@ -709,14 +709,14 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
         pLineaTransferencias.forEach(function (value: any) {
     
             pool.query(`call bsp_alta_linea_transferencia('${result[0][0].pIdTransferencia}','${value.IdProductoSabor}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${value.Cantidad}')`, function (err2: any, result2: any) {
-    
-    
+
                 if (err2 || result2[0][0].mensaje != 'Ok' || result2[0][0].Level == 'Error') {
-                    logger.error("Error en altaTransferencia - bsp_alta_linea_transferencia - productosController");
+                    logger.error("Error en altaTransferencia - bsp_alta_linea_transferencia - productosController - " + err2);
 
     
-                    pool.query(`call bsp_baja_transferencia('${result[0][0].pIdTransferencia}')`, function (err: any, result: any) {
+                    pool.query(`call bsp_baja_transferencia('${result[0][0].pIdTransferencia}')`, function (err3: any, result3: any) {
                         if (err) {
+                            logger.error("Error en altaTransferencia - bsp_baja_transferencia - productosController - " + err3);
                             return;
                         }
                     });
@@ -725,7 +725,7 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
 
                     });
                     
-                    res.status(400).json({mensaje: 'Error'});
+                    res.status(200).json({mensaje: result2[0][0].mensaje});
                     return;
                 }
                 else

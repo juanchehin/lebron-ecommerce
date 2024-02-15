@@ -29,9 +29,6 @@ public async altaQuimico(req: Request, res: Response) {
 
     pool.query(`call bsp_alta_quimico('${req.params.IdPersona}','${IdUnidad}','${Quimico}','${FechaVencimiento}','${Descripcion}',${StockAlerta},'${Medida}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${Moneda}')`, async function(err: any, result: any, fields: any){
          
-        console.log("err 2 : ",err)
-        console.log("result2 2 : ",result)
-
         if(err || result[0][0].Mensaje != 'Ok'){
             logger.error("Error en bsp_alta_quimico - quimicoController " + err + result);
 
@@ -47,8 +44,6 @@ public async altaQuimico(req: Request, res: Response) {
                 
                 pool.query(`call bsp_alta_sabores_codigo_producto('${result[1][0].pIdProducto}','${value.IdSabor}','${value.Codigo}')`, function(err2: any, result2: any){
                     
-                    console.log("err 2 : ",err2)
-                    console.log("result2 2 : ",result2)
 
                     if(err2 || result2[0][0].Mensaje != 'Ok'){
                         logger.error("Error en bsp_alta_sabores_codigo_producto - quimicoController " + err);

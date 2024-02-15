@@ -4,21 +4,24 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm-4">
-                        <h3 class="card-title">Cantidad Transferencias ( <small> {{ totalTransferencias }} </small> )</h3>
-                    </div>
-                    <div>
                         <label for="start">Fecha : &nbsp;</label>
-
-                        <input type="date" [(ngModel)]="fecha" required> &nbsp;&nbsp;&nbsp;&nbsp;
-                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
-                            refresh
-                            </span></button>
-
+                        <input class="form-control" type="date" [(ngModel)]="fecha" required> &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <div class="col-sm-4">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary " style="top: 25px;">
+                            <span class="material-icons">
+                                refresh
+                            </span>
+                        </button>
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h3 class="card-title">Cantidad Transferencias ( <small> {{ totalTransferencias }} </small> )</h3>
+                    </div>
+                    <div class="col-sm-2">
                         <button [routerLink]="['/dashboard/transferencias/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
-                          <i class="fa fa-plus"></i> 
-                          Nuevo Transferencia
+                            <i class="fa fa-plus"></i> 
                         </button>
                     </div>
                 </div>
@@ -37,14 +40,18 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let transferencia of transferencias">
-                            <td>{{ transferencia.IdTransferencia }}</td>
-                            <td>{{ transferencia.Fecha | date:"dd/MM/yyyy" }}</td>
-                            <td>{{ transferencia.SucOrigen }}</td>
-                            <td>{{ transferencia.SucDestino }}</td>
-                            <td>$ {{ transferencia.MontoTotal }}</td>
+                            <td>{{ transferencia.id_transferencia }}</td>
+                            <td>{{ transferencia.fecha }}</td>
+                            <td>{{ transferencia.suc_origen }}</td>
+                            <td>{{ transferencia.suc_destino }}</td>
+                            <td>$ {{ transferencia.monto_total }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaTransferencia(transferencia.IdTransferencia)">Eliminar</button>
+                                <button class="btn btn-inline" type="button">
+                                    <i class="material-icons"> edit </i>
+                                </button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaTransferencia(transferencia.id_transferencia)">
+                                    <i class="material-icons"> delete </i>
+                                </button>
                             </td>
                         </tr>
                     </tbody>

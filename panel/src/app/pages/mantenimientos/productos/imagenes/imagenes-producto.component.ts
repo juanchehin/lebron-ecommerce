@@ -73,12 +73,10 @@ eliminarImagen( IdImagen: number ) {
   }).then((result) => {
     if (result.isConfirmed) {
 
-      console.log("isConfirmed es : ")
 
       this.imagenesService.eliminarImagen( IdImagen  )
       .subscribe( (resp: any) => {
 
-        console.log("resp prod : ",resp)
         
         if ( resp[1][0].mensaje == 'Ok') {
           this.alertService.alertSuccess('top-end','Producto eliminado',false,2000);

@@ -47,8 +47,6 @@ cargarMovimientosClienteCuenta() {
                .subscribe( {
                 next: (resp: any) => { 
 
-                  console.log("resp mov cl : ",resp);
-
                   if(resp[4][0].mensaje == 'Ok')
                   { 
                     this.apellidos = resp[0][0].Apellidos;

@@ -84,8 +84,6 @@ cargarDatosFormEditarProveedor() {
     this.proveedoresService.cargarDatosFormEditarProveedor( this.IdProveedor )
     .subscribe( {
       next: (resp: any) => {
-
-        console.log("resp es ;",resp)
       
         if ( (resp != null) && (resp[1][0].mensaje == 'Ok') ) {
           this.proveedorData = resp[0][0];

@@ -152,9 +152,7 @@ altaProducto() {
       this.productosService.altaProducto( producto )
                 .subscribe( {
                   next: (resp: any) => { 
-  
-                    console.log("resp prod : ",resp)
-                  
+                    
                     if ( resp.mensaje === 'Ok') {
                       this.alertService.alertSuccess('top-end','Producto cargado',false,2000);
                       this.router.navigate(['/dashboard/productos']);

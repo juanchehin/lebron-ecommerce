@@ -141,13 +141,9 @@ altaQuimico() {
         this.sabores_cargados
       );
 
-      console.log("productoEditado es : ",productoEditado)
-
       this.productosService.editarProducto( productoEditado )
                 .subscribe( {
                   next: (resp: any) => { 
-  
-                    console.log("resp prod : ",resp)
                   
                     if ( resp.mensaje === 'Ok') {
                       this.alertService.alertSuccess('top-end','Producto cargado',false,2000);
@@ -170,8 +166,6 @@ cargarDatosFormEditarProducto() {
 
     this.productosService.cargarDatosFormEditarProducto( this.IdProducto )
                .subscribe( (resp: any) => {
-
-                console.log("resp editar perod es : ",resp)
 
                 this.marcas = resp[0];
                 this.categorias = resp[1];
@@ -271,15 +265,11 @@ onChangeCategorias(IdCategoria: any) {
 
 agregarLineaSabor() {
 
-  console.log("this.itemPendiente : ",this.itemPendiente)
-
   if(this.itemPendiente.Sabor == '')
   { 
     this.alertService.alertFail('Debe elegir un sabor',false,900)
     return;
   }
-
-  console.log("this.codigoLineaSabor : ",this.codigoLineaSabor)
 
   if(this.codigoLineaSabor == '' || this.codigoLineaSabor == undefined)
   { 

@@ -138,10 +138,6 @@ altaQuimico() {
                 .subscribe( {
                   next: (resp: any) => { 
   
-                    console.log("resp prod : ",resp)
-                  
-                    console.log("resp.mensaje prod : ",resp.mensaje)
-
                     if ( resp.mensaje == 'Ok') {
                       this.alertService.alertSuccess('top-end','Quimico cargado',false,2000);
                       this.router.navigate(['/dashboard/quimicos']);
@@ -151,7 +147,6 @@ altaQuimico() {
                     return;
                    },
                   error: (resp: any) => { 
-                    console.log("resp err prod : ",resp)
 
                     this.alertService.alertFail('Ocurrio un error',false,2000) 
                   }
@@ -217,15 +212,11 @@ generarCodigo() {
 
 agregarLineaSabor() {
 
-  console.log("this.itemPendiente : ",this.itemPendiente)
-
   if(this.itemPendiente.Sabor == '')
   { 
     this.alertService.alertFail('Debe elegir un sabor',false,900)
     return;
   }
-
-  console.log("this.codigoLineaSabor : ",this.codigoLineaSabor)
 
   if(this.codigoLineaSabor == '' || this.codigoLineaSabor == undefined)
   { 

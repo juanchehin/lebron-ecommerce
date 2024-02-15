@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 export class TransferenciasComponent implements OnInit {
 
   desde = 0;
-  fecha = new Date(Date.now());
+  fecha: any;
 
   transferencias!: any;
 
@@ -28,6 +28,7 @@ export class TransferenciasComponent implements OnInit {
    }
 
   ngOnInit() {
+    this.fecha = this.utilService.formatDateNow(new Date(Date.now()));
     this.cargarTransferencias();
   }
 
@@ -134,4 +135,5 @@ refrescar() {
   this.desde = 0;
   this.cargarTransferencias();
 }
+
 }

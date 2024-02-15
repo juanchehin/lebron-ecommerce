@@ -84,8 +84,6 @@ altaCompra(req: Request, res: Response) {
             pLineasCompras.forEach(function (value: any) {
     
                 connection.query(`call bsp_alta_linea_compra('${result[0][0].IdCompra}','${value.IdProductoSabor}','${value.Cantidad}')`, function(err: any, result2: any){
-                    console.log('result2:::2 ', result2);
-                    console.log('err:::2 ', err);
                         
                         if(err){
                             logger.error("Error en bsp_alta_linea_compra - ComprasController " + err );

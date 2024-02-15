@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { SucursalesService } from 'src/app/services/sucursal.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-transferencia',
   templateUrl: './transferencia.component.html',
-  styles: []
+  styleUrls: ['./transferencia.component.css']
 })
 export class TransferenciaComponent implements OnInit {
 
   cargando = true;
   activarBusquedaProductosSucursal = false;
-  fechaTransferencia = new Date();
+  fechaTransferencia: any;
   IdSucursalOrigen = 0;
   IdSucursalDestino = 0;
   productos: any;
@@ -25,7 +25,7 @@ export class TransferenciaComponent implements OnInit {
   lineas_transferencia: any = [];
   itemCheckExists: any = 0;
   itemIdProductoSabor: any;
-  keywordProducto = 'codigoProductoSabor';
+  keywordProducto = 'codigoproductosabor';
   sucursales: any;
 
 
@@ -34,12 +34,15 @@ export class TransferenciaComponent implements OnInit {
     private sucursalesService: SucursalesService, 
     public productosService: ProductosService, 
     public activatedRoute: ActivatedRoute,
-    public alertaService: AlertService
+    public alertaService: AlertService,
+    private utilService: UtilService
     ) {
 
   }
 
   ngOnInit() {
+    this.fechaTransferencia = this.utilService.formatDateNow(new Date(Date.now()));
+
     this.cargarSucursales();
   }
 
@@ -72,15 +75,13 @@ export class TransferenciaComponent implements OnInit {
       .subscribe({
         next: (resp: any) => { 
   
-          console.log("resp alta trans ",resp)
-                  
           if ( resp.mensaje === 'Ok') {
 
             this.alertService.alertSuccess('top-end','Transferencia confirmada',false,2000);
+            this.resetearVariables();
             
-            // this.router.navigate(['/dashboard/proveedores']);
           } else {
-            this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
+            this.alertService.alertFailWithText('Ocurrio un error',resp.mensaje,false,2000);
           }
           return;
          },
@@ -149,21 +150,21 @@ agregarLineaTransferencia() {
     return;
   }
   
-  this.totalTransferencia += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaTransferencia;
+  this.totalTransferencia += Number(this.itemPendiente.precio_venta) * this.cantidadLineaTransferencia;
 
   const checkExistsLineaVenta = this.lineas_transferencia.find((lineas_transferencia : any) => {
-    return lineas_transferencia.IdProductoSabor == this.itemPendiente.IdProductoSabor;
+    return lineas_transferencia.id_producto_sabor == this.itemPendiente.id_producto_sabor;
   });
 
   if(!(checkExistsLineaVenta != undefined))
   {
     this.lineas_transferencia.push(
       {
-        IdProductoSabor: Number(this.itemPendiente.IdProductoSabor),
-        Codigo: this.itemPendiente.Codigo,
-        Producto: this.itemPendiente.Producto,
+        IdProductoSabor: Number(this.itemPendiente.id_producto_sabor),
+        Codigo: this.itemPendiente.codigo,
+        Producto: this.itemPendiente.producto,
         Cantidad: this.cantidadLineaTransferencia,
-        PrecioVenta: this.itemPendiente.PrecioVenta
+        PrecioVenta: this.itemPendiente.precio_venta
       }
     );
 
@@ -226,7 +227,6 @@ agregarLineaTransferencia() {
   }
 // ================================
   onChangeSucursalOrigen(IdSucursalOrigen: any) {
-    console.log(IdSucursalOrigen);
 
     if(IdSucursalOrigen > 0)
     {
@@ -240,4 +240,14 @@ agregarLineaTransferencia() {
     }
 }
 
+
+  // ==============================
+  // 
+  // ================================
+  resetearVariables(){
+    this.lineas_transferencia = [];
+    this.totalTransferencia = 0;
+    this.cantidadLineaTransferencia = 0;
+
+  }
 }

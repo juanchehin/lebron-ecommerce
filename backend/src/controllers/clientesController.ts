@@ -300,7 +300,6 @@ public async dameDatosClienteEnvio(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_dame_direccion_cliente_costo('${IdPersona}')`, function(err: any, result: any, fields: any){
        if(err){
-           console.log("error", err);
            return;
        }
        res.json(result);
@@ -317,7 +316,6 @@ public async dameDirecionesCliente(req: Request, res: Response): Promise<void> {
 
     pool.query(`call bsp_dame_direcciones_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
        if(err){
-           console.log("error", err);
            return;
        }
        res.json(result);
@@ -334,7 +332,6 @@ public async cargarDatosFormEditarCliente(req: Request, res: Response): Promise<
 
     pool.query(`call bsp_dame_datos_cliente('${IdPersona}','${pIdCliente}')`, function(err: any, result: any, fields: any){
        if(err){
-           console.log("error", err);
            return;
        }
        res.json(result);
@@ -349,7 +346,6 @@ public async eliminarCliente(req: Request, res: Response) {
 
     pool.query(`call bsp_eliminar_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
         if(err){
-            console.log("error", err);
             return;
         }
 
@@ -416,7 +412,6 @@ public async actualizaCliente(req: Request, res: Response) {
     '${Correo}','${Usuario}','${Calle}',${Piso},'${Departamento}','${Ciudad}','${Pais}',${Numero},
     '${Objetivo}','${Ocupacion}','${Horario}')`, function(err: any, result: any, fields: any){
         if(err){
-            console.log("error : ", err);
             res.status(404).json({ text: "Ocurrio un problema" });
             return;
         }

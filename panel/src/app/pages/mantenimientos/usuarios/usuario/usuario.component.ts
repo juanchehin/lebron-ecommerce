@@ -216,12 +216,9 @@ export class UsuarioComponent implements OnInit {
         this.permisos
       );
         
-        console.log('usuario::: ', usuario);
-
       this.usuariosService.altaUsuario( usuario )
       .subscribe({
         next: (resp: any) => { 
-          console.log('resp::: ', resp);
 
           if(resp.mensaje == 'Ok') {
             this.alertService.alertSuccess('top-end','Usuario creado con exito',false,900);   

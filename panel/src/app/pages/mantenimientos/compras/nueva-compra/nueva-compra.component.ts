@@ -118,7 +118,6 @@ cargarProductos() {
   this.productosService.cargarProductos( this.productoBuscado , -1)
   .subscribe({
     next: (resp: any) => { 
-      console.log('resp::: ', resp);
 
         this.productos = resp[0];
         
@@ -147,13 +146,11 @@ agregarLineaCompra() {
     return;
   }
 
-  console.log('this.itemPendiente::: ', this.itemPendiente);
   this.totalCompra += Number(this.itemPendiente.precio_venta) * this.cantidadLineaCompra;
 
   const checkExistsLineaCompra = this.lineas_compra.find((linea_compra) => {
     return linea_compra.IdProductoSabor == this.itemPendiente.id_producto_sabor;
   });
-  console.log('lineas_compra::: ', this.lineas_compra);
 
   if(!(checkExistsLineaCompra != undefined))
   {

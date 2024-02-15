@@ -10,14 +10,18 @@
                     </div>
 
                 </div>
-                <div>
-                    <label for="start">Fecha : &nbsp;</label>
-
-                    <input type="date" [(ngModel)]="fecha" (ngModelChange)="cambiosFecha($event)" required> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button [disabled]="controlFechas" (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
-                        refresh
-                        </span></button>
-
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="start">Fecha : &nbsp;</label>
+                        <input class="form-control" type="date" [(ngModel)]="fecha" (ngModelChange)="cambiosFecha($event)" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="col-4">
+                        <button [disabled]="controlFechas" (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                            <span class="material-icons">
+                            refresh
+                            </span>
+                        </button>
+                    </div>
                 </div>
                 <table id="table-edit" class="table table-bordered table-hover">
                     <thead>

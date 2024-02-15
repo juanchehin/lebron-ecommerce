@@ -84,20 +84,18 @@ cargarVentasIdUsuario() {
     .subscribe({
       next: (resp: any) => { 
 
-        console.log("resp cargarVentasIdUsuario : ",resp)
-
         if(resp[2][0].mensaje == 'Ok') {
           this.ventas = resp[0];
           this.totalVentas = resp[1][0].totalVentas;
           
         } else {
-          this.alertService.alertFail('Ocurrio un error',false,400);
+          this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
           
         }
        },
       error: (err: any) => { 
-        this.alertService.alertFail('Ocurrio un error',false,400);
-       }
+        this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+      }
     });
 
   }

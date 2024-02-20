@@ -52,8 +52,12 @@
                             <td>${{ quimico.precio_mayorista }}</td>
                             <td>{{ quimico.moneda }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/quimicos/editar',quimico.id_producto]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaQuimico(quimico.id_producto)">Eliminar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/quimicos/editar',quimico.id_producto]">
+                                    <i class="material-icons"> edit </i>
+                                </button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaQuimico(quimico.id_producto)">
+                                    <i class="material-icons"> delete </i>
+                                </button>
                             </td>
                         </tr>
 

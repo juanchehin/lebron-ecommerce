@@ -45,8 +45,12 @@
                             <td>{{ subcategoria.subcategoria }}</td>
                             <td>{{ subcategoria.categoria }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/subcategoria',subcategoria.id_subcategoria]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaSubCategoria(subcategoria.id_subcategoria)">Eliminar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/subcategoria',subcategoria.id_subcategoria]">
+                                    <i class="material-icons"> edit </i>
+                                </button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaSubCategoria(subcategoria.id_subcategoria)">
+                                    <i class="material-icons"> delete </i>
+                                </button>
                             </td>
                         </tr>
 

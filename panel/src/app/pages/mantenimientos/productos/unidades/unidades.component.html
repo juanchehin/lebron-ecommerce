@@ -33,8 +33,12 @@
                             <td>{{ unidad.unidad }}</td>
                             <td>{{ unidad.nombre_corto }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/unidades',unidad.id_unidad]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaUnidad(unidad.id_unidad)">Eliminar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/unidades',unidad.id_unidad]">
+                                    <i class="material-icons"> edit </i>
+                                </button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaUnidad(unidad.id_unidad)">
+                                    <i class="material-icons"> delete </i>
+                                </button>
                             </td>
                         </tr>
 

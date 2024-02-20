@@ -54,8 +54,12 @@
                             <td>{{ usuario.usuario }}</td>
                             <td>{{ usuario.created_at | date:"dd/MM/yyyy" }}</td>
                             <td>
-                                <button [routerLink]="['/dashboard/usuarios/editar',usuario.id_persona]" class="btn btn-inline" type="button">Editar</button>
-                                <button class="btn btn-inline btn-danger" (click)="bajaUsuario(usuario.id_persona)" type="button">Eliminar</button>
+                                <button [routerLink]="['/dashboard/usuarios/editar',usuario.id_persona]" class="btn btn-inline" type="button">
+                                    <i class="material-icons"> edit </i>
+                                </button>
+                                <button class="btn btn-inline btn-danger" (click)="bajaUsuario(usuario.id_persona)" type="button">
+                                    <i class="material-icons"> delete </i>
+                                </button>
                             </td>
                         </tr>
 

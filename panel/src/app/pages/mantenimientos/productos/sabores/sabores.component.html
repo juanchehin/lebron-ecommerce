@@ -41,8 +41,12 @@
                             <td>{{ sabor.id_sabor }}</td>
                             <td>{{ sabor.sabor }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/sabor',sabor.id_sabor]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaSabor(sabor.id_sabor)">Eliminar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/sabor',sabor.id_sabor]">
+                                    <i class="material-icons"> edit </i>
+                                </button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaSabor(sabor.id_sabor)">
+                                    <i class="material-icons"> delete </i>
+                                </button>
                             </td>
                         </tr>
                     </tbody>

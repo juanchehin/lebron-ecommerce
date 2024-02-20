@@ -93,8 +93,12 @@
                                 <button class="btn btn-primary" type="button">
                                     <i [routerLink]="['/dashboard/productos/imagenes',producto.id_producto]" class="fa fa-camera" aria-hidden="true"></i>
                                 </button>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/producto',producto.id_producto]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaProducto(producto.id_producto)">Eliminar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/producto',producto.id_producto]">
+                                    <i class="material-icons"> edit </i>
+                                </button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaProducto(producto.id_producto)">
+                                    <i class="material-icons"> delete </i>
+                                </button>
                             </td>
                         </tr>
 

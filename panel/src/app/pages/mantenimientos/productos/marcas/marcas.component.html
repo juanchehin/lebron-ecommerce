@@ -41,8 +41,12 @@
                             <td>{{ marca.id_marca }}</td>
                             <td>{{ marca.marca }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/marca',marca.id_marca]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaMarca(marca.id_marca)">Eliminar</button>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/productos/marca',marca.id_marca]">
+                                    <i class="material-icons"> edit </i>
+                                </button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaMarca(marca.id_marca)">
+                                    <i class="material-icons"> delete </i>
+                                </button>
                             </td>
                         </tr>
                     </tbody>

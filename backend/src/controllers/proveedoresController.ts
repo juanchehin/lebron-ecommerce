@@ -79,25 +79,53 @@ public async altaProveedor(req: Request, res: Response) {
     var Nombres = req.body[5];
     var Email = req.body[6];
 
+    
+    if(Proveedor == null || Proveedor == 'null' || Proveedor == undefined || Proveedor == 'undefined')
+    {
+        Proveedor = '';
+    }
+
+    
+    if(CUIL == null || CUIL == 'null' || CUIL == undefined || CUIL == 'undefined')
+    {
+        CUIL = '-';
+    }
+
+    
+    if(Telefono == null || Telefono == 'null' || Telefono == undefined || Telefono == 'undefined')
+    {
+        Telefono = '-';
+    }
+
+    if(CUIL == null || CUIL == 'null' || CUIL == undefined || CUIL == 'undefined')
+    {
+        CUIL = '-';
+    }
+
+    if(Email == null || Email == 'null' || Email == undefined || Email == 'undefined')
+    {
+        Email = '-';
+    }
+
     pool.query(`call bsp_alta_proveedor('${IdUsuario}','${Proveedor}','${CUIL}','${Telefono}','${Apellidos}','${Nombres}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
         
         if(err){
-            logger.error("Error en altaProveedor - bsp_alta_proveedor - proveedoresController");
+            logger.error("Error en altaProveedor - bsp_alta_proveedor - proveedoresController - " + err);
 
             res.status(404).json({ text: err });
             return;
         }
 
-        if(result[0][0].Mensaje !== 'Ok'){
-            logger.error("Error en altaProveedor - bsp_alta_proveedor - proveedoresController");
+        if(result[0][0].mensaje !== 'Ok'){
+            logger.error("Error en altaProveedor - bsp_alta_proveedor - proveedoresController " + err);
 
             return res.json({
                 ok: false,
-                Mensaje: result[0][0].Mensaje
+               mensaje: result[0][0].mensaje
             });
         }
 
-        return res.json({ Mensaje: 'Ok' });
+        return res.json({ mensaje: 'Ok' });
     })
 
 }

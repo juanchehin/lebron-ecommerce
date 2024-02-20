@@ -14,8 +14,6 @@ export class ProveedorComponent implements OnInit {
   forma!: FormGroup;
   cargando = true;
 
-
-
   constructor(
     private router: Router, 
     private alertService: AlertService, 
@@ -27,7 +25,7 @@ export class ProveedorComponent implements OnInit {
   ngOnInit() {
     this.forma = new FormGroup({
         Proveedor: new FormControl(null, Validators.required),
-        CUIL: new FormControl(null, Validators.required),
+        CUIL: new FormControl(null),
         Telefono: new FormControl(null ),
         Apellidos: new FormControl(null ),
         Nombres: new FormControl(null ),
@@ -40,38 +38,37 @@ export class ProveedorComponent implements OnInit {
 //        Crear 
 // ==================================================
 
-  altaProveedor() {
+altaProveedor() {
 
-      if ( this.forma.invalid ) {
-        this.alertService.alertFail('Formulario invalido, chequee que los campos sean correctos',false,2000);
+    if ( this.forma.invalid ) {
+      this.alertService.alertFail('Formulario invalido, chequee que los campos sean correctos',false,2000);
+      return;
+    }
+
+    const proveedor = new Array(
+      this.forma.value.Proveedor,
+      this.forma.value.CUIL,
+      this.forma.value.Telefono,
+      this.forma.value.Observaciones,
+      this.forma.value.Apellidos,
+      this.forma.value.Nombres,
+      this.forma.value.Email
+    );
+
+    this.proveedoresService.altaProveedor( proveedor )
+              .subscribe( (resp: any) => {
+                
+        if ( resp.mensaje === 'Ok') {
+
+          this.alertService.alertSuccess('top-end','Proveedor cargado',false,2000);
+          
+          this.router.navigate(['/dashboard/proveedores']);
+        } else {
+          this.alertService.alertFailWithText('Ocurrio un error',resp.mensaje,false,2000);
+        }
         return;
-      }
+      });
 
-      const proveedor = new Array(
-        this.forma.value.Proveedor,
-        this.forma.value.CUIL,
-        this.forma.value.Telefono,
-        this.forma.value.Observaciones,
-        this.forma.value.Apellidos,
-        this.forma.value.Nombres,
-        this.forma.value.Email
-      );
-
-      this.proveedoresService.altaProveedor( proveedor )
-                .subscribe( (resp: any) => {
-                  
-                  if ( resp.mensaje === 'Ok') {
-
-                    this.alertService.alertSuccess('top-end','Proveedor cargado',false,2000);
-                    
-                    this.router.navigate(['/dashboard/proveedores']);
-                  } else {
-                    this.alertService.alertFailWithText('Ocurrio un error',resp.mensaje,false,2000);
-                  }
-                  return;
-                });
-
-
-              }
+  }
 
 }

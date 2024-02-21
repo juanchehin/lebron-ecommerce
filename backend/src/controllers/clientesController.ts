@@ -248,13 +248,60 @@ public async buscarClientesPaginado(req: Request, res: Response): Promise<void> 
         clienteBuscado = "todosClientes";
     }
 
-    pool.query(`call bsp_buscar_clientes_paginado('${pIdPersona}','${filtroCliente}','${clienteBuscado}','${desde}')`, function(err: any, result: any, fields: any){
-        if(err){
-           res.status(404).json(result);
-           return;
-       }
-       res.status(200).json(result);
-    })
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion buscarClientesPaginado " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_buscar_clientes_paginado(?,?,?,?)',[pIdPersona,filtroCliente,clienteBuscado,desde], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_buscar_clientes_paginado - " + err);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+                // When done with the connection, release it.
+                connection.release();
+        
+                // Handle error after the release.
+                if (err){
+                    logger.error("Error funcion bsp_buscar_clientes_paginado " + err);
+                    throw err;    
+                } 
+       
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_buscar_clientes_paginado 2 - " + error);
+        } finally {
+            connection.release();
+        }
+      });
+
+    // try {
+    //     // Utiliza placeholders para manejar los parámetros de manera segura
+    //     const [rows, fields] = await conexion.execute('CALL tu_procedimiento(?)', [parametro]);
+    //     console.log('Resultado:', rows);
+    //   } catch (error) {
+    //     console.error('Error al ejecutar el procedimiento:', error);
+    //   } finally {
+    //     await conexion.end();
+    //   }
+
+    // pool.query(`call bsp_buscar_clientes_paginado('${pIdPersona}','${filtroCliente}','${clienteBuscado}','${desde}')`, function(err: any, result: any, fields: any){
+    //     if(err){
+    //         logger.error("Error en bsp_buscar_clientes_paginado - clientesController " + err );
+    //         res.status(404).json(result);
+    //         return;
+    //    }
+    //    res.status(200).json(result);
+    // })
 
  }
 

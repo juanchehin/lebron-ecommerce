@@ -136,12 +136,15 @@ altaVenta() {
 
 cargarClientes() {
 
-    this.clientesService.cargarClientes( this.clienteBuscado )
-               .subscribe( (resp: any) => {
+  this.clientesService.cargarClientes( this.clienteBuscado )
+  .subscribe({
+    next: (resp: any) => {
+      
+      this.clientes = resp;
 
-                this.clientes = resp;
-
-              });
+     },
+    error: () => { this.alertaService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000) }
+  });
 
   }
 

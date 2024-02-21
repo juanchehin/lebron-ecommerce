@@ -42,7 +42,7 @@ buscarProducto() {
 
     this.productosService.listarProductosPaginado( this.desde , this.IdSucursal, productoBuscado  )
                .subscribe( {
-                next: (resp: any) => { 
+                next: (resp: any) => {
 
                   if(resp[0].length <= 0)
                   { 

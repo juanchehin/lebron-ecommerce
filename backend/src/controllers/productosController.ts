@@ -125,20 +125,20 @@ public async bajaProducto(req: Request, res: Response): Promise<void> {
 // ==================================================
 public async buscarProductoPaginado(req: Request, res: Response): Promise<void> {
 
-    var desde = req.params.desde || 0;
+    var desde = req.params.pDesde || 0;
     desde  = Number(desde);
     var pParametroBusqueda = req.params.pParametroBusqueda || '';
     const IdSucursal = req.params.IdSucursal;
-
+    
     if(pParametroBusqueda == null || pParametroBusqueda == 'null' || pParametroBusqueda == '-' || pParametroBusqueda == '')
     {
         pParametroBusqueda = '-';
     }
-
+    
     pool.query(`call bsp_buscar_producto_paginado('${req.params.IdPersona}','${pParametroBusqueda}','${desde}','${IdSucursal}')`, function(err: any, result: any){
         
         if(err){
-            logger.error("Error en bsp_buscar_producto_paginado - productosController");
+            logger.error("Error en bsp_buscar_producto_paginado - productosController - " + err + " - " + result );
 
             res.status(400).json(err);
             return;

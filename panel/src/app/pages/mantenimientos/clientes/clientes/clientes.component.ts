@@ -42,9 +42,9 @@ buscarClientes() {
 
     this.clientesService.buscarClientesPaginado( this.desde, 2, clienteBuscado  )
                .subscribe( {
-                next: (resp: any) => { 
-
-                  if(resp[0][0] != undefined && resp[2] && resp[2][0].mensaje == 'Ok')
+                next: (resp: any) => {
+                  
+                  if(resp[2][0].mensaje == 'Ok')
                   { 
                     this.totalClientes = resp[1][0].cantClientes;
     

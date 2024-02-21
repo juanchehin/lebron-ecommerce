@@ -205,4 +205,20 @@ destacarProducto(IdProducto: string){
  });
 }
 
+// ==================================================
+// 
+// ==================================================
+
+refrescar() {
+
+  this.desde = 0;
+  this.IdSucursal = 1;
+
+  const inputElement: HTMLInputElement = document.getElementById('buscarProducto') as HTMLInputElement;
+  inputElement.value = '';
+
+  this.buscarProducto();
+
+}
+
 }

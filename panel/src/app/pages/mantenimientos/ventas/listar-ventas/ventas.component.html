@@ -1,59 +1,57 @@
 <div class="page-content">
     <div class="container-fluid">
         <section class="box-typical">
-            <div class="table-responsive">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <h3 class="card-title">Cantidad ventas ( <small> {{ totalVentas }} </small> )</h3>
-                    </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h3 class="card-title">Cantidad ventas ( <small> {{ totalVentas }} </small> )</h3>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <label>Fecha Inicio : &nbsp;</label>
-                        <input type="date" class="form-control" [(ngModel)]="fechaInicio" required> &nbsp;&nbsp;&nbsp;&nbsp;
-                    </div>
-                    <div class="col-sm-4">
-                        <label>Fecha Fin : &nbsp;</label>
-                        <input type="date" class="form-control" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp;
-                    </div>
-                    <div class="col-sm-4" style="top: 27px;">
-                        <button (click)="refrescar()" class="btn btn-rounded btn-primary"><span class="material-icons">
-                            refresh
-                            </span>
-                        </button>
-                    </div>
-                    <div class="col-sm-4">
-                        <button [routerLink]="['/dashboard/ventas/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
-                            <i class="fa fa-plus"></i> 
-                            Nueva Venta
-                        </button>
-                    </div>
-                </div>
-                <table id="table-edit" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th width="1">
-                                #
-                            </th>
-                            <th>Fecha</th>
-                            <th>Vendedor</th>
-                            <th>Comprador</th>
-                            <th>Monto total</th>
-                            <th>Sucursal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let venta of ventas">
-                            <td>{{ venta.id_transaccion }}</td>
-                            <td>{{ venta.fecha }}</td>
-                            <td>{{ venta.Vendedor }}</td>
-                            <td>{{ venta.Comprador }}</td>
-                            <td>$ {{ venta.monto_total }}</td>
-                            <td>{{ venta.sucursal }}</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Fecha Inicio : &nbsp;</label>
+                    <input type="date" class="form-control" [(ngModel)]="fechaInicio" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="col-sm-4">
+                    <label>Fecha Fin : &nbsp;</label>
+                    <input type="date" class="form-control" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="col-sm-4" style="top: 27px;">
+                    <button (click)="refrescar()" class="btn btn-rounded btn-primary"><span class="material-icons">
+                        refresh
+                        </span>
+                    </button>
+                </div>
+                <div class="col-sm-4">
+                    <button [routerLink]="['/dashboard/ventas/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                        <i class="fa fa-plus"></i> 
+                        Nueva Venta
+                    </button>
+                </div>
+            </div>
+            <table id="table-edit" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th width="1">
+                            #
+                        </th>
+                        <th>Fecha</th>
+                        <th>Vendedor</th>
+                        <th>Comprador</th>
+                        <th>Monto total</th>
+                        <th>Sucursal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let venta of ventas">
+                        <td>{{ venta.id_transaccion }}</td>
+                        <td>{{ venta.fecha }}</td>
+                        <td>{{ venta.Vendedor }}</td>
+                        <td>{{ venta.Comprador }}</td>
+                        <td>$ {{ venta.monto_total }}</td>
+                        <td>{{ venta.sucursal }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
         <!--.box-typical-->
 

@@ -1,32 +1,31 @@
 <div class="page-content">
     <div class="container-fluid">
         <section class="box-typical">
-            <div class="table-responsive">
-                <div class="row">
-                    <div class="col-sm-4 form-group">
-                        <label>Quimico:  </label>
-                        <input (keyup.enter)="buscarQuimico( )" #input type="text" class="form-control" placeholder="Busqueda..." id="buscarQuimico">
-                    </div>
-                    <div class="col-sm-1 form-group">
-                        <button (click)="buscarQuimico( )" class="btn btn-primary" style="margin-top: 26px;">
-                            <i class="material-icons">
-                                search
-                                </i>
-                            </button>
-                    </div>
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <label>Quimico:  </label>
+                    <input (keyup.enter)="buscarQuimico( )" #input type="text" class="form-control" placeholder="Busqueda..." id="buscarQuimico">
                 </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <h3 class="card-title">Cantidad quimicos ( <small> {{totalQuimicos }} </small> )</h3>
-                    </div>
-                    <div class="col-4">
-                    </div>
-                    <div class="col-sm-4">
-                        <button [routerLink]="['/dashboard/productos/quimicos/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
-                          <i class="fa fa-plus"></i> 
-                            Nuevo Quimico
+                <div class="col-sm-1 form-group">
+                    <button (click)="buscarQuimico( )" class="btn btn-primary" style="margin-top: 26px;">
+                        <i class="material-icons">
+                            search
+                            </i>
                         </button>
-                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h3 class="card-title">Cantidad quimicos ( <small> {{totalQuimicos }} </small> )</h3>
+                </div>
+                <div class="col-4">
+                </div>
+                <div class="col-sm-4">
+                    <button [routerLink]="['/dashboard/productos/quimicos/nuevo']" type="button" class="btn btn-primary">
+                        <i class="material-icons">
+                        add_circle
+                        </i>
+                    </button>
                 </div>
             </div>
             <div style="overflow:auto;">

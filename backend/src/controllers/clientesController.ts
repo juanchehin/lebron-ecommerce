@@ -513,14 +513,34 @@ public async bajaPromocionCarrito(req: Request, res: Response) {
 public async buscarCliente(req: Request, res: Response): Promise<any> {
     var clienteBuscado = req.params.clienteBuscado;
 
-    pool.query(`call bsp_buscar_cliente('${clienteBuscado}')`, function(err: any, result: any, fields: any){
-        if(err){
-            res.status(404).json({ text: "La personas no existe" });
-            return;
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_buscar_cliente " + err);
+            throw err; // not connected!
         }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_buscar_cliente(?)',[clienteBuscado], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_buscar_cliente - err: " + err + " - result:" + result);
         
-        res.status(200).json(result[0]);
-    })
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result[0]);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_buscar_cliente 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
 
 }
 }

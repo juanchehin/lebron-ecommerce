@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -130,6 +130,15 @@ export class EditarUsuarioComponent implements OnInit {
   listarConfiguraciones = false;
   editarConfiguraciones = false;
 
+  keywordSucursal = 'sucursal';
+  sucursales_cargadas: any = [];
+  itemPendiente: any = [];
+  cantidadLineaSucursal = 1;
+  itemIdSucursal: any;
+  sucursalBuscada = '';
+  itemCheckExists: any = 0;
+  @ViewChild('sucursalesReference') sucursalesReference: any;
+
   constructor(
     private router: Router, 
     public usuariosService: UsuariosService, 
@@ -159,7 +168,7 @@ editarUsuario() {
     this.Password,
     this.Observaciones,
     this.FechaNac,
-    this.IdSucursal,
+    this.sucursales_cargadas,
     this.permisos
   );
 
@@ -190,7 +199,7 @@ cargarDatosFormEditarUsuario() {
              .subscribe( {
               next: (resp: any) => {
 
-                if ( (resp != null) && (resp[3][0].mensaje == 'Ok') ) {
+                if ( (resp != null) && (resp[4][0].mensaje == 'Ok') ) {
 
                   this.Apellidos = resp[0][0].apellidos;
                   this.Nombres = resp[0][0].nombres;
@@ -205,6 +214,8 @@ cargarDatosFormEditarUsuario() {
                   this.permisosUsuario = resp[1];
 
                   this.sucursales = resp[2];
+
+                  this.sucursales_cargadas = resp[3];
 
                   this.permisosUsuario.forEach( (value) => {
                     
@@ -1075,4 +1086,101 @@ habilitarBanderas(itemIdPermisos: any){
 }
 
 }
+
+
+// ==================================================
+// Insera los sabores en el array
+// ==================================================
+
+agregarLineaSucursal() {
+
+  if(this.itemPendiente.sucursal == '')
+  { 
+    this.alertService.alertFail('Debe elegir una sucursal',false,2000)
+    return;
+  }
+
+  // if(this.codigoLineaSabor == '' || this.codigoLineaSabor == undefined)
+  // { 
+  //   this.alertService.alertFail('Debe cargar un codigo',false,2000)
+  //   return;
+  // }
+
+  if(this.itemPendiente.length <= 0)
+  { 
+    this.alertService.alertFail('Debe cargar sabor/codigo',false,2000)
+    return;
+  }
+  
+  const checkExistsLineaSucursal = this.sucursales_cargadas.find((sucursal_cargada: any) => {
+    return sucursal_cargada.id_sucursal == this.itemPendiente.id_sucursal;
+  });
+
+
+  if(!(checkExistsLineaSucursal != undefined))
+  {
+    this.sucursales_cargadas.push(
+      {
+        id_sucursal: Number(this.itemPendiente.id_sucursal),
+        sucursal: this.itemPendiente.sucursal
+      }
+    );
+  
+  
+    this.cantidadLineaSucursal = 1;
+  }
+  else{
+    this.alertService.alertFail('Sucursal ya cargada',false,900)
+    return;
+
+    // this.itemCheckExists = checkExistsLineaSabor;
+    // this.itemIdSabor = this.itemCheckExists.IdProducto;
+
+
+    // for (let item of this.sabores_cargados) {
+    //   if(item.IdProducto == this.itemCheckExists.IdProducto)
+    //   { 
+    //     item.Cantidad = Number(item.Cantidad) + Number(this.cantidadLineaSabor);
+    //   }
+    //  }
+  }
+
+  // this.codigoLineaSucursal = '';
+  // this.banderaGenerarCodigo = false; 
+  this.itemPendiente = [];
+  this.sucursalesReference.clear();
+  this.sucursalesReference.close();
+  // this.keywordSabor = '';
+
+}
+
+  // ==============================
+  // Para sucursales
+  // ================================
+  selectEventSucursal(item: any) {
+    
+    this.itemPendiente = item;
+  }
+// ================================
+  onChangeSearch(val: any) {
+    this.sucursalBuscada = val;
+    // this.cargarSabores();
+  }
+  
+  // ==============================
+// 
+// ================================
+eliminarItemSucursal(p_id_sucursal: any){
+
+  this.sucursales_cargadas.forEach( (item: any, index: any) => {
+    if(item.id_sucursal === p_id_sucursal) 
+    {
+      // this.totalVenta -= item.PrecioVenta * item.Cantidad;
+      this.sucursales_cargadas.splice(index,1);
+    }
+      
+  });
+
+}
+
 }

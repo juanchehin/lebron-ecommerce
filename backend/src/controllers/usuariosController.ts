@@ -113,9 +113,7 @@ public async altaUsuario(req: Request, res: Response) {
                         
                     })
 
-                }
-                
-                ); 
+                });
                 // =============Fin permisos=================
                 return res.json({ mensaje: 'Ok' });
             })
@@ -192,7 +190,7 @@ public async editarUsuario(req: Request, res: Response) {
     var Password = req.body[6];
     var Observaciones = req.body[7];
     var FechaNac = req.body[8];
-    var IdSucursal = req.body[9];
+    var array_sucursales = req.body[9];
     var arrayPermisos = req.body[10];
     
     if(FechaNac != null && FechaNac != 'null')
@@ -211,7 +209,7 @@ public async editarUsuario(req: Request, res: Response) {
         bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
             bcrypt.hash(Password, salt, async function(err: any, hash: any) {
     
-                pool.query(`call bsp_editar_usuario('${IdPersona}','${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}','${myDateString}','${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any){        
+                pool.query(`call bsp_editar_usuario('${IdPersona}','${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}','${myDateString}','${Usuario}','${Observaciones}')`, function(err: any, result: any){        
                                     
                     if(err || result[0][0].mensaje != 'Ok'){
                         logger.error("Error bsp_editar_usuario - editarUsuario - usuariosController " + err);
@@ -235,6 +233,22 @@ public async editarUsuario(req: Request, res: Response) {
                         })
     
                     }); 
+
+                    // =========== Cargo las sucursales para el usuario ===================
+                    array_sucursales.forEach(function (item_sucursal: any) {
+
+                        pool.query(`call bsp_editar_sucursales_usuario('${IdUsuario}','${item_sucursal.id_sucursal}')`, function(err: any, result: any, fields: any){
+                            
+                            if(err){
+                                logger.error("Error bsp_editar_sucursales_usuario - altaUsuario - usuariosController " + err);
+
+                                res.status(404).json({ text: err });
+                                return;
+                            }
+                            
+                        })
+
+                    });
                     // =============Fin permisos=================
                     return res.json({ mensaje: respuestaFinal });
                 })
@@ -244,7 +258,7 @@ public async editarUsuario(req: Request, res: Response) {
     }
     else
     {
-        pool.query(`call bsp_editar_usuario('${IdPersona}','${IdUsuario}','${Apellidos}','${Nombres}',null,'${Telefono}','${DNI}','${Correo}','${myDateString}','${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any){        
+        pool.query(`call bsp_editar_usuario('${IdPersona}','${IdUsuario}','${Apellidos}','${Nombres}',null,'${Telefono}','${DNI}','${Correo}','${myDateString}','${Usuario}','${Observaciones}')`, function(err: any, result: any){        
 
             if(err || result[0][0].mensaje != 'Ok'){
                 logger.error("Error bsp_editar_usuario 2 - editarUsuario - usuariosController " + err);
@@ -272,6 +286,23 @@ public async editarUsuario(req: Request, res: Response) {
                 })
     
             }); 
+
+             // =========== Cargo las sucursales para el usuario ===================
+             array_sucursales.forEach(function (item_sucursal: any) {
+
+                pool.query(`call bsp_editar_sucursales_usuario('${IdUsuario}','${item_sucursal.id_sucursal}')`, function(err: any, result: any, fields: any){
+
+                    if(err){
+                        logger.error("Error bsp_editar_sucursales_usuario - altaUsuario - usuariosController " + err);
+
+                        res.status(404).json({ text: err });
+                        return;
+                    }
+                    
+                })
+
+            });
+
             // =============Fin permisos=================
             return res.json({ mensaje: 'Ok' });
         })

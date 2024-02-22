@@ -907,7 +907,6 @@ cargarSucursales()
 
 agregarLineaSucursal() {
 
-  console.log('this.itemPendiente::: ', this.itemPendiente);
   if(this.itemPendiente.sucursal == '')
   { 
     this.alertService.alertFail('Debe elegir una sucursal',false,2000)

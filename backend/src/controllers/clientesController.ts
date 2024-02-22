@@ -61,22 +61,42 @@ public async editarCliente(req: Request, res: Response) {
     var DNI = req.body[3];
     var Email = req.body[4];
     var Observaciones = req.body[5];
-
+    
     var pIdCliente = req.body[6];
+    
+    if(Telefono == null || Telefono == 'null' || Telefono == '-' || Telefono == '')
+    {
+        Telefono = '-';
+    }
 
-    pool.query(`call bsp_editar_cliente('${IdPersona}','${pIdCliente}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}','${Observaciones}')`,function(err: any, result: any, fields: any){
-        
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_editar_cliente " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_editar_cliente(?,?,?,?,?,?,?,?)',[IdPersona,pIdCliente,Apellidos,Nombres,Telefono,DNI,Email,Observaciones], function(err: any, result: any){
+
+                
                 if(err){
-                    res.status(404).json(err);
+                    logger.error("Error en bsp_editar_cliente - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
                     return;
                 }
-                
-                if(result[0][0].Mensaje !== 'Ok'){
-                    return res.json( result );
-                }
 
-                return res.json({ Mensaje: 'Ok' });
-            })          
+                return res.json(result);
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_editar_cliente 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
     
 }
 
@@ -109,7 +129,7 @@ public async editarClienteFront(req: Request, res: Response) {
                 }
 
                 return res.json({ Mensaje: 'Ok' });
-            })          
+    })          
     
 }
 // ==================================================
@@ -190,7 +210,7 @@ public async altaPromocionCarrito(req: Request, res: Response) {
     var IdSabor1 = req.body[2];
     var IdSabor2 = req.body[3];
     var Cantidad = req.body[4];
-    
+
     pool.query(`call bsp_alta_promocion_carrito('${IdCliente}','${IdPromocion}','${IdSabor1}','${IdSabor2}','${Cantidad}')`,function(err: any, result: any, fields: any){
         
                 if(err){

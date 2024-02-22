@@ -197,7 +197,7 @@ cargarDatosVendedor() {
                   this.datosVendedor = resp[0][0];
                   this.fecha_venta = this.utilService.formatDateNow(resp[1][0].fecha_bd);
 
-                  this.idSucursalVendedor = this.datosVendedor.IdSucursal;
+                  this.idSucursalVendedor = this.datosVendedor.id_sucursal;
                 },
                 error: (err: any) => {
                   this.alertaService.alertFail('Ocurrio un error al cargar los datos del vendedor' + err,false,400); }

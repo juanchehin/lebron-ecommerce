@@ -49,6 +49,13 @@
                         <td>{{ venta.Comprador }}</td>
                         <td>$ {{ venta.monto_total }}</td>
                         <td>{{ venta.sucursal }}</td>
+                        <td>
+                            <button class="btn btn-inline btn-success" type="button" (click)="generar_factura_pdf(venta.id_transaccion)">
+                                <i class="material-icons"> 
+                                    picture_as_pdf    
+                                </i>
+                            </button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

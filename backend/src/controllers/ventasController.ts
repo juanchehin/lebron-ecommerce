@@ -55,14 +55,34 @@ public async listarVentasIdUsuario(req: Request, res: Response): Promise<void> {
     var pFecha = req.params.pFecha;
     var pIdPersona = req.params.pIdPersona;
 
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_listar_ventas_idusuario " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_listar_ventas_id_usuario(?,?,?)',[desde,pFecha,pIdPersona], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_listar_ventas_idusuario - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
 
-    pool.query(`call bsp_listar_ventas_idusuario('${desde}','${pFecha}','${pIdPersona}')`, function(err: any, result: any, fields: any){
-       if(err){
-            res.status(404).json(err);
-           return;
-       }
-       res.json(result);
-   })
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_listar_ventas_idusuario 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
 
 }
 
@@ -156,12 +176,34 @@ dameDatosPDFVenta(req: Request, res: Response) {
 
     var IdTransaccion = req.params.pIdTransaccion;
 
-    pool.query(`call bsp_dame_datos_pdf_venta('${IdTransaccion}')`, function(err: any, result: any){
-       if(err){
-           return;
-       }
-       res.json(result);
-   })
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_buscar_cliente " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_dame_datos_pdf_venta(?)',[IdTransaccion], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_dame_datos_pdf_venta - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_dame_datos_pdf_venta 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
 
 }
 

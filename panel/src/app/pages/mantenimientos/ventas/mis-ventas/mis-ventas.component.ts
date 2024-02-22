@@ -82,7 +82,7 @@ cargarVentasIdUsuario() {
 
     this.ventasService.listarVentasIdUsuario(this.desde, pFecha  )
     .subscribe({
-      next: (resp: any) => { 
+      next: (resp: any) => {
 
         if(resp[2][0].mensaje == 'Ok') {
           this.ventas = resp[0];
@@ -154,19 +154,20 @@ factura( pIdTransaccion: any) {
 
     this.ventasService.dameDatosPDFVenta( pIdTransaccion  )
     .subscribe({
-      next: (resp: any) => { 
+      next: (resp: any) => {
 
         if((resp[5] != undefined) && (resp[5][0].mensaje == 'Ok')) {
 
           this.generarPDF(resp[0],resp[1],pIdTransaccion,resp[2],resp[3],resp[4]);
           
         } else {
-          this.alertService.alertFail('Ocurrio un error',false,400);
+          this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
           
         }
        },
       error: (err: any) => {
-        this.alertService.alertFail('Ocurrio un error ' + err,false,400); }
+        this.alertService.alertFail('Ocurrio un error ' + err,false,400); 
+      }
     });
 
   }
@@ -182,14 +183,14 @@ generarPDF( pDatosEncabezado: any,pDatosCliente: any,pIdTransaccion: any,pDatosT
 
 
   for(var item of pDatosLineasVenta) {
-    rows.push([item.Cantidad, item.Producto, item.precioVentaUnitario, item.SubTotal]);
+    rows.push([item.cantidad, item.producto, item.precio_ventaUnitario, item.SubTotal]);
   }
 
   for(var item of pCondVenta) {
-    condVentaLinea += item.TipoPago + ' $ ' + item.Monto + ' | ';
+    condVentaLinea += item.tipo_pago + ' $ ' + item.monto + ' | ';
   }
 
-  rows.push(['', '', 'TOTAL', pDatosTransaccion[0].MontoTotal]);
+  rows.push(['', '', 'TOTAL', pDatosTransaccion[0].monto_total]);
 
     var dd = {
     content: [
@@ -206,7 +207,7 @@ generarPDF( pDatosEncabezado: any,pDatosCliente: any,pIdTransaccion: any,pDatosT
                         {text: 'LeBron Suplementos\n\n', style: 'tableHeader', fontSize: 15},
                         {text: 'Belgrano 354.Lules (4128) - Tucuman\n', fontSize: 10,margin: [10, 10]},
                         {text: 'RESPONSABLE MONOTRIBUTO\n', fontSize: 9,bold: true,margin: [18, 10]},
-                        {text: 'Sucursal : ' + pDatosTransaccion[0].Sucursal, fontSize: 9,bold: true,margin: [20, 10]}
+                        {text: 'Sucursal : ' + pDatosTransaccion[0].sucursal, fontSize: 9,bold: true,margin: [20, 10]}
                     ],
                     // Columna 2
                     [
@@ -243,7 +244,7 @@ generarPDF( pDatosEncabezado: any,pDatosCliente: any,pIdTransaccion: any,pDatosT
                 [
                     {
                     colSpan: 3,
-                    text: 'Nombre:  '+ pDatosCliente[0].apNomCliente  + ' (' + pDatosCliente[0].DNI  + ')  \n\nDirección: -'
+                    text: 'Nombre:  '+ pDatosCliente[0].apNomCliente  + ' (' + pDatosCliente[0].dni  + ')  \n\nDirección: -'
                   },
                   '',
                   ''
@@ -268,7 +269,7 @@ generarPDF( pDatosEncabezado: any,pDatosCliente: any,pIdTransaccion: any,pDatosT
                     ''
                   ],
                   {
-                      text: [	'DNI/CUIT: ' + pDatosCliente[0].DNI ]
+                      text: [	'DNI/CUIT: ' + pDatosCliente[0].dni ]
                   }
                 ],
                 // Cond venta

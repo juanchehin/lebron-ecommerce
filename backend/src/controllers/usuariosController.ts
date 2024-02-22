@@ -62,7 +62,7 @@ public async altaUsuario(req: Request, res: Response) {
     var Password = req.body[6];
     var Observaciones = req.body[7];
     var FechaNac = req.body[8];
-    var IdSucursal = req.body[9];
+    var array_sucursales = req.body[9];
     var arrayPermisos = req.body[10];
 
     const saltRounds = 10;  //  Data processing speed
@@ -70,10 +70,10 @@ public async altaUsuario(req: Request, res: Response) {
     bcrypt.genSalt(saltRounds, function(err: any, salt: any) {
         bcrypt.hash(Password, salt, async function(err: any, hash: any) {            
 
-            pool.query(`call bsp_alta_usuario('${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}','${FechaNac}','${Usuario}','${IdSucursal}','${Observaciones}')`, function(err: any, result: any, fields: any){        
+            pool.query(`call bsp_alta_usuario('${IdUsuario}','${Apellidos}','${Nombres}','${hash}','${Telefono}','${DNI}','${Correo}','${FechaNac}','${Usuario}','${Observaciones}')`, function(err: any, result: any, fields: any){        
             
                 if(err || result[0][0].mensaje != 'Ok'){
-                    logger.error("Error bsp_alta_usuario - altaUsuario - usuariosController ");
+                    logger.error("Error bsp_alta_usuario - altaUsuario - usuariosController - " + err + " - " + result);
 
                     return res.json({
                         ok: false,
@@ -81,7 +81,7 @@ public async altaUsuario(req: Request, res: Response) {
                     });
                 }
 
-                var pIdPersona = result[0][0].IdPersona;
+                var pIdPersona = result[0][0].id_persona;
 
                 // =========== Cargo los permisos para el usuario ===================
                 arrayPermisos.forEach(function (pIdPermiso: any) {
@@ -98,6 +98,24 @@ public async altaUsuario(req: Request, res: Response) {
                     })
 
                 }); 
+
+                // =========== Cargo las sucursales para el usuario ===================
+                array_sucursales.forEach(function (item_sucursal: any) {
+
+                    pool.query(`call bsp_alta_sucursales_usuario('${IdUsuario}','${pIdPersona}','${item_sucursal.id_sucursal}')`, function(err: any, result: any, fields: any){
+                        
+                        if(err){
+                            logger.error("Error bsp_alta_sucursal_usuario - altaUsuario - usuariosController " + err);
+
+                            res.status(404).json({ text: err });
+                            return;
+                        }
+                        
+                    })
+
+                }
+                
+                ); 
                 // =============Fin permisos=================
                 return res.json({ mensaje: 'Ok' });
             })

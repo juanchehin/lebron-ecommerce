@@ -171,11 +171,10 @@ cargarClientes() {
 
 cargarProductos() {
 
-  this.productosService.cargarProductos( this.productoBuscado, this.id_tipo_venta_seleccionada )
+  this.productosService.cargarProductos( this.productoBuscado, this.id_sucursal_seleccionada )
              .subscribe( (resp: any) => {
-              console.log('resp::: ', resp);
               
-              this.productos = resp;
+              this.productos = resp[0];
 
             });
 

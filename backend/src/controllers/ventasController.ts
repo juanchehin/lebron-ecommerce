@@ -94,9 +94,9 @@ async altaVenta(req: Request, res: Response) {
 
     var pIdVendedor = req.params.IdPersona;
     var pIdVenta;
-    
+
     var pIdCliente = req.body[0];
-    var pLineaVenta = req.body[1];
+    var pLineasVenta = req.body[1];
     var pLineaTipoPago = req.body[2];
     var pMontoTotal = req.body[3];
     var pFechaVenta = req.body[4];
@@ -116,7 +116,7 @@ async altaVenta(req: Request, res: Response) {
         }       
         // ========================== Lineas de venta =======================================
 
-        pLineaVenta.forEach(async function (value: any) {
+        pLineasVenta.forEach(async function (value: any) {
 
             let sql2 = `call bsp_alta_linea_venta('${result[0][0].IdVenta}','${value.IdProductoSabor}','${result[0][0].pIdSucursal}','${value.Cantidad}','${p_id_tipo_venta_seleccionada}')`;
             const [result2] = await pool.promise().query(sql2)
@@ -132,12 +132,12 @@ async altaVenta(req: Request, res: Response) {
         pLineaTipoPago.forEach(async function (value: any) {
              
             let sql3 = `call bsp_alta_tipo_pago('${result[0][0].IdVenta}','${value.IdTipoPago}','${value.SubTotal}','${pIdCliente}')`;
-            const [result3, ] = await pool.promise().query(sql3)
+            const [result3] = await pool.promise().query(sql3)
 
                if(result3[0][0].Mensaje != 'Ok')
                {
                     logger.error("Error bsp_alta_tipo_pago - ventasController");
-                   return
+                   return;
                }              
 
         });
@@ -146,7 +146,6 @@ async altaVenta(req: Request, res: Response) {
 
         // ======================= Confirmar transferencia exitosa ==========================================
       
-
         // return result
       } catch (error) {
         logger.error("Error funcion altaVenta - ventasController");
@@ -269,18 +268,38 @@ cargarDatosNuevaVenta(req: Request, res: Response) {
 const ventasController = new VentasController;
 export default ventasController;
 
+// =========================================
 async function confirmarTransaccion(pIdVenta: any) {
 
-    // ==============================
-    try {
-        let sql4 = `call bsp_confirmar_transaccion('${pIdVenta}')`;
-        const [result4] = await pool.promise().query(sql4)
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_confirmar_transaccion " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_confirmar_transaccion(?)',[pIdVenta], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_confirmar_transaccion - err: " + err + " - result:" + result);
         
-        return result4;
+                    // res.status(400).json(err);
+                    return;
+                }
+        
+                return result;
+                // res.status(200).json(result);
 
-    } catch (error) {
-        logger.error("Error funcion confirmarTransaccion - ventasController : " + error);
-        return error;
-      }
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_confirmar_transaccion 2 - " + error);
+            // res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
 
 }

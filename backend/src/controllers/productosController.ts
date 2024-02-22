@@ -184,7 +184,7 @@ public async buscarProductoAutoComplete(req: Request, res: Response): Promise<vo
     {
         pParametroBusqueda = '';
     }
-    
+
     // **
     pool.getConnection(function(err: any, connection: any) {
         if (err) {
@@ -203,7 +203,7 @@ public async buscarProductoAutoComplete(req: Request, res: Response): Promise<vo
                     return;
                 }
         
-                res.status(200).json(result[0]);
+                res.status(200).json(result);
 
             });
 
@@ -779,7 +779,7 @@ public async buscarProductoAutoCompleteTransferencia(req: Request, res: Response
     }
 
     pool.query(`call bsp_buscar_producto_autocomplete_sucursal('${pParametroBusqueda}','${pIdSucursalOrigen}')`, function(err: any, result: any){
-        
+
         if(err){
             res.status(400).json(err);
             return;

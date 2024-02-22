@@ -7,20 +7,22 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 
 @NgModule({
   declarations: [
     UsuariosComponent,
     UsuarioComponent,
-    EditarUsuarioComponent
+    EditarUsuarioComponent    
   ],
   imports: [
     CommonModule,
     UsuariosRoutingModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AutocompleteLibModule
   ]
 })
 export class UsuariosModule { }

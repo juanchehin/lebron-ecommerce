@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
@@ -8,7 +8,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 @Component({
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
-  styles: []
+  styleUrls: ['./usuario.component.css']
 })
 export class UsuarioComponent implements OnInit {
 
@@ -120,6 +120,14 @@ export class UsuarioComponent implements OnInit {
 
   permisos: Array<any> = new Array();
   sucursales: any;
+  keywordSucursal = 'sucursal';
+  sucursales_cargadas: any = [];
+  itemPendiente: any = [];
+  cantidadLineaSucursal = 1;
+  itemIdSucursal: any;
+  sucursalBuscada = '';
+  itemCheckExists: any = 0;
+  @ViewChild('sucursalesReference') sucursalesReference: any;
 
   constructor(
     private router: Router, 
@@ -138,7 +146,6 @@ export class UsuarioComponent implements OnInit {
         apellidos: new FormControl(null, Validators.required),
         nombres: new FormControl(null, Validators.required),
         usuario: new FormControl(null, Validators.required),
-        id_sucursal: new FormControl(null, Validators.required),
         telefono: new FormControl(null ),
         correo: new FormControl(null),
         dni: new FormControl(null),
@@ -194,10 +201,12 @@ export class UsuarioComponent implements OnInit {
   altaUsuario() {
 
       if ( this.forma.invalid ) {
+        this.alertService.alertInfoWithText('Atencion','Formulario invalido',false,1500); 
         return;
       }
 
-      if (this.forma.value.IdSucursal == 0) {
+
+      if (this.sucursales_cargadas.length <= 0) {
         this.alertService.alertFail('Debe seleccionar una sucursal',false,700); 
         return;
       }
@@ -212,19 +221,19 @@ export class UsuarioComponent implements OnInit {
         this.forma.value.password,
         this.forma.value.observaciones,
         this.forma.value.fecha_nac,
-        this.forma.value.id_sucursal,
+        this.sucursales_cargadas,
         this.permisos
       );
-        
+      
       this.usuariosService.altaUsuario( usuario )
       .subscribe({
         next: (resp: any) => { 
 
           if(resp.mensaje == 'Ok') {
-            this.alertService.alertSuccess('top-end','Usuario creado con exito',false,900);   
+            this.alertService.alertSuccess('top-end','Usuario creado con exito',false,1900);   
             this.router.navigate(['/dashboard/usuarios']);
           } else {
-            this.alertService.alertFailWithText('Ocurrio un error',resp.mensaje,false,700);            
+            this.alertService.alertFailWithText('Ocurrio un error',resp.mensaje,false,1700);            
           }
          },
         error: (err: any) => {
@@ -890,4 +899,103 @@ cargarSucursales()
        }
     });
 }
+
+
+// ==================================================
+// Insera los sabores en el array
+// ==================================================
+
+agregarLineaSucursal() {
+
+  console.log('this.itemPendiente::: ', this.itemPendiente);
+  if(this.itemPendiente.sucursal == '')
+  { 
+    this.alertService.alertFail('Debe elegir una sucursal',false,2000)
+    return;
+  }
+
+  // if(this.codigoLineaSabor == '' || this.codigoLineaSabor == undefined)
+  // { 
+  //   this.alertService.alertFail('Debe cargar un codigo',false,2000)
+  //   return;
+  // }
+
+  if(this.itemPendiente.length <= 0)
+  { 
+    this.alertService.alertFail('Debe cargar sabor/codigo',false,2000)
+    return;
+  }
+  
+  const checkExistsLineaSucursal = this.sucursales_cargadas.find((sucursal_cargada: any) => {
+    return sucursal_cargada.id_sucursal == this.itemPendiente.id_sucursal;
+  });
+
+
+  if(!(checkExistsLineaSucursal != undefined))
+  {
+    this.sucursales_cargadas.push(
+      {
+        id_sucursal: Number(this.itemPendiente.id_sucursal),
+        sucursal: this.itemPendiente.sucursal
+      }
+    );
+  
+  
+    this.cantidadLineaSucursal = 1;
+  }
+  else{
+    this.alertService.alertFail('Sucursal ya cargada',false,900)
+    return;
+
+    // this.itemCheckExists = checkExistsLineaSabor;
+    // this.itemIdSabor = this.itemCheckExists.IdProducto;
+
+
+    // for (let item of this.sabores_cargados) {
+    //   if(item.IdProducto == this.itemCheckExists.IdProducto)
+    //   { 
+    //     item.Cantidad = Number(item.Cantidad) + Number(this.cantidadLineaSabor);
+    //   }
+    //  }
+  }
+
+  // this.codigoLineaSucursal = '';
+  // this.banderaGenerarCodigo = false; 
+  this.itemPendiente = [];
+  this.sucursalesReference.clear();
+  this.sucursalesReference.close();
+  // this.keywordSabor = '';
+
+}
+
+  // ==============================
+  // Para sucursales
+  // ================================
+  selectEventSucursal(item: any) {
+    
+    this.itemPendiente = item;
+  }
+// ================================
+  onChangeSearch(val: any) {
+    this.sucursalBuscada = val;
+    // this.cargarSabores();
+  }
+  
+  // ==============================
+// 
+// ================================
+eliminarItemSucursal(p_id_sucursal: any){
+
+  this.sucursales_cargadas.forEach( (item: any, index: any) => {
+    if(item.id_sucursal === p_id_sucursal) 
+    {
+      // this.totalVenta -= item.PrecioVenta * item.Cantidad;
+      this.sucursales_cargadas.splice(index,1);
+    }
+      
+  });
+
+}
+
+
 }

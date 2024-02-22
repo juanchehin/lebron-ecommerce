@@ -179,22 +179,44 @@ public async buscarProductoAutoComplete(req: Request, res: Response): Promise<vo
     var pParametroBusqueda = req.params.pParametroBusqueda || '';
     var pIdSucursal = req.params.IdSucursal;
     var pIdUsuario = req.params.IdPersona;
-
+    
     if(pParametroBusqueda == null || pParametroBusqueda == 'null')
     {
         pParametroBusqueda = '';
     }
 
-    pool.query(`call bsp_buscar_producto_autocomplete('${pParametroBusqueda}','${pIdSucursal}','${pIdUsuario}')`, function(err: any, result: any){
-        logger.error("Error en bsp_buscar_producto_autocomplete - productosController");
-
-        if(err){
-            res.status(400).json(err);
-            return;
+    // **
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_buscar_producto_autocomplete " + err);
+            throw err; // not connected!
         }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_buscar_producto_autocomplete(?,?,?)',[pParametroBusqueda,pIdSucursal,pIdUsuario], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_buscar_producto_autocomplete - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result[0]);
 
-        res.status(200).json(result);
-    })
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_buscar_producto_autocomplete 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
+    // **
+
 }
 
 // ==================================================

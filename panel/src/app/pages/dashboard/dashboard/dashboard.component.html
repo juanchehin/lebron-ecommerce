@@ -18,7 +18,7 @@
                     <div class="m-r-20 align-self-center"><img src="../assets/images/icon/income-w.png" alt="Income" /></div>
                     <div class="align-self-center">
                         <h6 class="text-white m-t-10 m-b-0">Ventas del dia</h6>
-                        <h2 class="m-t-0 text-white">$ {{valorVentasDiarias}}</h2>
+                        <h4 class="m-t-0 text-white">$ {{valorVentasDiarias}}</h4>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                     <div class="m-r-20 align-self-center"><img src="../assets/images/icon/expense-w.png" alt="Income" /></div>
                     <div class="align-self-center">
                         <h6 class="text-white m-t-10 m-b-0">Compras del dia</h6>
-                        <h2 class="m-t-0 text-white">$ {{valorComprasDiarias}}</h2>
+                        <h4 class="m-t-0 text-white">$ {{valorComprasDiarias}}</h4>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                     <div class="m-r-20 align-self-center"><img src="../assets/images/icon/assets-w.png" alt="Income" /></div>
                     <div class="align-self-center">
                         <h6 class="text-white m-t-10 m-b-0">Ventas online</h6>
-                        <h2 class="m-t-0 text-white">$ {{valorComprasOnline}}</h2>
+                        <h4 class="m-t-0 text-white">$ {{valorComprasOnline}}</h4>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                     <div class="m-r-20 align-self-center"><img src="../assets/images/icon/staff-w.png" alt="Income" /></div>
                     <div class="align-self-center">
                         <h6 class="text-white m-t-10 m-b-0">Pedidos entregados</h6>
-                        <h2 class="m-t-0 text-white">{{pedidosConfirmadosHoy}}</h2>
+                        <h4 class="m-t-0 text-white">{{pedidosConfirmadosHoy}}</h4>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
     <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title"><span class="lstick"></span>Productos mas vendidos del mes</h4>
+                <h6 class="card-title">Productos mas vendidos del mes</h6>
                 <table class="table browser m-t-30 no-border">
                     <tbody>
                         <tr *ngFor="let producto of productosMasVendidosMes">

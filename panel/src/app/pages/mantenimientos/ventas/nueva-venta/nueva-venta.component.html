@@ -1,34 +1,47 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <h4>Vendedor : {{datosVendedor.apellidos}} {{datosVendedor.nombres}}</h4>
+            <label>Vendedor : </label>
+            <h4>{{datosVendedor.apellidos}} {{datosVendedor.nombres}}</h4>
+        </div>
+        <div class="col-sm-4">
+            <label>Sucursal : </label>
+            <select tabindex="4" (ngModelChange)='onChangeSucursal($event)' [(ngModel)]="id_sucursal_seleccionada" class="form-control">
+                <option *ngFor="let suc_vend of sucursales_vendedor" [value]="suc_vend.id_sucursal">
+                    {{suc_vend.sucursal}}
+                </option>
+            </select>
         </div>
         <div class="col-md-4">
-            <h4>Sucursal : {{datosVendedor.sucursal}}</h4>
-        </div>
-        <div class="col-md-4">
+            <label>Fecha : </label>
             <input type="date" [(ngModel)]="fecha_venta" class="form-control" placeholder="dd/mm/yyyy">
         </div>
     </div>
     <!-- ========== cliente ============ -->
     <div class="row">
-        <div class="row">
-            <div class="col-md-5">
-                <h5 class="m-t-30">Cliente : </h5>
-                <div class="ng-autocomplete">
-                    <ng-autocomplete [data]="clientes" [searchKeyword]="keywordCliente" 
-                    placeholder="Selecciona cliente" (selected)='selectEvent($event)' 
-                    (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' 
-                    [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
-                    </ng-autocomplete>
-                </div>
-                <ng-template #itemTemplate let-item>
-                    <a [innerHTML]="item.NombreCompleto"></a>
-                </ng-template>
-                <ng-template #notFoundTemplate let-notFound>
-                    <div [innerHTML]="notFound"></div>
-                </ng-template>
+        <div class="col-md-7">
+            <label>Cliente : </label>
+            <div class="ng-autocomplete">
+                <ng-autocomplete [data]="clientes" [searchKeyword]="keywordCliente" 
+                placeholder="Selecciona cliente" (selected)='selectEvent($event)' 
+                (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' 
+                [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
             </div>
+            <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.NombreCompleto"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+            </ng-template>
+        </div>
+        <div class="col-sm-4 form-group">
+            <label>Tipo : </label>
+            <select tabindex="4" (ngModelChange)='onChangeTipoVenta($event)' [(ngModel)]="id_tipo_venta_seleccionada" class="form-control">
+                <option *ngFor="let tv of tipos_venta" [value]="tv.id_tipo_venta">
+                    {{tv.tipo_venta}}
+                </option>
+            </select>
         </div>
     </div>
     <br /><br />

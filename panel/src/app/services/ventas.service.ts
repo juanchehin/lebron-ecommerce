@@ -99,4 +99,16 @@ datosDashboard( ){
 
   return this.http.get( url ,this.headers);
 }
+
+// ==================================================
+//
+// ==================================================
+cargarDatosNuevaVenta(  ){
+
+  let url = URL_SERVICIOS + '/ventas/nueva/datos/' + this.IdPersona;
+
+  return this.http.get( url ,this.headers);
+}
+
+
 }

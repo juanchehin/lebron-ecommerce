@@ -28,6 +28,9 @@ export class NuevaVentaComponent implements OnInit {
   clienteBuscado = '';
   productoBuscado = '';
   IdPersona = '';
+  id_sucursal_seleccionada = 1;
+  id_tipo_venta_seleccionada = 2;
+  id_tipo_venta: any;
   local = '';
   lineas_venta: IItemVentaStructure[] = [];
   checkExists: IItemVentaStructure[] = [];
@@ -36,6 +39,7 @@ export class NuevaVentaComponent implements OnInit {
   tiposPago: any;
   clientes = [];
   datosVendedor: any;
+  sucursales_vendedor: any;
   totalVenta: number = 0;
   cantidadLineaVenta = 1;
   IdItem = 0;
@@ -43,6 +47,7 @@ export class NuevaVentaComponent implements OnInit {
   IdTipoPagoSelect = 0;
   monto = 0;
   totalTiposPagoRestante = 0;
+  tipos_venta: any;
   
   IdCliente = 0;
   arrayVenta: any = [];
@@ -87,7 +92,7 @@ export class NuevaVentaComponent implements OnInit {
     this.fecha_venta = this.utilService.formatDateNow(new Date(Date.now()));
     this.IdPersona = this.authService.IdPersona;
     this.datosVendedor = [];
-    this.cargarDatosVendedor();
+    this.cargarDatosNuevaVenta();
   }
   
 // ==================================================
@@ -184,23 +189,26 @@ cargarTiposPago() {
 
 }
   // ==================================================
-// Carga los datos de la persona que esta realizando la venta
-//  junto con la sucursal en la cual se desempeña
+// Carga los datos de la venta
 // ==================================================
 
-cargarDatosVendedor() {
+cargarDatosNuevaVenta() {
   
-    this.usuariosService.cargarDatosVendedor(  this.IdPersona )
+    this.ventasService.cargarDatosNuevaVenta(  )
                .subscribe( {
                 next: (resp: any) => {
+                  console.log('resp::: ', resp);
 
                   this.datosVendedor = resp[0][0];
-                  this.fecha_venta = this.utilService.formatDateNow(resp[1][0].fecha_bd);
+                  this.sucursales_vendedor = resp[1];
+                  this.tipos_venta = resp[2];
+                  this.fecha_venta = this.utilService.formatDateNow(resp[3][0].fecha_bd);
 
-                  this.idSucursalVendedor = this.datosVendedor.id_sucursal;
+                  // this.idSucursalVendedor = this.datosVendedor.id_sucursal;
                 },
                 error: (err: any) => {
-                  this.alertaService.alertFail('Ocurrio un error al cargar los datos del vendedor' + err,false,400); }
+                  this.alertaService.alertFailWithText('Ocurrio un error al cargar los datos del vendedor',err,false,1000); 
+                }
               });
 
   }
@@ -570,6 +578,14 @@ agregarLineaTipoPago(): any {
 
   onChangeTipoPago(val: any){
     this.IdTipoPagoSelect = val;
+  }
+
+  onChangeSucursal(val: any){
+    this.id_sucursal_seleccionada = val;
+  }
+
+  onChangeTipoVenta(val: any){
+    this.id_tipo_venta = val;
   }
 
   // ==============================

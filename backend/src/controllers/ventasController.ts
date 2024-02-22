@@ -221,6 +221,46 @@ dameDatosDashboard(req: Request, res: Response) {
    })
 
 }
+// ==================================================
+//        
+// ==================================================
+cargarDatosNuevaVenta(req: Request, res: Response) {
+
+    var p_id_usuario = req.params.IdPersona;
+
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_dame_datos_nueva_venta " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_dame_datos_nueva_venta(?)',[p_id_usuario], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_dame_datos_nueva_venta - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_dame_datos_nueva_venta 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
+
+}
+
+
 }
 
 

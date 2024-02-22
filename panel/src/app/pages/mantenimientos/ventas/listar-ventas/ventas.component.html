@@ -3,11 +3,6 @@
         <section class="box-typical">
             <div class="row">
                 <div class="col-sm-4">
-                    <h3 class="card-title">Cantidad ventas ( <small> {{ totalVentas }} </small> )</h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4">
                     <label>Fecha Inicio : &nbsp;</label>
                     <input type="date" class="form-control" [(ngModel)]="fechaInicio" required> &nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
@@ -20,6 +15,11 @@
                         refresh
                         </span>
                     </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="card-title">Cantidad ventas ( <small> {{ totalVentas }} </small> )</h3>
                 </div>
                 <div class="col-sm-4">
                     <button [routerLink]="['/dashboard/ventas/nueva']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">

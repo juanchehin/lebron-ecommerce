@@ -94,17 +94,19 @@ async altaVenta(req: Request, res: Response) {
 
     var pIdVendedor = req.params.IdPersona;
     var pIdVenta;
-
+    
     var pIdCliente = req.body[0];
     var pLineaVenta = req.body[1];
     var pLineaTipoPago = req.body[2];
     var pMontoTotal = req.body[3];
     var pFechaVenta = req.body[4];
+    var p_id_sucursal_seleccionada = req.body[5];
+    var p_id_tipo_venta_seleccionada = req.body[6];
 
     // ==============================
     try {
         // ====================== Alta Venta ===========================================
-        let sql = `call bsp_alta_venta('${pIdVendedor}','${pIdCliente}','${pMontoTotal}','${pFechaVenta}')`;
+        let sql = `call bsp_alta_venta('${pIdVendedor}','${pIdCliente}','${pMontoTotal}','${pFechaVenta}','${p_id_sucursal_seleccionada}','${p_id_tipo_venta_seleccionada}')`;
         const [result] = await pool.promise().query(sql)
         
         if(result[0][0].Mensaje != 'Ok')
@@ -116,7 +118,7 @@ async altaVenta(req: Request, res: Response) {
 
         pLineaVenta.forEach(async function (value: any) {
 
-            let sql2 = `call bsp_alta_linea_venta('${result[0][0].IdVenta}','${value.IdProductoSabor}','${result[0][0].pIdSucursal}','${value.Cantidad}')`;
+            let sql2 = `call bsp_alta_linea_venta('${result[0][0].IdVenta}','${value.IdProductoSabor}','${result[0][0].pIdSucursal}','${value.Cantidad}','${p_id_tipo_venta_seleccionada}')`;
             const [result2] = await pool.promise().query(sql2)
 
             if(result2[0][0].Mensaje != 'Ok')

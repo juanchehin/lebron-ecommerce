@@ -108,12 +108,24 @@ altaVenta() {
         return;
       }
 
+      if ( this.sucursales_vendedor.includes(this.id_sucursal_seleccionada) ) {
+        this.alertaService.alertFailWithText('Ocurrio un problema','Hubo un problema con la sucursal',false,2000);
+        return;
+      }
+
+      if ( this.tipos_venta.includes(this.id_tipo_venta_seleccionada) ) {
+        this.alertaService.alertFailWithText('Ocurrio un problema','Hubo un problema con el tipo de venta',false,2000);
+        return;
+      }
+
       this.arrayVenta.push(        
         this.IdCliente,
         this.lineas_venta,
         this.lineas_tipos_pago,
         this.totalVenta,
-        this.fecha_venta
+        this.fecha_venta,
+        this.id_sucursal_seleccionada,
+        this.id_tipo_venta_seleccionada
       );
 
       this.ventasService.altaVenta(  this.arrayVenta )
@@ -159,8 +171,9 @@ cargarClientes() {
 
 cargarProductos() {
 
-  this.productosService.cargarProductos( this.productoBuscado, this.idSucursalVendedor )
+  this.productosService.cargarProductos( this.productoBuscado, this.id_tipo_venta_seleccionada )
              .subscribe( (resp: any) => {
+              console.log('resp::: ', resp);
               
               this.productos = resp;
 
@@ -197,7 +210,6 @@ cargarDatosNuevaVenta() {
     this.ventasService.cargarDatosNuevaVenta(  )
                .subscribe( {
                 next: (resp: any) => {
-                  console.log('resp::: ', resp);
 
                   this.datosVendedor = resp[0][0];
                   this.sucursales_vendedor = resp[1];

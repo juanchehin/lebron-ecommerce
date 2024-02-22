@@ -156,8 +156,8 @@ cargarProductos() {
 
   this.productosService.cargarProductos( this.productoBuscado, this.idSucursalVendedor )
              .subscribe( (resp: any) => {
-
-              this.productos = resp[0];
+              
+              this.productos = resp;
 
             });
 

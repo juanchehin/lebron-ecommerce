@@ -176,7 +176,7 @@ public async buscarProductoPaginadoFront(req: Request, res: Response): Promise<v
 // ==================================================
 public async buscarProductoAutoComplete(req: Request, res: Response): Promise<void> {
 
-    var pParametroBusqueda = req.params.pParametroBusqueda || '';
+    var pParametroBusqueda = req.params.pProductoBuscado || '';
     var pIdSucursal = req.params.IdSucursal;
     var pIdUsuario = req.params.IdPersona;
     
@@ -184,14 +184,14 @@ public async buscarProductoAutoComplete(req: Request, res: Response): Promise<vo
     {
         pParametroBusqueda = '';
     }
-
+    
     // **
     pool.getConnection(function(err: any, connection: any) {
         if (err) {
-            logger.error("Error funcion bsp_buscar_producto_autocomplete " + err);
+            logger.error("Error funcion buscarProductoAutoComplete " + err);
             throw err; // not connected!
         }
-       
+
         try {
             // Use the connection
             connection.query('call bsp_buscar_producto_autocomplete(?,?,?)',[pParametroBusqueda,pIdSucursal,pIdUsuario], function(err: any, result: any){

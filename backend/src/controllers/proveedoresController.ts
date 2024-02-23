@@ -107,26 +107,35 @@ public async altaProveedor(req: Request, res: Response) {
         Email = '-';
     }
 
-    pool.query(`call bsp_alta_proveedor('${IdUsuario}','${Proveedor}','${CUIL}','${Telefono}','${Apellidos}','${Nombres}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bajaProveedor " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_alta_proveedor(?,?,?,?,?,?,?,?)',[IdUsuario,Proveedor,CUIL,Telefono,Apellidos,Nombres,Email,Observaciones], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_alta_proveedor - err: " + err + " - result:" + result);
         
-        if(err){
-            logger.error("Error en altaProveedor - bsp_alta_proveedor - proveedoresController - " + err);
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
 
-            res.status(404).json({ text: err });
-            return;
-        }
-
-        if(result[0][0].mensaje !== 'Ok'){
-            logger.error("Error en altaProveedor - bsp_alta_proveedor - proveedoresController " + err);
-
-            return res.json({
-                ok: false,
-               mensaje: result[0][0].mensaje
             });
-        }
 
-        return res.json({ mensaje: 'Ok' });
-    })
+        } catch (error) {
+            logger.error("Error en bsp_alta_proveedor 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
 
 }
 // ==================================================
@@ -136,14 +145,36 @@ public async bajaProveedor(req: Request, res: Response): Promise<void> {
     
     var IdProveedor = req.params.pIdProveedor;
     var IdUsuario = req.params.IdPersona;
-
-    pool.query(`call bsp_baja_proveedor('${IdUsuario}','${IdProveedor}')`, function(err: any, result: any, fields: any){
-        if(err){
-            res.status(404).json(err);
-            return;
+    
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bajaProveedor " + err);
+            throw err; // not connected!
         }
-        res.status(200).json(result);
-    })
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_baja_proveedor(?,?)',[IdUsuario,IdProveedor], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_baja_proveedor - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_baja_proveedor 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
 }
 
 

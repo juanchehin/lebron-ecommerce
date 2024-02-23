@@ -58,7 +58,7 @@ altaProveedor() {
     this.proveedoresService.altaProveedor( proveedor )
               .subscribe( (resp: any) => {
                 
-        if ( resp.mensaje === 'Ok') {
+        if ( resp[0][0].mensaje === 'Ok') {
 
           this.alertService.alertSuccess('top-end','Proveedor cargado',false,2000);
           

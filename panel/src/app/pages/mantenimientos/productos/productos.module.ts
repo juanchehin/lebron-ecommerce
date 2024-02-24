@@ -30,6 +30,7 @@ import { PromocionComponent } from './promociones/promocion/promocion.component'
 import { EditarPromocionComponent } from './promociones/editar-promocion/editar-promocion.component';
 import { PromocionesComponent } from './promociones/listar-promocion/promociones.component';
 import { EditarUnidadComponent } from './unidades/editar-unidad.component';
+import { MovimientosProductosComponent } from './productos/movimientos-producto.component';
 
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import { EditarUnidadComponent } from './unidades/editar-unidad.component';
     ProductoComponent,
     ProductosComponent,
     EditarProductoComponent,
+    MovimientosProductosComponent,
     //
     PromocionesComponent,
     PromocionComponent,

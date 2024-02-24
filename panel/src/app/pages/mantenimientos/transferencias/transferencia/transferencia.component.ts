@@ -109,6 +109,7 @@ cargarProductosTranferencia() {
 
   this.productosService.cargarProductosTranferencia( this.productoBuscado, this.IdSucursalOrigen )
              .subscribe( (resp: any) => {
+              console.log('resp::: ', resp);
 
               this.productos = resp[0];
 

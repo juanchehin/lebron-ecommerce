@@ -17,7 +17,7 @@ class ProductosRoutes {
         this.router.get('/producto/detalle/:pIdProducto/:pIdSabor',productosController.dameDatosProducto); 
         this.router.post('/alta/:IdPersona',productosController.altaProducto);
         this.router.get('/baja/:IdPersona/:pIdProducto',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.bajaProducto); 
-        this.router.get('/listar/busqueda/autocomplete/transferencia/:pProductoBuscado/:pIdSucursalOrigen',  [mdAutenticacion.verificaToken],productosController.buscarProductoAutoCompleteTransferencia); 
+        this.router.get('/listar/busqueda/autocomplete/transferencia/:pProductoBuscado/:pIdSucursalOrigen/:IdPersona',  [mdAutenticacion.verificaToken],productosController.buscarProductoAutoCompleteTransferencia); 
         this.router.get('/stock/sabor/producto/:pIdProducto/:pIdSabor',productosController.dameStockSaborProducto);
         this.router.get('/promocion/home',productosController.listarPromocionesHome);
         this.router.get('/promociones/home/paginado/:pDesde',productosController.listarPromocionesPaginadoFront);
@@ -35,6 +35,7 @@ class ProductosRoutes {
         this.router.get('/buscar/:pDesde/:pParametroBusqueda/:IdSucursal/:IdPersona',  [mdAutenticacion.verificaToken],productosController.buscarProductoPaginado); 
         this.router.get('/nuevo/datos-formulario',  [mdAutenticacion.verificaToken], productosController.cargarDatosFormNuevoProducto);
         this.router.get('/editar/datos-formulario/:IdProducto/:IdPersona',  [mdAutenticacion.verificaToken], productosController.cargarDatosFormEditarProducto);
+        this.router.get('/movimientos/:p_fecha_inicio/:p_fecha_fin/:p_id_producto_sabor/:p_id_sucursal_seleccionada/:p_id_operacion_seleccionada/:p_desde/:IdPersona',  [mdAutenticacion.verificaToken], productosController.listar_movimientos_producto_paginado);
 
         // Unidades
         this.router.get('/unidades/listar/:desde',productosController.listarUnidadesPaginado);

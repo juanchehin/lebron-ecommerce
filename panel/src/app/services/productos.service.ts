@@ -49,6 +49,15 @@ export class ProductosService {
     return this.http.get( url, this.headers );
   }  
 
+ // ==================================================
+//
+// ================================================== 
+  listar_movimientos_producto(fecha_inicio: any, fecha_fin: any, p_id_producto_sabor: any, p_id_sucursal_seleccionada: any, p_id_operacion_seleccionada: any,desde: any){
+
+    let url = URL_SERVICIOS + '/productos/movimientos/' + fecha_inicio + '/' + fecha_fin + '/' + p_id_producto_sabor + '/' + p_id_sucursal_seleccionada + '/' + p_id_operacion_seleccionada + '/' + desde + '/' + this.IdPersona;
+
+    return this.http.get( url, this.headers );
+  }  
   // ==================================================
 //        
 // ==================================================
@@ -132,7 +141,7 @@ cargarProductos( parametroBusqueda: string, IdSucursal: any){
 // ==================================================
 cargarProductosTranferencia( parametroBusqueda: string, IdSucursalOrigen: any){
 
-  let url = URL_SERVICIOS + '/productos/listar/busqueda/autocomplete/transferencia/' + parametroBusqueda + '/' + IdSucursalOrigen;
+  let url = URL_SERVICIOS + '/productos/listar/busqueda/autocomplete/transferencia/' + parametroBusqueda + '/' + IdSucursalOrigen + '/' + this.IdPersona;
   return this.http.get( url, this.headers ); 
   
 }

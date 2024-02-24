@@ -33,13 +33,34 @@ public async listarVentas(req: Request, res: Response): Promise<void> {
     var FechaInicio = req.params.FechaInicio;
     var FechaFin = req.params.FechaFin;
 
-    pool.query(`call bsp_listar_ventas_paginado_fechas('${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
-       if(err){
-        res.status(404).json(err);
-           return;
-       }
-       res.json(result);
-   })
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_listar_ventas_paginado_fechas " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_listar_ventas_paginado_fechas(?,?,?)',[desde,FechaInicio,FechaFin], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_listar_ventas_paginado_fechas - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_listar_ventas_paginado_fechas 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
 
 }
 
@@ -93,66 +114,53 @@ async altaVenta(req: Request, res: Response) {
 
 
     var pIdVendedor = req.params.IdPersona;
-    var pIdVenta;
 
     var pIdCliente = req.body[0];
     var pLineasVenta = req.body[1];
     var pLineaTipoPago = req.body[2];
-    var pMontoTotal = req.body[3];
-    var pFechaVenta = req.body[4];
-    var p_id_sucursal_seleccionada = req.body[5];
-    var p_id_tipo_venta_seleccionada = req.body[6];
 
-    // ==============================
-    try {
-        // ====================== Alta Venta ===========================================
-        let sql = `call bsp_alta_venta('${pIdVendedor}','${pIdCliente}','${pMontoTotal}','${pFechaVenta}','${p_id_sucursal_seleccionada}','${p_id_tipo_venta_seleccionada}')`;
-        const [result] = await pool.promise().query(sql)
+    var tamaño_lineas_venta = req.body[3];
+    var tamaño_tipos_pago = req.body[4];
+
+    var pMontoTotal = req.body[5];
+    var pFechaVenta = req.body[6];
+    var p_id_sucursal_seleccionada = req.body[7];
+    var p_id_tipo_venta_seleccionada = req.body[8];
+
+
+    const jsonpLineasVenta = JSON.stringify(pLineasVenta);
+    const jsonpLineaTipoPago = JSON.stringify(pLineaTipoPago);
+    
+
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_alta_venta " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_alta_venta(?,?,?,?,?,?,?,?,?,?)',[pIdVendedor,pIdCliente,pMontoTotal,pFechaVenta,p_id_sucursal_seleccionada,p_id_tipo_venta_seleccionada,jsonpLineasVenta,tamaño_lineas_venta,jsonpLineaTipoPago,tamaño_tipos_pago], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_alta_venta - err: " + err + " - result:" + result);
         
-        if(result[0][0].Mensaje != 'Ok')
-        {
-            logger.error("Error bsp_alta_venta - altaVenta - ventasController");
+                    res.status(400).json(err);
+                    return;
+                }
+                
+                res.status(200).json(result);
 
-        }       
-        // ========================== Lineas de venta =======================================
+            });
 
-        pLineasVenta.forEach(async function (value: any) {
-
-            let sql2 = `call bsp_alta_linea_venta('${result[0][0].IdVenta}','${value.IdProductoSabor}','${result[0][0].pIdSucursal}','${value.Cantidad}','${p_id_tipo_venta_seleccionada}')`;
-            const [result2] = await pool.promise().query(sql2)
-
-            if(result2[0][0].Mensaje != 'Ok')
-            {
-                logger.error("Error bsp_alta_linea_venta - ventasController");
-            }
-        });
-
-
-        // ====================== Tipos de pago ===========================================
-        pLineaTipoPago.forEach(async function (value: any) {
-             
-            let sql3 = `call bsp_alta_tipo_pago('${result[0][0].IdVenta}','${value.IdTipoPago}','${value.SubTotal}','${pIdCliente}')`;
-            const [result3] = await pool.promise().query(sql3)
-
-               if(result3[0][0].Mensaje != 'Ok')
-               {
-                    logger.error("Error bsp_alta_tipo_pago - ventasController");
-                   return;
-               }              
-
-        });
-
-        pIdVenta = result[0][0].IdVenta;
-
-        // ======================= Confirmar transferencia exitosa ==========================================
-      
-        // return result
-      } catch (error) {
-        logger.error("Error funcion altaVenta - ventasController");
-        res.status(404).json({ "error" : error});
-        return;
-      }
-      res.json({"mensaje": await confirmarTransaccion(pIdVenta)});
+        } catch (error) {
+            logger.error("Error en bsp_alta_venta 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+    
 }
 
 
@@ -288,6 +296,7 @@ async function confirmarTransaccion(pIdVenta: any) {
                     return;
                 }
         
+                console.log('result::: confirmarTransaccion ', result);
                 return result;
                 // res.status(200).json(result);
 

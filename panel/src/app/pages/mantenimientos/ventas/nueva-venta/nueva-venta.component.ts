@@ -29,7 +29,7 @@ export class NuevaVentaComponent implements OnInit {
   productoBuscado = '';
   IdPersona = '';
   id_sucursal_seleccionada = 1;
-  id_tipo_venta_seleccionada = 2;
+  id_operacion_seleccionada = 2;
   id_tipo_venta: any;
   local = '';
   lineas_venta: IItemVentaStructure[] = [];
@@ -47,7 +47,9 @@ export class NuevaVentaComponent implements OnInit {
   IdTipoPagoSelect = 0;
   monto = 0;
   totalTiposPagoRestante = 0;
-  tipos_venta: any;
+  operaciones: any;
+  cantidad_lineas_venta = 0;
+  cantidad_lineas_tipo_pago = 0;
   
   IdCliente = 0;
   arrayVenta: any = [];
@@ -113,8 +115,8 @@ altaVenta() {
         return;
       }
 
-      if ( this.tipos_venta.includes(this.id_tipo_venta_seleccionada) ) {
-        this.alertaService.alertFailWithText('Ocurrio un problema','Hubo un problema con el tipo de venta',false,2000);
+      if ( this.operaciones.includes(this.id_operacion_seleccionada) ) {
+        this.alertaService.alertFailWithText('Ocurrio un problema','Hubo un problema con las operaciones',false,2000);
         return;
       }
 
@@ -122,23 +124,26 @@ altaVenta() {
         this.IdCliente,
         this.lineas_venta,
         this.lineas_tipos_pago,
+        this.cantidad_lineas_venta,
+        this.cantidad_lineas_tipo_pago,
         this.totalVenta,
         this.fecha_venta,
         this.id_sucursal_seleccionada,
-        this.id_tipo_venta_seleccionada
+        this.id_operacion_seleccionada
       );
 
       this.ventasService.altaVenta(  this.arrayVenta )
       .subscribe({
         next: (resp: any) => {
+          console.log('resp::: ', resp);
           
-          if ( resp.mensaje[0][0].mensaje == 'Ok') {
+          if ( resp[0][0].mensaje == 'ok') {
             this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
 
             this.resetearVariables();
             
           } else {
-            this.alertaService.alertFail('Ocurrio un error',false,2000);
+            this.alertaService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
           }
           return;
          },
@@ -212,7 +217,7 @@ cargarDatosNuevaVenta() {
 
                   this.datosVendedor = resp[0][0];
                   this.sucursales_vendedor = resp[1];
-                  this.tipos_venta = resp[2];
+                  this.operaciones = resp[2];
                   this.fecha_venta = this.utilService.formatDateNow(resp[3][0].fecha_bd);
 
                   // this.idSucursalVendedor = this.datosVendedor.id_sucursal;
@@ -277,6 +282,7 @@ agregarLineaVenta() {
     );
   
     this.IdItem += 1;
+    this.cantidad_lineas_venta += 1;
   
     this.cantidadLineaVenta = 1;
   }
@@ -301,7 +307,6 @@ agregarLineaVenta() {
       }
      }
   }
- 
 
 }
 // ==================================================
@@ -442,6 +447,8 @@ agregarLineaTipoPago(): any {
       this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
 
       this.IdItemTipoPago += 1;
+      this.cantidad_lineas_tipo_pago += 1;
+
     }
 
   }else{
@@ -449,6 +456,8 @@ agregarLineaTipoPago(): any {
   }
 
   this.monto = 0;
+  console.log(' this.lineas_tipos_pago::: ',  this.lineas_tipos_pago);
+
 
 }
   // ==============================
@@ -551,6 +560,8 @@ agregarLineaTipoPago(): any {
         
     });
 
+    this.cantidad_lineas_venta -= 1;
+
   }
 
   // ==============================
@@ -576,6 +587,8 @@ agregarLineaTipoPago(): any {
       }
 
     });
+
+    this.cantidad_lineas_tipo_pago -= 1;
 
   }
 

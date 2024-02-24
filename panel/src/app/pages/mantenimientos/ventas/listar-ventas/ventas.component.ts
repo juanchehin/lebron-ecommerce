@@ -40,10 +40,10 @@ export class VentasComponent implements OnInit {
 
 cargarVentas() {
 
-  const pfechaInicio  = this.utilService.formatDate(this.fechaInicio);
-  const pfechaFin = this.utilService.formatDate(this.fechaFin);
+  // const pfechaInicio  = this.utilService.formatDate(this.fechaInicio);
+  // const pfechaFin = this.utilService.formatDate(this.fechaFin);
 
-  this.ventasService.listarVentasFecha( this.desde , pfechaInicio , pfechaFin)
+  this.ventasService.listarVentasFecha( this.desde , this.fechaInicio , this.fechaFin)
              .subscribe( {
               next: (resp: any) => {
                 

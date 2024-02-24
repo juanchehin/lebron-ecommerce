@@ -24,6 +24,7 @@ import { VerificaTokenGuard } from 'src/app/guards/verifica-token.guard';
 import { PromocionesComponent } from './promociones/listar-promocion/promociones.component';
 import { PromocionComponent } from './promociones/promocion/promocion.component';
 import { EditarUnidadComponent } from './unidades/editar-unidad.component';
+import { MovimientosProductosComponent } from './productos/movimientos-producto.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,7 @@ const routes: Routes = [
    { path: '', component: ProductosComponent, data: { titulo: 'Productos' }},
    { path: 'nuevo', component: ProductoComponent, data: { titulo: 'Nuevo Producto' }},
    { path: 'editar/:IdProducto', component: EditarProductoComponent, data: { titulo: 'Edicion de producto' }},
+   { path: 'movimientos/producto/:IdProducto', component: MovimientosProductosComponent, data: { titulo: 'Movimientos del producto' }},
    // Unidades
    { path: 'unidades', component: UnidadesComponent, data: { titulo: 'Unidades' }},
    { path: 'unidades/nuevo', component: UnidadComponent, data: { titulo: 'Nueva Unidad' }},

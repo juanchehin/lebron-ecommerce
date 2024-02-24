@@ -171,6 +171,55 @@ public async buscarProductoPaginadoFront(req: Request, res: Response): Promise<v
         res.status(200).json(result);
     })
 }
+
+// ==================================================
+//        listar_movimientos_producto_paginado
+// ==================================================
+listar_movimientos_producto_paginado(req: Request, res: Response){
+
+    var pIdUsuario = req.params.IdPersona;
+    
+    var p_fecha_inicio = req.params.p_fecha_inicio;
+    var p_fecha_fin = req.params.p_fecha_fin;
+    var p_id_sucursal_seleccionada = req.params.p_id_sucursal_seleccionada;
+    var p_id_operacion_seleccionada = req.params.p_id_operacion_seleccionada;
+    var p_id_producto_sabor = req.params.p_id_producto_sabor;
+    var p_desde = req.params.p_desde;
+
+    // **
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion buscarProductoAutoComplete " + err);
+            throw err; // not connected!
+        }
+
+        try {
+            // Use the connection
+            connection.query('call listar_movimientos_producto_paginado(?,?,?,?,?,?,?)',[pIdUsuario,p_fecha_inicio,p_fecha_fin,p_id_producto_sabor,p_id_sucursal_seleccionada,p_id_operacion_seleccionada,p_desde], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en listar_movimientos_producto_paginado - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en listar_movimientos_producto_paginado 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
+    // **
+
+}
+
 // ==================================================
 //        Autocomplete productos
 // ==================================================
@@ -770,23 +819,55 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
 // ==================================================
 public async buscarProductoAutoCompleteTransferencia(req: Request, res: Response): Promise<void> {
 
-    var pParametroBusqueda = req.params.pParametroBusqueda || '';
+    var pProductoBuscado = req.params.pProductoBuscado || '';
     var pIdSucursalOrigen = req.params.pIdSucursalOrigen || '';
-
-    if(pParametroBusqueda == null || pParametroBusqueda == 'null')
+    var pIdUsuario = req.params.IdPersona;
+    
+    if(pProductoBuscado == null || pProductoBuscado == 'null')
     {
-        pParametroBusqueda = '';
+        pProductoBuscado = '';
     }
 
-    pool.query(`call bsp_buscar_producto_autocomplete_sucursal('${pParametroBusqueda}','${pIdSucursalOrigen}')`, function(err: any, result: any){
-
-        if(err){
-            res.status(400).json(err);
-            return;
+      // **
+      pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion buscarProductoAutoComplete " + err);
+            throw err; // not connected!
         }
 
-        res.status(200).json(result);
-    })
+        try {
+            // Use the connection
+            connection.query('call bsp_buscar_producto_autocomplete(?,?,?)',[pProductoBuscado,pIdSucursalOrigen,pIdUsuario], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_buscar_producto_autocomplete buscarProductoAutoCompleteTransferencia - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_buscar_producto_autocomplete buscarProductoAutoCompleteTransferencia 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
+
+    // pool.query(`call bsp_buscar_producto_autocomplete_sucursal('${pParametroBusqueda}','${pIdSucursalOrigen}')`, function(err: any, result: any){
+
+    //     if(err){
+    //         res.status(400).json(err);
+    //         return;
+    //     }
+
+    //     res.status(200).json(result);
+    // })
 }
 
 

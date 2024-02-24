@@ -1,0 +1,82 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="start">Fecha inicio: </label>
+                        <input class="form-control" type="date" [(ngModel)]="fecha_inicio" required>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="start">Fecha fin : </label>
+                        <input class="form-control" type="date" [(ngModel)]="fecha_fin" required>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Sucursal : </label>
+                        <select tabindex="4" [(ngModel)]="id_sucursal_seleccionada" class="form-control">
+                                <option *ngFor="let sucursal of sucursales" [value]="sucursal.id_sucursal">
+                                    {{sucursal.sucursal}}
+                                </option>
+                            </select>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Operacion : </label>
+                        <select [(ngModel)]="id_operacion_seleccionada" class="form-control">
+                                <option *ngFor="let operacion of operaciones" [value]="operacion.id_operacion">
+                                    {{operacion.operacion}}
+                                </option>
+                            </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary " style="top: 25px;">
+                            <span class="material-icons">
+                                refresh
+                            </span>
+                        </button>
+                    </div>    
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h4 class="card-title">Cantidad movimientos ( <small> {{ cant_movimientos }} </small> )</h4>
+                    </div>
+                </div>
+                <div style="overflow:auto;">
+                    <table id="table-edit" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Fecha</th>
+                                <th>Suc. Origen</th>
+                                <th>Suc. Destino</th>
+                                <th>Usuario</th>
+                                <th>Cantidad</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let mp of movimientos_producto">
+                                <td>{{ mp.id_transaccion }}</td>
+                                <td>{{ mp.fecha }}</td>
+                                <td>{{ mp.suc_origen }}</td>
+                                <td>{{ mp.suc_destino }}</td>
+                                <td>{{ mp.usuario }}</td>
+                                <td></td>
+                                <td>
+                                    <button class="btn btn-inline btn-danger" type="button" (click)="baja_transaccion(mp.id_transaccion)">
+                                        <i class="material-icons"> delete </i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+        </section>
+        <!--.box-typical-->
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-15) " type="button" class="btn btn-default-outline">Anteriores</button>
+        <button (click)="cambiarDesde(15) " type="button" class="btn btn-default-outline">Siguientes</button>
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

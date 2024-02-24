@@ -36,6 +36,7 @@ class ProductosRoutes {
         this.router.get('/nuevo/datos-formulario',  [mdAutenticacion.verificaToken], productosController.cargarDatosFormNuevoProducto);
         this.router.get('/editar/datos-formulario/:IdProducto/:IdPersona',  [mdAutenticacion.verificaToken], productosController.cargarDatosFormEditarProducto);
         this.router.get('/movimientos/:p_fecha_inicio/:p_fecha_fin/:p_id_producto_sabor/:p_id_sucursal_seleccionada/:p_id_operacion_seleccionada/:p_desde/:IdPersona',  [mdAutenticacion.verificaToken], productosController.listar_movimientos_producto_paginado);
+        this.router.post('/editar/:IdPersona',  [mdAutenticacion.verificaToken], productosController.editar_producto);
 
         // Unidades
         this.router.get('/unidades/listar/:desde',productosController.listarUnidadesPaginado);

@@ -9,10 +9,10 @@
                 <div class="col-sm-6 form-group">
                     <label>Marca : </label>
                     <select tabindex="2" [(ngModel)]="IdMarca" name="IdMarca" class="form-control">
-                                <option *ngFor="let marca of marcas" [value]="marca.IdMarca">
-                                    {{marca.Marca}}
-                                </option>
-                            </select>
+                        <option *ngFor="let marca of marcas" [value]="marca.id_marca">
+                            {{marca.marca}}
+                        </option>
+                    </select>
                 </div>
                 <div class="col-sm-6 form-group">
                     <div class="row">
@@ -23,8 +23,8 @@
                         <div class="col-sm-6 form-group">
                             <label>Unidad : </label>
                             <select tabindex="4" [(ngModel)]="IdUnidad" name="IdUnidad" class="form-control">
-                                    <option *ngFor="let unidad of unidades" [value]="unidad.IdUnidad">
-                                        {{unidad.NombreCorto}}
+                                    <option *ngFor="let unidad of unidades" [value]="unidad.id_unidad">
+                                        {{unidad.unidad}}
                                     </option>
                                 </select>
                         </div>
@@ -42,26 +42,26 @@
                 <div class="col-sm-6 form-group">
                     <label>Categoria : </label>
                     <select (change)="onChangeCategorias($event.target.value)" tabindex="6" [(ngModel)]="IdCategoria" name="IdCategoria" class="form-control">
-                                <option *ngFor="let categoria of categorias" [value]="categoria.IdCategoria">
-                                    {{categoria.Categoria}}
+                                <option *ngFor="let categoria of categorias" [value]="categoria.id_categoria">
+                                    {{categoria.categoria}}
                                 </option>
                             </select>
                 </div>
                 <div class="col-sm-6 form-group">
                     <label>SubCategoria : </label>
                     <select [attr.disabled]="deshabilitarSubcategorias ? '' : null" tabindex="7" [(ngModel)]="IdSubCategoria" name="IdSubCategoria" class="form-control">
-                                <option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.IdSubcategoria">
-                                    {{subcategoria.Subcategoria}}
-                                </option>
-                            </select>
+                        <option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.id_subcategoria">
+                            {{subcategoria.subcategoria}}
+                        </option>
+                    </select>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-6 form-group">
                     <label>Proveedor : </label>
                     <select tabindex="4" [(ngModel)]="IdProveedor" name="IdProveedor" class="form-control">
-                            <option *ngFor="let proveedor of proveedores" [value]="proveedor.IdProveedor">
-                                {{proveedor.Proveedor}}
+                            <option *ngFor="let proveedor of proveedores" [value]="proveedor.id_proveedor">
+                                {{proveedor.proveedor}}
                             </option>
                         </select>
                 </div>
@@ -78,11 +78,13 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="ng-autocomplete" tabindex="8">
-                        <ng-autocomplete #saboresReference [data]="sabores" [searchKeyword]="keywordSabor" placeholder="Carga los sabores" (selected)='selectEventSabor($event)' (inputChanged)='onChangeSearch($event)' [itemTemplate]="itemTemplateSabor" [notFoundTemplate]="notFoundTemplateSabor">
+                        <ng-autocomplete #saboresReference [data]="sabores" [searchKeyword]="keywordSabor" 
+                        placeholder="Carga los sabores" (selected)='selectEventSabor($event)' (inputChanged)='onChangeSearch($event)' 
+                        [itemTemplate]="itemTemplateSabor" [notFoundTemplate]="notFoundTemplateSabor">
                         </ng-autocomplete>
                     </div>
                     <ng-template #itemTemplateSabor let-item>
-                        <a [innerHTML]="item.Sabor"></a>
+                        <a [innerHTML]="item.sabor"></a>
                     </ng-template>
                     <ng-template #notFoundTemplateSabor let-notFound>
                         <div [innerHTML]="notFound"></div>
@@ -124,10 +126,10 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let sabor_cargado of sabores_cargados">
-                            <td>{{sabor_cargado.Sabor }}</td>
-                            <td>{{sabor_cargado.Codigo }}</td>
+                            <td>{{sabor_cargado.sabor }}</td>
+                            <td>{{sabor_cargado.codigo }}</td>
                             <td class="text-nowrap">
-                                <a data-toggle="tooltip" (click)="eliminarItemSabor(sabor_cargado.IdSabor)" data-original-title="Close">
+                                <a data-toggle="tooltip" (click)="eliminarItemSabor(sabor_cargado.id_sabor)" data-original-title="Close">
                                     <i class="fa fa-close text-danger"></i>
                                 </a>
                             </td>
@@ -174,8 +176,8 @@
                 <div class="col-sm-6 form-group">
                     <label class="control-label">Moneda : </label>
                     <select required tabindex="13" [(ngModel)]="Moneda" class="form-control" tabindex="17">
-                            <option selected value="ARS"> ARS </option>
-                            <option value="USD"> USD </option>
+                            <option selected value="A"> ARS </option>
+                            <option value="U"> USD </option>
                         </select>
                 </div>
             </div>
@@ -191,6 +193,6 @@
         </div>
     </div>
     <br>
-    <button type="submit" tabindex="19" class="btn btn-info btn-lg btn-block text-uppercase" (click)="altaProducto()">Cargar Producto</button>
+    <button type="submit" tabindex="19" class="btn btn-info btn-lg btn-block text-uppercase" (click)="editar_producto()">Cargar Producto</button>
     <br>
 </div>

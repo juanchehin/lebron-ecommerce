@@ -48,10 +48,11 @@ export class EditarProductoComponent implements OnInit {
   Descuento: any;
   Moneda: any;
   producto: any;
+  cantidad_sabores_cargados = 0;
 
   // sabores
   sabores: any;
-  keywordSabor = 'Sabor';
+  keywordSabor = 'sabor';
   sabores_cargados: any = [];
   itemPendiente: any = [];
   cantidadLineaSabor = 1;
@@ -83,7 +84,7 @@ export class EditarProductoComponent implements OnInit {
 //        Crear 
 // ==================================================
 
-altaProducto() {
+editar_producto() {
 
       //** */
       if((this.PrecioCompra > this.PrecioVenta) ){
@@ -95,14 +96,14 @@ altaProducto() {
         this.alertaPrecioVentaCompra = false;
       }
       //** */
-      if(this.PrecioCompra > this.PrecioMeli)
-      {
-        this.alertaPrecioVentaMeli = true;
-        return;
-      }else
-      { 
-        this.alertaPrecioVentaMeli = false;
-      }
+      // if(this.PrecioCompra > this.PrecioMeli)
+      // {
+      //   this.alertaPrecioVentaMeli = true;
+      //   return;
+      // }else
+      // { 
+      //   this.alertaPrecioVentaMeli = false;
+      // }
       //** */
       if(this.PrecioCompra > this.PrecioMayorista)
       {
@@ -122,7 +123,15 @@ altaProducto() {
          this.alertaFechaVencimiento = false;
        }
 
+       this.cantidad_sabores_cargados = this.sabores_cargados.length;
+
+       if(this.cantidad_sabores_cargados <= 0 ){
+        this.alertService.alertFailWithText('Ocurrio un error','Cantidad de sabores invalido',false,2000);
+        return;
+      }
+
       const productoEditado = new Array(
+        this.IdProducto,
         this.IdCategoria,
         this.IdSubCategoria,
         this.IdMarca,
@@ -139,18 +148,16 @@ altaProducto() {
         this.PrecioMeli,
         this.Descuento,
         this.Moneda,
-        this.sabores_cargados
+        this.sabores_cargados,
+        this.cantidad_sabores_cargados
       );
 
-      console.log("productoEditado es : ",productoEditado)
 
       this.productosService.editarProducto( productoEditado )
                 .subscribe( {
                   next: (resp: any) => { 
-  
-                    console.log("resp prod : ",resp)
-                  
-                    if ( resp.mensaje === 'Ok') {
+                    
+                    if ( resp[0][0].mensaje === 'Ok') {
                       this.alertService.alertSuccess('top-end','Producto cargado',false,2000);
                       this.router.navigate(['/dashboard/productos']);
                     } else {
@@ -172,8 +179,6 @@ cargarDatosFormEditarProducto() {
     this.productosService.cargarDatosFormEditarProducto( this.IdProducto )
                .subscribe( (resp: any) => {
 
-                console.log("resp editar perod es : ",resp)
-
                 this.marcas = resp[0];
                 this.categorias = resp[1];
                 this.unidades = resp[2];
@@ -183,22 +188,22 @@ cargarDatosFormEditarProducto() {
                 this.producto = resp[6][0];
                 this.sabores_cargados = resp[7];
 
-                this.IdCategoria = this.producto.IdCategoria;
-                this.IdSubCategoria = this.producto.IdSubCategoria;
-                this.IdMarca = this.producto.IdMarca;
-                this.IdUnidad = this.producto.IdUnidad;        
-                this.Producto = this.producto.Producto;
-                this.IdProveedor = this.producto.IdProveedor;
-                this.FechaVencimiento = this.producto.Fecha_vencimiento;
-                this.Descripcion = this.producto.Descripcion;
-                this.StockAlerta = this.producto.StockAlerta;
-                this.Medida = this.producto.Medida;
-                this.PrecioCompra = this.producto.PrecioCompra;
-                this.PrecioVenta = this.producto.PrecioVenta;
-                this.PrecioMayorista = this.producto.PrecioMayorista;
-                this.PrecioMeli = this.producto.PrecioMeli;
-                this.Descuento = this.producto.Descuento;
-                this.Moneda = this.producto.Moneda;
+                this.IdCategoria = this.producto.id_categoria;
+                this.IdSubCategoria = this.producto.id_subcategoria;
+                this.IdMarca = this.producto.id_marca;
+                this.IdUnidad = this.producto.id_unidad;        
+                this.Producto = this.producto.producto;
+                this.IdProveedor = this.producto.id_proveedor;
+                this.FechaVencimiento = this.producto.fecha_vencimiento;
+                this.Descripcion = this.producto.descripcion;
+                this.StockAlerta = this.producto.stock_alerta;
+                this.Medida = this.producto.medida;
+                this.PrecioCompra = this.producto.precio_compra;
+                this.PrecioVenta = this.producto.precio_venta;
+                this.PrecioMayorista = this.producto.precio_mayorista;
+                this.PrecioMeli = this.producto.precio_meli;
+                this.Descuento = this.producto.descuento;
+                this.Moneda = this.producto.moneda;
 
               });
 
@@ -272,15 +277,11 @@ onChangeCategorias(IdCategoria: any) {
 
 agregarLineaSabor() {
 
-  console.log("this.itemPendiente : ",this.itemPendiente)
-
   if(this.itemPendiente.Sabor == '')
   { 
     this.alertService.alertFail('Debe elegir un sabor',false,900)
     return;
   }
-
-  console.log("this.codigoLineaSabor : ",this.codigoLineaSabor)
 
   if(this.codigoLineaSabor == '' || this.codigoLineaSabor == undefined)
   { 
@@ -295,19 +296,19 @@ agregarLineaSabor() {
   }
   
   const checkExistsLineaSabor = this.sabores_cargados.find((sabor_cargado: any) => {
-    return sabor_cargado.IdSabor == this.itemPendiente.IdSabor;
+    return sabor_cargado.IdSabor == this.itemPendiente.id_sabor;
   });
-
+  
 
   if(!(checkExistsLineaSabor != undefined))
   {
     this.sabores_cargados.push(
       {
-        IdSabor: Number(this.itemPendiente.IdSabor),
-        Sabor: this.itemPendiente.Sabor,
-        Producto: this.itemPendiente.Producto,
-        Codigo: this.codigoLineaSabor,
-        PrecioVenta: this.itemPendiente.PrecioVenta,
+        id_sabor: Number(this.itemPendiente.id_sabor),
+        sabor: this.itemPendiente.sabor,
+        producto: '',
+        codigo: this.codigoLineaSabor,
+        precio_venta: this.itemPendiente.precio_venta
       }
     );
   
@@ -315,7 +316,7 @@ agregarLineaSabor() {
     this.cantidadLineaSabor = 1;
   }
   else{
-    this.alertService.alertFail('Sabor ya cargado',false,900)
+    this.alertService.alertFail('Sabor ya cargado',false,1200)
     return;
 
     this.itemCheckExists = checkExistsLineaSabor;

@@ -488,6 +488,88 @@ public async cargarDatosFormNuevoProducto(req: Request, res: Response): Promise<
         res.status(200).json(result);
     })
 }
+
+
+// ==================================================
+//         
+// ==================================================
+public async editar_producto(req: Request, res: Response) {
+
+    var IdUsuario = req.params.IdPersona;
+
+    var IdProducto = req.body[0];
+    var IdCategoria = req.body[1];
+    var IdSubCategoria = req.body[2];
+    var IdMarca = req.body[3];
+    var IdUnidad = req.body[4];    
+    var Producto = req.body[5];
+    var IdProveedor = req.body[6];
+    var FechaVencimiento = req.body[7];
+    var Descripcion = req.body[8];
+    var StockAlerta = req.body[9];
+    var Medida = req.body[10];
+    var PrecioCompra = req.body[11];
+    var PrecioVenta = req.body[12];
+    var PrecioMayorista = req.body[13];
+    var PrecioMeli = req.body[14];
+    var Descuento = req.body[15];
+    var Moneda = req.body[16].charAt(0);
+    var arraySaboresCodigo = req.body[17];
+    var cantidad_sabores_cargados = req.body[18];
+
+    if(IdSubCategoria == undefined || IdSubCategoria == 'undefined' || IdSubCategoria == null || IdSubCategoria == 'null')
+    { 
+        IdSubCategoria = 1; // sin subcategoria
+    }
+
+    if(FechaVencimiento == null || FechaVencimiento == 'null')
+    { 
+        FechaVencimiento = null;
+    }
+
+    if(Descripcion == undefined || Descripcion == 'undefined' || Descripcion == null || Descripcion == 'null')
+    { 
+        Descripcion = '-';
+    }
+
+    const json_arraySaboresCodigo = JSON.stringify(arraySaboresCodigo);
+
+
+    // **
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_editar_producto " + err);
+            throw err; // not connected!
+        }
+
+        try {
+            // Use the connection
+            connection.query('call bsp_editar_producto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[IdUsuario,IdProducto,IdCategoria,IdSubCategoria,IdMarca,IdUnidad,Producto,IdProveedor,FechaVencimiento,Descripcion
+            ,StockAlerta,Medida,PrecioCompra,PrecioVenta,PrecioMayorista,PrecioMeli,Descuento,Moneda,json_arraySaboresCodigo,cantidad_sabores_cargados], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_editar_producto - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_editar_producto 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
+    // **
+
+}
+
 // ==============================
 // ==================================================
 //       ***** UNIDADES *****
@@ -745,7 +827,6 @@ public async listarTransferenciasPaginado(req: Request, res: Response): Promise<
 //    Nueva transferencia de stock
 // ==================================================
 public async altaTransferencia(req: Request, res: Response, callback: any) {
-    console.log('altaTransferencia::: ');
 
     var fechaTransferencia = req.body[0];
     var pIdSucursalOrigen = req.body[1];
@@ -767,8 +848,6 @@ public async altaTransferencia(req: Request, res: Response, callback: any) {
         try {
             // Use the connection
             connection.query('call bsp_alta_transferencia(?,?,?,?,?,?,?)',[pIdUsuario,fechaTransferencia,pIdSucursalOrigen,pIdSucursalDestino,totalTransferencia,jsonpLineaTransferencias,pCantidadLineaTransferencias], function(err: any, result: any){
-                console.log('result::: ', result);
-                console.log('err::: ', err);
 
                 if(err){
                     logger.error("Error en bsp_alta_transferencia - err: " + err + " - result:" + result);

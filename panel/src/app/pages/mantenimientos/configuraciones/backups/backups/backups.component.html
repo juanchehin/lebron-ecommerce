@@ -1,18 +1,23 @@
 <div class="page-content">
     <div class="container-fluid">
         <section class="box-typical">
-
-            <div>
-                <label for="start">Fecha : &nbsp;</label>
-                <input type="date" [(ngModel)]="fecha" (ngModelChange)="cambiosFecha($event)" required> &nbsp;&nbsp;&nbsp;&nbsp;
-                <button [disabled]="controlFechas" (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
-                    refresh
-                    </span>
-                </button>
-                <button style="margin-left: 30px;" class="text-right" type="button" (click)="altaBackup()" class="btn waves-effect waves-light btn-rounded btn-primary">
-                    <i class="fa fa-plus"></i>
-                    Nuevo Backup
-                  </button>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="start">Fecha : &nbsp;</label>
+                    <input type="date" class="form-control" [(ngModel)]="fecha" (ngModelChange)="cambiosFecha($event)" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="col-md-2" style="top: 25px;">
+                    <button [disabled]="controlFechas" (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                        refresh
+                        </span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="top: 30px;">
+                    <button style="margin-left: 30px;" class="text-right" type="button" (click)="altaBackup()" class="btn waves-effect waves-light btn-rounded btn-primary">
+                        <i class="fa fa-plus"></i>
+                        Nuevo Backup
+                    </button>
+                </div>
             </div>
             <br>
             <div class="table-responsive">
@@ -31,14 +36,14 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let backup of backups;let indexOfelement=index;">
-                            <td>{{ backup.IdBackup }}</td>
+                            <td>{{ backup.id_backup }}</td>
                             <td>{{ backup.nombre }}</td>
-                            <td>{{ backup.created_at | date:"dd/MM/yyyy"}}</td>
-                            <td>{{ backup.fecha_sinc | date:"dd/MM/yyyy"}}</td>
-                            <td>{{ backup.EstadoBackup }}</td>
+                            <td>{{ backup.created_at}}</td>
+                            <td>{{ backup.fecha_sinc}}</td>
+                            <td>{{ backup.estado_backup }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button *ngIf="cargando == false" [disabled]="backup.fecha_sinc !== null" (click)="sinc(backup.nombre,backup.IdBackup,indexOfelement)" class="btn btn-success" title="sincronizar">
+                                    <button *ngIf="cargando == false" [disabled]="backup.fecha_sinc !== null" (click)="sinc(backup.nombre,backup.id_backup,indexOfelement)" class="btn btn-success" title="sincronizar">
                                         <i class="material-icons">
                                         backup
                                         </i>

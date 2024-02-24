@@ -745,71 +745,51 @@ public async listarTransferenciasPaginado(req: Request, res: Response): Promise<
 //    Nueva transferencia de stock
 // ==================================================
 public async altaTransferencia(req: Request, res: Response, callback: any) {
+    console.log('altaTransferencia::: ');
 
     var fechaTransferencia = req.body[0];
     var pIdSucursalOrigen = req.body[1];
     var pIdSucursalDestino = req.body[2];
     var totalTransferencia = req.body[3];
     var pLineaTransferencias = req.body[4];
+    var pCantidadLineaTransferencias = req.body[5];
 
     var pIdUsuario = req.params.IdPersona;
 
-    pool.query(`call bsp_alta_transferencia('${pIdUsuario}','${fechaTransferencia}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${totalTransferencia}')`, (err: any, result: any) =>{
+    const jsonpLineaTransferencias = JSON.stringify(pLineaTransferencias);
+    
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_alta_transferencia " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_alta_transferencia(?,?,?,?,?,?,?)',[pIdUsuario,fechaTransferencia,pIdSucursalOrigen,pIdSucursalDestino,totalTransferencia,jsonpLineaTransferencias,pCantidadLineaTransferencias], function(err: any, result: any){
+                console.log('result::: ', result);
+                console.log('err::: ', err);
 
-       if(err || result[0][0].mensaje != 'Ok' || result[0][0].Level == 'Error'){
-        logger.error("Error en altaTransferencia - bsp_alta_transferencia - productosController - ",err);
-
-            callback(err,null);
-
-            pool.query(`call bsp_alta_log('${pIdUsuario}',"${String(result[0][0].Message)}",'productosController','${result[0][0].code}','bsp_alta_linea_transferencia','${err}')`, function(err: any, result: any){               
                 if(err){
-                    return;
-                }
-            })
-
-            pool.query(`call bsp_baja_transferencia('${result[0][0].pIdTransferencia}')`, function(err: any, result: any){
-                if(err){
-                    return;
-                }
-            })
-           
-            res.status(404).json(result[0][0].mensaje);
-            return;
-       }
-       else{ 
-        pLineaTransferencias.forEach(function (value: any) {
-    
-            pool.query(`call bsp_alta_linea_transferencia('${result[0][0].pIdTransferencia}','${value.IdProductoSabor}','${pIdSucursalOrigen}','${pIdSucursalDestino}','${value.Cantidad}')`, function (err2: any, result2: any) {
-
-                if (err2 || result2[0][0].mensaje != 'Ok' || result2[0][0].Level == 'Error') {
-                    logger.error("Error en altaTransferencia - bsp_alta_linea_transferencia - productosController - " + err2);
-
-    
-                    pool.query(`call bsp_baja_transferencia('${result[0][0].pIdTransferencia}')`, function (err3: any, result3: any) {
-                        if (err) {
-                            logger.error("Error en altaTransferencia - bsp_baja_transferencia - productosController - " + err3);
-                            return;
-                        }
-                    });
-    
-                    pool.query(`call bsp_alta_log('${pIdUsuario}',"${String(result2[0][0].Message)}",'productosController','${result2[0][0].Code}','bsp_alta_linea_transferencia','${err2}')`, function (err: any, result: any) {
-
-                    });
-                    
-                    res.status(200).json({mensaje: result2[0][0].mensaje});
-                    return;
-                }
-                else
-                {
-                    res.status(200).json({mensaje: 'Ok'});
-                }
-            });
-            
-        });
-    
-       }
+                    logger.error("Error en bsp_alta_transferencia - err: " + err + " - result:" + result);
         
-    });
+                    res.status(400).json(err);
+                    return;
+                }
+                
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_alta_transferencia 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+    // =================================================================
+
    
 }
 

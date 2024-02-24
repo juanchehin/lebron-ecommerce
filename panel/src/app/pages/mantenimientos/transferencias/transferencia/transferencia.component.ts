@@ -27,6 +27,7 @@ export class TransferenciaComponent implements OnInit {
   itemIdProductoSabor: any;
   keywordProducto = 'codigoproductosabor';
   sucursales: any;
+  cantidad_lineas_transferencias = 0;
 
 
   constructor(
@@ -68,14 +69,16 @@ export class TransferenciaComponent implements OnInit {
         this.IdSucursalOrigen,
         this.IdSucursalDestino,
         this.totalTransferencia,
-        this.lineas_transferencia
+        this.lineas_transferencia,
+        this.cantidad_lineas_transferencias
       );
 
       this.productosService.altaTransferencia( transferencia )
       .subscribe({
         next: (resp: any) => { 
+          console.log('resp::: ', resp);
   
-          if ( resp.mensaje === 'Ok') {
+          if ( resp[0][0].mensaje === 'ok') {
 
             this.alertService.alertSuccess('top-end','Transferencia confirmada',false,2000);
             this.resetearVariables();
@@ -170,6 +173,7 @@ agregarLineaTransferencia() {
     );
 
     this.cantidadLineaTransferencia = 1;
+    this.cantidad_lineas_transferencias += 1;
   }
   else{
 
@@ -189,8 +193,6 @@ agregarLineaTransferencia() {
       { 
         item.Cantidad = Number(item.Cantidad) + Number(this.cantidadLineaTransferencia);
       }
-
-      
      }
   }
  
@@ -209,6 +211,8 @@ agregarLineaTransferencia() {
       }
         
     });
+
+    this.cantidad_lineas_transferencias -= 1;
 
   }
  // ==============================

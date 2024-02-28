@@ -40,7 +40,7 @@ buscarMarcaPaginado() {
 
   this.marcasService.buscarMarcasPaginado( this.desde , marcaBuscada  )
              .subscribe( {
-              next: (resp: any) => { 
+              next: (resp: any) => {
 
                 if(resp[0].length <= 0)
                 { 
@@ -55,7 +55,7 @@ buscarMarcaPaginado() {
                   this.marcas = resp[0];
                   
                 } else {
-                  this.alertService.alertFail('Ocurrio un error',false,2000);
+                  this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
                 }
                 return;
                },

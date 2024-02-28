@@ -83,26 +83,44 @@ public async cargarDatosFormEditarMarca(req: Request, res: Response): Promise<vo
 // ==================================================
 public async buscarMarcasPaginado(req: Request, res: Response): Promise<void> {
 
-    var desde = req.params.desde || 0;
+    var desde = req.params.pDesde || 0;
     desde  = Number(desde);
     var pParametroBusqueda = req.params.pParametroBusqueda || '';
-
+    
     if(pParametroBusqueda == null || pParametroBusqueda == 'null' || pParametroBusqueda == '-' || pParametroBusqueda == '')
     {
         pParametroBusqueda = '-';
     }
 
-    pool.query(`call bsp_buscar_marcas_paginado('${req.params.IdPersona}','${pParametroBusqueda}','${desde}')`, function(err: any, result: any){
-        
-        if(err){
-            logger.error("Error en bsp_buscar_marcas_paginado - MarcasController ");
-
-            res.status(400).json(err);
-            return;
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion buscarMarcasPaginado " + err);
+            throw err; // not connected!
         }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_buscar_marcas_paginado(?,?,?)',[req.params.IdPersona,pParametroBusqueda,desde], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_buscar_marcas_paginado - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
 
-        res.status(200).json(result);
-    })
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_buscar_marcas_paginado 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+      
 }
 
 // ==================================================

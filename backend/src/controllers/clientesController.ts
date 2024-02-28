@@ -37,13 +37,58 @@ public async altaCliente(req: Request, res: Response) {
     var Email = req.body[4];
     var Observaciones = req.body[5];
     
-    pool.query(`call bsp_alta_cliente_panel('${IdPersona}','${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
-        if(err){
-            res.status(404).json(err);
-            return;
+    
+    if(Email == null || Email == 'null' || Email == '-' || Email == '')
+    {
+        Email = '-';
+    }
+
+    if(Telefono == null || Telefono == 'null' || Telefono == '-' || Telefono == '')
+    {
+        Telefono = '-';
+    }
+
+    if(DNI == null || DNI == 'null' || DNI == '-' || DNI == '')
+    {
+        DNI = '-';
+    }
+
+       pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_alta_cliente_panel " + err);
+            throw err; // not connected!
         }
-        res.status(200).json(result);
-    })
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_alta_cliente_panel(?,?,?,?,?,?,?)',[IdPersona,Apellidos,Nombres,DNI,Telefono,Email,Observaciones], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_alta_cliente_panel - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_alta_cliente_panel 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+    
+    // pool.query(`call bsp_alta_cliente_panel('${IdPersona}','${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
+    //     if(err){
+    //         res.status(404).json(err);
+    //         return;
+    //     }
+    //     res.status(200).json(result);
+    // })
 
     // enviarMailBienvenida(Email);   
 

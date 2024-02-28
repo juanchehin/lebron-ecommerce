@@ -50,6 +50,14 @@ export class NuevaVentaComponent implements OnInit {
   operaciones: any;
   cantidad_lineas_venta = 0;
   cantidad_lineas_tipo_pago = 0;
+
+  // alta cliente
+  apellidos_alta_cliente = '';
+  nombres_alta_cliente = '';
+  dni_alta_cliente = '';
+  email_alta_cliente = '';
+  telefono_alta_cliente = '';
+  observaciones_alta_cliente = '';
   
   IdCliente = 0;
   arrayVenta: any = [];
@@ -64,6 +72,7 @@ export class NuevaVentaComponent implements OnInit {
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
   @ViewChild('divCerrarModalDescuentoEfectivo') divCerrarModalDescuentoEfectivo!: ElementRef<HTMLElement>;
   @ViewChild('buttonAbrirModalDescuentoEfectivo') buttonAbrirModalDescuentoEfectivo!: ElementRef<HTMLElement>;
+  @ViewChild('divCerrarModalAltaCliente') divCerrarModalAltaCliente!: ElementRef<HTMLElement>;
 
   // =====
   porcentaje_un_pago: any;
@@ -135,7 +144,6 @@ altaVenta() {
       this.ventasService.altaVenta(  this.arrayVenta )
       .subscribe({
         next: (resp: any) => {
-          console.log('resp::: ', resp);
           
           if ( resp[0][0].mensaje == 'ok') {
             this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
@@ -652,6 +660,60 @@ agregarLineaTipoPago(): any {
     let el: HTMLElement = this.buttonAbrirModalDescuentoEfectivo.nativeElement;
     el.click();
   }
+
+  
+  // ==============================
+  // 
+  // ================================
+alta_cliente() {
+
+   if(this.apellidos_alta_cliente == '')
+   {
+     this.alertaService.alertFail('Debe cargar un apellido para el cliente',false,2000);
+     return;
+   }
+
+   if(this.nombres_alta_cliente == '')
+   {
+     this.alertaService.alertFail('Debe cargar un nombre para el cliente',false,2000);
+     return;
+   }
+
+
+  const cliente = new Array(
+    this.apellidos_alta_cliente,
+    this.nombres_alta_cliente,
+    this.dni_alta_cliente,
+    this.telefono_alta_cliente,
+    this.email_alta_cliente,
+    this.observaciones_alta_cliente
+  );
+
+  this.clientesService.altaCliente( cliente )
+  .subscribe( {
+    next: (resp: any) => {
+      console.log('resp::: ', resp);
+
+      if ( resp[0][0].mensaje == 'Ok') {
+
+        this.alertaService.alertSuccess('top-end','cliente cargado',false,2000);
+        let el: HTMLElement = this.divCerrarModalAltaCliente.nativeElement;
+        el.click();
+
+      } else {
+        this.alertaService.alertFailWithText('Ocurrio un error al cargar los datos del cliente',resp[0][0].mensaje,false,1000);
+      }
+     
+      // cerrar modal
+      return;
+
+    },
+    error: (err: any) => {
+      this.alertaService.alertFailWithText('Ocurrio un error al cargar los datos del cliente',err,false,1000); 
+    }
+ });
+
+}
 
   // ==============================
   // 

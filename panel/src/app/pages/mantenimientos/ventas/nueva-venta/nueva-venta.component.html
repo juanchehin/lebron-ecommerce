@@ -19,7 +19,7 @@
     </div>
     <!-- ========== cliente ============ -->
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-6">
             <label>Cliente : </label>
             <div class="ng-autocomplete">
                 <ng-autocomplete [data]="clientes" [searchKeyword]="keywordCliente" 
@@ -33,8 +33,15 @@
             </ng-template>
             <ng-template #notFoundTemplate let-notFound>
                 <div [innerHTML]="notFound"></div>
-            </ng-template>
+            </ng-template>            
         </div>
+        <!--  -->
+        <div class="col-md-2" style="top: 25px;">
+            <button type="button" class="btn btn-info btn-circle"  data-toggle="modal" data-target="#responsive-modal-alta-cliente">
+                <i class="fa fa-plus"></i> 
+            </button>
+        </div>
+        <!--  -->
         <div class="col-sm-4 form-group">
             <label>Operacion : </label>
             <select tabindex="4" (ngModelChange)='onChangeTipoVenta($event)' [(ngModel)]="id_operacion_seleccionada" class="form-control">
@@ -132,7 +139,7 @@
     <!-- ====================== -->
 </div>
 
-<!-- =========== MODAL =========== -->
+<!-- =========== MODAL Formas de pago =========== -->
 <div class="col-md-4" *ngIf="activarModal">
     <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
@@ -237,4 +244,54 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<!-- =========== MODAL Alta cliente =========== -->
+<div class="col-md-4">
+    <div id="responsive-modal-alta-cliente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Alta cliente</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Apellidos : </label>
+                                <input type="text" [(ngModel)]="apellidos_alta_cliente" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Nombres : </label>
+                                <input type="text" [(ngModel)]="nombres_alta_cliente" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Telefono : </label>
+                                <input type="text" [(ngModel)]="telefono_alta_cliente" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>DNI : </label>
+                                <input type="text" [(ngModel)]="dni_alta_cliente" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Email : </label>
+                                <input type="text" [(ngModel)]="email_alta_cliente" class="form-control">
+                            </div>
+                            <div class="col-sm-12">
+                                <label>Observaciones : </label>
+                                <input type="textarea" [(ngModel)]="observaciones_alta_cliente" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button #divCerrarModalAltaCliente type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light" (click)="alta_cliente()">Cargar cliente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
 </div>

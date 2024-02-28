@@ -390,6 +390,7 @@ agregarLineaTipoPago(): any {
         return;
     }else
     {
+      
 
       this.lineas_tipos_pago.push(
         {
@@ -399,7 +400,7 @@ agregarLineaTipoPago(): any {
             SubTotal: this.monto
         });
 
-      switch (obj.IdTipoPago) {
+      switch (obj.id_tipo_pago) {
         case 1: // Pago efectivo
             this.montoEfectivo = this.monto;
             this.abrirModalDescuentoEfectivo();
@@ -409,7 +410,7 @@ agregarLineaTipoPago(): any {
             var monto_aumento = +this.monto * ((this.porcentaje_un_pago / 100)); 
             this.totalVenta = +this.totalVenta + +monto_aumento;
             this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;
-
+           
             this.lineas_tipos_pago.push(
             {
                   IdItem: this.IdItemTipoPago,
@@ -464,7 +465,6 @@ agregarLineaTipoPago(): any {
   }
 
   this.monto = 0;
-  console.log(' this.lineas_tipos_pago::: ',  this.lineas_tipos_pago);
 
 
 }
@@ -662,9 +662,9 @@ agregarLineaTipoPago(): any {
   }
 
   
-  // ==============================
-  // 
-  // ================================
+// ==============================
+// 
+// ================================
 alta_cliente() {
 
    if(this.apellidos_alta_cliente == '')
@@ -692,7 +692,6 @@ alta_cliente() {
   this.clientesService.altaCliente( cliente )
   .subscribe( {
     next: (resp: any) => {
-      console.log('resp::: ', resp);
 
       if ( resp[0][0].mensaje == 'Ok') {
 

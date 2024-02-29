@@ -17,10 +17,17 @@
                                 </i>
                             </button>
                     </div>
+                    <div class="col-sm-1 form-group">
+                        <button (click)="refrescar( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="material-icons">
+                                refresh
+                                </i>
+                            </button>
+                    </div>
                     <div class="col-sm-2">
-                        <button [routerLink]="['/dashboard/inversores/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary" style="border-top-width: 0px;border-top-style: solid;margin-top: 30px;">
-                          <i class="fa fa-plus"></i> 
-                          Nuevo Inversor
+                        <button type="submit" class="btn btn-primary" style="margin-top: 26px;" data-toggle="modal" data-target="#responsive-modal-alta-inversor">
+                            <i class="fa fa-plus"></i> 
+                            Nuevo Inversor
                         </button>
                     </div>
                 </div>
@@ -37,8 +44,8 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let inversor of inversores">
-                            <td>{{ inversor.IdPersona }}</td>
-                            <td>{{ inversor.Apellidos }}, {{ inversor.Nombres }}</td>
+                            <td>{{ inversor.id_persona }}</td>
+                            <td>{{ inversor.apellidos }}, {{ inversor.nombres }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button class="btn btn-inline btn-success" type="button" [routerLink]="['/dashboard/inversiones/inversores/alta-monto',inversor.IdPersona]">
@@ -73,6 +80,60 @@
     <!--.container-fluid-->
 </div>
 <!--.page-content-->
+
+<!-- =========== MODAL Alta inversor =========== -->
+<div class="col-md-4">
+    <div id="responsive-modal-alta-inversor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Alta inversor</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Apellidos : </label>
+                                <input type="text" [(ngModel)]="apellidos_alta_inversor" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Nombres : </label>
+                                <input type="text" [(ngModel)]="nombres_alta_inversor" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Telefono : </label>
+                                <input type="text" [(ngModel)]="telefono_alta_inversor" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>DNI : </label>
+                                <input type="text" [(ngModel)]="dni_alta_inversor" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Email : </label>
+                                <input type="text" [(ngModel)]="email_alta_inversor" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Fecha nacimiento : </label>
+                                <input type="date" [(ngModel)]="fecha_nac_alta_inversor" class="form-control">
+                            </div>
+                            <div class="col-sm-12">
+                                <label>Observaciones : </label>
+                                <input type="textarea" [(ngModel)]="observaciones_alta_inversor" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button #divCerrarModalAltaInversor type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light" (click)="alta_inversor()">Cargar inversor</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+</div>
+
 
 <!-- =========== MODAL =========== -->
 <div *ngIf="activarModalNuevaInversion">

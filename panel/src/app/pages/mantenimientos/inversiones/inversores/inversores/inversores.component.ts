@@ -21,7 +21,16 @@ export class InversoresComponent implements OnInit {
   IdPersona = 0;
   monto = 0;
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
+  @ViewChild('divCerrarModalAltaInversor') divCerrarModalAltaInversor!: ElementRef<HTMLElement>;
 
+  //
+  apellidos_alta_inversor: any;
+  nombres_alta_inversor: any;
+  dni_alta_inversor: any;
+  telefono_alta_inversor: any;
+  email_alta_inversor: any;
+  observaciones_alta_inversor: any;
+  fecha_nac_alta_inversor: any;
 
   constructor(
     public inversoresService: InversoresService,
@@ -106,6 +115,61 @@ altaMontoInversion(){
   });
 }
 
+
+// ==============================
+// 
+// ================================
+alta_inversor() {
+
+  if(this.apellidos_alta_inversor == '')
+  {
+    this.alertaService.alertFail('Debe cargar un apellido para el inversor',false,2000);
+    return;
+  }
+
+  if(this.nombres_alta_inversor == '')
+  {
+    this.alertaService.alertFail('Debe cargar un nombre para el inversor',false,2000);
+    return;
+  }
+
+
+ const inversor = new Array(
+   this.apellidos_alta_inversor,
+   this.nombres_alta_inversor,
+   this.dni_alta_inversor,
+   this.telefono_alta_inversor,
+   this.email_alta_inversor,
+   this.observaciones_alta_inversor,
+   this.fecha_nac_alta_inversor
+ );
+
+ this.inversoresService.altaInversor( inversor )
+ .subscribe( {
+   next: (resp: any) => {
+
+     if ( resp[0][0].mensaje == 'ok') {
+
+       this.buscarInversores();
+       this.alertaService.alertSuccess('top-end','Inversor cargado',false,2000);
+       let el: HTMLElement = this.divCerrarModalAltaInversor.nativeElement;
+       el.click();
+
+     } else {
+       this.alertaService.alertFailWithText('Ocurrio un error al cargar los datos del inversor',resp[0][0].mensaje,false,1000);
+     }
+    
+     // cerrar modal
+     return;
+
+   },
+   error: (err: any) => {
+     this.alertaService.alertFailWithText('Ocurrio un error al cargar los datos del inversor',err,false,1000); 
+   }
+});
+
+}
+
 // ==================================================
 // 
 // ==================================================
@@ -169,5 +233,19 @@ cambiarDesde( valor: number ) {
     let el: HTMLElement = this.divCerrarModal.nativeElement;
     el.click();
   }
+// ==================================================
+//    Funcion para recargar el listado
+// ==================================================
+
+refrescar() {
+  // Reseteo 'desde
+
+  const inputElement: HTMLInputElement = document.getElementById('inversorBuscado') as HTMLInputElement;
+  inputElement.value = '';
+  
+  this.desde = 0;
+  this.buscarInversores();
+}
+
 
 }

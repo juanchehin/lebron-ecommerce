@@ -50,33 +50,64 @@ public async listarTodosInversores(req: Request, res: Response): Promise<void> {
 // ==================================================
 public async altaInversor(req: Request, res: Response) {
 
+    var IdUsuario = req.params.IdPersona;
+
     var Apellidos = req.body[0];
     var Nombres = req.body[1];
     var DNI = req.body[2];
     var Telefono = req.body[3];
     var Email = req.body[4];
     var Observaciones = req.body[5];
+    var fecha_nac = req.body[5];
+    
+    if(fecha_nac == 'NULL' || fecha_nac == null)
+    {
+        fecha_nac = null;
+    }
 
-    pool.query(`call bsp_alta_inversor('${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
+    if(DNI == 'NULL' || DNI == null)
+    {
+        DNI = '-';
+    }
+
+    if(Telefono == 'NULL' || Telefono == null)
+    {
+        Telefono = '-';
+    }
+
+    if(Observaciones == 'NULL' || Observaciones == null)
+    {
+        Observaciones = '-';
+    }
+
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_alta_inversor " + err);
+            throw err; // not connected!
+        }
+
+        try {
+            // Use the connection
+            connection.query('call bsp_alta_inversor(?,?,?,?,?,?,?,?)',[IdUsuario,Apellidos,Nombres,DNI,Telefono,Email,fecha_nac,Observaciones], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_alta_inversor - err: " + err + " - result:" + result);
         
-        if(err){
-            logger.error("Error en altaInversor - bsp_alta_inversor - inversoresController");
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
 
-            res.status(404).json({ text: err });
-            return;
-        }
-
-        if(result[0][0].Mensaje !== 'Ok'){
-            logger.error("Error en altaInversor - bsp_alta_inversor - inversoresController");
-
-            return res.json({
-                ok: false,
-                Mensaje: result[0][0].Mensaje
             });
-        }
 
-        return res.json({ Mensaje: 'Ok' });
-    })
+        } catch (error) {
+            logger.error("Error en bsp_alta_inversor 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
 
 }
 // ==================================================

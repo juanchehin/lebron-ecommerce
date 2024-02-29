@@ -43,9 +43,11 @@ export class VentasService {
 // ==================================================
 //
 // ==================================================
-  listarVentasFecha(desde: number , FechaInicio: any , FechaFin: any){
+  listarVentasFecha(pIdSucursal: any,pIdTipoVenta: any,pIdTransaccion: any, FechaInicio: any , FechaFin: any,desde: number){
 
-    let url = URL_SERVICIOS + '/ventas/listar/' + desde + '/' + FechaInicio + '/' + FechaFin;
+    // pIdVendedor,pIdSucursal,pIdTipoVenta,pITipoPago,pIdTransaccion,FechaInicio,FechaFin,desde
+
+    let url = URL_SERVICIOS + '/ventas/listar/' + this.IdPersona + '/' + pIdSucursal + '/' + pIdTipoVenta + '/' + pIdTransaccion + '/' + FechaInicio + '/' + FechaFin + '/' + desde;
 
     return this.http.get( url, this.headers );
   }
@@ -110,5 +112,14 @@ cargarDatosNuevaVenta(  ){
   return this.http.get( url ,this.headers);
 }
 
+// ==================================================
+//
+// ==================================================
+baja_transaccion( id_transaccion : any){
+
+  let url = URL_SERVICIOS + '/ventas/baja/' + this.IdPersona + '/' + id_transaccion;
+
+  return this.http.get( url ,this.headers);
+}
 
 }

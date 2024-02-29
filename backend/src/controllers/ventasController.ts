@@ -27,11 +27,19 @@ public async listarUsuariosPaginado(req: Request, res: Response): Promise<void> 
 
 public async listarVentas(req: Request, res: Response): Promise<void> {
 
-    var desde = req.params.desde || 0;
-    desde  = Number(desde);
+    var pIdVendedor = req.params.pIdPersona;
 
     var FechaInicio = req.params.FechaInicio;
     var FechaFin = req.params.FechaFin;
+
+    var pIdSucursal = req.params.pIdSucursal;
+    var pIdTipoVenta = req.params.pIdTipoVenta;
+    var pITipoPago = req.params.pITipoPago;
+    var pIdTransaccion = req.params.pIdTransaccion;
+    
+    var desde = req.params.desde || 0;
+    desde  = Number(desde);
+    
 
     pool.getConnection(function(err: any, connection: any) {
         if (err) {
@@ -41,8 +49,8 @@ public async listarVentas(req: Request, res: Response): Promise<void> {
        
         try {
             // Use the connection
-            connection.query('call bsp_listar_ventas_paginado_fechas(?,?,?)',[desde,FechaInicio,FechaFin], function(err: any, result: any){
-                
+            connection.query('call bsp_listar_ventas_paginado_fechas(?,?,?,?,?,?,?,?)',[pIdVendedor,pIdSucursal,pIdTipoVenta,pITipoPago,pIdTransaccion,FechaInicio,FechaFin,desde], function(err: any, result: any){
+
                 if(err){
                     logger.error("Error en bsp_listar_ventas_paginado_fechas - err: " + err + " - result:" + result);
         
@@ -169,12 +177,34 @@ async altaVenta(req: Request, res: Response) {
 // ==================================================
 listarTiposPago(req: Request, res: Response) {
 
-    pool.query(`call bsp_listar_tipos_pago()`, function(err: any, result: any){
-       if(err){
-           return;
-       }
-       res.json(result);
-   })
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_listar_tipos_pago " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_listar_tipos_pago()', function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_listar_tipos_pago - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_listar_tipos_pago 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
 
 }
 
@@ -215,7 +245,44 @@ dameDatosPDFVenta(req: Request, res: Response) {
       });
 
 }
+// ==================================================
+//        
+// ==================================================
+baja_transaccion(req: Request, res: Response) {
 
+    var pIdVendedor = req.params.IdPersona;
+    var pIdTransaccion = req.params.pIdTransaccion;
+
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_baja_transaccion " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_baja_transaccion(?,?)',[pIdVendedor,pIdTransaccion], function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_baja_transaccion - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_baja_transaccion 2 - " + error);
+            res.status(500).send('Error interno del servidor - bsp_baja_transaccion');
+        } finally {
+            connection.release();
+        }
+      });
+
+}
 
 // ==================================================
 //        

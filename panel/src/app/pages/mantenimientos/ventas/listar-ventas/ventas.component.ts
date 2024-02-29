@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VentasService } from 'src/app/services/ventas.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { UtilService } from 'src/app/services/util.service';
+import Swal from 'sweetalert2';
 
 const pdfMake = require('pdfmake/build/pdfmake.js');
 const pdfFonts = require('pdfmake/build/vfs_fonts.js');
@@ -18,9 +19,16 @@ export class VentasComponent implements OnInit {
   cargando = false;
   fechaInicio = this.utilService.formatDateNow(new Date(Date.now()));
   fechaFin = this.utilService.formatDateNow(new Date(Date.now()));
+  id_sucursal_seleccionada = 0;
+  id_operacion_seleccionada = 0;
+  id_transaccion_buscada = 0;
+
+  //
   controlFechas = false;
   totalVentas = 0;
   ventas!: Array < any > ;
+  operaciones: any;
+  sucursales_usuario: any;
 
   constructor(
     public ventasService: VentasService,
@@ -40,21 +48,42 @@ export class VentasComponent implements OnInit {
 
 cargarVentas() {
 
-  // const pfechaInicio  = this.utilService.formatDate(this.fechaInicio);
-  // const pfechaFin = this.utilService.formatDate(this.fechaFin);
+  //
+  if(this.id_transaccion_buscada < 0)
+  {
+    this.alertService.alertFail('Transaccion invalida',false,2000);
+    return;
+  }
 
-  this.ventasService.listarVentasFecha( this.desde , this.fechaInicio , this.fechaFin)
+  //
+  if(this.id_operacion_seleccionada < 0)
+  {
+    this.alertService.alertFail('Operacion invalida',false,2000);
+    return;
+  }
+
+
+  this.ventasService.listarVentasFecha( this.id_sucursal_seleccionada, this.id_operacion_seleccionada, this.id_transaccion_buscada,this.fechaInicio, this.fechaFin , this.desde )
              .subscribe( {
               next: (resp: any) => {
-                
-                this.totalVentas = resp[1][0].totalVentas;
 
-                this.ventas = resp[0];
-                
+                if(resp[4][0].mensaje == 'ok') {
+
+                  this.totalVentas = resp[1][0].totalVentas;
+
+                  this.ventas = resp[0];
+                  this.sucursales_usuario = resp[2];
+                  this.operaciones = resp[3];
+                  
+                  
+                } else {
+                  this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+                }
+              
                 return;
                },
               error: () => { 
-                this.alertService.alertFail('Ocurrio un error',false,2000)
+                this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000)
               }
             });
 
@@ -106,6 +135,56 @@ cambiarDesde( valor: number ) {
 
   this.desde += valor;
   this.cargarVentas();
+
+}
+
+
+// ==================================================
+//    
+// ==================================================
+onChangeSucursal(val: any){
+  this.id_sucursal_seleccionada = val;
+}
+
+onChangeOperacion(val: any){
+  this.id_operacion_seleccionada = val;
+}
+
+
+// ==================================================
+//    
+// ==================================================
+
+baja_transaccion(id_transaccion: any) {
+
+  
+  Swal.fire({
+    title: '¿Desea eliminar la transaccion?',
+    text: "Eliminacion de transaccion",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Si'
+  }).then((result: any) => {
+    if (result.isConfirmed) {
+      this.ventasService.baja_transaccion( id_transaccion )
+      .subscribe({
+        next: (resp: any) => {
+  
+          if(resp[0][0].mensaje == 'ok') {
+            this.alertService.alertSuccess('top-end','Transaccion dado de baja',false,900);
+            this.refrescar();
+            
+          } else {
+            this.alertService.alertFail(resp[0][0].mensaje,false,1200);
+            
+          }
+         },
+        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
+      });
+    }
+  })
 
 }
 

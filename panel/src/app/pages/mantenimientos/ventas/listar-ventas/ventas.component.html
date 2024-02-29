@@ -10,6 +10,29 @@
                     <label>Fecha Fin : &nbsp;</label>
                     <input type="date" class="form-control" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
+                <div class="col-sm-4">
+                    <label>Sucursal : </label>
+                    
+                    <select tabindex="4" (ngModelChange)='onChangeSucursal($event)' [(ngModel)]="id_sucursal_seleccionada" class="form-control">
+                        <option [value]="0" default>Todas</option>
+                        <option *ngFor="let suc_us of sucursales_usuario" [value]="suc_us.id_sucursal">
+                            {{suc_us.sucursal}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <label>Operacion : </label>
+                    <select tabindex="4" (ngModelChange)='onChangeOperacion($event)' [(ngModel)]="id_operacion_seleccionada" class="form-control">
+                        <option [value]="0" default>Todas</option>
+                        <option *ngFor="let op of operaciones" [value]="op.id_operacion">
+                            {{op.operacion}}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-sm-4">
+                    <label>Nro transaccion : </label>
+                    <input type="text" [(ngModel)]="id_transaccion_buscada" class="form-control">
+                </div>
                 <div class="col-sm-4" style="top: 27px;">
                     <button (click)="refrescar()" class="btn btn-rounded btn-primary"><span class="material-icons">
                         refresh
@@ -17,6 +40,7 @@
                     </button>
                 </div>
             </div>
+            <br><br>
             <div class="row">
                 <div class="col-sm-6">
                     <h3 class="card-title">Cantidad ventas ( <small> {{ totalVentas }} </small> )</h3>
@@ -48,13 +72,18 @@
                         <td>{{ venta.fecha }}</td>
                         <td>{{ venta.Vendedor }}</td>
                         <td>{{ venta.Comprador }}</td>
-                        <td>{{ venta.tipo_venta }}</td>
+                        <td>{{ venta.operacion }}</td>
                         <td>$ {{ venta.monto_total }}</td>
                         <td>{{ venta.sucursal }}</td>
                         <td>
                             <button class="btn btn-inline btn-success" type="button" (click)="generar_factura_pdf(venta.id_transaccion)">
                                 <i class="material-icons"> 
                                     picture_as_pdf    
+                                </i>
+                            </button>
+                            <button class="btn btn-inline btn-danger" type="button" (click)="baja_transaccion(venta.id_transaccion)">
+                                <i class="material-icons"> 
+                                    delete    
                                 </i>
                             </button>
                         </td>

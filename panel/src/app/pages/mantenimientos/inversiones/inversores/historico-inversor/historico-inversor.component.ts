@@ -151,8 +151,8 @@ cargarDatosInversor()
         .subscribe( {
         next: (resp: any) => {
           
-        this.Apellidos = resp[0][0].Apellidos;
-        this.Nombres = resp[0][0].Nombres;
+        this.Apellidos = resp[0][0].apellidos;
+        this.Nombres = resp[0][0].nombres;
 
       },
       error: () => { this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000) }

@@ -17,15 +17,18 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <label for="start">Fecha Inicio : &nbsp;</label>
-                        <input type="date" [(ngModel)]="fechaInicio" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="date" [(ngModel)]="fechaInicio" class="form-control" required> &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <div class="col-sm-4">
                         <label for="start">Fecha Fin : &nbsp;</label>
-                        <input type="date" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="date" [(ngModel)]="fechaFin" class="form-control" required> &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
-                    <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
-                        refresh
-                        </span></button>
+                    <div class="col-sm-4" style="top: 28px;">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                            refresh
+                            </span>
+                        </button>
+                    </div>                  
                 </div>
                 <table id="table-edit" class="table table-bordered table-hover">
                     <thead>

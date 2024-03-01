@@ -118,13 +118,36 @@ public async bajaInversor(req: Request, res: Response): Promise<void> {
     var IdInversor = req.params.pIdInversor;
     var IdUsuario = req.params.IdPersona;
 
-    pool.query(`call bsp_baja_inversor('${IdUsuario}','${IdInversor}')`, function(err: any, result: any, fields: any){
-        if(err){
-            res.status(404).json(err);
-            return;
+    
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_baja_inversor " + err);
+            throw err; // not connected!
         }
-        res.status(200).json(result);
-    })
+
+        try {
+            // Use the connection
+            connection.query('call bsp_baja_inversor(?,?)',[IdUsuario,IdInversor], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_baja_inversor - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_baja_inversor 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
 }
 
 

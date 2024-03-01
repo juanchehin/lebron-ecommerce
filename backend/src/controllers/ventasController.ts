@@ -134,7 +134,6 @@ async altaVenta(req: Request, res: Response) {
     var pFechaVenta = req.body.fecha_venta;
     var p_id_sucursal_seleccionada = req.body.id_sucursal_seleccionada;
     var p_id_tipo_venta_seleccionada = req.body.id_operacion_seleccionada;
-       
 
     pool.getConnection(function(err: any, connection: any) {
         if (err) {

@@ -46,7 +46,7 @@ class InversoresRoutes {
 
         this.router.get('/listar/paginado/:IdPersona/:desde/:inversorBuscado',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], inversoresController.buscarInversoresPaginado);
         this.router.get('/dame/todos/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario] ,inversoresController.listarTodosInversores); 
-        this.router.get('/baja/:pIdInversor/:IdPersona/one',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario] ,inversoresController.bajaInversor); 
+        this.router.get('/baja/:pIdInversor/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario] ,inversoresController.bajaInversor); 
         this.router.get('/editar/datos-formulario/:pIdInversor/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], inversoresController.cargarDatosFormEditarInversor);
         this.router.get('/historico/inversor/:IdInversor/:IdPersona/:desde/:FechaInicio/:FechaFin',[mdAutenticacion.verificaToken],inversoresController.listarHistoricoInversor);
 

@@ -239,7 +239,7 @@ bajaInversor(IdPersona: string) {
       .subscribe({
         next: (resp: any) => {
   
-          if(resp[0].mensaje == 'Ok') {
+          if(resp[0][0].mensaje == 'ok') {
             this.alertService.alertSuccess('top-end','Inversor dado de baja',false,900);
             this.buscarInversores();
             

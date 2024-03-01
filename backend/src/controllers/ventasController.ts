@@ -286,12 +286,34 @@ baja_transaccion(req: Request, res: Response) {
 // ==================================================
 dameDatosDashboard(req: Request, res: Response) {
 
-    pool.query(`call bsp_dame_datos_dashboard()`, function(err: any, result: any){
-       if(err){
-           return;
-       }
-       res.json(result);
-   })
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_dame_datos_dashboard " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_dame_datos_dashboard()', function(err: any, result: any){
+                
+                if(err){
+                    logger.error("Error en bsp_dame_datos_dashboard - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_dame_datos_dashboard 2 - " + error);
+            res.status(500).send('Error interno del servidor - bsp_dame_datos_dashboard');
+        } finally {
+            connection.release();
+        }
+      });
 
 }
 // ==================================================

@@ -213,32 +213,53 @@ public async listarHistoricoInversor(req: Request, res: Response): Promise<void>
 // ==================================================
 //   
 // ==================================================
-public async altaMontoInversor(req: Request, res: Response) {
+public async alta_inversion(req: Request, res: Response) {
 
     var pIdPersona = req.params.IdPersona;
+    
+    const file = req.file;
+    const nombre_comprobante = file?.filename;
 
-    var pIdInversor = req.body[0];
-    var pMontoInvertido = req.body[1];
-    var pObservaciones = req.body[2];
+    var pIdInversor = req.body.id_inversor;
+    var pFechaInversion = req.body.fecha_alta_inversion;
+    var pMontoInvertido = req.body.monto_inversion;
+    var pObservaciones = req.body.observaciones_alta_inversion;
 
-    pool.query(`call bsp_alta_monto_inversion('${pIdPersona}','${pIdInversor}','${pMontoInvertido}','${pObservaciones}')`, function(err: any, result: any, fields: any){
+
+    if(pObservaciones == 'NULL' || pObservaciones == null)
+    {
+        pObservaciones = '-';
+    }
+
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion alta_inversion " + err);
+            throw err; // not connected!
+        }
+
+        try {
+            // Use the connection
+            connection.query('call bsp_alta_inversion(?,?,?,?,?,?)',[pIdPersona,pIdInversor,pMontoInvertido,pFechaInversion,pObservaciones,nombre_comprobante], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en alta_inversion - err: " + err + " - result:" + result);
         
-        if(err){
-            logger.error("Error en altaMontoInversor - bsp_alta_monto_inversion - inversoresController");
-            res.status(404).json({ text: err });
-            return;
-        }
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
 
-        if(result[0][0].Mensaje !== 'Ok'){
-            logger.error("Error en altaMontoInversor - bsp_alta_monto_inversion - inversoresController");
-            return res.json({
-                ok: false,
-                Mensaje: result[0][0].Mensaje
             });
-        }
 
-        return res.json({ Mensaje: 'Ok' });
-    })
+        } catch (error) {
+            logger.error("Error en alta_inversion 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
 
 }
 

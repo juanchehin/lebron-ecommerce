@@ -48,7 +48,7 @@
                             <td>{{ inversor.apellidos }}, {{ inversor.nombres }}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-inline btn-success"  data-toggle="modal" data-target="#responsive-modal-alta-monto-inversion">
+                                    <button type="button" class="btn btn-inline btn-success" (click)="inversor_seleccionado(inversor.id_persona)" data-toggle="modal" data-target="#responsive-modal-alta-monto-inversion">
                                         <i class="material-icons"> add </i>
                                     </button>
                                     <button class="btn btn-inline btn-warning" type="button" data-toggle="modal" data-target="#responsive-modal-baja-monto-inversion">
@@ -153,6 +153,11 @@
                         <div class="col-sm-12">
                             <label>Fecha inversion : </label>
                             <input type="date" [(ngModel)]="fecha_alta_inversion" class="form-control">
+                        </div>
+                         <!--  -->
+                        <div class="col-sm-12 form-group">
+                            <label>Comprobante : </label>
+                            <input type="file" class="form-control" (change)="onFileSelected($event)" name="comprobante_inversion" aria-describedby="fileHelp">
                         </div>
                         <div class="col-sm-12">
                             <label>Observaciones : </label>

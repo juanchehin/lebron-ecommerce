@@ -56,7 +56,6 @@ export class VentasService {
 //
 // ==================================================
 altaVenta( venta : any, comprobante_venta: File){
-  console.log('venta::: ', venta);
 
   const formData_venta = new FormData();
 

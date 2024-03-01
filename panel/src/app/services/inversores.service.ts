@@ -125,11 +125,22 @@ buscarHistoricoInversores(desde: number , FechaInicio: any , FechaFin: any){
 // ==================================================
 //        
 // ==================================================
-altaMontoInversion( datosInversion: any ) {
+altaMontoInversion( datosInversion: any, comprobante_inversion: File ) {
+
+  const formData_inversion = new FormData();
+
+  // Agregar datos del cliente al formulario
+  formData_inversion.append('id_inversor', datosInversion[0]);
+  formData_inversion.append('fecha_alta_inversion', datosInversion[1]);
+  formData_inversion.append('monto_inversion', datosInversion[2]);
+  formData_inversion.append('observaciones_alta_inversion', datosInversion[3]);
+
+  // Adjuntar el archivo PDF al formulario
+  formData_inversion.append('comprobante_inversion', comprobante_inversion);
 
   let url = URL_SERVICIOS + '/inversores/alta/monto/' + this.IdPersona;
 
-  return this.http.post(url,datosInversion, this.headers );
+  return this.http.post(url,formData_inversion, this.headers );
 }
 
 // ==================================================

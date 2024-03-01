@@ -21,6 +21,7 @@ export class InversoresComponent implements OnInit {
   totalInversores = 0;
   IdPersona = 0;
   monto = 0;
+  id_inversor_seleccionado: any;
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
   @ViewChild('divCerrarModalAltaInversor') divCerrarModalAltaInversor!: ElementRef<HTMLElement>;
   @ViewChild('divCerrarModalAltaInversion') divCerrarModalAltaInversion!: ElementRef<HTMLElement>;
@@ -33,6 +34,8 @@ export class InversoresComponent implements OnInit {
   email_alta_inversor: any;
   observaciones_alta_inversor: any;
   fecha_nac_alta_inversor: any;
+  comprobante_inversion: any;
+  FinalformData!: FormData;
 
   //
   monto_inversion: any;
@@ -93,29 +96,28 @@ buscarInversores() {
 
 alta_inversion(){
 
-  if ( (this.monto_inversion <= 0) || (this.monto_inversion == '')) {
+  if ( (this.monto_inversion <= 0) || (this.monto_inversion == '') || isNaN(this.monto_inversion)) {
     this.alertaService.alertFail('Monto invalido',false,2000);
     return;
   }
 
   const datosNuevaInversion = [
-    this.monto_inversion,
+    this.id_inversor_seleccionado,
     this.fecha_alta_inversion,
+    this.monto_inversion,
     this.observaciones_alta_inversion
   ]
 
-  this.inversoresService.altaMontoInversion( datosNuevaInversion )
+  this.inversoresService.altaMontoInversion( datosNuevaInversion, this.comprobante_inversion )
   .subscribe({
     next: (resp: any) => {
 
-      if ( resp[0][0].mensaje == 'Ok') {
+      if ( resp[0][0].mensaje == 'ok') {
         this.alertaService.alertSuccess('top-end','Inversion cargada',false,2000);
 
-        this.activarModalNuevaInversion = false;
+        let el: HTMLElement = this.divCerrarModalAltaInversion.nativeElement;
+        el.click();
         
-        this.cerrarModal();
-        
-        // this.router.navigate(['/dashboard/ventas']);
       } else {
         this.alertaService.alertFail('Ocurrio un error',false,2000);
       }
@@ -142,11 +144,11 @@ baja_monto_inversion(){
     this.observaciones_alta_inversion
   ]
 
-  this.inversoresService.altaMontoInversion( datosBajaInversion )
+  this.inversoresService.bajaMontoInversion( datosBajaInversion )
   .subscribe({
     next: (resp: any) => {
 
-      if ( resp[0][0].mensaje == 'Ok') {
+      if ( resp[0][0].mensaje == 'ok') {
         this.alertaService.alertSuccess('top-end','Inversion cargada',false,2000);
 
         this.activarModalNuevaInversion = false;
@@ -294,5 +296,24 @@ refrescar() {
   this.buscarInversores();
 }
 
+  // ==============================
+  // Comprobante PDF
+  // ================================
 
+  onFileSelected(event: any) {
+
+    if (event.target.files && event.target.files.length > 0) {
+      this.comprobante_inversion = event.target.files[0];
+
+      this.FinalformData = new FormData();
+      this.FinalformData.append('comprobante_inversion', this.comprobante_inversion, this.comprobante_inversion.name);
+    }else{
+      this.alertaService.alertFail('Ocurrio un error al cargar el comprobante ',false,1000);
+    }
+
+  }
+
+  inversor_seleccionado(id_inversor:any){
+    this.id_inversor_seleccionado = id_inversor;
+  }
 }

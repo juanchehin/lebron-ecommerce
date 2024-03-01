@@ -27,7 +27,6 @@ export class NuevaVentaComponent implements OnInit {
   productos: any;
   clienteBuscado = '';
   productoBuscado = '';
-  IdPersona = '';
   id_sucursal_seleccionada = 1;
   id_operacion_seleccionada = 2;
   id_tipo_venta: any;
@@ -66,6 +65,10 @@ export class NuevaVentaComponent implements OnInit {
   idSucursalVendedor: any;
   fecha_venta: any;
 
+  //
+  FinalformData!: FormData;
+  comprobante_venta: any;
+
   // Modals
   activarModal = false;
   activarModalDescuentoEfectivo = false;
@@ -101,7 +104,6 @@ export class NuevaVentaComponent implements OnInit {
   ngOnInit() {   
     // this.resetearVariables();
     this.fecha_venta = this.utilService.formatDateNow(new Date(Date.now()));
-    this.IdPersona = this.authService.IdPersona;
     this.datosVendedor = [];
     this.cargarDatosNuevaVenta();
   }
@@ -112,7 +114,6 @@ export class NuevaVentaComponent implements OnInit {
 
 altaVenta() {
   
-  this.IdPersona = this.authService.IdPersona;
 
       if ( this.totalVenta != this.totalTiposPago ) {
         this.alertaService.alertFail('Los totales no coinciden',false,2000);
@@ -141,7 +142,7 @@ altaVenta() {
         this.id_operacion_seleccionada
       );
 
-      this.ventasService.altaVenta(  this.arrayVenta )
+      this.ventasService.altaVenta(  this.arrayVenta, this.comprobante_venta )
       .subscribe({
         next: (resp: any) => {
           
@@ -200,7 +201,7 @@ cargarTiposPago() {
   this.ventasService.cargarTiposPago( )
              .subscribe( {
               next: (resp: any) => { 
-              
+
               this.tiposPago = resp[0];
 
               this.porcentaje_un_pago = resp[1][0].tarjeta1pagos;
@@ -520,10 +521,27 @@ agregarLineaTipoPago(): any {
   }
 
   // ==============================
+  // Comprobante PDF
+  // ================================
+
+  onFileSelected(event: any) {
+
+    if (event.target.files && event.target.files.length > 0) {
+      this.comprobante_venta = event.target.files[0];
+
+      this.FinalformData = new FormData();
+      this.FinalformData.append('comprobante_venta', this.comprobante_venta, this.comprobante_venta.name);
+    }else{
+      this.alertaService.alertFail('Ocurrio un error al cargar el comprobante ',false,1000);
+    }
+
+  }
+  // ==============================
   // 
   // ================================
   continuarVenta()
   {
+    
     // chequear que haya productos cargados y el total de venta sea mayor que cero
     if(this.lineas_venta.length <= 0)
     {

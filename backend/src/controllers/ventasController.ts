@@ -120,25 +120,21 @@ public async listarVentasIdUsuario(req: Request, res: Response): Promise<void> {
 // ==================================================
 async altaVenta(req: Request, res: Response) {
 
+    const file = req.file;
+    const nombre_comprobante = file?.filename;
 
     var pIdVendedor = req.params.IdPersona;
+    var pIdCliente = req.body.IdCliente;
+    var pLineasVenta = req.body.lineas_venta;
+    var pLineaTipoPago = req.body.lineas_tipos_pago;
+    var tamaño_lineas_venta = req.body.cantidad_lineas_venta;
+    var tamaño_tipos_pago = req.body.cantidad_lineas_tipo_pago;
 
-    var pIdCliente = req.body[0];
-    var pLineasVenta = req.body[1];
-    var pLineaTipoPago = req.body[2];
-
-    var tamaño_lineas_venta = req.body[3];
-    var tamaño_tipos_pago = req.body[4];
-
-    var pMontoTotal = req.body[5];
-    var pFechaVenta = req.body[6];
-    var p_id_sucursal_seleccionada = req.body[7];
-    var p_id_tipo_venta_seleccionada = req.body[8];
-
-
-    const jsonpLineasVenta = JSON.stringify(pLineasVenta);
-    const jsonpLineaTipoPago = JSON.stringify(pLineaTipoPago);
-    
+    var pMontoTotal = req.body.totalVenta;
+    var pFechaVenta = req.body.fecha_venta;
+    var p_id_sucursal_seleccionada = req.body.id_sucursal_seleccionada;
+    var p_id_tipo_venta_seleccionada = req.body.id_operacion_seleccionada;
+       
 
     pool.getConnection(function(err: any, connection: any) {
         if (err) {
@@ -148,7 +144,8 @@ async altaVenta(req: Request, res: Response) {
        
         try {
             // Use the connection
-            connection.query('call bsp_alta_venta(?,?,?,?,?,?,?,?,?,?)',[pIdVendedor,pIdCliente,pMontoTotal,pFechaVenta,p_id_sucursal_seleccionada,p_id_tipo_venta_seleccionada,jsonpLineasVenta,tamaño_lineas_venta,jsonpLineaTipoPago,tamaño_tipos_pago], function(err: any, result: any){
+            connection.query('call bsp_alta_venta(?,?,?,?,?,?,?,?,?,?,?)',[pIdVendedor,pIdCliente,pMontoTotal,pFechaVenta,p_id_sucursal_seleccionada,p_id_tipo_venta_seleccionada,
+                pLineasVenta,tamaño_lineas_venta,pLineaTipoPago,tamaño_tipos_pago,nombre_comprobante], function(err: any, result: any){
 
                 if(err){
                     logger.error("Error en bsp_alta_venta - err: " + err + " - result:" + result);

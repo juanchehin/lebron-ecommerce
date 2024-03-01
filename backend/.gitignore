@@ -135,5 +135,6 @@ build
 
 ./uploads/images
 /uploads/images
+/uploads/comprobantes-venta/*
 
 public

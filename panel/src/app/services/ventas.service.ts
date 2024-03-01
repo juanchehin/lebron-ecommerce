@@ -55,11 +55,28 @@ export class VentasService {
 // ==================================================
 //
 // ==================================================
-altaVenta( venta : any){
+altaVenta( venta : any, comprobante_venta: File){
+  console.log('venta::: ', venta);
+
+  const formData_venta = new FormData();
+
+  // Agregar datos del cliente al formulario
+  formData_venta.append('IdCliente', venta[0]);
+  formData_venta.append('lineas_venta', JSON.stringify(venta[1]));
+  formData_venta.append('lineas_tipos_pago', JSON.stringify(venta[2]));
+  formData_venta.append('cantidad_lineas_venta', venta[3]);
+  formData_venta.append('cantidad_lineas_tipo_pago', venta[4]);
+  formData_venta.append('totalVenta', venta[5]);
+  formData_venta.append('fecha_venta', venta[6]);
+  formData_venta.append('id_sucursal_seleccionada', venta[7]);
+  formData_venta.append('id_operacion_seleccionada', venta[8]);
+
+  // Adjuntar el archivo PDF al formulario
+  formData_venta.append('comprobante_venta', comprobante_venta);
 
   let url = URL_SERVICIOS + '/ventas/alta/' + this.IdPersona;
 
-  return this.http.post( url, venta,this.headers );
+  return this.http.post( url, formData_venta,this.headers );
 }
 
 // ==================================================

@@ -44,11 +44,16 @@
         <!--  -->
         <div class="col-sm-4 form-group">
             <label>Operacion : </label>
-            <select tabindex="4" (ngModelChange)='onChangeTipoVenta($event)' [(ngModel)]="id_operacion_seleccionada" class="form-control">
+            <select tabindex="4" (ngModelChange)='onChangeTipoVenta($event)' class="form-control">
                 <option *ngFor="let op of operaciones" [value]="op.id_operacion">
                     {{op.operacion}}
                 </option>
             </select>
+        </div>
+         <!--  -->
+         <div class="col-sm-4 form-group">
+            <label>Comprobante : </label>
+            <input type="file" class="form-control" (change)="onFileSelected($event)" name="comprobante_venta" aria-describedby="fileHelp">
         </div>
     </div>
     <br /><br />

@@ -16,7 +16,7 @@ export class HistoricoInversorComponent implements OnInit {
 
   desde = 0;
   historicoInversor!: any;
-  totalHistorico = 0;
+  totalTransacciones = 0;
   cargando = true;
   fechaInicio = this.utilService.formatDateNow(new Date(Date.now()));
 
@@ -46,20 +46,21 @@ export class HistoricoInversorComponent implements OnInit {
 
 buscarHistoricoInversores() {
 
-  const pfechaInicio  = this.utilService.formatDate(this.fechaInicio);
-  const pfechaFin = this.utilService.formatDate(this.fechaFin);
+  // const pfechaInicio  = this.utilService.formatDate(this.fechaInicio);
+  // const pfechaFin = this.utilService.formatDate(this.fechaFin);
 
-  this.inversoresService.listarHistoricoInversor(this.IdInversor, this.desde , pfechaInicio , pfechaFin)
+  this.inversoresService.listarHistoricoInversor(this.IdInversor, this.desde , this.fechaInicio , this.fechaFin)
              .subscribe( {
-              next: (resp: any) => { 
-                
-                this.historicoInversor = resp[0];
-                this.totalHistorico = resp[1][0].totalTransacciones;
+              next: (resp: any) => {
 
-                if (resp[1][0].totalTransacciones === undefined || resp[1][0].totalTransacciones === null) {
-                  this.totalHistorico = 0;
+                if(resp[2][0].mensaje == 'ok') {
+                  this.historicoInversor = resp[0];
+                  this.totalTransacciones = resp[1][0].totalTransacciones;
+                  
+                } else {
+                  this.alertService.alertFail(resp[0][0].mensaje,false,1200);
                 }
-                return;
+
                },
               error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
             });
@@ -112,7 +113,7 @@ cambiarDesde( valor: number ) {
 
   const desde = this.desde + valor;
 
-  if ( desde >= this.totalHistorico ) {
+  if ( desde >= this.totalTransacciones ) {
     return;
   }
 

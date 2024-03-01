@@ -11,7 +11,7 @@
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm-4">
-                        <h3 class="card-title">Cantidad transacciones ( <small> {{ totalHistorico }} </small> )</h3>
+                        <h3 class="card-title">Cantidad transacciones ( <small> {{ totalTransacciones }} </small> )</h3>
                     </div>
                 </div>
                 <div class="row">
@@ -43,10 +43,10 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let historico of historicoInversor">
-                            <td>{{ historico.IdTransaccion }}</td>
-                            <td>{{ historico.Fecha }}</td>
-                            <td>{{ historico.MontoTotal }}</td>
-                            <td>{{ historico.Tipo }}</td>
+                            <td>{{ historico.id_transaccion }}</td>
+                            <td>{{ historico.fecha }}</td>
+                            <td>{{ historico.monto_total }}</td>
+                            <td>{{ historico.tipo }}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -199,14 +199,41 @@ public async listarHistoricoInversor(req: Request, res: Response): Promise<void>
 
     var FechaInicio = req.params.FechaInicio;
     var FechaFin = req.params.FechaFin;
+    console.log('req.params::: ', req.params);
 
-    pool.query(`call bsp_listar_transacciones_inversor_paginado_fechas('${pIdPersona}','${pIdInversor}','${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
-       if(err){
-        res.status(404).json(err);
-           return;
-       }
-       res.json(result);
-   })
+    
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_listar_transacciones_inversor_paginado_fechas " + err);
+            throw err; // not connected!
+        }
+
+        try {
+            // Use the connection
+            connection.query('call bsp_listar_transacciones_inversor_paginado_fechas(?,?,?,?,?)',[pIdPersona,pIdInversor,FechaInicio,FechaFin,desde], function(err: any, result: any){
+                console.log('result::: ', result);
+                console.log('err::: ', err);
+
+                if(err){
+                    logger.error("Error en bsp_listar_transacciones_inversor_paginado_fechas - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_listar_transacciones_inversor_paginado_fechas 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
+
 
 }
 

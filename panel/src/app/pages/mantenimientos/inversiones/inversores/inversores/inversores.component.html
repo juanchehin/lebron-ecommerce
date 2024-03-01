@@ -54,13 +54,13 @@
                                     <button class="btn btn-inline btn-warning" type="button" data-toggle="modal" data-target="#responsive-modal-baja-monto-inversion">
                                         <i class="material-icons"> remove </i>
                                     </button>    
-                                    <button class="btn btn-inline btn-info" type="button" [routerLink]="['/dashboard/inversiones/inversores/historico',inversor.IdPersona]">
+                                    <button class="btn btn-inline btn-info" type="button" [routerLink]="['/dashboard/inversiones/inversores/historico',inversor.id_persona]">
                                         <i class="material-icons"> wysiwyg </i>
                                     </button>                                
-                                    <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/inversiones/inversores',inversor.IdPersona]">
+                                    <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/inversiones/inversores',inversor.id_persona]">
                                         <i class="material-icons"> edit </i>
                                     </button>
-                                    <button class="btn btn-inline btn-danger" type="button" (click)="bajaInversor(inversor.IdPersona)">
+                                    <button class="btn btn-inline btn-danger" type="button" (click)="bajaInversor(inversor.id_persona)">
                                         <i class="material-icons"> delete </i>
                                     </button>
                                 </div>                            

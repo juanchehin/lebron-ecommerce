@@ -57,7 +57,7 @@
                                     <button class="btn btn-inline btn-info" type="button" [routerLink]="['/dashboard/inversiones/inversores/historico',inversor.id_persona]">
                                         <i class="material-icons"> wysiwyg </i>
                                     </button>                                
-                                    <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/inversiones/inversores',inversor.id_persona]">
+                                    <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/inversiones/editar',inversor.id_persona]">
                                         <i class="material-icons"> edit </i>
                                     </button>
                                     <button class="btn btn-inline btn-danger" type="button" (click)="bajaInversor(inversor.id_persona)">

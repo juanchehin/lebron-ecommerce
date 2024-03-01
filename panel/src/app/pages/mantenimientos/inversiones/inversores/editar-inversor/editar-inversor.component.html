@@ -1,7 +1,4 @@
 <div class="container">
-    <div class="text-themecolor">
-        <label>Monto invertido : $ {{montoInvertido}}</label>
-    </div>
     <div class="row">
         <div class="col-sm-6 form-group">
             <label>Apellidos : </label>
@@ -11,10 +8,10 @@
             <label>Nombres : </label><input [(ngModel)]="Nombres" name="Nombres" min="1" maxLength="15" step="1" type="text" placeholder="Nombres" class="form-control">
         </div>
         <div class="col-sm-6 form-group">
-            <label>Telefono : </label><input [(ngModel)]="Telefono" name="Telefono" required type="number" min="1" maxLength="31" step="1" placeholder="Telefono" class="form-control">
+            <label>Telefono : </label><input [(ngModel)]="Telefono" name="Telefono" required type="text" min="1" maxLength="31" step="1" placeholder="Telefono" class="form-control">
         </div>
         <div class="col-sm-6 form-group">
-            <label>DNI : </label><input [(ngModel)]="DNI" name="DNI" required type="number" min="1" maxLength="31" step="1" placeholder="DNI" class="form-control">
+            <label>DNI : </label><input [(ngModel)]="DNI" name="DNI" required type="text" min="1" maxLength="31" step="1" placeholder="DNI" class="form-control">
         </div>
         <div class="col-sm-6 form-group">
             <label>Email : </label><input [(ngModel)]="Email" name="Email" type="email" min="1" maxLength="31" step="1" placeholder="Email" class="form-control">

@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: '', component: InversoresPrincipalComponent, data: { titulo: 'Inversiones' }},
   { path: 'inversores', component: InversoresComponent, data: { titulo: 'Listado de inversores' }},
   { path: 'nuevo', component: InversorComponent, data: { titulo: 'Nuevo inversor' }},
-  { path: 'inversores/editar/:IdPersona', component: EditarInversorComponent, data: { titulo: 'Edicion de inversor' }},
+  { path: 'editar/:IdPersona', component: EditarInversorComponent, data: { titulo: 'Edicion de inversor' }},
   { path: 'inversores/historico/:IdPersona', component: HistoricoInversorComponent, data: { titulo: 'Historial de inversiones' }},
   //
   // Compra/Venta dolares

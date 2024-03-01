@@ -51,12 +51,12 @@ editarInversor() {
       this.inversoresService.editarInversor( inversorEditado )
                 .subscribe( {
                   next: (resp: any) => {
-                  
-                    if ( (resp != null) && (resp.mensaje == 'Ok') ) {
+                    
+                    if ( (resp[0][0].mensaje == 'ok') ) {
                       this.alertService.alertSuccess('top-end','Inversor actualizado',false,2000);
-                      this.router.navigate(['/dashboard/inversores']);
+                      this.router.navigate(['/dashboard/inversiones/inversores']);
                     } else {
-                      this.alertService.alertFail('Ocurrio un error. ' + resp,false,2000);
+                      this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
                     }
                     return;
                    },
@@ -74,16 +74,18 @@ cargarDatosFormEditarInversor() {
     this.inversoresService.cargarDatosFormEditarInversor( this.IdPersona )
                .subscribe( {
                 next: (resp: any) => {
-                  
-                this.Apellidos = resp[0][0].Apellidos;
-                this.Nombres = resp[0][0].Nombres;
-                this.Telefono = resp[0][0].Telefono;
-                this.DNI = resp[0][0].DNI;
-                this.Email = resp[0][0].Email;
-                this.Observaciones = resp[0][0].Observaciones;
-                this.montoInvertido = resp[0][0].montoInvertido || 0;
 
-             
+                  if(resp[1][0].mensaje == 'ok'){
+
+                    this.Apellidos = resp[0][0].apellidos;
+                    this.Nombres = resp[0][0].nombres;
+                    this.Telefono = resp[0][0].telefono;
+                    this.DNI = resp[0][0].dni;
+                    this.Email = resp[0][0].email;
+                    this.Observaciones = resp[0][0].observaciones;
+                  }else{
+                    this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000)
+                  }
               },
               error: () => { this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000) }
             });

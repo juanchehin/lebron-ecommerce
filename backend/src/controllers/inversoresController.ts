@@ -135,35 +135,53 @@ public async editarInversor(req: Request, res: Response) {
 
     var IdUsuario = req.params.IdPersona; // Usuario que realiza la transaccion
 
-    var IdInversor = req.body[0];
-    var Inversor = req.body[1];
-    var Apellidos = req.body[2];
-    var Nombres = req.body[3];
-    var Telefono = req.body[4];
-    var CUIL = req.body[5];
-    var Email = req.body[6];
-    var Observaciones = req.body[7];
+    var Apellidos = req.body[0];
+    var Nombres = req.body[1];
+    var Telefono = req.body[2];
+    var CUIL = req.body[3];
+    var Email = req.body[4];
+    var Observaciones = req.body[5];
+    var IdInversor = req.body[6];
 
-    pool.query(`call bsp_editar_inversor('${IdUsuario}','${IdInversor}','${Inversor}','${Apellidos}','${Nombres}','${Telefono}','${CUIL}','${Email}','${Observaciones}')`, function(err: any, result: any){
+    if(Email == 'NULL' || Email == null)
+    {
+        Email = '-';
+    }
+
+    if(Observaciones == 'NULL' || Observaciones == null)
+    {
+        Observaciones = '-';
+    }
+
+      
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_editar_inversor " + err);
+            throw err; // not connected!
+        }
+
+        try {
+            // Use the connection
+            connection.query('call bsp_editar_inversor(?,?,?,?,?,?,?,?)',[IdUsuario,IdInversor,Apellidos,Nombres,Telefono,CUIL,Email,Observaciones], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_editar_inversor - err: " + err + " - result:" + result);
         
-        if(err){
-            logger.error("Error en editarInversor - bsp_editar_inversor - inversoresController");
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
 
-            res.status(404).json({ text: "Ocurrio un problema" });
-            return;
-        }
-
-        if(result[0][0].Mensaje !== 'Ok'){
-            logger.error("Error en editarInversor - bsp_editar_inversor - inversoresController");
-
-            return res.json({
-                ok: false,
-                Mensaje: result[0][0].Mensaje
             });
-        }
 
-        return res.json({ Mensaje: 'Ok' });
-    })
+        } catch (error) {
+            logger.error("Error en bsp_editar_inversor 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
 
 }
 
@@ -174,15 +192,38 @@ public async cargarDatosFormEditarInversor(req: Request, res: Response): Promise
 
     const { pIdInversor } = req.params;
     const { IdPersona } = req.params;
-
-    pool.query(`call bsp_dame_datos_form_editar_inversor('${IdPersona}','${pIdInversor}')`, function(err: any, result: any){
-        if(err){
-            res.status(400).json(err);
-            return;
+    
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_dame_datos_form_editar_inversor " + err);
+            throw err; // not connected!
         }
 
-        res.status(200).json(result);
-    })
+        try {
+            // Use the connection
+            connection.query('call bsp_dame_datos_form_editar_inversor(?,?)',[IdPersona,pIdInversor], function(err: any, result: any){
+                console.log('result::: ', result);
+                console.log('err::: ', err);
+
+                if(err){
+                    logger.error("Error en bsp_dame_datos_form_editar_inversor - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_dame_datos_form_editar_inversor 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
 }
 
 // ==================================================
@@ -199,8 +240,6 @@ public async listarHistoricoInversor(req: Request, res: Response): Promise<void>
 
     var FechaInicio = req.params.FechaInicio;
     var FechaFin = req.params.FechaFin;
-    console.log('req.params::: ', req.params);
-
     
     pool.getConnection(function(err: any, connection: any) {
         if (err) {

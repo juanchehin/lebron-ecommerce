@@ -44,7 +44,7 @@
         <!--  -->
         <div class="col-sm-4 form-group">
             <label>Operacion : </label>
-            <select tabindex="4" (ngModelChange)='onChangeTipoVenta($event)' class="form-control">
+            <select tabindex="4" (ngModelChange)='onChangeTipoVenta($event)' [(ngModel)]="id_operacion_seleccionada" class="form-control">
                 <option *ngFor="let op of operaciones" [value]="op.id_operacion">
                     {{op.operacion}}
                 </option>

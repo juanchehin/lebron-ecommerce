@@ -29,7 +29,6 @@ export class NuevaVentaComponent implements OnInit {
   productoBuscado = '';
   id_sucursal_seleccionada = 1;
   id_operacion_seleccionada = 2;
-  id_tipo_venta: any;
   local = '';
   lineas_venta: IItemVentaStructure[] = [];
   checkExists: IItemVentaStructure[] = [];
@@ -635,7 +634,7 @@ agregarLineaTipoPago(): any {
   }
 
   onChangeTipoVenta(val: any){
-    this.id_tipo_venta = val;
+    this.id_operacion_seleccionada = val;
   }
 
   // ==============================

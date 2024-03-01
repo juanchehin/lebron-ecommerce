@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginGuardGuard } from 'src/app/guards/login-guard.guard';
 import { VerificaTokenGuard } from 'src/app/guards/verifica-token.guard';
-import { AltaMontoInversionComponent } from './inversores/alta-monto/alta-monto.component';
-import { BajaMontoInversionComponent } from './inversores/baja-monto/baja-monto.component';
 import { EditarInversorComponent } from './inversores/editar-inversor/editar-inversor.component';
 import { HistoricoInversorComponent } from './inversores/historico-inversor/historico-inversor.component';
 import { InversorComponent } from './inversores/inversor/inversor.component';
@@ -16,8 +14,6 @@ const routes: Routes = [
   { path: 'nuevo', component: InversorComponent, data: { titulo: 'Nuevo inversor' }},
   { path: 'inversores/editar/:IdPersona', component: EditarInversorComponent, data: { titulo: 'Edicion de inversor' }},
   { path: 'inversores/historico/:IdPersona', component: HistoricoInversorComponent, data: { titulo: 'Historial de inversiones' }},
-  { path: 'inversores/alta-monto/:IdPersona', component: AltaMontoInversionComponent, data: { titulo: 'Alta monto inversion' }},
-  { path: 'inversores/baja-monto/:IdPersona', component: BajaMontoInversionComponent, data: { titulo: 'Baja Monto inversion' }},
   //
   // Compra/Venta dolares
   { 

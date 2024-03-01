@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AltaMontoInversionComponent } from './inversores/alta-monto/alta-monto.component';
-import { BajaMontoInversionComponent } from './inversores/baja-monto/baja-monto.component';
 import { EditarInversorComponent } from './inversores/editar-inversor/editar-inversor.component';
 import { HistoricoInversorComponent } from './inversores/historico-inversor/historico-inversor.component';
 import { InversorComponent } from './inversores/inversor/inversor.component';
@@ -18,8 +16,6 @@ import { InversoresPrincipalComponent } from './principal/inversores-principal.c
     InversorComponent,
     EditarInversorComponent,
     HistoricoInversorComponent,
-    AltaMontoInversionComponent,
-    BajaMontoInversionComponent,
     InversoresPrincipalComponent
   ],
   imports: [

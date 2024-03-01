@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { InversoresService } from 'src/app/services/inversores.service';
+import { UtilService } from 'src/app/services/util.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -22,6 +23,7 @@ export class InversoresComponent implements OnInit {
   monto = 0;
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
   @ViewChild('divCerrarModalAltaInversor') divCerrarModalAltaInversor!: ElementRef<HTMLElement>;
+  @ViewChild('divCerrarModalAltaInversion') divCerrarModalAltaInversion!: ElementRef<HTMLElement>;
 
   //
   apellidos_alta_inversor: any;
@@ -32,15 +34,24 @@ export class InversoresComponent implements OnInit {
   observaciones_alta_inversor: any;
   fecha_nac_alta_inversor: any;
 
+  //
+  monto_inversion: any;
+  fecha_alta_inversion: any;
+  observaciones_alta_inversion: any;
+
   constructor(
     public inversoresService: InversoresService,
     private alertService: AlertService,
     public authService: AuthService,
-    public alertaService: AlertService
+    public alertaService: AlertService,
+    private utilService: UtilService
   ) {
    }
 
   ngOnInit() {
+    this.fecha_alta_inversion = this.utilService.formatDateNow(new Date(Date.now()));
+    this.fecha_nac_alta_inversor = this.utilService.formatDateNow(new Date(Date.now()));
+
     this.buscarInversores();
   }
 
@@ -77,21 +88,20 @@ buscarInversores() {
   }
 
 // ==================================================
-//        Cambio de valor
+//  
 // ==================================================
 
-altaMontoInversion(){
+alta_inversion(){
 
-  this.IdPersona = this.authService.IdPersona;
-
-  if ( this.monto <= 0 ) {
+  if ( (this.monto_inversion <= 0) || (this.monto_inversion == '')) {
     this.alertaService.alertFail('Monto invalido',false,2000);
     return;
   }
 
   const datosNuevaInversion = [
-    this.IdPersona,
-    this.monto
+    this.monto_inversion,
+    this.fecha_alta_inversion,
+    this.observaciones_alta_inversion
   ]
 
   this.inversoresService.altaMontoInversion( datosNuevaInversion )
@@ -99,7 +109,7 @@ altaMontoInversion(){
     next: (resp: any) => {
 
       if ( resp[0][0].mensaje == 'Ok') {
-        this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
+        this.alertaService.alertSuccess('top-end','Inversion cargada',false,2000);
 
         this.activarModalNuevaInversion = false;
         
@@ -115,6 +125,43 @@ altaMontoInversion(){
   });
 }
 
+// ==================================================
+//  
+// ==================================================
+
+baja_monto_inversion(){
+
+  if ( (this.monto_inversion <= 0) || (this.monto_inversion == '')) {
+    this.alertaService.alertFail('Monto invalido',false,2000);
+    return;
+  }
+
+  const datosBajaInversion = [
+    this.monto_inversion,
+    this.fecha_alta_inversion,
+    this.observaciones_alta_inversion
+  ]
+
+  this.inversoresService.altaMontoInversion( datosBajaInversion )
+  .subscribe({
+    next: (resp: any) => {
+
+      if ( resp[0][0].mensaje == 'Ok') {
+        this.alertaService.alertSuccess('top-end','Inversion cargada',false,2000);
+
+        this.activarModalNuevaInversion = false;
+        
+        this.cerrarModal();
+        
+        // this.router.navigate(['/dashboard/ventas']);
+      } else {
+        this.alertaService.alertFail('Ocurrio un error',false,2000);
+      }
+      return;
+     },
+    error: () => { this.alertaService.alertFail('Ocurrio un error',false,2000) }
+  });
+}
 
 // ==============================
 // 

@@ -137,5 +137,7 @@ build
 /uploads/images
 /uploads/comprobantes-venta/*
 /uploads/comprobantes-inversiones/*
+/uploads/imagenes/*
+
 
 public

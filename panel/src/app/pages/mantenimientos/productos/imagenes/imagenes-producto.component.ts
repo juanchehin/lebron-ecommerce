@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImagenesService } from '../../../../services/imagenes.service';
 import { environment } from 'src/environments/environment';
@@ -10,7 +10,7 @@ const url_imagenes_producto = environment.ruta_img_productos;
 @Component({
   selector: 'app-imagenes-producto',
   templateUrl: './imagenes-producto.component.html',
-  styles: []
+  styleUrls: ['./imagenes-producto.component.css']
 })
 export class ImagenesProductoComponent implements OnInit {
 
@@ -21,10 +21,17 @@ export class ImagenesProductoComponent implements OnInit {
 
   imagenes!: any;
   cantPlanes = 0;
-  IdProducto: any;
+  imagen_producto: any;
+  FinalformData!: FormData;
 
   totalImagenes = 0;
   cargando = true;
+
+  selectedImage: File | null = null;
+  previewUrl: string | ArrayBuffer | null = null;
+  imagenPreview: string | ArrayBuffer | null = null;
+
+  @ViewChild('divCerrarModalAltaImagen') divCerrarModalAltaImagen!: ElementRef<HTMLElement>;
 
   constructor(
     public imagenesService: ImagenesService,
@@ -37,25 +44,94 @@ export class ImagenesProductoComponent implements OnInit {
     this.cargarImagenes();
   }
 
+  //
+  onFileChange(event: any) {
+    if (event.target.files && event.target.files.length > 0) {
+      this.imagen_producto = event.target.files[0];
+      console.log('this.imagen_producto::: ', this.imagen_producto);
+
+      this.FinalformData = new FormData();
+      this.FinalformData.append('imagen_producto', this.imagen_producto, this.imagen_producto.name);
+    }else{
+      this.alertService.alertFail('Ocurrio un error al cargar la imagen ',false,1000);
+    }
+
+    const file = event.target.files[0];
+
+    if (file) {
+      this.mostrarVistaPrevia(file);
+    }
+  }
+
+  //
+  mostrarVistaPrevia(file: File) {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      this.imagenPreview = reader.result;
+    };
+
+    reader.readAsDataURL(file);
+  }
 // ==================================================
 // Carga
 // ==================================================
 
 cargarImagenes() {
 
-    this.IdProducto = this.route.snapshot.paramMap.get('IdProducto');
+    const id_producto = this.route.snapshot.paramMap.get('IdProducto');
 
-    this.imagenesService.listarImagenesProductoPaginado( this.desde , this.IdProducto  )
-               .subscribe( (resp: any) => {
+    this.imagenesService.listarImagenesProductoPaginado( this.desde , id_producto  )
+               .subscribe({
+                next: (resp: any) => {
+                  console.log('resp::: ', resp);
 
-                this.totalImagenes = resp[1][0].cantImagenes;
+                  if(resp[2][0].mensaje == 'ok'){
+                    this.totalImagenes = resp[1][0].cant_imagenes;
+  
+                    this.imagenes = resp[0];
+                  }else{
+                    this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000)
 
-                this.imagenes = resp[0];
-
-      });
-
+                  }
+                 },
+                error: () => { 
+                  this.alertService.alertFail('Ocurrio un error',false,2000)
+                }
+              });
   }
 
+  // ==================================================
+// Carga
+// ==================================================
+  alta_imagen(){
+
+    const id_producto = this.route.snapshot.paramMap.get('IdProducto');
+
+    this.imagenesService.altaImagen( this.imagen_producto , id_producto )
+    .subscribe({
+      next: (resp: any) => {
+        console.log('resp::: ', resp);
+        
+        if ( resp[0][0].mensaje == 'ok') {
+          this.alertService.alertSuccess('top-end','Imagen cargada',false,2000);
+
+          let el: HTMLElement = this.divCerrarModalAltaImagen.nativeElement;
+          el.click();
+
+          this.cargarImagenes();
+          
+        } else {
+          this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+        }
+        return;
+       },
+      error: () => { 
+        this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+       }
+    });
+
+  }
 // ==================================================
 //      
 // ==================================================
@@ -112,26 +188,6 @@ cambiarDesde( valor: number ) {
   this.desde += valor;
   this.cargarImagenes();
 
-}
-
-
-publicarProducto(IdProducto: string){
-  console.log("pasa publicar producto IdProducto : ",IdProducto)
-}
-
-
-destacarProducto(IdProducto: string){
-  console.log("pasa destacarProducto producto IdProducto : ",IdProducto)
-}
-
-
-promocionProducto(IdProducto: string){
-  console.log("pasa promocionProducto producto IdProducto : ",IdProducto)
-}
-
-
-ofertaProducto(IdProducto: string){
-  console.log("pasa ofertaProducto producto IdProducto : ",IdProducto)
 }
 
 }

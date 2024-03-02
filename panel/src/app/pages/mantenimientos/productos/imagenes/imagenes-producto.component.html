@@ -1,7 +1,6 @@
 <div class="page-content">
     <div class="container-fluid">
         <section class="box-typical">
-
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm-4">
@@ -10,7 +9,7 @@
                     <div class="col-4">
                     </div>
                     <div class="col-sm-4">
-                        <button [routerLink]="['/dashboard/productos/imagenes/nueva/' + IdProducto]" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                        <button type="button" class="btn waves-effect waves-light btn-rounded btn-primary" data-toggle="modal" data-target="#modal-alta-imagen">
                       <i class="fa fa-plus"></i> 
                       Nueva Imagen
                     </button>
@@ -30,19 +29,21 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let imagen of imagenes">
-                            <td>{{ imagen.IdImagen }}</td>
+                            <td>{{ imagen.id_imagen }}</td>
                             <td>
-                                <img [src]="url_imagenes_producto + imagen.Archivo" alt="user-img" width="100" height="100">
+                                <img [src]="url_imagenes_producto + imagen.archivo" alt="user-img" width="100" height="100">
                             </td>
-                            <td>{{ imagen.Imagen }}</td>
+                            <td>{{ imagen.archivo }}</td>
                             <td>
-                                {{ imagen.Producto }}
+                                {{ imagen.producto }}
                             </td>
                             <td>
                                 <button class="btn btn-primary" type="button">
                                     <i class="fa fa-camera" aria-hidden="true"></i>
                                 </button>
-                                <button (click)="eliminarImagen(imagen.IdImagen)" class="btn btn-inline btn-danger" type="button">Eliminar</button>
+                                <button (click)="eliminarImagen(imagen.IdImagen)" class="btn btn-inline btn-danger" type="button">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
                             </td>
                         </tr>
                     </tbody>
@@ -59,3 +60,32 @@
     <!--.container-fluid-->
 </div>
 <!--.page-content-->
+
+<!-- =========== MODAL alta imagen =========== -->
+<div id="modal-alta-imagen" class="modal fade show" role="dialog" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Nueva imagen</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <!--  -->
+            <div class="col-lg-6 col-md-6">
+                <div class="card">
+                   <!-- Input para seleccionar la imagen -->
+                    <input type="file" (change)="onFileChange($event)" accept="image/*">
+
+                    <!-- Vista previa de la imagen -->
+                    <div *ngIf="imagenPreview" >
+                        <img [src]="imagenPreview" alt="Vista previa de la imagen" class="imagen-preview"  name="imagen_producto" >
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+            <div class="modal-footer">
+                <button #divCerrarModalAltaImagen type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button (click)="alta_imagen()" type="button" class="btn btn-primary">Aplicar</button>
+            </div>
+        </div>
+    </div>
+</div>

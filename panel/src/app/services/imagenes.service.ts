@@ -63,22 +63,18 @@ eliminarImagen( IdImagen: any){
 // ==================================================
 //
 // ==================================================
-altaImagen( imagen: any){
+altaImagen( imagen_producto: any,id_producto: any){
 
-  let url = URL_SERVICIOS + '/uploads/imagenes/producto/alta';
+  const formData_imagen = new FormData();
 
-  // url += '?IdRol=' + this.IdRol;
+  // Agregar datos del cliente al formulario
+  formData_imagen.append('imagen_producto', imagen_producto);
+  formData_imagen.append('id_producto', id_producto);
 
-  return this.http.post(
-    url,
-    imagen,
-    {
-      headers: {
-        token: this.token
-      }
-    }
-);
-    
+  let url = URL_SERVICIOS + '/uploads/imagenes/producto/alta/' + this.IdPersona;
+
+  return this.http.post( url, formData_imagen,this.headers );
+
   }
 // ==================================================
 //

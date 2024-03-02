@@ -75,9 +75,8 @@ export class TransferenciaComponent implements OnInit {
 
       this.productosService.altaTransferencia( transferencia )
       .subscribe({
-        next: (resp: any) => { 
-          console.log('resp::: ', resp);
-  
+        next: (resp: any) => {
+          
           if ( resp[0][0].mensaje === 'ok') {
 
             this.alertService.alertSuccess('top-end','Transferencia confirmada',false,2000);

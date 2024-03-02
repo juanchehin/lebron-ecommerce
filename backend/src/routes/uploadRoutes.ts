@@ -5,6 +5,28 @@ import uploadController from '../controllers/uploadController';
 const path = require('path');
 const pathImgTemp = path.join( __dirname, `../../public/uploads/images/temp` );
 
+const fs = require('fs');
+
+const uploadFolder = path.join( __dirname, `../uploads/imagenes/temp` );
+
+if (!fs.existsSync(uploadFolder)) {
+  fs.mkdirSync(uploadFolder);
+}
+
+// Configuración de multer
+const storage = multer.diskStorage({
+    destination: function (req: any, file: any, cb: any) {
+        cb(null, uploadFolder);
+    },
+    filename: function (req: any, file: any, cb: any) {
+        const newFileName = `${Date.now()}-${file.originalname}`;
+        cb(null, newFileName);
+    }
+});
+
+
+const upload = multer({ storage: storage });
+
 class UploadRoutes {
 
     public router: Router = Router();   
@@ -34,7 +56,8 @@ class UploadRoutes {
 
         this.router.get('/retorna/:id/',mdAutenticacion.verificaToken, uploadController.retornaImagen);
         this.router.get('/imagenes/producto/listar/:pDesde/:pIdProducto', uploadController.listarImagenesProductos);
-        
+        this.router.post('/imagenes/producto/alta/:pIdPersona',upload.single('imagen_producto'), uploadController.alta_imagen_producto);
+
     }
 
 }

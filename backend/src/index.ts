@@ -3,6 +3,7 @@ import cors from 'cors';
 const https = require("https");
 const fs = require("fs");
 const logger = require("./utils/logger").logger;
+const path = require('path');
 
 import loginRoutes from './routes/loginRoutes';
 import uploadRoutes from './routes/uploadRoutes';
@@ -38,10 +39,17 @@ class Server {
 
     config(): void {
         this.app.set('port', 3003);        
+        this.app.use('/uploads/imagenes/productos', express.static(path.join(__dirname, 'uploads/imagenes/productos')));
+        console.log('__dirname::: ', __dirname, 'uploads/imagenes/productos');
         this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: false}));
-        this.app.use(express.static('public'))
+        // this.app.use(express.static('public'))
+        // this.app.use(express.static('uploads'));
+        // Configurar la ruta estática para la carpeta "uploads/imagenes"
+
+        // this.app.use('/uploads/imagenes/productos', express.static(path.join(__dirname, 'uploads/imagenes/productos')));
+
 
     }
 

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductosComponent } from './productos/productos.component';
 import { ImagenesProductoComponent } from './imagenes/imagenes-producto.component';
-import { NuevaImagenProductoComponent } from './imagenes/nueva-imagen-producto.component';
 import { EditarMarcaComponent } from './marcas/editar-marca.component';
 import { MarcaComponent } from './marcas/marca.component';
 import { MarcasComponent } from './marcas/marcas.component';
@@ -39,7 +38,6 @@ const routes: Routes = [
    { path: 'unidades/:IdUnidad', component: EditarUnidadComponent, data: { titulo: 'Editar unidad' }},
    // Imagenes
    { path: 'imagenes/:IdProducto', component: ImagenesProductoComponent, data: { titulo: 'Imagenes' }},
-   { path: 'imagenes/nueva/:IdProducto', component: NuevaImagenProductoComponent, data: { titulo: 'Nueva Imagen' }},
    // Productos - marcas
    { path: 'marcas', component: MarcasComponent, data: { titulo: 'Marcas' }},
    { path: 'marcas/nueva', component: MarcaComponent, data: { titulo: 'Nueva Marca' }},

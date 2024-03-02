@@ -16,7 +16,6 @@ import { EditarSaborComponent } from './sabores/editar-sabor.component';
 import { UnidadesComponent } from './unidades/unidades.component';
 import { UnidadComponent } from './unidades/unidad.component';
 import { ImagenesProductoComponent } from './imagenes/imagenes-producto.component';
-import { NuevaImagenProductoComponent } from './imagenes/nueva-imagen-producto.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { CategoriasComponent } from './categorias/categorias/categorias.component';
@@ -64,7 +63,6 @@ import { MovimientosProductosComponent } from './productos/movimientos-producto.
     EditarUnidadComponent,
     //
     ImagenesProductoComponent,
-    NuevaImagenProductoComponent,
     //
     CategoriaComponent,
     CategoriasComponent,

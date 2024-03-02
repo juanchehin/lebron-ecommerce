@@ -101,6 +101,81 @@ public async subirImagen(req: any, res: Response){
 }
 
 // ==================================================
+//    fileUpload
+// ==================================================
+public async alta_imagen_producto(req: any, res: Response){
+
+
+    var pIdUsuario = req.params.IdPersona;
+    var id_producto = req.body.id_producto;
+    
+    // Chequeo que no sea mayor a 5MB
+    if (req.file.size > 5000000 ) {
+        return res.status(400).json({
+            ok: false,
+            msg: 'Archivo demasiado grande'
+        });
+    }
+
+    // Procesar la imagen...
+    const originalname = req.file.originalname;
+
+    const nombreCortado = originalname.split('.'); // wolverine.1.3.jpg
+    const extensionArchivo = nombreCortado[ nombreCortado.length - 1 ];
+
+    // Generar el nombre del archivo
+    const nombreArchivo = `${ id_producto }.${ extensionArchivo }`;
+
+    // Path para guardar la imagen
+    const pathTemporal =  path.join( __dirname, `../uploads/imagenes/temp/${ req.file.filename }` );
+
+    // Path para guardar la imagen
+    const filePathMove = path.join( __dirname, `../uploads/imagenes/productos/${ nombreArchivo }` );
+
+    // Mover la imagen
+    fs.rename( pathTemporal , filePathMove, (err_fs_rename: any) => {
+        if (err_fs_rename){
+            logger.error("Error al mover imagen - uploadController " + err_fs_rename);
+
+            return res.status(500).json({
+                ok: false,
+                msg: 'Error al mover la imagen'
+            });
+        }else{
+            pool.getConnection(function(err: any, connection: any) {
+                if (err) {
+                    logger.error("Error funcion bsp_alta_imagen_producto " + err);
+                    throw err; // not connected!
+                }
+               
+                try {
+                    // Use the connection
+                    connection.query('call bsp_alta_imagen_producto(?,?,?)',[pIdUsuario,id_producto,nombreArchivo], function(err: any, result: any){
+        
+                        if(err){
+                            logger.error("Error en bsp_alta_imagen_producto - err: " + err + " - result:" + result);
+                
+                            res.status(400).json(err);
+                            return;
+                        }
+                        
+                        res.status(200).json(result);
+        
+                    });
+        
+                } catch (error) {
+                    logger.error("Error en bsp_alta_imagen_producto 2 - " + error);
+                    res.status(500).send('Error interno del servidor');
+                } finally {
+                    connection.release();
+                }
+              });
+        }
+    });
+
+}
+
+// ==================================================
 //        retornaImagen
 // ==================================================
 public async retornaImagen(req: Request, res: Response): Promise<any> {

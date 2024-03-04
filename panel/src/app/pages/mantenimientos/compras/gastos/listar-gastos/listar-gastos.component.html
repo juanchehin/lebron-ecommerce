@@ -1,46 +1,128 @@
 <div class="page-content">
     <div class="container-fluid">
-        <section class="box-typical">
+        <div class="row">
+            <!--  -->
             <div class="col-sm-4">
-                <h3 class="card-title">Cantidad Gastos ( <small> {{ totalGastos }} </small> )</h3>
+                <label for="start">Fecha : &nbsp;</label>
+                <input type="date" class="form-control" [(ngModel)]="fecha" (ngModelChange)="cambiosFecha($event)" required>
             </div>
-            <div class="table-responsive">
-                <div>
-                    <label for="start">Fecha : &nbsp;</label>
-                    <input type="date" [(ngModel)]="fecha" (ngModelChange)="cambiosFecha($event)" required> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button [disabled]="controlFechas" (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+            <div class="col-sm-4">
+                <label>Sucursal : </label>
+                <select tabindex="4" (ngModelChange)='onChangeSucursalListado($event)' [(ngModel)]="id_sucursal_seleccionada_listado" class="form-control">
+                    <option *ngFor="let suc_vend of sucursales_vendedor" [value]="suc_vend.id_sucursal">
+                        {{suc_vend.sucursal}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <button [disabled]="controlFechas" (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary" style="margin-top: 25px;">
+                    <span class="material-icons">
                         refresh
-                        </span></button>
-                </div>
-                <table id="table-edit" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th width="1">
-                                #
-                            </th>
-                            <th>Usuario</th>
-                            <th>Monto</th>
-                            <th>Descripcion</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let gasto of gastos">
-                            <td>{{ gasto.IdTransaccion }}</td>
-                            <td>{{ gasto.Usuario }}</td>
-                            <td>$ {{ gasto.MontoTotal }}</td>
-                            <td>{{ gasto.Descripcion }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    </span>
+                </button>
             </div>
-        </section>
-        <div class="btn-group" role="group" aria-label="Basic example">
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                <h4 class="card-title">Cantidad Gastos ( <small> {{ totalGastos }} </small> )</h4>
+            </div>
+            <div class="col-md-4">
+                <h4 class="card-title">Suma Gastos ( <small> $ {{ suma_gastos }} </small> )</h4>
+            </div>
+            <div class="col-md-2">
+                <button type="button" class="btn btn-rounded btn-primary"  data-toggle="modal" data-target="#responsive-modal-alta-gasto">
+                    <i class="fa fa-plus"></i> Nuevo gasto
+                </button>
+            </div>
+        </div>
+        <!--  -->
+        <div class="table-responsive">
+            <table id="table-edit" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th width="1">
+                            #
+                        </th>
+                        <th>Usuario</th>
+                        <th>Monto</th>
+                        <th>Descripcion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let gasto of gastos">
+                        <td>{{ gasto.id_transaccion }}</td>
+                        <td>{{ gasto.usuario }}</td>
+                        <td>$ {{ gasto.monto_total }}</td>
+                        <td>{{ gasto.descripcion }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <div class="btn-group" role="group" class="ml-auto">
             <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline">Anteriores</button>
             <button (click)="cambiarDesde(20) " type="button" class="btn btn-default-outline">Siguientes</button>
         </div>
         <!--.box-typical-->
-
     </div>
     <!--.container-fluid-->
 </div>
 <!--.page-content-->
+
+<!-- =========== MODAL alta gasto =========== -->
+<div class="col-md-4">
+    <div id="responsive-modal-alta-gasto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Nuevo gasto</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Monto : </label>
+                                <input #textMonto [(ngModel)]="monto_nuevo_gasto" name="monto" type="textarea" placeholder="Monto..." rows="3" class="form-control">
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Sucursal : </label>
+                                <select tabindex="4" (ngModelChange)='onChangeSucursal($event)' [(ngModel)]="id_sucursal_seleccionada_alta_gasto" class="form-control">
+                                    <option *ngFor="let suc_vend of sucursales_vendedor" [value]="suc_vend.id_sucursal">
+                                        {{suc_vend.sucursal}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Tipo de pago : </label>
+                                <select (ngModelChange)='onChangeTipo($event)' [(ngModel)]="tipo_pago_nuevo_gasto" class="form-control">
+                                    <option value="13" selected="selected">No espeficicado</option>
+                                    <option value="1">Efectivo</option>
+                                    <option value="5">Transferencia</option>
+                                    <option value="2">Tarjeta</option>
+                                </select>
+                            </div>
+                            <!--  -->
+                            <div class="col-sm-6 form-group">
+                                <label>Fecha : </label>
+                                <input [(ngModel)]="fecha_nuevo_gasto" type="date" class="form-control" placeholder="dd/mm/yyyy" required>
+                            </div>                                                        
+                        </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-12 form-group">
+                            <label>Descripcion : </label>
+                            <textarea [(ngModel)]="descripcion_nuevo_gasto" type="textarea" placeholder="Descripcion..." rows="3" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button #divCerrarModalAltaGasto (click)="cerrarModalNuevoGasto()" type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light" (click)="alta_gasto()">Alta gasto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+</div>

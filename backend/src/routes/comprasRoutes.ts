@@ -19,7 +19,7 @@ class ComprasRoutes {
         // this.router.get('/listar/mis-compras/:pDesde/:pFecha/:pIdPersona',comprasController.listarVentasIdUsuario);
         this.router.post('/alta/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], comprasController.altaCompra);
         this.router.post('/gastos/alta/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], comprasController.altaGasto);
-        this.router.get('/gastos/listar/:desde/:pFecha/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], comprasController.listarGastosPaginado);
+        this.router.get('/gastos/listar/:desde/:pFecha/:pIdSucursal/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], comprasController.listarGastosPaginado);
 
 
     }

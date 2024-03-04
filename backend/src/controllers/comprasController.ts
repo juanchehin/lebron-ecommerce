@@ -147,21 +147,57 @@ dameDatosPDFVenta(req: Request, res: Response) {
 // ==================================================
 altaGasto(req: Request, res: Response) {
 
-    var pMonto = req.body[0];
-    var pFechaGasto = req.body[1];
-    var pDescripcion = req.body[2];
     var pIdUsuario = req.params.IdPersona;
 
-    pool.query(`call bsp_alta_gasto('${pIdUsuario}','${pMonto}','${pFechaGasto}','${pDescripcion}')`, function(err: any, result: any){
+    var pMonto = req.body[0];
+    var pTipoPago = req.body[1];
+    var pFechaGasto = req.body[2];
+    var pDescripcion = req.body[3];
+    var pIdSucursal = req.body[4];
+    
+    if(pDescripcion == 'undefined' || pDescripcion == undefined || pDescripcion == 'null' || pDescripcion == null)
+    {
+        pDescripcion = '-';
+    }
 
-       if(err){
-            logger.error("Error en altaGasto - ComprasController " + err );
 
-            res.status(404).json(err);
-           return;
-       }      
-        res.send({ Mensaje: 'Ok'});
-   })
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_alta_gasto " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_alta_gasto(?,?,?,?,?,?)',[pIdUsuario,pMonto,pTipoPago,pFechaGasto,pDescripcion,pIdSucursal], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_alta_gasto - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_alta_gasto - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
+                    return;
+                }
+                
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_alta_gasto 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
+
 
 }
 // ==================================================
@@ -174,13 +210,43 @@ listarGastosPaginado(req: Request, res: Response) {
 
     var pFecha = req.params.pFecha;
     var pIdPersona = req.params.IdPersona;
+    var pIdSucursal = req.params.pIdSucursal;
 
-    pool.query(`call bsp_listar_gastos_paginado_fecha('${desde}','${pFecha}','${pIdPersona}')`, function(err: any, result: any){
-       if(err){
-           return;
-       }
-       res.json(result);
-   })
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_listar_gastos_paginado_fecha " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_listar_gastos_paginado_fecha(?,?,?,?)',[pIdPersona,pIdSucursal,pFecha,desde], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_listar_gastos_paginado_fecha - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_listar_gastos_paginado_fecha - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
+                    return;
+                }
+                
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_listar_gastos_paginado_fecha 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
 
 }
 

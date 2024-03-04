@@ -84,7 +84,6 @@ cargarImagenes() {
     this.imagenesService.listarImagenesProductoPaginado( this.desde , id_producto  )
                .subscribe({
                 next: (resp: any) => {
-                  console.log('resp::: ', resp);
 
                   if(resp[2][0].mensaje == 'ok'){
                     this.totalImagenes = resp[1][0].cant_imagenes;
@@ -111,7 +110,6 @@ cargarImagenes() {
     this.imagenesService.altaImagen( this.imagen_producto , id_producto )
     .subscribe({
       next: (resp: any) => {
-        console.log('resp::: ', resp);
         
         if ( resp[0][0].mensaje == 'ok') {
           this.alertService.alertSuccess('top-end','Imagen cargada',false,2000);
@@ -122,12 +120,12 @@ cargarImagenes() {
           this.cargarImagenes();
           
         } else {
-          this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+          this.alertService.alertFailWithText('Ocurrio un error','Revise el tamaño y tipo de archivo (png,jpg,jpeg) o contactese con el administrador',false,2000);
         }
         return;
        },
-      error: () => { 
-        this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+      error: (err: any) => { 
+        this.alertService.alertFailWithText('Ocurrio un error','Revise el tamaño y tipo de archivo (png,jpg,jpeg) o contactese con el administrador',false,2000);
        }
     });
 
@@ -149,18 +147,22 @@ eliminarImagen( IdImagen: number ) {
   }).then((result) => {
     if (result.isConfirmed) {
 
-
       this.imagenesService.eliminarImagen( IdImagen  )
-      .subscribe( (resp: any) => {
-
-        
-        if ( resp[1][0].mensaje == 'Ok') {
-          this.alertService.alertSuccess('top-end','Producto eliminado',false,2000);
+      .subscribe({
+        next: (resp: any) => {
+          if(resp[0][0].mensaje == 'ok'){
+            this.alertService.alertSuccess('top-end','Producto eliminado',false,2000);
           this.cargarImagenes();
-        } else {
+          }else{
+            this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
+
+          }
+         },
+        error: () => { 
           this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
         }
-        return;
+
+
       });
              
     }
@@ -186,6 +188,20 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
+  this.cargarImagenes();
+
+}
+
+// ==================================================
+// 
+// ==================================================
+
+refrescar() {
+
+  this.desde = 0;
+  // this.IdSucursal = 1;
+
+
   this.cargarImagenes();
 
 }

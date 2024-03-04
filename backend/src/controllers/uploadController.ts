@@ -111,6 +111,8 @@ public async alta_imagen_producto(req: any, res: Response){
     
     // Chequeo que no sea mayor a 5MB
     if (req.file.size > 5000000 ) {
+        logger.error("Archivo (imagen) demasiado grande - uploadController ");
+
         return res.status(400).json({
             ok: false,
             msg: 'Archivo demasiado grande'
@@ -125,6 +127,18 @@ public async alta_imagen_producto(req: any, res: Response){
 
     // Generar el nombre del archivo
     const nombreArchivo = `${ id_producto }.${ extensionArchivo }`;
+
+    // Validar extension
+    const extensionesValidas = ['png','jpg','jpeg'];
+    if ( !extensionesValidas.includes( extensionArchivo ) ) {
+        logger.error("No es una extensión de imagen permitida - uploadController ");
+
+        return res.status(400).json({
+            ok: false,
+            msg: 'No es una extensión permitida'
+        });
+    }
+
 
     // Path para guardar la imagen
     const pathTemporal =  path.join( __dirname, `../uploads/imagenes/temp/${ req.file.filename }` );
@@ -151,11 +165,18 @@ public async alta_imagen_producto(req: any, res: Response){
                 try {
                     // Use the connection
                     connection.query('call bsp_alta_imagen_producto(?,?,?)',[pIdUsuario,id_producto,nombreArchivo], function(err: any, result: any){
-        
+
                         if(err){
                             logger.error("Error en bsp_alta_imagen_producto - err: " + err + " - result:" + result);
                 
                             res.status(400).json(err);
+                            return;
+                        }
+
+                        if(result[0][0].Level == 'Error'){
+                            logger.error("Error en bsp_alta_imagen_producto - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+                
+                            res.status(400).json(result);
                             return;
                         }
                         
@@ -219,8 +240,53 @@ public async listarImagenesProductos(req: Request, res: Response): Promise<void>
 //        
 // ==================================================
 public async eliminarImagen(req: Request, res: Response): Promise<void> {
-    var IdImagen = req.params.IdImagen;
+    var id_imagen = req.params.pIdImagen;
+    var pIdUsuario = req.params.IdPersona;
 
+    if(id_imagen == undefined || id_imagen == 'undefined')
+    {
+        logger.indo("imagen undefined en uploadController - eliminarImagen");
+        id_imagen = '0';
+    }
+
+
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_baja_imagen " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_baja_imagen(?,?)',[pIdUsuario,id_imagen], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_baja_imagen - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_baja_imagen - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
+                    return;
+                }
+                
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_baja_imagen 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
+/*
     pool.query(`call bsp_eliminar_imagen('${IdImagen}')`, function(err: any, result: any, fields: any){
         if(err){
             logger.error("Error bsp_eliminar_imagen - uploadController " + err);
@@ -250,7 +316,7 @@ public async eliminarImagen(req: Request, res: Response): Promise<void> {
         fs.unlinkSync(path.join( __dirname, `../../public/uploads/images/${ tipo }/${ archivo }` ));
 
         res.status(200).json(result);
-    })
+    })*/
 }
 }
 

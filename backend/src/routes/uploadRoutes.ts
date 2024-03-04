@@ -52,7 +52,7 @@ class UploadRoutes {
             }
         );
 
-        this.router.get('/imagenes/producto/eliminar/:IdPersona/:IdImagen',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario] ,uploadController.eliminarImagen); 
+        this.router.get('/imagenes/producto/eliminar/:IdPersona/:pIdImagen',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario] ,uploadController.eliminarImagen); 
 
         this.router.get('/retorna/:id/',mdAutenticacion.verificaToken, uploadController.retornaImagen);
         this.router.get('/imagenes/producto/listar/:pDesde/:pIdProducto', uploadController.listarImagenesProductos);

@@ -38,6 +38,8 @@
                             </th>
                             <th>Fecha Transaccion</th>
                             <th>Monto invertido</th>
+                            <th>Moneda</th>
+                            <th>Tasa</th>
                             <th>Tipo</th>
                         </tr>
                     </thead>
@@ -45,7 +47,9 @@
                         <tr *ngFor="let historico of historicoInversor">
                             <td>{{ historico.id_transaccion }}</td>
                             <td>{{ historico.fecha }}</td>
-                            <td>{{ historico.monto_total }}</td>
+                            <td>$ {{ historico.monto_total }}</td>
+                            <td>{{ historico.moneda }}</td>
+                            <td>% {{ historico.tasa }}</td>
                             <td>{{ historico.tipo }}</td>
                         </tr>
                     </tbody>

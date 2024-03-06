@@ -51,7 +51,7 @@
                                     <button type="button" class="btn btn-inline btn-success" (click)="inversor_seleccionado(inversor.id_persona)" data-toggle="modal" data-target="#responsive-modal-alta-monto-inversion">
                                         <i class="material-icons"> add </i>
                                     </button>
-                                    <button class="btn btn-inline btn-warning" type="button" data-toggle="modal" data-target="#responsive-modal-baja-monto-inversion">
+                                    <button class="btn btn-inline btn-warning" (click)="inversor_seleccionado(inversor.id_persona)" type="button" data-toggle="modal" data-target="#responsive-modal-baja-monto-inversion">
                                         <i class="material-icons"> remove </i>
                                     </button>    
                                     <button class="btn btn-inline btn-info" type="button" [routerLink]="['/dashboard/inversiones/inversores/historico',inversor.id_persona]">
@@ -144,15 +144,26 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
             </div>
             <div class="modal-body">
-                <div class="col-md-12">
+                <div class="col-md-18">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <label>Monto a invertir : </label>
-                            <input type="text" [(ngModel)]="monto_inversion" class="form-control">
+                            <input type="number" [(ngModel)]="monto_inversion" class="form-control">
                         </div>
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
+                            <label>Moneda : </label>
+                            <select class="form-control" [(ngModel)]="moneda_inversion">
+                                <option selected value="A">ARS</option>
+                                <option value="U">USD</option>
+                              </select>
+                        </div>
+                        <div class="col-sm-6">
                             <label>Fecha inversion : </label>
                             <input type="date" [(ngModel)]="fecha_alta_inversion" class="form-control">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Tasa (0-100)%: </label>
+                            <input type="number" [(ngModel)]="tasa_inversion" maxlength="3" class="form-control">
                         </div>
                          <!--  -->
                         <div class="col-sm-12 form-group">
@@ -168,13 +179,13 @@
             </div>
             <div class="modal-footer">
                 <button #divCerrarModalAltaInversion type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-danger waves-effect waves-light" (click)="alta_inversion()">Cargar inversion</button>
+                <button type="button" class="btn btn-success waves-effect waves-light" (click)="alta_inversion()">Cargar inversion</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- =========== MODAL baja monto a invertir =========== -->
+<!-- =========== MODAL BAJA monto a invertir =========== -->
 <div id="responsive-modal-baja-monto-inversion" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -185,17 +196,24 @@
             <div class="modal-body">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-6">
                             <label>Monto a retirar : </label>
-                            <input type="text" [(ngModel)]="monto_inversion" class="form-control">
+                            <input type="number" [(ngModel)]="monto_baja_inversion" class="form-control">
+                        </div>
+                        <div class="col-sm-6">
+                            <label>Moneda : </label>
+                            <select class="form-control" [(ngModel)]="moneda_baja_inversion">
+                                <option selected value="A">ARS</option>
+                                <option value="U">USD</option>
+                              </select>
                         </div>
                         <div class="col-sm-12">
                             <label>Fecha retiro : </label>
-                            <input type="date" [(ngModel)]="fecha_alta_inversion" class="form-control">
+                            <input type="date" [(ngModel)]="fecha_baja_inversion" class="form-control">
                         </div>
                         <div class="col-sm-12">
                             <label>Observaciones : </label>
-                            <textarea type="textarea" [(ngModel)]="observaciones_alta_inversion" class="form-control"></textarea>
+                            <textarea type="textarea" [(ngModel)]="observaciones_baja_inversion" class="form-control"></textarea>
                         </div>
                     </div>
                 </div>

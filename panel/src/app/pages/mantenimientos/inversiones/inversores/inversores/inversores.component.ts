@@ -25,7 +25,9 @@ export class InversoresComponent implements OnInit {
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
   @ViewChild('divCerrarModalAltaInversor') divCerrarModalAltaInversor!: ElementRef<HTMLElement>;
   @ViewChild('divCerrarModalAltaInversion') divCerrarModalAltaInversion!: ElementRef<HTMLElement>;
+  @ViewChild('divCerrarModalBajaInversion') divCerrarModalBajaInversion!: ElementRef<HTMLElement>;
 
+  
   //
   apellidos_alta_inversor: any;
   nombres_alta_inversor: any;
@@ -36,11 +38,19 @@ export class InversoresComponent implements OnInit {
   fecha_nac_alta_inversor: any;
   comprobante_inversion: any;
   FinalformData!: FormData;
-
+  
   //
   monto_inversion: any;
+  moneda_inversion: any;
+  tasa_inversion: any;
   fecha_alta_inversion: any;
   observaciones_alta_inversion: any;
+
+  //
+  monto_baja_inversion: any;
+  moneda_baja_inversion: any;
+  fecha_baja_inversion: any;
+  observaciones_baja_inversion: any;
 
   constructor(
     public inversoresService: InversoresService,
@@ -53,8 +63,8 @@ export class InversoresComponent implements OnInit {
 
   ngOnInit() {
     this.fecha_alta_inversion = this.utilService.formatDateNow(new Date(Date.now()));
+    this.fecha_baja_inversion = this.utilService.formatDateNow(new Date(Date.now()));
     this.fecha_nac_alta_inversor = this.utilService.formatDateNow(new Date(Date.now()));
-
     this.buscarInversores();
   }
 
@@ -101,11 +111,18 @@ alta_inversion(){
     return;
   }
 
+  if ( (this.tasa_inversion <= 0) || (this.tasa_inversion == '') || isNaN(this.tasa_inversion) || (this.tasa_inversion > 100)) {
+    this.alertaService.alertFail('Tasa invalida',false,2000);
+    return;
+  }
+
   const datosNuevaInversion = [
     this.id_inversor_seleccionado,
     this.fecha_alta_inversion,
     this.monto_inversion,
-    this.observaciones_alta_inversion
+    this.observaciones_alta_inversion,
+    this.moneda_inversion,
+    this.tasa_inversion
   ]
 
   this.inversoresService.altaMontoInversion( datosNuevaInversion, this.comprobante_inversion )
@@ -139,9 +156,11 @@ baja_monto_inversion(){
   }
 
   const datosBajaInversion = [
-    this.monto_inversion,
-    this.fecha_alta_inversion,
-    this.observaciones_alta_inversion
+    this.id_inversor_seleccionado,
+    this.fecha_baja_inversion,
+    this.monto_baja_inversion,
+    this.observaciones_baja_inversion,
+    this.moneda_baja_inversion,
   ]
 
   this.inversoresService.bajaMontoInversion( datosBajaInversion )
@@ -149,13 +168,11 @@ baja_monto_inversion(){
     next: (resp: any) => {
 
       if ( resp[0][0].mensaje == 'ok') {
-        this.alertaService.alertSuccess('top-end','Inversion cargada',false,2000);
+        this.alertaService.alertSuccess('top-end','Operacion cargada',false,2000);
 
-        this.activarModalNuevaInversion = false;
+        let el: HTMLElement = this.divCerrarModalBajaInversion.nativeElement;
+        el.click();
         
-        this.cerrarModal();
-        
-        // this.router.navigate(['/dashboard/ventas']);
       } else {
         this.alertaService.alertFail('Ocurrio un error',false,2000);
       }

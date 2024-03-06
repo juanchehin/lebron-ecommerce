@@ -20,13 +20,42 @@ public async buscarInversoresPaginado(req: Request, res: Response): Promise<void
         inversorBuscado = "todosInversores";
     }
 
-    pool.query(`call bsp_buscar_inversores_paginado('${pIdPersona}','${inversorBuscado}','${desde}')`, function(err: any, result: any, fields: any){
-        if(err){
-           res.status(404).json(result);
-           return;
-       }
-       res.status(200).json(result);
-    })
+    //
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_buscar_inversores_paginado " + err);
+            throw err; // not connected!
+        }
+
+        try {
+            // Use the connection
+            connection.query('call bsp_buscar_inversores_paginado(?,?,?)',[pIdPersona,inversorBuscado,desde], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_buscar_inversores_paginado - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_buscar_inversores_paginado - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_buscar_inversores_paginado 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
 
  }
 
@@ -35,14 +64,41 @@ public async buscarInversoresPaginado(req: Request, res: Response): Promise<void
 // ==================================================
 public async listarTodosInversores(req: Request, res: Response): Promise<void> {
 
-    pool.query(`call bsp_listar_inversores()`, function(err: any, result: any, fields: any){
-
-        if(err){
-            res.status(404).json(err);
-            return;
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_listar_inversores " + err);
+            throw err; // not connected!
         }
-        res.status(200).json(result);
-    })
+
+        try {
+            // Use the connection
+            connection.query('call bsp_listar_inversores()', function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_listar_inversores - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_listar_inversores - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_listar_inversores 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
 }
 
 // ==================================================
@@ -96,6 +152,13 @@ public async altaInversor(req: Request, res: Response) {
                     res.status(400).json(err);
                     return;
                 }
+
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_alta_inversor - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
+                    return;
+                }
         
                 res.status(200).json(result);
 
@@ -133,6 +196,13 @@ public async bajaInversor(req: Request, res: Response): Promise<void> {
                     logger.error("Error en bsp_baja_inversor - err: " + err + " - result:" + result);
         
                     res.status(400).json(err);
+                    return;
+                }
+
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_baja_inversor - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
                     return;
                 }
         
@@ -193,6 +263,13 @@ public async editarInversor(req: Request, res: Response) {
                     res.status(400).json(err);
                     return;
                 }
+
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_editar_inversor - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
+                    return;
+                }
         
                 res.status(200).json(result);
 
@@ -225,13 +302,18 @@ public async cargarDatosFormEditarInversor(req: Request, res: Response): Promise
         try {
             // Use the connection
             connection.query('call bsp_dame_datos_form_editar_inversor(?,?)',[IdPersona,pIdInversor], function(err: any, result: any){
-                console.log('result::: ', result);
-                console.log('err::: ', err);
 
                 if(err){
                     logger.error("Error en bsp_dame_datos_form_editar_inversor - err: " + err + " - result:" + result);
         
                     res.status(400).json(err);
+                    return;
+                }
+
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_dame_datos_form_editar_inversor - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
                     return;
                 }
         
@@ -313,6 +395,8 @@ public async alta_inversion(req: Request, res: Response) {
     var pFechaInversion = req.body.fecha_alta_inversion;
     var pMontoInvertido = req.body.monto_inversion;
     var pObservaciones = req.body.observaciones_alta_inversion;
+    var moneda_inversion = req.body.moneda_inversion;
+    var tasa_inversion = req.body.tasa_inversion;
 
 
     if(pObservaciones == 'NULL' || pObservaciones == null)
@@ -322,18 +406,25 @@ public async alta_inversion(req: Request, res: Response) {
 
     pool.getConnection(function(err: any, connection: any) {
         if (err) {
-            logger.error("Error funcion alta_inversion " + err);
+            logger.error("Error funcion bsp_alta_inversion " + err);
             throw err; // not connected!
         }
 
         try {
             // Use the connection
-            connection.query('call bsp_alta_inversion(?,?,?,?,?,?)',[pIdPersona,pIdInversor,pMontoInvertido,pFechaInversion,pObservaciones,nombre_comprobante], function(err: any, result: any){
+            connection.query('call bsp_alta_inversion(?,?,?,?,?,?,?,?)',[pIdPersona,pIdInversor,pMontoInvertido,moneda_inversion,tasa_inversion,pFechaInversion,pObservaciones,nombre_comprobante], function(err: any, result: any){
 
                 if(err){
-                    logger.error("Error en alta_inversion - err: " + err + " - result:" + result);
+                    logger.error("Error en bsp_alta_inversion - err: " + err + " - result:" + result);
         
                     res.status(400).json(err);
+                    return;
+                }
+
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_alta_inversion - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
                     return;
                 }
         
@@ -342,7 +433,7 @@ public async alta_inversion(req: Request, res: Response) {
             });
 
         } catch (error) {
-            logger.error("Error en alta_inversion 2 - " + error);
+            logger.error("Error en bsp_alta_inversion 2 - " + error);
             res.status(500).send('Error interno del servidor');
         } finally {
             connection.release();
@@ -359,29 +450,57 @@ public async alta_inversion(req: Request, res: Response) {
 public async bajaMontoInversor(req: Request, res: Response) {
 
     var pIdPersona = req.params.IdPersona;
+    console.log('req.body::: ', req.body);
 
     var pIdInversor = req.body[0];
-    var pMonto = req.body[1];
-    var pObservaciones = req.body[2];
+    var pFechaInversion = req.body[1];
+    var pMontoInvertido = req.body[2];
+    var pObservaciones = req.body[3];
+    var moneda_inversion = req.body[4];
 
-    pool.query(`call bsp_baja_monto_inversion('${pIdPersona}','${pIdInversor}','${pMonto}','${pObservaciones}')`, function(err: any, result: any, fields: any){
+
+    if(pObservaciones == 'NULL' || pObservaciones == null)
+    {
+        pObservaciones = '-';
+    }
+
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_baja_monto_inversion " + err);
+            throw err; // not connected!
+        }
+
+        try {
+            // Use the connection
+            connection.query('call bsp_baja_monto_inversion(?,?,?,?,?,?)',[pIdPersona,pIdInversor,pMontoInvertido,moneda_inversion,pFechaInversion,pObservaciones], function(err: any, result: any){
+                console.log('result::: ', result);
+                console.log('err::: ', err);
+
+                if(err){
+                    logger.error("Error en bsp_baja_monto_inversion - err: " + err + " - result:" + result);
         
-        if(err){
-            logger.error("Error en bajaMontoInversor - bsp_baja_monto_inversion - inversoresController");
-            res.status(404).json({ text: err });
-            return;
-        }
+                    res.status(400).json(err);
+                    return;
+                }
 
-        if(result[0][0].Mensaje !== 'Ok'){
-            logger.error("Error en bajaMontoInversor - bsp_baja_monto_inversion - inversoresController");
-            return res.json({
-                ok: false,
-                Mensaje: result[0][0].Mensaje
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_baja_monto_inversion - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
             });
-        }
 
-        return res.json({ Mensaje: 'Ok' });
-    })
+        } catch (error) {
+            logger.error("Error en bsp_baja_monto_inversion 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
 
 }
 

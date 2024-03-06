@@ -134,6 +134,8 @@ altaMontoInversion( datosInversion: any, comprobante_inversion: File ) {
   formData_inversion.append('fecha_alta_inversion', datosInversion[1]);
   formData_inversion.append('monto_inversion', datosInversion[2]);
   formData_inversion.append('observaciones_alta_inversion', datosInversion[3]);
+  formData_inversion.append('moneda_inversion', datosInversion[4]);
+  formData_inversion.append('tasa_inversion', datosInversion[5]);
 
   // Adjuntar el archivo PDF al formulario
   formData_inversion.append('comprobante_inversion', comprobante_inversion);

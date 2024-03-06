@@ -149,15 +149,23 @@ altaGasto(req: Request, res: Response) {
 
     var pIdUsuario = req.params.IdPersona;
 
-    var pMonto = req.body[0];
-    var pTipoPago = req.body[1];
-    var pFechaGasto = req.body[2];
-    var pDescripcion = req.body[3];
-    var pIdSucursal = req.body[4];
-    
+    const file = req.file;
+    var nombre_comprobante = file?.filename;
+
+    var pMonto = req.body.monto_nuevo_gasto;
+    var pTipoPago = req.body.tipo_pago_nuevo_gasto;
+    var pFechaGasto = req.body.fecha_gasto;
+    var pDescripcion = req.body.descripcion_nuevo_gasto;
+    var pIdSucursal = req.body.id_sucursal_seleccionada_alta_gasto;
+
     if(pDescripcion == 'undefined' || pDescripcion == undefined || pDescripcion == 'null' || pDescripcion == null)
     {
         pDescripcion = '-';
+    }
+
+    if(nombre_comprobante == 'undefined' || nombre_comprobante == undefined || nombre_comprobante == 'null' || nombre_comprobante == null)
+    {
+        nombre_comprobante = '-';
     }
 
 
@@ -169,7 +177,7 @@ altaGasto(req: Request, res: Response) {
        
         try {
             // Use the connection
-            connection.query('call bsp_alta_gasto(?,?,?,?,?,?)',[pIdUsuario,pMonto,pTipoPago,pFechaGasto,pDescripcion,pIdSucursal], function(err: any, result: any){
+            connection.query('call bsp_alta_gasto(?,?,?,?,?,?,?)',[pIdUsuario,pMonto,pTipoPago,pFechaGasto,pDescripcion,pIdSucursal,nombre_comprobante], function(err: any, result: any){
 
                 if(err){
                     logger.error("Error en bsp_alta_gasto - err: " + err + " - result:" + result);

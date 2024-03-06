@@ -1,0 +1,94 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Fecha Inicio : &nbsp;</label>
+                    <input type="date" class="form-control" [(ngModel)]="fechaInicio" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="col-sm-4">
+                    <label>Fecha Fin : &nbsp;</label>
+                    <input type="date" class="form-control" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div class="col-sm-4">
+                    <label>Estado : </label>
+                    <select (ngModelChange)='onChangeEstado($event)' [(ngModel)]="id_estado_seleccionado" class="form-control">
+                        <option value="T" default>Todas</option>
+                        <option value="P">Pendientes</option>
+                    </select>
+                </div>
+                <div class="col-sm-4" style="top: 27px;">
+                    <button (click)="refrescar()" class="btn btn-rounded btn-primary"><span class="material-icons">
+                        refresh
+                        </span>
+                    </button>
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h3 class="card-title">Cantidad ventas ( <small> {{ totalVentas }} </small> )</h3>
+                </div>
+                <div class="col-sm-4">
+                    <button [routerLink]="['/dashboard/ventas/quimicos/nueva-venta']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                        <i class="fa fa-plus"></i> 
+                        Nueva Venta
+                    </button>
+                </div>
+            </div>
+            <table id="table-edit" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th width="1">
+                            #
+                        </th>
+                        <th>Fecha</th>
+                        <th>Vendedor</th>
+                        <th>Comprador</th>
+                        <th>Tipo</th>
+                        <th>Estado</th>
+                        <th>Observaciones</th>
+                        <th>Monto total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let venta of ventas">
+                        <td>{{ venta.id_transaccion }}</td>
+                        <td>{{ venta.fecha }}</td>
+                        <td>{{ venta.Vendedor }}</td>
+                        <td>{{ venta.Comprador }}</td>
+                        <td>{{ venta.operacion }}</td>
+                        <td>{{ venta.estado_transaccion }}</td>
+                        <td>{{ venta.descripcion }}</td>
+                        <td>$ {{ venta.monto_total }}</td>
+                        <td>
+                            <button class="btn btn-inline btn-primary" type="button" (click)="generar_factura_pdf(venta.id_transaccion)">
+                                <i class="material-icons"> 
+                                    picture_as_pdf    
+                                </i>
+                            </button>
+                            <button class="btn btn-inline btn-danger" type="button" (click)="baja_transaccion(venta.id_transaccion)">
+                                <i class="material-icons"> 
+                                    delete    
+                                </i>
+                            </button>
+                            <button class="btn btn-inline btn-success" type="button" (click)="baja_transaccion(venta.id_transaccion)">
+                                <i class="material-icons"> 
+                                    check    
+                                </i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline">Anteriores</button>
+        <button (click)="cambiarDesde(20) " type="button" class="btn btn-default-outline">Siguientes</button>
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->

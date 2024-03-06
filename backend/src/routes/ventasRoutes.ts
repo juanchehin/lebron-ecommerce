@@ -47,6 +47,10 @@ class VentasRoutes {
         this.router.get('/baja/:IdPersona/:pIdTransaccion',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],ventasController.baja_transaccion);
 
         this.router.post('/alta/:IdPersona',upload.single('comprobante_venta'),[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], ventasController.altaVenta);
+        // quimicos
+        this.router.post('/quimicos/alta/:IdPersona',upload.single('comprobante_quimico'),[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], ventasController.altaVentaQuimicos);
+        this.router.get('/quimicos/listar/:pIdPersona/:FechaInicio/:FechaFin/:desde/:estado_venta',[mdAutenticacion.verificaToken],ventasController.listarVentasQuimicos);
+
     }
 
 }

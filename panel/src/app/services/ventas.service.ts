@@ -45,13 +45,19 @@ export class VentasService {
 // ==================================================
   listarVentasFecha(pIdSucursal: any,pIdTipoVenta: any,pIdTransaccion: any, FechaInicio: any , FechaFin: any,desde: number){
 
-    // pIdVendedor,pIdSucursal,pIdTipoVenta,pITipoPago,pIdTransaccion,FechaInicio,FechaFin,desde
-
     let url = URL_SERVICIOS + '/ventas/listar/' + this.IdPersona + '/' + pIdSucursal + '/' + pIdTipoVenta + '/' + pIdTransaccion + '/' + FechaInicio + '/' + FechaFin + '/' + desde;
 
     return this.http.get( url, this.headers );
   }
+// ==================================================
+//
+// ==================================================
+  listar_ventas_quimicos_fechas(FechaInicio: any , FechaFin: any,desde: number,estado_venta: any){
 
+    let url = URL_SERVICIOS + '/ventas/quimicos/listar/' + this.IdPersona + '/' + FechaInicio + '/' + FechaFin + '/' + desde + '/' + estado_venta;
+
+    return this.http.get( url, this.headers );
+  }
 // ==================================================
 //
 // ==================================================
@@ -78,6 +84,32 @@ altaVenta( venta : any, comprobante_venta: File){
   return this.http.post( url, formData_venta,this.headers );
 }
 
+// ==================================================
+//
+// ==================================================
+altaVentaQuimico( venta : any, comprobante_quimico: File){
+
+  const formData_venta = new FormData();
+
+  // Agregar datos del cliente al formulario
+  formData_venta.append('IdCliente', venta[0]);
+  formData_venta.append('lineas_tipos_pago', JSON.stringify(venta[1]));
+  formData_venta.append('cantidad_lineas_tipo_pago', venta[2]);
+
+  formData_venta.append('totalVenta', venta[3]);
+  formData_venta.append('fecha_venta', venta[4]);
+  formData_venta.append('id_operacion_seleccionada', venta[5]);
+  formData_venta.append('nro_remito', venta[6]);
+  formData_venta.append('estado_venta_quimico', venta[7]);
+  formData_venta.append('observaciones_venta', venta[8]);
+
+  // Adjuntar el archivo PDF al formulario
+  formData_venta.append('comprobante_quimico', comprobante_quimico);
+
+  let url = URL_SERVICIOS + '/ventas/quimicos/alta/' + this.IdPersona;
+
+  return this.http.post( url, formData_venta,this.headers );
+}
 // ==================================================
 //
 // ==================================================

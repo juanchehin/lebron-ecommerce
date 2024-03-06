@@ -74,7 +74,19 @@ listarComprasIdUsuario(desde: number , Fecha: string ){
 // ==================================================
 //
 // ==================================================
-altaGasto( gasto : any){
+altaGasto( gasto : any, comprobante_gasto: File){
+
+  const formData_gasto = new FormData();
+
+  // Agregar datos del cliente al formulario
+  formData_gasto.append('monto_nuevo_gasto', gasto[1]);
+  formData_gasto.append('tipo_pago_nuevo_gasto', gasto[2]);
+  formData_gasto.append('fecha_gasto', gasto[3]);
+  formData_gasto.append('descripcion_nuevo_gasto', gasto[4]);
+  formData_gasto.append('id_sucursal_seleccionada_alta_gasto', gasto[5]);
+
+  // Adjuntar el archivo PDF al formulario
+  formData_gasto.append('comprobante_gasto', comprobante_gasto);
 
   let url = URL_SERVICIOS + '/compras/gastos/alta/' + this.IdPersona;
 

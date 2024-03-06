@@ -72,6 +72,60 @@ public async listarVentas(req: Request, res: Response): Promise<void> {
 
 }
 
+// ==================================================
+//        Lista los ingresos
+// ==================================================
+
+public async listarVentasQuimicos(req: Request, res: Response): Promise<void> {
+
+    var pIdVendedor = req.params.pIdPersona;
+
+    var FechaInicio = req.params.FechaInicio;
+    var FechaFin = req.params.FechaFin;
+    var pEstadoTransaccion = req.params.estado_venta;
+
+    var desde = req.params.desde || 0;
+    desde  = Number(desde);
+    
+
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_listar_ventas_quimicos_paginado_fechas " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_listar_ventas_quimicos_paginado_fechas(?,?,?,?,?)',[pIdVendedor,FechaInicio,FechaFin,desde,pEstadoTransaccion], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_listar_ventas_quimicos_paginado_fechas - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+                
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_listar_ventas_quimicos_paginado_fechas - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_listar_ventas_quimicos_paginado_fechas 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
+}
+
 
 // ==================================================
 //        Lista 
@@ -354,46 +408,85 @@ cargarDatosNuevaVenta(req: Request, res: Response) {
 
 }
 
+// 
+
+
+// ==================================================
+//        Lista 
+// ==================================================
+async altaVentaQuimicos(req: Request, res: Response) {
+
+    const file = req.file;
+    var nombre_comprobante = file?.filename;
+
+    var pIdVendedor = req.params.IdPersona;
+    //
+    var pIdCliente = req.body.IdCliente;
+    var totalVenta = req.body.totalVenta;
+
+    var p_lineas_tipos_pago = req.body.lineas_tipos_pago;
+    var p_cantidad_tipos_pago = req.body.cantidad_lineas_tipo_pago;
+
+    var fecha_venta = req.body.fecha_venta;
+    var id_operacion_seleccionada = req.body.id_operacion_seleccionada;
+
+    var nro_remito = req.body.nro_remito;
+
+    var estado_venta_quimico = req.body.estado_venta_quimico;
+    var observaciones_venta = req.body.observaciones_venta;
+
+    if(nombre_comprobante == 'undefined' || nombre_comprobante == undefined){
+        nombre_comprobante = '-';
+    }
+
+    if(observaciones_venta == 'undefined' || observaciones_venta == undefined){
+        observaciones_venta = '-';
+    }
+    
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_alta_venta_quimico " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_alta_venta_quimico(?,?,?,?,?,?,?,?,?,?,?)',[pIdVendedor,pIdCliente,p_lineas_tipos_pago,
+                p_cantidad_tipos_pago,totalVenta,fecha_venta,id_operacion_seleccionada,nro_remito,
+                estado_venta_quimico,observaciones_venta,nombre_comprobante], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_alta_venta_quimico - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_alta_venta_quimico - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
+                    return;
+                }
+                
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_alta_venta_quimico 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+    
+}
+
+
 
 }
 
 
 const ventasController = new VentasController;
 export default ventasController;
-
-// =========================================
-async function confirmarTransaccion(pIdVenta: any) {
-
-    pool.getConnection(function(err: any, connection: any) {
-        if (err) {
-            logger.error("Error funcion bsp_confirmar_transaccion " + err);
-            throw err; // not connected!
-        }
-       
-        try {
-            // Use the connection
-            connection.query('call bsp_confirmar_transaccion(?)',[pIdVenta], function(err: any, result: any){
-                
-                if(err){
-                    logger.error("Error en bsp_confirmar_transaccion - err: " + err + " - result:" + result);
-        
-                    // res.status(400).json(err);
-                    return;
-                }
-        
-                console.log('result::: confirmarTransaccion ', result);
-                return result;
-                // res.status(200).json(result);
-
-            });
-
-        } catch (error) {
-            logger.error("Error en bsp_confirmar_transaccion 2 - " + error);
-            // res.status(500).send('Error interno del servidor');
-        } finally {
-            connection.release();
-        }
-      });
-
-
-}

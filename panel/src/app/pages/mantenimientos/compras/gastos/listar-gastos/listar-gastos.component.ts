@@ -22,6 +22,8 @@ export class ListarGastosComponent implements OnInit {
   id_sucursal_seleccionada_alta_gasto = 0;
   id_sucursal_seleccionada_listado = 0;
   suma_gastos = 0;
+  comprobante_gasto: any;
+  FinalformData!: FormData;
 
   //
   descripcion_nuevo_gasto: any;
@@ -162,7 +164,7 @@ alta_gasto() {
       this.id_sucursal_seleccionada_alta_gasto
     );
 
-    this.comprasService.altaGasto( gasto )
+    this.comprasService.altaGasto( gasto , this.comprobante_gasto)
               .subscribe( {
                 next: (resp: any) => {
                   
@@ -198,6 +200,23 @@ alta_gasto() {
 
   onChangeSucursalListado(val: any){
     this.id_sucursal_seleccionada_listado = val;
+  }
+
+    // ==============================
+  // Comprobante PDF
+  // ================================
+
+  onFileSelected(event: any) {
+
+    if (event.target.files && event.target.files.length > 0) {
+      this.comprobante_gasto = event.target.files[0];
+
+      this.FinalformData = new FormData();
+      this.FinalformData.append('comprobante_gasto', this.comprobante_gasto, this.comprobante_gasto.name);
+    }else{
+      this.alertService.alertFail('Ocurrio un error al cargar el comprobante ',false,1000);
+    }
+
   }
     // ==============================
   // 

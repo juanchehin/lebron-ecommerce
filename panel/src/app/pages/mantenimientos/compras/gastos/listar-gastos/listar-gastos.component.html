@@ -106,7 +106,12 @@
                             <div class="col-sm-6 form-group">
                                 <label>Fecha : </label>
                                 <input [(ngModel)]="fecha_nuevo_gasto" type="date" class="form-control" placeholder="dd/mm/yyyy" required>
-                            </div>                                                        
+                            </div>
+                             <!--  -->
+                            <div class="col-sm-8 form-group">
+                                <label>Comprobante : </label>
+                                <input type="file" class="form-control" (change)="onFileSelected($event)" name="comprobante_gasto" aria-describedby="fileHelp">
+                            </div>                                                   
                         </div>
                     <br>
                     <div class="row">

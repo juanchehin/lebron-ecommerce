@@ -8,11 +8,15 @@ import { NuevaVentaComponent } from './nueva-venta/nueva-venta.component';
 import { FormsModule } from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { PedidosComponent } from './pedidos/pedidos.component';
+import { VentasQuimicosComponent } from './listar-ventas-quimicos/ventas-quimicos.component';
+import { NuevaVentaQuimicosComponent } from './nueva-venta-quimicos/nueva-venta-quimicos.component';
 
 
 @NgModule({
   declarations: [
     VentasComponent,
+    VentasQuimicosComponent,
+    NuevaVentaQuimicosComponent,
     MisVentasComponent,
     NuevaVentaComponent,
     PedidosComponent

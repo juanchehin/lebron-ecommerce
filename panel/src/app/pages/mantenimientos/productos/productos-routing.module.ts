@@ -56,12 +56,7 @@ const routes: Routes = [
    { path: 'subcategoria/:IdSubCategoria', component: EditarSubcategoriaComponent, data: { titulo: 'Editar Categoria' }},
    // Promociones
    { path: 'promociones', component: PromocionesComponent, data: { titulo: 'Promociones' }},
-   { path: 'promocion/nueva', component: PromocionComponent, data: { titulo: 'Nueva Promocion' }},
-   { 
-     path: 'quimicos',
-     canActivate: [LoginGuardGuard, VerificaTokenGuard],
-     loadChildren: () => import('./quimicos/quimicos-routing.module').then( m => m.QuimicosRoutingModule )
-   },
+   { path: 'promocion/nueva', component: PromocionComponent, data: { titulo: 'Nueva Promocion' }}
 
 ];
 

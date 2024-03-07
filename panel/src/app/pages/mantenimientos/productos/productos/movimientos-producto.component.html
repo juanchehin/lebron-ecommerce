@@ -26,7 +26,14 @@
                                 </option>
                             </select>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
+                        <button (click)="listar_movimientos_producto()" class="btn waves-effect waves-light btn-rounded btn-primary " style="top: 25px;">
+                            <span class="material-icons">
+                                search
+                            </span>
+                        </button>
+                    </div>  
+                    <div class="col-sm-2">
                         <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary " style="top: 25px;">
                             <span class="material-icons">
                                 refresh
@@ -48,6 +55,7 @@
                                 <th>Suc. Origen</th>
                                 <th>Suc. Destino</th>
                                 <th>Usuario</th>
+                                <th>Operacion</th>
                                 <th>Cantidad</th>
                                 <th></th>
                             </tr>
@@ -59,8 +67,12 @@
                                 <td>{{ mp.suc_origen }}</td>
                                 <td>{{ mp.suc_destino }}</td>
                                 <td>{{ mp.usuario }}</td>
+                                <td>{{ mp.operacion }}</td>
                                 <td></td>
                                 <td>
+                                    <button class="btn btn-inline btn-primary" type="button" (click)="detalle_movimiento(mp.id_transaccion)">
+                                        <i class="material-icons"> visibility </i>
+                                    </button>
                                     <button class="btn btn-inline btn-danger" type="button" (click)="baja_transaccion(mp.id_transaccion)">
                                         <i class="material-icons"> delete </i>
                                     </button>

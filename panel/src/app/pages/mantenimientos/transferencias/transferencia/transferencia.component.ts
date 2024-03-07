@@ -20,14 +20,15 @@ export class TransferenciaComponent implements OnInit {
   productos: any;
   itemPendiente: any = [];
   totalTransferencia: number = 0;
-  cantidadLineaTransferencia = 1;
+  cantidadLineaTransferencia = 1; // valor del input "cantidad"
   productoBuscado = '';
   lineas_transferencia: any = [];
   itemCheckExists: any = 0;
   itemIdProductoSabor: any;
   keywordProducto = 'codigoproductosabor';
   sucursales: any;
-  cantidad_lineas_transferencias = 0;
+  cantidad_lineas_transferencias = 0; // numero de productos distintos agregador
+  observaciones_alta_transferencia = '';
 
 
   constructor(
@@ -70,12 +71,14 @@ export class TransferenciaComponent implements OnInit {
         this.IdSucursalDestino,
         this.totalTransferencia,
         this.lineas_transferencia,
-        this.cantidad_lineas_transferencias
+        this.cantidad_lineas_transferencias,
+        this.observaciones_alta_transferencia
       );
 
       this.productosService.altaTransferencia( transferencia )
       .subscribe({
         next: (resp: any) => {
+          console.log('resp::: ', resp);
           
           if ( resp[0][0].mensaje === 'ok') {
 
@@ -146,10 +149,9 @@ agregarLineaTransferencia() {
     return;
   }
 
-  
-  if((this.itemPendiente.Stock <= 0) || (this.itemPendiente.Stock < this.cantidadLineaTransferencia))
+  if((this.itemPendiente.stock <= 0) || (this.itemPendiente.stock < this.cantidadLineaTransferencia))
   { 
-    this.alertaService.alertFail('Stock insuficiente para ' + this.itemPendiente.Producto,false,2000);
+    this.alertaService.alertInfoWithText('Atencion','Stock insuficiente para  "' + this.itemPendiente.producto + '"',false,2000);
     return;
   }
   
@@ -182,7 +184,7 @@ agregarLineaTransferencia() {
 
     for (let item of this.lineas_transferencia) {
 
-      if(this.itemPendiente.Stock < (Number(item.Cantidad) + Number(this.cantidadLineaTransferencia)))
+      if(this.itemPendiente.stock < (Number(item.Cantidad) + Number(this.cantidadLineaTransferencia)))
       { 
         this.alertaService.alertFail('Stock insuficiente para ' + this.itemPendiente.Producto,false,2000);
         return;
@@ -252,6 +254,7 @@ agregarLineaTransferencia() {
     this.lineas_transferencia = [];
     this.totalTransferencia = 0;
     this.cantidadLineaTransferencia = 0;
+    this.cantidad_lineas_transferencias = 0;
 
   }
 }

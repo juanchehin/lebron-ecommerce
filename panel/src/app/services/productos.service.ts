@@ -154,6 +154,26 @@ cargarDatosFormNuevoProducto( ){
     return this.http.get( url , this.headers);
   
 }
+
+// ==================================================
+// 
+// ==================================================
+detalle_transferencia( id_transaccion: any){
+  
+  let url = URL_SERVICIOS + '/productos/transferencias/detalle/' + id_transaccion + '/' + this.IdPersona;
+  return this.http.get( url , this.headers);
+
+}
+
+// ==================================================
+// 
+// ==================================================
+detalle_movimiento( id_transaccion: any){
+  
+  let url = URL_SERVICIOS + '/productos/movimientos/detalle/' + id_transaccion + '/' + this.IdPersona;
+  return this.http.get( url , this.headers);
+
+}
 // ==================================================
 // Cargo las marcas,categorias,unidades,sucursal principal y el producto
 // ==================================================

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
@@ -16,9 +16,12 @@ export class TransferenciasComponent implements OnInit {
   fecha: any;
 
   transferencias!: any;
+  lineas_transferencia: any;
 
   totalTransferencias = 0;
   cargando = true;
+
+  @ViewChild('divCerrarModalDetalleTransferencia') divCerrarModalDetalleTransferencia!: ElementRef<HTMLElement>;
 
   constructor(
     public productosService: ProductosService,
@@ -42,7 +45,7 @@ cargarTransferencias() {
 
     this.productosService.listarTransferenciasPaginado(this.desde, pFecha  )
     .subscribe({
-      next: (resp: any) => { 
+      next: (resp: any) => {
 
         if(resp[0].length <= 0)
         {
@@ -50,7 +53,7 @@ cargarTransferencias() {
           return;
         }
 
-        if(resp[2][0].mensaje == 'Ok') {
+        if(resp[2][0].mensaje == 'ok') {
           this.transferencias = resp[0];
 
           this.totalTransferencias = resp[1][0].cantTransferencias;
@@ -68,6 +71,32 @@ cargarTransferencias() {
   }
 
 
+// ==================================================
+// Carga
+// ==================================================
+
+detalle_transferencia(id_transaccion: any) {
+
+  this.productosService.detalle_transferencia( id_transaccion  )
+             .subscribe( {
+              next: (resp: any) => {
+                console.log('resp::: ', resp);
+
+                if ( resp[4][0].mensaje == 'ok') {
+                  
+                  this.lineas_transferencia = resp[1][0].cant_movimientos;
+
+                } else {
+                  this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+                }
+                return;
+               },
+              error: () => { 
+                this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+              }
+            });
+
+}
 // ==================================================
 //        Cambio de valor
 // ==================================================

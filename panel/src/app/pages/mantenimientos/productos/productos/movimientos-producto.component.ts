@@ -19,7 +19,9 @@ export class MovimientosProductosComponent implements OnInit {
   sucursales: any;
   cant_movimientos = 0;
   id_sucursal_seleccionada = 0;
-  id_operacion_seleccionada = 0;
+  id_primer_sucursal_vendedor = 0;
+  id_operacion_seleccionada = 1;
+  bandera_primera_carga = false;
 
   fecha_inicio = this.utilService.formatDateNow(new Date(Date.now()));
   fecha_fin = this.utilService.formatDateNow(new Date(Date.now()));
@@ -46,6 +48,7 @@ listar_movimientos_producto() {
     this.productosService.listar_movimientos_producto( this.fecha_inicio, this.fecha_fin, this.p_id_producto_sabor, this.id_sucursal_seleccionada, this.id_operacion_seleccionada, this.desde  )
                .subscribe( {
                 next: (resp: any) => {
+                  console.log('resp::: ', resp);
 
                   if(resp.length <= 0)
                   { 
@@ -61,20 +64,56 @@ listar_movimientos_producto() {
                     this.operaciones = resp[2];
                     this.sucursales = resp[3];
                     this.movimientos_producto = resp[0];
+
+                    if(this.bandera_primera_carga){
+                      this.id_primer_sucursal_vendedor = resp[3][0].id_sucursal;
+                      this.id_sucursal_seleccionada = this.id_primer_sucursal_vendedor; // asigno para que no quede el select vacio
+                      this.id_operacion_seleccionada = resp[2][0].id_operacion; // asigno para que no quede el select vacio
+                      this.bandera_primera_carga = true;
+                    }
+
                     
                   } else {
-                    this.alertaService.alertFail('Ocurrio un error',false,2000);
+                    this.alertaService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
                   }
                   return;
                  },
                 error: () => { 
-                  this.alertaService.alertFail('Ocurrio un error',false,2000)
+                  this.alertaService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
                 }
               });
 
   }
 
+// ==================================================
+// Carga
+// ==================================================
 
+detalle_movimiento(id_transaccion: any) {
+
+  this.productosService.detalle_movimiento( id_transaccion  )
+             .subscribe( {
+              next: (resp: any) => {
+                console.log('resp::: ', resp);
+
+                if ( resp[4][0].mensaje == 'ok') {
+                  
+                  this.cant_movimientos = resp[1][0].cant_movimientos;
+                  this.operaciones = resp[2];
+                  this.sucursales = resp[3];
+                  this.movimientos_producto = resp[0];
+
+                } else {
+                  this.alertaService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+                }
+                return;
+               },
+              error: () => { 
+                this.alertaService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+              }
+            });
+
+}
 // ==================================================
 //        Cambio de valor
 // ==================================================
@@ -141,7 +180,11 @@ refrescar() {
 
   this.desde = 0;
 
+  this.id_sucursal_seleccionada = this.id_primer_sucursal_vendedor;
+  this.id_operacion_seleccionada = 1;
+  
   this.listar_movimientos_producto();
+
 
 }
 

@@ -355,8 +355,6 @@ public async listarHistoricoInversor(req: Request, res: Response): Promise<void>
         try {
             // Use the connection
             connection.query('call bsp_listar_transacciones_inversor_paginado_fechas(?,?,?,?,?)',[pIdPersona,pIdInversor,FechaInicio,FechaFin,desde], function(err: any, result: any){
-                console.log('result::: ', result);
-                console.log('err::: ', err);
 
                 if(err){
                     logger.error("Error en bsp_listar_transacciones_inversor_paginado_fechas - err: " + err + " - result:" + result);
@@ -450,7 +448,6 @@ public async alta_inversion(req: Request, res: Response) {
 public async bajaMontoInversor(req: Request, res: Response) {
 
     var pIdPersona = req.params.IdPersona;
-    console.log('req.body::: ', req.body);
 
     var pIdInversor = req.body[0];
     var pFechaInversion = req.body[1];
@@ -473,8 +470,6 @@ public async bajaMontoInversor(req: Request, res: Response) {
         try {
             // Use the connection
             connection.query('call bsp_baja_monto_inversion(?,?,?,?,?,?)',[pIdPersona,pIdInversor,pMontoInvertido,moneda_inversion,pFechaInversion,pObservaciones], function(err: any, result: any){
-                console.log('result::: ', result);
-                console.log('err::: ', err);
 
                 if(err){
                     logger.error("Error en bsp_baja_monto_inversion - err: " + err + " - result:" + result);

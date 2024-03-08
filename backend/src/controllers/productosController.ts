@@ -195,14 +195,24 @@ listar_movimientos_producto_paginado(req: Request, res: Response){
 
         try {
             // Use the connection
-            connection.query('call listar_movimientos_producto_paginado(?,?,?,?,?,?,?)',[pIdUsuario,p_fecha_inicio,p_fecha_fin,p_id_producto_sabor,
+            connection.query('call bsp_listar_movimientos_producto_paginado(?,?,?,?,?,?,?)',[pIdUsuario,p_fecha_inicio,p_fecha_fin,p_id_producto_sabor,
                 p_id_sucursal_seleccionada,p_id_operacion_seleccionada,p_desde], function(err: any, result: any){
                 
                 if(err){
-                    logger.error("Error en listar_movimientos_producto_paginado - err: " + err + " - result:" + result);
+                    logger.error("Error en bsp_listar_movimientos_producto_paginado - err: " + err + " - result:" + result);
         
                     res.status(400).json(err);
                     return;
+                }
+
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_listar_movimientos_producto_paginado - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
                 }
         
                 res.status(200).json(result);
@@ -210,7 +220,7 @@ listar_movimientos_producto_paginado(req: Request, res: Response){
             });
 
         } catch (error) {
-            logger.error("Error en listar_movimientos_producto_paginado 2 - " + error);
+            logger.error("Error en bsp_listar_movimientos_producto_paginado 2 - " + error);
             res.status(500).send('Error interno del servidor');
         } finally {
             connection.release();
@@ -904,11 +914,14 @@ public async altaTransferencia(req: Request, res: Response) {
                     return;
                 }
                 
-                if(result[0][0].Level == 'Error'){
-                    logger.error("Error en bsp_alta_transferencia - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
-        
-                    res.status(400).json(result);
-                    return;
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_alta_transferencia - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
                 }
                 
                 res.status(200).json(result);

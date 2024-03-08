@@ -197,8 +197,6 @@ listar_movimientos_producto_paginado(req: Request, res: Response){
             // Use the connection
             connection.query('call listar_movimientos_producto_paginado(?,?,?,?,?,?,?)',[pIdUsuario,p_fecha_inicio,p_fecha_fin,p_id_producto_sabor,
                 p_id_sucursal_seleccionada,p_id_operacion_seleccionada,p_desde], function(err: any, result: any){
-                    console.log('result::: ', result);
-                    console.log('err::: ', err);
                 
                 if(err){
                     logger.error("Error en listar_movimientos_producto_paginado - err: " + err + " - result:" + result);
@@ -848,13 +846,16 @@ public async detalle_transferencia(req: Request, res: Response): Promise<void> {
                     return;
                 }
 
-                if(result[0][0].Level == 'Error'){
-                    logger.error("Error en bsp_detalle_transferencia - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
-        
-                    res.status(400).json(result);
-                    return;
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_detalle_transferencia - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
                 }
-        
+
                 res.status(200).json(result);
 
             });
@@ -926,6 +927,104 @@ public async altaTransferencia(req: Request, res: Response) {
    
 }
 
+// ==================================================
+//    baja transf
+// ==================================================
+baja_transferencia(req: Request, res: Response) {
+
+    var pIdUsuario = req.params.IdPersona;
+    var id_transferencia = req.params.id_transferencia;
+
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_baja_transferencia " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_baja_transferencia(?,?)',[pIdUsuario,id_transferencia], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_baja_transferencia - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+                
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_baja_transferencia - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
+                }
+                
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_baja_transferencia 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+    // =================================================================
+
+   
+}
+// ==================================================
+//    baja linea transf
+// ==================================================
+baja_linea_transferencia(req: Request, res: Response) {
+
+    var pIdUsuario = req.params.IdPersona;
+    var id_linea_transferencia = req.params.id_linea_transferencia;
+    console.log('req.params::: ', req.params);
+
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_baja_linea_transferencia " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_baja_linea_transferencia(?,?)',[pIdUsuario,id_linea_transferencia], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_baja_linea_transferencia - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+                
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_baja_linea_transferencia - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
+                    return;
+                }
+                
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_baja_linea_transferencia 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+    // =================================================================
+
+   
+}
 
 // ==================================================
 //        buscarProductoAutoCompleteTransferencia

@@ -34,8 +34,6 @@
                             <th>Fecha Alta</th>
                             <th>Suc. Origen</th>
                             <th>Suc. Destino</th>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
                             <th>Monto Total</th>
                             <th></th>
                         </tr>
@@ -46,8 +44,6 @@
                             <td>{{ transferencia.fecha }}</td>
                             <td>{{ transferencia.suc_origen }}</td>
                             <td>{{ transferencia.suc_destino }}</td>
-                            <td>{{ transferencia.producto }}</td>
-                            <td>{{ transferencia.cantidad }}</td>
                             <td>$ {{ transferencia.monto_total }}</td>
                             <td>
                                 <button data-toggle="modal" data-target="#responsive-modal-detalle-transferencia" class="btn btn-inline btn-info" type="button" (click)="detalle_transferencia(transferencia.id_transaccion)">
@@ -75,45 +71,38 @@
 </div>
 <!--.page-content-->
 
-
 <!-- =========== MODAL Detalle transferencia =========== -->
-<div class="col-md-4">
+<div class="col-md-8">
     <div id="responsive-modal-detalle-transferencia" class="modal fade" role="dialog" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Detalle transferencia</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 </div>
                 <div class="modal-body">
-                    <table id="table-edit" class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th width="1">
                                     #
                                 </th>
-                                <th>Fecha Alta</th>
                                 <th>Suc. Origen</th>
                                 <th>Suc. Destino</th>
-                                <th>Monto Total</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let transferencia of transferencias">
-                                <td>{{ transferencia.id_transaccion }}</td>
-                                <td>{{ transferencia.fecha }}</td>
-                                <td>{{ transferencia.suc_origen }}</td>
-                                <td>{{ transferencia.suc_destino }}</td>
-                                <td>$ {{ transferencia.monto_total }}</td>
+                            <tr *ngFor="let lt of lineas_transferencia">
+                                <td>{{ lt.id_lineas_transferencias }}</td>
+                                <td>{{ lt.suc_origen }}</td>
+                                <td>{{ lt.suc_destino }}</td>
+                                <td>{{ lt.producto }}</td>
+                                <td>{{ lt.cantidad }}</td>
                                 <td>
-                                    <button data-toggle="modal" data-target="#responsive-modal-detalle-transferencia" class="btn btn-inline btn-info" type="button" (click)="detalle_transferencia(transferencia.id_transaccion)">
-                                        <i class="material-icons"> visibility </i>
-                                    </button>
-                                    <button class="btn btn-inline" type="button">
-                                        <i class="material-icons"> edit </i>
-                                    </button>
-                                    <button class="btn btn-inline btn-danger" type="button" (click)="bajaTransferencia(transferencia.id_transaccion)">
+                                    <button class="btn btn-inline btn-danger" type="button" (click)="baja_linea_transferencia(lt.id_lineas_transferencias)">
                                         <i class="material-icons"> delete </i>
                                     </button>
                                 </td>

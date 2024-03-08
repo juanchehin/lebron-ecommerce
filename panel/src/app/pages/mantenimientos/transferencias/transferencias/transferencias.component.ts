@@ -82,9 +82,9 @@ detalle_transferencia(id_transaccion: any) {
               next: (resp: any) => {
                 console.log('resp::: ', resp);
 
-                if ( resp[4][0].mensaje == 'ok') {
+                if ( resp[1][0].mensaje == 'ok') {
                   
-                  this.lineas_transferencia = resp[1][0].cant_movimientos;
+                  this.lineas_transferencia = resp[0];
 
                 } else {
                   this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
@@ -137,10 +137,10 @@ bajaTransferencia(IdTransferencia: string) {
     if (result.isConfirmed) {
       this.productosService.bajaTransferencia( IdTransferencia )
       .subscribe({
-        next: (resp: any) => { 
+        next: (resp: any) => {
   
-          if(resp[0][0].mensaje == 'Ok') {
-            this.alertService.alertSuccess('top-end','Proveedor dado de baja',false,900);
+          if(resp[0][0].mensaje == 'ok') {
+            this.alertService.alertSuccess('top-end','Operacion exitosa',false,900);
             this.cargarTransferencias();
             
           } else {
@@ -154,6 +154,42 @@ bajaTransferencia(IdTransferencia: string) {
   })
 
   
+  }
+// ==================================================
+// 
+// ==================================================
+  baja_linea_transferencia(id_lineas_transferencias: any){
+    Swal.fire({
+      title: '¿Desea eliminar la l. transferencia?',
+      text: "Se restaurara el stock que se movio previamente",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si'
+    }).then((result: any) => {
+      if (result.isConfirmed) {
+        this.productosService.baja_linea_transferencia( id_lineas_transferencias )
+        .subscribe({
+          next: (resp: any) => {
+    
+            if(resp[0][0].mensaje == 'ok') {
+              this.alertService.alertSuccess('top-end','Transferencia dada de baja',false,2000);
+              
+              let el: HTMLElement = this.divCerrarModalDetalleTransferencia.nativeElement;
+              el.click();
+              
+            } else {
+              this.alertService.alertFailWithText('Ocurrio un error',resp[0][0].mensaje,false,2000);
+              
+            }
+           },
+          error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
+        });
+      }
+    })
+  
+    
   }
 // ==================================================
 //    Funcion para recargar el listado

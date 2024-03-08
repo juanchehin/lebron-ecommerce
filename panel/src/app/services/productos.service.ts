@@ -127,6 +127,22 @@ bajaProducto( IdProductoSabor: any ) {
     }
 );
 }
+  // ==================================================
+//        
+// ==================================================
+baja_linea_transferencia( id_linea_transferencia: any ) {
+
+  let url = URL_SERVICIOS + '/productos/lineas_transferencias/baja/' + id_linea_transferencia + '/' + this.IdPersona;
+
+  return this.http.get(
+    url,
+    {
+      headers: {
+        token: this.token
+      }
+    }
+);
+}
 // ==================================================
 //  Carga los productos en el autocomplete, que coincidan con el parametroBusqueda
 // ==================================================

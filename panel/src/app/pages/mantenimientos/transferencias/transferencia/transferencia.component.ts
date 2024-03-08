@@ -65,6 +65,12 @@ export class TransferenciaComponent implements OnInit {
       return;
     }
 
+    console.log('this.cantidad_lineas_transferencias::: ', this.cantidad_lineas_transferencias);
+    if ( (this.cantidad_lineas_transferencias <= 0) || isNaN(Number(this.cantidad_lineas_transferencias))) {
+      this.alertaService.alertFailWithText('Ocurrio un error','Cantidad de lineas transf. invalida',false,2000);
+      return;
+    }
+
       const transferencia = new Array(
         this.fechaTransferencia,
         this.IdSucursalOrigen,
@@ -78,7 +84,6 @@ export class TransferenciaComponent implements OnInit {
       this.productosService.altaTransferencia( transferencia )
       .subscribe({
         next: (resp: any) => {
-          console.log('resp::: ', resp);
           
           if ( resp[0][0].mensaje === 'ok') {
 
@@ -101,23 +106,29 @@ export class TransferenciaComponent implements OnInit {
 
 cargarProductosTranferencia() {
 
-  
   if(this.IdSucursalOrigen > 0)
-    {
-      this.activarBusquedaProductosSucursal = true;
-    }
-    else
-    {
-      this.activarBusquedaProductosSucursal = false;
-      return;
-    }
+  {
+    this.activarBusquedaProductosSucursal = true;
+  }
+  else
+  {
+    this.activarBusquedaProductosSucursal = false;
+    return;
+  }
 
   this.productosService.cargarProductosTranferencia( this.productoBuscado, this.IdSucursalOrigen )
-             .subscribe( (resp: any) => {
-              console.log('resp::: ', resp);
-
-              this.productos = resp[0];
-
+             .subscribe({
+              next: (resp: any) => {
+                
+                if ( resp[1][0].mensaje == 'ok') {
+                  this.productos = resp[0];
+      
+                } else {
+                  this.alertService.alertFailWithText('Ocurrio un error',resp.mensaje,false,2000);
+                }
+                return;
+               },
+              error: () => { this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000); }
             });
 
 }
@@ -137,11 +148,16 @@ cargarSucursales() {
 
 }
 // ==================================================
-// Carga los datos de la persona que esta realizando la venta
-//  junto con la sucursal en la cual se desempeña
+// 
 // ==================================================
 
 agregarLineaTransferencia() {
+
+  if((this.itemPendiente.length <= 0))
+  { 
+    this.alertaService.alertInfoWithText('Atencion','Debe seleccionar un producto del listado ',false,2000);
+    return;
+  }
 
   if(isNaN(Number(this.cantidadLineaTransferencia)))
   { 

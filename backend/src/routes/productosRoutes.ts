@@ -56,8 +56,12 @@ class ProductosRoutes {
 
         // Transferencias
         this.router.post('/transferencias/alta/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.altaTransferencia); 
+        this.router.get('/transferencias/baja/:id_transferencia/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.baja_transferencia); 
+
         this.router.get('/transferencias/listar/:pDesde/:pFecha/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], productosController.listarTransferenciasPaginado);
         this.router.get('/transferencias/detalle/:id_transaccion/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], productosController.detalle_transferencia);
+        //
+        this.router.get('/lineas_transferencias/baja/:id_linea_transferencia/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], productosController.baja_linea_transferencia);
 
     }
 

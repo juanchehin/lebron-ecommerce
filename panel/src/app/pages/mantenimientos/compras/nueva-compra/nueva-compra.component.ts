@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IItemLineaCompraStructure } from 'src/app/interfaces/item-linea-compra.interface';
 import { IItemStructure } from 'src/app/interfaces/item.interface';
@@ -10,6 +10,7 @@ import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { ProveedoresService } from 'src/app/services/proveedores.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-nueva-compra',
@@ -30,7 +31,10 @@ export class NuevaCompraComponent implements OnInit {
   checkExists: IItemStructure[] = [];
   lineas_tipos_pago: IItemTipoPagoStructure[] = [];  
   itemPendiente: any = [];
+  FinalformData!: FormData;
+
   tiposPago: any;
+  comprobante_venta: any;
   currentDate = new Date();
   datosVendedor: any;
   totalCompra: number = 0;
@@ -40,11 +44,28 @@ export class NuevaCompraComponent implements OnInit {
   IdTipoPagoSelect = 0;
   monto = 0;
   descripcion: any;
+  fecha_compra: any;
   totalTiposPago = 0;
   arrayCompra: any = [];
   itemCheckExists: any = 0;
   itemIdProducto: any;
   @ViewChild('productosReference') productosReference: any;
+
+  // proveedores
+  keywordProveedor = 'nom_proveedor';
+  itemPendienteProveedor: any = [];
+  proveedores: any;
+
+
+  //
+  proveedor_alta_proveedor: any;
+  apellidos_alta_proveedor: any;
+  nombres_alta_proveedor: any;
+  telefono_alta_proveedor: any;
+  cuil_alta_proveedor: any;
+  email_alta_proveedor: any;
+  observaciones_alta_proveedor: any;
+  @ViewChild('divCerrarModalAltaProveedor') divCerrarModalAltaProveedor!: ElementRef<HTMLElement>;
 
 
   constructor(
@@ -55,12 +76,13 @@ export class NuevaCompraComponent implements OnInit {
     public activatedRoute: ActivatedRoute,
     public marcasService: MarcasService,
     public proveedoresService: ProveedoresService,
-    public alertaService: AlertService
-    ) {
-    
+    public alertaService: AlertService,
+    private utilService: UtilService
+    ) {    
   }
 
   ngOnInit() {   
+    this.fecha_compra = this.utilService.formatDateNow(new Date(Date.now()));
     this.IdPersona = this.authService.IdPersona;
   }
   
@@ -205,6 +227,42 @@ agregarLineaCompra() {
   onFocusedProducto(e: any){
   }
 
+ // ==============================
+  // Para proveedores *
+  // ================================
+  buscar_proveedor_automplete(){
+
+    this.proveedoresService.buscar_proveedores_autocomplete(  this.proveedorBuscado )
+    .subscribe({
+      next: (resp: any) => { 
+        console.log('resp::: ', resp);
+
+        if ( resp[1][0].mensaje == 'ok') {
+
+                this.proveedores = resp[0];
+          
+        } else {
+          this.alertaService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+        }
+        return;
+       },
+      error: () => { this.alertaService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000) }
+    });
+  }
+
+  selectEventProveedor(item: any) {
+    
+    this.itemPendienteProveedor = item;
+  }
+
+  onChangeSearchProveedor(val: any) {
+    this.proveedorBuscado = val;
+    this.buscar_proveedor_automplete();
+  }
+  
+  onFocusedProveedor(e: any){
+  }
+
   // ==============================
   // 
   // ================================
@@ -246,6 +304,56 @@ agregarLineaCompra() {
 
   }
 
+  // ==================================================
+//         
+// ==================================================
 
+alta_proveedor() {
+  
+  const proveedor = new Array(
+    this.proveedor_alta_proveedor,
+    this.cuil_alta_proveedor,
+    this.telefono_alta_proveedor,
+    this.observaciones_alta_proveedor,
+    this.apellidos_alta_proveedor,
+    this.nombres_alta_proveedor,
+    this.email_alta_proveedor
+  );
+
+  this.proveedoresService.altaProveedor( proveedor )
+            .subscribe( (resp: any) => {
+              
+      if ( resp[0][0].mensaje === 'Ok') {
+
+        this.alertaService.alertSuccess('top-end','Proveedor cargado',false,2000);
+        
+        let el: HTMLElement = this.divCerrarModalAltaProveedor.nativeElement;
+        el.click();
+
+      } else {
+        this.alertaService.alertFailWithText('Ocurrio un error',resp.mensaje,false,2000);
+      }
+      return;
+    });
+
+}
+
+
+  // ==============================
+  // Comprobante PDF
+  // ================================
+
+  onFileSelected(event: any) {
+
+    if (event.target.files && event.target.files.length > 0) {
+      this.comprobante_venta = event.target.files[0];
+
+      this.FinalformData = new FormData();
+      this.FinalformData.append('comprobante_compra', this.comprobante_venta, this.comprobante_venta.name);
+    }else{
+      this.alertaService.alertFail('Ocurrio un error al cargar el comprobante ',false,1000);
+    }
+
+  }
 }
 

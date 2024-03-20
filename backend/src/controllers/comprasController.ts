@@ -6,27 +6,57 @@ class ComprasController {
 
 
 // ==================================================
-//        Lista los ingresos
+//        Lista las compras
 // ==================================================
 
-public async listarCompras(req: Request, res: Response): Promise<void> {
+public async listar_compras_paginado_fecha(req: Request, res: Response): Promise<void> {
 
     var desde = req.params.desde || 0;
     desde  = Number(desde);
-
+    
     var FechaInicio = req.params.FechaInicio;
     var FechaFin = req.params.FechaFin;
     var IdPersona = req.params.IdPersona;
+    
+    // **
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_listar_compras_paginado_fechas " + err);
+            throw err; // not connected!
+        }
 
-    pool.query(`call bsp_listar_compras_paginado_fechas('${IdPersona}','${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
-       if(err){
-        logger.error("Error en listarCompras - ComprasController " + err );
+        try {
+            // Use the connection
+            connection.query('call bsp_listar_compras_paginado_fechas(?,?,?,?)',[IdPersona,FechaInicio,FechaFin,desde], function(err: any, result: any){
 
-        res.status(404).json(err);
-           return;
-       }
-       res.json(result);
-   })
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_listar_compras_paginado_fechas - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
+                }
+                
+                if(err){
+                    logger.error("Error en bsp_listar_compras_paginado_fechas - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_listar_compras_paginado_fechas 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
 
 }
 
@@ -76,6 +106,16 @@ altaCompra(req: Request, res: Response) {
             if(err){
                 logger.error("Error en altaCompra - ComprasController " + err );
            }      
+
+           if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_alta_compra - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
+                    return;
+                }
+            }
     
            // ==============================
            if(result[0][0].mensaje == 'Ok')
@@ -90,6 +130,16 @@ altaCompra(req: Request, res: Response) {
     
                             res.send(err);
                             return;
+                        }
+
+                        if (result2 && result2[0] && result2[0][0] && result2[0][0].Level !== undefined) {
+
+                            if(result2[0][0].Level == 'Error'){
+                                logger.error("Error en bsp_alta_compra - result2 Code: " + result2[0][0].Code + " - Message: " + result2[0][0].Message);
+                    
+                                res.status(400).json(result2);
+                                return;
+                            }
                         }
                         
                     })

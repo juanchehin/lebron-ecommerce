@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertService } from 'src/app/services/alert.service';
 import { ComprasService } from 'src/app/services/compras.service';
 import { UtilService } from 'src/app/services/util.service';
 
@@ -16,17 +17,18 @@ export class ComprasComponent implements OnInit {
   fechaFin = this.utilService.formatDateNow(new Date(Date.now()));
   controlFechas = false;
 
-  totalCompras = 0;
+  total_compras = 0;
   compras!: Array < any > ;
 
   constructor(
     public comprasService: ComprasService,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private alertService: AlertService
   ) {
    }
 
   ngOnInit() {
-    this.cargarCompras();
+    this.listar_compras_paginado_fecha();
   }
 // ==================================================
 // Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
@@ -70,20 +72,29 @@ cambiosFecha(nuevafechaFin: any) {
 //        Carga 
 // ==================================================
 
-cargarCompras() {
+listar_compras_paginado_fecha() {
 
   const pfechaInicio  = this.fechaInicio;
   const pfechaFin = this.fechaFin;
 
   this.comprasService.listarComprasFecha( this.desde , pfechaInicio , pfechaFin)
-             .subscribe( (resp: any) => {
-              // Controlar que el cliente exista AQUI , ver como se puede capturar el mensaje enviado desde el SQL
-              this.totalCompras = resp[1][0].cantCompras;
+             .subscribe({             
+              next: (resp: any) => {
 
-              this.compras = resp[0];
+                if(resp[2][0].mensaje == 'ok') {
 
-              if (resp[1][0].cantCompras === undefined || resp[1][0].cantCompras === null) {
-                this.totalCompras = 0;
+                  this.total_compras = resp[1][0].total_compras;
+
+                  this.compras = resp[0];
+                  
+                } else {
+                  this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+                }
+              
+                return;
+               },
+              error: () => { 
+                this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000)
               }
 
             });
@@ -98,7 +109,7 @@ cambiarDesde( valor: number ) {
 
   const desde = this.desde + valor;
 
-  if ( desde >= this.totalCompras ) {
+  if ( desde >= this.total_compras ) {
     return;
   }
 
@@ -107,7 +118,7 @@ cambiarDesde( valor: number ) {
   }
 
   this.desde += valor;
-  this.cargarCompras();
+  this.listar_compras_paginado_fecha();
 
 }
 
@@ -118,7 +129,7 @@ cambiarDesde( valor: number ) {
 refrescar() {
   // Reseteo 'desde' a cero
   this.desde = 0;
-  this.cargarCompras();
+  this.listar_compras_paginado_fecha();
 }
 
 

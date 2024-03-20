@@ -31,7 +31,9 @@
                     <th width="1">
                         #
                     </th>
+                    <th>Fecha</th>
                     <th>Usuario</th>
+                    <th>Proveedor</th>
                     <th>Monto</th>
                     <th></th>
                 </tr>
@@ -39,7 +41,9 @@
             <tbody>
                 <tr *ngFor="let compra of compras">
                     <td>{{ compra.id_transaccion }}</td>
+                    <td>{{ compra.fecha }}</td>
                     <td>{{ compra.usuario }}</td>
+                    <td>{{ compra.proveedor }}</td>
                     <td>$ {{ compra.monto_total }}</td>
                     <button class="btn btn-inline" type="button">Editar</button>
                     <button class="btn btn-inline btn-danger" type="button">Eliminar</button>

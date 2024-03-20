@@ -68,6 +68,15 @@ buscarProveedoresPaginado(desde: any,pParametroBusqueda: any){
   return this.http.get( url, this.headers );
 }  
 
+// ==================================================
+//  
+// ==================================================
+buscar_proveedores_autocomplete( parametroBusqueda: string){
+
+  let url = URL_SERVICIOS + '/proveedores/autocomplete/' + parametroBusqueda + '/' + this.IdPersona;
+  return this.http.get( url, this.headers ); 
+  
+}
   // ==================================================
 //        
 // ==================================================

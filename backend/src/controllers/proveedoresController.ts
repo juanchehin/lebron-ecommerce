@@ -50,6 +50,63 @@ public async buscarProveedoresPaginado(req: Request, res: Response): Promise<voi
 }
 
 // ==================================================
+//        Autocomplete prov
+// ==================================================
+public async buscar_proveedor_autocomplete(req: Request, res: Response): Promise<void> {
+
+    var pParametroBusqueda = req.params.pProductoBuscado || '';
+    var pIdUsuario = req.params.IdPersona;
+    
+    if(pParametroBusqueda == null || pParametroBusqueda == 'null')
+    {
+        pParametroBusqueda = '';
+    }
+
+    // **
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_buscar_proveedor_autocomplete " + err);
+            throw err; // not connected!
+        }
+
+        try {
+            // Use the connection
+            connection.query('call bsp_buscar_proveedor_autocomplete(?,?)',[pParametroBusqueda,pIdUsuario], function(err: any, result: any){
+
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_buscar_proveedor_autocomplete - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
+                }
+                
+                if(err){
+                    logger.error("Error en bsp_buscar_producto_autocomplete - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_buscar_producto_autocomplete 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
+    // **
+
+}
+
+// ==================================================
 //        Lista 
 // ==================================================
 public async listarTodosProveedores(req: Request, res: Response): Promise<void> {

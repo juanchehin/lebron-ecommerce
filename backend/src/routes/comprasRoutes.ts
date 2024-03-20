@@ -36,7 +36,7 @@ class ComprasRoutes {
     config(): void {
 
         // 
-        this.router.get('/listar/:desde/:FechaInicio/:FechaFin/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], comprasController.listarCompras);
+        this.router.get('/listar/:desde/:FechaInicio/:FechaFin/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], comprasController.listar_compras_paginado_fecha);
         // this.router.get('/listar/mis-compras/:pDesde/:pFecha/:pIdPersona',comprasController.listarVentasIdUsuario);
         this.router.post('/alta/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], comprasController.altaCompra);
         this.router.post('/gastos/alta/:IdPersona',upload.single('comprobante_gasto'),[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], comprasController.altaGasto);

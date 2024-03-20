@@ -1,4 +1,42 @@
 <div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <label>Fecha : </label>
+            <input type="date" [(ngModel)]="fecha_compra" class="form-control" placeholder="dd/mm/yyyy">
+        </div>
+    <!-- ========== proveedor ============ -->
+        <div class="col-md-4">
+            <label>Proveedor : </label>
+            <div class="ng-autocomplete">
+                <ng-autocomplete [data]="proveedores" [searchKeyword]="keywordProveedor" 
+                placeholder="Selecciona proveedor" (selected)='selectEventProveedor($event)' 
+                (inputChanged)='onChangeSearchProveedor($event)'
+                [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
+            </div>
+            <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.nom_proveedor"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+            </ng-template>            
+        </div>
+        <!-- alta proveedor -->
+        <div class="col-md-2" style="top: 25px;">
+            <button type="button" class="btn btn-info btn-circle" data-toggle="modal" data-target="#responsive-modal-alta-proveedor">
+                <i class="fa fa-plus"></i> 
+            </button>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <!--  -->
+        <div class="col-sm-4 form-group">
+            <label>Comprobante : </label>
+            <input type="file" class="form-control" (change)="onFileSelected($event)" name="comprobante_compra" aria-describedby="fileHelp">
+        </div>
+    </div>
+
     <br /><br />
     <!-- ========== Fin proveedor ============ -->
     <!-- ========== Articulos ============ -->
@@ -12,7 +50,7 @@
                         <div class="ng-autocomplete">
                             <ng-autocomplete #productosReference [data]="productos" 
                                 [searchKeyword]="keywordProducto" placeholder="Selecciona producto" (selected)='selectEventProducto($event)' 
-                                (inputChanged)='onChangeSearchProducto($event)' (inputFocused)='onFocusedProducto($event)'
+                                (inputChanged)='onChangeSearchProducto($event)'
                                 [itemTemplate]="itemTemplateProducto" [notFoundTemplate]="notFoundTemplateProducto">
                             </ng-autocomplete>
                         </div>
@@ -90,4 +128,58 @@
     <button type="submit" (click)="continuarCompra()" class="btn btn-info btn-lg btn-block text-uppercase" alt="default" data-toggle="modal" data-target="#responsive-modal">Confirmar Compra</button>
     <br>
     <!-- ====================== -->
+</div>
+
+
+<!-- =========== MODAL Alta proveedor =========== -->
+<div class="col-md-4">
+    <div id="responsive-modal-alta-proveedor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Alta proveedor</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Proveedor : </label>
+                                <input type="text" [(ngModel)]="proveedor_alta_proveedor" maxlength="100" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>CUIL : </label>
+                                <input type="text" [(ngModel)]="cuil_alta_proveedor" maxlength="20" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Apellidos : </label>
+                                <input type="text" [(ngModel)]="apellidos_alta_proveedor" maxlength="100" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Nombres : </label>
+                                <input type="text" [(ngModel)]="nombres_alta_proveedor" maxlength="100" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Telefono : </label>
+                                <input type="text" [(ngModel)]="telefono_alta_proveedor" maxlength="100" class="form-control">
+                            </div>                            
+                            <div class="col-sm-6">
+                                <label>Email : </label>
+                                <input type="text" [(ngModel)]="email_alta_proveedor" maxlength="100" class="form-control">
+                            </div>
+                            <div class="col-sm-12">
+                                <label>Observaciones : </label>
+                                <textarea type="textarea" [(ngModel)]="observaciones_alta_proveedor" maxlength="255" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button #divCerrarModalAltaProveedor type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light" (click)="alta_proveedor()">Cargar proveedor</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
 </div>

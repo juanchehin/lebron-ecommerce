@@ -71,7 +71,6 @@
                     <ul aria-expanded="false" [ngClass]="expandirVentas ? 'collapse' : ''">
                         <li><a [routerLink]="['/dashboard/ventas/listar']">Listar ventas</a></li>
                         <li><a [routerLink]="['/dashboard/ventas/nueva']">Nuevo venta</a></li>
-                        <li><a [routerLink]="['/dashboard/ventas/usuario',IdPersona]">Mis ventas</a></li>
                         <li><a [routerLink]="['/dashboard/ventas/quimicos']">Quimicos</a></li>
                         <li *ngIf="activarMenu('Pedidos')"><a [routerLink]="['/dashboard/ventas/pedidos']">Pedidos</a></li>
                     </ul>

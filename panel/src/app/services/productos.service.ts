@@ -85,6 +85,16 @@ ofertarProducto( IdProducto: any ) {
 
   return this.http.get(url,this.headers);
 }
+
+  // ==================================================
+//        
+// ==================================================
+baja_producto_sabor( id_prod_sabor: any ) {
+
+  let url = URL_SERVICIOS + '/productos/baja/prod-sabor/' + id_prod_sabor + '/' + this.IdPersona;
+
+  return this.http.get(url,this.headers);
+}
   // ==================================================
 //        
 // ==================================================

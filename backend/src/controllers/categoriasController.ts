@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import pool from '../database';
+const logger = require("../utils/logger").logger;
 
 class CategoriasController {
 
@@ -42,15 +43,48 @@ public async listarCategoriasSubcategorias(req: Request, res: Response): Promise
 // ==================================================
 public async listarSubcategoriasPorIdCategoria(req: Request, res: Response): Promise<void> {
     var pIdCategoria = req.params.pIdCategoria || 0;
-    
-    pool.query(`call bsp_listar_subcategorias_idcat('${pIdCategoria}')`, function(err: any, result: any){
-        if(err){
-            res.status(400).json(err);
-            return;
+    var IdPersona = req.params.IdPersona || 0;
+
+    // **
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_listar_subcategorias_idcat " + err);
+            throw err; // not connected!
         }
 
-        res.status(200).json(result);
-    })
+        try {
+            // Use the connection
+            connection.query('call bsp_listar_subcategorias_idcat(?,?)',[IdPersona,pIdCategoria], function(err: any, result: any){
+                
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_listar_subcategorias_idcat - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
+                }
+                
+                if(err){
+                    logger.error("Error en bsp_listar_subcategorias_idcat - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_listar_subcategorias_idcat 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
 }
 
 // ==================================================

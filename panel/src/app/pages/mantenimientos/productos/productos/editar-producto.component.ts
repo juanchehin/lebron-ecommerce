@@ -177,36 +177,51 @@ editar_producto() {
 cargarDatosFormEditarProducto() {
 
     this.productosService.cargarDatosFormEditarProducto( this.IdProducto )
-               .subscribe( (resp: any) => {
+               .subscribe(  {
+                next: (resp: any) => { 
+                  
+                  if ( resp[9][0].mensaje == 'ok') {
 
-                this.marcas = resp[0];
-                this.categorias = resp[1];
-                this.unidades = resp[2];
-                this.proveedores = resp[3];
-                this.sucursalPrincipal = resp[4][0].Sucursal;
-                this.sabores = resp[5];
-                this.producto = resp[6][0];
-                this.sabores_cargados = resp[7];
+                    this.marcas = resp[0];
+                    this.categorias = resp[1];
+                    this.subcategorias = resp[2];
+                    this.unidades = resp[3];
+                    this.proveedores = resp[4];
+                    this.sucursalPrincipal = resp[5][0].Sucursal;
+                    this.sabores = resp[6];
+                    this.producto = resp[7][0];
+                    this.sabores_cargados = resp[8];
+    
+                    this.IdCategoria = this.producto.id_categoria;
+                    this.IdSubCategoria = this.producto.id_subcategoria;
+                    this.IdMarca = this.producto.id_marca;
+                    this.IdUnidad = this.producto.id_unidad;        
+                    this.Producto = this.producto.producto;
+                    this.IdProveedor = this.producto.id_proveedor;
+                    this.FechaVencimiento = this.producto.fecha_venc;
+                    this.Descripcion = this.producto.descripcion;
+                    this.StockAlerta = this.producto.stock_alerta;
+                    this.Medida = this.producto.medida;
+                    this.PrecioCompra = this.producto.precio_compra;
+                    this.PrecioVenta = this.producto.precio_venta;
+                    this.PrecioMayorista = this.producto.precio_mayorista;
+                    this.PrecioMeli = this.producto.precio_meli;
+                    this.Descuento = this.producto.descuento;
+                    this.Moneda = this.producto.moneda;
 
-                this.IdCategoria = this.producto.id_categoria;
-                this.IdSubCategoria = this.producto.id_subcategoria;
-                this.IdMarca = this.producto.id_marca;
-                this.IdUnidad = this.producto.id_unidad;        
-                this.Producto = this.producto.producto;
-                this.IdProveedor = this.producto.id_proveedor;
-                this.FechaVencimiento = this.producto.fecha_vencimiento;
-                this.Descripcion = this.producto.descripcion;
-                this.StockAlerta = this.producto.stock_alerta;
-                this.Medida = this.producto.medida;
-                this.PrecioCompra = this.producto.precio_compra;
-                this.PrecioVenta = this.producto.precio_venta;
-                this.PrecioMayorista = this.producto.precio_mayorista;
-                this.PrecioMeli = this.producto.precio_meli;
-                this.Descuento = this.producto.descuento;
-                this.Moneda = this.producto.moneda;
+                    if((this.IdSubCategoria == 1) || ( this.subcategorias.length <= 0)){
+                      this.deshabilitarSubcategorias = true;
+                    }else{
+                      this.deshabilitarSubcategorias = false;
+                    }
 
+                  } else {
+                    this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
+                  }
+                  return;
+                 },
+                error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
               });
-
   }
 
   
@@ -217,10 +232,26 @@ cargarDatosFormEditarProducto() {
 cargarSubcategoriaIdCategoria(IdCategoria: any) {
 
     this.categoriasService.cargarSubcategoriaIdCategoria( IdCategoria )
-               .subscribe( (resp: any) => {
+               .subscribe({
+                next: (resp: any) => {
+                  
+                  if ( resp[2][0].mensaje == 'ok') {
+                    
+                      if(resp[1][0].total_subcat <= 0){
+                        this.deshabilitarSubcategorias = true;    
+                      }else{
+                        this.deshabilitarSubcategorias = false;
+                        this.subcategorias = resp[0];
+                      }
 
-                this.subcategorias = resp[0];
-
+                  } else {
+                    this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+                  }
+                  return;
+                 },
+                error: () => {
+                  this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+              }
               });
 
   }
@@ -257,16 +288,42 @@ onChangeCategorias(IdCategoria: any) {
 // ==============================
 // 
 // ================================
-  eliminarItemSabor(IdProducto: any){
+  eliminarItemSabor(id_prod_sabor: any){
+
+    if (this.sabores_cargados.length <= 1) {
+      this.alertService.alertInfoWithText('Atencion','Debe existir al menos un codigo/sabor',false,2500);
+      return;
+    }
 
     this.sabores_cargados.forEach( (item: any, index: any) => {
-      if(item.IdProducto === IdProducto) 
+
+      if(item.id_producto_sabor == id_prod_sabor) 
       {
-        // this.totalVenta -= item.PrecioVenta * item.Cantidad;
         this.sabores_cargados.splice(index,1);
       }
         
     });
+
+    
+    this.productosService.baja_producto_sabor( id_prod_sabor  )
+    .subscribe( {
+    next: (resp: any) => {
+
+      if ( resp[0][0].mensaje == 'ok') {       
+        this.alertService.alertSuccess('top-end','Sabor eliminado',false,900);
+      } else {
+        this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+      }
+      return;
+      },
+    error: (err: any) => { 
+      this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+    
+    }
+  });
+
+
+
 
   }
 

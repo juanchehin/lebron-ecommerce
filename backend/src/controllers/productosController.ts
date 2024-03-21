@@ -26,6 +26,7 @@ public async altaProducto(req: Request, res: Response) {
     var PrecioMeli = req.body[13];
     var Descuento = req.body[14];
     var Moneda = req.body[15].charAt(0);
+
     var arraySaboresCodigo = req.body[16];
 
     if(IdSubCategoria == undefined || IdSubCategoria == 'undefined' || IdSubCategoria == null || IdSubCategoria == 'null')
@@ -383,6 +384,67 @@ public async destacarProducto(req: Request, res: Response): Promise<void> {
         res.status(200).json(result);
     })
 }
+
+// ==================================================
+//        
+// ==================================================
+public async baja_producto_sabor(req: Request, res: Response): Promise<void> {
+
+    var pIdProductosabor = req.params.pIdProductosabor;
+    var pIdPersona = req.params.IdPersona;
+
+      // **
+    pool.getConnection(function(err: any, connection: any) {
+    if (err) {
+        logger.error("Error funcion bsp_baja_producto_sabor" + err);
+        throw err; // not connected!
+    }
+
+    try {
+        // Use the connection
+        connection.query('call bsp_baja_producto_sabor(?,?)',[pIdPersona,pIdProductosabor], function(err: any, result: any){
+
+            if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                if(result[0][0].Level == 'Error'){
+                    logger.error("Error en bsp_baja_producto_sabor - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+        
+                    res.status(400).json(result);
+                    return;
+                }
+            }
+            
+            if(err){
+                logger.error("Error en bsp_baja_producto_sabor - err: " + err + " - result:" + result);
+    
+                res.status(400).json(err);
+                return;
+            }
+    
+            res.status(200).json(result);
+
+        });
+
+    } catch (error) {
+        logger.error("Error en bsp_baja_producto_sabor 2 - " + error);
+        res.status(500).send('Error interno del servidor');
+    } finally {
+        connection.release();
+    }
+    });
+
+    // pool.query(`call bsp_ofertar_producto('${pIdProducto}')`, function(err: any, result: any){
+
+    //     if(err || result[0][0].mensaje !== 'Ok'){
+    //         return res.status(200).json({
+    //             ok: false,
+    //             mensaje: result[0][0].mensaje
+    //         });
+    //     }
+        
+    //     res.status(200).json(result);
+    // })
+}
 // ==================================================
 //        Lista los productos destacados para mostrar en el home
 // ==================================================
@@ -507,6 +569,7 @@ public async cargarDatosFormNuevoProducto(req: Request, res: Response): Promise<
 public async editar_producto(req: Request, res: Response) {
 
     var IdUsuario = req.params.IdPersona;
+    console.log('req.body::: ', req.body);
 
     var IdProducto = req.body[0];
     var IdCategoria = req.body[1];
@@ -525,6 +588,7 @@ public async editar_producto(req: Request, res: Response) {
     var PrecioMeli = req.body[14];
     var Descuento = req.body[15];
     var Moneda = req.body[16].charAt(0);
+
     var arraySaboresCodigo = req.body[17];
     var cantidad_sabores_cargados = req.body[18];
 
@@ -557,6 +621,16 @@ public async editar_producto(req: Request, res: Response) {
             // Use the connection
             connection.query('call bsp_editar_producto(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',[IdUsuario,IdProducto,IdCategoria,IdSubCategoria,IdMarca,IdUnidad,Producto,IdProveedor,FechaVencimiento,Descripcion
             ,StockAlerta,Medida,PrecioCompra,PrecioVenta,PrecioMayorista,PrecioMeli,Descuento,Moneda,json_arraySaboresCodigo,cantidad_sabores_cargados], function(err: any, result: any){
+                
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_editar_producto - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
+                }
                 
                 if(err){
                     logger.error("Error en bsp_editar_producto - err: " + err + " - result:" + result);

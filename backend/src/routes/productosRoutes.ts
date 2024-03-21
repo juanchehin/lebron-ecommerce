@@ -29,6 +29,7 @@ class ProductosRoutes {
         this.router.get('/publicar/:IdProducto/:IdPersona',  [mdAutenticacion.verificaToken],productosController.publicarProducto); 
         this.router.get('/destacar/:IdProducto/:IdPersona',  [mdAutenticacion.verificaToken],productosController.destacarProducto); 
         this.router.get('/ofertar/:IdProducto/:IdPersona',  [mdAutenticacion.verificaToken],productosController.ofertarProducto); 
+        this.router.get('/baja/prod-sabor/:pIdProductosabor/:IdPersona',  [mdAutenticacion.verificaToken],productosController.baja_producto_sabor); 
 
         this.router.get('/listar/:desde/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.listarProductosPaginado); 
         this.router.get('/listar/busqueda/autocomplete/:pProductoBuscado/:IdSucursal/:IdPersona',  [mdAutenticacion.verificaToken],productosController.buscarProductoAutoComplete); 

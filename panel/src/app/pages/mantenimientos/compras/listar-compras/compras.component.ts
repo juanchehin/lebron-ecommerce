@@ -19,6 +19,8 @@ export class ComprasComponent implements OnInit {
 
   total_compras = 0;
   compras!: Array < any > ;
+  detalles_compra: any;
+  id_transaccion_seleccionada: any;
 
   constructor(
     public comprasService: ComprasService,
@@ -58,16 +60,6 @@ cambiosFechaFin(nuevafechaFin: any) {
   // this.fechaFin = nuevafechaFin;
 
 }
-
-// ==================================================
-// Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
-// ==================================================
-cambiosFecha(nuevafechaFin: any) {
-
-  
-
-}
-
 // ==================================================
 //        Carga 
 // ==================================================
@@ -86,6 +78,37 @@ listar_compras_paginado_fecha() {
                   this.total_compras = resp[1][0].total_compras;
 
                   this.compras = resp[0];
+                  
+                } else {
+                  this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);
+                }
+              
+                return;
+               },
+              error: () => { 
+                this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000)
+              }
+
+            });
+
+}
+
+// ==================================================
+//        Carga 
+// ==================================================
+
+cargar_detalle_compra(id_transaccion: any) {
+
+  this.id_transaccion_seleccionada = id_transaccion;
+  
+  this.comprasService.cargar_detalle_compra(id_transaccion)
+             .subscribe({             
+              next: (resp: any) => {
+                console.log('resp::: ', resp);
+
+                if(resp[1][0].mensaje == 'ok') {
+
+                  this.detalles_compra = resp[0];
                   
                 } else {
                   this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2000);

@@ -60,6 +60,59 @@ public async listar_compras_paginado_fecha(req: Request, res: Response): Promise
 
 }
 
+// ==================================================
+//        Lista las compras
+// ==================================================
+
+public async cargar_detalle_compra(req: Request, res: Response): Promise<void> {
+
+    console.log('req.params::: ', req.params);
+    var p_id_transaccion = req.params.id_transaccion;
+    var IdPersona = req.params.IdPersona;
+    
+    // **
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_listar_detalle_compra " + err);
+            throw err; // not connected!
+        }
+
+        try {
+            // Use the connection
+            connection.query('call bsp_listar_detalle_compra(?,?)',[IdPersona,p_id_transaccion], function(err: any, result: any){
+                console.log('err::: ', err);
+                console.log('result::: ', result);
+
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_listar_detalle_compra - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
+                }
+                
+                if(err){
+                    logger.error("Error en bsp_listar_detalle_compra - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_listar_detalle_compra 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
+}
 
 // ==================================================
 //        Lista 

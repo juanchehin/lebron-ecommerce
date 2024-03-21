@@ -10,7 +10,7 @@
                 <input class="form-control" type="date" [(ngModel)]="fechaFin" (ngModelChange)="cambiosFechaFin($event)" required> &nbsp;&nbsp;&nbsp;&nbsp;
             </div>
             <div class="col-sm-4">
-                <button [disabled]="controlFechas" (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                <button [disabled]="controlFechas" (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary " style="top: 25px;">
                     <span class="material-icons">refresh</span>
                 </button>
             </div>
@@ -45,8 +45,21 @@
                     <td>{{ compra.usuario }}</td>
                     <td>{{ compra.proveedor }}</td>
                     <td>$ {{ compra.monto_total }}</td>
-                    <button class="btn btn-inline" type="button">Editar</button>
-                    <button class="btn btn-inline btn-danger" type="button">Eliminar</button>
+                    <button class="btn btn-inline btn-success" type="button" data-toggle="modal" (click)="cargar_detalle_compra(compra.id_transaccion)" data-target="#responsive-modal-detalle-compra">
+                        <i class="material-icons"> 
+                            visibility    
+                        </i>
+                    </button>
+                    <button class="btn btn-inline btn-secondary" type="button" [routerLink]="['/dashboard/ventas/editar',compra.id_transaccion]">
+                        <i class="material-icons"> 
+                            edit    
+                        </i>
+                    </button>
+                    <button class="btn btn-inline btn-danger" type="button" >
+                        <i class="material-icons"> 
+                            delete    
+                        </i>
+                    </button>
                 </tr>
 
             </tbody>
@@ -59,3 +72,41 @@
     <!--.container-fluid-->
 </div>
 <!--.page-content-->
+
+<!-- =========== MODAL Detalle compra =========== -->
+<div class="col-md-8">
+    <div id="responsive-modal-detalle-compra" class="modal fade" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Detalle compra # {{ id_transaccion_seleccionada }}</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body ">
+                    <table id="table-edit" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Monto</th>
+                                <th>Usuario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let dc of detalles_compra">
+                                <td>{{ dc.producto }}</td>
+                                <td>{{ dc.cantidad }}</td>
+                                <td>$ {{ dc.precio_compra }}</td>
+                                <td>{{ dc.usuario }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button #divCerrarModalDetalleCompra type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+</div>

@@ -12,11 +12,11 @@ import { VentasService } from 'src/app/services/ventas.service';
 import { UtilService } from '../../../../services/util.service';
 
 @Component({
-  selector: 'app-nueva-venta',
-  templateUrl: './nueva-venta.component.html',
-  styleUrls: ['./nueva-venta.component.css']
+  selector: 'app-editar-venta',
+  templateUrl: './editar-venta.component.html',
+  styleUrls: ['./editar-venta.component.css']
 })
-export class NuevaVentaComponent implements OnInit {
+export class EditarVentaComponent implements OnInit {
 
   currentDate = new Date();
 
@@ -85,6 +85,10 @@ export class NuevaVentaComponent implements OnInit {
   montoEfectivo = 0;
   totalTiposPago = 0;
 
+  //
+  id_venta: any;
+  datos_venta: any;
+
 
   constructor(
     public productosService: ProductosService, 
@@ -102,16 +106,18 @@ export class NuevaVentaComponent implements OnInit {
 
   ngOnInit() {   
     // this.resetearVariables();
+    this.id_venta = this.activatedRoute.snapshot.paramMap.get('pIdVenta');
+
     this.fecha_venta = this.utilService.formatDateNow(new Date(Date.now()));
     this.datosVendedor = [];
-    this.cargarDatosNuevaVenta();
+    this.cargarDatosEditarVenta();
   }
   
 // ==================================================
 //        Crear 
 // ==================================================
 
-altaVenta() {
+editar_venta() {
   
 
       if ( this.totalVenta != this.totalTiposPago ) {
@@ -217,16 +223,35 @@ cargarTiposPago() {
 // Carga los datos de la venta
 // ==================================================
 
-cargarDatosNuevaVenta() {
+cargarDatosEditarVenta() {
   
-    this.ventasService.cargarDatosNuevaVenta(  )
+    this.ventasService.cargarDatosEditarVenta( this.id_venta )
                .subscribe( {
                 next: (resp: any) => {
+                  console.log('resp::: ', resp);
 
-                  this.datosVendedor = resp[0][0];
-                  this.sucursales_vendedor = resp[1];
-                  this.operaciones = resp[2];
-                  this.fecha_venta = this.utilService.formatDateNow(resp[3][0].fecha_bd);
+                  this.datos_venta = resp[0];
+
+                  this.id_operacion_seleccionada = this.datos_venta.id_operacion;
+                  this.id_sucursal_seleccionada = this.datos_venta.id_sucursal;
+                  this.totalVenta = this.datos_venta.monto_total;
+                  // this.id_operacion_seleccionada = this.datos_venta.id_operacion;
+                  // this.id_operacion_seleccionada = this.datos_venta.id_operacion;
+
+                  this.lineas_venta = resp[1];
+
+                  this.lineas_venta.forEach( (item: any, index) => {
+      
+                    this.cantidadLineaVenta = item.cantidad;
+                    // this.codigo = item.cantidad;
+
+                  });
+                  
+
+                  this.datosVendedor = resp[3][0];
+                  this.sucursales_vendedor = resp[4];
+                  this.operaciones = resp[5];
+                  // this.fecha_venta = this.utilService.formatDateNow(resp[3][0].fecha_bd);
 
                   // this.idSucursalVendedor = this.datosVendedor.id_sucursal;
                 },

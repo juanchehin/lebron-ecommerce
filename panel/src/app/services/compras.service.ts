@@ -50,6 +50,16 @@ export class ComprasService {
     return this.http.get( url,this.headers );
   }
 
+  // ==================================================
+//
+// ==================================================
+cargar_detalle_compra(id_transaccion: any){
+
+  let url = URL_SERVICIOS + '/compras/listar/detalle/' + id_transaccion + '/' + this.IdPersona;
+
+  return this.http.get( url,this.headers );
+}
+
 // ==================================================
 //
 // ==================================================

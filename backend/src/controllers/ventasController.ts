@@ -104,14 +104,17 @@ public async listarVentasQuimicos(req: Request, res: Response): Promise<void> {
                     res.status(400).json(err);
                     return;
                 }
-                
-                if(result[0][0].Level == 'Error'){
-                    logger.error("Error en bsp_listar_ventas_quimicos_paginado_fechas - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
-        
-                    res.status(400).json(result);
-                    return;
+
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_listar_ventas_quimicos_paginado_fechas - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
                 }
-        
+                
                 res.status(200).json(result);
 
             });
@@ -408,7 +411,58 @@ cargarDatosNuevaVenta(req: Request, res: Response) {
 
 }
 
-// 
+// ==================================================
+//        
+// ==================================================
+cargarDatosEditarVenta(req: Request, res: Response) {
+
+    var p_id_usuario = req.params.IdPersona;
+    var p_id_venta = req.params.pIdVenta;
+
+
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_dame_datos_editar_venta " + err);
+            throw err; // not connected!
+        }
+       
+        try {
+            // Use the connection
+            connection.query('call bsp_dame_datos_editar_venta(?,?)',[p_id_usuario,p_id_venta], function(err: any, result: any){
+                console.log('result::: ', result);
+                console.log('err::: ', err);
+
+                if(err){
+                    logger.error("Error en bsp_dame_datos_editar_venta - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_dame_datos_editar_venta - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
+                }
+                
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_dame_datos_editar_venta 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
+
+}
 
 
 // ==================================================
@@ -462,11 +516,14 @@ async altaVentaQuimicos(req: Request, res: Response) {
                     return;
                 }
 
-                if(result[0][0].Level == 'Error'){
-                    logger.error("Error en bsp_alta_venta_quimico - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
-        
-                    res.status(400).json(result);
-                    return;
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_alta_venta_quimico - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
                 }
                 
                 res.status(200).json(result);

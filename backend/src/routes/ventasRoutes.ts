@@ -44,6 +44,8 @@ class VentasRoutes {
         this.router.get('/datos-pdf/:pIdTransaccion',[mdAutenticacion.verificaToken],ventasController.dameDatosPDFVenta);
         this.router.get('/datos/dashboard/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],ventasController.dameDatosDashboard);
         this.router.get('/nueva/datos/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],ventasController.cargarDatosNuevaVenta);
+        this.router.get('/editar/datos/:pIdVenta/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],ventasController.cargarDatosEditarVenta);
+
         this.router.get('/baja/:IdPersona/:pIdTransaccion',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],ventasController.baja_transaccion);
 
         this.router.post('/alta/:IdPersona',upload.single('comprobante_venta'),[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], ventasController.altaVenta);

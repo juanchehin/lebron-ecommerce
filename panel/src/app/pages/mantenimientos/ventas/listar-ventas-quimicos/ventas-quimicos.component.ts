@@ -58,7 +58,7 @@ cargarVentas() {
   this.ventasService.listar_ventas_quimicos_fechas( this.fechaInicio, this.fechaFin , this.desde, this.id_estado_seleccionado )
              .subscribe( {
               next: (resp: any) => {
-
+                
                 if(resp[2][0].mensaje == 'ok') {
 
                   this.totalVentas = resp[1][0].totalVentas;

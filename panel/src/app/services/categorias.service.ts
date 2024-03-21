@@ -91,7 +91,7 @@ cargarCategorias( parametroBusqueda: string){
 cargarSubcategoriaIdCategoria( IdCategoria: string){
 
 
-    let url = URL_SERVICIOS + '/categorias/listar/subcategorias/' + IdCategoria;
+    let url = URL_SERVICIOS + '/categorias/listar/subcategorias/' + IdCategoria + '/' + this.IdPersona;
     return this.http.get( url );
 
 

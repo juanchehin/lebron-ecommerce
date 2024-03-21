@@ -160,6 +160,17 @@ cargarDatosNuevaVenta(  ){
   return this.http.get( url ,this.headers);
 }
 
+
+// ==================================================
+//
+// ==================================================
+cargarDatosEditarVenta( id_venta: any ){
+
+  let url = URL_SERVICIOS + '/ventas/editar/datos/'+ id_venta + '/' + this.IdPersona;
+
+  return this.http.get( url ,this.headers);
+}
+
 // ==================================================
 //
 // ==================================================

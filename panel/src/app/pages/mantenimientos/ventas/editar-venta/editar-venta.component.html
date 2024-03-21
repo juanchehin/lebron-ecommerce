@@ -1,0 +1,302 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <label>Vendedor : </label>
+            <h4>{{datosVendedor.apellidos}} {{datosVendedor.nombres}}</h4>
+        </div>
+        <div class="col-sm-4">
+            <label>Sucursal : </label>
+            <select tabindex="4" (ngModelChange)='onChangeSucursal($event)' [(ngModel)]="id_sucursal_seleccionada" class="form-control">
+                <option *ngFor="let suc_vend of sucursales_vendedor" [value]="suc_vend.id_sucursal">
+                    {{suc_vend.sucursal}}
+                </option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label>Fecha : </label>
+            <input type="date" [(ngModel)]="fecha_venta" class="form-control" placeholder="dd/mm/yyyy">
+        </div>
+    </div>
+    <!-- ========== cliente ============ -->
+    <div class="row">
+        <div class="col-md-6">
+            <label>Cliente : </label>
+            <div class="ng-autocomplete">
+                <ng-autocomplete [data]="clientes" [searchKeyword]="keywordCliente" 
+                placeholder="Selecciona cliente" (selected)='selectEvent($event)' 
+                (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' 
+                [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                </ng-autocomplete>
+            </div>
+            <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.NombreCompleto"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+            </ng-template>            
+        </div>
+        <!--  -->
+        <div class="col-md-2" style="top: 25px;">
+            <button type="button" class="btn btn-info btn-circle"  data-toggle="modal" data-target="#responsive-modal-alta-cliente">
+                <i class="fa fa-plus"></i> 
+            </button>
+        </div>
+        <!--  -->
+        <div class="col-sm-4 form-group">
+            <label>Operacion : </label>
+            <select tabindex="4" (ngModelChange)='onChangeTipoVenta($event)' [(ngModel)]="id_operacion_seleccionada" class="form-control">
+                <option *ngFor="let op of operaciones" [value]="op.id_operacion">
+                    {{op.operacion}}
+                </option>
+            </select>
+        </div>
+         <!--  -->
+         <div class="col-sm-4 form-group">
+            <label>Comprobante : </label>
+            <input type="file" class="form-control" (change)="onFileSelected($event)" name="comprobante_venta" aria-describedby="fileHelp">
+        </div>
+    </div>
+    <br /><br />
+    <!-- ========== Fin cliente ============ -->
+    <!-- ========== Articulos ============ -->
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <!-- ========== Buscador producto ============ -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 >Producto :</h4>
+                        <div class="ng-autocomplete">
+                            <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" 
+                            (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' 
+                            (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
+                            [notFoundTemplate]="notFoundTemplateProducto">
+                            </ng-autocomplete>
+                        </div>
+                        <ng-template #itemTemplateProducto let-item>
+                            <a [innerHTML]="item.codigoproductosabor"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplateProducto let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
+                    <div class="col-md-2">
+                        <h4 >Cantidad :</h4>
+                        <input [(ngModel)]="cantidadLineaVenta" (input)="cambiaCantidadVenta($event)" type="text" class="form-control form-control-line" placeholder="Cantidad..." maxlength="3">
+                    </div>
+                    <div class="col-md-2" style="top: 25px;">
+                        <button (click)="agregarLineaVenta()" type="button" class="btn btn-info btn-circle"><i class="fa fa-plus"></i> </button>
+                    </div>
+                </div>
+
+                <!-- ========== Fin Buscador producto ============ -->
+                <br/><br/>
+                <!-- ===== Tabla con listado de productos ===== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Productos agregados</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Producto</th>
+                                                <th>Cantidad</th>
+                                                <th>Precio Un.</th>
+                                                <th>SubTotal</th>
+                                                <th class="text-nowrap"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let linea of lineas_venta">
+                                                <td>{{linea.Codigo }}</td>
+                                                <td>{{linea.Producto }}</td>
+                                                <td>{{linea.Cantidad }}</td>
+                                                <td>{{linea.PrecioVenta }}</td>
+                                                <td>{{linea.SubTotal }}</td>
+                                                <td class="text-nowrap">
+                                                    <a data-toggle="tooltip" (click)="eliminarItemVenta(linea.IdProductoSabor)" data-original-title="Close"> 
+                                                        <i class="fa fa-close text-danger"></i> </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h4>Total Venta : $ {{totalVenta}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ===== Fin Tabla con listado de productos ===== -->
+            </div>
+        </div>
+    </div>
+    <br>
+    <button hidden #buttonAbrirModalDescuentoEfectivo class="btn btn-primary" data-toggle="modal" data-target="#divCerrarModalDescuentoEfectivo" data-whatever="@mdo"></button>
+    <button type="submit" (click)="continuarVenta()" class="btn btn-info btn-lg btn-block text-uppercase" data-toggle="modal" data-target="#responsive-modal">Continuar</button>
+    <br>
+    <!-- ====================== -->
+</div>
+
+<!-- =========== MODAL Formas de pago =========== -->
+<div class="col-md-4" *ngIf="activarModal">
+    <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Formas de pago</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-8">
+                        <h4>Total Venta : $ {{totalVenta}}</h4>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label>Tipo pago : </label>
+                                <select tabindex="4" (ngModelChange)='onChangeTipoPago($event)' [(ngModel)]="IdTipoPagoSelect" name="IdTipoPago" class="form-control">
+                                    <option *ngFor="let tp of tiposPago" [value]="tp.id_tipo_pago">
+                                        {{tp.tipo_pago}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label>Monto : </label>
+                                <input type="text" [(ngModel)]="monto" name="monto" class="form-control">
+                            </div>
+                            <div class="col-md-4">
+                                <button (click)="agregarLineaTipoPago()" type="button" class="btn btn-info btn-circle" style="margin-top: 30px;"><i class="fa fa-plus"></i> </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Items de pago</h4>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tipo</th>
+                                                    <th>Subtotal</th>
+                                                    <th class="text-nowrap"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let linea_tp of lineas_tipos_pago" [ngClass]="{'table-success': (linea_tp.TipoPago == 'Descuento Efectivo'), 'table-warning' : (linea_tp.TipoPago == 'Recargo Tarjeta') }">
+                                                <!-- "(linea_tp.TipoPago == 'Descuento Efectivo') ? 'table-success' : '',(linea_tp.TipoPago == 'Recargo Tarjeta') ? 'table-warning' : ''"> -->
+                                                    <td>{{linea_tp.TipoPago }}</td>
+                                                    <td>$ {{linea_tp.SubTotal }}</td>
+                                                    <td class="text-nowrap">
+                                                        <a (click)="eliminarItemTipoPago(linea_tp.IdItem)" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h4>Total : $ {{totalTiposPago}}</h4>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h6>Restante : $ {{totalTiposPagoRestante}}</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button #divCerrarModal type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light" (click)="editar_venta()">Finalizar venta</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+</div>
+
+<!-- =========== MODAL descuento efectivo =========== -->
+<div id="divCerrarModalDescuentoEfectivo" class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Descuento efectivo</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Porcentaje descuento %:</label>
+                        <input [(ngModel)]="porcentajeDescuentoEfectivo" name="porcentajeDescuentoEfectivo" type="text" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button #divCerrarModalDescuentoEfectivo type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button (click)="aplicarDescuentoEfectivo()" type="button" class="btn btn-primary">Aplicar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- =========== MODAL Alta cliente =========== -->
+<div class="col-md-4">
+    <div id="responsive-modal-alta-cliente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Alta cliente</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <label>Apellidos : </label>
+                                <input type="text" [(ngModel)]="apellidos_alta_cliente" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Nombres : </label>
+                                <input type="text" [(ngModel)]="nombres_alta_cliente" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Telefono : </label>
+                                <input type="text" [(ngModel)]="telefono_alta_cliente" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>DNI : </label>
+                                <input type="text" [(ngModel)]="dni_alta_cliente" class="form-control">
+                            </div>
+                            <div class="col-sm-6">
+                                <label>Email : </label>
+                                <input type="text" [(ngModel)]="email_alta_cliente" class="form-control">
+                            </div>
+                            <div class="col-sm-12">
+                                <label>Observaciones : </label>
+                                <input type="textarea" [(ngModel)]="observaciones_alta_cliente" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button #divCerrarModalAltaCliente type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light" (click)="alta_cliente()">Cargar cliente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+</div>

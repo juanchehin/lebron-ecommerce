@@ -76,6 +76,11 @@
                         <td>$ {{ venta.monto_total }}</td>
                         <td>{{ venta.sucursal }}</td>
                         <td>
+                            <button class="btn btn-inline btn-secondary" type="button" [routerLink]="['/dashboard/ventas/editar',venta.id_transaccion]">
+                                <i class="material-icons"> 
+                                    edit    
+                                </i>
+                            </button>
                             <button class="btn btn-inline btn-success" type="button" (click)="generar_factura_pdf(venta.id_transaccion)">
                                 <i class="material-icons"> 
                                     picture_as_pdf    

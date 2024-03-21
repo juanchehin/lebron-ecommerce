@@ -61,7 +61,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let producto of productos">
+                            <tr *ngFor="let producto of productos" [ngStyle]="{ 'background-color': (producto.advertencia_stock_alerta == true)? 'rgba(255, 0, 0, 0.5)' : 'white' }">
                                 <td>{{ producto.codigo }}</td>
                                 <td>{{ producto.producto }}</td>
                                 <td>{{ producto.sabor }}</td>

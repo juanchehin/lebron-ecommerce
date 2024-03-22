@@ -11,8 +11,7 @@
                     <input type="date" class="form-control" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div class="col-sm-4">
-                    <label>Sucursal : </label>
-                    
+                    <label>Sucursal : </label>                    
                     <select tabindex="4" (ngModelChange)='onChangeSucursal($event)' [(ngModel)]="id_sucursal_seleccionada" class="form-control">
                         <option [value]="0" default>Todas</option>
                         <option *ngFor="let suc_us of sucursales_usuario" [value]="suc_us.id_sucursal">
@@ -33,7 +32,13 @@
                     <label>Nro transaccion : </label>
                     <input type="text" [(ngModel)]="id_transaccion_buscada" class="form-control">
                 </div>
-                <div class="col-sm-4" style="top: 27px;">
+                <div class="col-sm-2" style="top: 27px;">
+                    <button (click)="cargarVentas()" class="btn btn-rounded btn-primary"><span class="material-icons">
+                        search
+                        </span>
+                    </button>
+                </div>
+                <div class="col-sm-2" style="top: 27px;">
                     <button (click)="refrescar()" class="btn btn-rounded btn-primary"><span class="material-icons">
                         refresh
                         </span>

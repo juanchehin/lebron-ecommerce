@@ -88,56 +88,6 @@ cargarVentas() {
             });
 
 }
-// ==================================================
-// Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
-// ==================================================
-cambiosfechaInicio(nuevafechaInicio: any) {
-
-  if (nuevafechaInicio > this.fechaFin) {
-    // this.fechaInicio = nuevafechaInicio;
-    this.controlFechas = true;
-  } else {
-    this.controlFechas = false;
-  }
-
-}
-
-// ==================================================
-// Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
-// ==================================================
-cambiosfechaFin(nuevafechaFin: any) {
-
-  if (nuevafechaFin < this.fechaInicio) {
-    // this.fechaInicio = nuevafechaFin;
-    this.controlFechas = true;
-  } else {
-    this.controlFechas = false;
-  }
-  // this.fechaFin = nuevafechaFin;
-
-}
-
-// ==================================================
-//        Cambio de valor
-// ==================================================
-
-cambiarDesde( valor: number ) {
-
-  const desde = this.desde + valor;
-
-  if ( desde >= this.totalVentas ) {
-    return;
-  }
-
-  if ( desde < 0 ) {
-    return;
-  }
-
-  this.desde += valor;
-  this.cargarVentas();
-
-}
-
 
 // ==================================================
 //    
@@ -195,6 +145,13 @@ baja_transaccion(id_transaccion: any) {
 refrescar() {
   // Reseteo 'desde' a cero
 
+  this.id_sucursal_seleccionada = 0;
+  this.id_operacion_seleccionada = 0;
+  this.id_transaccion_buscada = 0;
+
+  this.fechaInicio = this.utilService.formatDateNow(new Date(Date.now()));
+  this.fechaFin = this.utilService.formatDateNow(new Date(Date.now()));
+
   if(this.fechaInicio > this.fechaFin)
   {
     this.alertService.alertFail('Error de fechas',false,2000)
@@ -203,6 +160,57 @@ refrescar() {
   this.desde = 0;
   this.cargarVentas();
 }
+
+// ==================================================
+// Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
+// ==================================================
+cambiosfechaInicio(nuevafechaInicio: any) {
+
+  if (nuevafechaInicio > this.fechaFin) {
+    // this.fechaInicio = nuevafechaInicio;
+    this.controlFechas = true;
+  } else {
+    this.controlFechas = false;
+  }
+
+}
+
+// ==================================================
+// Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
+// ==================================================
+cambiosfechaFin(nuevafechaFin: any) {
+
+  if (nuevafechaFin < this.fechaInicio) {
+    // this.fechaInicio = nuevafechaFin;
+    this.controlFechas = true;
+  } else {
+    this.controlFechas = false;
+  }
+  // this.fechaFin = nuevafechaFin;
+
+}
+
+// ==================================================
+//        Cambio de valor
+// ==================================================
+
+cambiarDesde( valor: number ) {
+
+  const desde = this.desde + valor;
+
+  if ( desde >= this.totalVentas ) {
+    return;
+  }
+
+  if ( desde < 0 ) {
+    return;
+  }
+
+  this.desde += valor;
+  this.cargarVentas();
+
+}
+
 
 
 // ==================================================
@@ -214,6 +222,7 @@ generar_factura_pdf( pIdTransaccion: any) {
   this.ventasService.dameDatosPDFVenta( pIdTransaccion  )
   .subscribe({
     next: (resp: any) => {
+      console.log('resp::: ', resp);
 
       if((resp[5] != undefined) && (resp[5][0].mensaje == 'Ok')) {
 
@@ -278,10 +287,10 @@ rows.push(['', '', 'TOTAL', pDatosTransaccion[0].monto_total]);
                                     
                                   body: [
                                     [
-                                        { text: 'C', style: 'tableHeader', fontSize: 30,border: [true, true, true, false] },
+                                        { text: 'X', style: 'tableHeader', fontSize: 30,border: [true, true, true, false] },
                                     ],
                                     [
-                                        { text: 'COD 11', fontSize: 12,border: [true, false, true, true],margin: [8, 5] },
+                                        { text: 'COD X', fontSize: 12,border: [true, false, true, true],margin: [8, 5] },
                                     ]
                                   ]
                                 },
@@ -291,10 +300,10 @@ rows.push(['', '', 'TOTAL', pDatosTransaccion[0].monto_total]);
                   ],
                   // Columna 3
                   [
-                      {text: 'FACTURA\n', style: 'tableHeader', fontSize: 15,margin: [20, 10]},
+                      {text: pDatosTransaccion[0].operacion, style: 'tableHeader', fontSize: 15,margin: [20, 10]},
                       {text: 'Nro: 001-' + pIdTransaccion, style: 'tableHeader', fontSize: 13,margin: [20, 5]},
                       {text: 'Fecha : ' + pDatosTransaccion[0].fechaTransaccion, fontSize: 9,margin: [20, 5]},
-                      {text: 'CUIT : ' + pDatosEncabezado[0].CUIT, fontSize: 9,margin: [20, 5]},
+                      {text: 'CUIT : ' + pDatosEncabezado[0].cuit, fontSize: 9,margin: [20, 5]},
                       {text: 'Ing. brutos : ' + pDatosEncabezado[0].ing_brutos, fontSize: 9,margin: [20, 5]},
                       {text: 'Inicio de Act.: ' + pDatosEncabezado[0].inicio_actividad, fontSize: 9,margin: [20, 5]}
                   ]

@@ -6,20 +6,6 @@
                         <label>Producto:  </label>
                         <input (keyup.enter)="buscarProducto( )" #input type="text" class="form-control" placeholder="Buscar por codigo o producto..." id="buscarProducto">
                     </div>
-                    <div class="col-sm-1 form-group">
-                        <button (click)="buscarProducto( )" class="btn btn-primary" style="margin-top: 26px;">
-                            <i class="material-icons">
-                                search
-                                </i>
-                            </button>
-                    </div>
-                    <div class="col-sm-1 form-group">
-                        <button (click)="refrescar( )" class="btn btn-primary" style="margin-top: 26px;">
-                            <i class="material-icons">
-                                refresh
-                                </i>
-                            </button>
-                    </div>
                     <div class="col-sm-4 form-group">
                         <label>Sucursal : </label>
                         <select tabindex="4" [(ngModel)]="IdSucursal" name="IdSucursal" class="form-control">
@@ -28,10 +14,33 @@
                                 </option>
                             </select>
                     </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Marca : </label>
+                        <select tabindex="4" [(ngModel)]="id_marca_seleccionada" class="form-control">
+                            <option *ngFor="let marca of marcas" [value]="marca.id_marca">
+                                {{marca.marca}}
+                            </option>
+                        </select>
+                    </div>
+                    <!--  -->
+                    <div class="col-sm-1 form-group">
+                        <button (click)="buscarProducto( )" class="btn btn-primary">
+                            <i class="material-icons">
+                                search
+                                </i>
+                            </button>
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <button (click)="refrescar( )" class="btn btn-primary">
+                            <i class="material-icons">
+                                refresh
+                                </i>
+                            </button>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4">
-                        <h4 class="card-title">Cantidad productos ( <small> {{totalProductos }} </small> )</h4>
+                        <h4 class="card-title">Cantidad productos (  {{totalProductos }} )</h4>
                     </div>
                     <div class="col-4">
                     </div>

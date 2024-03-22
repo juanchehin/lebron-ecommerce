@@ -17,7 +17,10 @@ export class ProductosComponent implements OnInit {
   IdSucursal = 1;
   productos!: any;
   sucursales: any;
+  marcas: any;
+
   totalProductos = 0;
+  id_marca_seleccionada = 1;
 
   constructor(
     public productosService: ProductosService,
@@ -28,7 +31,6 @@ export class ProductosComponent implements OnInit {
 
   ngOnInit() {
     this.buscarProducto();
-    this.cargarSucursales();
   }
 
 // ==================================================
@@ -40,7 +42,7 @@ buscarProducto() {
     const inputElement: HTMLInputElement = document.getElementById('buscarProducto') as HTMLInputElement;
     const productoBuscado: any = inputElement.value || '-';
 
-    this.productosService.listarProductosPaginado( this.desde , this.IdSucursal, productoBuscado  )
+    this.productosService.listarProductosPaginado( this.desde , this.IdSucursal, productoBuscado, this.id_marca_seleccionada  )
                .subscribe( {
                 next: (resp: any) => {
 
@@ -52,10 +54,13 @@ buscarProducto() {
                     return;
                   }
   
-                  if ( resp[2][0].mensaje == 'Ok') {
+                  if ( resp[4][0].mensaje == 'Ok') {
                     
                     this.totalProductos = resp[1][0].cantProductosBuscados;
                     this.productos = resp[0];
+                    this.sucursales = resp[2];
+                    this.marcas = resp[3];
+
                   } else {
                     this.alertaService.alertFail('Ocurrio un error',false,2000);
                   }
@@ -67,22 +72,6 @@ buscarProducto() {
               });
 
   }
-
-// ==================================================
-// Carga
-// ==================================================
-
-cargarSucursales() {
-
-
-  this.sucursalesService.listarTodasSucursales(   )
-             .subscribe( (resp: any) => {
-
-              this.sucursales  = resp[0];
-
-            });
-
-}
 
 // ==================================================
 //        Cambio de valor

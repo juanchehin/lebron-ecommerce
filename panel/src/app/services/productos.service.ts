@@ -42,9 +42,9 @@ export class ProductosService {
 // ==================================================
 //
 // ==================================================
-  listarProductosPaginado(desde: any,IdSucursal: any,pParametroBusqueda: any){
+  listarProductosPaginado(desde: any,IdSucursal: any,pParametroBusqueda: any,id_marca_seleccionada : any){
 
-    let url = URL_SERVICIOS + '/productos/buscar/' + desde + '/' + pParametroBusqueda + '/' + IdSucursal + '/' + this.IdPersona;
+    let url = URL_SERVICIOS + '/productos/buscar/' + desde + '/' + pParametroBusqueda + '/' + IdSucursal + '/' + id_marca_seleccionada + '/' + this.IdPersona;
 
     return this.http.get( url, this.headers );
   }  

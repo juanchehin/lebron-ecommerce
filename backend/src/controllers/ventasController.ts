@@ -429,8 +429,6 @@ cargarDatosEditarVenta(req: Request, res: Response) {
         try {
             // Use the connection
             connection.query('call bsp_dame_datos_editar_venta(?,?)',[p_id_usuario,p_id_venta], function(err: any, result: any){
-                console.log('result::: ', result);
-                console.log('err::: ', err);
 
                 if(err){
                     logger.error("Error en bsp_dame_datos_editar_venta - err: " + err + " - result:" + result);

@@ -5,10 +5,11 @@
                 <div class="row">
                     <div class="col-sm-6 form-group">
                         <label>Unidad : </label>
-                        <input formControlName="Unidad" name="Unidad" required type="text" placeholder="Unidad..." class="form-control">
+                        <input formControlName="Unidad" required type="text" maxlength="100" placeholder="Unidad..." class="form-control">
                     </div>
                     <div class="col-sm-6 form-group">
-                        <label>Nombre Corto : </label><input formControlName="NombreCorto" name="NombreCorto" required type="text" placeholder="NombreCorto..." class="form-control">
+                        <label>Nombre Corto : </label>
+                        <input formControlName="NombreCorto" name="NombreCorto" required type="text" maxlength="4" placeholder="NombreCorto..." class="form-control">
                     </div>
                 </div>
             </div>

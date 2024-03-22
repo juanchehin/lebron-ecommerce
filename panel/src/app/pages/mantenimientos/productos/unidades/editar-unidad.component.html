@@ -1,17 +1,19 @@
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6 form-group">
-            <label>Unidad : </label>
-            <input [(ngModel)]="unidad" name="unidad" required type="text" placeholder="Unidad..." class="form-control">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <label>Unidad : </label>
+                        <input [(ngModel)]="unidad" required type="text" maxlength="100" placeholder="Unidad..." class="form-control">
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label>Nombre Corto : </label>
+                        <input [(ngModel)]="nombre_corto" required type="text" maxlength="4" placeholder="Nombre Corto..." class="form-control">
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6 form-group">
-            <label>Nombre corto : </label>
-            <textarea name="nombre_corto" type="textarea" [(ngModel)]="nombre_corto" placeholder="Nombre corto..." rows="3" class="form-control"></textarea>
-        </div>
-    </div>
-    <br>
-    <button (click)="editarUnidad()" class="btn btn-info btn-lg btn-block text-uppercase">Guardar cambios</button>
-    <br>
+        <br>
+        <button (click)="editarUnidad()" class="btn btn-info btn-lg btn-block text-uppercase">Guardar cambios</button>
+        <br>
 </div>

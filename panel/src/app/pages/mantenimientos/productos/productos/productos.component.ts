@@ -202,6 +202,7 @@ refrescar() {
 
   this.desde = 0;
   this.IdSucursal = 1;
+  this.id_marca_seleccionada = 1;
 
   const inputElement: HTMLInputElement = document.getElementById('buscarProducto') as HTMLInputElement;
   inputElement.value = '';

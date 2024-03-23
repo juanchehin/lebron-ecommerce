@@ -48,7 +48,6 @@ listar_movimientos_producto() {
     this.productosService.listar_movimientos_producto( this.fecha_inicio, this.fecha_fin, this.p_id_producto_sabor, this.id_sucursal_seleccionada, this.id_operacion_seleccionada, this.desde  )
                .subscribe( {
                 next: (resp: any) => {
-                  console.log('resp::: ', resp);
 
                   if(resp.length <= 0)
                   { 
@@ -60,7 +59,13 @@ listar_movimientos_producto() {
   
                   if ( resp[4][0].mensaje == 'ok') {
                     
-                    this.cant_movimientos = resp[1][0].cant_movimientos;
+                    if(resp[1] && resp[1][0] && resp[1][0].cant_movimientos)
+                    {
+                      this.cant_movimientos = resp[1][0].cant_movimientos;
+                    }else{
+                      this.cant_movimientos = 0;
+                    }
+
                     this.operaciones = resp[2];
                     this.sucursales = resp[3];
                     this.movimientos_producto = resp[0];
@@ -94,7 +99,6 @@ detalle_movimiento(id_transaccion: any) {
   this.productosService.detalle_movimiento( id_transaccion  )
              .subscribe( {
               next: (resp: any) => {
-                console.log('resp::: ', resp);
 
                 if ( resp[4][0].mensaje == 'ok') {
                   

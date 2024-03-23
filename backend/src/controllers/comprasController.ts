@@ -80,8 +80,6 @@ public async cargar_detalle_compra(req: Request, res: Response): Promise<void> {
         try {
             // Use the connection
             connection.query('call bsp_listar_detalle_compra(?,?)',[IdPersona,p_id_transaccion], function(err: any, result: any){
-                console.log('err::: ', err);
-                console.log('result::: ', result);
 
                 if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
 
@@ -255,11 +253,12 @@ altaGasto(req: Request, res: Response) {
     const file = req.file;
     var nombre_comprobante = file?.filename;
 
-    var pMonto = req.body.monto_nuevo_gasto;
-    var pTipoPago = req.body.tipo_pago_nuevo_gasto;
-    var pFechaGasto = req.body.fecha_gasto;
-    var pDescripcion = req.body.descripcion_nuevo_gasto;
-    var pIdSucursal = req.body.id_sucursal_seleccionada_alta_gasto;
+    var pMonto = req.body[0];
+    var pTipoPago = req.body[1];
+    var pFechaGasto = req.body[2];
+    var pDescripcion = req.body[3];
+    var pIdSucursal = req.body[4];
+    console.log('req.body::: ', req.body);
 
     if(pDescripcion == 'undefined' || pDescripcion == undefined || pDescripcion == 'null' || pDescripcion == null)
     {
@@ -319,7 +318,9 @@ listarGastosPaginado(req: Request, res: Response) {
     var desde = req.params.pDesde || 0;
     desde  = Number(desde);
 
-    var pFecha = req.params.pFecha;
+    var pFechaInicio = req.params.pFechaInicio;
+    var pFechaFin = req.params.pFechaFin;
+
     var pIdPersona = req.params.IdPersona;
     var pIdSucursal = req.params.pIdSucursal;
 
@@ -331,21 +332,24 @@ listarGastosPaginado(req: Request, res: Response) {
        
         try {
             // Use the connection
-            connection.query('call bsp_listar_gastos_paginado_fecha(?,?,?,?)',[pIdPersona,pIdSucursal,pFecha,desde], function(err: any, result: any){
+            connection.query('call bsp_listar_gastos_paginado_fecha(?,?,?,?,?)',[pIdPersona,pIdSucursal,pFechaInicio,pFechaFin,desde], function(err: any, result: any){
+
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_listar_gastos_paginado_fecha - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
+                }
 
                 if(err){
                     logger.error("Error en bsp_listar_gastos_paginado_fecha - err: " + err + " - result:" + result);
         
                     res.status(400).json(err);
                     return;
-                }
-
-                if(result[0][0].Level == 'Error'){
-                    logger.error("Error en bsp_listar_gastos_paginado_fecha - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
-        
-                    res.status(400).json(result);
-                    return;
-                }
+                }                
                 
                 res.status(200).json(result);
 

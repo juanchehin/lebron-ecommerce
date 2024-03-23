@@ -79,6 +79,13 @@ export class UsuarioComponent implements OnInit {
   editarVentas   = false;
   borrarVentas   = false;
 
+  banderaCheckCompras = false;
+  listarCompras   = false;
+  altaCompras     = false;
+  importarCompras = false;
+  editarCompras   = false;
+  borrarCompras   = false;
+
   banderaCheckCuentas = false;
   listarCuentas   = false;
   altaCuentas     = false;
@@ -638,6 +645,48 @@ checkTodosVentas()
   this.importarVentas = false;
   this.editarVentas = false;
   this.borrarVentas = false;
+
+  var idPermiso = 45;
+  for(let i = 0; i < 4; i++)
+  {
+    const index = this.permisos.indexOf(idPermiso, 0);
+    if (index > -1) {
+      this.permisos.splice(index, 1);
+    }
+    idPermiso++;
+  }
+}
+}
+
+
+// ==================================================
+//      Compras
+// ==================================================
+
+checkTodosCompras()
+{
+  if(!this.banderaCheckCompras){
+    
+    this.banderaCheckCompras = true;
+
+
+  this.listarCompras = true;
+  this.altaCompras = true;
+  this.importarCompras = true;
+  this.editarCompras = true;
+  this.borrarCompras = true;
+
+  // Agregar todos al array
+  this.permisos.push(45,46,47,48);
+}else
+{
+  this.banderaCheckCompras = false;
+
+  this.listarCompras = false;
+  this.altaCompras = false;
+  this.importarCompras = false;
+  this.editarCompras = false;
+  this.borrarCompras = false;
 
   var idPermiso = 45;
   for(let i = 0; i < 4; i++)

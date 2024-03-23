@@ -13,7 +13,11 @@ export class ListarGastosComponent implements OnInit {
   desde = 0;
   totalAsistencias = true;
   ClasesDisponibles = 0;
-  fecha: any;
+
+  //
+  fecha_inicio: any;
+  fecha_fin: any;
+
   gastos!: any;
   controlFechas = false;
   totalGastos = 0;
@@ -54,7 +58,9 @@ export class ListarGastosComponent implements OnInit {
   ngOnInit() {
     this.fecha_nuevo_gasto = `${this.anio_actual}-${this.month}-${this.day}`;
 
-    this.fecha = this.utilService.formatDateNow(Date.now());
+    this.fecha_inicio = this.utilService.formatDateNow(Date.now());
+    this.fecha_fin = this.utilService.formatDateNow(Date.now());
+
     this.cargarGastos();
   }
 
@@ -66,7 +72,7 @@ cargarGastos() {
 
   // const pFecha = this.utilService.formatDate(this.fecha);
 
-    this.comprasService.listarGastosPaginado( this.desde, this.fecha ,this.id_sucursal_seleccionada_listado )
+    this.comprasService.listarGastosPaginado( this.desde, this.fecha_inicio,this.fecha_fin ,this.id_sucursal_seleccionada_listado )
     .subscribe({
       next: (resp: any) => {
         
@@ -78,28 +84,45 @@ cargarGastos() {
           this.suma_gastos = resp[2][0].suma_gastos;
           
         } else {
-          this.alertService.alertFail('Ocurrio un error',false,400);
+          this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2500);
           
         }
        },
-      error: () => {  this.alertService.alertFail('Ocurrio un error',false,400); }
+      error: () => {  
+        this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2500);
+       }
     });
 
   }
-
 // ==================================================
-// Detecta los cambios en el select
+// Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
 // ==================================================
-cambiosFecha(nuevaFechaInicio: any) {
+cambiosFechaInicio(nuevafechaInicio: any) {
 
-  if (nuevaFechaInicio > this.fecha) {
-    // this.FechaInicio = nuevaFechaInicio;
+  if (nuevafechaInicio > this.fecha_inicio) {
+    // this.fechaInicio = nuevafechaInicio;
     this.controlFechas = true;
   } else {
     this.controlFechas = false;
   }
 
 }
+
+// ==================================================
+// Detecta los cambios en el select de los planes y carga IdPlan en 'nuevoValor'
+// ==================================================
+cambiosFechaFin(nuevafechaFin: any) {
+
+  if (nuevafechaFin < this.fecha_fin) {
+    // this.fechaInicio = nuevafechaFin;
+    this.controlFechas = true;
+  } else {
+    this.controlFechas = false;
+  }
+  // this.fechaFin = nuevafechaFin;
+
+}
+
 // ==================================================
 //        Cambio de valor
 // ==================================================
@@ -122,15 +145,30 @@ cambiarDesde( valor: number ) {
 }
 
 // ==================================================
-//    Funcion para recargar el listado
+//    
 // ==================================================
 
-refrescar() {
+search() {
   // Reseteo 'desde' a cero
   this.desde = 0;
   this.cargarGastos();
 }
 
+// ==================================================
+//    
+// ==================================================
+
+refrescar() {
+
+  this.fecha_inicio = this.utilService.formatDateNow(Date.now());
+  this.fecha_fin = this.utilService.formatDateNow(Date.now());
+
+  this.id_sucursal_seleccionada_listado = 0;
+
+  // Reseteo 'desde' a cero
+  this.desde = 0;
+  this.cargarGastos();
+}
 // ==================================================
 //    
 // ==================================================
@@ -176,14 +214,14 @@ alta_gasto() {
                   el.click();
                   
                 } else {
-                  this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
+                  this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2500);
                 }
                 return;
 
             },
             error: () => { 
-              this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
-             }
+              this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',false,2500);
+            }
           });
   }
 

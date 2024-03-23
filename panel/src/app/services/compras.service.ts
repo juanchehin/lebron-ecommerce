@@ -106,9 +106,9 @@ altaGasto( gasto : any, comprobante_gasto: File){
 // ==================================================
 //
 // ==================================================
-listarGastosPaginado(desde: number , fecha: string, id_sucursal_seleccionada_listado: number ){
+listarGastosPaginado(desde: number , fecha_inicio: string, fecha_fin: string, id_sucursal_seleccionada_listado: number ){
 
-  let url = URL_SERVICIOS + '/compras/gastos/listar/' + desde + '/' + fecha + '/' + id_sucursal_seleccionada_listado + '/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/compras/gastos/listar/' + desde + '/' + fecha_inicio + '/' + fecha_fin + '/' + id_sucursal_seleccionada_listado + '/' + this.IdPersona;
 
   return this.http.get( url,this.headers );
 }

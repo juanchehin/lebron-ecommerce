@@ -498,6 +498,44 @@
                             </label>
                     </div>
                 </div>
+                <!-- =============== Compras ================= -->
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="card-title">Compras/Gastos</h4>
+                        <input [checked]="banderaCheckCompras" type="checkbox" class="chk-col-teal" />
+                        <label (click)="checkTodosCompras()">Todos</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                                <input [checked]="listarCompras" type="checkbox" class="custom-control-input" (click)="agregarPermiso(41)">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Listar Compras</span>
+                            </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                                <input [checked]="altaCompras" type="checkbox" class="custom-control-input" (click)="agregarPermiso(42)">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Alta Compras</span>
+                            </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                                <input [checked]="editarCompras" type="checkbox" class="custom-control-input" (click)="agregarPermiso(43)">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Editar Compras</span>
+                            </label>
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="custom-control custom-checkbox">
+                                <input [checked]="borrarCompras" type="checkbox" class="custom-control-input" (click)="agregarPermiso(44)">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description">Borrar Compras</span>
+                            </label>
+                    </div>
+                </div>
                   <!-- =============== Inversores ================= -->
                   <div class="row">
                     <div class="col-sm-6">

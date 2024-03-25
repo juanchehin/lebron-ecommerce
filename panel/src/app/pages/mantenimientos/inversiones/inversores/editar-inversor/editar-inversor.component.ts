@@ -18,6 +18,7 @@ export class EditarInversorComponent implements OnInit {
   Email: any;
   Observaciones: any;   
   montoInvertido = 0;
+  fecha_nac: any;
 
   constructor(
     private router: Router, 
@@ -45,7 +46,8 @@ editarInversor() {
         this.DNI,        
         this.Email,
         this.Observaciones,
-        this.IdPersona
+        this.IdPersona,
+        this.fecha_nac
       );
 
       this.inversoresService.editarInversor( inversorEditado )
@@ -82,6 +84,7 @@ cargarDatosFormEditarInversor() {
                     this.Telefono = resp[0][0].telefono;
                     this.DNI = resp[0][0].dni;
                     this.Email = resp[0][0].email;
+                    this.fecha_nac = resp[0][0].fecha_nacimiento;
                     this.Observaciones = resp[0][0].observaciones;
                   }else{
                     this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000)

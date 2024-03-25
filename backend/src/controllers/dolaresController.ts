@@ -20,14 +20,45 @@ public async listarHistoricoDolares(req: Request, res: Response): Promise<void> 
     var FechaInicio = req.params.FechaInicio;
     var FechaFin = req.params.FechaFin;
 
-    pool.query(`call bsp_listar_historico_dolares_paginado_fechas('${pIdPersona}','${pFiltroTipo}','${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
-       if(err){
-            logger.error("Error en listarHistoricoDolares - DolaresController " + err);
-            res.status(404).json(err);
-           return;
-       }
-       res.json(result);
-   })
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_listar_historico_dolares_paginado_fechas " + err);
+            throw err; // not connected!
+        }
+
+        try {
+            // Use the connection
+            connection.query('call bsp_listar_historico_dolares_paginado_fechas(?,?,?,?,?)',[pIdPersona,pFiltroTipo,desde,FechaInicio,FechaFin], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_listar_historico_dolares_paginado_fechas - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_listar_historico_dolares_paginado_fechas - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_listar_historico_dolares_paginado_fechas 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
 
 }
 
@@ -38,17 +69,67 @@ public async listarHistoricoDolares(req: Request, res: Response): Promise<void> 
 altaCompraDolar(req: Request, res: Response) {
 
     var IdPersona = req.params.IdPersona;
-    var monto = req.body[0];
-    var observaciones = req.body[1];
+    
+    var monto = req.body.monto_compra_dolar;
+    var fecha_compra = req.body.fecha_compra_dolar;
+    var observaciones = req.body.observaciones_compra_dolar;
+    
+    if(monto == null || monto == 'undefined' || monto <= 0)
+    {
+        logger.info("Monto invalido en alta compra");
+        monto = 0;
+    }
+    
+    if(fecha_compra == 'undefined')
+    {
+        logger.info("fecha_compra invalido en alta compra");
+        fecha_compra = null;
+    }
+    
+    if(observaciones == null || observaciones == 'undefined' || observaciones <= 0)
+    {
+        logger.info("observaciones invalido en alta compra");
+        observaciones = "-";
+    }
+    
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_alta_compra_dolares " + err);
+            throw err; // not connected!
+        }
 
-    pool.query(`call bsp_alta_compra_dolares('${IdPersona}','${monto}','${observaciones}')`, function(err: any, result: any){
-       if(err){
-           logger.error("Error en altaCompraDolar - DolaresController " + err);
-           res.status(404).json(err);
-           return;
-       }
-       res.json(result);
-   })
+        try {
+            // Use the connection
+            connection.query('call bsp_alta_compra_dolares(?,?,?,?)',[IdPersona,monto,fecha_compra,observaciones], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_alta_compra_dolares - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_alta_compra_dolares - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_alta_compra_dolares 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
 
 }
 
@@ -59,18 +140,67 @@ altaVentaDolar(req: Request, res: Response) {
 
     var IdPersona = req.params.IdPersona;
 
-    var IdComprador = req.body[0];
-    var monto = req.body[1];
-    var observaciones = req.body[2];
+    var monto = req.body.monto_venta_dolar;
+    var fecha_compra = req.body.fecha_venta_dolar;
+    var observaciones = req.body.observaciones_venta_dolar;
 
-    pool.query(`call bsp_alta_venta_dolares('${IdPersona}','${IdComprador}','${monto}','${observaciones}')`, function(err: any, result: any){
-       if(err){
-            logger.error("Error en altaVentaDolar - DolaresController " + err);
-            res.status(404).json(err);
-            return;
-       }
-       res.json(result);
-   })
+    if(monto == null || monto == 'undefined' || monto <= 0)
+    {
+        logger.info("Monto invalido en alta compra");
+        monto = 0;
+    }
+    
+    if(fecha_compra == 'undefined')
+    {
+        logger.info("fecha_compra invalido en alta compra");
+        fecha_compra = null;
+    }
+
+    if(observaciones == null || observaciones == 'undefined' || observaciones <= 0)
+    {
+        logger.info("observaciones invalido en alta compra");
+        observaciones = "-";
+    }
+    
+    pool.getConnection(function(err: any, connection: any) {
+        if (err) {
+            logger.error("Error funcion bsp_alta_venta_dolares " + err);
+            throw err; // not connected!
+        }
+
+        try {
+            // Use the connection
+            connection.query('call bsp_alta_venta_dolares(?,?,?,?)',[IdPersona,monto,fecha_compra,observaciones], function(err: any, result: any){
+
+                if(err){
+                    logger.error("Error en bsp_alta_venta_dolares - err: " + err + " - result:" + result);
+        
+                    res.status(400).json(err);
+                    return;
+                }
+
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_alta_venta_dolares - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
+                }
+        
+                res.status(200).json(result);
+
+            });
+
+        } catch (error) {
+            logger.error("Error en bsp_alta_venta_dolares 2 - " + error);
+            res.status(500).send('Error interno del servidor');
+        } finally {
+            connection.release();
+        }
+      });
+
 
 }
 

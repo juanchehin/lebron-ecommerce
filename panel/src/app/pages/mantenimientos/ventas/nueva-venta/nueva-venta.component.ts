@@ -100,8 +100,7 @@ export class NuevaVentaComponent implements OnInit {
     
   }
 
-  ngOnInit() {   
-    // this.resetearVariables();
+  ngOnInit() {
     this.fecha_venta = this.utilService.formatDateNow(new Date(Date.now()));
     this.datosVendedor = [];
     this.cargarDatosNuevaVenta();

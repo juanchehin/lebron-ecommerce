@@ -1,48 +1,71 @@
 <div class="page-content">
-    <div class="container-fluid">
-            <iframe width="250px" height="85px" src="https://www.dolarsi.com/cotizador/cotizadorDolarsiSmall.php" frameborder="0" scrolling="0" allowfullscreen=""></iframe>
+     <!--  -->
+     <div class="row">
+        <!-- Dolar blue -->
+        <div class="col-md-6">
+            <iframe style="width:300px;height:250px;border-radius:8px;box-shadow:2px 4px 4px rgb(0 0 0 / 25%);display:flex;justify-content:center;border:1px solid #bcbcbc" src="https://dolarhoy.com/i/cotizaciones/dolar-blue" frameborder="0"></iframe>
+        </div>
+        <!-- Dolar oficial -->
+        <div class="col-md-6">
+            <iframe style="width:300px;height:250px;border-radius:8px;box-shadow:2px 4px 4px rgb(0 0 0 / 25%);display:flex;justify-content:center;border:1px solid #bcbcbc" src="https://dolarhoy.com/i/cotizaciones/dolar-bancos-y-casas-de-cambio" frameborder="0"></iframe>
+        </div>
+        <!--  -->
+    </div>
+    <!--  -->
+    <div class="container-fluid">       
         <section class="box-typical">
             <div class="table-responsive">
                 <!-- ======================= -->
                 <div class="row">
                     <div class="col-sm-4">
                         <label for="start">Fecha Inicio : &nbsp;</label>
-                        <input type="date" [(ngModel)]="fechaInicio" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="date" class="form-control" [(ngModel)]="fechaInicio" required> &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <div class="col-sm-4">
                         <label for="start">Fecha Fin : &nbsp;</label>
-                        <input type="date" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="date" class="form-control" [(ngModel)]="fechaFin" required> &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
-                    <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
-                        refresh
-                        </span>
-                    </button>
                     <div class="col-sm-4 form-group">
                         <label>Tipo : </label>
                         <select tabindex="4" [(ngModel)]="filtroTipo" name="filtroTipo" class="form-control">
                                 <option value="0">
                                     Todos
                                 </option>
-                                <option value="1">
+                                <option value="12">
                                     Venta
                                 </option>
-                                <option value="2">
+                                <option value="11">
                                     Compra
                                 </option>
                             </select>
                     </div>
+                    <div class="col-sm-1">
+                        <button (click)="search()" class="btn-rounded btn-primary">
+                            <span class="material-icons">
+                                search
+                            </span>
+                        </button>
+                    </div>
+                    <div class="col-sm-1">
+                        <button (click)="refrescar()" class="btn-rounded btn-primary">
+                            <span class="material-icons">
+                                refresh
+                            </span>
+                        </button>
+                    </div>
                 </div>
+                <br><br>
                 <!-- ======================= -->
                 <div class="row">
                     <div class="col-sm-6">
                         <h3 class="card-title">Cantidad de transacciones ( <small> {{ totalHistorico }} </small> )</h3>
                     </div>
                     <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
-                        <button [routerLink]="['/dashboard/dolares/compra']" type="button" class="btn btn-secondary">
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#responsive-modal-compra-dolar">
                             <i class="fa fa-plus"></i> 
                             Nueva Compra
                           </button>
-                          <button [routerLink]="['/dashboard/dolares/venta']" type="button" class="btn btn-secondary">
+                          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#responsive-modal-venta-dolar">
                             <i class="fa fa-plus"></i> 
                             Nueva Venta
                           </button>
@@ -53,23 +76,24 @@
                 <table id="table-edit" class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Fecha</th>
                             <th width="1">
-                                Nro. Transaccion
+                                # Trans.
                             </th>
+                            <th>Usuario</th>
+                            <th>Fecha</th>
                             <th>Monto</th>
                             <th>Tipo</th>
-                            <th>Apellidos y nombre</th>
+                            <th>Observaciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let historico of historicoDolares">
-                            <td>{{ historico.Fecha }}</td>
-                            <td>{{ historico.IdTransaccion }}</td>
-                            <td>$ {{ historico.MontoTotal }}</td>
-                            <td>{{ historico.tipo }}</td>
-                            <td>{{ historico.NombreCompleto }}</td>
-
+                            <td>{{ historico.id_transaccion }}</td>
+                            <td>{{ historico.usuario }}</td>
+                            <td>{{ historico.fecha }}</td>
+                            <td>$ {{ historico.monto_total }}</td>
+                            <td>{{ historico.operacion }}</td>
+                            <td>{{ historico.descripcion }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -84,3 +108,81 @@
     <!--.container-fluid-->
 </div>
 <!--.page-content-->
+
+<!-- =========== MODAL nueva compra dolares =========== -->
+<div id="responsive-modal-compra-dolar" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Compra dolares</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-18">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label>Monto : </label>
+                            <input type="number" [(ngModel)]="monto_compra_dolar" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Fecha : </label>
+                            <input type="date" [(ngModel)]="fecha_compra_dolar" class="form-control" placeholder="dd/mm/yyyy">
+                        </div>
+                         <!--  -->
+                        <div class="col-sm-12 form-group">
+                            <label>Comprobante : </label>
+                            <input type="file" class="form-control" (change)="onFileSelectedCompraDolar($event)" name="comprobante_compra_dolar" aria-describedby="fileHelp">
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Observaciones : </label>
+                            <textarea type="textarea" [(ngModel)]="observaciones_compra_dolar" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button #botonCerrarModalCompraDolar type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success waves-effect waves-light" (click)="alta_compra_dolar()">Cargar inversion</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =========== MODAL nueva venta dolares =========== -->
+<div id="responsive-modal-venta-dolar" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Nueva inversion</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-18">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label>Monto : </label>
+                            <input type="number" [(ngModel)]="monto_venta_dolar" class="form-control">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Fecha : </label>
+                            <input type="date" [(ngModel)]="fecha_venta_dolar" class="form-control" placeholder="dd/mm/yyyy">
+                        </div>
+                         <!--  -->
+                        <div class="col-sm-12 form-group">
+                            <label>Comprobante : </label>
+                            <input type="file" class="form-control" (change)="onFileSelectedVentaDolar($event)" name="comprobante_venta_dolar" aria-describedby="fileHelp">
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Observaciones : </label>
+                            <textarea type="textarea" [(ngModel)]="observaciones_venta_dolar" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button #botonCerrarModalVentaDolar type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-success waves-effect waves-light" (click)="alta_venta_dolar()">Cargar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -81,11 +81,15 @@ public async listarTodosInversores(req: Request, res: Response): Promise<void> {
                     return;
                 }
 
-                if(result[0][0].Level == 'Error'){
-                    logger.error("Error en bsp_listar_inversores - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
-        
-                    res.status(400).json(result);
-                    return;
+                   
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_listar_inversores - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
                 }
         
                 res.status(200).json(result);
@@ -153,11 +157,14 @@ public async altaInversor(req: Request, res: Response) {
                     return;
                 }
 
-                if(result[0][0].Level == 'Error'){
-                    logger.error("Error en bsp_alta_inversor - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
-        
-                    res.status(400).json(result);
-                    return;
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_alta_inversor - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
                 }
         
                 res.status(200).json(result);
@@ -199,11 +206,14 @@ public async bajaInversor(req: Request, res: Response): Promise<void> {
                     return;
                 }
 
-                if(result[0][0].Level == 'Error'){
-                    logger.error("Error en bsp_baja_inversor - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
-        
-                    res.status(400).json(result);
-                    return;
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_baja_inversor - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
                 }
         
                 res.status(200).json(result);
@@ -235,6 +245,7 @@ public async editarInversor(req: Request, res: Response) {
     var Email = req.body[4];
     var Observaciones = req.body[5];
     var IdInversor = req.body[6];
+    var fecha_nac = req.body[7];
 
     if(Email == 'NULL' || Email == null)
     {
@@ -255,7 +266,7 @@ public async editarInversor(req: Request, res: Response) {
 
         try {
             // Use the connection
-            connection.query('call bsp_editar_inversor(?,?,?,?,?,?,?,?)',[IdUsuario,IdInversor,Apellidos,Nombres,Telefono,CUIL,Email,Observaciones], function(err: any, result: any){
+            connection.query('call bsp_editar_inversor(?,?,?,?,?,?,?,?,?)',[IdUsuario,IdInversor,Apellidos,Nombres,fecha_nac,Telefono,CUIL,Email,Observaciones], function(err: any, result: any){
 
                 if(err){
                     logger.error("Error en bsp_editar_inversor - err: " + err + " - result:" + result);
@@ -264,11 +275,14 @@ public async editarInversor(req: Request, res: Response) {
                     return;
                 }
 
-                if(result[0][0].Level == 'Error'){
-                    logger.error("Error en bsp_editar_inversor - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
-        
-                    res.status(400).json(result);
-                    return;
+                if (result && result[0] && result[0][0] && result[0][0].Level !== undefined) {
+
+                    if(result[0][0].Level == 'Error'){
+                        logger.error("Error en bsp_editar_inversor - result Code: " + result[0][0].Code + " - Message: " + result[0][0].Message);
+            
+                        res.status(400).json(result);
+                        return;
+                    }
                 }
         
                 res.status(200).json(result);

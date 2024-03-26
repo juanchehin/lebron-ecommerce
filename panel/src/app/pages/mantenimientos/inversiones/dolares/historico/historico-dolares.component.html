@@ -84,6 +84,8 @@
                             <th>Monto</th>
                             <th>Tipo</th>
                             <th>Observaciones</th>
+                            <th></th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -94,6 +96,14 @@
                             <td>$ {{ historico.monto_total }}</td>
                             <td>{{ historico.operacion }}</td>
                             <td>{{ historico.descripcion }}</td>
+                            <td> 
+                                <button class="btn btn-inline btn-success" type="button" (click)="get_comprobante(historico.comprobante_name)">
+                                    <i class="material-icons"> 
+                                        description    
+                                    </i>
+                                </button>
+                            </td>
+
                         </tr>
                     </tbody>
                 </table>

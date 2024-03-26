@@ -53,7 +53,7 @@ listarHistoricoDolares(filtroTipo: number, desde: number , FechaInicio: any , Fe
 // ==================================================
 //        
 // ==================================================
-alta_compra_dolar( array_compra_dolar: any, comprobante_alta_compra_dolar: any ) {
+alta_compra_dolar( array_compra_dolar: any, comprobante_alta_compra_dolar: File ) {
 
   const formData_compra_dolar = new FormData();
 
@@ -61,8 +61,8 @@ alta_compra_dolar( array_compra_dolar: any, comprobante_alta_compra_dolar: any )
   formData_compra_dolar.append('fecha_compra_dolar', array_compra_dolar[1]);
   formData_compra_dolar.append('observaciones_compra_dolar', array_compra_dolar[2]);
 
-  formData_compra_dolar.append('comprobante_alta_compra_dolar', comprobante_alta_compra_dolar);
-
+  formData_compra_dolar.append('comprobante_compra_dolar', comprobante_alta_compra_dolar);
+  
 
   let url = URL_SERVICIOS + '/dolares/alta/compra/' + this.IdPersona;
 
@@ -80,7 +80,7 @@ alta_venta_dolar( array_venta_dolar: any, comprobante_alta_venta_dolar: any ) {
   formData_venta_dolar.append('fecha_venta_dolar', array_venta_dolar[1]);
   formData_venta_dolar.append('observaciones_venta_dolar', array_venta_dolar[2]);
   
-  formData_venta_dolar.append('comprobante_alta_venta_dolar', comprobante_alta_venta_dolar);
+  formData_venta_dolar.append('comprobante_venta_dolar', comprobante_alta_venta_dolar);
   
   let url = URL_SERVICIOS + '/dolares/alta/venta/' + this.IdPersona;
 

@@ -5,5 +5,7 @@ export const environment = {
   base_url: '',
   URL_SERVICIOS: 'https://lebron-panel.chehininformatica.shop:3003/api',
   ruta_img_productos: 'https://lebron-panel.chehininformatica.shop:3003/uploads/images/productos/',
-  ruta_img_marcas: 'https://lebron-panel.chehininformatica.shop:3003/uploads/images/marcas/'
+  ruta_img_marcas: 'https://lebron-panel.chehininformatica.shop:3003/uploads/images/marcas/',
+  ruta_comprobante_dolares: 'https://lebron-panel.chehininformatica.shop:3003/uploads/comprobantes-dolares/'
+
 };

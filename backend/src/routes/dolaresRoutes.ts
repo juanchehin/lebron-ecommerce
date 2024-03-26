@@ -5,9 +5,7 @@ var mdAutenticacion = require('../middlewares/autenticacion');
 import dolaresController from '../controllers/dolaresController';
 
 const fs = require('fs');
-
-const multer  = require('multer')
-
+const multer  = require('multer');
 const uploadFolder = './uploads/comprobantes-dolares';
 
 if (!fs.existsSync(uploadFolder)) {
@@ -17,10 +15,12 @@ if (!fs.existsSync(uploadFolder)) {
 // Configuración de multer
 const storage = multer.diskStorage({
     destination: function (req: any, file: any, cb: any) {
+        console.log('uploadFolder::: ', uploadFolder);
         cb(null, uploadFolder);
     },
     filename: function (req: any, file: any, cb: any) {
         const newFileName = `${Date.now()}-${file.originalname}`;
+        console.log('newFileName::: ', newFileName);
         cb(null, newFileName);
     }
 });

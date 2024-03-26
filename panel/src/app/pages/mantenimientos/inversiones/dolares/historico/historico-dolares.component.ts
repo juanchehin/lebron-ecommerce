@@ -1,7 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { DolaresService } from 'src/app/services/dolares.service';
 import { UtilService } from 'src/app/services/util.service';
+
+import { environment } from 'src/environments/environment';
+const url_comprobantes_dolar = environment.ruta_comprobante_dolares;
 
 @Component({
   selector: 'app-historico-dolares',
@@ -33,6 +37,7 @@ export class HistoricoDolaresComponent implements OnInit {
   array_venta_dolar: any = [];
   //
   FinalformData!: FormData;
+  url_comprobantes_dolar_local: any;
 
   @ViewChild('botonCerrarModalCompraDolar') botonCerrarModalCompraDolar!: ElementRef<HTMLElement>;
   @ViewChild('botonCerrarModalVentaDolar') botonCerrarModalVentaDolar!: ElementRef<HTMLElement>;
@@ -40,13 +45,15 @@ export class HistoricoDolaresComponent implements OnInit {
   constructor(
     public dolaresService: DolaresService,
     private alertService: AlertService,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private router: Router
   ) {
    }
 
   ngOnInit() {
     this.fecha_venta_dolar = this.utilService.formatDateNow(new Date(Date.now()));
     this.fecha_compra_dolar = this.utilService.formatDateNow(new Date(Date.now()));
+    this.url_comprobantes_dolar_local = url_comprobantes_dolar;
 
     this.listarHistoricoDolares();
   }
@@ -94,8 +101,10 @@ alta_compra_dolar() {
     this.observaciones_compra_dolar
     );
     
+    console.log('this.comprobante_venta_dolar::: ', this.comprobante_compra_dolar);
 
-  this.dolaresService.alta_compra_dolar(  this.array_compra_dolar, this.comprobante_venta_dolar )
+
+  this.dolaresService.alta_compra_dolar(  this.array_compra_dolar, this.comprobante_compra_dolar )
   .subscribe({
     next: (resp: any) => {
       
@@ -138,7 +147,8 @@ alta_venta_dolar() {
     this.fecha_venta_dolar,
     this.observaciones_venta_dolar
   );
-
+  
+  
   this.dolaresService.alta_venta_dolar(  this.array_venta_dolar, this.comprobante_venta_dolar )
   .subscribe({
     next: (resp: any) => {
@@ -237,7 +247,7 @@ refrescar() {
   this.fecha_venta_dolar = this.utilService.formatDateNow(new Date(Date.now()));
   this.fecha_compra_dolar = this.utilService.formatDateNow(new Date(Date.now()));
   this.desde = 0;
-  
+
   this.listarHistoricoDolares();
 }
   // ==============================
@@ -245,12 +255,16 @@ refrescar() {
   // ================================
 
   onFileSelectedCompraDolar(event: any) {
+    // console.log('event::: ', event);
+    console.log('event.target.files::: ', event.target.files);
+    console.log('event.target.files.length::: ', event.target.files.length);
 
     if (event.target.files && event.target.files.length > 0) {
       this.comprobante_compra_dolar = event.target.files[0];
 
       this.FinalformData = new FormData();
-      this.FinalformData.append('comprobante_venta', this.comprobante_compra_dolar, this.comprobante_compra_dolar.name);
+      this.FinalformData.append('comprobante_compra_dolar', this.comprobante_compra_dolar, this.comprobante_compra_dolar.name);
+      console.log('this.FinalformData::: ', this.FinalformData);
     }else{
       this.alertService.alertFail('Ocurrio un error al cargar el comprobante ',false,1000);
     }
@@ -267,11 +281,26 @@ refrescar() {
       this.comprobante_venta_dolar = event.target.files[0];
 
       this.FinalformData = new FormData();
-      this.FinalformData.append('comprobante_venta', this.comprobante_venta_dolar, this.comprobante_venta_dolar.name);
+      this.FinalformData.append('comprobante_venta_dolar', this.comprobante_venta_dolar, this.comprobante_venta_dolar.name);
     }else{
       this.alertService.alertFail('Ocurrio un error al cargar el comprobante ',false,1000);
     }
 
   }
 
+  // ==============================
+  // 
+  // ================================
+  get_comprobante(nombre_comprobante_transaccion: any){
+    console.log('nombre_comprobante_transaccion::: ', nombre_comprobante_transaccion);
+    console.log('url_comprobantes_dolar::: ', url_comprobantes_dolar);
+
+    var ruta_comprobante = url_comprobantes_dolar + nombre_comprobante_transaccion;
+
+    console.log('ruta_comprobante::: ', ruta_comprobante);
+
+    this.router.navigateByUrl(ruta_comprobante);
+   
+  }
+  
 }

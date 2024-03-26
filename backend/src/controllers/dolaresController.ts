@@ -69,6 +69,9 @@ public async listarHistoricoDolares(req: Request, res: Response): Promise<void> 
 altaCompraDolar(req: Request, res: Response) {
 
     var IdPersona = req.params.IdPersona;
+
+    const file = req.file;
+    const nombre_comprobante_compra_dolar = file?.filename;
     
     var monto = req.body.monto_compra_dolar;
     var fecha_compra = req.body.fecha_compra_dolar;
@@ -100,7 +103,7 @@ altaCompraDolar(req: Request, res: Response) {
 
         try {
             // Use the connection
-            connection.query('call bsp_alta_compra_dolares(?,?,?,?)',[IdPersona,monto,fecha_compra,observaciones], function(err: any, result: any){
+            connection.query('call bsp_alta_compra_dolares(?,?,?,?,?)',[IdPersona,monto,fecha_compra,observaciones,nombre_comprobante_compra_dolar], function(err: any, result: any){
 
                 if(err){
                     logger.error("Error en bsp_alta_compra_dolares - err: " + err + " - result:" + result);
@@ -140,6 +143,9 @@ altaVentaDolar(req: Request, res: Response) {
 
     var IdPersona = req.params.IdPersona;
 
+    const file = req.file;
+    const nombre_comprobante_venta_dolar = file?.filename;
+
     var monto = req.body.monto_venta_dolar;
     var fecha_compra = req.body.fecha_venta_dolar;
     var observaciones = req.body.observaciones_venta_dolar;
@@ -161,7 +167,7 @@ altaVentaDolar(req: Request, res: Response) {
         logger.info("observaciones invalido en alta compra");
         observaciones = "-";
     }
-    
+
     pool.getConnection(function(err: any, connection: any) {
         if (err) {
             logger.error("Error funcion bsp_alta_venta_dolares " + err);
@@ -170,7 +176,7 @@ altaVentaDolar(req: Request, res: Response) {
 
         try {
             // Use the connection
-            connection.query('call bsp_alta_venta_dolares(?,?,?,?)',[IdPersona,monto,fecha_compra,observaciones], function(err: any, result: any){
+            connection.query('call bsp_alta_venta_dolares(?,?,?,?,?)',[IdPersona,monto,fecha_compra,observaciones,nombre_comprobante_venta_dolar], function(err: any, result: any){
 
                 if(err){
                     logger.error("Error en bsp_alta_venta_dolares - err: " + err + " - result:" + result);

@@ -19,6 +19,10 @@ export class VentasComponent implements OnInit {
   cargando = false;
   fechaInicio = this.utilService.formatDateNow(new Date(Date.now()));
   fechaFin = this.utilService.formatDateNow(new Date(Date.now()));
+  
+  fechaActual: any;
+  primerDiaDelMes: any;
+
   id_sucursal_seleccionada = 0;
   id_operacion_seleccionada = 0;
   id_transaccion_buscada = 0;
@@ -138,6 +142,42 @@ baja_transaccion(id_transaccion: any) {
 
 }
 
+setear_dia(){
+  this.fechaInicio = this.utilService.formatDateNow(new Date(Date.now()));
+  this.fechaFin = this.utilService.formatDateNow(new Date(Date.now()));
+  this.cargarVentas();
+
+}
+
+setear_semana(){
+  // this.fechaInicio = this.utilService.formatDateNow(new Date(Date.now()));
+  this.fechaFin = this.utilService.formatDateNow(new Date(Date.now()));
+
+  const hoy = new Date();
+  const diaSemana = hoy.getDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
+  const diferenciaDias = diaSemana - 1; // Calculamos la diferencia de días para llegar a lunes
+  const lunes = new Date(hoy);
+  lunes.setDate(hoy.getDate() - diferenciaDias);
+
+  // Setear la variable a la fecha del domingo
+  this.fechaInicio = this.utilService.formatDateNow(lunes);
+
+  this.cargarVentas();
+
+}
+
+setear_mes(){
+  
+  this.primerDiaDelMes = new Date();
+  this.primerDiaDelMes.setDate(1);
+
+  this.fechaInicio = this.utilService.formatDateNow(this.primerDiaDelMes);    
+  this.fechaFin = this.utilService.formatDateNow(new Date(Date.now()));
+
+  this.cargarVentas();
+}
+
+
 // ==================================================
 //    Funcion para recargar el listado
 // ==================================================
@@ -222,7 +262,6 @@ generar_factura_pdf( pIdTransaccion: any) {
   this.ventasService.dameDatosPDFVenta( pIdTransaccion  )
   .subscribe({
     next: (resp: any) => {
-      console.log('resp::: ', resp);
 
       if((resp[5] != undefined) && (resp[5][0].mensaje == 'Ok')) {
 
